@@ -1,0 +1,15 @@
+.modalContainer {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 5px;
+    border-radius: 3px;
+    border: 4px solid;
+    text-align: center;
+    background-color: #b5b5b5;
+    font-family: DosisLight;
+    width: 200px;
+    pointer-events: all;
+}

@@ -1,0 +1,60 @@
+html{
+    background-color: black;
+}
+body{
+}
+p{
+    font-family: DosisLight;
+}
+#gameLayer{
+    width: 99%;
+    height: 99%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+#loadingLayer{
+    width: 99%;
+    height: 99%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+#modalLayer{
+    width: 99%;
+    height: 99%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 1;
+}
+@font-face {
+    font-family: 'DosisBold';
+    src: url(Dosis/static/Dosis-Bold.ttf);
+}
+@font-face {
+    font-family: 'DosisExtraBold';
+    src: url(Dosis/static/Dosis-ExtraBold.ttf);
+}
+@font-face {
+    font-family: 'DosisExtraLight';
+    src: url(Dosis/static/Dosis-ExtraLight.ttf);
+}
+@font-face {
+    font-family: 'DosisLight';
+    src: url(Dosis/static/Dosis-Light.ttf);
+}
+@font-face {
+    font-family: 'DosisMedium';
+    src: url(Dosis/static/Dosis-Medium.ttf);
+}
+@font-face {
+    font-family: 'DosisRegular';
+    src: url(Dosis/static/Dosis-Regular.ttf);
+}
+@font-face {
+    font-family: 'DosisSemiBold';
+    src: url(Dosis/static/Dosis-SemiBold.ttf);
+}

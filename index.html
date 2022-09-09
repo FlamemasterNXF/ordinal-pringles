@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="styles/misc.css" />
+    <link rel="stylesheet" type="text/css" href="styles/classes.css" />
+    <link rel="stylesheet" type="text/css" href="styles/Modal.css" />
+    <link rel="icon" href="res/chipper.gif" type="image/gif" sizes="32x32" />
+    <script defer src="src/internal/BreakEternity.js"></script>
+    <script defer src="src/internal/Formatting.js"></script>
+    <script defer src="src/internal/Helpers.js"></script>
+    <script defer src="src/internal/Modal.js"></script>
+    <script defer src="src/data.js"></script>
+    <script defer src="src/internal/Offline.js"></script>
+    <script defer src="src/main.js"></script>
+    <script defer src="src/update.js"></script>
+    <title>Ordinal Pringles</title>
+</head>
+<body>
+<div class="layer" id="loadingLayer" style="pointer-events: none; text-align: center">
+    <div class="flexBox" style="flex-direction: column">
+        <p class="centeredTexts" id="loadingText">Loading... this should only take a few seconds.</p>
+        <p class="centeredTexts" id="offlineText">Loading... this should only take a few seconds.</p>
+    </div>
+</div>
+<div class="layer" id="modalLayer" style="pointer-events: none">
+    <div id="promptContainer" class="flexbox modalContainer">
+        <div id="prompt">
+            <h3 id="promptTitle"></h3>
+            <p id="promptDesc"></p>
+            <input id="promptInput" type="text" placeholder="">
+            <button id="promptButton">Submit</button>
+            <button id="promptCancelButton" onclick="closeModal(1)">Cancel</button>
+        </div>
+    </div>
+    <div class="flexbox modalContainer" id="alertContainer">
+        <div id="alert">
+            <h3 id="alertTitle">Welcome back!</h3>
+            <p id="alertContent">New things have been added since last time</p>
+            <button id="closeAlert" onclick="closeModal(0)">Thanks!</button>
+            <br>
+        </div>
+    </div>
+    <div id="confirmContainer" class="flexbox modalContainer">
+        <div id="confirm" class="flexCol">
+            <h3 id="confirmTitle">Are you sure?</h3>
+            <p id="confirmContent" style="margin-bottom:1vh">New things have been added since last time</p>
+            <div class="flexRow">
+                <button id="noConfirm" class="lockedResearch" style="margin-right:0.5vw">No!</button>
+                <button id="yesConfirm" class="unlockedResearch" style="margin-left:0.5vw">Yes!</button>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+<div class="layer" id="gameLayer">
+    <div class="flexBox">
+        <h1 class="centeredTexts" id="ordinal">H<sub>0</sub> (10)=10</h1>
+    </div>
+</div>
+</body>
+</html>
