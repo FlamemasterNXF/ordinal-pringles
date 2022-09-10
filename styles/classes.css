@@ -15,3 +15,11 @@
 .layer{
     position: absolute;
 }
+.ordButtons{
+    width: 15rem;
+    height: 2rem;
+    border: 2px solid #610000;
+    margin-top: 0.3rem;
+    color: indianred;
+    background: black;
+}
