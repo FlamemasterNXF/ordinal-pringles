@@ -1,3 +1,4 @@
+const TABS = ["markup"]
 let diff
 function mainLoop() {
     diff = data.offline.toggled ? (Date.now() - data.time) / 1000 : getRandom(0.048, 0.053)
@@ -17,4 +18,5 @@ window.setInterval(function () {
 }, 50);
 window.onload = function () {
     load()
+    loadTabs()
 }

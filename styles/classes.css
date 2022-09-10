@@ -23,3 +23,10 @@
     color: indianred;
     background: black;
 }
+.tabButton{
+    width: 5rem;
+    height: 1.5rem;
+    margin-left: 0.3rem;
+    background: black;
+    border: 2px solid;
+}

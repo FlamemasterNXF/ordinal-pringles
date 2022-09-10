@@ -3,6 +3,7 @@ const D = x => new Decimal(x)
 const VERSION = "0.0.0"
 function getDefaultObject() {
     return {
+        nav: {current:"ord", last:"ord"},
         ord: {ordinal:0, over:0, base:10},
         offline: { timeActivated: Date.now(), time: 0, toggled: false },
     }

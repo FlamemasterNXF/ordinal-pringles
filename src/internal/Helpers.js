@@ -38,3 +38,17 @@ function checkAllIndexes(array, value) {
     for(let i = 0; i < array.length; i++){ if (array[i] === value) indexes++ }
     return D(indexes)
 }
+
+function switchTab(tab){
+    data.nav.last = data.nav.current
+    data.nav.current = tab
+    DOM(`${data.nav.last}Page`).style.display = 'none'
+    DOM(`${tab}Page`).style.display = 'flex'
+}
+
+function loadTabs(){
+    for (let i = 0; i < TABS.length; i++) {
+        DOM(`${TABS[i]}Page`).style.display = 'none'
+    }
+    switchTab('ord')
+}
