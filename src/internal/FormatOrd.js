@@ -44,6 +44,7 @@ const ordMarks = [
     "BHO"
 ]
 const extraOrdMarks = ["","ω","ω<sup>ω</sup>","ω<sup>ω<sup>2</sup></sup>"]
+const omegaSymbol = "ω"
 function displayOrd(ord,over,base,trim = 5) {
     //if(game.isPsi) return displayPsiOrd(ord, trim)
 

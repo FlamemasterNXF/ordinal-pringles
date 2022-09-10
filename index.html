@@ -14,6 +14,7 @@
     <script defer src="src/data.js"></script>
     <script defer src="src/internal/Offline.js"></script>
     <script defer src="src/internal/FormatOrd.js"></script>
+    <script defer src="src/markup.js"></script>
     <script defer src="src/main.js"></script>
     <script defer src="src/update.js"></script>
     <title>Ordinal Pringles</title>
@@ -65,8 +66,9 @@
         <button class="ordButtons" id="successor" onclick="successor()">Increase Successor by 1</button>
         <button class="ordButtons" id="maximize" onclick="maximize()">Maximize Ordinal</button>
     </div>
-    <div class="flexBox" id="markupPage">
-        <p class="centeredTexts">Chiiper</p>
+    <div class="flexBox" id="markupPage" style="flex-direction: column">
+        <h3 class="centeredTexts" id="powersText" style="color: goldenrod;">You have Chips. In your house.</h3>
+        <button id="markupButton" onclick="markup()" style="color: goldenrod; width: 20rem; height: 2rem; background-color: black; border: 2px solid #785c13">ω<sup>2</sup> is required to Markup</button>
     </div>
 </div>
 </body>
