@@ -45,10 +45,3 @@ function switchTab(tab){
     DOM(`${data.nav.last}Page`).style.display = 'none'
     DOM(`${tab}Page`).style.display = 'flex'
 }
-
-function loadTabs(){
-    for (let i = 0; i < TABS.length; i++) {
-        DOM(`${TABS[i]}Page`).style.display = 'none'
-    }
-    switchTab('ord')
-}

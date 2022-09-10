@@ -81,9 +81,9 @@ function calculateHardy(ord, over, base) {
     const f1 = Math.floor((ord-(f2*base**2))/base)
     const f0 = Math.floor((ord-(f2*base**2)-(f1*base)))+over
     let value = base+f0
-    value *= 2**f1
+    value = D(value).times(Decimal.pow(2,f1))
     while(f2 > 0) {
-        value = (2**value)*value
+        value = Decimal.pow(2, value).times(value)
         f2--
     }
     return value
@@ -114,5 +114,8 @@ function maximize(amount = 1) {
 }
 
 function updateOrdHTML(){
-    DOM("ordinal").innerHTML = `${ordinalDisplay()} (${data.ord.base})=${format(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base))}`
+    if(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base) >= 1.79e308)
+        DOM("ordinal").innerHTML = `${ordinalDisplay()} (${data.ord.base})`
+    else
+        DOM("ordinal").innerHTML = `${ordinalDisplay()} (${data.ord.base})=${format(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base))}`
 }
