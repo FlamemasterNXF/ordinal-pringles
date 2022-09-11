@@ -38,6 +38,11 @@ function createConfirmation(a,b,c,d,e) {
             document.getElementById('confirmContainer').style.display = 'block'
             document.getElementById('noConfirm').addEventListener('click', () => {closeModal(2)})
             document.getElementById('yesConfirm').addEventListener('click', () => {fullReset();closeModal(2)})
+        case 1:
+            document.getElementById('confirm').style.display = 'block'
+            document.getElementById('confirmContainer').style.display = 'block'
+            document.getElementById('noConfirm').addEventListener('click', () => {closeModal(2)})
+            document.getElementById('yesConfirm').addEventListener('click', () => {factorShift();closeModal(2)})
     }
 }
 function closeModal(i) {

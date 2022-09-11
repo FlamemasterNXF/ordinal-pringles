@@ -5,7 +5,7 @@ function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
         ord: {ordinal:0, over:0, base:10, isPsi: false},
-        markup: {powers:D(0)},
+        markup: {powers:D(0), shifts:0},
         offline: { timeActivated: Date.now(), time: 0, toggled: false },
     }
 }
