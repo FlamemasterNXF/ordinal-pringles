@@ -23,6 +23,7 @@ window.setInterval(function () {
     mainLoop()
 }, 50);
 window.onload = function () {
-    load()
+    try { load() }
+    catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
     loadTabs()
 }
