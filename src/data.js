@@ -6,7 +6,7 @@ function getDefaultObject() {
         nav: {current:"ord", last:"ord"},
         ord: {ordinal:0, over:0, base:10, isPsi: false},
         markup: {powers:0, shifts:0},
-        factors: Array(7).fill({amt:0, unl:false}),
+        factors: Array(7).fill(0),
         autoLevels: Array(2).fill(0),
         offline: { timeActivated: Date.now(), time:0, toggled:true },
     }

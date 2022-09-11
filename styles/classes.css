@@ -31,6 +31,14 @@
     background: black;
     margin-left: 0.5rem;
 }
+.factor{
+    width: 15rem;
+    min-height: 2rem;
+    border: 2px solid #9e6911;
+    color: rgba(205, 160, 92, 1);
+    background: black;
+    margin-top: 0.3rem;
+}
 .tabButton{
     width: 5rem;
     height: 1.5rem;

@@ -7,7 +7,6 @@ function buyAuto(n) {
     data.markup.powers -= autoCost(n)
     ++data.autoLevels[n]
 }
-
 function buyMaxAuto() {
     const bulkSucc = Math.floor(Math.log2(data.markup.powers / 100))
     const bulkBuySucc = Math.max(bulkSucc - data.autoLevels[0], 0)
@@ -27,4 +26,27 @@ function buyMaxAuto() {
         i = Number(i)
         while ((game.ordinalPoints >= factorCost(i) || game.opIsPsi) && factorCost(i) != Infinity) buyFactor(i)
     }*/
+}
+
+
+function factorCost(n){
+    return (10**(n+1))**(2**data.factors[n])
+}
+function hasFactor(n){
+    return data.markup.shifts >= n
+}
+function factorEffect(n){
+    return (data.factors[n]+1)*(Math.max(1+(data.markup.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.markup.shifts])
+}
+function factorBoost(){
+    let mult = 1
+    for (let i = 0; i < data.factors.length; i++) {
+        mult *= factorEffect(i)
+    }
+    return mult
+}
+function buyFactor(n){
+    if(data.markup.powers < factorCost(n)) return
+    data.markup.powers -= factorCost(n)
+    ++data.factors[n]
 }

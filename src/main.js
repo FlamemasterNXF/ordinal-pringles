@@ -10,8 +10,8 @@ function tick(diff){
     let timesToLoop = [0, 0]
     timesToLoop[0] = (1000*data.autoLevels[0])
     timesToLoop[1] = (1000*data.autoLevels[1])
-    timesToLoop[0] += diff*data.autoLevels[0]
-    timesToLoop[1] += diff*data.autoLevels[1]
+    timesToLoop[0] += diff*data.autoLevels[0]*factorBoost()
+    timesToLoop[1] += diff*data.autoLevels[1]*factorBoost()
 
     if (Math.floor(timesToLoop[0]/1000) >= 1) {
         successor(Math.floor(timesToLoop[0]/1000))
