@@ -44,9 +44,8 @@ const ordMarks = [
     "BHO"
 ]
 const extraOrdMarks = ["","ω","ω<sup>ω</sup>","ω<sup>ω<sup>2</sup></sup>"]
-const omegaSymbol = "ω"
 function displayOrd(ord,over,base,trim = 5) {
-    //if(game.isPsi) return displayPsiOrd(ord, trim)
+    if(data.ord.isPsi) return displayPsiOrd(ord, trim)
 
     if(trim <= 0) return `...`
     if(ord < base) return ord+over
@@ -61,7 +60,7 @@ function displayOrd(ord,over,base,trim = 5) {
     return finalOutput
 }
 
-/*function displayPsiOrd(ord, trim = 5) {
+function displayPsiOrd(ord, trim = 5) {
     if(ord === 0) return ""
     if(trim <= 0) return "..."
     if(ord < 4) return extraOrdMarks[ord]
@@ -73,7 +72,6 @@ function displayOrd(ord,over,base,trim = 5) {
         .replace(/y/, displayPsiOrd(ord-magnitudeAmount+1, trim-1))
     return `${finalOutput}`
 }
- */
 
 function calculateHardy(ord, over, base) {
     if (ord >= base**3) return Infinity
@@ -96,7 +94,7 @@ function ordinalDisplay() {
 }
 
 function successor(amount = 1) {
-    //if(game.isPsi) return
+    if(data.ord.isPsi) return
     while (data.ord.over === 0 && amount > 0) {
         if((data.ord.ordinal + 1) % data.ord.base === 0) data.ord.over++
         else data.ord.ordinal++
@@ -106,7 +104,11 @@ function successor(amount = 1) {
 }
 
 function maximize(amount = 1) {
-    //if(game.isPsi) return
+    if(data.ord.isPsi) return
+    if(!data.ord.isPsi && data.ord.ordinal >= 7625597484987 && data.ord.base === 3) {
+        data.ord.isPsi = true
+        data.ord.ordinal.ordinal = 4
+    }
     if(((data.ord.ordinal + 1) % data.ord.base === 0) && data.ord.over > 0) {
         data.ord.ordinal += Math.max(Math.min(Math.floor(data.ord.over/data.ord.base), amount), 1)
         data.ord.over = 0
@@ -114,7 +116,7 @@ function maximize(amount = 1) {
 }
 
 function updateOrdHTML(){
-    if(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base) >= 1.79e308)
+    if(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base) > 1.79e308 || isNaN(calculateHardy()))
         DOM("ordinal").innerHTML = `${ordinalDisplay()} (${data.ord.base})`
     else
         DOM("ordinal").innerHTML = `${ordinalDisplay()} (${data.ord.base})=${format(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base))}`
