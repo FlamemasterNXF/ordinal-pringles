@@ -13,7 +13,7 @@ function markup(){
     data.ord.over = 0
 }
 
-const fsReqs = [200, 800, 3000, 5e4, 2e11, 3e20, 1e100, Infinity]
+const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 1e100, /*1.095e272*/ Infinity]
 function factorShift(){
     if(!data.markup.powers.gte(fsReqs[data.markup.shifts]) && !data.markup.shifts < 7) return
     --data.ord.base
