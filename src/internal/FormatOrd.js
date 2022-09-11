@@ -73,7 +73,7 @@ function displayPsiOrd(ord, trim = 5) {
     return `${finalOutput}`
 }
 
-function calculateHardy(ord, over, base) {
+function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.base) {
     if (ord >= base**3) return Infinity
     let f2 = Math.floor(ord/base**2)
     const f1 = Math.floor((ord-(f2*base**2))/base)
@@ -84,6 +84,7 @@ function calculateHardy(ord, over, base) {
         value = Decimal.pow(2, value).times(value)
         f2--
     }
+    if(isNaN(value)) value = Infinity
     return value
 }
 
@@ -116,7 +117,7 @@ function maximize(amount = 1) {
 }
 
 function updateOrdHTML(){
-    if(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base) > 1.79e308 || isNaN(calculateHardy()))
+    if(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base) > 1.79e308 || isNaN(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base)))
         DOM("ordinal").innerHTML = `${ordinalDisplay()} (${data.ord.base})`
     else
         DOM("ordinal").innerHTML = `${ordinalDisplay()} (${data.ord.base})=${format(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base))}`

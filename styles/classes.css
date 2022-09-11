@@ -23,10 +23,32 @@
     color: indianred;
     background: black;
 }
+.automation{
+    width: 15rem;
+    min-height: 2rem;
+    border: 2px solid #9e6911;
+    color: rgba(205, 160, 92, 1);
+    background: black;
+    margin-left: 0.5rem;
+}
 .tabButton{
     width: 5rem;
     height: 1.5rem;
     margin-left: 0.3rem;
     background: black;
     border: 2px solid;
+}
+#ordinal {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 50vw;
+    display: inline-block;
+    position: relative;
+    left: 0;
+}
+
+#ordinalContainer {
+    text-align: left;
+    margin-left: 25vw;
+    white-space: nowrap;
 }
