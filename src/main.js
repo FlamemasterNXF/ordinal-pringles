@@ -16,14 +16,14 @@ function mainLoop() {
 }
 document.addEventListener('keydown', (event) => {
     let key = event.key;
-    //if (key === "m")
+    if (key === "s") successor()
+    if (key === "m") maximize()
 }, false);
 
 window.setInterval(function () {
     mainLoop()
 }, 50);
 window.onload = function () {
-    try { load() }
-    catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
+    try { load() } catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
     loadTabs()
 }
