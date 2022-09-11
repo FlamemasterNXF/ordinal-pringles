@@ -1,6 +1,6 @@
 const D = x => new Decimal(x)
 //create all the variables in a data object for saving
-const VERSION = "0.0.0"
+const VERSION = "0.0.1"
 function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
