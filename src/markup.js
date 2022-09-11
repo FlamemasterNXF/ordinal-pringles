@@ -37,4 +37,7 @@ function factorShift(){
     for (let i = 0; i < data.autoLevels.length; i++) {
         data.autoLevels[i] = 0
     }
+    for (let i = 0; i < data.factors.length; i++) {
+        data.factors[i] = 0
+    }
 }
