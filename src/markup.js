@@ -4,7 +4,7 @@ function updateMarkupHTML(){
     DOM("factorShiftButton").innerText = `Preform a Factor Shift\nRequires: ${format(fsReqs[data.markup.shifts])} Ordinal Powers`
     DOM("auto0").innerText = `Successor AutoClicker\nCosts ${autoCost(0)} Ordinal Powers`
     DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${autoCost(1)} Ordinal Powers`
-    DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0])} Successor AutoClikers click the Successor button ${formatWhole((data.autoLevels[0]*100)*factorBoost())} times/second\nYour ${formatWhole(data.autoLevels[1])} Maximize AutoClikers click the Maximize button ${formatWhole((data.autoLevels[1]*100))*factorBoost()} times/second`
+    DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0])} Successor AutoClikers click the Successor button ${formatWhole((data.autoLevels[0]*100)*factorBoost())} times/second\nYour ${formatWhole(data.autoLevels[1])} Maximize AutoClikers click the Maximize button ${formatWhole((data.autoLevels[1]*100)*factorBoost())} times/second`
 
     for (let i = 0; i < data.factors.length; i++) {
         DOM(`factor${i}`).innerText = hasFactor(i+1)?`Factor ${i+1} [${formatWhole(data.factors[i])}] ${formatWhole(factorEffect(i))}x\nCost: ${formatWhole(factorCost(i))} Ordinal Powers`:`Factor ${i+1}\nLOCKED`
