@@ -106,7 +106,7 @@ function successor(amount = 1) {
 
 function maximize(amount = 1) {
     if(data.ord.isPsi) return
-    if(!data.ord.isPsi && data.ord.ordinal >= 7625597484987 && data.ord.base === 3) {
+    if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
         data.ord.isPsi = true
         data.ord.ordinal.ordinal = 4
     }

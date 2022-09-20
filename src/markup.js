@@ -1,6 +1,6 @@
 function updateMarkupHTML(){
     DOM("powersText").innerText = `You have ${formatWhole(data.markup.powers)} Ordinal Powers`
-    DOM("markupButton").innerHTML = calculateHardy()>=10240?`Markup and gain ${formatWhole(data.ord.ordinal)} Ordinal Powers`:`H<sub>ω<sup>2</sup></sub>(10) is required to Markup...`
+    DOM("markupButton").innerHTML = calculateHardy()>=10240?`Markup and gain ${formatWhole(opGain())} Ordinal Powers`:`H<sub>ω<sup>2</sup></sub>(10) is required to Markup...`
     DOM("factorShiftButton").innerText = `Preform a Factor Shift\nRequires: ${format(fsReqs[data.markup.shifts])} Ordinal Powers`
     DOM("auto0").innerText = `Successor AutoClicker\nCosts ${autoCost(0)} Ordinal Powers`
     DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${autoCost(1)} Ordinal Powers`
@@ -19,9 +19,25 @@ function switchMarkupTab(t){
 }
 function markup(){
     if(calculateHardy()<10240) return
-    data.markup.powers += data.ord.ordinal
+    data.markup.powers += opGain()
     data.ord.ordinal = 0
     data.ord.over = 0
+}
+function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over) {
+    if(ord > PSI_VALUE && base <= 3){
+        return Math.round(ord / 1e270 + 1) * 1e270
+    }
+    else{
+        if (ord < base) return ord + over
+        let pow = Math.floor(Math.log(ord + 0.1) / Math.log(base))
+        let divisor = Math.pow(base, pow)
+        let mult = Math.floor((ord + 0.1) / divisor)
+        return Math.min(
+            1e258,
+            10 ** opGain(pow, base, 0) * mult +
+            opGain(ord - divisor * mult, base, over)
+        )
+    }
 }
 
 const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 1e100, /*1.095e272*/ Infinity]
