@@ -7,19 +7,17 @@ function loadTabs(){
     switchTab('ord')
 }
 function tick(diff){
-    let timesToLoop = [0, 0]
-    timesToLoop[0] = (1000*data.autoLevels[0])
-    timesToLoop[1] = (1000*data.autoLevels[1])
-    timesToLoop[0] += diff*data.autoLevels[0]*factorBoost()
-    timesToLoop[1] += diff*data.autoLevels[1]*factorBoost()
+    let timesToLoop = [0,0]
+    if(diff < 1) diff = 1
 
-    if (Math.floor(timesToLoop[0]/1000) >= 1) {
-        successor(Math.floor(timesToLoop[0]/1000))
-        timesToLoop[0] -= Math.floor(timesToLoop[0]/1000)*1000
+    for (let i = 0; i < timesToLoop.length; i++) {
+        timesToLoop[i] = diff*data.autoLevels[i]*factorBoost()
     }
-    if (Math.floor(timesToLoop[1]/1000) >= 1) {
-        maximize(Math.floor(timesToLoop[1]/1000))
-        timesToLoop[1] -= Math.floor(timesToLoop[1]/1000)*1000
+    if (timesToLoop[0]>=1) {
+        successor(timesToLoop[0])
+    }
+    if (timesToLoop[1]>=1) {
+        maximize(timesToLoop[1])
     }
 }
 function mainLoop() {
