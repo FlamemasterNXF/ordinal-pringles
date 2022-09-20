@@ -90,13 +90,13 @@ function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = dat
 
 function ordinalDisplay() {
     return (
-        `H<sub>${displayOrd(data.ord.ordinal, data.ord.over, data.ord.base)}</sub>`
+        `H<sub>${displayOrd(data.ord.ordinal, Math.floor(data.ord.over), data.ord.base)}</sub>`
     )
 }
 
 function successor(amount = 1) {
     if(data.ord.isPsi) return
-    while (data.ord.over === 0 && amount > 0) {
+    while (data.ord.over === 0) {
         if((data.ord.ordinal + 1) % data.ord.base === 0) data.ord.over++
         else data.ord.ordinal++
         amount -= 1

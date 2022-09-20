@@ -10,15 +10,9 @@ function tick(diff){
     let timesToLoop = [0,0]
     if(diff < 1) diff = 1
 
-    for (let i = 0; i < timesToLoop.length; i++) {
-        timesToLoop[i] = diff*data.autoLevels[i]*factorBoost()
-    }
-    if (timesToLoop[0]>=1) {
-        successor(timesToLoop[0])
-    }
-    if (timesToLoop[1]>=1) {
-        maximize(timesToLoop[1])
-    }
+    for (let i = 0; i < timesToLoop.length; i++) timesToLoop[i] = diff*data.autoLevels[i]*factorBoost()
+    if (timesToLoop[0]>=1) successor(timesToLoop[0])
+    if (timesToLoop[1]>=1) maximize(timesToLoop[1])
 }
 function mainLoop() {
     if(isNaN(data.offline.time)) data.offline.time = 0
