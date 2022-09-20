@@ -46,6 +46,14 @@
     background: black;
     border: 2px solid;
 }
+.settingsButton{
+    width: 10rem;
+    height: 1.5rem;
+    margin-top: 0.2rem;
+    color: darkgray;
+    background: black;
+    border: 2px solid gray;
+}
 #ordinal {
     text-overflow: ellipsis;
     overflow: hidden;

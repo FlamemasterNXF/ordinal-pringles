@@ -108,7 +108,7 @@ function maximize(amount = 1) {
     if(data.ord.isPsi) return
     if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
         data.ord.isPsi = true
-        data.ord.ordinal.ordinal = 4
+        data.ord.ordinal = 4
     }
     if(((data.ord.ordinal + 1) % data.ord.base === 0) && data.ord.over > 0) {
         data.ord.ordinal += Math.max(Math.min(Math.floor(data.ord.over/data.ord.base), amount), 1)

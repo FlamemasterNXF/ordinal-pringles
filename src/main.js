@@ -1,4 +1,4 @@
-const TABS = ["markup"]
+const TABS = ["markup", "settings"]
 let diff
 function loadTabs(){
     for (let i = 0; i < TABS.length; i++) {

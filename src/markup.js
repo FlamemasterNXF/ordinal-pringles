@@ -2,8 +2,8 @@ function updateMarkupHTML(){
     DOM("powersText").innerText = `You have ${formatWhole(data.markup.powers)} Ordinal Powers`
     DOM("markupButton").innerHTML = calculateHardy()>=10240?`Markup and gain ${formatWhole(opGain())} Ordinal Powers`:`H<sub>ω<sup>2</sup></sub>(10) is required to Markup...`
     DOM("factorShiftButton").innerText = `Preform a Factor Shift\nRequires: ${format(fsReqs[data.markup.shifts])} Ordinal Powers`
-    DOM("auto0").innerText = `Successor AutoClicker\nCosts ${autoCost(0)} Ordinal Powers`
-    DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${autoCost(1)} Ordinal Powers`
+    DOM("auto0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
+    DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
     DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0])} Successor AutoClikers click the Successor button ${formatWhole((data.autoLevels[0])*factorBoost())} times/second\nYour ${formatWhole(data.autoLevels[1])} Maximize AutoClikers click the Maximize button ${formatWhole((data.autoLevels[1])*factorBoost())} times/second`
 
     for (let i = 0; i < data.factors.length; i++) {
