@@ -19,6 +19,7 @@ function switchMarkupTab(t){
 }
 function markup(){
     if(calculateHardy()<10240) return
+    data.ord.isPsi = false
     data.markup.powers += opGain()
     data.ord.ordinal = 0
     data.ord.over = 0
