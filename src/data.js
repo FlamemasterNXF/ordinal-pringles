@@ -1,6 +1,6 @@
 const D = x => new Decimal(x)
 //create all the variables in a data object for saving
-const VERSION = "0.0.1"
+const VERSION = "0.0.2"
 const PSI_VALUE = 7625597484987
 const GRAHAMS_VALUE = 109
 function getDefaultObject() {
@@ -9,6 +9,7 @@ function getDefaultObject() {
         ord: {ordinal:0, over:0, base:10, trim: 5, isPsi: false},
         markup: {powers:0, shifts:0},
         factors: Array(7).fill(0),
+        dy: {level:1, gain:0, cap:40},
         autoLevels: Array(2).fill(0),
         offline: { timeActivated: Date.now(), time:0, toggled:true },
     }
@@ -49,6 +50,11 @@ function fixSave(main=getDefaultObject(), data) {
     else return getDefaultObject()
 }
 function fixOldSaves(){
+    if(data.markup.shifts === 7) DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
+    if(data.markup.shifts === 7 && data.dy.level === 1){
+        data.dy.level = 4
+        data.dy.gain = 0.002
+    }
 }
 function exportSave(){
     try {

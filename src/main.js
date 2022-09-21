@@ -15,7 +15,7 @@ function tick(diff){
     let timesToLoop = [0,0]
     if(diff < 1) diff = 1
 
-    for (let i = 0; i < timesToLoop.length; i++) timesToLoop[i] = diff*data.autoLevels[i]*factorBoost()
+    for (let i = 0; i < timesToLoop.length; i++) timesToLoop[i] = diff*data.autoLevels[i]*factorBoost()*data.dy.level
     if (timesToLoop[0]>=1) successor(timesToLoop[0])
     if (timesToLoop[1]>=1) maximize(timesToLoop[1])
 }
@@ -27,6 +27,7 @@ function mainLoop() {
     data.time = Date.now()
 
     tick(diff)
+    if(data.dy.gain > 0) data.dy.level += diff*data.dy.gain
     uHTML.update()
 }
 document.addEventListener('keydown', (event) => {

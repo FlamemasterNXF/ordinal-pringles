@@ -6,7 +6,7 @@ function updateMarkupHTML(){
         `Preform a Factor Shift<br>Requires: ${format(fsReqs[data.markup.shifts])} Ordinal Powers`
     DOM("auto0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
     DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
-    DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0])} Successor AutoClikers click the Successor button ${formatWhole((data.autoLevels[0])*factorBoost())} times/second\nYour ${formatWhole(data.autoLevels[1])} Maximize AutoClikers click the Maximize button ${formatWhole((data.autoLevels[1])*factorBoost())} times/second`
+    DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0])} Successor AutoClikers click the Successor button ${formatWhole((data.autoLevels[0])*factorBoost()*data.dy.level)} times/second\nYour ${formatWhole(data.autoLevels[1])} Maximize AutoClikers click the Maximize button ${formatWhole((data.autoLevels[1])*factorBoost()*data.dy.level)} times/second`
 
     for (let i = 0; i < data.factors.length; i++) {
         DOM(`factor${i}`).innerText = hasFactor(i+1)?`Factor ${i+1} [${formatWhole(data.factors[i])}] ${formatWhole(factorEffect(i))}x\nCost: ${formatWhole(factorCost(i))} Ordinal Powers`:`Factor ${i+1}\nLOCKED`
@@ -15,6 +15,9 @@ function updateMarkupHTML(){
 
     DOM("factorShiftButton").style.borderColor = data.ord.base===3?`#0000ff`:`#785c13`
     DOM("factorShiftButton").style.color = data.ord.base===3?`#8080FF`:`goldenrod`
+
+    DOM("dynamicTab").innerText = data.markup.shifts===7?'Dynamic':'???'
+    DOM("dynamicText").innerText = `Your Dynamic Factor is multiplying AutoClickers by ${format(data.dy.level, 3)}\nIt increases by ${format(data.dy.gain)}/s, and caps at ${format(data.dy.cap)}`
 }
 let markupTab = "auto"
 function switchMarkupTab(t){
@@ -51,10 +54,16 @@ function factorShift(){
         if(!data.ord.isPsi || (data.ord.isPsi && data.ord.ordinal < GRAHAMS_VALUE)) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
         else return createAlert("Soon", "TM", "Okay pi")
     }
+
     if(data.markup.powers < fsReqs[data.markup.shifts]) return createAlert("Failure", "Insufficient Ordinal Powers", "Dang.")
     --data.ord.base
     ++data.markup.shifts
 
+    if(data.markup.shifts === 7){
+        data.dy.level = 4
+        data.dy.gain = 0.002
+        DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
+    }
 
     data.ord.ordinal = 0
     data.ord.over = 0

@@ -75,7 +75,8 @@
         <button id="markupButton" onclick="markup()" style="color: goldenrod; width: 20rem; height: 2rem; background-color: black; border: 2px solid #785c13">ω<sup>2</sup> is required to Markup</button>
         <div class="flexBox" style="margin-top: 1rem">
             <button class="tabButton" id="factorTab" onclick="switchMarkupTab('factor')" style="color: goldenrod; border-color: #785c13">Factors</button>
-            <button class="tabButton" id="autoTab" onclick="switchMarkupTab('auto')" style="color: goldenrod; border-color: #785c13">Automation</button>
+            <button class="tabButton" id="autoTab" onclick="switchMarkupTab('auto')" style="color: goldenrod; border-color: #785c13; width:5.5rem">Automation</button>
+            <button class="tabButton" id="dynamicTab" onclick="" style="color: goldenrod; border-color: #785c13">Dynamic</button>
         </div>
         <div class="flexBox" id="factorSubPage" style="margin-top: 1rem; flex-direction: column">
             <button id="factorShiftButton" onclick="createConfirmation('Are you sure?', 'Preforming a Factor Shift will reduce your Base by 1 and unlock a new Factor, but it will reset your Ordinal, Ordinal Powers, Factors, and Automation!', 'No Way!', 'Yes, lets do this.', factorShift)" style="color: goldenrod; width: 20rem; height: 2.5rem; background-color: black; border: 2px solid #785c13">Preform a Factor Shift</button>
@@ -95,6 +96,9 @@
             </div>
             <button class="automation" id="autoBuyMax" onclick="buyMaxAuto()" style="margin-top: 0.5rem; width: 10rem">BuyMax AutoClickers</button>
             <p class="centeredTexts" id="autoText" style="color: orangered"></p>
+        </div>
+        <div class="flexBox" id="dynamicSubPage" style="margin-top: 1rem; flex-direction: column; display: none">
+            <p class="centeredTexts" id="dynamicText" style="color: goldenrod">Hello Cat</p>
         </div>
     </div>
     <div class="flexBox" id="settingsPage" style="flex-direction: column">
