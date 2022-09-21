@@ -95,7 +95,6 @@ function ordinalDisplay() {
 }
 
 function successor(amount = 1) {
-    if(data.ord.isPsi) return
     while (data.ord.over === 0 && Math.floor(amount) > 0) {
         if((data.ord.ordinal + 1) % data.ord.base === 0) data.ord.over++
         else data.ord.ordinal++
@@ -105,7 +104,6 @@ function successor(amount = 1) {
 }
 
 function maximize(amount = 1) {
-    if(data.ord.isPsi) return
     if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
         data.ord.isPsi = true
         data.ord.ordinal = 4
