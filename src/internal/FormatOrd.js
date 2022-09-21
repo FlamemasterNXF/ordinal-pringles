@@ -96,7 +96,7 @@ function ordinalDisplay() {
 
 function successor(amount = 1) {
     if(data.ord.isPsi) return
-    while (data.ord.over === 0 && amount > 0) {
+    while (data.ord.over === 0 && Math.floor(amount) > 0) {
         if((data.ord.ordinal + 1) % data.ord.base === 0) data.ord.over++
         else data.ord.ordinal++
         amount -= 1
