@@ -47,6 +47,7 @@ const extraOrdMarks = ["","ω","ω<sup>ω</sup>","ω<sup>ω<sup>2</sup></sup>"]
 function displayOrd(ord,over,base,trim = 5) {
     if(data.ord.isPsi) return displayPsiOrd(ord, trim)
 
+    //over = Math.floor(over)
     if(trim <= 0) return `...`
     if(ord < base) return ord+over
     const magnitude = Math.floor(Math.log(ord)/Math.log(base))
@@ -106,11 +107,7 @@ function successor(amount = 1) {
 
 function maximize(amount = 1) {
     if(data.ord.isPsi) return
-    if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
-        data.ord.isPsi = true
-        data.ord.ordinal = 4
-    }
-    if(((data.ord.ordinal + 1) % data.ord.base === 0) && data.ord.over > 0) {
+    if(data.ord.over > 0) {
         data.ord.ordinal += Math.max(Math.min(Math.floor(data.ord.over/data.ord.base), amount), 1)
         data.ord.over = 0
     }

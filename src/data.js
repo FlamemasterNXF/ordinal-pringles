@@ -2,6 +2,7 @@ const D = x => new Decimal(x)
 //create all the variables in a data object for saving
 const VERSION = "0.0.1"
 const PSI_VALUE = 7625597484987
+const GRAHAMS_VALUE = 109
 function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},

@@ -7,6 +7,11 @@ function loadTabs(){
     switchTab('ord')
 }
 function tick(diff){
+    if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
+        data.ord.isPsi = true
+        data.ord.ordinal = 4
+    }
+
     let timesToLoop = [0,0]
     if(diff < 1) diff = 1
 
