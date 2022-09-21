@@ -34,14 +34,14 @@
             <p id="promptDesc"></p>
             <input id="promptInput" type="text" placeholder="">
             <button id="promptButton">Submit</button>
-            <button id="promptCancelButton" onclick="closeModal(1)">Cancel</button>
+            <button id="promptCancelButton" onclick="closeModal('prompt')">Cancel</button>
         </div>
     </div>
     <div class="flexbox modalContainer" id="alertContainer">
         <div id="alert">
             <h3 id="alertTitle">Welcome back!</h3>
             <p id="alertContent">New things have been added since last time</p>
-            <button id="closeAlert" onclick="closeModal(0)">Thanks!</button>
+            <button id="closeAlert" onclick="closeModal('alert')">Thanks!</button>
             <br>
         </div>
     </div>
@@ -78,7 +78,7 @@
             <button class="tabButton" id="autoTab" onclick="switchMarkupTab('auto')" style="color: goldenrod; border-color: #785c13">Automation</button>
         </div>
         <div class="flexBox" id="factorSubPage" style="margin-top: 1rem; flex-direction: column">
-            <button id="factorShiftButton" onclick="createConfirmation(1, 'Are you sure?', 'Preforming a Factor Shift will reduce your Base by 1 and unlock a new Factor, but it will reset your Ordinal, Ordinal Powers, Factors, and Automation!', 'No Way!', 'Yes, lets do this.')" style="color: goldenrod; width: 20rem; height: 2.5rem; background-color: black; border: 2px solid #785c13">Preform a Factor Shift</button>
+            <button id="factorShiftButton" onclick="createConfirmation('Are you sure?', 'Preforming a Factor Shift will reduce your Base by 1 and unlock a new Factor, but it will reset your Ordinal, Ordinal Powers, Factors, and Automation!', 'No Way!', 'Yes, lets do this.', factorShift)" style="color: goldenrod; width: 20rem; height: 2.5rem; background-color: black; border: 2px solid #785c13">Preform a Factor Shift</button>
             <button class="factor" id="factor0" onclick="buyFactor(0)">Factor 1</button>
             <button class="factor" id="factor1" onclick="buyFactor(1)">Factor 1</button>
             <button class="factor" id="factor2" onclick="buyFactor(2)">Factor 1</button>
@@ -98,12 +98,12 @@
         </div>
     </div>
     <div class="flexBox" id="settingsPage" style="flex-direction: column">
-        <button class="settingsButton" onclick="createPrompt('Input New Length', 1)" style="width: 15rem">Change Max Ordinal Display Length</button>
+        <button class="settingsButton" onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 15rem">Change Max Ordinal Display Length</button>
 
         <button class="settingsButton" onclick="exportSave()">Export your Save</button>
         <button class="settingsButton" onclick="downloadSave()">Download your Save</button>
-        <button class="settingsButton" onclick="beginImport()">Import your Save</button>
-        <button class="settingsButton" onclick="beginFullReset()" style="color: red">Delete your Save</button>
+        <button class="settingsButton" onclick="createPrompt('Import SaveData', importSave, true)">Import your Save</button>
+        <button class="settingsButton" onclick="createConfirmation('Are you sure?', 'Are you absolutely sure you want to do this?\nThis will export your save (just in case) but delete your save from LocalStorage.', 'No Way!', 'Yes, I understand the consequences.', fullReset)" style="color: red">Delete your Save</button>
     </div>
 </div>
 </body>

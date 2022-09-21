@@ -1,28 +1,22 @@
-function createAlert(a,b,c) {
+function createAlert(name,desc,close) {
     DOM('alertContainer').style.border = `4px solid gray`
-    DOM('alertTitle').innerText = a
-    DOM('alertContent').innerText = b
-    DOM('closeAlert').innerText = c
+    DOM('alertTitle').innerText = name
+    DOM('alertContent').innerText = desc
+    DOM('closeAlert').innerText = close
     DOM('alert').style.display = 'block'
     DOM('alertContainer').style.display = 'block'
 }
 
-function createPrompt(a,b,c='') {
+function createPrompt(name,func,useInput,desc='') {
     DOM('promptInput').value = ''
     DOM('promptContainer').style.border = "4px solid whitesmoke"
-    DOM('promptTitle').innerText = a
-    DOM('promptDesc').innerText = c
+    DOM('promptTitle').innerText = name
+    DOM('promptDesc').innerText = desc
     DOM('prompt').style.display = 'block'
     DOM('promptContainer').style.display = 'block'
-    switch(b) {
-        case 0:
-            document.getElementById('promptButton').addEventListener('click', () => { importSave() })
-            break
-        case 1:
-            document.getElementById('promptButton').addEventListener('click', () => { changeTrim(DOM('promptInput').value) })
-    }
+    useInput?DOM('promptButton').addEventListener('click', ()=> func(DOM('promptInput').value)):DOM('promptButton').addEventListener('click', ()=> func())
 }
-function createConfirmation(a,b,c,d,e) {
+function createConfirmation(name,desc,no,yes,func) {
     let old_element = document.getElementById("yesConfirm");
     let new_element = old_element.cloneNode(true);
     old_element.parentNode.replaceChild(new_element, old_element);
@@ -30,36 +24,16 @@ function createConfirmation(a,b,c,d,e) {
     new_element = old_element.cloneNode(true);
     old_element.parentNode.replaceChild(new_element, old_element);
     document.getElementById('confirmContainer').style.border = `4px solid gray`
-    document.getElementById('confirmTitle').innerText = b
-    document.getElementById('confirmContent').innerText = c
-    document.getElementById('noConfirm').innerText = d
-    document.getElementById('yesConfirm').innerText = e
-    switch(a) {
-        case 0:
-            document.getElementById('confirm').style.display = 'block'
-            document.getElementById('confirmContainer').style.display = 'block'
-            document.getElementById('noConfirm').addEventListener('click', () => {closeModal(2)})
-            document.getElementById('yesConfirm').addEventListener('click', () => {fullReset();closeModal(2)})
-        case 1:
-            document.getElementById('confirm').style.display = 'block'
-            document.getElementById('confirmContainer').style.display = 'block'
-            document.getElementById('noConfirm').addEventListener('click', () => {closeModal(2)})
-            document.getElementById('yesConfirm').addEventListener('click', () => {factorShift();closeModal(2)})
-    }
+    document.getElementById('confirmTitle').innerText = name
+    document.getElementById('confirmContent').innerText = desc
+    document.getElementById('noConfirm').innerText = no
+    document.getElementById('yesConfirm').innerText = yes
+    document.getElementById('confirm').style.display = 'block'
+    document.getElementById('confirmContainer').style.display = 'block'
+    document.getElementById('noConfirm').addEventListener('click', () => {closeModal('confirm')})
+    document.getElementById('yesConfirm').addEventListener('click', () => {func();closeModal('confirm')})
 }
 function closeModal(i) {
-    switch (i) {
-        case 0:
-            document.getElementById('alertContainer').style.display = 'none'
-            document.getElementById('alert').style.display = 'none'
-            break
-        case 1:
-            document.getElementById('promptContainer').style.display = 'none'
-            document.getElementById('prompt').style.display = 'none'
-            break
-        case 2:
-            document.getElementById('confirm').style.display = 'none'
-            document.getElementById('confirmContainer').style.display = 'none'
-            break
-    }
+    document.getElementById(`${i}Container`).style.display = 'none'
+    document.getElementById(`${i}`).style.display = 'none'
 }

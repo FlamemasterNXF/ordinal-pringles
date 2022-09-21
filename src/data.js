@@ -85,18 +85,14 @@ async function downloadSave() {
         closeModal(1)
     }
 }
-function beginImport(){
-    createPrompt('Import Savedata', 0)
-}
-function importSave() {
+function importSave(x) {
     try {
-        let importedData = DOM('promptInput').value
-        if(importedData.length <= 0) {
+        if(x.length <= 0) {
             DOM('promptContainer').style.display = 'none'
             createAlert('Failure', 'No data found.', `Oops.`)
             return
         }
-        data = Object.assign(getDefaultObject(), JSON.parse(atob(importedData)))
+        data = Object.assign(getDefaultObject(), JSON.parse(atob(x)))
         save()
         location.reload()
     }
@@ -109,9 +105,6 @@ window.setInterval(function(){
     save()
 }, 10000);
 //full reset
-function beginFullReset(){
-    createConfirmation(0, 'Are you sure?', 'Are you absolutely sure you want to do this?\nThis will export your save (just in case) but delete your save from LocalStorage.', 'No Way!', 'Yes, I understand the consequences.')
-}
 function fullReset(){
     exportSave()
     deleteSave()
