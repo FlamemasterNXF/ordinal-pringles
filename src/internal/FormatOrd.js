@@ -47,7 +47,7 @@ const extraOrdMarks = ["","ω","ω<sup>ω</sup>","ω<sup>ω<sup>2</sup></sup>"]
 function displayOrd(ord,over,base,trim = 5) {
     if(data.ord.isPsi) return displayPsiOrd(ord, trim)
 
-    //over = Math.floor(over)
+    over = Math.floor(over)
     if(trim <= 0) return `...`
     if(ord < base) return ord+over
     const magnitude = Math.floor(Math.log(ord)/Math.log(base))
