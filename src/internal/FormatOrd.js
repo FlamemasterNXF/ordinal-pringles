@@ -44,7 +44,7 @@ const ordMarks = [
     "BHO"
 ]
 const extraOrdMarks = ["","ω","ω<sup>ω</sup>","ω<sup>ω<sup>2</sup></sup>"]
-function displayOrd(ord,over,base,trim = 5) {
+function displayOrd(ord,over,base,trim = data.ord.trim) {
     if(data.ord.isPsi) return displayPsiOrd(ord, trim)
 
     over = Math.floor(over)
@@ -61,7 +61,7 @@ function displayOrd(ord,over,base,trim = 5) {
     return finalOutput
 }
 
-function displayPsiOrd(ord, trim = 5) {
+function displayPsiOrd(ord, trim) {
     if(ord === 0) return ""
     if(trim <= 0) return "..."
     if(ord < 4) return extraOrdMarks[ord]
@@ -110,6 +110,13 @@ function maximize(amount = 1) {
     if(data.ord.over > 0) {
         data.ord.ordinal += Math.max(Math.min(Math.floor(data.ord.over/data.ord.base), amount), 1)
         data.ord.over = 0
+    }
+}
+
+function changeTrim(x){
+    try{ data.ord.trim = Math.floor(x) }
+    catch (e) {
+        createAlert('Failure', 'Invalid Input.', `Oops.`)
     }
 }
 

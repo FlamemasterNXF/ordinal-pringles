@@ -6,7 +6,7 @@ const GRAHAMS_VALUE = 109
 function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
-        ord: {ordinal:0, over:0, base:10, isPsi: false},
+        ord: {ordinal:0, over:0, base:10, trim: 5, isPsi: false},
         markup: {powers:0, shifts:0},
         factors: Array(7).fill(0),
         autoLevels: Array(2).fill(0),

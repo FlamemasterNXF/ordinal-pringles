@@ -18,6 +18,8 @@ function createPrompt(a,b,c='') {
         case 0:
             document.getElementById('promptButton').addEventListener('click', () => { importSave() })
             break
+        case 1:
+            document.getElementById('promptButton').addEventListener('click', () => { changeTrim(DOM('promptInput').value) })
     }
 }
 function createConfirmation(a,b,c,d,e) {
