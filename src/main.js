@@ -1,4 +1,4 @@
-const TABS = ["markup", "settings"]
+const TABS = ["markup", "ach", "settings"]
 let diff
 function loadTabs(){
     for (let i = 0; i < TABS.length; i++) {
@@ -28,6 +28,8 @@ function mainLoop() {
 
     tick(diff)
     if(data.dy.gain > 0) data.dy.level += diff*data.dy.gain
+
+    checkAchs()
     uHTML.update()
 }
 document.addEventListener('keydown', (event) => {
@@ -42,4 +44,5 @@ window.setInterval(function () {
 window.onload = function () {
     try { load() } catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
     loadTabs()
+    initAchs()
 }

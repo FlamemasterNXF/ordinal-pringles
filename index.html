@@ -16,6 +16,7 @@
     <script defer src="src/internal/FormatOrd.js"></script>
     <script defer src="src/factors.js"></script>
     <script defer src="src/markup.js"></script>
+    <script defer src="src/achievements.js"></script>
     <script defer src="src/main.js"></script>
     <script defer src="src/update.js"></script>
     <title>Ordinal Pringles</title>
@@ -64,6 +65,7 @@
     <div class="flexBox" id="tabs" style="margin-bottom: 0.5rem">
         <button class="tabButton" id="ordNav" onclick="switchTab('ord')" style="color: indianred; border-color: #610000">Ordinals</button>
         <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchMarkupTab('factor')" style="color: goldenrod; border-color: #785c13 ">Markup</button>
+        <button class="tabButton" id="achNav" onclick="switchTab('ach')" style="color: #20da45; border-color: #307813; width: 6.5rem ">Achievements</button>
         <button class="tabButton" id="settingsNav" onclick="switchTab('settings')" style="color: gray; border-color: #4a4a4a">Settings</button>
     </div>
     <div class="flexBox" id="ordPage" style="flex-direction: column">
@@ -100,6 +102,9 @@
         <div class="flexBox" id="dynamicSubPage" style="margin-top: 1rem; flex-direction: column; display: none">
             <p class="centeredTexts" id="dynamicText" style="color: goldenrod">Hello Cat</p>
         </div>
+    </div>
+    <div class="flexBox" id="achPage" style="flex-direction: column;">
+        <p class="centeredTexts" id="achText">Hover over an Achievement to view its information!</p>
     </div>
     <div class="flexBox" id="settingsPage" style="flex-direction: column">
         <button class="settingsButton" onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 15rem">Change Max Ordinal Display Length</button>
