@@ -11,6 +11,7 @@ function getDefaultObject() {
         factors: Array(7).fill(0),
         dy: {level:1, gain:0, cap:40},
         autoLevels: Array(2).fill(0),
+        boost: {amt:0, total:0, times:0},
         offline: { timeActivated: Date.now(), time:0, toggled:true },
     }
 }
