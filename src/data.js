@@ -57,6 +57,7 @@ function fixOldSaves(){
         data.dy.gain = 0.002
     }
     if(data.dy.level > data.dy.cap) data.dy.level = data.dy.cap
+    if(data.ord.isPsi && data.ord.ordinal > GRAHAMS_VALUE) data.ord.ordinal = GRAHAMS_VALUE
 }
 function exportSave(){
     try {
