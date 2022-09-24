@@ -51,3 +51,10 @@ function buyFactor(n){
     data.markup.powers -= factorCost(n)
     ++data.factors[n]
 }
+function buyMaxFactor(){
+    if(data.ord.isPsi) return data.factors = [9,8,7,7,6,6,6]
+    for (let i = 0; i < data.factors.length; i++){
+        if(!hasFactor(i)) break
+        while (data.markup.powers >= Math.pow(10 ** (i + 1), Math.pow(2, data.factors[i]))) buyFactor(i);
+    }
+}
