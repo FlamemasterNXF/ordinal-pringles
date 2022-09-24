@@ -5,43 +5,100 @@
 }
 .generalTexts{
     color: white;
-    font-family: DosisLight;
+    font-family: 'Verdana', sans-serif;
 }
 .centeredTexts{
     color: white;
-    font-family: DosisLight;
+    font-family: 'Verdana', sans-serif;
     text-align: center;
 }
 .layer{
     position: absolute;
 }
 .ordButtons{
-    width: 15rem;
-    height: 2rem;
-    border: 2px solid #610000;
+    background: linear-gradient(#610000, black);
+    border-color: indianred;
     margin-top: 0.3rem;
     color: indianred;
-    background: black;
+}
+#ordNav {
+    background: linear-gradient(#610000, black);
+    border-color: white;
+    margin-top: 0.3rem;
+    color: white;
+    font-size: 20px;
+    width: 120px;
+    height: 50px;
+    transition-duration: 0.5s;
+}
+#ordNav:hover {
+    background: linear-gradient(red, black);
+    border-color: #FFA0A0;
+    color: #FFA0A0;
+}
+#markupNav {
+    background: linear-gradient(#785c13, black);
+    border-color: white;
+    margin-top: 0.3rem;
+    color: white;
+    font-size: 20px;
+    width: 120px;
+    height: 50px;
+    transition-duration: 0.5s;
+}
+#markupNav:hover {
+    background: linear-gradient(#DDA200, black);
+    border-color: #FFCD42;
+    color: #FFCD42;
+}
+#achNav {
+    background: linear-gradient(#307813, black);
+    border-color: white;
+    margin-top: 0.3rem;
+    color: white;
+    font-size: 20px;
+    width: 160px;
+    height: 50px;
+    transition-duration: 0.5s;
+}
+#achNav:hover {
+    background: linear-gradient(lime, black);
+    border-color: #93FF67;
+    color: #93FF67;
+}
+#settingsNav {
+    background: linear-gradient(#4a4a4a, black);
+    border-color: white;
+    margin-top: 0.3rem;
+    color: white;
+    font-size: 20px;
+    width: 120px;
+    height: 50px;
+    transition-duration: 0.5s;
+}
+#settingsNav:hover {
+    background: linear-gradient(lightgray, black);
+    border-color: gray;
 }
 .automation{
     width: 15rem;
     min-height: 2rem;
-    border: 2px solid #9e6911;
-    color: rgba(205, 160, 92, 1);
-    background: black;
-    margin-left: 0.5rem;
+    background: linear-gradient(#785c13, black);
+    border-color: goldenrod;
+    margin-top: 0.3rem;
+    color: goldenrod;
 }
 .factor{
     width: 15rem;
     min-height: 2rem;
-    border: 2px solid #9e6911;
-    color: rgba(205, 160, 92, 1);
-    background: black;
+    background: linear-gradient(#785c13, black);
+    border-color: goldenrod;
     margin-top: 0.3rem;
+    color: goldenrod;
 }
 .achievement{
-    width: 5rem;
-    height: 5rem;
+    width: 6rem;
+    height: 6rem;
     border: 1px solid #464646;
     background: #151515;
     margin-left: 0.5rem;
@@ -55,13 +112,21 @@
     background: black;
     border: 2px solid;
 }
+.markupTabButton{
+    width: 7rem;
+    min-height: 1.5rem;
+    background: linear-gradient(#785c13, black);
+    border-color: white;
+    margin-top: 0.3rem;
+    color: white;
+}
 .settingsButton{
+    background: linear-gradient(#4a4a4a, black);
+    border-color: white;
+    margin-top: 0.2rem;
+    color: white;
     width: 10rem;
     height: 1.5rem;
-    margin-top: 0.2rem;
-    color: darkgray;
-    background: black;
-    border: 2px solid gray;
 }
 #ordinal {
     text-overflow: ellipsis;

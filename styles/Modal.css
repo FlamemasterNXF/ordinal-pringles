@@ -9,7 +9,7 @@
     border: 4px solid;
     text-align: center;
     background-color: #b5b5b5;
-    font-family: DosisLight;
+    font-family: 'Verdana', sans-serif;
     width: 200px;
     pointer-events: all;
 }

@@ -63,10 +63,10 @@
         <span id="ordinal" style="font-family: DosisSemiBold; padding: 10px; background-image: linear-gradient(90deg, red, blue); -webkit-background-clip: text; color: transparent;">H<sub>0</sub> (10)=10</span>
     </h1>
     <div class="flexBox" id="tabs" style="margin-bottom: 0.5rem">
-        <button class="tabButton" id="ordNav" onclick="switchTab('ord')" style="color: indianred; border-color: #610000">Ordinals</button>
-        <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchMarkupTab('factor')" style="color: goldenrod; border-color: #785c13 ">Markup</button>
-        <button class="tabButton" id="achNav" onclick="switchTab('ach')" style="color: #20da45; border-color: #307813; width: 6.5rem ">Achievements</button>
-        <button class="tabButton" id="settingsNav" onclick="switchTab('settings')" style="color: gray; border-color: #4a4a4a">Settings</button>
+        <button class="tabButton" id="ordNav" onclick="switchTab('ord')">Ordinals</button>
+        <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchMarkupTab('factor')">Markup</button>
+        <button class="tabButton" id="achNav" onclick="switchTab('ach')">Achievements</button>
+        <button class="tabButton" id="settingsNav" onclick="switchTab('settings')">Settings</button>
     </div>
     <div class="flexBox" id="ordPage" style="flex-direction: column">
         <button class="ordButtons" id="successor" onclick="successor()">Increase Successor by 1 (S)</button>
@@ -74,11 +74,11 @@
     </div>
     <div class="flexBox" id="markupPage" style="flex-direction: column">
         <h3 class="centeredTexts" id="powersText" style="color: goldenrod;">You have Chips. In your house.</h3>
-        <button id="markupButton" onclick="markup()" style="color: goldenrod; width: 20rem; height: 2rem; background-color: black; border: 2px solid #785c13">ω<sup>2</sup> is required to Markup</button>
+        <button id="markupButton" class="factor" onclick="markup()">ω<sup>2</sup> is required to Markup</button>
         <div class="flexBox" style="margin-top: 1rem">
-            <button class="tabButton" id="factorTab" onclick="switchMarkupTab('factor')" style="color: goldenrod; border-color: #785c13">Factors</button>
-            <button class="tabButton" id="autoTab" onclick="switchMarkupTab('auto')" style="color: goldenrod; border-color: #785c13; width:5.5rem">Automation</button>
-            <button class="tabButton" id="dynamicTab" onclick="" style="color: goldenrod; border-color: #785c13">Dynamic</button>
+            <button class="tabButton, markupTabButton" id="factorTab" onclick="switchMarkupTab('factor')">Factors</button>
+            <button class="tabButton, markupTabButton" id="autoTab" onclick="switchMarkupTab('auto')">Automation</button>
+            <button class="tabButton, markupTabButton" id="dynamicTab" onclick="">Dynamic</button>
         </div>
         <div class="flexBox" id="factorSubPage" style="margin-top: 1rem; flex-direction: column">
             <button id="factorShiftButton" onclick="createConfirmation('Are you sure?', 'Preforming a Factor Shift will reduce your Base by 1 and unlock a new Factor, but it will reset your Ordinal, Ordinal Powers, Factors, and Automation!', 'No Way!', 'Yes, lets do this.', factorShift)" style="color: goldenrod; width: 20rem; height: 2.5rem; background-color: black; border: 2px solid #785c13">Preform a Factor Shift</button>
@@ -107,7 +107,7 @@
         <p class="centeredTexts" id="achText">Hover over an Achievement to view its information!</p>
     </div>
     <div class="flexBox" id="settingsPage" style="flex-direction: column">
-        <button class="settingsButton" onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 15rem">Change Max Ordinal Display Length</button>
+        <button class="settingsButton" onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 16rem">Change Max Ordinal Display Length</button>
 
         <button class="settingsButton" onclick="exportSave()">Export your Save</button>
         <button class="settingsButton" onclick="downloadSave()">Download your Save</button>

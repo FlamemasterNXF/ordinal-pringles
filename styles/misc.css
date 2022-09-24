@@ -1,10 +1,12 @@
 html{
     background-color: black;
 }
-body{
+button{
+  font-family: 'Verdana', sans-serif;
+  border-radius: 5px;
 }
 p{
-    font-family: DosisLight;
+    font-family: 'Verdana', sans-serif;
 }
 #gameLayer{
     width: 99%;
