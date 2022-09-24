@@ -56,6 +56,7 @@ function fixOldSaves(){
         data.dy.level = 4
         data.dy.gain = 0.002
     }
+    if(data.dy.level > data.dy.cap) data.dy.level = data.dy.cap
 }
 function exportSave(){
     try {

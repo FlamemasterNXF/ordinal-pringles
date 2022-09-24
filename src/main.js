@@ -27,7 +27,7 @@ function mainLoop() {
     data.time = Date.now()
 
     tick(diff)
-    if(data.dy.gain > 0) data.dy.level += diff*data.dy.gain
+    if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level += diff*data.dy.gain
 
     checkAchs()
     uHTML.update()

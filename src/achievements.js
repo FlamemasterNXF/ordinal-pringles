@@ -73,8 +73,8 @@ const achievements = [
     },
     {
         req: [
-            _=> data.dy.base >= 10,
-            _=> data.dy.base >= 40,
+            _=> data.dy.level >= 10,
+            _=> data.dy.level >= 40,
         ],
         name: [
             "Overdrive",
