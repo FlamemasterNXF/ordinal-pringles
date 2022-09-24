@@ -1,10 +1,13 @@
-const TABS = ["markup", "ach", "settings"]
+const TABS = ["markup", "boost", "ach", "settings"]
 let diff
 function loadTabs(){
     for (let i = 0; i < TABS.length; i++) {
         DOM(`${TABS[i]}Page`).style.display = 'none'
     }
     switchTab('ord')
+
+    initAchs()
+    initBUPs()
 }
 function tick(diff){
     if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
@@ -44,5 +47,4 @@ window.setInterval(function () {
 window.onload = function () {
     try { load() } catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
     loadTabs()
-    initAchs()
 }

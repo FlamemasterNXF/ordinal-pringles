@@ -39,6 +39,24 @@
     background: black;
     margin-top: 0.3rem;
 }
+.bup{
+    width: 10rem;
+    height: 5rem;
+    border: 2px solid #0000ff;
+    color: #8080FF;
+    background: black;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+.automation2{
+    margin-top: 1rem;
+    width: 10rem;
+    min-height: 2rem;
+    border: 2px solid #0000ff;
+    color: #8080FF;
+    background: black;
+    margin-left: 0.5rem;
+}
 .achievement{
     width: 5rem;
     height: 5rem;

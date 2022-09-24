@@ -3,5 +3,6 @@ const uHTML = {
         OFFLINE.updateHTML()
         updateOrdHTML()
         updateMarkupHTML()
+        updateBoostersHTML()
     }
 }

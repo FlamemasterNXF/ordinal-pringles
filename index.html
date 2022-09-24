@@ -14,6 +14,7 @@
     <script defer src="src/data.js"></script>
     <script defer src="src/internal/Offline.js"></script>
     <script defer src="src/internal/FormatOrd.js"></script>
+    <script defer src="src/boosters.js"></script>
     <script defer src="src/factors.js"></script>
     <script defer src="src/markup.js"></script>
     <script defer src="src/achievements.js"></script>
@@ -65,6 +66,7 @@
     <div class="flexBox" id="tabs" style="margin-bottom: 0.5rem">
         <button class="tabButton" id="ordNav" onclick="switchTab('ord')" style="color: indianred; border-color: #610000">Ordinals</button>
         <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchMarkupTab('factor')" style="color: goldenrod; border-color: #785c13 ">Markup</button>
+        <button class="tabButton" id="boostNav" onclick="switchTab('boost'); switchBoostTab('upgrades')" style="display: block; color: #8080FF; border-color: #0000ff">Boosters</button>
         <button class="tabButton" id="achNav" onclick="switchTab('ach')" style="color: #20da45; border-color: #307813; width: 6.5rem ">Achievements</button>
         <button class="tabButton" id="settingsNav" onclick="switchTab('settings')" style="color: gray; border-color: #4a4a4a">Settings</button>
     </div>
@@ -102,6 +104,34 @@
         </div>
         <div class="flexBox" id="dynamicSubPage" style="margin-top: 1rem; flex-direction: column; display: none">
             <p class="centeredTexts" id="dynamicText" style="color: goldenrod">Hello Cat</p>
+        </div>
+    </div>
+    <div class="flexBox" id="boostPage" style="flex-direction: column">
+        <div class="flexBox" style="margin-top: 1rem">
+            <button class="tabButton" id="upgradeTab" onclick="switchBoostTab('upgrades')" style="color: #8080FF; border-color: #0000ff">Upgrades</button>
+            <button class="tabButton" id="auto2Tab" onclick="switchBoostTab('auto2')" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">AutoBuyers</button>
+        </div>
+        <div class="flexBox" id="upgradesSubPage" style="margin-top: 1rem; flex-direction: column">
+            <div class="flexBox">
+                <div class="flexBox" id="bupColumn0" style="flex-direction: column"></div>
+                <div class="flexBox" id="bupColumn1" style="flex-direction: column;"></div>
+                <div class="flexBox" id="bupColumn2" style="flex-direction: column"></div>
+                <div class="flexBox" id="buColumn" style="flex-direction: column">
+                    <button class="bup" id="bu1">Unlock Challenges</button>
+                    <button class="bup" id="bu2">Unlock Incrementy</button>
+                    <button class="bup" id="bu3">Unlock Hierarchies</button>
+                    <button class="bup" id="bu4">Unlock Augmentation</button>
+                </div>
+            </div>
+            <p class="centeredTexts">The Unlockables Column does not consume Boosters</p>
+        </div>
+        <div class="flexBox" id="auto2SubPage" style="display: none; flex-direction: column">
+            <div class="centeredTexts" id="t2AutoText0" style="margin-top: 1rem">Your Max All AutoBuyer is clicking the Max All button 0 times/second, but only if you can't Factor Shift</div>
+            <div class="centeredTexts" id="t2AutoText1">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
+            <div class="flexBox">
+                <button class="automation2" id="auto2" onclick="buyAuto(0)">mall Auto</button>
+                <button class="automation2" id="auto3" onclick="buyAuto(1)">yes mall Auto</button>
+            </div>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;">
