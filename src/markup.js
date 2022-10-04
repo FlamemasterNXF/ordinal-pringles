@@ -1,9 +1,10 @@
 function updateMarkupHTML(){
     DOM("powersText").innerText = `You have ${formatWhole(data.markup.powers)} Ordinal Powers`
-    DOM("markupButton").innerHTML = data.ord.isPsi&&data.ord.ordinal===GRAHAMS_VALUE?`Base 2 is required to go further...`:
-        data.ord.isPsi?`Markup and gain ${displayPsiOrd(data.ord.ordinal+1)}`:
+    DOM("markupButton").innerHTML = data.ord.isPsi&&data.ord.ordinal===GRAHAMS_VALUE&&data.boost.times===0?`Base 2 is required to go further...`:
+        data.ord.isPsi?`Markup and gain ${displayPsiOrd(data.ord.ordinal+1, 4)}`:
         calculateHardy()>=10240?`Markup and gain ${formatWhole(opGain())} Ordinal Powers`:`H<sub>ω<sup>2</sup></sub>(10) is required to Markup...`
-    DOM("factorShiftButton").innerHTML = data.ord.base===3?`Preform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
+    DOM("factorShiftButton").innerHTML = data.boost.times>0?`Preform a Factor Shift<br>Requires: ?????`:
+        data.ord.base===3?`Preform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
         `Preform a Factor Shift<br>Requires: ${format(fsReqs[data.markup.shifts])} Ordinal Powers`
     DOM("auto0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
     DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
@@ -14,11 +15,14 @@ function updateMarkupHTML(){
     }
     DOM("factorText").innerText = `Your Factors are multiplying AutoClicker speed by a total of ${formatWhole(factorBoost())}x`
 
-    DOM("factorShiftButton").style.borderColor = data.ord.base===3?`#0000ff`:`#785c13`
-    DOM("factorShiftButton").style.color = data.ord.base===3?`#8080FF`:`goldenrod`
+    DOM("factorShiftButton").style.borderColor = data.ord.base===3&data.boost.times===0?`#0000ff`:`#785c13`
+    DOM("factorShiftButton").style.color = data.ord.base===3&&data.boost.times===0?`#8080FF`:`goldenrod`
 
     DOM("dynamicTab").innerText = data.markup.shifts===7?'Dynamic':'???'
     DOM("dynamicText").innerText = `Your Dynamic Factor is multiplying AutoClickers by ${format(data.dy.level, 3)}\nIt increases by ${format(data.dy.gain)}/s, and caps at ${format(data.dy.cap)}`
+
+    DOM("factorBoostButton").innerHTML = `Preform a Factor Boost [+${data.boost.times+1}]<br>Requires ${displayPsiOrd(boostReq(), 5)}`
+    DOM("factorBoostButton").style.color = data.ord.isPsi&&data.ord.ordinal>=boostReq()?'#fff480':'#8080FF'
 }
 let markupTab = "auto"
 function switchMarkupTab(t){
@@ -27,7 +31,7 @@ function switchMarkupTab(t){
     markupTab = t
 }
 function markup(){
-    if(data.ord.isPsi && data.ord.ordinal === 109) return
+    if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal === 109) return
     if(calculateHardy()<10240 && !data.ord.isPsi) return
     if(data.ord.isPsi){ ++data.ord.ordinal; return data.markup.powers = 4e256}
     data.ord.isPsi = false
@@ -54,7 +58,7 @@ const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 1e100, GRAHAMS_VALUE, Infinit
 function factorShift(){
     if(data.markup.shifts === 7){
         if(!data.ord.isPsi || (data.ord.isPsi && data.ord.ordinal < GRAHAMS_VALUE)) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
-        else return createAlert("Soon", "TM", "Okay pi")
+        else return boost()
     }
 
     if(data.markup.powers < fsReqs[data.markup.shifts]) return createAlert("Failure", "Insufficient Ordinal Powers", "Dang.")

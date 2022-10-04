@@ -31,12 +31,49 @@ function initBUPs(){
 }
 const autoNames = ['Max All', 'Markup']
 const autoRequirements = ['you can\'t Factor Shift', 'you\'re past Ψ(Ω)']
+const autoUps = [4, 8]
 function updateBoostersHTML(){
     DOM('boosterText').innerText = `You have ${format(data.boost.amt)} Boosters (${format(data.boost.total)} total)`
-    for (let i = 0; i < data.autoStatus.unl.length; i++) {
+    for (let i = 0; i < data.autoStatus.enabled.length; i++) {
         DOM(`t2AutoText${i}`).innerText = `Your ${autoNames[i]} AutoBuyer is clicking the ${autoNames[i]} button 0 times/second, but only if ${autoRequirements[i]}`
-        DOM(`auto${i+2}`).innerText = data.autoStatus.unl[i]?`${autoNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoNames[i]} AutoBuyer: LOCKED`
+        DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]]?`${autoNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoNames[i]} AutoBuyer: LOCKED`
     }
+}
+
+function boosterReset(){
+    data.ord.ordinal = 0
+    data.ord.over = 0
+    data.ord.base = 10
+    data.ord.isPsi = false
+    data.markup.powers = 0
+    data.markup.shifts = 0
+    data.dy.level = 1
+    data.dy.gain = 0
+    data.dy.cap = 40
+    for (let i = 0; i < data.factors.length; i++) {
+        data.factors[i] = 0
+    }
+    for (let i = 0; i < data.autoLevels.length; i++) {
+        data.autoLevels[i] = 0
+    }
+}
+
+function boost(){
+    if(!data.ord.isPsi || data.ord.ordinal < boostReq()) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
+
+    if(data.boost.times === 0){
+        DOM('boostNav').style.display = 'block'
+        DOM('factorBoostButton').style.display = 'inline-block'
+    }
+
+    data.boost.amt += data.boost.times+1
+    data.boost.total += data.boost.times+1
+    ++data.boost.times
+
+    boosterReset()
+}
+function boostReq(){
+    return (3 ** (data.boost.times+1) * 4 * 10) - 11
 }
 
 function buyBUP(i){

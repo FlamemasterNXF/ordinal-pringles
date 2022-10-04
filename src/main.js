@@ -9,6 +9,11 @@ function loadTabs(){
     initAchs()
     initBUPs()
 }
+function loadUnlockedHTML(){
+    DOM('boostNav').style.display = data.boost.times>0?'block':'none'
+    DOM('factorBoostButton').style.display = data.boost.times>0?'inline-block':'none'
+}
+
 function tick(diff){
     if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
         data.ord.isPsi = true
@@ -47,4 +52,5 @@ window.setInterval(function () {
 window.onload = function () {
     try { load() } catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
     loadTabs()
+    loadUnlockedHTML()
 }
