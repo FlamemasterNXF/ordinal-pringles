@@ -35,7 +35,7 @@ const autoUps = [4, 8]
 function updateBoostersHTML(){
     DOM('boosterText').innerText = `You have ${format(data.boost.amt)} Boosters (${format(data.boost.total)} total)`
     for (let i = 0; i < data.autoStatus.enabled.length; i++) {
-        DOM(`t2AutoText${i}`).innerText = `Your ${autoNames[i]} AutoBuyer is clicking the ${autoNames[i]} button 0 times/second, but only if ${autoRequirements[i]}`
+        DOM(`t2AutoText${i}`).innerText = `Your ${autoNames[i]} AutoBuyer is clicking the ${autoNames[i]} button 1 times/second, but only if ${autoRequirements[i]}`
         DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]]?`${autoNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoNames[i]} AutoBuyer: LOCKED`
     }
 }
@@ -84,4 +84,9 @@ function buyBUP(i){
     data.boost.amt -= bupCosts[i]
 
     DOM(`bup${i}`).style.backgroundColor = '#002480'
+}
+
+function toggleAuto(i){
+    if(!data.boost.hasBUP[autoUps[i]]) return
+    data.autoStatus.enabled[i] = !data.autoStatus.enabled[i]
 }

@@ -66,6 +66,7 @@ function displayPsiOrd(ord, trim) {
     if(ord === 0) return ""
     if(trim <= 0) return "..."
     if(ord < 4) return extraOrdMarks[ord]
+    ord = Math.floor(ord)
     const main = Math.floor(ord/4)
     const magnitude = Math.floor(Math.log(ord/4)/Math.log(3))
     const magnitudeAmount = 4*3**magnitude

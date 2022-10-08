@@ -79,7 +79,7 @@
         <button id="markupButton" onclick="markup()" style="color: goldenrod; width: 20rem; height: 2rem; background-color: black; border: 2px solid #785c13">ω<sup>2</sup> is required to Markup</button>
         <div class="flexBox" style="margin-top: 1rem">
             <button class="tabButton" id="factorTab" onclick="switchMarkupTab('factor')" style="color: goldenrod; border-color: #785c13">Factors</button>
-            <button class="tabButton" id="autoTab" onclick="switchMarkupTab('auto')" style="color: goldenrod; border-color: #785c13; width:5.5rem">Automation</button>
+            <button class="tabButton" id="autoTab" onclick="switchMarkupTab('auto')" style="color: goldenrod; border-color: #785c13; width:5.5rem">AutoClickers</button>
             <button class="tabButton" id="dynamicTab" onclick="" style="color: goldenrod; border-color: #785c13">Dynamic</button>
         </div>
         <div class="flexBox" id="factorSubPage" style="margin-top: 1rem; flex-direction: column">
@@ -133,8 +133,8 @@
             <div class="centeredTexts" id="t2AutoText0" style="margin-top: 1rem">Your Max All AutoBuyer is clicking the Max All button 0 times/second, but only if you can't Factor Shift</div>
             <div class="centeredTexts" id="t2AutoText1">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
             <div class="flexBox">
-                <button class="automation2" id="auto2" onclick="buyAuto(0)">mall Auto</button>
-                <button class="automation2" id="auto3" onclick="buyAuto(1)">yes mall Auto</button>
+                <button class="automation2" id="auto2" onclick="toggleAuto(0)">mall Auto</button>
+                <button class="automation2" id="auto3" onclick="toggleAuto(1)">yes mall Auto</button>
             </div>
         </div>
     </div>
