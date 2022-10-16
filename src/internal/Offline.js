@@ -1,4 +1,4 @@
-const OFFLINE = {
+/*const OFFLINE = {
     boost(){ return data.offline.time+1 },
     needed(){ return data.offline.time > 0 },
     updateHTML(){
@@ -7,3 +7,4 @@ const OFFLINE = {
         DOM('offlineText').innerText = `Offline Time: ${format(data.offline.time)}s\nSimulating time at ${format(this.boost())}x speed`
     }
 }
+ */

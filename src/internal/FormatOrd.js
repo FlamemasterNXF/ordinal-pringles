@@ -98,20 +98,21 @@ function ordinalDisplay() {
     )
 }
 
-function successor(amount = 1) {
+function successor(n = 1) {
     if(data.ord.isPsi) return
-    while (data.ord.over === 0 && Math.floor(amount) > 0) {
-        if((data.ord.ordinal + 1) % data.ord.base === 0) data.ord.over++
-        else data.ord.ordinal++
-        amount -= 1
-    }
-    data.ord.over += amount
+    if (data.ord.ordinal % data.ord.base === data.ord.base - 1) data.ord.over+=n
+    else data.ord.ordinal+=n
 }
 
-function maximize(amount = 1) {
+function maximize() {
     if(data.ord.isPsi) return
-    if(data.ord.over > 0) {
-        data.ord.ordinal += Math.max(Math.min(Math.floor(data.ord.over/data.ord.base), amount), 1)
+    if (data.ord.ordinal % data.ord.base === data.ord.base - 1 && data.ord.over >= 1) {
+        while(data.ord.over + data.ord.base >= data.ord.base * 2 && data.ord.ordinal % data.ord.base ** 2 !== 0){
+            data.ord.over -= Math.ceil((data.ord.over + data.ord.base) / 2 - 0.1)
+            data.ord.ordinal += data.ord.base
+        }
+
+        if (data.ord.ordinal % data.ord.base ** 2 !== 0) data.ord.ordinal += data.ord.over
         data.ord.over = 0
     }
 }

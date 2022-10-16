@@ -13,7 +13,7 @@ function getDefaultObject() {
         autoLevels: Array(2).fill(0),
         boost: {amt:0, total:0, times:0, hasBUP:Array(12).fill(false)},
         autoStatus: {enabled: [false, false]},
-        offline: { timeActivated: Date.now(), time:0, toggled:true },
+        lastTick: 0,
     }
 }
 let data = getDefaultObject()
@@ -31,8 +31,6 @@ function load() {
     let savedata = JSON.parse(window.localStorage.getItem('ordinalPRINGLESsave'))
     if (savedata !== undefined) fixSave(data, savedata)
     fixOldSaves()
-    let off_time = (Date.now() - data.offline.timeActivated)/1000
-    if (data.offline.toggled) data.offline.time += off_time
     createAlert('Welcome Back!', `You've loaded into Ordinal PRINGLES v${VERSION}\nEnjoy!`, 'Thanks!')
 }
 //fix saves

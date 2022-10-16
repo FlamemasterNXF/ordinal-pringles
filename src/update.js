@@ -1,6 +1,6 @@
 const uHTML = {
     update(){
-        OFFLINE.updateHTML()
+        //OFFLINE.updateHTML()
         updateOrdHTML()
         updateMarkupHTML()
         updateBoostersHTML()

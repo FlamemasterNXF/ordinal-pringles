@@ -1,5 +1,4 @@
 const TABS = ["markup", "boost", "ach", "settings"]
-let diff
 function loadTabs(){
     for (let i = 0; i < TABS.length; i++) {
         DOM(`${TABS[i]}Page`).style.display = 'none'
@@ -14,6 +13,7 @@ function loadUnlockedHTML(){
     DOM('factorBoostButton').style.display = data.boost.times>0?'inline-block':'none'
 }
 
+let timesToLoop = [0,0, 0,0]
 function tick(diff){
     if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
         data.ord.isPsi = true
@@ -21,30 +21,30 @@ function tick(diff){
     }
 
     //region automation
-    let timesToLoop = [0,0, 0,0]
-    let tDiff = diff
-    if(diff < 1) diff = 1
-
-    for (let i = 0; i < 2; i++) timesToLoop[i] = diff*data.autoLevels[i]*factorBoost()*bup5Effect()*data.dy.level
+    for (let i = 0; i < 2; i++) timesToLoop[i] += diff*data.autoLevels[i]*factorBoost()*bup5Effect()*data.dy.level
     for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]]?1*bup5Effect():0
 
-    if (timesToLoop[0]>=1) successor(timesToLoop[0])
-    if (timesToLoop[1]>=1) maximize(timesToLoop[1])
+    for (let i = 0; i < 2; i++) {
+        if(Math.floor(timesToLoop[i]/1000) >= 1){
+            i===0?successor(timesToLoop[i]/1000):maximize()
+            timesToLoop[i] -= Math.floor(timesToLoop[i]/1000)*1000
+        }
+    }
 
     if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3)) buyMaxAuto()
-    if(timesToLoop[3]>=1 && data.ord.isPsi) markup(timesToLoop[3]*tDiff)
+    if(timesToLoop[3]>=1 && data.ord.isPsi) markup(timesToLoop[3]*diff)
     //endregion
 }
 function mainLoop() {
-    if(isNaN(data.offline.time)) data.offline.time = 0
-    diff = data.offline.toggled ? (Date.now() - data.time) / 1000 : getRandom(0.048, 0.053)
-    data.offline.time = Math.max(data.offline.time - OFFLINE.boost() * diff, 0)
-    data.time += diff * OFFLINE.boost
-    data.time = Date.now()
+    if(data.lastTick === 0) data.lastTick = Date.now()
+    let diff = Math.max((Date.now() - data.lastTick), 0)
+    let uDiff = diff/1000
+
+    if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level += uDiff*dyGain()
+    if(data.boost.hasBUP[9]) data.markup.powers += 20*uDiff
 
     tick(diff)
-    if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level += diff*dyGain()
-    if(data.boost.hasBUP[9]) data.markup.powers += 20*diff
+    data.lastTick = Date.now()
 
     checkAchs()
     uHTML.update()
