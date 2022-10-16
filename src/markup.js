@@ -18,7 +18,7 @@ function updateMarkupHTML(){
     DOM("factorShiftButton").style.color = data.ord.base===3&&data.boost.times===0?`#8080FF`:`goldenrod`
 
     DOM("dynamicTab").innerText = data.markup.shifts===7?'Dynamic':'???'
-    DOM("dynamicText").innerText = `Your Dynamic Factor is multiplying AutoClickers by ${format(data.dy.level, 3)}\nIt increases by ${format(data.dy.gain)}/s, and caps at ${format(data.dy.cap)}`
+    DOM("dynamicText").innerText = `Your Dynamic Factor is multiplying AutoClickers by ${format(data.dy.level, 3)}\nIt increases by ${format(dyGain())}/s, and caps at ${format(data.dy.cap)}`
 
     DOM("factorBoostButton").innerHTML = `Preform a Factor Boost [+${data.boost.times+1}]<br>Requires ${displayPsiOrd(boostReq(), 5)}`
     DOM("factorBoostButton").style.color = data.ord.isPsi&&data.ord.ordinal>=boostReq()?'#fff480':'#8080FF'
@@ -30,11 +30,13 @@ function switchMarkupTab(t){
     markupTab = t
 }
 function markup(n=1){
+    let autoMult = data.boost.hasBUP[1]?5:1
+    autoMult+=data.boost.hasBUP[6]&&data.ord.base>=5?10:0
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal === 109) return
     if(calculateHardy()<10240 && !data.ord.isPsi) return
-    if(data.ord.isPsi){ data.ord.ordinal+=n; return data.markup.powers = 4e256}
+    if(data.ord.isPsi){ data.ord.ordinal+=(n*autoMult); return data.markup.powers = 4e256}
     data.ord.isPsi = false
-    data.markup.powers += opGain()
+    data.markup.powers += opGain()*autoMult
     data.ord.ordinal = 0
     data.ord.over = 0
 }

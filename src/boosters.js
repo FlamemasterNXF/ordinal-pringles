@@ -5,9 +5,9 @@ function switchBoostTab(t){
     boostTab = t
 }
 
-const bupDesc = ['Each Factor\'s effect is doubled', 'Boost OP gain by 10x', 'The Ordinal Base is reduced by 4 if it\'s over 7', 'Dynamic Gain and Cap are squared in Odd-Numbered Challenges',
-    'Unlock Max All AutoBuyer', 'Boosters Boost Tier 1 and 2 automation', 'Factor Boosts lower the Ordinal Base, but only under Ψ(Ω)', 'Dynamic Gain is increased based on how fast it decreases',
-    'Unlock Markup AutoBuyer', 'Gain 20 Free OP/s', 'Gain 3 Free Factors if you have unlocked them all', 'Boosters boost OP gain if the Ordinal Base is less than 6']
+const bupDesc = ['Each Factor\'s effect is doubled', 'Boost OP gain by 5x', 'The Ordinal Base is always 5 in Challenges', 'Dynamic Gain and Cap are squared in Odd-Numbered Challenges',
+    'Unlock Max All AutoBuyer', 'Boosters Boost Tier 1 and 2 automation', 'Gain 10x OP at Ordinal Base 5 or higher', 'The Ordinal Base boosts Factors (higher is better)',
+    'Unlock Markup AutoBuyer', 'Gain 20 Free OP/s', 'Gain 3 free levels of each Factor', 'Boosters boost Dynamic gain if the Ordinal Base is less than 6']
 const bupCosts = [1, 5, 72, 53,
     1, 4, 73, 74,
     1, 8, 16, 66]
@@ -34,8 +34,11 @@ const autoRequirements = ['you can\'t Factor Shift', 'you\'re past Ψ(Ω)']
 const autoUps = [4, 8]
 function updateBoostersHTML(){
     DOM('boosterText').innerText = `You have ${format(data.boost.amt)} Boosters (${format(data.boost.total)} total)`
+    DOM('bup5').innerText = `Boosters Boost Tier 1 and 2 Automation\n[${format(bup5Effect())}x]\n4 Boosters`
+    DOM('bup7').innerText = `The Ordinal Base boosts Factors\n[${format(bup7Effect())}x]\n74 Boosters`
+    DOM('bup11').innerText = `Boosters boost Dynamic gain if the Base is less than 6\n[${format(bup11Effect())}x]\n66 Boosters`
     for (let i = 0; i < data.autoStatus.enabled.length; i++) {
-        DOM(`t2AutoText${i}`).innerText = `Your ${autoNames[i]} AutoBuyer is clicking the ${autoNames[i]} button 1 times/second, but only if ${autoRequirements[i]}`
+        DOM(`t2AutoText${i}`).innerText = `Your ${autoNames[i]} AutoBuyer is clicking the ${autoNames[i]} button ${format(1*bup5Effect())} times/second, but only if ${autoRequirements[i]}`
         DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]]?`${autoNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoNames[i]} AutoBuyer: LOCKED`
     }
 }
@@ -85,6 +88,9 @@ function buyBUP(i){
 
     DOM(`bup${i}`).style.backgroundColor = '#002480'
 }
+let bup5Effect = () => data.boost.hasBUP[5]?Math.sqrt(data.boost.amt):1
+let bup7Effect = () => data.boost.hasBUP[7]?data.ord.base-2:1
+let bup11Effect = () => data.boost.hasBUP[11]?Math.max(Math.log2(data.boost.amt), 1):1
 
 function toggleAuto(i){
     if(!data.boost.hasBUP[autoUps[i]]) return

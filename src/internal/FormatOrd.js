@@ -41,7 +41,8 @@ const ordMarks = [
     "&psi;(Ω<sup>Ω<sup>2</sup>2+Ωy</sup>)",
     "&psi;(Ω<sup>Ω<sup>2</sup>y</sup>)",
     "&psi;(Ω<sup>Ω<sup>y</sup></sup>)",
-    "BHO"
+    "BHO",
+    //"&psi;(ε<sub>Ω+x</sub>)",
 ]
 const extraOrdMarks = ["","ω","ω<sup>ω</sup>","ω<sup>ω<sup>2</sup></sup>"]
 function displayOrd(ord,over,base,trim = data.ord.trim) {

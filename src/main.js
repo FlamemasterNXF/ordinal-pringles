@@ -20,17 +20,20 @@ function tick(diff){
         data.ord.ordinal = 4
     }
 
+    //region automation
     let timesToLoop = [0,0, 0,0]
     let tDiff = diff
     if(diff < 1) diff = 1
 
-    for (let i = 0; i < 2; i++) timesToLoop[i] = diff*data.autoLevels[i]*factorBoost()*data.dy.level
-    for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]]?1:0
+    for (let i = 0; i < 2; i++) timesToLoop[i] = diff*data.autoLevels[i]*factorBoost()*bup5Effect()*data.dy.level
+    for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]]?1*bup5Effect():0
+
     if (timesToLoop[0]>=1) successor(timesToLoop[0])
     if (timesToLoop[1]>=1) maximize(timesToLoop[1])
 
     if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3)) buyMaxAuto()
     if(timesToLoop[3]>=1 && data.ord.isPsi) markup(timesToLoop[3]*tDiff)
+    //endregion
 }
 function mainLoop() {
     if(isNaN(data.offline.time)) data.offline.time = 0
@@ -40,7 +43,8 @@ function mainLoop() {
     data.time = Date.now()
 
     tick(diff)
-    if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level += diff*data.dy.gain
+    if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level += diff*dyGain()
+    if(data.boost.hasBUP[9]) data.markup.powers += 20*diff
 
     checkAchs()
     uHTML.update()

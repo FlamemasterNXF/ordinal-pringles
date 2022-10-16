@@ -36,7 +36,9 @@ function hasFactor(n){
     return data.markup.shifts >= n
 }
 function factorEffect(n){
-    return (data.factors[n]+1)*(Math.max(1+(data.markup.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.markup.shifts])
+    const mult = data.boost.hasBUP[0]?2:1
+    const add = data.boost.hasBUP[10]?3:0
+    return ((data.factors[n]+(1+add))*mult*bup7Effect())*(Math.max(1+(data.markup.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.markup.shifts])
 }
 function factorBoost(){
     let mult = 1
@@ -58,3 +60,5 @@ function buyMaxFactor(){
         while (data.markup.powers >= Math.pow(10 ** (i + 1), Math.pow(2, data.factors[i]))) buyFactor(i);
     }
 }
+
+let dyGain = () => data.dy.gain*bup11Effect()
