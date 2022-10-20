@@ -14,6 +14,7 @@
     <script defer src="src/data.js"></script>
     <script defer src="src/internal/Offline.js"></script>
     <script defer src="src/internal/FormatOrd.js"></script>
+    <script defer src="src/challenges.js"></script>
     <script defer src="src/boosters.js"></script>
     <script defer src="src/factors.js"></script>
     <script defer src="src/markup.js"></script>
@@ -107,6 +108,7 @@
         <div class="flexBox" style="margin-top: 1rem">
             <button class="tabButton" id="upgradeTab" onclick="switchBoostTab('upgrades')" style="color: #8080FF; border-color: #0000ff">Upgrades</button>
             <button class="tabButton" id="auto2Tab" onclick="switchBoostTab('auto2')" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">AutoBuyers</button>
+            <button class="tabButton" id="chalTab" onclick="switchBoostTab('chal')" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">Challenges</button>
         </div>
         <div class="flexBox" id="upgradesSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="centeredTexts" id="boosterText">boosteeeeeeeee</div>
@@ -130,6 +132,13 @@
                 <button class="automation2" id="auto2" onclick="toggleAuto(0)">mall Auto</button>
                 <button class="automation2" id="auto3" onclick="toggleAuto(1)">yes mall Auto</button>
             </div>
+        </div>
+        <div class="flexBox" id="chalSubPage" style="display: none; flex-direction: column;">
+            <button id="chalExit" onclick="chalExit()">Escape the Challenge Early</button>
+            <div class="flexBox" id="chalRow0"></div>
+            <div class="flexBox" id="chalRow1"></div>
+            <div class="flexBox" id="chalRow2"></div>
+            <div class="flexBox" id="chalRow3"></div>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;">

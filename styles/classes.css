@@ -57,6 +57,23 @@
     background: black;
     margin-left: 0.5rem;
 }
+.challenge{
+    width: 20rem;
+    height: 10rem;
+    border: 2px solid #0000ff;
+    color: #8080FF;
+    background: black;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+#chalExit{
+    width: 15rem;
+    height: 1.5rem;
+    border: 2px solid #0000ff;
+    color: #8080FF;
+    background: black;
+    margin-top: 0.5rem;
+}
 .achievement{
     width: 5rem;
     height: 5rem;
