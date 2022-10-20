@@ -12,6 +12,7 @@ function getDefaultObject() {
         dy: {level:1, gain:0, cap:40},
         autoLevels: Array(2).fill(0),
         boost: {amt:0, total:0, times:0, hasBUP:Array(12).fill(false)},
+        chal: {completed: Array(8).fill(0), active: Array(8).fill(false)},
         autoStatus: {enabled: [false, false]},
         lastTick: 0,
     }
@@ -19,9 +20,7 @@ function getDefaultObject() {
 let data = getDefaultObject()
 //saving and loading
 function save(){
-    try{
-        window.localStorage.setItem('ordinalPRINGLESsave', JSON.stringify(data))
-    }
+    try{ window.localStorage.setItem('ordinalPRINGLESsave', JSON.stringify(data)) }
     catch (e) {
         createAlert('Error', `Save failed.\n${e}`, 'Dang.');
         console.error(e);
@@ -56,7 +55,7 @@ function fixOldSaves(){
         data.dy.gain = 0.002
     }
     if(data.dy.level > data.dy.cap) data.dy.level = data.dy.cap
-    if(data.ord.isPsi && data.ord.ordinal > GRAHAMS_VALUE) data.ord.ordinal = GRAHAMS_VALUE
+    if(data.ord.isPsi && data.ord.ordinal > GRAHAMS_VALUE && data.boost.times === 0) data.ord.ordinal = GRAHAMS_VALUE
 }
 function exportSave(){
     try {

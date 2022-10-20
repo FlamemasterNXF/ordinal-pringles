@@ -1,5 +1,3 @@
-// Mostly code from OM:R, I don't know what most of it does.
-// TODO: Understand this.
 const ordMarks = [
     "&psi;(Ωx)",
     "&psi;(Ω<sup>2</sup>x)",
