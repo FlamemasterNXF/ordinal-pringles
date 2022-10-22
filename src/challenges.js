@@ -2,7 +2,7 @@ const chalDesc = [
     "You can only buy 1 of each AutoClicker", "You can't buy Factors",
     "The Base is 5 higher", "Factor Shifts don't reduce the base", "Dynamic divides AutoClicker speed and each Booster Upgrade bought multiplies Dynamic Gain and Cap by 2",
     "All previous Challenges at once", "You gain no Dynamic, keep no OP on Markup, Booster Upgrades are useless, and you can only manually click Successor 1000 times per Markup",
-    "You exponentially gain Decrementy which divides AutoClicker speed, Challenge 6 completions boost OP gain, Ordinal is capped at ω^(ω^3), and you're trapped in Challenge 7"
+    "You exponentially gain Decrementy and you're trapped in Challenge 7"
 ]
 const chalGoals = [
     [1e32, 1e223, 4e256, Infinity], //4e256 works as a stand in for Epsilon Naught here
@@ -35,19 +35,36 @@ function initChals(){
 }
 function updateChalHTML(i){
     DOM(`chal${i}`).style.backgroundColor = data.chal.active[i]?'#002480':data.chal.completions[i]===3?'#078228':'black'
-    DOM(`chal${i}`).style.color = data.chal.completions[i]===3?'black':'#8080FF'
+    DOM(`chal${i}`).style.color = (!(data.chal.completions[i]===3)||data.chal.active[i])?'#8080FF':'black'
     DOM(`chal${i}`).innerText = `Challenge ${i+1}\n${chalDesc[i]}\n\nGoal: ${format(chalGoals[i][data.chal.completions[i]])} OP\nReward: Factor ${i+1} boosts Tier 2 Automation at ${format(chalEffect(i))}% power\nCompletions: ${data.chal.completions[i]}/3`
 
 }
 function chalEnter(i){
-    if(data.chal.completions[i] === 3) return
+    if(data.chal.completions[i] === 3 || data.chal.active.includes(true)) return
+
+    if(i === 5) for (let j = 0; j < data.chal.active.length-2; j++) data.chal.active[j] = true
+    if(i === 7) data.chal.active[6] = true
     data.chal.active[i] = true
-    updateChalHTML(i)
+
+    boosterReset()
+    if(i === 2 || i === 5) data.ord.base = 15
+    if(i === 6) for (let j = 0; j < data.boost.hasBUP.length; j++) data.boost.hasBUP[j] = false
+
+    for (let i = 0; i < data.chal.active.length; i++) {
+        updateChalHTML(i)
+    }
 }
 function chalExit(){
+    boosterReset()
     for (let i = 0; i < data.chal.active.length; i++) {
         data.chal.active[i] = false
         updateChalHTML(i)
     }
+
 }
-let chalEffect = i => data.chal.completions[i]===3?100:100*0.25*data.chal.completions[i]
+let chalEffect = i => 100*0.25*data.chal.completions[i]
+function decrementyGain(x) {
+    return ((0.000666 * x) / 50) * (data.markup.powers ** 0.2)
+    //* (data.markup.powers < 1e30 ? -1 : 1)
+    //((game.omegaChallenge == 2?1:double()) ** game.dups[1]) **
+}

@@ -12,8 +12,9 @@ function getDefaultObject() {
         dy: {level:1, gain:0, cap:40},
         autoLevels: Array(2).fill(0),
         boost: {amt:0, total:0, times:0, hasBUP:Array(12).fill(false)},
-        chal: {completions: Array(8).fill(0), active: Array(8).fill(false)},
+        chal: {decrementy: 1, completions: Array(8).fill(0), active: Array(8).fill(false)},
         autoStatus: {enabled: [false, false]},
+        successorClicks: 0,
         lastTick: 0,
     }
 }

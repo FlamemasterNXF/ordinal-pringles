@@ -3,11 +3,14 @@ function autoCost(n) {
 }
 
 function buyAuto(n) {
+    if(data.chal.active[0] && data.autoLevels[n] === 1) return
     if (data.markup.powers < autoCost(n)) return
     data.markup.powers -= autoCost(n)
     ++data.autoLevels[n]
 }
 function buyMaxAuto() {
+    if(data.chal.active[0] && (data.autoLevels[0] === 1 || data.autoLevels[1] === 1)) return
+
     const bulkSucc = Math.floor(Math.log2(data.markup.powers / 100))
     const bulkBuySucc = Math.max(bulkSucc - data.autoLevels[0], 0)
     data.autoLevels[0] += bulkBuySucc
@@ -49,11 +52,13 @@ function factorBoost(){
     return mult
 }
 function buyFactor(n){
+    if(data.chal.active[1]) return
     if(data.markup.powers < factorCost(n)) return
     data.markup.powers -= factorCost(n)
     ++data.factors[n]
 }
 function buyMaxFactor(){
+    if(data.chal.active[1]) return
     if(data.ord.isPsi) return data.factors = [9,8,7,7,6,6,6]
     for (let i = 0; i < data.factors.length; i++){
         if(!hasFactor(i)) break
@@ -61,4 +66,12 @@ function buyMaxFactor(){
     }
 }
 
-let dyGain = () => data.dy.gain*bup11Effect()
+function dyGain(){
+    if(data.chal.active[6]) return 0
+    if(data.chal.active[4]) {
+        let m = 0
+        for (let i = 0; i < data.boost.hasBUP.length; i++) if(data.boost.hasBUP[i]) ++m
+        return data.dy.gain*m*2
+    }
+    return data.dy.gain*bup11Effect()
+}

@@ -35,10 +35,13 @@ function markup(n=1){
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal === 109) return
     if(calculateHardy()<10240 && !data.ord.isPsi) return
     if(data.ord.isPsi){ data.ord.ordinal+=(n*autoMult); return data.markup.powers = 4e256}
+
+    if(data.chal.active[6]) data.markup.powers = 0
     data.ord.isPsi = false
     data.markup.powers += opGain()*autoMult
     data.ord.ordinal = 0
     data.ord.over = 0
+    data.successorClicks = 0
 }
 function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over) {
     //if(data.ord.isPsi && base === 3){
@@ -63,7 +66,7 @@ function factorShift(){
     }
 
     if(data.markup.powers < fsReqs[data.markup.shifts]) return createAlert("Failure", "Insufficient Ordinal Powers", "Dang.")
-    --data.ord.base
+    if(!data.chal.active[3]) --data.ord.base
     ++data.markup.shifts
 
     if(data.markup.shifts === 7){
