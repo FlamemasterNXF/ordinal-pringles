@@ -51,3 +51,6 @@ function settingsToggle(i){
     save()
     location.reload()
 }
+function allEqual(arr, i){
+    return arr.every( v => v === i )
+}

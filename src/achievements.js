@@ -57,32 +57,76 @@ const achievements = [
             _=> data.ord.base < 8,
             _=> data.ord.base < 6,
             _=> data.ord.base < 4,
+            _=> data.boost.times > 0,
+            _=> data.boost.times > 4,
+            _=> data.boost.times > 9,
+            _=> data.boost.times > 19,
         ],
         name: [
             "Lower is Better",
             "How Low Can You Go?",
             "Descending into the Depths",
             "Penultimate",
+            "...what?",
+            "Base 2 Soon!",
+            "Base 2: Only 30 Years Away!",
+            "It Was All Just a Dream",
         ],
         popup: [
             "Reach Base 9",
             "Reach Base 7",
             "Reach Base 5",
             "Reach Base 3",
+            "Boost Once",
+            "Boost Five Times",
+            "Boost Ten Times",
+            "Boost Twenty Times",
         ]
     },
     {
         req: [
             _=> data.dy.level >= 10,
             _=> data.dy.level >= 40,
+            _=> data.dy.level >= 400,
         ],
         name: [
             "Overdrive",
             "Maximum Overdrive",
+            "Maximum is Irrelevant"
         ],
         popup: [
             "Reach a Dynamic Factor of 10",
             "Reach a Dynamic Factor of 40",
+            "Reach a Dynamic Factor of 400"
+        ]
+    },
+    {
+        req: [
+            _=> data.chal.completions[0] >= 1,
+            _=> data.chal.completions[0] >= 3,
+            _=> data.chal.completions[5] >= 1,
+            _=> data.chal.completions[5] >= 3,
+            _=> data.chal.completions[7] >= 1,
+            _=> data.chal.completions[7] >= 3,
+            _=> allEqual(data.chal.completions, 3)
+        ],
+        name: [
+            "Way Too Easy",
+            "Still Too Easy",
+            "Even a Child Could Do This",
+            "I Could Do This in My Sleep",
+            "Not Challenging",
+            "I Swear it is NOT Challenging",
+            "I Did This in My Sleep"
+        ],
+        popup: [
+            "Complete Challenge 1",
+            "Complete Challenge 1x3",
+            "Complete Challenge 6",
+            "Complete Challenge 6x3",
+            "Complete Challenge 8",
+            "Complete Challenge 8x3",
+            "Complete all Challenges"
         ]
     },
 ]
