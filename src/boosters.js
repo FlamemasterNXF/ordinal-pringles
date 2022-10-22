@@ -41,6 +41,7 @@ function updateBoostersHTML(){
         DOM(`t2AutoText${i}`).innerText = `Your ${autoNames[i]} AutoBuyer is clicking the ${autoNames[i]} button ${format(1*bup5Effect())} times/second, but only if ${autoRequirements[i]}`
         DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]]?`${autoNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoNames[i]} AutoBuyer: LOCKED`
     }
+    DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
 }
 
 function boosterReset(){
@@ -81,7 +82,7 @@ function boostReq(){
 }
 
 function buyBUP(i){
-    if(data.boost.hasBUP[i] || data.boost.amt < bupCosts[i]) return
+    if(data.boost.hasBUP[i] || data.boost.amt < bupCosts[i] || data.chal.active[6]) return
     if(i % 4 !== 0 && !data.boost.hasBUP[i-1]) return // Force you to buy them in order, but only in columns
 
     data.boost.hasBUP[i] = true
@@ -92,6 +93,19 @@ function buyBUP(i){
 let bup5Effect = () => data.boost.hasBUP[5]?Math.sqrt(data.boost.amt):1
 let bup7Effect = () => data.boost.hasBUP[7]?data.ord.base-2:1
 let bup11Effect = () => data.boost.hasBUP[11]?Math.max(Math.log2(data.boost.amt), 1):1
+
+function boosterRefund(){
+    let indexes = []
+    for (let i = 0; i < data.boost.hasBUP.length; i++) {
+        if (data.boost.hasBUP[i]) indexes.push(i)
+        data.boost.hasBUP[i] = false
+        DOM(`bup${i}`).style.backgroundColor = 'black'
+    }
+    for (let i = 0; i < indexes.length; i++){
+        data.boost.amt += bupCosts[indexes[i]]
+    }
+    boosterReset()
+}
 
 function toggleAuto(i){
     if(!data.boost.hasBUP[autoUps[i]]) return

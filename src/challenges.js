@@ -33,9 +33,8 @@ function initChals(){
         updateChalHTML(i)
     }
 }
-function updateChalHTML(i, x){
+function updateChalHTML(i){
     DOM(`chalIn`).style.display = data.chal.active.includes(true)?'block':'none'
-    DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${x+1}`
     DOM(`chal${i}`).style.backgroundColor = data.chal.active[i]?'#002480':data.chal.completions[i]===3?'#078228':'black'
     DOM(`chal${i}`).style.color = (!(data.chal.completions[i]===3)||data.chal.active[i])?'#8080FF':'black'
     DOM(`chal${i}`).innerText = `Challenge ${i+1}\n${chalDesc[i]}\n\nGoal: ${format(chalGoals[i][data.chal.completions[i]])} OP\nReward: Factor ${i+1} boosts Tier 2 Automation at ${format(chalEffect(i))}% power\nCompletions: ${data.chal.completions[i]}/3`
@@ -50,11 +49,12 @@ function chalEnter(i){
 
     boosterReset()
     if(i === 2 || i === 5) data.ord.base = 15
-    if(i === 6) for (let j = 0; j < data.boost.hasBUP.length; j++) data.boost.hasBUP[j] = false
+    if(i === 6) boosterRefund()
 
     for (let j = 0; j < data.chal.active.length; j++) {
         updateChalHTML(j, i)
     }
+    data.chal.html = i
 }
 function chalExit(){
     boosterReset()
