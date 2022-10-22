@@ -6,7 +6,7 @@ const chalDesc = [
 ]
 const chalGoals = [
     [1e32, 1e223, 4e256, Infinity], //4e256 works as a stand in for Epsilon Naught here
-    [PSI_VALUE, 6377292, 125524238436, Infinity], //this one is in Ordinal value, [1] and [2] are post-Epsilon-Naught
+    [4, 6377292, 125524238436, Infinity], //this one is in Ordinal value, [1] and [2] are post-Epsilon-Naught
     [1e200, 1e214, 1e256, Infinity],
     [1e33, 5e113, 1.5e119, Infinity],
     [1e122, 3.33e136, 1e219, Infinity],
@@ -40,7 +40,7 @@ function updateChalHTML(i){
     DOM(`chal${i}`).style.backgroundColor = data.chal.active[i]?'#002480':data.chal.completions[i]===3?'#078228':'black'
     DOM(`chal${i}`).style.color = (!(data.chal.completions[i]===3)||data.chal.active[i])?'#8080FF':'black'
     DOM(`chal${i}`).innerText = `Challenge ${i+1}\n${chalDesc[i]}\n\nGoal: ${format(chalGoals[i][data.chal.completions[i]])} OP\nReward: Factor ${i+1} boosts Tier 2 Automation at ${format(chalEffect(i))}% power\nCompletions: ${data.chal.completions[i]}/3`
-
+    DOM(`chal1`).innerHTML = `Challenge 2<br>${chalDesc[1]}<br><br>Goal: ${displayPsiOrd(chalGoals[1][data.chal.completions[1]])}<br>Reward: Factor 2 boosts Tier 2 Automation at ${format(chalEffect(1))}% power<br>Completions: ${data.chal.completions[1]}/3`
 }
 function chalEnter(i){
     if(data.chal.completions[i] === 3 || data.chal.active.includes(true)) return
@@ -64,8 +64,18 @@ function chalExit(){
         data.chal.active[i] = false
         updateChalHTML(i)
     }
-
+    data.chal.html = -1
 }
+function chalComplete(){
+    if(data.chal.html === -1) return
+    const currency = data.chal.html===1?data.ord.ordinal:data.markup.powers
+    if(currency>=chalGoals[data.chal.html][data.chal.completions[data.chal.html]]){
+        ++data.chal.completions[data.chal.html]
+        createAlert("Challenge Complete!", `You have Completed Challenge ${data.chal.html+1}x${data.chal.completions[data.chal.html]}!`, 'Awesome!')
+        chalExit()
+    }
+}
+
 let chalEffect = i => 100*0.25*data.chal.completions[i]
 function decrementyGain(x) {
     return ((0.000666 * x) / 50) * (data.markup.powers ** 0.2)
