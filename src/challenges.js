@@ -29,7 +29,9 @@ function initChals(){
         }
     }
     for (let i = 0; i < chalDesc.length; i++) {
-        DOM(`chal${i}`).addEventListener('click', ()=>chalEnter(i))
+        DOM(`chal${i}`).addEventListener('click', ()=>data.sToggles[1]?
+            createConfirmation("Are you sure?", "Entering a Challenge will preform a Booster Reset!", "No chance.", "Of course!", chalEnter, i)
+        :chalEnter(i))
         updateChalHTML(i)
     }
 }

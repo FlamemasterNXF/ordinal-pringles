@@ -13,6 +13,12 @@ function loadUnlockedHTML(){
     DOM('boostNav').style.display = data.boost.times>0?'block':'none'
     DOM('factorBoostButton').style.display = data.boost.times>0?'inline-block':'none'
 }
+function loadSettingsHTML(){
+    const descs = ["the Booster Refund Confirmation", "the Challenge Confirmation"]
+    for (let i = 0; i < data.sToggles.length; i++) {
+        DOM(`settingsToggle${i}`).innerText = `Toggle ${descs[i]} [${boolToReadable(data.sToggles[i])}]`
+    }
+}
 
 let timesToLoop = [0,0, 0,0]
 function tick(diff){
@@ -65,4 +71,5 @@ window.onload = function () {
     try { load() } catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
     loadTabs()
     loadUnlockedHTML()
+    loadSettingsHTML()
 }

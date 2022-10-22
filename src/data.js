@@ -14,6 +14,7 @@ function getDefaultObject() {
         boost: {amt:0, total:0, times:0, hasBUP:Array(12).fill(false)},
         chal: {decrementy: 1, html: 0, completions: Array(8).fill(0), active: Array(8).fill(false)},
         autoStatus: {enabled: [false, false]},
+        sToggles: [true, true],
         successorClicks: 0,
         lastTick: 0,
     }

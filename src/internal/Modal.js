@@ -16,7 +16,7 @@ function createPrompt(name,func,useInput,desc='') {
     DOM('promptContainer').style.display = 'block'
     useInput?DOM('promptButton').addEventListener('click', ()=> func(DOM('promptInput').value)):DOM('promptButton').addEventListener('click', ()=> func())
 }
-function createConfirmation(name,desc,no,yes,func) {
+function createConfirmation(name,desc,no,yes,func,arg) {
     let old_element = document.getElementById("yesConfirm");
     let new_element = old_element.cloneNode(true);
     old_element.parentNode.replaceChild(new_element, old_element);
@@ -31,7 +31,8 @@ function createConfirmation(name,desc,no,yes,func) {
     document.getElementById('confirm').style.display = 'block'
     document.getElementById('confirmContainer').style.display = 'block'
     document.getElementById('noConfirm').addEventListener('click', () => {closeModal('confirm')})
-    document.getElementById('yesConfirm').addEventListener('click', () => {func();closeModal('confirm')})
+    arg?document.getElementById('yesConfirm').addEventListener('click', () => {func(arg);closeModal('confirm')})
+        :document.getElementById('yesConfirm').addEventListener('click', () => {func();closeModal('confirm')})
 }
 function closeModal(i) {
     document.getElementById(`${i}Container`).style.display = 'none'

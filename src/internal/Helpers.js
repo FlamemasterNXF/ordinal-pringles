@@ -45,3 +45,9 @@ function switchTab(tab){
     DOM(`${data.nav.last}Page`).style.display = 'none'
     DOM(`${tab}Page`).style.display = 'flex'
 }
+
+function settingsToggle(i){
+    data.sToggles[i] = !data.sToggles[i]
+    save()
+    location.reload()
+}
