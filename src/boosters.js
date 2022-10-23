@@ -28,6 +28,9 @@ function initBUPs(){
         DOM(`bup${i}`).addEventListener('click', ()=>buyBUP(i))
         DOM(`bup${i}`).style.backgroundColor = data.boost.hasBUP[i]?'#002480':'black'
     }
+    for (let i = 0; i < data.boost.unlocks.length; i++) {
+        DOM(`bu${i}`).style.backgroundColor = data.boost.unlocks[i]?'#002480':'black'
+    }
 }
 const autoNames = ['Max All', 'Markup']
 const autoRequirements = ['you can\'t Factor Shift', 'you\'re past Ψ(Ω)']
@@ -41,6 +44,7 @@ function updateBoostersHTML(){
         DOM(`t2AutoText${i}`).innerText = `Your ${autoNames[i]} AutoBuyer is clicking the ${autoNames[i]} button ${format(1*bup5Effect())} times/second, but only if ${autoRequirements[i]}`
         DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]]?`${autoNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoNames[i]} AutoBuyer: LOCKED`
     }
+    DOM("chalTab").innerText = data.boost.total>=6?'Challenges':'???'
     DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
 }
 
@@ -75,6 +79,8 @@ function boost(){
     data.boost.total += data.boost.times+1
     ++data.boost.times
 
+    if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
+
     boosterReset()
 }
 function boostReq(){
@@ -90,7 +96,7 @@ function buyBUP(i){
 
     DOM(`bup${i}`).style.backgroundColor = '#002480'
 }
-let bup5Effect = () => data.boost.hasBUP[5]?Math.sqrt(data.boost.amt):1
+let bup5Effect = () => data.boost.hasBUP[5]?Math.max(Math.sqrt(data.boost.total), 1):1
 let bup7Effect = () => data.boost.hasBUP[7]?data.ord.base-2:1
 let bup11Effect = () => data.boost.hasBUP[11]?Math.max(Math.log2(data.boost.amt), 1):1
 
@@ -105,6 +111,11 @@ function boosterRefund(){
         data.boost.amt += bupCosts[indexes[i]]
     }
     boosterReset()
+}
+
+function boosterUnlock(){
+    if(data.boost.total>=6){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480'
+    }
 }
 
 function toggleAuto(i){

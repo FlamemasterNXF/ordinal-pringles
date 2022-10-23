@@ -28,7 +28,7 @@ function initChals(){
             ++total
         }
     }
-    for (let i = 0; i < chalDesc.length; i++) {
+    for (let i = 0; i < data.chal.completions.length; i++) {
         DOM(`chal${i}`).addEventListener('click', ()=>data.sToggles[1]?
             createConfirmation("Are you sure?", "Entering a Challenge will preform a Booster Reset!", "No chance.", "Of course!", chalEnter, i)
         :chalEnter(i))
@@ -54,7 +54,7 @@ function chalEnter(i){
     if(i === 6) boosterRefund()
 
     for (let j = 0; j < data.chal.active.length; j++) {
-        updateChalHTML(j, i)
+        updateChalHTML(j)
     }
     data.chal.html = i
 }
@@ -69,9 +69,10 @@ function chalExit(){
 function chalComplete(){
     if(data.chal.html === -1) return
     const currency = data.chal.html===1?data.ord.ordinal:data.markup.powers
-    if(currency>=chalGoals[data.chal.html][data.chal.completions[data.chal.html]]){
+    const ex = data.chal.html===1?data.ord.isPsi:true
+    if(currency>=chalGoals[data.chal.html][data.chal.completions[data.chal.html]] && ex){
         ++data.chal.completions[data.chal.html]
-        createAlert("Challenge Complete!", `You have Completed Challenge ${data.chal.html+1}x${data.chal.completions[data.chal.html]}!`, 'Awesome!')
+        if(data.sToggles[2]) createAlert("Challenge Complete!", `You have Completed Challenge ${data.chal.html+1}x${data.chal.completions[data.chal.html]}!`, 'Awesome!')
         chalExit()
     }
 }

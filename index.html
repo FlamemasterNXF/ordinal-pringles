@@ -109,7 +109,7 @@
         <div class="flexBox" style="margin-top: 1rem">
             <button class="tabButton" id="upgradeTab" onclick="switchBoostTab('upgrades')" style="color: #8080FF; border-color: #0000ff">Upgrades</button>
             <button class="tabButton" id="auto2Tab" onclick="switchBoostTab('auto2')" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">AutoBuyers</button>
-            <button class="tabButton" id="chalTab" onclick="switchBoostTab('chal')" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">Challenges</button>
+            <button class="tabButton" id="chalTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">Challenges</button>
         </div>
         <div class="flexBox" id="upgradesSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="centeredTexts" id="boosterText">boosteeeeeeeee</div>
@@ -120,10 +120,10 @@
                 <div class="flexBox" id="bupColumn1" style="flex-direction: column;"></div>
                 <div class="flexBox" id="bupColumn2" style="flex-direction: column"></div>
                 <div class="flexBox" id="buColumn" style="flex-direction: column">
-                    <button class="bup" id="bu1">Unlock Challenges</button>
-                    <button class="bup" id="bu2">Unlock Incrementy</button>
-                    <button class="bup" id="bu3">Unlock Hierarchies</button>
-                    <button class="bup" id="bu4">Unlock Augmentation</button>
+                    <button class="bup" id="bu0">Unlock Challenges<br>Requires: 6 Boosters</button>
+                    <button class="bup" id="bu1">Unlock ???</button>
+                    <button class="bup" id="bu2">Unlock ???</button>
+                    <button class="bup" id="bu3">Unlock ???</button>
                 </div>
             </div>
             <p class="centeredTexts">The Unlockables Column does not consume Boosters</p>
@@ -151,6 +151,7 @@
         <button class="settingsButton" onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 15rem">Change Max Ordinal Display Length</button>
         <button class="settingsButton" id="settingsToggle0" onclick="settingsToggle(0)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle1" onclick="settingsToggle(1)" style="width: 20rem">aaa</button>
+        <button class="settingsButton" id="settingsToggle2" onclick="settingsToggle(2)" style="width: 20rem">aaa</button>
 
         <button class="settingsButton" onclick="exportSave()">Export your Save</button>
         <button class="settingsButton" onclick="downloadSave()">Download your Save</button>

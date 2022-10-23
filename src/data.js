@@ -11,10 +11,10 @@ function getDefaultObject() {
         factors: Array(7).fill(0),
         dy: {level:1, gain:0, cap:40},
         autoLevels: Array(2).fill(0),
-        boost: {amt:0, total:0, times:0, hasBUP:Array(12).fill(false)},
+        boost: {amt:0, total:0, times:0, hasBUP:Array(12).fill(false), unlocks: Array(4).fill(false)},
         chal: {decrementy: 1, html: -1, completions: Array(8).fill(0), active: Array(8).fill(false)},
         autoStatus: {enabled: [false, false]},
-        sToggles: [true, true],
+        sToggles: [true, true, true],
         successorClicks: 0,
         lastTick: 0,
     }
@@ -52,6 +52,7 @@ function fixSave(main=getDefaultObject(), data) {
 }
 function fixOldSaves(){
     if(data.markup.shifts === 7) DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
+    if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
     if(data.markup.shifts === 7 && data.dy.level === 1){
         data.dy.level = 4
         data.dy.gain = 0.002

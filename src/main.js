@@ -14,7 +14,7 @@ function loadUnlockedHTML(){
     DOM('factorBoostButton').style.display = data.boost.times>0?'inline-block':'none'
 }
 function loadSettingsHTML(){
-    const descs = ["the Booster Refund Confirmation", "the Challenge Confirmation"]
+    const descs = ["the Booster Refund Confirmation", "the Challenge Confirmation", "the Challenge Completion Popup"]
     for (let i = 0; i < data.sToggles.length; i++) {
         DOM(`settingsToggle${i}`).innerText = `Toggle ${descs[i]} [${boolToReadable(data.sToggles[i])}]`
     }
@@ -40,8 +40,9 @@ function tick(diff){
     }
 
     if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3) && data.autoStatus.enabled[0]) buyMaxAuto()
-    if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1]) markup(timesToLoop[3]*diff)
+    if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1]) markup(timesToLoop[3]*diff/1000)
     //endregion
+    boosterUnlock()
     chalComplete()
 }
 function mainLoop() {

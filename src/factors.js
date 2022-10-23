@@ -3,13 +3,13 @@ function autoCost(n) {
 }
 
 function buyAuto(n) {
-    if(data.chal.active[0] && data.autoLevels[n] === 1) return
+    if(data.chal.active[0] && data.autoLevels[n] >= 1) return
     if (data.markup.powers < autoCost(n)) return
     data.markup.powers -= autoCost(n)
     ++data.autoLevels[n]
 }
 function buyMaxAuto() {
-    if(data.chal.active[0] && (data.autoLevels[0] === 1 || data.autoLevels[1] === 1)) return
+    if(data.chal.active[0] && (data.autoLevels[0] >= 1 || data.autoLevels[1] >= 1)) return
 
     const bulkSucc = Math.floor(Math.log2(data.markup.powers / 100))
     const bulkBuySucc = Math.max(bulkSucc - data.autoLevels[0], 0)
@@ -39,6 +39,7 @@ function hasFactor(n){
     return data.markup.shifts >= n
 }
 function factorEffect(n){
+    if(data.chal.active[1] || data.factors[n] < 1) return 1
     const mult = data.boost.hasBUP[0]?2:1
     const add = data.boost.hasBUP[10]?3:0
     return ((data.factors[n]+(1+add))*mult*bup7Effect())*(Math.max(1+(data.markup.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.markup.shifts])
