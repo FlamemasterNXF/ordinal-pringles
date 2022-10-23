@@ -44,6 +44,8 @@ function updateBoostersHTML(){
         DOM(`t2AutoText${i}`).innerText = `Your ${autoNames[i]} AutoBuyer is clicking the ${autoNames[i]} button ${format(1*bup5Effect())} times/second, but only if ${autoRequirements[i]}`
         DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]]?`${autoNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoNames[i]} AutoBuyer: LOCKED`
     }
+    DOM("factorText2").innerText = `Your Factors are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
+
     DOM("chalTab").innerText = data.boost.total>=6?'Challenges':'???'
     DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
 }

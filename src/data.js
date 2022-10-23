@@ -51,7 +51,7 @@ function fixSave(main=getDefaultObject(), data) {
     else return getDefaultObject()
 }
 function fixOldSaves(){
-    if(data.markup.shifts === 7) DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
+    if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
     if(data.markup.shifts === 7 && data.dy.level === 1){
         data.dy.level = 4

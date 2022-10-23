@@ -49,7 +49,6 @@ function factorBoost(){
     for (let i = 0; i < data.factors.length; i++) {
         mult *= factorEffect(i)
     }
-
     return mult
 }
 function buyFactor(n){

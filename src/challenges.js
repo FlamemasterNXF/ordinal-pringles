@@ -39,8 +39,9 @@ function updateChalHTML(i){
     DOM(`chalIn`).style.display = data.chal.active.includes(true)?'block':'none'
     DOM(`chal${i}`).style.backgroundColor = data.chal.active[i]?'#002480':data.chal.completions[i]===3?'#078228':'black'
     DOM(`chal${i}`).style.color = (!(data.chal.completions[i]===3)||data.chal.active[i])?'#8080FF':'black'
-    DOM(`chal${i}`).innerText = `Challenge ${i+1}\n${chalDesc[i]}\n\nGoal: ${format(chalGoals[i][data.chal.completions[i]])} OP\nReward: Factor ${i+1} boosts Tier 2 Automation at ${format(chalEffect(i))}% power\nCompletions: ${data.chal.completions[i]}/3`
-    DOM(`chal1`).innerHTML = `Challenge 2<br>${chalDesc[1]}<br><br>Goal: ${displayPsiOrd(chalGoals[1][data.chal.completions[1]])}<br>Reward: Factor 2 boosts Tier 2 Automation at ${format(chalEffect(1))}% power<br>Completions: ${data.chal.completions[1]}/3`
+    DOM(`chal${i}`).innerText = `Challenge ${i+1}\n${chalDesc[i]}\n\nGoal: ${format(chalGoals[i][data.chal.completions[i]])} OP\nReward: Factor ${i+1} boosts Tier 2 Automation at ${format(100*chalEffect(i))}% power\nCompletions: ${data.chal.completions[i]}/3`
+    DOM(`chal1`).innerHTML = `Challenge 2<br>${chalDesc[1]}<br><br>Goal: ${displayPsiOrd(chalGoals[1][data.chal.completions[1]])}<br>Reward: Factor 2 boosts Tier 2 Automation at ${format(100*chalEffect(1))}% power<br>Completions: ${data.chal.completions[1]}/3`
+    DOM(`chal7`).innerHTML = `Challenge 7<br>${chalDesc[7]}<br><br>Goal: ${format(chalGoals[7][data.chal.completions[7]])}<br>Reward: Dynamic Factor boosts Tier 2 Automation at ${format(100*chalEffect(7))}% power<br>Completions: ${data.chal.completions[7]}/3`
 }
 function chalEnter(i){
     if(data.chal.completions[i] === 3 || data.chal.active.includes(true)) return
@@ -51,6 +52,7 @@ function chalEnter(i){
 
     boosterReset()
     if(i === 2 || i === 5) data.ord.base = 15
+    if(i === 4 || i === 5){ data.dy.gain = 0.002; DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic')) }
     if(i === 6) boosterRefund()
 
     for (let j = 0; j < data.chal.active.length; j++) {
@@ -77,7 +79,15 @@ function chalComplete(){
     }
 }
 
-let chalEffect = i => 100*0.25*data.chal.completions[i]
+let chalEffect = i => 0.25*data.chal.completions[i]
+function chalEffectTotal(){
+    let mult = 0
+    for (let i = 0; i < data.chal.completions.length-1; i++) {
+        mult += (factorEffect(i)*chalEffect(i))
+    }
+    mult += data.dy.level * chalEffect(7)
+    return Math.max(mult, 1)
+}
 function decrementyGain(x) {
     return ((0.000666 * x) / 50) * (data.markup.powers ** 0.2)
     //* (data.markup.powers < 1e30 ? -1 : 1)
