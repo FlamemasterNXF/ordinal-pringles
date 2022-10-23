@@ -14,9 +14,9 @@ function loadUnlockedHTML(){
     DOM('factorBoostButton').style.display = data.boost.times>0?'inline-block':'none'
 }
 function loadSettingsHTML(){
-    const descs = ["the Booster Refund Confirmation", "the Challenge Confirmation", "the Challenge Completion Popup"]
+    const descs = ["Booster Refund Confirmation", "Challenge Confirmation", "Challenge Completion Popup", "Factor Shift confirmation", "Factor Boost confirmation"]
     for (let i = 0; i < data.sToggles.length; i++) {
-        DOM(`settingsToggle${i}`).innerText = `Toggle ${descs[i]} [${boolToReadable(data.sToggles[i])}]`
+        DOM(`settingsToggle${i}`).innerText = `Toggle the ${descs[i]} [${boolToReadable(data.sToggles[i])}]`
     }
 }
 
