@@ -14,9 +14,9 @@ function loadUnlockedHTML(){
     DOM('factorBoostButton').style.display = data.boost.times>0?'inline-block':'none'
 }
 function loadSettingsHTML(){
-    const descs = ["the Booster Refund Confirmation", "the Challenge Confirmation", "the Challenge Completion Popup"]
+    const descs = ["Booster Refund Confirmation", "Challenge Confirmation", "Challenge Completion Popup", "Factor Shift confirmation", "Factor Boost confirmation"]
     for (let i = 0; i < data.sToggles.length; i++) {
-        DOM(`settingsToggle${i}`).innerText = `Toggle ${descs[i]} [${boolToReadable(data.sToggles[i])}]`
+        DOM(`settingsToggle${i}`).innerText = `Toggle the ${descs[i]} [${boolToReadable(data.sToggles[i])}]`
     }
 }
 
@@ -39,7 +39,7 @@ function tick(diff){
         }
     }
 
-    if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3) && data.autoStatus.enabled[0]) buyMaxAuto()
+    if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3) && data.autoStatus.enabled[0]){ buyMaxFactor(); buyMaxAuto() }
     if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1]) markup(timesToLoop[3]*diff/1000)
     //endregion
     boosterUnlock()
@@ -64,6 +64,8 @@ document.addEventListener('keydown', (event) => {
     let key = event.key;
     if (key === "s") successor()
     if (key === "m") maximize()
+    if (key === "i") markup()
+    if (key === "f"){ buyMaxFactor(); buyMaxAuto() }
 }, false);
 
 window.setInterval(function () {

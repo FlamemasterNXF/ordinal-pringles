@@ -12,13 +12,13 @@ function buyMaxAuto() {
     if(data.chal.active[0] && (data.autoLevels[0] >= 1 || data.autoLevels[1] >= 1)) return
 
     const bulkSucc = Math.floor(Math.log2(data.markup.powers / 100))
-    const bulkBuySucc = Math.max(bulkSucc - data.autoLevels[0], 0)
+    const bulkBuySucc = data.chal.active[0]?1:Math.max(bulkSucc - data.autoLevels[0], 0)
     data.autoLevels[0] += bulkBuySucc
     if (bulkBuySucc > 0) data.markup.powers -= 100 * (2 ** (data.autoLevels[0] - 1))
     for (const i in [1, 2, 3, 4, 5, 6, 7, 8, 9]) if (bulkBuySucc > i + 1) data.markup.powers -= 100 * (2 ** (data.autoLevels[0] - (i + 2)))
 
     const bulkMax = Math.floor(Math.log2(data.markup.powers / 100))
-    const bulkBuyMax = Math.max(bulkMax - data.autoLevels[1], 0)
+    const bulkBuyMax = data.chal.active[0]?1:Math.max(bulkMax - data.autoLevels[1], 0)
     data.autoLevels[1] += bulkBuyMax
     if (bulkBuyMax > 0) data.markup.powers -= 100 * (2 ** (data.autoLevels[1] - 1))
     for (const i in [1, 2, 3, 4, 5, 6, 7, 8, 9]) if (bulkBuyMax > i + 1) data.markup.powers -= 100 * (2 ** (data.autoLevels[1] - (i + 2)))
