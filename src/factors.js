@@ -73,5 +73,6 @@ function dyGain(){
         for (let i = 0; i < data.boost.hasBUP.length; i++) if(data.boost.hasBUP[i]) ++m
         return data.dy.gain*m*2
     }
+    if(data.boost.hasBUP[3]) return (data.dy.gain*bup11Effect())**2
     return data.dy.gain*bup11Effect()
 }
