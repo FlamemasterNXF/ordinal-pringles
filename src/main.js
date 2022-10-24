@@ -64,6 +64,8 @@ document.addEventListener('keydown', (event) => {
     let key = event.key;
     if (key === "s") successor()
     if (key === "m") maximize()
+    if (key === "i") markup()
+    if (key === "f"){ buyMaxFactor(); buyMaxAuto() }
 }, false);
 
 window.setInterval(function () {

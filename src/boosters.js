@@ -86,7 +86,7 @@ function boost(){
     boosterReset()
 }
 function boostReq(){
-    return (3 ** (data.boost.times+1) * 4 * 10) - 11
+    return (3 ** (data.boost.times+1) * 4 * 10)
 }
 
 function buyBUP(i){
