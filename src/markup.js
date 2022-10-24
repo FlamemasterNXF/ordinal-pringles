@@ -32,7 +32,7 @@ function switchMarkupTab(t){
 function markup(n=1){
     let autoMult = data.boost.hasBUP[1]?5:1
     autoMult+=data.boost.hasBUP[6]&&data.ord.base>=5?10:0
-    autoMult*=chalEffectTotal()
+    if(data.ord.isPsi)autoMult*=chalEffectTotal()
 
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal === 109) return
     if(calculateHardy()<10240 && !data.ord.isPsi) return
