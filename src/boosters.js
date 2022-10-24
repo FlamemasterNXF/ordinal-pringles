@@ -69,8 +69,8 @@ function boosterReset(){
     data.chal.decrementy = 1
 }
 
-function boost(){
-    if(!data.ord.isPsi || data.ord.ordinal < boostReq()) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
+function boost(f=false){
+    if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
 
     if(data.boost.times === 0){
         DOM('boostNav').style.display = 'block'
