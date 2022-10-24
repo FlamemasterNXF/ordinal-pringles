@@ -36,7 +36,7 @@ function factorCost(n){
     return (10**(n+1))**(2**data.factors[n])
 }
 function hasFactor(n){
-    return data.markup.shifts >= n
+    return data.markup.shifts >= n+1
 }
 function factorEffect(n){
     if(data.chal.active[1] || data.factors[n] < 1) return 1
