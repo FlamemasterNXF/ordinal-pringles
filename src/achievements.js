@@ -156,11 +156,11 @@ function checkAchs(){
         for (let j = 0; j < achievements[i].req.length; j++) {
             let(ach = DOM(`achievement${total}`)
             if {achievements[i].req[j]()==true) {
-                ++total;
+                ++total
             } else {
-            ach.style.backgroundColor = achievements[i].req[j]()?'#0f6f00':'#151515'
-            ach.style.color = achievements[i].req[j]()?'#c8c500':'#9d5700'
-            ++total
+                ach.style.backgroundColor = achievements[i].req[j]()?'#0f6f00':'#151515'
+                ach.style.color = achievements[i].req[j]()?'#c8c500':'#9d5700'
+                ++total
             }
         }
     }
