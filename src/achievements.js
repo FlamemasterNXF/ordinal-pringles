@@ -1,10 +1,10 @@
 const achievements = [
     {
         req: [
-            _=> data.ord.ordinal >= 10 || data.ord.isPsi,
+            _=> (data.ord.ordinal >= 10 || data.ord.isPsi),
             _=> data.ord.ordinal >= data.ord.base**2 || data.ord.isPsi,
             _=> calculateHardy() >= 1.78e308 || data.ord.isPsi,
-            _=> data.ord.ordinal >= data.ord.base**data.ord.base || data.ord.isPsi,
+            _=> data.ord.ordinal >= data.ord.base**data.ord.base || data.ord.isPsi ,
             _=> data.ord.isPsi,
         ],
         name: [
@@ -154,14 +154,11 @@ function checkAchs(){
     let total = 0
     for (let i=0; i < achievements.length; i++){
         for (let j = 0; j < achievements[i].req.length; j++) {
-            let(ach = DOM(`achievement${total}`)
-            if {achievements[i].req[j]()==true) {
-                ++total
-            } else {
-                ach.style.backgroundColor = achievements[i].req[j]()?'#0f6f00':'#151515'
-                ach.style.color = achievements[i].req[j]()?'#c8c500':'#9d5700'
-                ++total
-            }
+            let ach = DOM(`achievement${total}`)
+            if(achievements[i].req[j]() && !data.achs.includes(total))data.achs.push(total)
+            ach.style.backgroundColor = data.achs.includes(total)?'#0f6f00':'#151515'
+            ach.style.color = data.achs.includes(total)?'#c8c500':'#9d5700'
+            ++total
         }
     }
 }
