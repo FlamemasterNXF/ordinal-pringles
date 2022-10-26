@@ -3,8 +3,8 @@ function updateMarkupHTML(){
     DOM("markupButton").innerHTML = data.ord.isPsi&&data.ord.ordinal===GRAHAMS_VALUE&&data.boost.times===0?`Base 2 is required to go further...`:
         data.ord.isPsi?`Markup and gain ${displayPsiOrd(data.ord.ordinal+1, 4)} (I)`:
         calculateHardy()>=10240?`Markup and gain ${formatWhole(opGain())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(10) is required to Markup...`
-    DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0?`Preform a Factor Shift<br>Requires: ?????`:`Preform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
-        `Preform a Factor Shift<br>Requires: ${format(fsReqs[data.markup.shifts])} Ordinal Powers`
+    DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0?`Perform a Factor Shift<br>Requires: ?????`:`Preform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
+        `Perform a Factor Shift<br>Requires: ${format(fsReqs[data.markup.shifts])} Ordinal Powers`
     DOM("auto0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
     DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
     DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0])} Successor AutoClikers click the Successor button ${formatWhole((data.autoLevels[0])*factorBoost()*data.dy.level)} times/second\nYour ${formatWhole(data.autoLevels[1])} Maximize AutoClikers click the Maximize button ${formatWhole((data.autoLevels[1])*factorBoost()*data.dy.level)} times/second`
@@ -20,7 +20,7 @@ function updateMarkupHTML(){
     DOM("dynamicTab").innerText = data.markup.shifts===7||data.chal.active[4]?'Dynamic':'???'
     DOM("dynamicText").innerText = `Your Dynamic Factor is ${data.chal.active[4]?'dividing':'multiplying'} AutoClickers by ${format(data.dy.level, 3)}\nIt increases by ${format(dyGain())}/s, and caps at ${format(data.dy.cap)}`
 
-    DOM("factorBoostButton").innerHTML = `Preform a Factor Boost [+${data.boost.times+1}]<br>Requires ${displayPsiOrd(boostReq(), 5)}`
+    DOM("factorBoostButton").innerHTML = `Perform ${getBulkBoostAmt() < 2 ? "a Factor Boost" : getBulkBoostAmt()+" Factor Boosts"} [+${data.boost.times+1}]<br>Requires ${displayPsiOrd(boostReq(), 5)}`
     DOM("factorBoostButton").style.color = data.ord.isPsi&&data.ord.ordinal>=boostReq()?'#fff480':'#8080FF'
 }
 let markupTab = "auto"
