@@ -53,7 +53,7 @@ function chalEnter(i){
     boosterReset()
     if(i === 2 || i === 5) data.ord.base = 15
     if(i === 4 || i === 5){ data.dy.gain = 0.002; DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic')) }
-    if(i === 6) boosterRefund()
+    if(i === 6 || i === 7) boosterRefund()
 
     for (let j = 0; j < data.chal.active.length; j++) {
         updateChalHTML(j)
