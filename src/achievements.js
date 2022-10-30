@@ -155,8 +155,9 @@ function checkAchs(){
     for (let i=0; i < achievements.length; i++){
         for (let j = 0; j < achievements[i].req.length; j++) {
             let ach = DOM(`achievement${total}`)
-            ach.style.backgroundColor = achievements[i].req[j]()?'#0f6f00':'#151515'
-            ach.style.color = achievements[i].req[j]()?'#c8c500':'#9d5700'
+            if(achievements[i].req[j]() && !data.achs.includes(total))data.achs.push(total)
+            ach.style.backgroundColor = data.achs.includes(total)?'#0f6f00':'#151515'
+            ach.style.color = data.achs.includes(total)?'#c8c500':'#9d5700'
             ++total
         }
     }
