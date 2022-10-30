@@ -70,8 +70,11 @@ function dyGain(){
     if(data.chal.active[6]) return 0
     if(data.chal.active[4]) {
         let m = 0
+        let m2 = data.chal.active[5]?1:(5**data.chal.completions[4])
         for (let i = 0; i < data.boost.hasBUP.length; i++) if(data.boost.hasBUP[i]) ++m
-        return data.dy.gain*m*2
+        m = Math.max(m, 1)
+        data.dy.cap = 40*(5**m)*(5**data.chal.completions[4])
+        return data.dy.gain*((5**m)*m2)
     }
     if(data.boost.hasBUP[3]) return (data.dy.gain*bup11Effect())**2
     return data.dy.gain*bup11Effect()

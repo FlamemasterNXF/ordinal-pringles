@@ -1,13 +1,17 @@
 function updateMarkupHTML(){
     DOM("powersText").innerText = `You have ${formatWhole(data.markup.powers)} Ordinal Powers`
+
+    let autoMult = data.boost.hasBUP[1]?5:1
+    autoMult+=data.boost.hasBUP[6]&&data.ord.base>=5?10:0
     DOM("markupButton").innerHTML = data.ord.isPsi&&data.ord.ordinal===GRAHAMS_VALUE&&data.boost.times===0?`Base 2 is required to go further...`:
         data.ord.isPsi?`Markup and gain ${displayPsiOrd(data.ord.ordinal+1, 4)} (I)`:
-        calculateHardy()>=10240?`Markup and gain ${formatWhole(opGain())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(10) is required to Markup...`
+        calculateHardy()>=10240?`Markup and gain ${formatWhole(opGain()*autoMult)} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(10) is required to Markup...`
+
     DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0?`Perform a Factor Shift<br>Requires: ?????`:`Preform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
         `Perform a Factor Shift<br>Requires: ${format(fsReqs[data.markup.shifts])} Ordinal Powers`
     DOM("auto0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
     DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
-    DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0])} Successor AutoClikers click the Successor button ${formatWhole((data.autoLevels[0])*factorBoost()*data.dy.level)} times/second\nYour ${formatWhole(data.autoLevels[1])} Maximize AutoClikers click the Maximize button ${formatWhole((data.autoLevels[1])*factorBoost()*data.dy.level)} times/second`
+    DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0])} Successor AutoClikers click the Successor button ${formatWhole(data.chal.active[4]?data.autoLevels[0]*factorBoost()/data.dy.level:data.autoLevels[0]*factorBoost()*data.dy.level)} times/second\nYour ${formatWhole(data.autoLevels[1])} Maximize AutoClikers click the Maximize button ${formatWhole(data.chal.active[4]?data.autoLevels[1]*factorBoost()/data.dy.level:data.autoLevels[1]*factorBoost()*data.dy.level)} times/second`
 
     for (let i = 0; i < data.factors.length; i++) {
         DOM(`factor${i}`).innerText = hasFactor(i)?`Factor ${i+1} [${data.boost.hasBUP[10]?formatWhole(data.factors[i]+3):formatWhole(data.factors[i])}] ${formatWhole(factorEffect(i))}x\nCost: ${formatWhole(factorCost(i))} Ordinal Powers`:`Factor ${i+1}\nLOCKED`
@@ -54,13 +58,13 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
     let divisor = Math.pow(base, pow)
     let mult = Math.floor((ord + 0.1) / divisor)
     return Math.min(
-        1e258,
+        (1e258,
         10 ** opGain(pow, base, 0) * mult +
-        opGain(ord - divisor * mult, base, over)
+        opGain(ord - divisor * mult, base, over))
     )
 }
 
-const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 1e101, GRAHAMS_VALUE, Infinity]
+const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 5e100, GRAHAMS_VALUE, Infinity]
 function factorShift(){
     if(data.markup.shifts === 7){
         if(data.ord.isPsi && data.ord.ordinal >= GRAHAMS_VALUE) return boost(true)
@@ -71,11 +75,14 @@ function factorShift(){
     if(!data.chal.active[3]) --data.ord.base
     ++data.markup.shifts
 
-    if(data.markup.shifts === 7){
+    if(data.markup.shifts === 7 && !data.chal.active[4]){
         data.dy.level = 4
         data.dy.gain = 0.002
         DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     }
+
+    if(data.chal.active[4]){ data.dy.gain = 0.002; DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic')) }
+
 
     data.ord.ordinal = 0
     data.ord.over = 0

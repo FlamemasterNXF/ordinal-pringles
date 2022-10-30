@@ -1,7 +1,7 @@
 const chalDesc = [
     "You can only buy 1 of each AutoClicker", "You can't buy Factors",
-    "The Base is 5 higher", "Factor Shifts don't reduce the base", "Dynamic divides AutoClicker speed and each Booster Upgrade bought multiplies Dynamic Gain and Cap by 2",
-    "All previous Challenges at once", "You gain no Dynamic, keep no OP on Markup, Booster Upgrades are useless, and you can only manually click Successor 1000 times per Markup",
+    "The Base is 5 higher", "Factor Shifts don't reduce the base", "Dynamic divides AutoClicker speed, and each Booster Upgrade bought and completion of this Challenge multiplies Dynamic Gain and Cap by 5",
+    "All previous Challenges at once EXCEPT Challenge 5", "You gain no Dynamic, keep no OP on Markup, Booster Upgrades are useless, and you can only manually click Successor 1000 times per Markup",
     "You exponentially gain Decrementy and you're trapped in Challenge 7"
 ]
 const chalGoals = [
@@ -9,7 +9,7 @@ const chalGoals = [
     [4, 6377292, 125524238436, Infinity], //this one is in Ordinal value, [1] and [2] are post-Epsilon-Naught
     [1e200, 1e214, 1e256, Infinity],
     [1e33, 5e113, 1.5e119, Infinity],
-    [1e122, 3.33e136, 1e219, Infinity],
+    [4e256, 4e256, 4e256, Infinity], //4e256 works as a stand in for Epsilon Naught here
     [1.02e33, 1e44, 4.75e108, Infinity],
     [1.05e13, 4.18e18, 1.02e20, Infinity],
     [3.0e10, 6.0e10, 2.4e11, Infinity],
@@ -46,14 +46,14 @@ function updateChalHTML(i){
 function chalEnter(i){
     if(data.chal.completions[i] === 3 || data.chal.active.includes(true)) return
 
-    if(i === 5) for (let j = 0; j < data.chal.active.length-2; j++) data.chal.active[j] = true
+    if(i === 5) for (let j = 0; j < data.chal.active.length-4; j++) data.chal.active[j] = true
     if(i === 7) data.chal.active[6] = true
     data.chal.active[i] = true
 
     boosterReset()
     if(i === 2 || i === 5) data.ord.base = 15
-    if(i === 4 || i === 5){ data.dy.gain = 0.002; DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic')) }
-    if(i === 6 || i === 7) boosterRefund()
+    if(i === 4){ data.dy.gain = 0.002; DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic')) }
+    if(i === 6 || i === 7) boosterRefund(true)
 
     for (let j = 0; j < data.chal.active.length; j++) {
         updateChalHTML(j)

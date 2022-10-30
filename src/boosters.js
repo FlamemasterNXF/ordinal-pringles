@@ -53,7 +53,7 @@ function updateBoostersHTML(){
 function boosterReset(){
     data.ord.ordinal = 0
     data.ord.over = 0
-    data.ord.base = 10
+    data.ord.base = data.chal.active[2]?15:10
     data.ord.isPsi = false
     data.markup.powers = 0
     data.markup.shifts = 0
@@ -67,6 +67,7 @@ function boosterReset(){
         data.autoLevels[i] = 0
     }
     data.chal.decrementy = 1
+    data.successorClicks = 0
 }
 
 function boost(f=false){
@@ -104,7 +105,7 @@ let bup5Effect = () => data.boost.hasBUP[5]?Math.max(Math.sqrt(data.boost.total)
 let bup7Effect = () => data.boost.hasBUP[7]?data.ord.base-2:1
 let bup11Effect = () => data.boost.hasBUP[11]?Math.max(Math.log2(data.boost.amt), 1):1
 
-function boosterRefund(){
+function boosterRefund(c=false){
     let indexes = []
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
         if (data.boost.hasBUP[i]) indexes.push(i)
@@ -114,7 +115,7 @@ function boosterRefund(){
     for (let i = 0; i < indexes.length; i++){
         data.boost.amt += bupCosts[indexes[i]]
     }
-    boosterReset()
+    c?boosterReset():chalExit()
 }
 
 function boosterUnlock(){
