@@ -17,6 +17,7 @@ function getDefaultObject() {
         sToggles: Array(5).fill(true),
         successorClicks: 0,
         lastTick: 0,
+        achs: [],
     }
 }
 let data = getDefaultObject()

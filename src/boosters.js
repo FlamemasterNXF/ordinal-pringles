@@ -76,11 +76,11 @@ function boost(f=false){
         DOM('boostNav').style.display = 'block'
         DOM('factorBoostButton').style.display = 'inline-block'
     }
-
+    for(i=1;i<=getBulkBoostAmt();i++){
     data.boost.amt += data.boost.times+1
     data.boost.total += data.boost.times+1
     ++data.boost.times
-
+    }
     if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
 
     boosterReset()
@@ -88,7 +88,9 @@ function boost(f=false){
 function boostReq(){
     return (3 ** (data.boost.times+1) * 4 * 10)
 }
-
+function getBulkBoostAmt(){
+  return Math.floor(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
+}
 function buyBUP(i){
     if(data.boost.hasBUP[i] || data.boost.amt < bupCosts[i] || data.chal.active[6]) return
     if(i % 4 !== 0 && !data.boost.hasBUP[i-1]) return // Force you to buy them in order, but only in columns
