@@ -39,9 +39,9 @@ function hasFactor(n){
     return data.markup.shifts >= n+1
 }
 function factorEffect(n){
-    const mult = data.boost.hasBUP[0]?2:1
-    const add = data.boost.hasBUP[10]?3:0
-    if(data.chal.active[1] || data.factors[n] < 1) return 1+add
+    const mult = data.boost.hasBUP[0]&&(data.factors[n]>=1||data.boost.hasBUP[10])?2:1
+    const add = data.boost.hasBUP[10]&&hasFactor(n)?3:0
+    if(data.chal.active[1] || data.factors[n] < 1) return 1+add*mult
     return ((data.factors[n]+(1+add))*mult*bup7Effect())*(Math.max(1+(data.markup.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.markup.shifts])
 }
 function factorBoost(){
