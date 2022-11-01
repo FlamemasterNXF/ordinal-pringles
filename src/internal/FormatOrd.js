@@ -96,10 +96,10 @@ function ordinalDisplay() {
     )
 }
 
-function successor(n = 1) {
+function successor(n = 1, m=false) {
     if(data.chal.active[6] && data.successorClicks >= 1000) return
     if(data.ord.isPsi) return
-    ++data.successorClicks
+    if(m)++data.successorClicks
     if (data.ord.ordinal % data.ord.base === data.ord.base - 1) data.ord.over+=n
     else data.ord.ordinal+=n
 }
