@@ -76,6 +76,6 @@ function dyGain(){
         data.dy.cap = 40*(5**m)*(5**data.chal.completions[4])
         return data.dy.gain*((5**m)*m2)
     }
-    if(data.boost.hasBUP[3]) return (data.dy.gain*bup11Effect())**2
+    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return (data.dy.gain*bup11Effect())*bup3Effect()
     return data.dy.gain*bup11Effect()
 }

@@ -5,7 +5,7 @@ function switchBoostTab(t){
     boostTab = t
 }
 
-const bupDesc = ['Each Factor\'s effect is doubled', 'Boost OP gain by 5x', 'The Ordinal Base is always 5 in Challenges', 'Dynamic Gain is squared in Challenges 1-4',
+const bupDesc = ['Each Factor\'s effect is doubled', 'Boost OP gain by 5x', 'The Ordinal Base is always 5 in Challenges', 'Dynamic Gain is multiplied by your C5 completions in C1-C4',
     'Unlock Max All AutoBuyer', 'Boosters Boost Tier 1 and 2 automation', 'Gain 10x OP at Ordinal Base 5 or higher', 'The Ordinal Base boosts Factors (higher is better)',
     'Unlock Markup AutoBuyer', 'Gain 20 Free OP/s', 'Gain 3 free levels of each Factor', 'Boosters boost Dynamic gain if the Ordinal Base is less than 6']
 const bupCosts = [1, 5, 72, 53,
@@ -37,6 +37,7 @@ const autoRequirements = ['you can\'t Factor Shift', 'you\'re past Ψ(Ω)']
 const autoUps = [4, 8]
 function updateBoostersHTML(){
     DOM('boosterText').innerText = `You have ${format(data.boost.amt)} Boosters (${format(data.boost.total)} total)`
+    DOM('bup3').innerText = `${bupDesc[3]}\n[${format(bup3Effect())}x]\n53 Boosters`
     DOM('bup5').innerText = `Boosters Boost Tier 1 and 2 Automation\n[${format(bup5Effect())}x]\n4 Boosters`
     DOM('bup7').innerText = `The Ordinal Base boosts Factors\n[${format(bup7Effect())}x]\n74 Boosters`
     DOM('bup11').innerText = `Boosters boost Dynamic gain if the Base is less than 6\n[${format(bup11Effect())}x]\n66 Boosters`
@@ -103,6 +104,8 @@ function buyBUP(i){
 
     DOM(`bup${i}`).style.backgroundColor = '#002480'
 }
+
+let bup3Effect = () => data.boost.hasBUP[3]?Math.max(Math.pow(2, data.chal.completions[4]), 1):1
 let bup5Effect = () => data.boost.hasBUP[5]?Math.max(Math.sqrt(data.boost.total), 1):1
 let bup7Effect = () => data.boost.hasBUP[7]?data.ord.base-2:1
 let bup11Effect = () => data.boost.hasBUP[11]?Math.max(Math.log2(data.boost.amt), 1):1
