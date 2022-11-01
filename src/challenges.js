@@ -61,12 +61,12 @@ function chalEnter(i){
     data.chal.html = i
 }
 function chalExit(){
-    boosterReset()
     for (let i = 0; i < data.chal.active.length; i++) {
         data.chal.active[i] = false
         updateChalHTML(i)
     }
     data.chal.html = -1
+    boosterReset()
 }
 function chalComplete(){
     if(data.chal.html === -1) return
