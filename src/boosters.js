@@ -2,6 +2,15 @@ let boostTab = "upgrades"
 function switchBoostTab(t){
     DOM(`${boostTab}SubPage`).style.display = `none`
     DOM(`${t}SubPage`).style.display = `flex`
+
+    if (t=="upgrades" && data.incrementy.totalCharge > 0){
+        DOM('bupBottomText').innerText = 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
+        DOM('chargeRefund').style.display = 'block'
+    }
+    else{
+        DOM('bupBottomText').innerText = 'The Unlockables Column does not consume Boosters'
+        DOM('chargeRefund').style.display = 'none'
+    }
     boostTab = t
 }
 
@@ -17,9 +26,17 @@ function initBUPs(){
     for (let i = 0; i < rows.length; i++) {
         for (let n = 0; n < bupCosts.length/3; n++) {
             let bup = document.createElement('button')
-            bup.className = 'bup'
-            bup.id = `bup${total}`
-            bup.innerText = `${bupDesc[total]}\n${bupCosts[total]} Boosters`
+
+            if(data.boost.isCharged[total]){
+                bup.className = 'chargedBUP'
+                bup.id = `bup${total}`
+                bup.innerText = `${chargedBUPDesc[total]}`
+            }
+            else{
+                bup.className = 'bup'
+                bup.id = `bup${total}`
+                bup.innerText = `${bupDesc[total]}\n${bupCosts[total]} Boosters`
+            }
             rows[i].append(bup)
             ++total
         }
@@ -32,11 +49,18 @@ function initBUPs(){
         DOM(`bu${i}`).style.backgroundColor = data.boost.unlocks[i]?'#002480':'black'
     }
 }
+
+const chargedBUPDesc = ['Each Factor\'s effect is Quadrupled', 'Boost OP gain by 500x', 'The Ordinal Base is always 4 in Challenges', 'Dynamic Gain is multiplied by your C5 completions',
+    'The Max All AutoBuyer is boosted by Factor 7', 'Gain 100x OP at Ordinal Base 5 or higher', 'Boosters Boost Tier 1 and 2 Automation at a much higher rate', 'The Base boosts Factors but lower Base is better',
+    'The Markup AutoBuyer is boosted by Factor 7', 'Gain Free OP/s based on your Base', 'Gain 4 free levels of each Factor', 'Boosters boost Dynamic Gain']
+
 const autoNames = ['Max All', 'Markup']
 const autoRequirements = ['you can\'t Factor Shift', 'you\'re past Ψ(Ω)']
 const autoUps = [4, 8]
 function updateBoostersHTML(){
-    DOM('boosterText').innerText = `You have ${format(data.boost.amt)} Boosters (${format(data.boost.total)} total)`
+    DOM('boosterText').innerText = data.incrementy.totalCharge > 0 ?
+        `You have ${format(data.boost.amt)} Boosters (${format(data.boost.total)} total) and ${data.incrementy.charge} Charge (${data.incrementy.totalCharge} total)`
+        : `You have ${format(data.boost.amt)} Boosters (${format(data.boost.total)} total)`
     DOM('bup3').innerText = `${bupDesc[3]}\n[${format(bup3Effect())}x]\n53 Boosters`
     DOM('bup5').innerText = `Boosters Boost Tier 1 and 2 Automation\n[${format(bup5Effect())}x]\n4 Boosters`
     DOM('bup7').innerText = `The Ordinal Base boosts Factors\n[${format(bup7Effect())}x]\n74 Boosters`
@@ -105,7 +129,8 @@ function getBulkBoostAmt(){
     //return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
 }
 function buyBUP(i){
-    if(data.boost.hasBUP[i] || data.boost.amt < bupCosts[i] || data.chal.active[6]) return
+    if (data.boost.hasBUP[i]) return chargeBUP(i)
+    if(data.boost.amt < bupCosts[i] || data.chal.active[6]) return
     if(i % 4 !== 0 && !data.boost.hasBUP[i-1]) return // Force you to buy them in order, but only in columns
 
     data.boost.hasBUP[i] = true
@@ -120,6 +145,8 @@ let bup7Effect = () => data.boost.hasBUP[7]?data.ord.base-2:1
 let bup11Effect = () => data.boost.hasBUP[11]?Math.max(Math.log2(data.boost.amt), 1):1
 
 function boosterRefund(c=false){
+    respecCharge()
+    
     let indexes = []
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
         if (data.boost.hasBUP[i]) indexes.push(i)

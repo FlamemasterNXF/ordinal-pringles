@@ -12,7 +12,7 @@ function incrementyGain() {
 const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Factor boosts Incrementy gain',
                  'Total Factor Boosts boost Incrementy Gain', 'Incrementy adds to the Dynamic Cap (does not effect C5)', 'Dynamic boosts AutoBuyers at a reduced rate',
                  'Challenge Completions provide free levels of Repeatable Upgrade 1', 'Repeatable Upgrade 2 now doubles Dynamic Cap', 'Total Repeatable Upgrade 3 levels boosts Upgrade 3']
-const iupCosts = [1, 1, 1, 2e6, 2e5, 1e10, 3e4, 1e8, 1e8]
+const iupCosts = [1, 1, 1, 2e6, 2e5, 1e10, 3e4, 1e8, 1e12]
 function initIUPs(){
     let rows = [DOM('iupRow0'), DOM('iupRow1'), DOM('iupRow2')]
     let total = 0
@@ -61,9 +61,23 @@ let iupEffects = [iup1Effect, iup2Effect, iup3Effect]
 
 
 function chargeBUP(i){
-    if(!data.incrementy.charge > 0) return
+    if(!data.incrementy.charge > 0 || data.boost.isCharged[i]) return
     data.boost.isCharged[i] = true
     data.incrementy.charge -= 1
+
+    DOM(`bup${i}`).className = 'chargedBUP'
+    DOM(`bup${i}`).innerText = `${chargedBUPDesc[i]}`
+}
+
+function respecCharge(){
+    let indexes = []
+    for (let i = 0; i < data.boost.isCharged.length; i++) {
+        if (data.boost.isCharged[i]) indexes.push(i)
+        data.boost.isCharged[i] = false
+        DOM(`bup${i}`).className = 'bup'
+        DOM(`bup${i}`).innerText = `${bupDesc[i]}\n${bupCosts[i]} Boosters`
+    }
+    data.incrementy.charge = data.incrementy.totalCharge
 }
 
 function sacrificeIncrementy(){
@@ -71,6 +85,8 @@ function sacrificeIncrementy(){
         data.incrementy.amt -= chargeReq()
         ++data.incrementy.totalCharge
         ++data.incrementy.charge
+
+        DOM('chargeRefund').style.display = 'block'
     }
 }
 

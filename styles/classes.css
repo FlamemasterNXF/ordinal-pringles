@@ -48,6 +48,15 @@
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }
+.chargedBUP{
+    width: 10rem;
+    height: 5.2rem;
+    border: 2px solid goldenrod;
+    color: goldenrod;
+    background: black;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
 .iup{
     width: 15rem;
     height: 5.5rem;
@@ -85,7 +94,7 @@
     margin-left: 0.5rem;
 }
 .boostTopButton{
-    width: 15rem;
+    width: 20rem;
     height: 1.5rem;
     border: 2px solid #0000ff;
     color: #8080FF;

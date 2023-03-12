@@ -15,7 +15,7 @@ function getDefaultObject() {
         chal: {decrementy: 1, html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
         incrementy: {amt:0, hasIUP:Array(9).fill(false), rebuyableAmt: Array(3).fill(0), rebuyableCosts: [20, 1000, 100], charge:0, totalCharge:0},
         autoStatus: {enabled: [false, false]},
-        sToggles: Array(5).fill(true),
+        sToggles: Array(6).fill(true),
         successorClicks: 0,
         lastTick: 0,
         achs: [],

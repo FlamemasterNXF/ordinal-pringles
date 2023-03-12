@@ -115,8 +115,12 @@
         </div>
         <div class="flexBox" id="upgradesSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="centeredTexts" id="boosterText">boosteeeeeeeee</div>
-            <button class="boostTopButton" id="boostRefund" onclick="data.sToggles[0]?createConfirmation('Are you sure?', 'This will reset your Booster Upgrades and return spent Boosters, but it will trigger a Booster Reset!', 'Go back!', 'Go ahead.', boosterRefund)
-            :boosterRefund()">Refund your Booster Upgrades</button>
+            <div class="flexBox" style="flex-direction: row;">
+                <button class="boostTopButton" id="boostRefund" onclick="data.sToggles[0]?createConfirmation('Are you sure?', 'This will reset your Booster Upgrades and return spent Boosters, but it will trigger a Booster Reset!', 'Go back!', 'Go ahead.', boosterRefund)
+                :boosterRefund()">Refund your Booster Upgrades</button>
+                <button class="boostTopButton" id="chargeRefund" style="display: none" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Charged Booster Upgrades and return spent Charge, but it will trigger a Booster Reset!', 'Go back!', 'Go ahead.', respecCharge)
+                :respecCharge()">Refund your Charged Booster Upgrades</button>
+            </div>
             <div class="flexBox">
                 <div class="flexBox" id="bupColumn0" style="flex-direction: column"></div>
                 <div class="flexBox" id="bupColumn1" style="flex-direction: column;"></div>
@@ -128,7 +132,7 @@
                     <button class="bup" id="bu3">Unlock ???</button>
                 </div>
             </div>
-            <p class="centeredTexts">The Unlockables Column does not consume Boosters</p>
+            <p class="centeredTexts" id="bupBottomText">The Unlockables Column does not consume Boosters</p>
         </div>
         <div class="flexBox" id="auto2SubPage" style="display: none; flex-direction: column">
             <div class="centeredTexts" id="factorText2" style="color: orange; margin-top: 1rem; margin-bottom: 0.5rem">Factorial! Cog</div>
@@ -166,6 +170,7 @@
         <button class="settingsButton" id="settingsToggle3" onclick="settingsToggle(3)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle4" onclick="settingsToggle(4)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle0" onclick="settingsToggle(0)" style="width: 20rem">aaa</button>
+        <button class="settingsButton" id="settingsToggle5" onclick="settingsToggle(5)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle1" onclick="settingsToggle(1)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle2" onclick="settingsToggle(2)" style="width: 20rem">aaa</button>
         <br>
