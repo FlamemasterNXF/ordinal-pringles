@@ -48,6 +48,15 @@
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }
+.iup{
+    width: 10rem;
+    height: 5.2rem;
+    border: 2px solid #8000ff;
+    color: #8080FF;
+    background: black;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
 .automation2{
     margin-top: 1rem;
     width: 10rem;

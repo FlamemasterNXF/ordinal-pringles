@@ -13,7 +13,7 @@ function getDefaultObject() {
         autoLevels: Array(2).fill(0),
         boost: {amt:0, total:0, times:0, hasBUP:Array(12).fill(false), unlocks: Array(4).fill(false)},
         chal: {decrementy: 1, html: -1, completions: Array(8).fill(0), active: Array(8).fill(false)},
-        incrementy: {amt:0},
+        incrementy: {amt:0, hasIUP:Array(6).fill(false), rebuyableAmt: Array(3).fill(0)},
         autoStatus: {enabled: [false, false]},
         sToggles: Array(5).fill(true),
         successorClicks: 0,

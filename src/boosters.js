@@ -48,7 +48,7 @@ function updateBoostersHTML(){
     }
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
 
-    DOM("incrementyText").innerText = `You have ${format(data.incrementy.amt)} Incrementy [+${format(incrementyGain())}/s], multiplying AutoBuyers by ${format(incrementyMult())}\nYou gain Incrementy based on your Ordinal, but only above Ψ(Ω)`;
+    DOM("incrementyText").innerText = `You have ${format(data.incrementy.amt)} Incrementy [+${format(incrementyGain())}/s], multiplying AutoBuyer speed by ${format(incrementyMult())}\nYou gain Incrementy based on your Ordinal, but only above Ψ(Ω)`;
 
     DOM("chalTab").innerText = data.boost.total>=6?'Challenges':'???'
     DOM("incrementyTab").innerText = data.boost.total>=105?'Incrementy':'???'
@@ -98,7 +98,8 @@ function boostReq(){
     return (3 ** (data.boost.times+1) * 4 * 10)
 }
 function getBulkBoostAmt(){
-    return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
+    return 1
+    //return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
 }
 function buyBUP(i){
     if(data.boost.hasBUP[i] || data.boost.amt < bupCosts[i] || data.chal.active[6]) return

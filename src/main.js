@@ -8,6 +8,7 @@ function loadTabs(){
     initAchs()
     initBUPs()
     initChals()
+    initIUPs()
 }
 function loadUnlockedHTML(){
     DOM('boostNav').style.display = data.boost.times>0?'block':'none'
