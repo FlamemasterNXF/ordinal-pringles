@@ -77,5 +77,5 @@ function dyGain(){
         return data.dy.gain*((5**m)*m2)
     }
     if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return (data.dy.gain*bup11Effect())*bup3Effect()
-    return data.dy.gain*bup11Effect()
+    return data.dy.gain*bup11Effect()*iup2Effect()
 }
