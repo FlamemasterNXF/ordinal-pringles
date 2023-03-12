@@ -74,6 +74,7 @@ function chalComplete(){
     const ex = data.chal.html===1?data.ord.isPsi:true
     if(currency>=chalGoals[data.chal.html][data.chal.completions[data.chal.html]] && ex){
         ++data.chal.completions[data.chal.html]
+        ++data.chal.totalCompletions
         if(data.sToggles[2]) createAlert("Challenge Complete!", `You have Completed Challenge ${data.chal.html+1}x${data.chal.completions[data.chal.html]}!`, 'Awesome!')
         chalExit()
     }

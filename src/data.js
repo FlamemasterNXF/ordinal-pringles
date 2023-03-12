@@ -12,8 +12,8 @@ function getDefaultObject() {
         dy: {level:1, gain:0, cap:40},
         autoLevels: Array(2).fill(0),
         boost: {amt:0, total:0, times:0, hasBUP:Array(12).fill(false), unlocks: Array(4).fill(false)},
-        chal: {decrementy: 1, html: -1, completions: Array(8).fill(0), active: Array(8).fill(false)},
-        incrementy: {amt:0, hasIUP:Array(6).fill(false), rebuyableAmt: Array(3).fill(0), rebuyableCosts: [20, 1000, 100]},
+        chal: {decrementy: 1, html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
+        incrementy: {amt:0, hasIUP:Array(9).fill(false), rebuyableAmt: Array(3).fill(0), rebuyableCosts: [20, 1000, 100]},
         autoStatus: {enabled: [false, false]},
         sToggles: Array(5).fill(true),
         successorClicks: 0,
@@ -34,7 +34,13 @@ function load() {
     let savedata = JSON.parse(window.localStorage.getItem('ordinalPRINGLESsave'))
     if (savedata !== undefined) fixSave(data, savedata)
     fixOldSaves()
+    loadHTML()
     createAlert('Welcome Back!', `You've loaded into Ordinal PRINGLES v${VERSION}\nEnjoy!`, 'Thanks!')
+}
+function loadHTML(){
+    if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
+    if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
+    if(data.boost.total >= 105) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
 }
 //fix saves
 function fixSave(main=getDefaultObject(), data) {
@@ -53,9 +59,13 @@ function fixSave(main=getDefaultObject(), data) {
     else return getDefaultObject()
 }
 function fixOldSaves(){
-    if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
-    if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
-    if(data.boost.total >= 105) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
+    // v0.0.4 => v0.0.5+
+    if (data.chal.completions[0] > 0 && data.chal.totalCompletions == 0){
+        for (let i = 0; i < data.chal.completions.length; i++) {
+            data.chal.totalCompletions += data.chal.completions[i]
+        }
+    } 
+    //Old
     if(data.markup.shifts === 7 && data.dy.level === 1){
         data.dy.level = 4
         data.dy.gain = 0.002
