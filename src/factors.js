@@ -69,8 +69,6 @@ function buyMaxFactor(){
 function dyGain(){
     if(data.chal.active[6]) return 0
 
-    if(data.dy.level > data.dy.cap) data.dy.level = data.dy.cap
-
     if(data.chal.active[4]) {
         let m = 0
         let m2 = data.chal.active[5]?1:(5**data.chal.completions[4])
@@ -82,7 +80,7 @@ function dyGain(){
     if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return (data.dy.gain*bup11Effect())*bup3Effect()
     
     //Could move this to a seperate function if needed
-    data.dy.cap = 40*iup5Effect()
+    data.dy.cap = (40+iup5Effect())*iup8Effect()
     
     return data.dy.gain*bup11Effect()*iup2Effect()
 }
