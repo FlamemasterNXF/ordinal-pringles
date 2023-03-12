@@ -6,13 +6,14 @@ const GRAHAMS_VALUE = 109
 function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
-        ord: {ordinal:0, over:0, base:10, trim: 5, isPsi: false},
+        ord: {ordinal:1, over:0, base:10, trim: 5, isPsi: false},
         markup: {powers:0, shifts:0},
         factors: Array(7).fill(0),
         dy: {level:1, gain:0, cap:40},
         autoLevels: Array(2).fill(0),
         boost: {amt:0, total:0, times:0, hasBUP:Array(12).fill(false), unlocks: Array(4).fill(false)},
         chal: {decrementy: 1, html: -1, completions: Array(8).fill(0), active: Array(8).fill(false)},
+        incrementy: {amt:0},
         autoStatus: {enabled: [false, false]},
         sToggles: Array(5).fill(true),
         successorClicks: 0,
@@ -54,6 +55,7 @@ function fixSave(main=getDefaultObject(), data) {
 function fixOldSaves(){
     if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
+    if(data.boost.total >= 105) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
     if(data.markup.shifts === 7 && data.dy.level === 1){
         data.dy.level = 4
         data.dy.gain = 0.002

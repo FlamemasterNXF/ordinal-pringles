@@ -14,6 +14,7 @@
     <script defer src="src/data.js"></script>
     <script defer src="src/internal/Offline.js"></script>
     <script defer src="src/internal/FormatOrd.js"></script>
+    <script defer src="src/incrementy.js"></script>
     <script defer src="src/challenges.js"></script>
     <script defer src="src/boosters.js"></script>
     <script defer src="src/factors.js"></script>
@@ -110,6 +111,7 @@
             <button class="tabButton" id="upgradeTab" onclick="switchBoostTab('upgrades')" style="color: #8080FF; border-color: #0000ff">Upgrades</button>
             <button class="tabButton" id="auto2Tab" onclick="switchBoostTab('auto2')" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">AutoBuyers</button>
             <button class="tabButton" id="chalTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">Challenges</button>
+            <button class="tabButton" id="incrementyTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">Incrementy</button>
         </div>
         <div class="flexBox" id="upgradesSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="centeredTexts" id="boosterText">boosteeeeeeeee</div>
@@ -121,7 +123,7 @@
                 <div class="flexBox" id="bupColumn2" style="flex-direction: column"></div>
                 <div class="flexBox" id="buColumn" style="flex-direction: column">
                     <button class="bup" id="bu0">Unlock Challenges<br>Requires: 6 Boosters</button>
-                    <button class="bup" id="bu1">Unlock ???</button>
+                    <button class="bup" id="bu1">Unlock Incrementy<br>Requires: 105 Boosters</button>
                     <button class="bup" id="bu2">Unlock ???</button>
                     <button class="bup" id="bu3">Unlock ???</button>
                 </div>
@@ -143,6 +145,9 @@
             <div class="flexBox" id="chalRow1"></div>
             <div class="flexBox" id="chalRow2"></div>
             <div class="flexBox" id="chalRow3"></div>
+        </div>
+        <div class="flexBox" id="incrementySubPage" style="display: none; flex-direction: column">
+            <div class="centeredTexts" id="incrementyText" style="color: #8080FF; margin-top: 1rem; margin-bottom: 0.5rem">Incrementy</div>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;">

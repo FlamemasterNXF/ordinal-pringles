@@ -42,12 +42,16 @@ function updateBoostersHTML(){
     DOM('bup7').innerText = `The Ordinal Base boosts Factors\n[${format(bup7Effect())}x]\n74 Boosters`
     DOM('bup11').innerText = `Boosters boost Dynamic gain if the Base is less than 6\n[${format(bup11Effect())}x]\n66 Boosters`
     for (let i = 0; i < data.autoStatus.enabled.length; i++) {
-        DOM(`t2AutoText${i}`).innerText = `Your ${autoNames[i]} AutoBuyer is clicking the ${autoNames[i]} button ${format(1*bup5Effect())} times/second, but only if ${autoRequirements[i]}`
+        DOM(`t2AutoText${i}`).innerText = `Your ${autoNames[i]} AutoBuyer is clicking the ${autoNames[i]} button ${format(1*bup5Effect()*chalEffectTotal()*incrementyMult())} times/second, but only if ${autoRequirements[i]}`
         DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]]?`${autoNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoNames[i]} AutoBuyer: LOCKED`
+    
     }
-    DOM("factorText2").innerText = `Your Factors are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
+    DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
+
+    DOM("incrementyText").innerText = `You have ${format(data.incrementy.amt)} Incrementy [+${format(incrementyGain())}/s], multiplying AutoBuyers by ${format(incrementyMult())}\nYou gain Incrementy based on your Ordinal, but only above Ψ(Ω)`;
 
     DOM("chalTab").innerText = data.boost.total>=6?'Challenges':'???'
+    DOM("incrementyTab").innerText = data.boost.total>=105?'Incrementy':'???'
     DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
 }
 
@@ -86,6 +90,7 @@ function boost(f=false){
     }
 
     if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
+    if(data.boost.total >= 14) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
 
     boosterReset()
 }
@@ -124,8 +129,8 @@ function boosterRefund(c=false){
 }
 
 function boosterUnlock(){
-    if(data.boost.total>=6){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480'
-    }
+    if(data.boost.total>=6){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480' }
+    if(data.boost.total>=105){ data.boost.unlocks[1] = true; DOM(`bu0`).style.backgroundColor = '#002480' }
 }
 
 function toggleAuto(i){
