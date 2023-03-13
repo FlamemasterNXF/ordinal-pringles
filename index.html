@@ -118,7 +118,7 @@
             <div class="flexBox" style="flex-direction: row;">
                 <button class="boostTopButton" id="boostRefund" onclick="data.sToggles[0]?createConfirmation('Are you sure?', 'This will reset your Booster Upgrades and return spent Boosters, but it will trigger a Booster Reset!', 'Go back!', 'Go ahead.', boosterRefund)
                 :boosterRefund()">Refund your Booster Upgrades</button>
-                <button class="boostTopButton" id="chargeRefund" style="display: none" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Charged Booster Upgrades and return spent Charge, but it will trigger a Booster Reset!', 'Go back!', 'Go ahead.', respecCharge)
+                <button class="boostTopButton" id="chargeRefund" style="display: none" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Charged Booster Upgrades and return spent Charge, but it will force you to exit your Challenge!', 'Go back!', 'Go ahead.', respecCharge)
                 :respecCharge()">Refund your Charged Booster Upgrades</button>
             </div>
             <div class="flexBox">

@@ -78,6 +78,7 @@ function respecCharge(){
         DOM(`bup${i}`).innerText = `${bupDesc[i]}\n${bupCosts[i]} Boosters`
     }
     data.incrementy.charge = data.incrementy.totalCharge
+    chalExit()
 }
 
 function sacrificeIncrementy(){

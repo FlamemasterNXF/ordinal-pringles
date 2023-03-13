@@ -31,7 +31,8 @@ function tick(diff){
     //region automation
     for (let i = 0; i < 2; i++) timesToLoop[i] += !data.chal.active[4]?(diff*data.autoLevels[i]*factorBoost()*bup5Effect()*data.dy.level)/data.chal.decrementy
         :(diff*data.autoLevels[i]*factorBoost()*bup5Effect()/data.dy.level)/data.chal.decrementy
-    for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]]?1*bup5Effect()*chalEffectTotal()*incrementyMult()*iup6Effect():0
+    
+    for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]]?1*bup5Effect()*chalEffectTotal()*incrementyMult()*iup6Effect()*bup4Effect()*bup8Effect():0
 
     for (let i = 0; i < 2; i++) {
         if(Math.floor(timesToLoop[i]/1000) >= 1){
@@ -44,7 +45,7 @@ function tick(diff){
     if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1]) markup(timesToLoop[3]*diff/1000)
     //endregion
 
-    if(data.chal.active.includes(true) && data.boost.hasBUP[2]) data.ord.base = 5
+    if(data.chal.active.includes(true) && data.boost.hasBUP[2]) data.ord.base = bup2Effect()
     boosterUnlock()
     chalComplete()
 }
@@ -55,7 +56,7 @@ function mainLoop() {
 
     if(data.dy.level > data.dy.cap) data.dy.level = data.dy.cap
     if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level += uDiff*dyGain()
-    if(data.boost.hasBUP[9]) data.markup.powers += 20*uDiff
+    if(data.boost.hasBUP[9]) data.markup.powers += bup9Effect()*uDiff
     if(data.chal.active[7]) data.chal.decrementy += decrementyGain(50)
 
     if(data.ord.isPsi && data.boost.unlocks[1]) data.incrementy.amt += uDiff*incrementyGain()
