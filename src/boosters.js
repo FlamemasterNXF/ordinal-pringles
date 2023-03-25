@@ -51,18 +51,17 @@ function initBUPs(){
 }
 
 const chargedBUPDesc = ['Each Factor\'s effect is Quadrupled', 'Boost OP gain by 500x', 'The Ordinal Base is always 4 in Challenges', 'Dynamic Gain is multiplied by your C5 completions',
-    'The AutoBuyers are boosted by Factor 7', 'Boosters Boost Tier 1 and 2 Automation at a much higher rate', 'Gain 100x OP at Ordinal Base 5 or higher', 'The Base boosts Factors but lower Base is better',
-    'The AutoBuyers are boosted by Factor 7', 'Gain Free OP/s based on your Base', 'Gain 4 free levels of each Factor', 'Boosters boost Dynamic Gain']
+    'The AutoBuyers are boosted by Factor 7 (does not stack with Upgrade 3x1)', 'Boosters Boost Tier 1 and 2 Automation at a much higher rate', 'Gain 100x OP at Ordinal Base 5 or higher', 'The Base boosts Factors but lower Base is better',
+    'The AutoBuyers are boosted by Factor 7 (does not stack with Upgrade 2x1)', 'Gain Free OP/s based on your Base', 'Gain 4 free levels of each Factor', 'Boosters boost Dynamic Gain']
 
 let bup0Effect = () => data.boost.hasBUP[0] ? data.boost.isCharged[0] ? 4 : 2 : 1
-let bup1Effect = () => data.boost.hasBUP[0] ? data.boost.isCharged[0] ? 500 : 5 : 1
-let bup2Effect = () => data.boost.isCharged[0] ? 4 : 5
+let bup1Effect = () => data.boost.hasBUP[1] ? data.boost.isCharged[1] ? 500 : 5 : 1
+let bup2Effect = () => data.boost.isCharged[2] ? 4 : 5
 let bup3Effect = () => data.boost.hasBUP[3] ? Math.max(Math.pow(2, data.chal.completions[4]), 1) : 1
-let bup4Effect = () => data.boost.isCharged ? factorEffect(6) : 1
+let bup48Effect = () => data.boost.isCharged[4] || data.boost.isCharged[8] ? Math.sqrt(factorEffect(6)) : 1
 let bup5Effect = () => data.boost.hasBUP[5] ? data.boost.isCharged[5] ? Math.max(Math.sqrt(data.boost.total)*3, 1) : Math.max(Math.sqrt(data.boost.total), 1) : 1
 let bup6Effect = () => data.boost.hasBUP[6] ? data.boost.isCharged[6] ? 100 : 10 : 1
-let bup7Effect = () => data.boost.hasBUP[7] ? data.boost.isCharged[7] ? -data.ord.base + 11 : data.ord.base-2 : 1
-let bup8Effect = () => data.boost.isCharged ? factorEffect(6) : 1
+let bup7Effect = () => data.boost.hasBUP[7] ? data.boost.isCharged[7] ? Math.max(1,(-data.ord.base + 6)) : data.ord.base-2 : 1
 let bup9Effect = () => data.boost.hasBUP[9] ? data.boost.isCharged[9] ? 20*(-data.ord.base+11) : 20 : 1
 let bup10Effect = () => data.boost.hasBUP[10] ? data.boost.isCharged[10] ? 4 : 3 : 0
 let bup11Effect = () => data.boost.hasBUP[11] ? Math.max(Math.log2(data.boost.amt), 1) : 1
@@ -75,9 +74,9 @@ function updateBoostersHTML(){
         `You have ${format(data.boost.amt)} Boosters (${format(data.boost.total)} total) and ${data.incrementy.charge} Charge (${data.incrementy.totalCharge} total)`
         : `You have ${format(data.boost.amt)} Boosters (${format(data.boost.total)} total)`
     DOM('bup3').innerText = `${bupDesc[3]}\n[${format(bup3Effect())}x]\n53 Boosters`
-    DOM('bup5').innerText = `${data.boost.isCharged[3]?chargedBUPDesc[3]:bupDesc[3]}\n[${format(bup5Effect())}x]\n${data.boost.isCharged?'':bupCosts[3]}`
-    DOM('bup7').innerText = `${data.boost.isCharged[7]?chargedBUPDesc[7]:bupDesc[7]}\n[${format(bup7Effect())}x]\n${data.boost.isCharged?'':bupCosts[7]}`
-    DOM('bup11').innerText = `${data.boost.isCharged[11]?chargedBUPDesc[11]:bupDesc[11]}\n[${format(bup11Effect())}x]\n${data.boost.isCharged?'':bupCosts[11]}`
+    DOM('bup5').innerText = `${data.boost.isCharged[5]?chargedBUPDesc[5]:bupDesc[5]}\n[${format(bup5Effect())}x]\n${data.boost.isCharged[5]?'':bupCosts[5]} Boosters`
+    DOM('bup7').innerText = `${data.boost.isCharged[7]?chargedBUPDesc[7]:bupDesc[7]}\n[${format(bup7Effect())}x]\n${data.boost.isCharged[7]?'':bupCosts[7]} Boosters`
+    DOM('bup11').innerText = `${data.boost.isCharged[11]?chargedBUPDesc[11]:bupDesc[11]}\n[${format(bup11Effect())}x]\n${data.boost.isCharged[11]?'':bupCosts[11]} Boosters`
     for (let i = 0; i < data.autoStatus.enabled.length; i++) {
         DOM(`t2AutoText${i}`).innerText = `Your ${autoNames[i]} AutoBuyer is clicking the ${autoNames[i]} button ${format(1*bup5Effect()*chalEffectTotal()*incrementyMult())} times/second, but only if ${autoRequirements[i]}`
         DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]]?`${autoNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoNames[i]} AutoBuyer: LOCKED`
@@ -87,6 +86,7 @@ function updateBoostersHTML(){
 
     DOM("incrementyText").innerText = `You have ${format(data.incrementy.amt)} Incrementy [+${format(incrementyGain())}/s], multiplying AutoBuyer speed by ${format(incrementyMult())}\nYou gain Incrementy based on your Ordinal, but only above Ψ(Ω).`;
     DOM(`iup0`).innerText = `${iupDesc[0]} (${formatWhole(data.incrementy.rebuyableAmt[0])}+${iup7Effect()})\n${format(data.incrementy.rebuyableCosts[0])} Incrementy\nCurrently: ${format(iupEffects[0]())}x`
+    DOM(`iup1`).innerText = `${iupDesc[1]} (${formatWhole(data.incrementy.rebuyableAmt[1])})\n${format(data.incrementy.rebuyableCosts[1])} Incrementy\nCurrently: ${format(iupEffects[1]())}x`
     DOM(`iup2`).innerText = `${iupDesc[2]} (${formatWhole(data.incrementy.rebuyableAmt[2])})\n${format(data.incrementy.rebuyableCosts[2])} Incrementy\nCurrently: ${format(iupEffects[2]())}x`
     DOM('chargeButton').innerText = `Sacrifice ${format(chargeReq())} Incrementy for 1 Charge\nYou have ${data.incrementy.charge} Charge (${data.incrementy.totalCharge} total)`
     
@@ -153,7 +153,7 @@ function buyBUP(i){
 }
 
 function boosterRefund(c=false){
-    respecCharge()
+    respecCharge(c)
     
     let indexes = []
     for (let i = 0; i < data.boost.hasBUP.length; i++) {

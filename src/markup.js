@@ -5,7 +5,7 @@ function updateMarkupHTML(){
     autoMult+=data.boost.hasBUP[6]&&data.ord.base>=5?10:0
     DOM("markupButton").innerHTML = data.ord.isPsi&&data.ord.ordinal===GRAHAMS_VALUE&&data.boost.times===0?`Base 2 is required to go further...`:
         data.ord.isPsi?`Markup and gain ${displayPsiOrd(data.ord.ordinal+1, 4)} (I)`:
-        calculateHardy()>=10240?`Markup and gain ${formatWhole(opGain()*autoMult)} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(10) is required to Markup...`
+        calculateHardy()>=10240?`Markup and gain ${formatWhole(opGain()*autoMult)} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
 
     DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0?`Perform a Factor Shift<br>Requires: ?????`:`Preform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
         `Perform a Factor Shift<br>Requires: ${format(fsReqs[data.markup.shifts])} Ordinal Powers`
@@ -65,7 +65,7 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
     )
 }
 
-const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 5e100, GRAHAMS_VALUE, Infinity]
+const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 5e100, Infinity, Infinity]
 function factorShift(){
     if(data.markup.shifts === 7){
         if(data.ord.isPsi && data.ord.ordinal >= GRAHAMS_VALUE) return boost(true)

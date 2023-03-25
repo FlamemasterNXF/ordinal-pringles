@@ -32,7 +32,7 @@ function tick(diff){
     for (let i = 0; i < 2; i++) timesToLoop[i] += !data.chal.active[4]?(diff*data.autoLevels[i]*factorBoost()*bup5Effect()*data.dy.level)/data.chal.decrementy
         :(diff*data.autoLevels[i]*factorBoost()*bup5Effect()/data.dy.level)/data.chal.decrementy
     
-    for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]]?1*bup5Effect()*chalEffectTotal()*incrementyMult()*iup6Effect()*bup4Effect()*bup8Effect():0
+    for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]]?1*bup5Effect()*chalEffectTotal()*incrementyMult()*iup6Effect()*bup48Effect():0
 
     for (let i = 0; i < 2; i++) {
         if(Math.floor(timesToLoop[i]/1000) >= 1){
@@ -54,7 +54,6 @@ function mainLoop() {
     let diff = Math.max((Date.now() - data.lastTick), 0)
     let uDiff = diff/1000
 
-    if(data.dy.level > data.dy.cap) data.dy.level = data.dy.cap
     if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level += uDiff*dyGain()
     if(data.boost.hasBUP[9]) data.markup.powers += bup9Effect()*uDiff
     if(data.chal.active[7]) data.chal.decrementy += decrementyGain(50)

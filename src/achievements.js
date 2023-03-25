@@ -61,6 +61,7 @@ const achievements = [
             _=> data.boost.times > 4,
             _=> data.boost.times > 9,
             _=> data.boost.times > 19,
+            _=> data.boost.times > 29,
         ],
         name: [
             "Lower is Better",
@@ -71,6 +72,7 @@ const achievements = [
             "Base 2 Soon!",
             "Base 2: Only 30 Years Away!",
             "It Was All Just a Dream",
+            "Wake Up",
         ],
         popup: [
             "Reach Base 9",
@@ -81,6 +83,7 @@ const achievements = [
             "Boost Five Times",
             "Boost Ten Times",
             "Boost Twenty Times",
+            "Boost Thirty Times",
         ]
     },
     {
@@ -88,16 +91,19 @@ const achievements = [
             _=> data.dy.level >= 10,
             _=> data.dy.level >= 40,
             _=> data.dy.level >= 400,
+            _=> data.dy.level >= 4000,
         ],
         name: [
             "Overdrive",
             "Maximum Overdrive",
-            "Maximum is Irrelevant"
+            "Maximum is Irrelevant",
+            "Irrelevancy is Irrelevant"
         ],
         popup: [
             "Reach a Dynamic Factor of 10",
             "Reach a Dynamic Factor of 40",
-            "Reach a Dynamic Factor of 400"
+            "Reach a Dynamic Factor of 400",
+            "Reach a Dynamic Factor of 4000"
         ]
     },
     {
@@ -127,6 +133,35 @@ const achievements = [
             "Complete Challenge 8",
             "Complete Challenge 8x3",
             "Complete all Challenges"
+        ]
+    },
+    {
+        req: [
+            _=> data.incrementy.rebuyableAmt[0] >= 1,
+            _=> data.incrementy.hasIUP[4],
+            _=> data.incrementy.hasIUP[5],
+            _=> data.incrementy.hasIUP[8],
+            _=> data.incrementy.totalCharge >= 1,
+            _=> data.incrementy.totalCharge >= 4,
+            _=> data.incrementy.totalCharge >= 12,
+        ],
+        name: [
+            "Increment the Increment of the Incrementy",
+            "What Cap?",
+            "Dynamic is finally useful!",
+            "The Strongest Factor",
+            "Electric Shuffle",
+            "Electric Boogaloo",
+            "Maximum Voltage",
+        ],
+        popup: [
+            "Purchase a level of Rebuyable Upgrade 1",
+            "Purchase Incrementy Upgrade 2",
+            "Purchase Incrementy Upgrade 3",
+            "Purchase Incrementy Upgrade 9",
+            "Sacrifice Incrementy for Charge",
+            "Sacrifice Incrementy for Charge 4 times",
+            "Sacrifice Incrementy for Charge 12 times",
         ]
     },
 ]
