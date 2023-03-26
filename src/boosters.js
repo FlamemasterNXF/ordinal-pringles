@@ -93,14 +93,12 @@ function updateBoostersHTML(){
     }
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
 
-    DOM("incrementyText").innerText = `You have ${format(data.incrementy.amt)} Incrementy [+${format(incrementyGain())}/s], multiplying AutoBuyer speed by ${format(incrementyMult())}\nYou gain Incrementy based on your Ordinal, but only above Ψ(Ω).`;
-    DOM(`iup0`).innerText = `${iupDesc[0]} (${formatWhole(data.incrementy.rebuyableAmt[0])}+${iup7Effect()})\n${format(data.incrementy.rebuyableCosts[0])} Incrementy\nCurrently: ${format(iupEffects[0]())}x`
-    DOM(`iup1`).innerText = `${iupDesc[1]} (${formatWhole(data.incrementy.rebuyableAmt[1])})\n${format(data.incrementy.rebuyableCosts[1])} Incrementy\nCurrently: ${format(iupEffects[1]())}x`
-    DOM(`iup2`).innerText = `${iupDesc[2]} (${formatWhole(data.incrementy.rebuyableAmt[2])})\n${format(data.incrementy.rebuyableCosts[2])} Incrementy\nCurrently: ${format(iupEffects[2]())}x`
-    DOM('chargeButton').innerText = `Sacrifice ${format(chargeReq())} Incrementy for 1 Charge\nYou have ${data.incrementy.charge} Charge (${data.incrementy.totalCharge} total)`
+   updateIncrementyHTML()
+   updateHierarchiesHTML()
     
     DOM("chalTab").innerText = data.boost.total>=6?'Challenges':'???'
     DOM("incrementyTab").innerText = data.boost.total>=105?'Incrementy':'???'
+    DOM("hierarchiesTab").innerText = data.boost.total>=325?'Hierachies':'???'
     DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
 }
 
@@ -143,7 +141,8 @@ function boost(f=false){
     }
 
     if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
-    if(data.boost.total >= 14) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
+    if(data.boost.unlocks[1]) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
+    if(data.boost.unlocks[2]) DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies'))
 
     boosterReset()
 }
@@ -182,7 +181,8 @@ function boosterRefund(c=false){
 
 function boosterUnlock(){
     if(data.boost.total>=6){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480' }
-    if(data.boost.total>=105){ data.boost.unlocks[1] = true; DOM(`bu0`).style.backgroundColor = '#002480' }
+    if(data.boost.total>=105){ data.boost.unlocks[1] = true; DOM(`bu1`).style.backgroundColor = '#002480' }
+    if(data.boost.total>=325){ data.boost.unlocks[2] = true; DOM(`bu2`).style.backgroundColor = '#002480' }
 }
 
 function toggleAuto(i){

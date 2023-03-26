@@ -110,6 +110,17 @@
     margin-top: 0.3rem;
     color: #9d5700;
 }
+.hierarchyContainer{
+    min-width: 25rem;
+    margin-top: 1rem;
+    text-align: center;
+    flex-direction: row;
+}
+.hierarchies{
+    font-family: DosisLight;
+    font-size: 2rem;
+    color: #8080FF; 
+}
 .tabButton{
     width: 5rem;
     height: 1.5rem;

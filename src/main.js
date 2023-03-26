@@ -22,6 +22,9 @@ function loadSettingsHTML(){
 }
 
 let timesToLoop = [0,0, 0,0]
+
+let t2Auto = () => 1*bup5Effect()*chalEffectTotal()*incrementyMult()*iup6Effect()*bup48Effect()
+
 function tick(diff){
     if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
         data.ord.isPsi = true
@@ -32,7 +35,7 @@ function tick(diff){
     for (let i = 0; i < 2; i++) timesToLoop[i] += !data.chal.active[4]?(diff*data.autoLevels[i]*factorBoost()*bup5Effect()*data.dy.level)/data.chal.decrementy
         :(diff*data.autoLevels[i]*factorBoost()*bup5Effect()/data.dy.level)/data.chal.decrementy
     
-    for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]]?1*bup5Effect()*chalEffectTotal()*incrementyMult()*iup6Effect()*bup48Effect():0
+    for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]]?t2Auto():0
 
     for (let i = 0; i < 2; i++) {
         if(Math.floor(timesToLoop[i]/1000) >= 1){
@@ -43,6 +46,8 @@ function tick(diff){
 
     if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3) && data.autoStatus.enabled[0]){ buyMaxFactor(); buyMaxAuto() }
     if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1]) markup(timesToLoop[3]*diff/1000)
+
+    if(data.boost.unlocks[2]) increaseHierarchies(diff)
     //endregion
 
     if(data.chal.active.includes(true) && data.boost.hasBUP[2]) data.ord.base = bup2Effect()

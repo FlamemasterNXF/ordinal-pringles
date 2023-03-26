@@ -14,6 +14,7 @@
     <script defer src="src/data.js"></script>
     <script defer src="src/internal/Offline.js"></script>
     <script defer src="src/internal/FormatOrd.js"></script>
+    <script defer src="src/hierarchies.js"></script>
     <script defer src="src/incrementy.js"></script>
     <script defer src="src/challenges.js"></script>
     <script defer src="src/boosters.js"></script>
@@ -112,6 +113,7 @@
             <button class="tabButton" id="auto2Tab" onclick="switchBoostTab('auto2')" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">AutoBuyers</button>
             <button class="tabButton" id="chalTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">Challenges</button>
             <button class="tabButton" id="incrementyTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">Incrementy</button>
+            <button class="tabButton" id="hierarchiesTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">Hierarchies</button>
         </div>
         <div class="flexBox" id="upgradesSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="centeredTexts" id="boosterText">boosteeeeeeeee</div>
@@ -158,6 +160,17 @@
             <div class="flexBox" id="iupRow1" style="flex-direction: row"></div>
             <div class="flexBox" id="iupRow2" style="flex-direction: row"></div>
             <button id="chargeButton" onclick="sacrificeIncrementy()">Jonas was here</button>
+        </div>
+        <div class="flexBox" id="hierarchiesSubPage" style="display: none; flex-direction: column">
+            <div class="flexBox, hierarchyContainer">
+                <strong class="centeredTexts, hierarchies" id="h0Text">SPEEDY QUICK</strong>
+                <sub class="generalTexts" id="h0Info">Info</sub>
+            </div>
+            <div class="flexBox, hierarchyContainer">
+                <strong class="centeredTexts, hierarchies" id="h1Text">slow not QUICK</strong>
+                <sub class="generalTexts" id="h1Info">Information</sub>
+            </div>
+            <div class="centeredTexts" id="hierarchyInfo">Information is important Jeffrey.</div>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;">

@@ -90,9 +90,9 @@ function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = dat
     return value
 }
 
-function ordinalDisplay(type) {
+function ordinalDisplay(type, ord=data.ord.ordinal, over=data.ord.over, base=data.ord.base) {
     return (
-        `${type}<sub>${displayOrd(data.ord.ordinal, Math.floor(data.ord.over), data.ord.base)}</sub>`
+        `${type}<sub>${displayOrd(ord, Math.floor(over), base)}</sub>`
     )
 }
 
@@ -100,6 +100,7 @@ function successor(n = 1, m=false) {
     if(data.chal.active[6] && data.successorClicks >= 1000) return
     if(data.ord.isPsi) return
     if(m)++data.successorClicks
+
     if (data.ord.ordinal % data.ord.base === data.ord.base - 1) data.ord.over+=n
     else data.ord.ordinal+=n
 }
