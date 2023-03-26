@@ -111,7 +111,7 @@
     color: #9d5700;
 }
 .hierarchyContainer{
-    min-width: 25rem;
+    min-width: 50%;
     margin-top: 1rem;
     text-align: center;
     flex-direction: row;

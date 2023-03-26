@@ -1,7 +1,8 @@
 function updateHierarchiesHTML(){
     for (let i = 0; i < data.hierachies.ords.length; i++) {
-        DOM(`h${i}Text`).innerHTML =  `${ordinalDisplay(data.hierachies.ords[i].type, data.hierachies.ords[i].ord, data.hierachies.ords[i].over, data.hierachies.ords[i].base)} (${data.ord.base})`
-        DOM(`h${i}Info`).innerText = `(+${hierarchyGains()[i]}/s)`
+        DOM(`h${i}Text`).innerHTML =  `${ordinalDisplay(data.hierachies.ords[i].type, data.hierachies.ords[i].ord, data.hierachies.ords[i].over, data.hierachies.ords[i].base, 3)} (${data.ord.base})`
+        DOM(`h${i}Info`).innerText = `(+${hierarchyGains()[i]}/s), ${hierarchyEffects[i].text}`
+        DOM(`h${i}Effect`).innerText = `${format(hierarchyEffects[i].effect())}`
     }
     DOM('hierarchyInfo').innerText = `Both Hierarchies are Maximized instantly. Their Successor gains are based on AutoBuyer speed.`
 }
@@ -27,3 +28,8 @@ function increaseHierarchies(diff){
         }
     }
 }
+
+let hierarchyEffects = [
+    { text:"Dividing Charge Requirement by", effect: ()=> Math.max(Math.log10(data.hierachies.ords[0].ord+1), 1) },
+    { text:"Multiplying Incrementy Gain by", effect: ()=> Math.max(Math.log10(data.hierachies.ords[1].ord+1), 1) }
+]

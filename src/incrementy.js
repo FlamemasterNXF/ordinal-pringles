@@ -11,7 +11,7 @@ function incrementyGain() {
     if (!data.ord.isPsi) return 0
 
     let base = Math.log10(data.ord.ordinal+1) / 10*iup1Effect()*iup3Effect()*iup4Effect()
-    return base
+    return base*hierarchyEffects[0].effect()
 }
 
 const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Factor boosts Incrementy gain',
@@ -99,4 +99,4 @@ function sacrificeIncrementy(){
     }
 }
 
-let chargeReq = () => 10**(6+(data.incrementy.totalCharge*2))
+let chargeReq = () => (10**(6+(data.incrementy.totalCharge*2)))/hierarchyEffects[1].effect()

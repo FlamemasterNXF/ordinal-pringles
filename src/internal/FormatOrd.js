@@ -90,9 +90,9 @@ function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = dat
     return value
 }
 
-function ordinalDisplay(type, ord=data.ord.ordinal, over=data.ord.over, base=data.ord.base) {
+function ordinalDisplay(type, ord=data.ord.ordinal, over=data.ord.over, base=data.ord.base, trim=data.ord.trim) {
     return (
-        `${type}<sub>${displayOrd(ord, Math.floor(over), base)}</sub>`
+        `${type}<sub>${displayOrd(ord, Math.floor(over), base, trim)}</sub>`
     )
 }
 
