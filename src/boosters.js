@@ -4,6 +4,7 @@ function switchBoostTab(t){
     DOM(`${t}SubPage`).style.display = `flex`
 
     if (t=="upgrades" && data.incrementy.totalCharge > 0){
+        DOM('bupBottomText').style.color = 'goldenrod'
         DOM('bupBottomText').innerText = 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
         DOM('chargeRefund').style.display = 'block'
     }
@@ -47,6 +48,14 @@ function initBUPs(){
     }
     for (let i = 0; i < data.boost.unlocks.length; i++) {
         DOM(`bu${i}`).style.backgroundColor = data.boost.unlocks[i]?'#002480':'black'
+    }
+
+    if(data.incrementy.totalCharge > 0) initBUPHover()
+}
+function initBUPHover(){
+    for (let i = 0; i < data.boost.hasBUP.length; i++) {
+        const index = i
+        DOM(`bup${i}`).addEventListener('mouseover', () => revealChargeEffect(index));
     }
 }
 
@@ -93,6 +102,10 @@ function updateBoostersHTML(){
     DOM("chalTab").innerText = data.boost.total>=6?'Challenges':'???'
     DOM("incrementyTab").innerText = data.boost.total>=105?'Incrementy':'???'
     DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
+}
+
+function revealChargeEffect(i) {
+    DOM('bupBottomText').innerText = `This Upgrade's Superchaged effect is \'${chargedBUPDesc[i]}\'\nThe Unlockables Column does not consume Boosters`
 }
 
 function boosterReset(){
