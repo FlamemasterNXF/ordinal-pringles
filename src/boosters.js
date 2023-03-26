@@ -105,7 +105,7 @@ function updateBoostersHTML(){
 }
 
 function revealChargeEffect(i) {
-    DOM('bupBottomText').innerText = `This Upgrade's Superchaged effect is \'${chargedBUPDesc[i]}\'\nThe Unlockables Column does not consume Boosters`
+    DOM('bupBottomText').innerText = `This Upgrade's Supercharged effect is \'${chargedBUPDesc[i]}\'\nThe Unlockables Column does not consume Boosters`
 }
 
 function boosterReset(){
