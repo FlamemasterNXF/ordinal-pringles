@@ -54,7 +54,7 @@ function mainLoop() {
     let diff = Math.max((Date.now() - data.lastTick), 0)
     let uDiff = diff/1000
 
-    if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level += uDiff*dyGain()
+    if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level = Math.max(data.dy.cap, data.dy.level+uDiff*dyGain())
     if(data.boost.hasBUP[9]) data.markup.powers += bup9Effect()*uDiff
     if(data.chal.active[7]) data.chal.decrementy += decrementyGain(50)
 
