@@ -90,9 +90,9 @@ function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = dat
     return value
 }
 
-function ordinalDisplay() {
+function ordinalDisplay(type) {
     return (
-        `H<sub>${displayOrd(data.ord.ordinal, Math.floor(data.ord.over), data.ord.base)}</sub>`
+        `${type}<sub>${displayOrd(data.ord.ordinal, Math.floor(data.ord.over), data.ord.base)}</sub>`
     )
 }
 
@@ -126,7 +126,7 @@ function changeTrim(x){
 
 function updateOrdHTML(){
     if(data.ord.isPsi || calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base) > 1.79e308 || isNaN(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base)))
-        DOM("ordinal").innerHTML = `${ordinalDisplay()} (${data.ord.base})`
+        DOM("ordinal").innerHTML = `${ordinalDisplay("H")} (${data.ord.base})`
     else
-        DOM("ordinal").innerHTML = `${ordinalDisplay()} (${data.ord.base})=${format(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base))}`
+        DOM("ordinal").innerHTML = `${ordinalDisplay("H")} (${data.ord.base})=${format(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base))}`
 }
