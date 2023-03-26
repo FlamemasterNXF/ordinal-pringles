@@ -36,7 +36,10 @@ function switchMarkupTab(t){
 }
 function markup(n=1){
     let autoMult = bup1Effect()
-    autoMult+= data.ord.base>=5 ? bup6Effect() : 0
+
+    console.log(autoMult)
+
+    autoMult += data.ord.base>=5 ? bup6Effect() : 0
     if(data.ord.isPsi)autoMult*=chalEffectTotal()
 
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal === 109) return

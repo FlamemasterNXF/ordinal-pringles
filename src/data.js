@@ -3,6 +3,7 @@ const D = x => new Decimal(x)
 const VERSION = "0.0.5"
 const PSI_VALUE = 7625597484987
 const GRAHAMS_VALUE = 109
+const BHO_VALUE = 48630661836227112960n
 function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
