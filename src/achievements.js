@@ -60,8 +60,7 @@ const achievements = [
             _=> data.boost.times > 0,
             _=> data.boost.times > 4,
             _=> data.boost.times > 9,
-            _=> data.boost.times > 19,
-            _=> data.boost.times > 29,
+            _=> data.boost.times > 19
         ],
         name: [
             "Lower is Better",
@@ -71,8 +70,7 @@ const achievements = [
             "...what?",
             "Base 2 Soon!",
             "Base 2: Only 30 Years Away!",
-            "It Was All Just a Dream",
-            "Wake Up",
+            "It Was All Just a Dream"
         ],
         popup: [
             "Reach Base 9",
@@ -82,8 +80,7 @@ const achievements = [
             "Boost Once",
             "Boost Five Times",
             "Boost Ten Times",
-            "Boost Twenty Times",
-            "Boost Thirty Times",
+            "Boost Twenty Times"
         ]
     },
     {
@@ -91,7 +88,7 @@ const achievements = [
             _=> data.dy.level >= 10,
             _=> data.dy.level >= 40,
             _=> data.dy.level >= 400,
-            _=> data.dy.level >= 4000,
+            _=> data.dy.level >= 4e4,
         ],
         name: [
             "Overdrive",
@@ -103,7 +100,7 @@ const achievements = [
             "Reach a Dynamic Factor of 10",
             "Reach a Dynamic Factor of 40",
             "Reach a Dynamic Factor of 400",
-            "Reach a Dynamic Factor of 4000"
+            "Reach a Dynamic Factor of 4e4"
         ]
     },
     {
