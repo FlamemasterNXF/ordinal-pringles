@@ -28,6 +28,8 @@ function tick(diff){
         data.ord.ordinal = 4
     }
 
+    chalComplete()
+
     //region automation
     for (let i = 0; i < 2; i++) timesToLoop[i] += !data.chal.active[4]?(diff*data.autoLevels[i]*factorBoost()*bup5Effect()*data.dy.level)/data.chal.decrementy
         :(diff*data.autoLevels[i]*factorBoost()*bup5Effect()/data.dy.level)/data.chal.decrementy
@@ -47,14 +49,13 @@ function tick(diff){
 
     if(data.chal.active.includes(true) && data.boost.hasBUP[2]) data.ord.base = bup2Effect()
     boosterUnlock()
-    chalComplete()
 }
 function mainLoop() {
     if(data.lastTick === 0) data.lastTick = Date.now()
     let diff = Math.max((Date.now() - data.lastTick), 0)
     let uDiff = diff/1000
 
-    if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level = Math.max(data.dy.cap, data.dy.level+uDiff*dyGain())
+    if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level = Math.min(data.dy.cap, data.dy.level+uDiff*dyGain())
     if(data.boost.hasBUP[9]) data.markup.powers += bup9Effect()*uDiff
     if(data.chal.active[7]) data.chal.decrementy += decrementyGain(50)
 
@@ -68,18 +69,18 @@ function mainLoop() {
 }
 document.addEventListener('keydown', (event) => {
     let key = event.key;
-    if (key === "s") successor()
+    if (key === "s") successor(1,true)
     if (key === "m") maximize()
     if (key === "i") markup()
     if (key === "f"){ buyMaxFactor(); buyMaxAuto() }
 }, false);
 
-window.setInterval(function () {
-    mainLoop()
-}, 50);
 window.onload = function () {
     try { load() } catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
     loadTabs()
     loadUnlockedHTML()
     loadSettingsHTML()
+    window.setInterval(function () {
+        mainLoop()
+    }, 50);
 }
