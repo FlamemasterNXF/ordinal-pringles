@@ -68,8 +68,8 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
 const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 5e100, Infinity, Infinity]
 function factorShift(){
     if(data.markup.shifts === 7){
-        /*if(data.ord.isPsi && data.ord.ordinal >= GRAHAMS_VALUE) return boost(true)
-        else */return createAlert("Failure", "Insufficient Ordinal", "Dang.")
+        if(data.ord.isPsi && data.ord.ordinal >= GRAHAMS_VALUE && data.boost.times == 0) return boost(true)
+        else return createAlert("Failure", "Insufficient Ordinal", "Dang.")
     }
 
     if(data.markup.powers < fsReqs[data.markup.shifts]) return createAlert("Failure", "Insufficient Ordinal Powers", "Dang.")
