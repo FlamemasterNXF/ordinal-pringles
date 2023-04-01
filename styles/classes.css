@@ -121,6 +121,31 @@
     font-size: 2rem;
     color: #8080FF; 
 }
+.hb0{
+    width: 15rem;
+    height: 5.5rem;
+    border: 2px solid #4000ff;
+    color: #8080FF;
+    background: black;
+    margin-top: 0.5rem;
+    margin-left: 2rem;
+}
+.hb1{
+    width: 15rem;
+    height: 5.5rem;
+    border: 2px solid #4000ff;
+    color: #8080FF;
+    background: black;
+    margin-top: 0.5rem;
+    margin-right: 2rem;
+}
+.hup{
+    width: 14rem;
+    height: 5rem;
+    border: 2px solid #a600ff;
+    color: #a680ff;
+    background: black;
+}
 .tabButton{
     width: 5rem;
     height: 1.5rem;

@@ -15,7 +15,7 @@ function getDefaultObject() {
         boost: {amt:0, total:0, times:0, hasBUP:Array(12).fill(false), isCharged:Array(12).fill(false), unlocks: Array(4).fill(false)},
         chal: {decrementy: 1, html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
         incrementy: {amt:0, hasIUP:Array(9).fill(false), rebuyableAmt: Array(3).fill(0), rebuyableCosts: [20, 1000, 100], charge:0, totalCharge:0},
-        hierachies: { ords:[ {ord:1, over:0, base:10, type:"f"}, {ord:1, over:0, base:10, type:"g"} ] },
+        hierachies: { ords:[ {ord:1, over:0, base:10, type:"f"}, {ord:1, over:0, base:10, type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(6).fill(false)},
         autoStatus: {enabled: [false, false]},
         sToggles: Array(6).fill(true),
         successorClicks: 0,

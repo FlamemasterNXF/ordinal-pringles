@@ -9,6 +9,7 @@ function loadTabs(){
     initBUPs()
     initChals()
     initIUPs()
+    initHierarchies()
 }
 function loadUnlockedHTML(){
     DOM('boostNav').style.display = data.boost.times>0?'block':'none'
@@ -23,7 +24,7 @@ function loadSettingsHTML(){
 
 let timesToLoop = [0,0, 0,0]
 
-let t2Auto = () => 1*bup5Effect()*chalEffectTotal()*incrementyMult()*iup6Effect()*bup48Effect()
+let t2Auto = () => 1*bup5Effect()*chalEffectTotal()*incrementyMult()*iup6Effect()*bup48Effect()*hupData[3].effect()
 
 function tick(diff){
     if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
