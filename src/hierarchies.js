@@ -22,11 +22,9 @@ function initHierarchies(){
             ++total
         }
     }
-    //for (let i = 0; i < data.incrementy.hasIUP.length; i++) {
-    //    let r = i < 3 ? true : false
-    //    DOM(`iup${i}`).addEventListener('click', ()=>buyIUP(i, r))
-    //    DOM(`iup${i}`).style.color = data.incrementy.hasIUP[i]?'#f542a4':'#8080FF'
-    //}
+    for (let i = 0; i < data.hierachies.rebuyableAmt.length; i++) {
+        DOM(`hb${i}`).addEventListener('click', ()=>buyHBuyable(i))
+    }
 
     // Upgrades
     let columns2 = [DOM('h0Upgrades'), DOM('h1Upgrades')]
@@ -91,5 +89,5 @@ function increaseHierarchies(diff){
 }
 
 function buyHBuyable(i){
-    if(data.incrementy){}
+    //if(){}
 }

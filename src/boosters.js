@@ -147,7 +147,7 @@ function boost(f=false){
     boosterReset()
 }
 function boostReq(){
-    return (3 ** (data.boost.times+1) * 4 * 10)
+    return data.boost.times < 37 ? (3 ** (data.boost.times+1) * 4 * 10) : BHO_VALUE
 }
 function getBulkBoostAmt(){
     return 1
