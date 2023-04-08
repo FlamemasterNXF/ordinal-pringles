@@ -33,8 +33,6 @@ function switchMarkupTab(t){
     markupTab = t
 }
 function markup(n=1){
-    const mult = opMult()
-
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal === 109) return
     if(calculateHardy()<10240 && !data.ord.isPsi) return
     if(data.ord.isPsi){ data.ord.ordinal+=(n*opMult()); return data.markup.powers = 4e256}
@@ -48,7 +46,10 @@ function markup(n=1){
 }
 function opMult(){
     let mult = bup1Effect()
-    mult += data.ord.base>=5 ? bup6Effect() : 0
+
+    let baseReq = data.boost.isCharged[6] ? 4 : 5
+    mult += data.ord.base >= baseReq ? bup6Effect() : 0
+
     if(data.ord.isPsi) mult*=chalEffectTotal()
     return mult
 }
