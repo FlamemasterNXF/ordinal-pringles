@@ -36,7 +36,7 @@ function numToRoman(num) {
 function checkAllIndexes(array, value) {
     let indexes = 0
     for(let i = 0; i < array.length; i++){ if (array[i] === value) indexes++ }
-    return D(indexes)
+    return indexes
 }
 
 function switchTab(tab){

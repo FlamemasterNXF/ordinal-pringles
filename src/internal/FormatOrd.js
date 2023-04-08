@@ -136,10 +136,8 @@ function maximize() {
 }
 
 function changeTrim(x){
-    try{ data.ord.trim = Math.floor(x) }
-    catch (e) {
-        createAlert('Failure', 'Invalid Input.', `Oops.`)
-    }
+    if (isNaN(Math.floor(x))) return createAlert('Failure', 'Invalid Input.', `Oops.`)
+    data.ord.trim = Math.floor(x)
 }
 
 function updateOrdHTML(){

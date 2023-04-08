@@ -161,8 +161,8 @@ function getBulkBoostAmt(){
     //return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
 }
 function buyBUP(i){
-    if (data.boost.hasBUP[i]) return chargeBUP(i)
-    if(data.boost.amt < bupCosts[i] || data.chal.active[6]) return
+    if(data.boost.hasBUP[i]) return chargeBUP(i)
+    if(data.boost.amt < bupCosts[i]) return
     if(i % 4 !== 0 && !data.boost.hasBUP[i-1]) return // Force you to buy them in order, but only in columns
 
     data.boost.hasBUP[i] = true

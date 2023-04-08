@@ -8,7 +8,7 @@ function updateMarkupHTML(){
         calculateHardy()>=10240?`Markup and gain ${formatWhole(opGain()*autoMult)} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
 
     DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0?`Perform a Factor Shift<br>Requires: ?????`:`Preform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
-        `Perform a Factor Shift<br>Requires: ${format(fsReqs[data.markup.shifts])} Ordinal Powers`
+        `Perform a Factor Shift<br>Requires: ${format(getFSReq())} Ordinal Powers`
     DOM("auto0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
     DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
     DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0])} Successor Autoclickers click the Successor button ${formatWhole(data.chal.active[4]?data.autoLevels[0]*factorBoost()/data.dy.level:data.autoLevels[0]*factorBoost()*data.dy.level)} times/second\nYour ${formatWhole(data.autoLevels[1])} Maximize Autoclickers click the Maximize button ${formatWhole(data.chal.active[4]?data.autoLevels[1]*factorBoost()/data.dy.level:data.autoLevels[1]*factorBoost()*data.dy.level)} times/second`
@@ -67,7 +67,7 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
 
 const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 5e100, Infinity, Infinity]
 function getFSReq(){
-    const reqScale = data.chal.active[6] ? totalBUPs()+2 : 1
+    const reqScale = data.chal.active[6] ? totalBUPs()+1.5 : 1
     const req = fsReqs[data.markup.shifts]**reqScale
 
     return req > 1e256 ? 1e256 : req
