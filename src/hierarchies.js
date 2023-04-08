@@ -5,6 +5,14 @@ function updateHierarchiesHTML(){
         DOM(`h${i}Effect`).innerText = `${format(hierarchyData[i].effect())}`
     }
 }
+function updateHBBuyableHTML(i){
+    const el = DOM(`hb${i}`)
+    const cost = i < 3 ? 'FGH' : 'SGH'
+
+
+    el.innerHTML = i == 2 || i==5 ? `${hbData[i].text} (${formatWhole(data.hierachies.rebuyableAmt[i])})<br>${format(hbData[i].cost())} Incrementy<br>Currently: ${format(hbData[i].effect())}x`
+    : `${hbData[i].text} (${formatWhole(data.hierachies.rebuyableAmt[i])})<br>${displayHierarchyOrd(hbData[i].cost(), 0, data.hierachies.ords[i].base, 3)} ${cost}<br>Currently: ${format(hbData[i].effect())}x`
+}
 
 function initHierarchies(){
     // Buyables
@@ -22,6 +30,7 @@ function initHierarchies(){
             ++total
         }
     }
+
     for (let i = 0; i < data.hierachies.rebuyableAmt.length; i++) {
         DOM(`hb${i}`).addEventListener('click', ()=>buyHBuyable(i))
     }
@@ -51,12 +60,12 @@ let hierarchyData = [
 ]
 
 let hbData = [
-    { text:"Boost FGH and SGH gain based on Challenge Completions", cost: ()=> 10, effect: ()=> 1 },
-    { text:"Boost FGH effect based on Challenge Completions", cost: ()=> 10, effect: ()=> 1 },
-    { text:"Boost Incrementy Upgrade 3\'s effect based on FGH", cost: ()=> 10, effect: ()=> 1 },
-    { text:"Boost FGH and SGH gain based on Total Boosters", cost: ()=> 10, effect: ()=> 1 },
-    { text:"Boost SGH effect based on Challenge Completions", cost: ()=> 10, effect: ()=> 1 },
-    { text:"Boost Incrementy Upgrade 3\'s effect based on SGH", cost: ()=> 10, effect: ()=> 1 }
+    { text:"Boost FGH and SGH gain based on Challenge Completions", cost: ()=> getHBBuyableCost(0), effect: ()=> 1 },
+    { text:"Boost FGH effect based on Challenge Completions", cost: ()=> getHBBuyableCost(1), effect: ()=> 1 },
+    { text:"Boost Incrementy Upgrade 3\'s effect based on FGH", cost: ()=> getHBBuyableCost(2), effect: ()=> 1 },
+    { text:"Boost FGH and SGH gain based on Total Boosters", cost: ()=> getHBBuyableCost(3), effect: ()=> 1 },
+    { text:"Boost SGH effect based on Challenge Completions", cost: ()=> getHBBuyableCost(4), effect: ()=> 1 },
+    { text:"Boost Incrementy Upgrade 3\'s effect based on SGH", cost: ()=> getHBBuyableCost(5), effect: ()=> 1 }
 ]
 let hupData = [
     // Effcects of 1 mean that it is a true/false effect.
@@ -88,6 +97,29 @@ function increaseHierarchies(diff){
     }
 }
 
+function getHBBuyableCost(i){
+    console.log(i+1)
+    if(i == 2 || i==5) return 1e12*(data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]+1/10))
+    if(i < 3) return (data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]+1/10))
+    return (data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]+1/10))
+}
+
 function buyHBuyable(i){
-    //if(){}
+    const cost = hbData[i].cost()
+
+    if(data.incrementy.amt > cost && (i == 2 || i == 5)){
+        data.incrementy.amt -= cost
+        ++data.hierachies.rebuyableAmt[i]
+        updateHBBuyableHTML(i)
+    }
+    if(data.hierachies.ords[0].ord > cost && i < 3){
+        data.hierachies.ords[0].ord -= cost
+        ++data.hierachies.rebuyableAmt[i]
+        updateHBBuyableHTML(i)
+    }
+    if(data.hierachies.ords[1].ord > cost && i > 2){
+        data.hierachies.ords[1].ord -= cost
+        ++data.hierachies.rebuyableAmt[i]
+        updateHBBuyableHTML(i)
+    }
 }
