@@ -1,7 +1,7 @@
 function updateHierarchiesHTML(){
     for (let i = 0; i < data.hierachies.ords.length; i++) {
         DOM(`h${i}Text`).innerHTML =  `${ordinalDisplay(data.hierachies.ords[i].type, data.hierachies.ords[i].ord, data.hierachies.ords[i].over, data.hierachies.ords[i].base, 3, false)} (${data.hierachies.ords[i].base})`
-        DOM(`h${i}Info`).innerText = `(+${hierarchyData[i].gain()}/s), ${hierarchyData[i].text}`
+        DOM(`h${i}Info`).innerText = `(+${format(hierarchyData[i].gain())}/s), ${hierarchyData[i].text}`
         DOM(`h${i}Effect`).innerText = `${format(hierarchyData[i].effect())}`
     }
 }
@@ -54,18 +54,23 @@ function initHierarchies(){
 
 let hierarchyData = [
     { text:"Dividing Charge Requirement by", effect: ()=> Math.max(Math.log10(data.hierachies.ords[0].ord+1), 1), 
-        gain: ()=> Math.max(Math.floor(Math.sqrt(t2Auto())), 1)*hupData[2].effect()*hupData[5].effect() },
+        gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults()*hbData[1].effect() },
     { text:"Multiplying Incrementy Gain by", effect: ()=> Math.max(Math.log10(data.hierachies.ords[1].ord+1), 1), 
-        gain: ()=> Math.max(Math.floor(Math.log10(t2Auto()+1)), 1)*hupData[2].effect()*hupData[5].effect() }
+        gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults()*hbData[4].effect() }
 ]
+let hierarchyGainBases = [
+    () => Math.max(Math.floor(Math.sqrt(t2Auto())), 1), 
+    () => Math.max(Math.floor(Math.log10(t2Auto()+1)), 1)
+]
+let hierarchyGainGlobalMults = () => hupData[2].effect()*hupData[5].effect()*hbData[0].effect()*hbData[3].effect()
 
 let hbData = [
-    { text:"Boost FGH and SGH gain based on Challenge Completions", cost: ()=> getHBBuyableCost(0), effect: ()=> 1 },
-    { text:"Boost FGH effect based on Challenge Completions", cost: ()=> getHBBuyableCost(1), effect: ()=> 1 },
-    { text:"Boost Incrementy Upgrade 3\'s effect based on FGH", cost: ()=> getHBBuyableCost(2), effect: ()=> 1 },
-    { text:"Boost FGH and SGH gain based on Total Boosters", cost: ()=> getHBBuyableCost(3), effect: ()=> 1 },
-    { text:"Boost SGH effect based on Challenge Completions", cost: ()=> getHBBuyableCost(4), effect: ()=> 1 },
-    { text:"Boost Incrementy Upgrade 3\'s effect based on SGH", cost: ()=> getHBBuyableCost(5), effect: ()=> 1 }
+    { text:"Boost FGH and SGH gain based on Challenge Completions", cost: ()=> getHBBuyableCost(0), effect: ()=> Math.max(1, Math.sqrt(data.chal.totalCompletions+1)*data.hierachies.rebuyableAmt[0]) },
+    { text:"Boost FGH effect based on Challenge Completions", cost: ()=> getHBBuyableCost(1), effect: ()=> Math.max(1, Math.log10(data.chal.totalCompletions+1)*data.hierachies.rebuyableAmt[1]) },
+    { text:"Boost Incrementy Upgrade 3\'s effect based on FGH", cost: ()=> getHBBuyableCost(2), effect: ()=> Math.max(1, Math.pow(data.hierachies.ords[0].ord+1, 1/16)*data.hierachies.rebuyableAmt[2]) },
+    { text:"Boost FGH and SGH gain based on Total Boosters", cost: ()=> getHBBuyableCost(3), effect: ()=> Math.max(1, Math.sqrt((data.boost.total+1)/20)*data.hierachies.rebuyableAmt[3]) },
+    { text:"Boost SGH effect based on Challenge Completions", cost: ()=> getHBBuyableCost(4), effect: ()=> Math.max(1, Math.log10(data.chal.totalCompletions+1)*data.hierachies.rebuyableAmt[4]) },
+    { text:"Boost Incrementy Upgrade 3\'s effect based on SGH", cost: ()=> getHBBuyableCost(5), effect: ()=> Math.max(1, Math.pow(data.hierachies.ords[1].ord+1, 1/16)*data.hierachies.rebuyableAmt[5]) }
 ]
 let hupData = [
     // Effcects of 1 mean that it is a true/false effect.
