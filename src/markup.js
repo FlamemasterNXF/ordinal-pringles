@@ -1,11 +1,9 @@
 function updateMarkupHTML(){
     DOM("powersText").innerText = `You have ${formatWhole(data.markup.powers)} Ordinal Powers`
 
-    let autoMult = data.boost.hasBUP[1]?5:1
-    autoMult+=data.boost.hasBUP[6]&&data.ord.base>=5?10:0
     DOM("markupButton").innerHTML = data.ord.isPsi&&data.ord.ordinal===GRAHAMS_VALUE&&data.boost.times===0?`Base 2 is required to go further...`:
         data.ord.isPsi?`Markup and gain ${displayPsiOrd(data.ord.ordinal+1, 4)} (I)`:
-        calculateHardy()>=10240?`Markup and gain ${formatWhole(opGain()*autoMult)} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
+        calculateHardy()>=10240?`Markup and gain ${formatWhole(opGain()*opMult())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
 
     DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0?`Perform a Factor Shift<br>Requires: ?????`:`Preform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
         `Perform a Factor Shift<br>Requires: ${format(getFSReq())} Ordinal Powers`
@@ -35,20 +33,24 @@ function switchMarkupTab(t){
     markupTab = t
 }
 function markup(n=1){
-    let autoMult = bup1Effect()
-    autoMult += data.ord.base>=5 ? bup6Effect() : 0
-    if(data.ord.isPsi)autoMult*=chalEffectTotal()
+    const mult = opMult()
 
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal === 109) return
     if(calculateHardy()<10240 && !data.ord.isPsi) return
-    if(data.ord.isPsi){ data.ord.ordinal+=(n*autoMult); return data.markup.powers = 4e256}
+    if(data.ord.isPsi){ data.ord.ordinal+=(n*opMult()); return data.markup.powers = 4e256}
 
     if(data.chal.active[6]) data.markup.powers = 0
     data.ord.isPsi = false
-    data.markup.powers += opGain()*autoMult
+    data.markup.powers += opGain()*opMult()
     data.ord.ordinal = 0
     data.ord.over = 0
     data.successorClicks = 0
+}
+function opMult(){
+    let mult = bup1Effect()
+    mult += data.ord.base>=5 ? bup6Effect() : 0
+    if(data.ord.isPsi) mult*=chalEffectTotal()
+    return mult
 }
 function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over) {
     //if(data.ord.isPsi && base === 3){
