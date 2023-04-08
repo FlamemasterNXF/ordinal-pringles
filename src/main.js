@@ -4,7 +4,8 @@ function loadTabs(){
         DOM(`${TABS[i]}Page`).style.display = 'none'
     }
     switchTab('ord')
-
+}
+function initHTML(){
     initAchs()
     initBUPs()
     initChals()
@@ -62,7 +63,7 @@ function mainLoop() {
 
     if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level = Math.max(data.dy.cap, data.dy.level+uDiff*dyGain())
     if(data.boost.hasBUP[9]) data.markup.powers += bup9Effect()*uDiff
-    if(data.chal.active[7]) data.chal.decrementy += decrementyGain(50)
+    if(data.chal.active[7]) data.chal.decrementy += decrementyGain(data.chal.decrementy*50)
 
     if(data.ord.isPsi && data.boost.unlocks[1]) data.incrementy.amt += uDiff*incrementyGain()
 
@@ -84,8 +85,13 @@ window.setInterval(function () {
     mainLoop()
 }, 50);
 window.onload = function () {
-    try { load() } catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
+    let extra = false
+    try { extra = load() } catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
+
     loadTabs()
+    initHTML()
     loadUnlockedHTML()
     loadSettingsHTML()
+
+    if(extra) fixOldSavesP2()
 }

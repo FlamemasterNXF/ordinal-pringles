@@ -70,7 +70,7 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
 
 const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 5e100, Infinity, Infinity]
 function getFSReq(){
-    const reqScale = data.chal.active[6] ? totalBUPs()+1.5 : 1
+    const reqScale = data.chal.active[6] ? (totalBUPs()/2)+1.5 : 1
     const req = fsReqs[data.markup.shifts]**reqScale
 
     return req > 1e256 ? 1e256 : req

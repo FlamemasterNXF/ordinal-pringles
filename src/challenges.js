@@ -97,7 +97,7 @@ function chalEffectTotal(){
     return Math.max((mult/10)*hupData[0].effect(), 1)
 }
 function decrementyGain(x) {
-    return ((0.000666 * x) / 50) * (data.markup.powers ** 0.2) + 0.01
+    return ((0.000666 * x) / 50) * (data.markup.powers+1) ** 0.2 * 2
     //* (data.markup.powers < 1e30 ? -1 : 1)
     //((game.omegaChallenge == 2?1:double()) ** game.dups[1]) **
 }

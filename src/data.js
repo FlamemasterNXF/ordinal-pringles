@@ -22,6 +22,7 @@ function getDefaultObject() {
         successorClicks: 0,
         lastTick: 0,
         achs: [],
+        loadedVersion: "null"
     }
 }
 let data = getDefaultObject()
@@ -36,9 +37,11 @@ function save(){
 function load() {
     let savedata = JSON.parse(window.localStorage.getItem('ordinalPRINGLESsave'))
     if (savedata !== undefined) fixSave(data, savedata)
-    fixOldSaves()
+    const extra = fixOldSaves()
     loadHTML()
     createAlert('Welcome Back!', `You've loaded into Ordinal PRINGLES v${VERSION}\nEnjoy!`, 'Thanks!')
+
+    return extra
 }
 function loadHTML(){
     if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
@@ -64,6 +67,20 @@ function fixSave(main=getDefaultObject(), data) {
     else return getDefaultObject()
 }
 function fixOldSaves(){
+    let extra = false
+
+    //v0.0.5 => v0.0.6+
+    if (data.loadedVersion == "null" && (data.chal.completions[6] > 0 || data.chal.completions[7] > 0 || data.boost.times > 30)){
+        data.chal.completions[6] = 0
+        data.chal.completions[7] = 0
+
+        if (data.boost.times > 30) {
+            data.boost.times = 30
+            data.boost.total = 465
+            data.boost.amt = 465
+            extra = true
+        } 
+    }
     // v0.0.4 => v0.0.5+
     if (data.chal.completions[0] > 0 && data.chal.totalCompletions == 0){
         for (let i = 0; i < data.chal.completions.length; i++) {
@@ -77,6 +94,15 @@ function fixOldSaves(){
     }
     if(data.dy.level > data.dy.cap) data.dy.level = data.dy.cap
     if(data.ord.isPsi && data.ord.ordinal > GRAHAMS_VALUE && data.boost.times === 0) data.ord.ordinal = GRAHAMS_VALUE
+
+    return extra
+}
+function fixOldSavesP2(){
+    //v0.0.5 => v0.0.6+
+    if (data.loadedVersion == "null"){
+        boosterRefund()
+        createAlert('Nerfed :(', `It looks like you had a v0.0.5 save that was beyond endgame. If you had any C7 or C8 completions they have been reset, and if you had more than 30 Factor Boosts you have been reset to 30. Also, Factor Boosts beyond 30 now have a greatly increased requirement!`, 'Onwards!')
+    } 
 }
 function exportSave(){
     try {
