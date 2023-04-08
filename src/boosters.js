@@ -65,7 +65,7 @@ const chargedBUPDesc = ['Each Factor\'s effect is Quadrupled', 'Boost OP gain by
 
 let bup0Effect = () => data.boost.hasBUP[0] ? data.boost.isCharged[0] ? 4 : 2 : 1
 let bup1Effect = () => data.boost.hasBUP[1] ? data.boost.isCharged[1] ? 500 : 5 : 1
-let bup2Effect = () => data.boost.isCharged[2] ? 4 : 5
+let bup2Effect = () => data.chal.active[6] ? 1 : data.boost.isCharged[2] ? 4 : 5
 let bup3Effect = () => data.boost.hasBUP[3] ? Math.max(Math.pow(2, data.chal.completions[4]), 1) : 1
 let bup48Effect = () => data.boost.isCharged[4] || data.boost.isCharged[8] ? Math.sqrt(factorEffect(6)) : 1
 let bup5Effect = () => data.boost.hasBUP[5] ? data.boost.isCharged[5] ? Math.max(Math.sqrt(data.boost.total)*3, 1) : Math.max(Math.sqrt(data.boost.total), 1) : 1
@@ -196,4 +196,12 @@ function boosterUnlock(){
 function toggleAuto(i){
     if(!data.boost.hasBUP[autoUps[i]]) return
     data.autoStatus.enabled[i] = !data.autoStatus.enabled[i]
+}
+
+function totalBUPs(){
+    let total = 0
+    for (let i = 0; i < data.boost.hasBUP.length; i++) {
+        if (data.boost.hasBUP[i]) ++total        
+    }
+    return total
 }
