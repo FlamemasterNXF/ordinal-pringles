@@ -5,6 +5,10 @@ function updateIncrementyHTML(){
     DOM(`iup2`).innerText = `${iupDesc[2]} (${formatWhole(data.incrementy.rebuyableAmt[2])})\n${format(data.incrementy.rebuyableCosts[2])} Incrementy\nCurrently: ${format(iupEffects[2]())}x`
     DOM('chargeButton').innerText = `Sacrifice ${format(chargeReq())} Incrementy for 1 Charge\nYou have ${data.incrementy.charge} Charge (${data.incrementy.totalCharge} total)`
 }
+function switchIUPText(i, mode){
+    mode ? DOM(`iup${i}`).innerText = `${iupDesc[i]}\nCurrently: ${format(iupEffects[i]())}`
+    : DOM(`iup${i}`).innerText = `${iupDesc[i]}\n${format(iupCosts[i])} Incrementy`
+}
 
 let incrementyMult = () => Math.max(1, Math.sqrt(Math.sqrt(data.incrementy.amt)))
 function incrementyGain() {
@@ -35,6 +39,11 @@ function initIUPs(){
     }
     for (let i = 0; i < data.incrementy.hasIUP.length; i++) {
         let r = i < 3 ? true : false
+
+        if(!r){
+            DOM(`iup${i}`).addEventListener('mouseenter', ()=>switchIUPText(i, true))
+            DOM(`iup${i}`).addEventListener('mouseleave', ()=>switchIUPText(i, false))
+        }
         DOM(`iup${i}`).addEventListener('click', ()=>buyIUP(i, r))
         DOM(`iup${i}`).style.color = data.incrementy.hasIUP[i]?'#f542a4':'#8080FF'
     }
@@ -64,7 +73,8 @@ let iup7Effect = () => data.incrementy.hasIUP[6] ? Math.floor(data.chal.totalCom
 let iup8Effect = () => data.incrementy.hasIUP[7] ? Math.max(1, 1+data.chal.totalCompletions/3) : 1
 let iup9Effect = () => data.incrementy.hasIUP[8] ? data.hierachies.hasUpgrade[1] ? Math.max(1, data.incrementy.rebuyableAmt[2]/10)
 : Math.max(1, Math.sqrt(data.incrementy.rebuyableAmt[2])) : 1
-let iupEffects = [iup1Effect, iup2Effect, iup3Effect]
+
+let iupEffects = [iup1Effect, iup2Effect, iup3Effect, iup4Effect, iup5Effect, iup6Effect, iup7Effect, iup8Effect, iup9Effect]
 
 
 function chargeBUP(i){
