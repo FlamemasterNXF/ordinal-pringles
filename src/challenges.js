@@ -2,7 +2,7 @@ const chalDesc = [
     "You can only buy 1 of each AutoClicker", "You can't buy Factors",
     "The Base is 5 higher", "Factor Shifts don't reduce the base", "Dynamic divides AutoClicker speed, and each Booster Upgrade bought and completion of this Challenge multiplies Dynamic Gain and Cap by 5",
     "All previous Challenges at once EXCEPT Challenge 5", "You gain no Dynamic, keep no OP on Markup, Booster Upgrades are useless, and you can only manually click Successor 1000 times per Markup",
-    "You exponentially gain Decrementy and you're trapped in Challenge 7"
+    "You exponentially gain Decrementy that divides AutoClicker Speed and you're trapped in Challenge 7"
 ]
 const chalGoals = [
     [1e32, 1e223, 4e256, Infinity], //4e256 works as a stand in for Epsilon Naught here
@@ -90,7 +90,7 @@ function chalEffectTotal(){
     return Math.max((mult/10)*hupData[0].effect(), 1)
 }
 function decrementyGain(x) {
-    return ((0.000666 * x) / 50) * (data.markup.powers ** 0.2)
+    return ((0.000666 * x) / 50) * (data.markup.powers ** 0.2) + 0.01
     //* (data.markup.powers < 1e30 ? -1 : 1)
     //((game.omegaChallenge == 2?1:double()) ** game.dups[1]) **
 }

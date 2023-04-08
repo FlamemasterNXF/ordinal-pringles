@@ -146,6 +146,11 @@
     color: #a680ff;
     background: black;
 }
+.bpEffectContainer{
+    margin-top: 0.3rem;
+    text-align: center;
+    flex-direction: row;
+}
 .tabButton{
     width: 5rem;
     height: 1.5rem;

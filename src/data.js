@@ -16,6 +16,7 @@ function getDefaultObject() {
         chal: {decrementy: 1, html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
         incrementy: {amt:0, hasIUP:Array(9).fill(false), rebuyableAmt: Array(3).fill(0), rebuyableCosts: [20, 1000, 100], charge:0, totalCharge:0},
         hierachies: { ords:[ {ord:1, over:0, base:10, type:"f"}, {ord:1, over:0, base:10, type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(6).fill(false)},
+        overflow: {bp:0},
         autoStatus: {enabled: [false, false]},
         sToggles: Array(6).fill(true),
         successorClicks: 0,
@@ -44,6 +45,7 @@ function loadHTML(){
     if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
     if(data.boost.total >= 105) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
     if(data.boost.total >= 325) DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies'))
+    if(data.boost.total >= 378) DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow'))
 }
 //fix saves
 function fixSave(main=getDefaultObject(), data) {

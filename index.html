@@ -14,6 +14,7 @@
     <script defer src="src/data.js"></script>
     <script defer src="src/internal/Offline.js"></script>
     <script defer src="src/internal/FormatOrd.js"></script>
+    <script defer src="src/overflow.js"></script>
     <script defer src="src/hierarchies.js"></script>
     <script defer src="src/incrementy.js"></script>
     <script defer src="src/challenges.js"></script>
@@ -114,6 +115,7 @@
             <button class="tabButton" id="chalTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">Challenges</button>
             <button class="tabButton" id="incrementyTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">Incrementy</button>
             <button class="tabButton" id="hierarchiesTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">Hierarchies</button>
+            <button class="tabButton" id="overflowTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">Overflow</button>
         </div>
         <div class="flexBox" id="upgradesSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="centeredTexts" id="boosterText">boosteeeeeeeee</div>
@@ -131,7 +133,7 @@
                     <button class="bup" id="bu0">Unlock Challenges<br>Requires: 6 Boosters</button>
                     <button class="bup" id="bu1">Unlock Incrementy<br>Requires: 105 Boosters</button>
                     <button class="bup" id="bu2">Unlock Hierarchies<br>Requires: 325 Boosters</button>
-                    <button class="bup" id="bu3">Unlock ???</button>
+                    <button class="bup" id="bu3">Unlock Overflow<br>Requires: 378 Boosters</button>
                 </div>
             </div>
             <p class="centeredTexts" id="bupBottomText">The Unlockables Column does not consume Boosters</p>
@@ -181,6 +183,25 @@
                 <div class="flexBox" id="h1Upgrades" style="flex-direction: column"></div>
             </div>
             <div class="centeredTexts" id="hierarchyInfo" style="margin-top:1rem">Both Hierarchies are Maximized instantly. Their Successor gains are based on AutoBuyer speed.</div>
+        </div>
+        <div class="flexBox" id="overflowSubPage" style="display: none; flex-direction: column">
+            <div class="flexBox" style="margin-top: 1rem; flex-direction: row;">
+                <div class="centeredTexts" id="boosterText2">boosteeeeeeeee TWO</div>
+                <strong class="centeredTexts" id="boosterPower" style="color: aqua; margin-left:0.3rem">boosteeeeeeeee [POWER]</strong>
+            </div>
+            <strong class="centeredTexts" id="bpTotal" style="margin-top: 1rem; color:#8080FF">Booster Power is</strong>
+            <div class="flexBox, bpEffectContainer">
+                <t class="generalTexts" id="bp0Description">Multiplying the Challenge Boost to AutoBuyers by </t>
+                <strong class="generalTexts" id="bp0Effect" style="color: aqua">1</strong>
+            </div>
+            <div class="flexBox, bpEffectContainer">
+                <t class="generalTexts" id="bp1Description">Multiplying Hierarchy Gain Speed by </t>
+                <strong class="generalTexts" id="bp1Effect" style="color: aqua">1</strong>
+            </div>
+            <div class="flexBox, bpEffectContainer">
+                <t class="generalTexts" id="bp2Description">Dividing Decrementy Gain by </t>
+                <strong class="generalTexts" id="bp2Effect" style="color: aqua">1</strong>
+            </div>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;">
