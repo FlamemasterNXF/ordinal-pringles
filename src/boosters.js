@@ -140,6 +140,8 @@ function boost(f=false){
         ++data.boost.times
     }
 
+    if(data.boost.times == 30) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
+
     if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
     if(data.boost.unlocks[1]) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
     if(data.boost.unlocks[2]) DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies'))
@@ -147,7 +149,8 @@ function boost(f=false){
     boosterReset()
 }
 function boostReq(){
-    return data.boost.times < 37 ? (3 ** (data.boost.times+1) * 4 * 10) : BHO_VALUE
+    let scaling = data.boost.times < 30 ? 1 : 100*(data.boost.times/15)
+    return data.boost.times < 33 ? (3 ** (data.boost.times+1) * 4 * 10 * scaling) : BHO_VALUE
 }
 function getBulkBoostAmt(){
     return 1
