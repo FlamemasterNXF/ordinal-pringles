@@ -55,3 +55,5 @@ function settingsToggle(i){
 function allEqual(arr, i){
     return arr.every( v => v === i )
 }
+
+let boostersAtGivenFB = (i = data.boost.times) => i > 0 ? (i*(i+1))/2 : 0

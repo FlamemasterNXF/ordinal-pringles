@@ -205,5 +205,3 @@ function totalBUPs(){
     }
     return total
 }
-
-let boostersAtGivenFB = (i = data.boost.times) => i > 0 ? (i*(i+1))/2 : 0
