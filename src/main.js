@@ -46,7 +46,15 @@ function tick(diff){
         }
     }
 
-    if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3) && data.autoStatus.enabled[0]){ buyMaxAuto(); buyMaxFactor(); }
+    if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3) && data.autoStatus.enabled[0]){ 
+        if (data.autoLevels[0] == 0 || data.autoLevels[1] == 0){
+            buyMaxAuto()
+            buyMaxFactor() 
+            return
+        }
+        buyMaxFactor() 
+        buyMaxAuto()
+    }
     if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1]) markup(timesToLoop[3]*diff/1000)
 
     if(data.boost.unlocks[2]) increaseHierarchies(diff)
