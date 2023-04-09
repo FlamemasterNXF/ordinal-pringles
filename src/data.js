@@ -46,7 +46,7 @@ function load() {
 function loadHTML(){
     if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
-    if(data.boost.total >= 105) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
+    if(data.boost.total >= 91) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
     if(data.boost.total >= 325) DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies'))
     if(data.boost.total >= 378) DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow'))
 }

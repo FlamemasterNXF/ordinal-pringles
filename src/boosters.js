@@ -98,7 +98,7 @@ function updateBoostersHTML(){
    updateOverflowHTML()
 
     DOM("chalTab").innerText = data.boost.total>=6?'Challenges':'???'
-    DOM("incrementyTab").innerText = data.boost.total>=105?'Incrementy':'???'
+    DOM("incrementyTab").innerText = data.boost.total>=91?'Incrementy':'???'
     DOM("hierarchiesTab").innerText = data.boost.total>=325?'Hierachies':'???'
     DOM("overflowTab").innerText = data.boost.total>=378?'Overflow':'???'
     DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
@@ -188,7 +188,7 @@ function boosterRefund(c=false){
 
 function boosterUnlock(){
     if(data.boost.total>=6){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480' }
-    if(data.boost.total>=105){ data.boost.unlocks[1] = true; DOM(`bu1`).style.backgroundColor = '#002480' }
+    if(data.boost.total>=91){ data.boost.unlocks[1] = true; DOM(`bu1`).style.backgroundColor = '#002480' }
     if(data.boost.total>=325){ data.boost.unlocks[2] = true; DOM(`bu2`).style.backgroundColor = '#002480' }
     if(data.boost.total>=378){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480' }
 }
