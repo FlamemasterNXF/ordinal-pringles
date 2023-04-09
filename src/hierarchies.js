@@ -8,10 +8,19 @@ function updateHierarchiesHTML(){
 function updateHBBuyableHTML(i){
     const el = DOM(`hb${i}`)
     const cost = i < 3 ? 'FGH' : 'SGH'
+    const ord = i < 3 ? 0 : 1
 
 
     el.innerHTML = i == 2 || i==5 ? `${hbData[i].text} (${formatWhole(data.hierachies.rebuyableAmt[i])})<br>${format(hbData[i].cost())} Incrementy<br>Currently: ${format(hbData[i].effect())}x`
-    : `${hbData[i].text} (${formatWhole(data.hierachies.rebuyableAmt[i])})<br>${displayHierarchyOrd(hbData[i].cost(), 0, data.hierachies.ords[i].base, 3)} ${cost}<br>Currently: ${format(hbData[i].effect())}x`
+    : `${hbData[i].text} (${formatWhole(data.hierachies.rebuyableAmt[i])})<br>${displayHierarchyOrd(hbData[i].cost(), 0, data.hierachies.ords[ord].base, 3)} ${cost}<br>Currently: ${format(hbData[i].effect())}x`
+}
+function updateHUPHTML(i){
+    const el = DOM(`hup${i}`)
+    const cost = i < 3 ? 'FGH' : 'SGH'
+    const ord = i < 3 ? 0 : 1
+
+
+    el.innerHTML = `${hupData[i].text}<br>${displayHierarchyOrd(hupData[i].cost, 0, data.hierachies.ords[ord].base, 3)} ${cost}<br><font color='#424242'><b>Bought!</b></font>`
 }
 
 function initHierarchies(){
@@ -24,15 +33,13 @@ function initHierarchies(){
             let hb = document.createElement('button')
             hb.className = `hb${i}`
             hb.id = `hb${total}`
+
             hb.innerHTML = n < 2 ? `${hbData[total].text} (${formatWhole(data.hierachies.rebuyableAmt[total])})<br>${displayHierarchyOrd(hbData[total].cost(), 0, data.hierachies.ords[i].base)} ${cost}<br>Currently: ${format(hbData[total].effect())}x`
             : `${hbData[total].text} (${formatWhole(data.hierachies.rebuyableAmt[total])})<br>${format(hbData[total].cost())} Incrementy<br>Currently: ${format(hbData[total].effect())}x`
+            
             columns[i].append(hb)
             ++total
         }
-    }
-
-    for (let i = 0; i < data.hierachies.rebuyableAmt.length; i++) {
-        DOM(`hb${i}`).addEventListener('click', ()=>buyHBuyable(i))
     }
 
     // Upgrades
@@ -43,11 +50,19 @@ function initHierarchies(){
         for (let n = 0; n < 3; n++) {
             let hup = document.createElement('button')
             hup.className = ' hup'
-            hup.id = `hup${total}`
-            hup.innerHTML = `${hupData[total2].text}<br>${displayHierarchyOrd(hupData[total2].cost, 0, data.hierachies.ords[i].base)} ${cost}`
+            hup.id = `hup${total2}`
+
+            data.hierachies.hasUpgrade[total2] ? hup.innerHTML = `${hupData[total2].text}<br>${displayHierarchyOrd(hupData[total2].cost, 0, data.hierachies.ords[i].base)} ${cost}<br><font color='#424242'><b>Bought!</b></font>`
+            : hup.innerHTML = `${hupData[total2].text}<br>${displayHierarchyOrd(hupData[total2].cost, 0, data.hierachies.ords[i].base)} ${cost}`
+            
             columns2[i].append(hup)
             ++total2
         }
+    }
+
+    for (let i = 0; i < data.hierachies.rebuyableAmt.length; i++) {
+        DOM(`hb${i}`).addEventListener('click', ()=>buyHBuyable(i))
+        DOM(`hup${i}`).addEventListener('click', ()=>buyHUP(i))
     }
 }
 
@@ -103,7 +118,6 @@ function increaseHierarchies(diff){
 }
 
 function getHBBuyableCost(i){
-    console.log(i+1)
     if(i == 2 || i==5) return 1e12*(data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]+1/10))
     if(i < 3) return (data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]+1/10))
     return (data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]+1/10))
@@ -126,5 +140,20 @@ function buyHBuyable(i){
         data.hierachies.ords[1].ord -= cost
         ++data.hierachies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
+    }
+}
+
+function buyHUP(i){
+    const cost = hupData[i].cost
+
+    if(data.hierachies.ords[0].ord > cost && i < 3){
+        data.hierachies.ords[0].ord -= cost
+        data.hierachies.hasUpgrade[i] = true
+        updateHUPHTML(i)
+    }
+    if(data.hierachies.ords[1].ord > cost && i > 2){
+        data.hierachies.ords[1].ord -= cost
+        data.hierachies.hasUpgrade[i] = true
+        updateHUPHTML(i)
     }
 }
