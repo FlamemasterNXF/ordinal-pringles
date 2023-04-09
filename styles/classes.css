@@ -151,6 +151,10 @@
     text-align: center;
     flex-direction: row;
 }
+.overflowText{
+    color: white;
+    font-family: DosisSemiBold;
+}
 .tabButton{
     width: 5rem;
     height: 1.5rem;
