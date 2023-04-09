@@ -6,4 +6,5 @@ function updateOverflowHTML(){
 
 const overflowEffectRequirements = [1e3, 1e10, 1e100]
 
-let getExtraBoosters = () => data.boost.total-378
+let maxNonOverflowBoosters = boostersAtGivenFB(27)
+let getExtraBoosters = () => data.boost.total-maxNonOverflowBoosters
