@@ -75,6 +75,11 @@ function chalExit(){
     data.chal.html = -1
     boosterReset()
 }
+//TODO: This exists because of how createConfirmation works. Change it.
+function chalExitConfirm(){
+    if(checkAllIndexes(data.chal.active, true) == 0) return createAlert(`Oops.`, `You have to be in a Challenge to leave it!`, `Sorry :(`)
+    createConfirmation("Are you sure?", "Leaving a Challenge early will force a Booster Reset and you will get no rewards!", "No way!", "Of course!", chalExit)
+}
 function chalComplete(){
     if(data.chal.html === -1) return
     const currency = data.chal.html===1?data.ord.ordinal:data.markup.powers
