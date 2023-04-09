@@ -16,7 +16,7 @@ function getDefaultObject() {
         chal: {decrementy: 1, html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
         incrementy: {amt:0, hasIUP:Array(9).fill(false), rebuyableAmt: Array(3).fill(0), rebuyableCosts: [20, 1000, 100], charge:0, totalCharge:0},
         hierachies: { ords:[ {ord:1, over:0, base:10, type:"f"}, {ord:1, over:0, base:10, type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(6).fill(false)},
-        overflow: {bp:0, oc:0},
+        overflow: {bp:1, oc:1},
         autoStatus: {enabled: [false, false]},
         sToggles: Array(6).fill(true),
         successorClicks: 0,

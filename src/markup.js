@@ -35,7 +35,7 @@ function switchMarkupTab(t){
 function markup(n=1){
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal === 109) return
     if(calculateHardy()<10240 && !data.ord.isPsi) return
-    if(data.ord.isPsi){ data.ord.ordinal+=(n*opMult()); return data.markup.powers = 4e256}
+    if(data.ord.isPsi){ data.ord.ordinal+=n; return data.markup.powers = 4e256}
 
     if(data.chal.active[6]) data.markup.powers = 0
     data.ord.isPsi = false
@@ -50,7 +50,6 @@ function opMult(){
     let baseReq = data.boost.isCharged[6] ? 4 : 5
     mult += data.ord.base >= baseReq ? bup6Effect() : 0
 
-    if(data.ord.isPsi) mult*=chalEffectTotal()
     return mult
 }
 function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over) {

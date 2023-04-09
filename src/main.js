@@ -25,7 +25,7 @@ function loadSettingsHTML(){
 
 let timesToLoop = [0,0, 0,0]
 
-let t2Auto = () => 1*bup5Effect()*chalEffectTotal()*incrementyMult()*iup6Effect()*bup48Effect()*hupData[3].effect()
+let t2Auto = () => 1*chalEffectTotal()*bup5Effect()*incrementyMult()*iup6Effect()*bup48Effect()*hupData[3].effect()
 
 function tick(diff){
     if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
@@ -74,6 +74,10 @@ function mainLoop() {
     if(data.chal.active[7]) data.chal.decrementy += decrementyGain(data.chal.decrementy*50)
 
     if(data.ord.isPsi && data.boost.unlocks[1]) data.incrementy.amt += uDiff*incrementyGain()
+    if(data.boost.unlocks[3]) {
+        data.overflow.bp += getOverflowGain(0)*uDiff
+        data.overflow.oc += getOverflowGain(1)*uDiff
+    }
 
     tick(diff)
     data.lastTick = Date.now()

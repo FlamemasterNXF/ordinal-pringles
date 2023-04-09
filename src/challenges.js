@@ -99,7 +99,9 @@ function chalEffectTotal(){
         mult += (factorEffect(i)*chalEffect(i))
     }
     mult += data.dy.level * chalEffect(7)
-    return Math.max((mult/10)*hupData[0].effect(), 1)
+
+    let base = (mult/10)*hupData[0].effect()
+    return Math.max(base**2, 1)
 }
 function decrementyGain(x) {
     return ((0.000666 * x) / 50) * (data.markup.powers+1) ** 0.2 * 2
