@@ -100,11 +100,11 @@ function chalEffectTotal(){
     }
     mult += data.dy.level * chalEffect(7)
 
-    let base = (mult/10)*hupData[0].effect()
+    let base = (mult/10)*hupData[0].effect()*getOverflowEffect(0)
     return Math.max(base**2, 1)
 }
 function decrementyGain(x) {
-    return ((0.000666 * x) / 50) * (data.markup.powers+1) ** 0.2 * 2
+    return (((0.000666 * x) / 50) * (data.markup.powers+1) ** 0.2 * 2)/getOverflowEffect(2)
     //* (data.markup.powers < 1e30 ? -1 : 1)
     //((game.omegaChallenge == 2?1:double()) ** game.dups[1]) **
 }

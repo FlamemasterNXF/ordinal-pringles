@@ -77,7 +77,7 @@ let hierarchyGainBases = [
     () => Math.max(Math.floor(Math.sqrt(t2Auto())), 1), 
     () => Math.max(Math.floor(Math.log10(t2Auto()+1)), 1)
 ]
-let hierarchyGainGlobalMults = () => hupData[2].effect()*hupData[5].effect()*hbData[0].effect()*hbData[3].effect()
+let hierarchyGainGlobalMults = () => hupData[2].effect()*hupData[5].effect()*hbData[0].effect()*hbData[3].effect()*getOverflowEffect(3)
 
 let hbData = [
     { text:"Boost FGH and SGH gain based on Challenge Completions", cost: ()=> getHBBuyableCost(0), effect: ()=> Math.max(1, Math.sqrt(data.chal.totalCompletions+1)*data.hierachies.rebuyableAmt[0]) },
