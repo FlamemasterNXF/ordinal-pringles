@@ -1,6 +1,6 @@
 const D = x => new Decimal(x)
 //create all the variables in a data object for saving
-const VERSION = "0.0.5"
+const VERSION = "0.0.6"
 const PSI_VALUE = 7625597484987
 const GRAHAMS_VALUE = 109
 const BHO_VALUE = 48630661836227112960
@@ -80,6 +80,7 @@ function fixOldSaves(){
             data.boost.amt = 465
             extra = true
         } 
+        data.loadedVersion == "0.0.6"
     }
     // v0.0.4 => v0.0.5+
     if (data.chal.completions[0] > 0 && data.chal.totalCompletions == 0){

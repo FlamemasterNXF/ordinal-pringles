@@ -89,12 +89,12 @@ let hbData = [
 ]
 let hupData = [
     // Effcects of 1 mean that it is a true/false effect.
-    { text:"The Challenge Boost is Improved", cost: 10, effect: ()=> data.hierachies.hasUpgrade[0] ? 5 : 1 },
-    { text:"Incrementy Upgrade 6 is Improved", cost: 10, effect: ()=> 1 },
-    { text:"Booster Upgrade 1x4 boosts Hierarchies while Supercharged", cost: 10, effect: ()=> data.hierachies.hasUpgrade[2] ? bup3Effect() : 1 },
-    { text:"Total Charge Boosts AutoBuyers", cost: 10, effect: ()=> data.hierachies.hasUpgrade[3] ? data.incrementy.totalCharge : 1 },
-    { text:"Incrementy Upgrade 2 is Improved", cost: 10, effect: ()=> 1 },
-    { text:"Booster Upgrade 2x4 boosts Hierarchies while Supercharged", cost: 10, effect: ()=> data.hierachies.hasUpgrade[5] ? bup7Effect() : 1 },
+    { text:"The Challenge Boost is Improved", cost: 1e5, effect: ()=> data.hierachies.hasUpgrade[0] ? 5 : 1 },
+    { text:"Incrementy Upgrade 6 is Improved", cost: 1e10, effect: ()=> 1 },
+    { text:"Booster Upgrade 1x4 boosts Hierarchies while Supercharged", cost: 1e100, effect: ()=> data.hierachies.hasUpgrade[2] ? bup3Effect() : 1 },
+    { text:"Total Charge Boosts AutoBuyers", cost: 1e5, effect: ()=> data.hierachies.hasUpgrade[3] ? data.incrementy.totalCharge : 1 },
+    { text:"Incrementy Upgrade 2 is Improved", cost: 1e10, effect: ()=> 1 },
+    { text:"Booster Upgrade 2x4 boosts Hierarchies while Supercharged", cost: 1e100, effect: ()=> data.hierachies.hasUpgrade[5] ? bup7Effect() : 1 },
 ]
 
 function increaseHierarchies(diff){
