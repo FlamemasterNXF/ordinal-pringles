@@ -81,13 +81,13 @@ function mainLoop() {
 
     if(data.ord.isPsi && data.boost.unlocks[1]) data.incrementy.amt += uDiff*incrementyGain()
 
+    tick(diff)
+    data.lastTick = Date.now()
+
     if (controls["s"].pressed) successor(1, true);
     if (controls["m"].pressed) maximize();
     if (controls["i"].pressed) markup();
     if (controls["f"].pressed) { buyMaxFactor(); buyMaxAuto(); }
-
-    tick(diff)
-    data.lastTick = Date.now()
 
     checkAchs()
     uHTML.update()
