@@ -21,6 +21,8 @@ function loadSettingsHTML(){
     for (let i = 0; i < data.sToggles.length; i++) {
         DOM(`settingsToggle${i}`).innerText = `Toggle the ${descs[i]} [${boolToReadable(data.sToggles[i])}]`
     }
+    DOM(`offlineProgressToggle`).innerText = `Toggle Offline Progress [${boolToReadable(data.offline)}]`
+    DOM(`versionText`).innerText = `You're playing Ordinal Pringles v${VERSION}: ${VERSION_NAME}\n Last Update: ${VERSION_DATE}`
 }
 
 let timesToLoop = [0,0, 0,0]

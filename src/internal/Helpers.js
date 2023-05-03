@@ -47,6 +47,11 @@ function switchTab(tab){
 }
 
 function settingsToggle(i){
+    if (i == -1){
+        data.offline = !data.offline
+        DOM(`offlineProgressToggle`).innerText = `Toggle Offline Progress [${boolToReadable(data.offline)}]`
+        return save()
+    }
     data.sToggles[i] = !data.sToggles[i]
     save()
     location.reload()

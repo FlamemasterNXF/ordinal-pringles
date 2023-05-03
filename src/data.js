@@ -1,6 +1,8 @@
 const D = x => new Decimal(x)
 //create all the variables in a data object for saving
 const VERSION = "0.0.6"
+const VERSION_NAME = "The Bachmann-Howard Pringle"
+const VERSION_DATE = "May 3rd, 2023"
 const PSI_VALUE = 7625597484987
 const GRAHAMS_VALUE = 109
 const BHO_VALUE = 48630661836227112960
@@ -40,7 +42,7 @@ function load() {
     if (savedata !== undefined) fixSave(data, savedata)
     const extra = fixOldSaves()
     loadHTML()
-    createAlert('Welcome Back!', `You've loaded into Ordinal PRINGLES v${VERSION}\nEnjoy!`, 'Thanks!')
+    createAlert('Welcome Back!', `You've loaded into Ordinal PRINGLES v${VERSION}: ${VERSION_NAME}\nEnjoy!`, 'Thanks!')
 
     return extra
 }

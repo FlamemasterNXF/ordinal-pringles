@@ -238,12 +238,15 @@
         <button class="settingsButton" id="settingsToggle1" onclick="settingsToggle(1)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle2" onclick="settingsToggle(2)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle6" onclick="settingsToggle(6)" style="width: 20rem">aaa</button>
+
+        <button class="settingsButton" id="offlineProgressToggle" onclick="settingsToggle(-1)" style="margin-top: 1rem; width: 20rem">Toggle Offline Progress</button>
         <br>
         <button class="settingsButton" onclick="exportSave()">Export your Save</button>
         <button class="settingsButton" onclick="downloadSave()">Download your Save</button>
         <button class="settingsButton" onclick="createPrompt('Import SaveData', importSave, true)">Import your Save</button>
         <button class="settingsButton" onclick="createConfirmation('Are you sure?', 'Are you absolutely sure you want to do this?\nThis will export your save (just in case) but delete your save from LocalStorage.', 'No Way!', 'Yes, I understand the consequences.', fullReset)" style="color: red">Delete your Save</button>
-        <br>
+        
+        <div class="centeredTexts" id="versionText" style="margin-top: 3rem; color: #009696; font-family: DosisBold;">Version</div>
     </div>
 </div>
 </body>
