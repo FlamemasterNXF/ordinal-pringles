@@ -6,20 +6,23 @@ const achievements = [
             _=> calculateHardy() >= 1.78e308 || data.ord.isPsi,
             _=> data.ord.ordinal >= data.ord.base**data.ord.base || data.ord.isPsi ,
             _=> data.ord.isPsi,
+            _=> data.ord.ordinal >= BHO_VALUE,
         ],
         name: [
             "The First Ordinal",
             "Many More Ordinals",
             "Infinity...?",
             "The Tower of Infinities",
-            "A New Kind of Infinity"
+            "A New Kind of Infinity",
+            "The Ultimate Infinity"
         ],
         popup: [
             "Reach ω",
             "Reach ω^2",
             "Reach a value of 1.79e308",
             "Reach ω^ω",
-            "Reach Ψ(Ω)"
+            "Reach Ψ(Ω)",
+            "Reach BHO"
         ]
     },
     {
@@ -60,7 +63,8 @@ const achievements = [
             _=> data.boost.times > 0,
             _=> data.boost.times > 4,
             _=> data.boost.times > 9,
-            _=> data.boost.times > 19
+            _=> data.boost.times > 19,
+            _=> data.boost.times > 32
         ],
         name: [
             "Lower is Better",
@@ -70,7 +74,8 @@ const achievements = [
             "...what?",
             "Base 2 Soon!",
             "Base 2: Only 30 Years Away!",
-            "It Was All Just a Dream"
+            "Temporary Delays",
+            "Base 2 NOW"
         ],
         popup: [
             "Reach Base 9",
@@ -80,7 +85,8 @@ const achievements = [
             "Boost Once",
             "Boost Five Times",
             "Boost Ten Times",
-            "Boost Twenty Times"
+            "Boost Twenty Times",
+            "Boost Thirty-Three Times"
         ]
     },
     {
@@ -159,6 +165,20 @@ const achievements = [
             "Sacrifice Incrementy for Charge",
             "Sacrifice Incrementy for Charge 4 times",
             "Sacrifice Incrementy for Charge 12 times",
+        ]
+    },
+    {
+        req: [
+            _=> data.hierachies.hasUpgrade[0],
+            _=> data.hierachies.hasUpgrade[3],
+        ],
+        name: [
+            "Ordinals 2.0",
+            "Ordinals 3.0",
+        ],
+        popup: [
+            "Purchase the first FGH Upgrade",
+            "Purchase the first SGH Upgrade",
         ]
     },
 ]
