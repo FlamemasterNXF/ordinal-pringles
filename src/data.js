@@ -22,7 +22,8 @@ function getDefaultObject() {
         successorClicks: 0,
         lastTick: 0,
         achs: [],
-        loadedVersion: "null"
+        loadedVersion: "null",
+        offline: true
     }
 }
 let data = getDefaultObject()
@@ -48,7 +49,7 @@ function loadHTML(){
     if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
     if(data.boost.total >= 91) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
     if(data.boost.total >= 325) DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies'))
-    if(data.boost.total >= 378) DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow'))
+    if(data.boost.total >= 465) DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow'))
 }
 //fix saves
 function fixSave(main=getDefaultObject(), data) {
@@ -70,18 +71,12 @@ function fixOldSaves(){
     let extra = false
 
     //v0.0.5 => v0.0.6+
-    if (data.loadedVersion == "null" && (data.chal.completions[6] > 0 || data.chal.completions[7] > 0 || data.boost.times > 30)){
-        data.chal.completions[6] = 0
-        data.chal.completions[7] = 0
-
-        if (data.boost.times > 30) {
-            data.boost.times = 30
-            data.boost.total = 465
-            data.boost.amt = 465
-            extra = true
-        } 
-        data.loadedVersion == "0.0.6"
+    if (data.loadedVersion == "null"){
+        if (data.chal.completions[6] > 0) data.chal.completions[6] = 0
+        if (data.chal.completions[7] > 0) data.chal.completions[7] = 0
+        extra = true
     }
+    if (data.offline != true && data.offline != false) data.offline = true
     // v0.0.4 => v0.0.5+
     if (data.chal.completions[0] > 0 && data.chal.totalCompletions == 0){
         for (let i = 0; i < data.chal.completions.length; i++) {
@@ -101,7 +96,15 @@ function fixOldSaves(){
 function fixOldSavesP2(){
     //v0.0.5 => v0.0.6+
     if (data.loadedVersion == "null"){
-        boosterRefund()
+        data.loadedVersion = "0.0.6"
+
+        if (data.boost.times > 30) {
+            boosterRefund()
+            data.boost.times = 30
+            data.boost.total = 465
+            data.boost.amt = 465
+        } 
+
         createAlert('Nerfed :(', `It looks like you had a v0.0.5 save that was beyond endgame. If you had any C7 or C8 completions they have been reset, and if you had more than 30 Factor Boosts you have been reset to 30. Also, Factor Boosts beyond 30 now have a greatly increased requirement!`, 'Onwards!')
     } 
 }

@@ -77,7 +77,7 @@ function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
     return finalOutput
 }
 
-function displayPsiOrd(ord, trim) {
+/*function displayPsiOrd(ord, trim) {
     if(ord === 0) return ""
     if(trim <= 0) return "..."
     if(ord < 4) return extraOrdMarks[ord]
@@ -88,6 +88,20 @@ function displayPsiOrd(ord, trim) {
     const finalOutput = ordMarks[magnitude]
         .replace(/x/, displayPsiOrd(ord-magnitudeAmount, trim-1))
         .replace(/y/, displayPsiOrd(ord-magnitudeAmount+1, trim-1))
+    return `${finalOutput}`
+}
+*/
+
+function displayPsiOrd(ord, trim) {
+    ord = Math.floor(ord)
+    if(ord === 0) return ""
+    if(trim <= 0) return "..."
+    if(ord < 4) return extraOrdMarks[ord]
+    const magnitude = Math.floor(Math.log(ord/4)/Math.log(3))
+    const magnitudeAmount = 4*3**magnitude
+    let finalOutput = ordMarks[Math.min(magnitude,ordMarks.length-1)]
+    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiOrd(ord-magnitudeAmount, trim-1))
+    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiOrd(ord-magnitudeAmount+1, trim-1))
     return `${finalOutput}`
 }
 
@@ -114,7 +128,7 @@ function ordinalDisplay(type, ord=data.ord.ordinal, over=data.ord.over, base=dat
 }
 
 function successor(n = 1, m=false) {
-    if(data.chal.active[6] && data.successorClicks >= 1000) return
+    if(data.chal.active[6] && data.successorClicks >= 1000 && m) return
     if(data.ord.isPsi) return
     if(m)++data.successorClicks
 

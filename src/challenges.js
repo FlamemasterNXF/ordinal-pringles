@@ -8,7 +8,7 @@ const chalGoals = [
     [1e32, 1e223, 4e256, Infinity], //4e256 works as a stand in for Epsilon Naught here
     [4, 6377292, 125524238436, Infinity], //this one is in Ordinal value, [1] and [2] are post-Epsilon-Naught
     [1e200, 1e214, 1e256, Infinity],
-    [1e33, 5e113, 1.5e119, Infinity],
+    [1e32, 5e113, 1.5e119, Infinity],
     [4e256, 4e256, 4e256, Infinity], //4e256 works as a stand in for Epsilon Naught here
     [1.02e33, 1e44, 4.75e108, Infinity],
     [1.05e13, 4.18e18, 1.02e20, Infinity],
@@ -52,8 +52,10 @@ function chalEnter(i){
 
     boosterReset()
     if(i === 2 || i === 5) data.ord.base = 15
+    if(data.boost.hasBUP[2]) data.ord.base = 5
     if(i === 4){ 
         createAlert('Forced Refund', `Your Booster Upgrades have been refunded to help with the Challenge. Feel free to rebuy them, but remember the debuff!`, 'Thanks!')
+        boosterRefund(true)
         data.dy.gain = 0.002 
         DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic')) 
     }
@@ -100,7 +102,7 @@ function chalEffectTotal(){
     }
     mult += data.dy.level * chalEffect(7)
 
-    let base = (mult/10)*hupData[0].effect()*getOverflowEffect(0)
+    let base = (mult)*hupData[0].effect()*getOverflowEffect(0)
     return Math.max(base**2, 1)
 }
 function decrementyGain(x) {

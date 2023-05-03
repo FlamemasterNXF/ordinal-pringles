@@ -65,7 +65,7 @@ const chargedBUPDesc = ['Each Factor\'s effect is Quadrupled', 'Boost OP gain by
 
 let bup0Effect = () => data.boost.hasBUP[0] ? data.boost.isCharged[0] ? 4 : 2 : 1
 let bup1Effect = () => data.boost.hasBUP[1] ? data.boost.isCharged[1] ? 500 : 5 : 1
-let bup2Effect = () => data.chal.active[6] ? 1 : data.boost.isCharged[2] ? 4 : 5
+let bup2Effect = () => data.chal.active[6] ? 10 : data.boost.isCharged[2] ? 4 : 5
 let bup3Effect = () => data.boost.hasBUP[3] ? Math.max(Math.pow(2, data.chal.completions[4]), 1) : 1
 let bup48Effect = () => data.boost.isCharged[4] || data.boost.isCharged[8] ? Math.sqrt(factorEffect(6)) : 1
 let bup5Effect = () => data.boost.hasBUP[5] ? data.boost.isCharged[5] ? Math.max(Math.sqrt(data.boost.total)*3, 1) : Math.max(Math.sqrt(data.boost.total), 1) : 1
@@ -100,7 +100,7 @@ function updateBoostersHTML(){
     DOM("chalTab").innerText = data.boost.total>=6?'Challenges':'???'
     DOM("incrementyTab").innerText = data.boost.total>=91?'Incrementy':'???'
     DOM("hierarchiesTab").innerText = data.boost.total>=325?'Hierachies':'???'
-    DOM("overflowTab").innerText = data.boost.total>=378?'Overflow':'???'
+    DOM("overflowTab").innerText = data.boost.total>=465?'Overflow':'???'
     DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
 }
 
@@ -129,6 +129,7 @@ function boosterReset(){
 }
 
 function boost(f=false){
+    if(data.boost.times == 33) return createAlert("Endgame!", "Congratulations, you've reached the BHO! For now, there is nothing beyond. I'd love it if you would join the Discord and let me know how you felt about the game!! :)", "Sounds good to me!")
     if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
 
     if(data.boost.times === 0){
@@ -153,7 +154,7 @@ function boost(f=false){
     boosterReset()
 }
 function boostReq(){
-    let scaling = data.boost.times < 30 ? 1 : 100*(data.boost.times/15)
+    let scaling = data.boost.times < 30 ? 1 : Math.floor(100*(data.boost.times/15))
     return data.boost.times < 33 ? (3 ** (data.boost.times+1) * 4 * 10 * scaling) : BHO_VALUE
 }
 function getBulkBoostAmt(){
@@ -190,7 +191,7 @@ function boosterUnlock(){
     if(data.boost.total>=6){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480' }
     if(data.boost.total>=91){ data.boost.unlocks[1] = true; DOM(`bu1`).style.backgroundColor = '#002480' }
     if(data.boost.total>=325){ data.boost.unlocks[2] = true; DOM(`bu2`).style.backgroundColor = '#002480' }
-    if(data.boost.total>=378){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480' }
+    if(data.boost.total>=465){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480' }
 }
 
 function toggleAuto(i){

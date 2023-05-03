@@ -4,6 +4,8 @@ function updateHierarchiesHTML(){
         DOM(`h${i}Info`).innerText = `(+${format(hierarchyData[i].gain())}/s), ${hierarchyData[i].text}`
         DOM(`h${i}Effect`).innerText = `${format(hierarchyData[i].effect())}`
     }
+    if (data.hierachies.hasUpgrade[0]) DOM("hup0").innerHTML = `${hupData[0].text}<br>${displayHierarchyOrd(hupData[0].cost, 0, data.hierachies.ords[0].base, 3)} FGH<br><font color='#424242'><b>Currently: ${hupData[0].effect()}x</b></font>`
+    if (data.hierachies.hasUpgrade[3]) DOM("hup3").innerHTML = `${hupData[3].text}<br>${displayHierarchyOrd(hupData[3].cost, 0, data.hierachies.ords[1].base, 3)} SGH<br><font color='#424242'><b>Currently: ${hupData[3].effect()}x</b></font>`
 }
 function updateHBBuyableHTML(i){
     const el = DOM(`hb${i}`)
@@ -68,14 +70,14 @@ function initHierarchies(){
 
 
 let hierarchyData = [
-    { text:"Dividing Charge Requirement by", effect: ()=> Math.max(Math.log10(data.hierachies.ords[0].ord+1), 1), 
-        gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults()*hbData[1].effect() },
-    { text:"Multiplying Incrementy Gain by", effect: ()=> Math.max(Math.log10(data.hierachies.ords[1].ord+1), 1), 
-        gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults()*hbData[4].effect() }
+    { text:"Dividing Charge Requirement by", effect: ()=> Math.max(Math.log10(data.hierachies.ords[0].ord+1)*hbData[1].effect(), 1), 
+        gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults() },
+    { text:"Multiplying Incrementy Gain by", effect: ()=> Math.max(Math.log10(data.hierachies.ords[1].ord+1)*hbData[4].effect(), 1), 
+        gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults() }
 ]
 let hierarchyGainBases = [
-    () => Math.max(Math.floor(Math.sqrt(t2Auto())), 1), 
-    () => Math.max(Math.floor(Math.log10(t2Auto()+1)), 1)
+    () => Math.max(Math.floor(Math.pow(data.incrementy.amt, 1/3)), 1), 
+    () => Math.max(Math.floor(Math.pow(t2Auto()+1, 1/4)), 1)
 ]
 let hierarchyGainGlobalMults = () => hupData[2].effect()*hupData[5].effect()*hbData[0].effect()*hbData[3].effect()*getOverflowEffect(3)
 
@@ -89,12 +91,12 @@ let hbData = [
 ]
 let hupData = [
     // Effcects of 1 mean that it is a true/false effect.
-    { text:"The Challenge Boost is Improved", cost: 1e5, effect: ()=> data.hierachies.hasUpgrade[0] ? 5 : 1 },
-    { text:"Incrementy Upgrade 6 is Improved", cost: 1e10, effect: ()=> 1 },
-    { text:"Booster Upgrade 1x4 boosts Hierarchies while Supercharged", cost: 1e100, effect: ()=> data.hierachies.hasUpgrade[2] ? bup3Effect() : 1 },
-    { text:"Total Charge Boosts AutoBuyers", cost: 1e5, effect: ()=> data.hierachies.hasUpgrade[3] ? data.incrementy.totalCharge : 1 },
-    { text:"Incrementy Upgrade 2 is Improved", cost: 1e10, effect: ()=> 1 },
-    { text:"Booster Upgrade 2x4 boosts Hierarchies while Supercharged", cost: 1e100, effect: ()=> data.hierachies.hasUpgrade[5] ? bup7Effect() : 1 },
+    { text:"The Challenge Boost is Improved", cost: 1e10, effect: ()=> data.hierachies.hasUpgrade[0] ? 2 : 1 },
+    { text:"Incrementy Upgrade 6 is Improved", cost: 1e20, effect: ()=> 1 },
+    { text:"Booster Upgrade 1x4 boosts Hierarchies while Supercharged", cost: 1e50, effect: ()=> data.hierachies.hasUpgrade[2] ? bup3Effect() : 1 },
+    { text:"Total Charge Boosts AutoBuyers", cost: 1e10, effect: ()=> data.hierachies.hasUpgrade[3] ? data.incrementy.totalCharge/2 : 1 },
+    { text:"Incrementy Upgrade 2 is Improved", cost: 1e20, effect: ()=> 1 },
+    { text:"Booster Upgrade 2x4 boosts Hierarchies while Supercharged", cost: 1e50, effect: ()=> data.hierachies.hasUpgrade[5] ? bup7Effect() : 1 },
 ]
 
 function increaseHierarchies(diff){
@@ -118,9 +120,9 @@ function increaseHierarchies(diff){
 }
 
 function getHBBuyableCost(i){
-    if(i == 2 || i==5) return 1e12*(data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]+1/10))
-    if(i < 3) return (data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]+1/10))
-    return (data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]+1/10))
+    if(i == 2 || i==5) return 1e12*(data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]))
+    if(i < 3) return (data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]))
+    return (data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]))
 }
 
 function buyHBuyable(i){
