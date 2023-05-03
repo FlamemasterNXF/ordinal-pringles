@@ -11,6 +11,7 @@
     <script defer src="src/internal/Formatting.js"></script>
     <script defer src="src/internal/Helpers.js"></script>
     <script defer src="src/internal/Modal.js"></script>
+    <script defer src="src/progressBar.js"></script>
     <script defer src="src/data.js"></script>
     <script defer src="src/internal/FormatOrd.js"></script>
     <script defer src="src/overflow.js"></script>
@@ -105,6 +106,9 @@
         </div>
         <div class="flexBox" id="dynamicSubPage" style="margin-top: 1rem; flex-direction: column; display: none">
             <p class="centeredTexts" id="dynamicText" style="color: goldenrod">Hello Cat</p>
+        </div>
+        <div class="flexBox" id="progressBarContainer" style="margin-top: 2rem; width: 80%; height: 1.2rem; background-color: #1a1a1a; border: 1px solid 0000ff;">
+            <div id="progressBar" style="height: 1.2rem; background-color: #0000ff; color: #000000; text-align: center; width: 0%; font-family: DosisBold;">0%</div>
         </div>
     </div>
     <div class="flexBox" id="boostPage" style="flex-direction: column">
@@ -233,6 +237,7 @@
         <button class="settingsButton" id="settingsToggle5" onclick="settingsToggle(5)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle1" onclick="settingsToggle(1)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle2" onclick="settingsToggle(2)" style="width: 20rem">aaa</button>
+        <button class="settingsButton" id="settingsToggle6" onclick="settingsToggle(6)" style="width: 20rem">aaa</button>
         <br>
         <button class="settingsButton" onclick="exportSave()">Export your Save</button>
         <button class="settingsButton" onclick="downloadSave()">Download your Save</button>

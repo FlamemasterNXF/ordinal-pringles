@@ -18,7 +18,7 @@ function getDefaultObject() {
         hierachies: { ords:[ {ord:1, over:0, base:10, type:"f"}, {ord:1, over:0, base:10, type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(6).fill(false)},
         overflow: {bp:1, oc:1},
         autoStatus: {enabled: [false, false]},
-        sToggles: Array(6).fill(true),
+        sToggles: Array(7).fill(true),
         successorClicks: 0,
         lastTick: 0,
         achs: [],
@@ -50,6 +50,8 @@ function loadHTML(){
     if(data.boost.total >= 91) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
     if(data.boost.total >= 325) DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies'))
     if(data.boost.total >= 465) DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow'))
+
+    DOM('progressBarContainer').style.display = data.sToggles[6] ? 'flex' : 'none'
 }
 //fix saves
 function fixSave(main=getDefaultObject(), data) {

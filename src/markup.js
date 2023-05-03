@@ -25,6 +25,8 @@ function updateMarkupHTML(){
 
     DOM("factorBoostButton").innerHTML = `Perform ${getBulkBoostAmt() < 2 ? "a Factor Boost" : getBulkBoostAmt()+" Factor Boosts"} [+${data.boost.times+1}]<br>Requires ${displayPsiOrd(boostReq(), 3)}`
     DOM("factorBoostButton").style.color = data.ord.isPsi&&data.ord.ordinal>=boostReq()?'#fff480':'#8080FF'
+
+    if(data.ord.isPsi && data.sToggles[6]) updateProgressBar()
 }
 let markupTab = "auto"
 function switchMarkupTab(t){
