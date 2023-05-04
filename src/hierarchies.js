@@ -146,6 +146,7 @@ function buyHBuyable(i){
 }
 
 function buyHUP(i){
+    if(data.hierachies.hasUpgrade[i]) return
     const cost = hupData[i].cost
 
     if(data.hierachies.ords[0].ord > cost && i < 3){
