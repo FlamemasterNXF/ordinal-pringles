@@ -79,7 +79,7 @@ function getFSReq(){
 
 function factorShift(){
     if(data.markup.shifts === 7){
-        if(data.ord.isPsi && data.ord.ordinal >= GRAHAMS_VALUE) return boost(true)
+        if(data.ord.isPsi && data.ord.ordinal >= GRAHAMS_VALUE && data.boost.times == 0) return boost(true)
         else return createAlert("Failure", "Insufficient Ordinal", "Dang.")
     }
 

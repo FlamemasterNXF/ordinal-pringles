@@ -35,6 +35,8 @@ function tick(diff){
         data.ord.ordinal = 4
     }
 
+    chalComplete()
+
     //region automation
     for (let i = 0; i < 2; i++) timesToLoop[i] += !data.chal.active[4]?(diff*data.autoLevels[i]*factorBoost()*bup5Effect()*data.dy.level)/data.chal.decrementy
         :(diff*data.autoLevels[i]*factorBoost()*bup5Effect()/data.dy.level)/data.chal.decrementy
@@ -64,7 +66,6 @@ function tick(diff){
 
     if(data.chal.active.includes(true) && data.boost.hasBUP[2]) data.ord.base = bup2Effect()
     boosterUnlock()
-    chalComplete()
 }
 function mainLoop() {
     if(data.lastTick === 0) data.lastTick = Date.now()
@@ -89,15 +90,12 @@ function mainLoop() {
 }
 document.addEventListener('keydown', (event) => {
     let key = event.key;
-    if (key === "s") successor()
+    if (key === "s") successor(1,true)
     if (key === "m") maximize()
     if (key === "i") markup()
     if (key === "f"){ buyMaxFactor(); buyMaxAuto() }
 }, false);
 
-window.setInterval(function () {
-    mainLoop()
-}, 50);
 window.onload = function () {
     let extra = false
     try { extra = load() } catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
