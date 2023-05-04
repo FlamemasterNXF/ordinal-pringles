@@ -67,6 +67,26 @@ function tick(diff){
     if(data.chal.active.includes(true) && data.boost.hasBUP[2]) data.ord.base = bup2Effect()
     boosterUnlock()
 }
+
+const controls = {
+    "s": { pressed: false },
+    "m": { pressed: false },
+    "i": { pressed: false },
+    "f": { pressed: false }
+}
+document.addEventListener('keydown', (event) => {
+    let key = event.key;
+    if (controls[key]) {
+        controls[key].pressed = true;
+    }
+}, false);
+document.addEventListener('keyup', (event) => {
+    let key = event.key;
+    if (controls[key]) {
+        controls[key].pressed = false;
+    }
+}, false);
+
 function mainLoop() {
     if(data.lastTick === 0) data.lastTick = Date.now()
     let diff = data.offline ? Math.max((Date.now() - data.lastTick), 0) : 50
@@ -85,16 +105,15 @@ function mainLoop() {
     tick(diff)
     data.lastTick = Date.now()
 
+    if (controls["s"].pressed) successor(1, true);
+    if (controls["m"].pressed) maximize();
+    if (controls["i"].pressed) markup();
+    if (controls["f"].pressed) { buyMaxFactor(); buyMaxAuto(); }
+
     checkAchs()
     uHTML.update()
 }
-document.addEventListener('keydown', (event) => {
-    let key = event.key;
-    if (key === "s") successor(1,true)
-    if (key === "m") maximize()
-    if (key === "i") markup()
-    if (key === "f"){ buyMaxFactor(); buyMaxAuto() }
-}, false);
+
 
 window.onload = function () {
     let extra = false
