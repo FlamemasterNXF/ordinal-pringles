@@ -107,3 +107,7 @@ window.onload = function () {
 
     if(extra) fixOldSavesP2()
 }
+
+window.setInterval(function () {
+    mainLoop()
+}, 50);
