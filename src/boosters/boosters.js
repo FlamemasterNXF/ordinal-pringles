@@ -129,7 +129,7 @@ function boosterReset(){
 }
 
 function boost(f=false){
-    if(data.boost.times == 33) return createAlert("Endgame!", "Congratulations, you've reached the BHO! For now, there is nothing beyond. I'd love it if you would join the Discord and let me know how you felt about the game!! :)", "Sounds good to me!")
+    if(data.boost.times == 33 && data.collapse.times == 0) return createConfirmation("Are you certain?", "This will preform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
     if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
 
     if(data.boost.times === 0){

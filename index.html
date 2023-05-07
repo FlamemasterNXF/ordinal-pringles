@@ -7,25 +7,33 @@
     <link rel="stylesheet" type="text/css" href="styles/classes.css" />
     <link rel="stylesheet" type="text/css" href="styles/Modal.css" />
     <link rel="icon" href="res/chipper.gif" type="image/gif" sizes="32x32" />
+
     <script defer src="src/internal/BreakEternity.js"></script>
     <script defer src="src/internal/Formatting.js"></script>
     <script defer src="src/internal/Helpers.js"></script>
+    <script defer src="src/internal/FormatOrd.js"></script>
+
     <script defer src="src/etc/modal.js"></script>
     <script defer src="src/etc/progressBar.js"></script>
-    <script defer src="src/data.js"></script>
-    <script defer src="src/internal/FormatOrd.js"></script>
+    <script defer src="src/etc/hotkeys.js"></script>
+    <script defer src="src/etc/tick.js"></script>
+    <script defer src="src/etc/achievements.js"></script>
+
+    <script defer src="src/collapse/collapse.js"></script>
+
     <script defer src="src/boosters/overflow.js"></script>
     <script defer src="src/boosters/hierarchies.js"></script>
     <script defer src="src/boosters/incrementy.js"></script>
     <script defer src="src/boosters/challenges.js"></script>
     <script defer src="src/boosters/boosters.js"></script>
+
     <script defer src="src/markup/factors.js"></script>
     <script defer src="src/markup/markup.js"></script>
-    <script defer src="src/etc/achievements.js"></script>
+
+    <script defer src="src/data.js"></script>
     <script defer src="src/main.js"></script>
-    <script defer src="src/etc/tick.js"></script>
-    <script defer src="src/etc/hotkeys.js"></script>
     <script defer src="src/update.js"></script>
+
     <title>Ordinal Pringles</title>
 </head>
 <body>
@@ -68,6 +76,7 @@
         <button class="tabButton" id="ordNav" onclick="switchTab('ord')" style="color: indianred; border-color: #610000">Ordinals</button>
         <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchMarkupTab('factor')" style="color: goldenrod; border-color: #785c13 ">Markup</button>
         <button class="tabButton" id="boostNav" onclick="switchTab('boost'); switchBoostTab('upgrades')" style="display: none; color: #8080FF; border-color: #0000ff">Boosters</button>
+        <button class="tabButton" id="collapseNav" onclick="switchTab('collapse'); switchBoostTab('cardinals')" style="display: none; color: #80ff82; border-color: #2da000">Collapse</button>
         <button class="tabButton" id="achNav" onclick="switchTab('ach')" style="color: #20da45; border-color: #307813; width: 6.5rem ">Achievements</button>
         <button class="tabButton" id="settingsNav" onclick="switchTab('settings')" style="color: gray; border-color: #4a4a4a">Settings</button>
     </div>
@@ -224,6 +233,19 @@
                 <t class="overflowText" id="bp4Effect" style="color: goldenrod">1</t>
             </div>
             <div class="centeredTexts" id="hierarchyInfo" style="margin-top:1rem">"Excess Boosters" means all Boosters above 435<br>"Excess Charge" means all Charge above 12</div>
+        </div>
+    </div>
+    <div class="flexBox" id="collapsePage" style="flex-direction: column">
+        <div class="flexBox" style="margin-top: 1rem">
+            <button class="collapseTabButton" id="cardinalsTab" onclick="switchCollapseTab('cardinals')">Alephs</button>
+            <button class="collapseTabButton" id="cupsTab" onclick="switchCollapseTab('upgrades')">Cardinal Upgrades</button>
+            <button class="collapseTabButton" id="smTab" onclick="switchCollapseTab('sluggish')">Sluggish Milestones</button>
+        </div>
+        <h3 class="centeredTexts" id="cardinalsText" style="margin-top: 1rem; color: #20da45;">You have Collapsed Chips. In your house.</h3>
+        <button id="collapseButton" onclick="collapse()" style="color: #20da45;; min-width: 20rem; height: 2rem; background-color: black; border: 2px solid #2da000">Collapse</button>
+        <div class="flexBox" id="cardinalsSubPage" style="margin-top: 1rem; flex-direction: column;">
+            <button id="distributeButton" onclick="collapseCardinals()" style="color: #20da45; min-width: 20rem; height: 3rem; background-color: black; border: 2px solid #2da000">Collapse all Cardinals into random Alephs</button>
+            <br>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;">

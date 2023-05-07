@@ -26,6 +26,7 @@ function getDefaultObject() {
         incrementy: {amt:0, hasIUP:Array(9).fill(false), rebuyableAmt: Array(3).fill(0), rebuyableCosts: [20, 1000, 100], charge:0, totalCharge:0},
         hierachies: { ords:[ {ord:1, over:0, base:10, type:"f"}, {ord:1, over:0, base:10, type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(6).fill(false)},
         overflow: {bp:1, oc:1},
+        collapse: {times:0, cardinals:0, alephs:Array(8).fill(0)},
         autoStatus: {enabled: [false, false]},
         sToggles: Array(7).fill(true),
         successorClicks: 0,

@@ -1,5 +1,5 @@
 //Important Constants for Loading
-const TABS = ["markup", "boost", "ach", "settings"]
+const TABS = ["markup", "boost", "collapse", "ach", "settings"]
 const SETTINGS_DESCS = ["Booster Refund Confirmation", "Challenge Confirmation", "Challenge Completion Popup", "Factor Shift confirmation", "Factor Boost confirmation", "Charge Refund Confirmation", "Boost Progress Bar"]
 
 const uHTML = {
@@ -7,6 +7,7 @@ const uHTML = {
         updateOrdHTML()
         updateMarkupHTML()
         updateBoostersHTML()
+        updateCollapseHTML()
     },
     load(){
         //Load Tab Displays
@@ -16,8 +17,9 @@ const uHTML = {
         switchTab('ord')
 
         //Show and Hide things, based on data
-        DOM('boostNav').style.display = data.boost.times>0?'block':'none'
-        DOM('factorBoostButton').style.display = data.boost.times>0?'inline-block':'none'
+        DOM('boostNav').style.display = data.boost.times>0 || data.collapse.times>0?'block':'none'
+        DOM('collapseNav').style.display = data.collapse.times>0?'block':'none'
+        DOM('factorBoostButton').style.display = data.boost.times>0 || data.collapse.times>0?'inline-block':'none'
 
         if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
         if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
@@ -40,5 +42,6 @@ const uHTML = {
         initChals()
         initIUPs()
         initHierarchies()
+        initAlephs()
     }
 }
