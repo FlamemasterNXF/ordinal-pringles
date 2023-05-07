@@ -1,7 +1,44 @@
+//Important Constants for Loading
+const TABS = ["markup", "boost", "ach", "settings"]
+const SETTINGS_DESCS = ["Booster Refund Confirmation", "Challenge Confirmation", "Challenge Completion Popup", "Factor Shift confirmation", "Factor Boost confirmation", "Charge Refund Confirmation", "Boost Progress Bar"]
+
 const uHTML = {
     update(){
         updateOrdHTML()
         updateMarkupHTML()
         updateBoostersHTML()
+    },
+    load(){
+        //Load Tab Displays
+        for (let i = 0; i < TABS.length; i++) {
+            DOM(`${TABS[i]}Page`).style.display = 'none'
+        }
+        switchTab('ord')
+
+        //Show and Hide things, based on data
+        DOM('boostNav').style.display = data.boost.times>0?'block':'none'
+        DOM('factorBoostButton').style.display = data.boost.times>0?'inline-block':'none'
+
+        if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
+        if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
+        if(data.boost.total >= 91) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
+        if(data.boost.total >= 325) DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies'))
+        if(data.boost.total >= 465) DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow'))
+    
+        DOM('progressBarContainer').style.display = data.sToggles[6] ? 'flex' : 'none'
+
+        //Load Settings
+        for (let i = 0; i < data.sToggles.length; i++) {
+            DOM(`settingsToggle${i}`).innerText = `Toggle the ${SETTINGS_DESCS[i]} [${boolToReadable(data.sToggles[i])}]`
+        }
+        DOM(`offlineProgressToggle`).innerText = `Toggle Offline Progress [${boolToReadable(data.offline)}]`
+        DOM(`versionText`).innerText = `You're playing Ordinal Pringles v${VERSION}: ${VERSION_NAME}\n Last Update: ${VERSION_DATE}`
+
+        //Initalize all Tabs
+        initAchs()
+        initBUPs()
+        initChals()
+        initIUPs()
+        initHierarchies()
     }
 }

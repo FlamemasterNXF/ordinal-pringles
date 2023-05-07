@@ -1,11 +1,18 @@
+//Easy Decimal Creation
 const D = x => new Decimal(x)
-//create all the variables in a data object for saving
-const VERSION = "0.0.6"
-const VERSION_NAME = "The Bachmann-Howard Pringle"
-const VERSION_DATE = "May 3rd, 2023"
+
+//Important Constant Variables
 const PSI_VALUE = 7625597484987
 const GRAHAMS_VALUE = 109
 const BHO_VALUE = 48630661836227112960
+
+//Version Flags
+const VERSION = "0.0.6"
+const VERSION_NAME = "The Bachmann-Howard Pringle"
+const VERSION_DATE = "May 3rd, 2023"
+const SAVE_PATH = "ordinalPRINGLESsave"
+
+//create all the variables in a data object for saving
 function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
@@ -29,32 +36,24 @@ function getDefaultObject() {
     }
 }
 let data = getDefaultObject()
+
 //saving and loading
 function save(){
-    try{ window.localStorage.setItem('ordinalPRINGLESsave', JSON.stringify(data)) }
+    try{ window.localStorage.setItem(SAVE_PATH, JSON.stringify(data)) }
     catch (e) {
         createAlert('Error', `Save failed.\n${e}`, 'Dang.');
         console.error(e);
     }
 }
 function load() {
-    let savedata = JSON.parse(window.localStorage.getItem('ordinalPRINGLESsave'))
+    let savedata = JSON.parse(window.localStorage.getItem(SAVE_PATH))
     if (savedata !== undefined) fixSave(data, savedata)
     const extra = fixOldSaves()
-    loadHTML()
     createAlert('Welcome Back!', `You've loaded into Ordinal PRINGLES v${VERSION}: ${VERSION_NAME}\nEnjoy!`, 'Thanks!')
 
     return extra
 }
-function loadHTML(){
-    if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
-    if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
-    if(data.boost.total >= 91) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
-    if(data.boost.total >= 325) DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies'))
-    if(data.boost.total >= 465) DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow'))
 
-    DOM('progressBarContainer').style.display = data.sToggles[6] ? 'flex' : 'none'
-}
 //fix saves
 function fixSave(main=getDefaultObject(), data) {
     if (typeof data === "object") {
@@ -172,6 +171,6 @@ function fullReset(){
     deleteSave()
 }
 function deleteSave(){
-    window.localStorage.removeItem('ordinalPRINGLESsave')
+    window.localStorage.removeItem(SAVE_PATH)
     location.reload()
 }
