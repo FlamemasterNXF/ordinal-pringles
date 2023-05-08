@@ -21,7 +21,7 @@ function initAlephs(){
     }
 }
 function updateAlephHTML(i){
-    DOM(`aleph${i}`).innerHTML = `You have ${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub>, ${alephData[i].text} ${format(alephData[i].effect())}x`
+    DOM(`aleph${i}`).innerHTML = `You have <font color='#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></font>, ${alephData[i].text} <font color='#20da45'><b>${format(alephData[i].effect())}x</b></font>`
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : Math.sqrt(data.boost.times-34)+3
@@ -38,15 +38,16 @@ let alephData = [
 ]
 
 function collapse(first = false){
-    ++data.collapse.times
     if (first){
         data.collapse.cardinals = 3
+        ++data.collapse.times
         DOM('collapseNav').style.display = 'block'
         collapseReset()
         return createAlert("You have Collapsed!", "Congratulations! You can now Factor Boost beyond FB34! Cardinals are gained based on how many FBs you have before Collapse.", "Got it!")
     }
     if (data.boost.times >= 34){
         data.collapse.cardinals += cardinalGain()
+        ++data.collapse.times
         return collapseReset()
     }
     createAlert("Failure", "Insufficent Factor Boosts. (You need at least 34 to Collapse!)", "Oops.")
@@ -89,7 +90,7 @@ function collapseReset(){
 
 function collapseCardinals(){
     if (data.collapse.cardinals == 0) return createAlert("Failure", "No Cardinals to Collapse.", "Oops.")
-    if(data.collapse.times = 1){
+    if(data.collapse.times == 1){
         for (let i = 0; i < 3; i++) {
             data.collapse.alephs[i] = 1
             updateAlephHTML(i)            
@@ -97,4 +98,24 @@ function collapseCardinals(){
         data.collapse.cardinals = 0
         return createAlert("A little help!", "Since this your first Collapse, you have been given exactly one of the first three Alephs because they are the most helpful! From now on Aleph gain will be random.", "Thanks!")
     }
+
+    let usedCardinals = Math.floor(data.collapse.cardinals)
+    data.collapse.cardinals -= usedCardinals
+
+    if(usedCardinals < 1000){
+        while (usedCardinals > 0){
+            const aleph = getRandom(0,8)
+            ++data.collapse.alephs[aleph]
+            updateAlephHTML(aleph)   
+
+            --usedCardinals
+        }
+    }
+    else{
+        for (let i = 0; i < data.collapse.alephs.length; i++) {
+            data.collapse.alephs[i] += Math.floor(usedCardinals/8)         
+            updateAlephHTML(i)   
+        }
+    }
 }
+
