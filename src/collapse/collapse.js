@@ -32,7 +32,8 @@ function initCUPS(){
             let el = document.createElement('button')
             el.className = 'cup'
             el.id = `cup${id}`       
-            el.innerText = `${cupData[id].text}\n\n${format(cupData[id].cost)} Cardinals`     
+            el.innerText = `${cupData[id].text}\n\n${format(cupData[id].cost)} Cardinals`    
+            el.addEventListener("click", ()=>buyCardinalUpgrade(id))
             row.append(el)
         }
     }
@@ -144,6 +145,13 @@ function collapseCardinals(){
             data.collapse.alephs[i] += Math.floor(usedCardinals/8)         
             updateAlephHTML(i)   
         }
+    }
+}
+
+function buyCardinalUpgrade(i){
+    if(data.collapse.cardinals >= cupData[i].cost && !data.collapse.hasCUP[i]){
+        data.collapse.cardinals -= cupData[i].cost
+        data.collapse.hasCUP[i] = true
     }
 }
 
