@@ -28,7 +28,7 @@ function updateMarkupHTML(){
 
     if(data.sToggles[6]) updateProgressBar()
 }
-let markupTab = "auto"
+let markupTab = "factor"
 function switchMarkupTab(t){
     DOM(`${markupTab}SubPage`).style.display = `none`
     DOM(`${t}SubPage`).style.display = `flex`

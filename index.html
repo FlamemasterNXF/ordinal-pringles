@@ -74,9 +74,9 @@
     <div class="centeredTexts" id="chalIn" style="margin-bottom: 0.5rem; color: orangered">Decrementy my beloved</div>
     <div class="flexBox" id="tabs" style="margin-bottom: 0.5rem">
         <button class="tabButton" id="ordNav" onclick="switchTab('ord')" style="color: indianred; border-color: #610000">Ordinals</button>
-        <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchMarkupTab('factor')" style="color: goldenrod; border-color: #785c13 ">Markup</button>
-        <button class="tabButton" id="boostNav" onclick="switchTab('boost'); switchBoostTab('upgrades')" style="display: none; color: #8080FF; border-color: #0000ff">Boosters</button>
-        <button class="tabButton" id="collapseNav" onclick="switchTab('collapse'); switchBoostTab('cardinals')" style="display: none; color: #80ff82; border-color: #2da000">Collapse</button>
+        <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchMarkupTab(markupTab)" style="color: goldenrod; border-color: #785c13 ">Markup</button>
+        <button class="tabButton" id="boostNav" onclick="switchTab('boost'); switchBoostTab(boostTab)" style="display: none; color: #8080FF; border-color: #0000ff">Boosters</button>
+        <button class="tabButton" id="collapseNav" onclick="switchTab('collapse'); switchCollapseTab(collapseTab)" style="display: none; color: #80ff82; border-color: #2da000">Collapse</button>
         <button class="tabButton" id="achNav" onclick="switchTab('ach')" style="color: #20da45; border-color: #307813; width: 6.5rem ">Achievements</button>
         <button class="tabButton" id="settingsNav" onclick="switchTab('settings')" style="color: gray; border-color: #4a4a4a">Settings</button>
     </div>
@@ -106,7 +106,7 @@
             <button class="factor" id="factor5" onclick="buyFactor(5)">Factor 1</button>
             <button class="factor" id="factor6" onclick="buyFactor(6)">Factor 1</button>
         </div>
-        <div class="flexBox" id="autoSubPage" style="margin-top:0.8rem; flex-direction: column">
+        <div class="flexBox" id="autoSubPage" style="margin-top:0.8rem; flex-direction: column; display: none">
             <p class="centeredTexts" id="factorText" style="color: orange">Factorial Cog</p>
             <div class="flexBox">
                 <button class="automation" id="auto0" onclick="buyAuto(0)">Succc Auto</button>
@@ -247,8 +247,10 @@
             <button id="distributeButton" onclick="collapseCardinals()" style="color: #20da45; min-width: 20rem; height: 3rem; background-color: black; border: 2px solid #2da000">Collapse all Cardinals into random Alephs</button>
             <br>
         </div>
-        <div class="flexBox" id="cUpgradesSubPage" style="display: none; flex-direction: column;">
-            
+        <div class="flexBox" id="cUpgradesSubPage" style="display: none; flex-direction: column;"></div>
+        <div class="flexBox" id="sluggishSubPage" style="display: none; flex-direction: column;">
+            <div class="flexBox" id="sluggishContainer" style="flex-direction: column;"></div>
+            <t class="centeredTexts" style="color: #0e8626; margin-top: 1rem">Collapse in the required Factor Boosts or less to complete Sluggish Milestones</h3>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;">

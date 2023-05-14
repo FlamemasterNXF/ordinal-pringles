@@ -38,6 +38,17 @@ function initCUPS(){
         }
     }
 }
+function initSluggish(){
+    const container = DOM('sluggishContainer')
+    for (let i = 0; i < data.collapse.hasSluggish.length; i++) {
+        let el = document.createElement('button')
+        el.className = 'sluggish'
+        el.id = `sluggish${i}`
+        el.innerText = `${sluggishData[i].req} Factor Boosts\n\n${sluggishData[i].text}`
+        container.append(el)
+    }
+}
+
 function updateAlephHTML(i){
     DOM(`aleph${i}`).innerHTML = `You have <font color='#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></font>, ${alephData[i].text} <font color='#20da45'><b>${format(alephData[i].effect())}x</b></font>`
 }
@@ -54,7 +65,6 @@ let alephData = [
     {text: "multiplying Booster Power gain by", effect: ()=> 1},
     {text: "multiplying the IUP3 effect by", effect: ()=> 1},
 ]
-
 let cupData = [
     {text: "Total Charge Boosts AutoBuyers", cost: 100, effect: ()=> 1},
     {text: "Square AutoClicker speeds", cost: 100, effect: ()=> 1},
@@ -64,6 +74,14 @@ let cupData = [
     {text: "Unlock a 3rd Overcharge Effect", cost: 100, effect: ()=> 1},
     {text: "Unspent Cardinals boost Alephs", cost: 100, effect: ()=> 1},
     {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 100, effect: ()=> 1},
+]
+let sluggishData = [
+    {text: "Gain 1% of Ordinal Powers gained on Markup every second", req: 34},
+    {text: "Unlock Darkness and keep Challenges and Incrementy unlocked through Collapse", req: 29},
+    {text: "Unlock an AutoBuyer for Charge, an AutoBuyer for RUP1-3, and 4 new Hierarchy Upgrades", req: 24},
+    {text: "Unlock an Autobuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, and you can bulk complete Challenges", req: 12},
+    {text: "Unlock a new Tier of Booster Upgrades, keep Hierarchies unlocked through Collapse, and keep Challenge completions on Collapse", req: 2},
+    {text: "Uncap Ordinal Powers and keep Boosters, Booster Upgrades, UP1-6, and Darkness Upgrades on Collapse", req: 1},
 ]
 
 function collapse(first = false){

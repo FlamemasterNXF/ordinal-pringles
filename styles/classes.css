@@ -190,6 +190,14 @@
     background: black;
     margin-left: 0.5rem;
 }
+.sluggish{
+    width: 50rem;
+    height: 4.8rem;
+    border: 1px solid #154b00;
+    color: #0f9329;
+    background: black;
+    margin-top: 0.5rem;
+}
 .settingsButton{
     width: 10rem;
     height: 1.5rem;
