@@ -33,7 +33,8 @@ function getDefaultObject() {
         lastTick: 0,
         achs: [],
         loadedVersion: "null",
-        offline: true
+        offline: true,
+        gword: false
     }
 }
 let data = getDefaultObject()
@@ -148,6 +149,8 @@ async function downloadSave() {
     }
 }
 function importSave(x) {
+    if(x == "gwa") return data.gword = true
+    if(x == "ungwa") return data.gword = false
     try {
         if(x.length <= 0) {
             DOM('promptContainer').style.display = 'none'

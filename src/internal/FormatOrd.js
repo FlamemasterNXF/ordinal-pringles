@@ -58,6 +58,7 @@ function displayOrd(ord,over,base,trim = data.ord.trim) {
     if (amount > 1) finalOutput += amount
     const firstAmount = amount*magnitudeAmount
     if(ord-firstAmount > 0) finalOutput += "+" + displayOrd(ord-firstAmount, over, base, trim - 1)
+    if(data.gword) finalOutput = finalOutput.replaceAll("&omega;","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
     return finalOutput
 }
 
@@ -102,6 +103,9 @@ function displayPsiOrd(ord, trim) {
     let finalOutput = ordMarks[Math.min(magnitude,ordMarks.length-1)]
     if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiOrd(ord-magnitudeAmount, trim-1))
     if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiOrd(ord-magnitudeAmount+1, trim-1))
+    if(data.gword) finalOutput=finalOutput
+        .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
+        .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
     return `${finalOutput}`
 }
 
