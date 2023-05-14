@@ -175,6 +175,21 @@
     font-family: DosisLight;
     text-align: center;
 }
+.cupRow{
+    display: flex;
+    align-items: center;
+    place-content:center;
+    margin-top: 1rem;
+    flex-direction: row;
+}
+.cup{
+    width: 15rem;
+    height: 6rem;
+    border: 2px solid #2da000;
+    color: #20da45;
+    background: black;
+    margin-left: 0.5rem;
+}
 .settingsButton{
     width: 10rem;
     height: 1.5rem;

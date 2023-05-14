@@ -1,6 +1,6 @@
 let collapseTab = "cardinals"
 function switchCollapseTab(t){
-    DOM(`${boostTab}SubPage`).style.display = `none`
+    DOM(`${collapseTab}SubPage`).style.display = `none`
     DOM(`${t}SubPage`).style.display = `flex`
 
     collapseTab = t
@@ -20,6 +20,23 @@ function initAlephs(){
         container.append(el)
     }
 }
+function initCUPS(){
+    const container = DOM('cUpgradesSubPage')
+    for (let i = 0; i < data.collapse.hasCUP.length/4; i++) {
+        let row = document.createElement('div')
+        row.className = 'cupRow'
+        row.id = `cupRow${i}`
+        container.append(row)
+        for (let j = 0; j < 4; j++) {
+            let id = j+(i*4)
+            let el = document.createElement('button')
+            el.className = 'cup'
+            el.id = `cup${id}`       
+            el.innerText = `${cupData[id].text}\n\n${format(cupData[id].cost)} Cardinals`     
+            row.append(el)
+        }
+    }
+}
 function updateAlephHTML(i){
     DOM(`aleph${i}`).innerHTML = `You have <font color='#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></font>, ${alephData[i].text} <font color='#20da45'><b>${format(alephData[i].effect())}x</b></font>`
 }
@@ -35,6 +52,17 @@ let alephData = [
     {text: "multiplying the SGH effect by", effect: ()=> 1},
     {text: "multiplying Booster Power gain by", effect: ()=> 1},
     {text: "multiplying the IUP3 effect by", effect: ()=> 1},
+]
+
+let cupData = [
+    {text: "Total Charge Boosts AutoBuyers", cost: 100, effect: ()=> 1},
+    {text: "Square AutoClicker speeds", cost: 100, effect: ()=> 1},
+    {text: "Challenges 1-7 provide greatly reduced boosts when at zero completions", cost: 100, effect: ()=> 1},
+    {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 100, effect: ()=> 1},
+    {text: "Incrementy boosts its own gain", cost: 100, effect: ()=> 1},
+    {text: "Unlock a 3rd Overcharge Effect", cost: 100, effect: ()=> 1},
+    {text: "Unspent Cardinals boost Alephs", cost: 100, effect: ()=> 1},
+    {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 100, effect: ()=> 1},
 ]
 
 function collapse(first = false){

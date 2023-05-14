@@ -43,5 +43,6 @@ const uHTML = {
         initIUPs()
         initHierarchies()
         initAlephs()
+        initCUPS()
     }
 }
