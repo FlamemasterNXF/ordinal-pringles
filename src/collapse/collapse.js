@@ -47,10 +47,28 @@ function initSluggish(){
         el.innerText = `${sluggishData[i].req} Factor Boosts\n\n${sluggishData[i].text}`
         container.append(el)
     }
+    checkAllSluggish(true)
 }
 
 function updateAlephHTML(i){
     DOM(`aleph${i}`).innerHTML = `You have <font color='#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></font>, ${alephData[i].text} <font color='#20da45'><b>${format(alephData[i].effect())}x</b></font>`
+}
+function updateSluggishHTML(i){
+    DOM(`sluggish${i}`).style.background = data.collapse.hasSluggish[i] ? "#0e3000" : "black"
+}
+function checkSluggishMilestone(i, prev){ 
+    if (prev && data.collapse.hasSluggish[i]){
+        updateSluggishHTML(i)
+    }
+    if(!prev && data.boost.times <= sluggishData[i].req){
+         data.collapse.hasSluggish[i] = true 
+         updateSluggishHTML(i)
+    }
+}
+function checkAllSluggish(prev = false){
+    for (let i = 0; i < data.collapse.hasSluggish.length; i++) {
+        checkSluggishMilestone(i, prev)        
+    }
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : Math.sqrt(data.boost.times-34)+3
@@ -76,25 +94,28 @@ let cupData = [
     {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 100, effect: ()=> 1},
 ]
 let sluggishData = [
-    {text: "Gain 1% of Ordinal Powers gained on Markup every second", req: 34},
+    {text: "Gain 1% of Ordinal Powers gained on Markup every second and you always have one free Maximize AutoClicker", req: 34},
     {text: "Unlock Darkness and keep Challenges and Incrementy unlocked through Collapse", req: 29},
     {text: "Unlock an AutoBuyer for Charge, an AutoBuyer for RUP1-3, and 4 new Hierarchy Upgrades", req: 24},
-    {text: "Unlock an Autobuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, and you can bulk complete Challenges", req: 12},
-    {text: "Unlock a new Tier of Booster Upgrades, keep Hierarchies unlocked through Collapse, and keep Challenge completions on Collapse", req: 2},
-    {text: "Uncap Ordinal Powers and keep Boosters, Booster Upgrades, UP1-6, and Darkness Upgrades on Collapse", req: 1},
+    {text: "Unlock an AutoBuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, and you can bulk complete Challenges", req: 12},
+    {text: "Unlock a new row of Booster Upgrades, keep Hierarchies unlocked through Collapse, and keep Challenge completions on Collapse", req: 2},
+    {text: "Uncap Ordinal Powers, keep UP1-6 and Darkness Upgrades on Collapse, and unlock an AutoBuyer for Booster Upgrades", req: 1},
 ]
 
 function collapse(first = false){
     if (first){
         data.collapse.cardinals = 3
         ++data.collapse.times
+        ++data.boost.times
         DOM('collapseNav').style.display = 'block'
+        checkSluggishMilestone(0)
         collapseReset()
         return createAlert("You have Collapsed!", "Congratulations! You can now Factor Boost beyond FB34! Cardinals are gained based on how many FBs you have before Collapse.", "Got it!")
     }
     if (data.boost.times >= 34){
         data.collapse.cardinals += cardinalGain()
         ++data.collapse.times
+        checkAllSluggish()
         return collapseReset()
     }
     createAlert("Failure", "Insufficent Factor Boosts. (You need at least 34 to Collapse!)", "Oops.")
