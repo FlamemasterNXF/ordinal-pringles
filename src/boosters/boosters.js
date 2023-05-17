@@ -71,7 +71,7 @@ let bup48Effect = () => data.boost.isCharged[4] || data.boost.isCharged[8] ? Mat
 let bup5Effect = () => data.boost.hasBUP[5] ? data.boost.isCharged[5] ? Math.max(Math.sqrt(data.boost.total)*3, 1) : Math.max(Math.sqrt(data.boost.total), 1) : 1
 let bup6Effect = () => data.boost.hasBUP[6] ? data.boost.isCharged[6] ? 100 : 10 : 0
 let bup7Effect = () => data.boost.hasBUP[7] ? data.boost.isCharged[7] ? Math.max(1,(-data.ord.base + 6)) : data.ord.base-2 : 1
-let bup9Effect = () => data.boost.hasBUP[9] ? data.boost.isCharged[9] ? 20*(-data.ord.base+11)*getOverflowEffect(1) : 20*getOverflowEffect(1) : 1
+let bup9Effect = () => data.boost.hasBUP[9] ? data.boost.isCharged[9] ? Math.max(20*(-data.ord.base+11)*getOverflowEffect(1), 1) : 20*getOverflowEffect(1) : 1
 let bup10Effect = () => data.boost.hasBUP[10] ? data.boost.isCharged[10] ? 4 : 3 : 0
 let bup11Effect = () => data.boost.hasBUP[11] ? Math.max(Math.log2(data.boost.amt), 1) : 1
 
