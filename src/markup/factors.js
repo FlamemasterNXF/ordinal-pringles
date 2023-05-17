@@ -52,8 +52,7 @@ function factorBoost(){
     return mult
 }
 function buyFactor(n){
-    if(data.chal.active[1]) return
-    if(data.markup.powers < factorCost(n)) return
+    if(data.markup.powers < factorCost(n) || data.chal.active[1] || !hasFactor(n)) return
     data.markup.powers -= factorCost(n)
     ++data.factors[n]
 }
