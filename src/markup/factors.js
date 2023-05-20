@@ -69,7 +69,7 @@ function dyGain(){
     if(data.chal.active[6]) return 0
 
     //Could move this to a seperate function if needed
-    data.dy.cap = 40*iup5Effect()
+    data.dy.cap = 40*iup5Effect()*alephEffect(4)
 
     let boost = 1
     if(data.ord.base < 6 || data.boost.isCharged[11]) boost = bup11Effect()

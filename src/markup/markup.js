@@ -52,7 +52,7 @@ function opMult(){
     let baseReq = data.boost.isCharged[6] ? 4 : 5
     mult += data.ord.base >= baseReq ? bup6Effect() : 0
 
-    return mult
+    return mult*alephEffect(2)
 }
 function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over) {
     //if(data.ord.isPsi && base === 3){

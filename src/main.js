@@ -2,6 +2,7 @@ function mainLoop() {
     // Calculate diff and usableDiff
     if(data.lastTick === 0) data.lastTick = Date.now()
     let diff = data.offline ? Math.max((Date.now() - data.lastTick), 0) : 50
+    // Used for Offline Progress
     let uDiff = diff/1000
 
     if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level = Math.min(data.dy.cap, data.dy.level+uDiff*dyGain())
@@ -14,7 +15,7 @@ function mainLoop() {
         data.overflow.oc += getOverflowGain(1)*uDiff
     }
 
-    // Run the tick() function to calculate things that relay on normal diff
+    // Run the tick() function to calculate things that rely on normal diff
     tick(diff)
 
     // Update lastTick

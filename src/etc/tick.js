@@ -1,6 +1,7 @@
 let timesToLoop = [0,0, 0,0]
 
-let t2Auto = () => 1*chalEffectTotal()*bup5Effect()*incrementyMult()*iup6Effect()*bup48Effect()*hupData[3].effect()
+let t1Auto = () => factorBoost()*bup5Effect()*alephEffect(0)
+let t2Auto = () => 1*chalEffectTotal()*bup5Effect()*incrementyMult()*iup6Effect()*bup48Effect()*hupData[3].effect()*alephEffect(1)
 
 function tick(diff){
     // TODO: PSI Check, probably doesn't need to be on tick()
@@ -14,8 +15,8 @@ function tick(diff){
 
     //Automation Tier 1
     for (let i = 0; i < 2; i++) timesToLoop[i] += !data.chal.active[4] 
-        ? (diff*data.autoLevels[i]*factorBoost()*bup5Effect()*data.dy.level)/data.chal.decrementy
-        :(diff*data.autoLevels[i]*factorBoost()*bup5Effect()/data.dy.level)/data.chal.decrementy
+        ? (diff*data.autoLevels[i]*t1Auto()*data.dy.level)/data.chal.decrementy
+        : (diff*data.autoLevels[i]*t1Auto()/data.dy.level)/data.chal.decrementy
     
     for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]] 
         ? t2Auto()

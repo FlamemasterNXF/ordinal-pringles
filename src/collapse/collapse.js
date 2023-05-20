@@ -16,7 +16,7 @@ function initAlephs(){
         let el = document.createElement('t')   
         el.className = 'alephText'
         el.id = `aleph${i}`
-        el.innerHTML = `You have <font color='#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></font>, ${alephData[i].text} <font color='#20da45'><b>${format(alephData[i].effect())}x</b></font>`
+        el.innerHTML = `You have <font color='#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></font>, ${alephData[i].text} <font color='#20da45'><b>${format(alephEffect(i))}x</b></font>`
         container.append(el)
     }
 }
@@ -52,7 +52,7 @@ function initSluggish(){
 }
 
 function updateAlephHTML(i){
-    DOM(`aleph${i}`).innerHTML = `You have <font color='#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></font>, ${alephData[i].text} <font color='#20da45'><b>${format(alephData[i].effect())}x</b></font>`
+    DOM(`aleph${i}`).innerHTML = `You have <font color='#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></font>, ${alephData[i].text} <font color='#20da45'><b>${format(alephEffect(i))}x</b></font>`
 }
 function updateUnlockHTML(mode, i){
     switch (mode) {
@@ -97,16 +97,17 @@ function checkAllUnlocks(mode, prev = false){
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : Math.sqrt(data.boost.times-34)+3
+let alephEffect = (i) => data.collapse.alephs[i] > 0 ? alephData[i].effect() : 1
 
 let alephData = [
-    {text: "multiplying Autoclickers by", effect: ()=> 1},
-    {text: "multiplying Autobuyers by", effect: ()=> 1},
-    {text: "multiplying Ordinal Power gain by", effect: ()=> 1},
-    {text: "multiplying Incrementy gain by", effect: ()=> 1},
-    {text: "multiplying Dynamic Cap by", effect: ()=> 1},
-    {text: "multiplying the SGH effect by", effect: ()=> 1},
-    {text: "multiplying Booster Power gain by", effect: ()=> 1},
-    {text: "multiplying the IUP3 effect by", effect: ()=> 1},
+    {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)},
+    {text: "multiplying Autobuyers by", effect: ()=> Math.log10(data.collapse.alephs[1]+10)},
+    {text: "multiplying Ordinal Power gain by", effect: ()=> Math.log2(data.collapse.alephs[2]+2)},
+    {text: "multiplying Incrementy gain by", effect: ()=> Math.pow(data.collapse.alephs[3]+1, 1/8)},
+    {text: "multiplying Dynamic Cap by", effect: ()=> Math.sqrt(data.collapse.alephs[4]+1)*2},
+    {text: "multiplying the SGH effect by", effect: ()=> Math.pow(data.collapse.alephs[5]+1, 1/16)},
+    {text: "multiplying Booster Power gain by", effect: ()=> Math.log(data.collapse.alephs[6]+1, 1/8)},
+    {text: "multiplying the IUP3 effect by", effect: ()=> Math.sqrt(data.collapse.alephs[7]+1)/2},
 ]
 let cupData = [
     {text: "Total Charge Boosts AutoBuyers", cost: 100, effect: ()=> 1},

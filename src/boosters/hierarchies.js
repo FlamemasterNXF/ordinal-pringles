@@ -72,7 +72,7 @@ function initHierarchies(){
 let hierarchyData = [
     { text:"Multiplying Incrementy Gain by", effect: ()=> Math.max(Math.log10(data.hierachies.ords[0].ord+1)*hbData[1].effect(), 1), 
         gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults() },
-    { text:"Dividing Charge Requirement by", effect: ()=> Math.max(Math.log10(data.hierachies.ords[1].ord+1)*hbData[4].effect(), 1), 
+    { text:"Dividing Charge Requirement by", effect: ()=> Math.max(Math.log10(data.hierachies.ords[1].ord+1)*hbData[4].effect()*alephEffect(5), 1), 
         gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults() }
 ]
 let hierarchyGainBases = [
