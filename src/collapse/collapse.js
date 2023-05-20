@@ -58,6 +58,7 @@ function updateUnlockHTML(mode, i){
     switch (mode) {
         case 0:
             DOM(`cup${i}`).style.background = data.collapse.hasCUP[i] ? "#0e3000" : "black"
+            if(i == 5) DOM(`bp5Container`).style.display = data.collapse.hasCUP[5] ? 'flex' : 'none'
             break;
         case 1:
             DOM(`sluggish${i}`).style.background = data.collapse.hasSluggish[i] ? "#0e3000" : "black"
@@ -132,6 +133,7 @@ let sluggishData = [
 function collapse(first = false){
     if (first){
         data.collapse.cardinals = 3
+        data.collapse.bestCardinalsGained = 3
         ++data.collapse.times
         ++data.boost.times
         DOM('collapseNav').style.display = 'block'
@@ -140,6 +142,7 @@ function collapse(first = false){
         return createAlert("You have Collapsed!", "Congratulations! You can now Factor Boost beyond FB34! Cardinals are gained based on how many FBs you have before Collapse.", "Got it!")
     }
     if (data.boost.times >= 34){
+        if(cardinalGain() > data.collapse.bestCardinalsGained) data.collapse.bestCardinalsGained = cardinalGain()
         data.collapse.cardinals += cardinalGain()
         ++data.collapse.times
         checkAllUnlocks(1)
