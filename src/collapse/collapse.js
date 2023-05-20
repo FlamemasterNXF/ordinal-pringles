@@ -37,6 +37,7 @@ function initCUPS(){
             row.append(el)
         }
     }
+    checkAllUnlocks(0, true)
 }
 function initSluggish(){
     const container = DOM('sluggishContainer')
@@ -47,27 +48,51 @@ function initSluggish(){
         el.innerText = `${sluggishData[i].req} Factor Boosts\n\n${sluggishData[i].text}`
         container.append(el)
     }
-    checkAllSluggish(true)
+    checkAllUnlocks(1, true)
 }
 
 function updateAlephHTML(i){
     DOM(`aleph${i}`).innerHTML = `You have <font color='#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></font>, ${alephData[i].text} <font color='#20da45'><b>${format(alephData[i].effect())}x</b></font>`
 }
-function updateSluggishHTML(i){
-    DOM(`sluggish${i}`).style.background = data.collapse.hasSluggish[i] ? "#0e3000" : "black"
-}
-function checkSluggishMilestone(i, prev){ 
-    if (prev && data.collapse.hasSluggish[i]){
-        updateSluggishHTML(i)
+function updateUnlockHTML(mode, i){
+    switch (mode) {
+        case 0:
+            DOM(`cup${i}`).style.background = data.collapse.hasCUP[i] ? "#0e3000" : "black"
+            break;
+        case 1:
+            DOM(`sluggish${i}`).style.background = data.collapse.hasSluggish[i] ? "#0e3000" : "black"
+            break;
+        default:
+            console.error("Invalid \"mode\" at \"updateUnlockHTML\"");
     }
-    if(!prev && data.boost.times <= sluggishData[i].req){
-         data.collapse.hasSluggish[i] = true 
-         updateSluggishHTML(i)
+} 
+function checkUnlocks(mode, i, preview = false){ 
+    if (preview) return updateUnlockHTML(mode, i)
+    switch (mode) {
+        case 0:
+            data.collapse.hasCUP[i] = true 
+            updateUnlockHTML(0, i)
+            break;
+        case 1:
+            if(data.boost.times <= sluggishData[i].req){
+                data.collapse.hasSluggish[i] = true 
+                updateUnlockHTML(1, i)
+            }
+            break;
+        default:
+            console.error("Invalid \"mode\" at \"checkUnlocks\"");
     }
 }
-function checkAllSluggish(prev = false){
-    for (let i = 0; i < data.collapse.hasSluggish.length; i++) {
-        checkSluggishMilestone(i, prev)        
+function checkAllUnlocks(mode, prev = false){ 
+    switch (mode) {
+        case 0:
+            for (let i = 0; i < data.collapse.hasCUP.length; i++) checkUnlocks(0, i, prev) 
+            break;
+        case 1:
+            for (let i = 0; i < data.collapse.hasSluggish.length; i++) checkUnlocks(1, i, prev) 
+            break;
+        default:
+            console.error("Invalid \"mode\" at \"checkAllUnlocks\"");
     }
 }
 
@@ -108,14 +133,14 @@ function collapse(first = false){
         ++data.collapse.times
         ++data.boost.times
         DOM('collapseNav').style.display = 'block'
-        checkSluggishMilestone(0)
+        checkUnlocks(1, 0)
         collapseReset()
         return createAlert("You have Collapsed!", "Congratulations! You can now Factor Boost beyond FB34! Cardinals are gained based on how many FBs you have before Collapse.", "Got it!")
     }
     if (data.boost.times >= 34){
         data.collapse.cardinals += cardinalGain()
         ++data.collapse.times
-        checkAllSluggish()
+        checkAllUnlocks(1)
         return collapseReset()
     }
     createAlert("Failure", "Insufficent Factor Boosts. (You need at least 34 to Collapse!)", "Oops.")
@@ -190,7 +215,7 @@ function collapseCardinals(){
 function buyCardinalUpgrade(i){
     if(data.collapse.cardinals >= cupData[i].cost && !data.collapse.hasCUP[i]){
         data.collapse.cardinals -= cupData[i].cost
-        data.collapse.hasCUP[i] = true
+        checkUnlocks(0, i)
     }
 }
 
