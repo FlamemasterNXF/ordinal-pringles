@@ -1,7 +1,7 @@
 let timesToLoop = [0,0, 0,0]
 
-let t1Auto = () => factorBoost()*bup5Effect()*alephEffect(0)
-let t2Auto = () => 1*chalEffectTotal()*bup5Effect()*incrementyMult()*iup6Effect()*bup48Effect()*hupData[3].effect()*alephEffect(1)
+let t1Auto = () => (factorBoost()*bup5Effect()*alephEffect(0))**cupEffect(1)*cupEffect(3)
+let t2Auto = () => 1*chalEffectTotal()*bup5Effect()*incrementyMult()*iup6Effect()*bup48Effect()*hupData[3].effect()*alephEffect(1)*cupEffect(0)*cupEffect(3)
 
 function tick(diff){
     // TODO: PSI Check, probably doesn't need to be on tick()

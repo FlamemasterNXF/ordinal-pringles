@@ -97,7 +97,8 @@ function checkAllUnlocks(mode, prev = false){
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : Math.sqrt(data.boost.times-34)+3
-let alephEffect = (i) => data.collapse.alephs[i] > 0 ? alephData[i].effect() : 1
+let alephEffect = (i) => data.collapse.alephs[i] > 0 ? alephData[i].effect()*cupEffect(6) : 1
+let cupEffect = (i) => data.collapse.hasCUP[i] > 0 ? Math.max(cupData[i].effect(), 1) : 1
 
 let alephData = [
     {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)},
@@ -110,13 +111,13 @@ let alephData = [
     {text: "multiplying the IUP3 effect by", effect: ()=> Math.sqrt(data.collapse.alephs[7]+1)/2},
 ]
 let cupData = [
-    {text: "Total Charge Boosts AutoBuyers", cost: 100, effect: ()=> 1},
-    {text: "Square AutoClicker speeds", cost: 100, effect: ()=> 1},
-    {text: "Challenges 1-7 provide greatly reduced boosts when at zero completions", cost: 100, effect: ()=> 1},
-    {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 100, effect: ()=> 1},
-    {text: "Incrementy boosts its own gain", cost: 100, effect: ()=> 1},
+    {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max(data.incrementy.totalCharge/2, 1)},
+    {text: "Square AutoClicker speeds", cost: 100, effect: ()=> 2},
+    {text: "Challenges 1-7 provide greatly reduced boosts when at zero completions", cost: 100, effect: ()=> 0.2*8},
+    {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 100, effect: ()=> Math.pow(data.markup.powers, 1/256)},
+    {text: "Incrementy boosts its own gain", cost: 100, effect: ()=> Math.log10(data.incrementy.amt)},
     {text: "Unlock a 3rd Overcharge Effect", cost: 100, effect: ()=> 1},
-    {text: "Unspent Cardinals boost Alephs", cost: 100, effect: ()=> 1},
+    {text: "Unspent Cardinals boost Alephs", cost: 100, effect: ()=> Math.log2(data.collapse.alephs)},
     {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 100, effect: ()=> 1},
 ]
 let sluggishData = [

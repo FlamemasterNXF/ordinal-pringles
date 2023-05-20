@@ -15,7 +15,7 @@ function incrementyGain() {
     if (!data.ord.isPsi || checkAllIndexes(data.chal.active, true) > 0) return 0
 
     let base = Math.log10(data.ord.ordinal+1) / 10
-    return base*hierarchyData[0].effect()*iup1Effect()*iup3Effect()*iup4Effect()*alephEffect(3)
+    return base*hierarchyData[0].effect()*iup1Effect()*iup3Effect()*iup4Effect()*alephEffect(3)*cupEffect(4)
 }
 
 const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Factor boosts Incrementy gain',
