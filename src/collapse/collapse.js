@@ -139,6 +139,7 @@ function collapse(first = false){
         DOM('collapseNav').style.display = 'block'
         checkUnlocks(1, 0)
         collapseReset()
+        makeExcessOrdMarks()
         return createAlert("You have Collapsed!", "Congratulations! You can now Factor Boost beyond FB34! Cardinals are gained based on how many FBs you have before Collapse.", "Got it!")
     }
     if (data.boost.times >= 34){

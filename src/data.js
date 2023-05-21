@@ -4,7 +4,7 @@ const D = x => new Decimal(x)
 //Important Constant Variables
 const PSI_VALUE = 7625597484987
 const GRAHAMS_VALUE = 109
-const BHO_VALUE = 48630661836227112960
+const BHO_VALUE = 4*3**40
 
 //Version Flags
 const VERSION = "0.0.6"
@@ -75,6 +75,8 @@ function fixSave(main=getDefaultObject(), data) {
 function fixOldSaves(){
     let extra = false
 
+    //v0.0.6 => v0.1+
+    if(data.collapse.times == 0 && data.ord.ordinal > BHO_VALUE) data.ord.ordinal = BHO_VALUE
     //v0.0.5 => v0.0.6+
     if (data.loadedVersion == "null"){
         if (data.chal.completions[6] > 0) data.chal.completions[6] = 0
