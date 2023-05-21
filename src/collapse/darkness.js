@@ -18,6 +18,9 @@ function darkenConfirm(){
 }
 function darken(){
     data.darkness.darkened ? chalExit() : chalEnter(7)
+    
     DOM('darken').innerText = data.darkness.darkened ? 'Enter the Darkness' : 'Escape'
     data.darkness.darkened = !data.darkness.darkened
+
+    DOM('bp2Description').innerText = data.darkness.darkened ? 'Multiplying Decrementy Gain by ' : 'Dividing Decrementy Gain by '
 }
