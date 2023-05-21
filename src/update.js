@@ -29,6 +29,8 @@ const uHTML = {
     
         DOM('progressBarContainer').style.display = data.sToggles[6] ? 'flex' : 'none'
 
+        DOM('darken').innerText = data.darkness.darkened ? 'Escape' : 'Enter the Darkness'
+
         //Load Settings
         for (let i = 0; i < data.sToggles.length; i++) {
             DOM(`settingsToggle${i}`).innerText = `Toggle the ${SETTINGS_DESCS[i]} [${boolToReadable(data.sToggles[i])}]`
