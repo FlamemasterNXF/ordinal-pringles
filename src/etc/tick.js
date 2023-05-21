@@ -39,7 +39,9 @@ function tick(diff){
         buyMaxFactor() 
         buyMaxAuto()
     }
-    if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1] && data.ord.ordinal < BHO_VALUE) markup(timesToLoop[3]*diff/1000)
+
+    let collapseCheck = data.ord.ordinal < BHO_VALUE || data.collapse.times > 0
+    if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1] && collapseCheck) markup(timesToLoop[3]*diff/1000)
 
     // Increase Hierarchies 
     if(data.boost.unlocks[2]) increaseHierarchies(diff)
