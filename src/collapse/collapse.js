@@ -144,13 +144,13 @@ let alephData = [
 ]
 let cupData = [
     {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max(data.incrementy.totalCharge/2, 1)},
-    {text: "Square AutoClicker speeds", cost: 100, effect: ()=> 2},
-    {text: "Challenges 1-7 provide greatly reduced boosts when at zero completions", cost: 100, effect: ()=> 0.2*8},
-    {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 100, effect: ()=> Math.pow(data.markup.powers, 1/256)},
-    {text: "Incrementy boosts its own gain", cost: 100, effect: ()=> Math.log10(data.incrementy.amt)},
-    {text: "Unlock a 3rd Overcharge Effect and boost Overcharge's 1st Effect", cost: 100, effect: ()=> 3},
-    {text: "Unspent Cardinals boost Alephs", cost: 100, effect: ()=> Math.log2(data.collapse.alephs)},
-    {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 100, effect: ()=> 1},
+    {text: "Square AutoClicker speeds", cost: 27, effect: ()=> 2},
+    {text: "Challenges 1-7 provide greatly reduced boosts when at zero completions", cost: 81, effect: ()=> 0.2*8},
+    {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 243, effect: ()=> Math.pow(data.markup.powers, 1/256)},
+    {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.log10(data.incrementy.amt)},
+    {text: "Unlock a 3rd Overcharge Effect and boost Overcharge's 1st Effect", cost: 196608, effect: ()=> 3},
+    {text: "Unspent Cardinals boost Alephs", cost: 3e9, effect: ()=> Math.log2(data.collapse.alephs)},
+    {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 4e13, effect: ()=> 1},
 ]
 let sluggishData = [
     {text: "Uncap the Ordinal, gain 1% of Ordinal Powers gained on Markup every second and you always have one free Maximize AutoClicker", req: 34},
@@ -215,6 +215,18 @@ function collapseReset(){
     data.hierachies.ords[1].base = 10
     data.hierachies.rebuyableAmt = Array(6).fill(0)
     data.hierachies.hasUpgrade = Array(6).fill(false)
+
+    data.darkness.darkened = false
+    data.darkness.levels = Array(3).fill(0)
+    data.darkness.negativeCharge = 0
+    data.darkness.drains = Array(7).fill(0)
+    data.darkness.sacrificedCharge = 0
+    data.darkness.totalDrains = 0
+    data.darkness.negativeChargeEnabled = false
+
+    for (let i = 0; i < drainData.length; i++) {
+        updateDrainHTML(i)        
+    }
 
     data.overflow.bp = 1
     data.overflow.oc = 1

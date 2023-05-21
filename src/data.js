@@ -7,9 +7,9 @@ const GRAHAMS_VALUE = 109
 const BHO_VALUE = 4*3**40
 
 //Version Flags
-const VERSION = "0.0.6"
-const VERSION_NAME = "The Bachmann-Howard Pringle"
-const VERSION_DATE = "May 3rd, 2023"
+const VERSION = "0.1b1"
+const VERSION_NAME = "Pringle Collapsing Functions"
+const VERSION_DATE = "May 21st, 2023"
 const SAVE_PATH = "ordinalPRINGLESsave"
 
 //create all the variables in a data object for saving
