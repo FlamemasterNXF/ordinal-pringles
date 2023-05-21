@@ -31,7 +31,7 @@ function getOverflowEffect(i){
         case 2:
             return Math.max(1, (Math.sqrt(data.overflow.bp+1))*getOverflowEffect(4))
         case 3:
-            return data.overflow.oc > 1 ? Math.max(1, Math.sqrt(data.overflow.oc)) : 1
+            return data.overflow.oc > 1 ? Math.max(1, Math.sqrt(data.overflow.oc)*cupData[5].effect()) : 1
         case 4:
             return data.overflow.oc > 1 ? Math.max(1, Math.log10(data.overflow.oc+1)) : 1
         case 5:

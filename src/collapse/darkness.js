@@ -6,7 +6,7 @@ function updateDarknessHTML(){
 function updateDarknessControlHTML(mode){
     switch (mode) {
         case 0:
-            DOM('dupC0').innerText = `${boolToReadable(!data.darkness.negativeChargeEnabled, 'EDL')} Negative Charge gain`
+            DOM('dupC0').innerText = `${boolToReadable(!data.darkness.negativeChargeEnabled, 'EDT')} Negative Charge gain`
             break;
         case 1:
             DOM('dupC1').innerText = `Reset Negative Charge`
@@ -36,6 +36,10 @@ function updateAllDUPHTML(){
     }
 }
 
+function updateDrainHTML(i){
+    DOM(`drain${i}`).innerText = `Drain this Cardinal Upgrade (${data.darkness.drains[i]})\n${format(drainData[i].cost())} Negative Charge`
+}
+
 let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Math.log10(data.chal.decrementy+1)/5) : 0
 let negativeChargeCap = () => Math.pow(data.incrementy.amt, 1/3)
 
@@ -46,11 +50,34 @@ function negativeChargeEffect(eff){
 
 let sacrificedChargeEffect = () => data.darkness.sacrificedCharge > 0 ? (data.darkness.sacrificedCharge+1)*2 : 1
 
+let drainEffect = (i) => data.darkness.drains[i] > 0 ? Math.max(drainData[i].effect(), 1) : 1
+let drainData = [
+    { effect: () => 2*data.darkness.drains[0], cost: () => (10**data.darkness.drains[0])*(data.darkness.totalDrains+1) },
+    { effect: () => 1.1*data.darkness.drains[1], cost: () => (10**data.darkness.drains[1])*(data.darkness.totalDrains+1) },
+    { effect: () => 1.5*data.darkness.drains[2], cost: () => (10**data.darkness.drains[2])*(data.darkness.totalDrains+1) },
+    { effect: () => 2*data.darkness.drains[3], cost: () => (10**data.darkness.drains[3])*(data.darkness.totalDrains+1) },
+    { effect: () => 5*data.darkness.drains[4], cost: () => (10**data.darkness.drains[4])*(data.darkness.totalDrains+1) },
+    { effect: () => 1.2*data.darkness.drains[5], cost: () => (10**data.darkness.drains[5])*(data.darkness.totalDrains+1) },
+    { effect: () => 2*data.darkness.drains[6], cost: () => (10**data.darkness.drains[6])*(data.darkness.totalDrains+1) },
+]
 let dupData = [
     { text: "Add a 1.2x Multiplier to AutoBuyers", cost: ()=> 1e5**(data.darkness.levels[0]+1), effect: ()=> 1.2*data.darkness.levels[0] },
     { text: "Add a 2x Multiplier to Dynamic Gain", cost: ()=> 1e8**(data.darkness.levels[1]+1), effect: ()=> 2*data.darkness.levels[1] },
     { text: "Add 0.1 to both Hierarchy Effect exponents", cost: ()=> 1e15**(data.darkness.levels[2]+1), effect: ()=> 0.1*data.darkness.levels[2] }
 ]
+
+function buyDrain(i){
+    if(!data.collapse.hasCUP[i]) return createAlert("Failure.", "The Cardinal Upgrade must be purchased before being drained!", "Oops.")
+    if(data.darkness.negativeCharge < drainData[i].cost()) return createAlert("Failure.", "Insufficient Negative Charge", "Dang.")
+
+    data.darkness.negativeCharge -= drainData[i].cost()
+    ++data.darkness.drains[i]
+    ++data.darkness.totalDrains
+
+    for (let i = 0; i < drainData.length; i++) {
+        updateDrainHTML(i)        
+    }
+}
 
 function buyDUP(i){
     if(data.chal.decrementy >= dupData[i].cost()){

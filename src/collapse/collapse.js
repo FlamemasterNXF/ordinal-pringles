@@ -18,6 +18,10 @@ function updateCollapseHTML(){
     DOM(`cardinalsText`).innerText = `You have ${format(data.collapse.cardinals)} Cardinals`
     DOM(`collapseButton`).innerText = `Collapse for ${format(cardinalGain())} Cardinals`
 
+    for (let i = 0; i < data.collapse.hasCUP.length; i++) {
+        if(data.collapse.hasCUP[i]) DOM(`cup${i}`).innerText = `${cupData[i].text}\n\nCurrently: ${i==1?'^':''}${format(cupData[i].effect()*drainEffect(i))}${i!=1?'x':''}`
+    }
+
     updateDarknessHTML()
 }
 function initAlephs(){
@@ -39,12 +43,28 @@ function initCUPS(){
         container.append(row)
         for (let j = 0; j < 4; j++) {
             let id = j+(i*4)
+            let innerContainer = document.createElement('div')
+            innerContainer.className = 'cupContainer'
+            innerContainer.id = `cupContainer${id}`
+
             let el = document.createElement('button')
             el.className = 'cup'
             el.id = `cup${id}`       
             el.innerText = `${cupData[id].text}\n\n${format(cupData[id].cost)} Cardinals`    
             el.addEventListener("click", ()=>buyCardinalUpgrade(id))
-            row.append(el)
+            innerContainer.append(el)
+
+            if(id != 7){
+                let drain = document.createElement('button')
+                drain.className = 'drain'
+                drain.id = `drain${id}`       
+                drain.innerText = `Drain this Cardinal Upgrade (${data.darkness.drains[id]})\n${format(drainData[id].cost())} Negative Charge`    
+                drain.addEventListener("click", ()=>buyDrain(id))
+                innerContainer.append(drain)
+            }
+
+
+            id != 7 ? row.append(innerContainer) : container.append(innerContainer)
         }
     }
     checkAllUnlocks(0, true)
@@ -110,7 +130,7 @@ function checkAllUnlocks(mode, prev = false){
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : Math.sqrt(data.boost.times-34)+3
 let alephEffect = (i) => data.collapse.alephs[i] > 0 ? alephData[i].effect()*cupEffect(6) : 1
-let cupEffect = (i) => data.collapse.hasCUP[i] > 0 ? Math.max(cupData[i].effect(), 1) : 1
+let cupEffect = (i) => data.collapse.hasCUP[i] ? Math.max(cupData[i].effect()*drainEffect(i), 1) : 1
 
 let alephData = [
     {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)},
@@ -128,7 +148,7 @@ let cupData = [
     {text: "Challenges 1-7 provide greatly reduced boosts when at zero completions", cost: 100, effect: ()=> 0.2*8},
     {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 100, effect: ()=> Math.pow(data.markup.powers, 1/256)},
     {text: "Incrementy boosts its own gain", cost: 100, effect: ()=> Math.log10(data.incrementy.amt)},
-    {text: "Unlock a 3rd Overcharge Effect", cost: 100, effect: ()=> 1},
+    {text: "Unlock a 3rd Overcharge Effect and boost Overcharge's 1st Effect", cost: 100, effect: ()=> 3},
     {text: "Unspent Cardinals boost Alephs", cost: 100, effect: ()=> Math.log2(data.collapse.alephs)},
     {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 100, effect: ()=> 1},
 ]
