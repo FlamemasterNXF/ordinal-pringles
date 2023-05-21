@@ -194,7 +194,7 @@ function collapseReset(){
     data.boost.isCharged = Array(12).fill(false)
     data.boost.unlocks = Array(4).fill(false)
 
-    data.chal.decrementy = 1
+    data.chal.decrementy = D(1)
     data.chal.html = -1
     data.chal.completions = Array(8).fill(0)
     data.chal.active = Array(8).fill(0)

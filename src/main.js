@@ -7,7 +7,7 @@ function mainLoop() {
 
     if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level = Math.min(data.dy.cap, data.dy.level+uDiff*dyGain())
     if(data.boost.hasBUP[9]) data.markup.powers += bup9Effect()*uDiff
-    if(data.chal.active[7]) data.chal.decrementy += decrementyGain(data.chal.decrementy*50)*uDiff
+    if(data.chal.active[7]) data.chal.decrementy = data.chal.decrementy.plus(decrementyGain(data.chal.decrementy.times(50)).times(uDiff))
 
     if(data.ord.isPsi && data.boost.unlocks[1]) data.incrementy.amt += uDiff*incrementyGain()
     if(data.boost.unlocks[3]) {
@@ -18,7 +18,7 @@ function mainLoop() {
     if(data.collapse.hasCUP[7]) data.collapse.cardinals += (data.collapse.bestCardinalsGained/100)*uDiff
     if(data.collapse.hasSluggish[0] && calculateHardy()>10240) data.markup.powers += (totalOPGain()/100)*uDiff
 
-    data.darkness.negativeCharge += negativeChargeGain()*uDiff
+    data.darkness.negativeCharge = Math.min(negativeChargeCap(), data.darkness.negativeCharge+negativeChargeGain()*uDiff)
 
     // Run the tick() function to calculate things that rely on normal diff
     tick(diff)

@@ -40,7 +40,7 @@ function updateDrainHTML(i){
     DOM(`drain${i}`).innerText = `Drain this Cardinal Upgrade (${data.darkness.drains[i]})\n${format(drainData[i].cost())} Negative Charge`
 }
 
-let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Math.log10(data.chal.decrementy+1)/5) : 0
+let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5) : 0
 let negativeChargeCap = () => Math.pow(data.incrementy.amt, 1/3)
 
 function negativeChargeEffect(eff){
@@ -61,9 +61,9 @@ let drainData = [
     { effect: () => 2*data.darkness.drains[6], cost: () => (10**data.darkness.drains[6])*(data.darkness.totalDrains+1) },
 ]
 let dupData = [
-    { text: "Add a 1.2x Multiplier to AutoBuyers", cost: ()=> 1e5**(data.darkness.levels[0]+1), effect: ()=> 1.2*data.darkness.levels[0] },
-    { text: "Add a 2x Multiplier to Dynamic Gain", cost: ()=> 1e8**(data.darkness.levels[1]+1), effect: ()=> 2*data.darkness.levels[1] },
-    { text: "Add 0.1 to both Hierarchy Effect exponents", cost: ()=> 1e15**(data.darkness.levels[2]+1), effect: ()=> 0.1*data.darkness.levels[2] }
+    { text: "Add a 1.2x Multiplier to AutoBuyers", cost: ()=> D(1e30).pow((data.darkness.levels[0]+(D(1)))), effect: ()=> 1.2*data.darkness.levels[0] },
+    { text: "Add a 2x Multiplier to Dynamic Gain", cost: ()=> D(1e15).pow((data.darkness.levels[1]+(D(1)))), effect: ()=> 2*data.darkness.levels[1] },
+    { text: "Add 0.1 to both Hierarchy Effect exponents", cost: ()=> D(1e100).pow((data.darkness.levels[2]+(D(1)))), effect: ()=> 0.1*data.darkness.levels[2] }
 ]
 
 function buyDrain(i){
@@ -80,8 +80,8 @@ function buyDrain(i){
 }
 
 function buyDUP(i){
-    if(data.chal.decrementy >= dupData[i].cost()){
-        data.chal.decrementy -= dupData[i].cost()
+    if(data.chal.decrementy.gte(dupData[i].cost())){
+        data.chal.decrementy = data.chal.decrementy.sub(dupData[i].cost())
         ++data.darkness.levels[i]
         updateDUPHTML(i)
     }
