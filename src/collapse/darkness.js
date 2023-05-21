@@ -22,8 +22,17 @@ function updateDarknessControlHTML(mode){
     }
 }
 function updateAllDarknessControlHTML(){
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
         updateDarknessControlHTML(i)        
+    }
+}
+
+function updateDUPHTML(i){
+    DOM(`dup${i}`).innerText = `${dupData[i].text} (${data.darkness.levels[i]})\n${format(dupData[i].cost())} Decrementy\nCurrently: +${format(dupData[i].effect())}x`
+}
+function updateAllDUPHTML(){
+    for (let i = 0; i < data.darkness.levels.length; i++) {
+        updateDUPHTML(i)        
     }
 }
 
@@ -36,6 +45,20 @@ function negativeChargeEffect(eff){
  }
 
 let sacrificedChargeEffect = () => data.darkness.sacrificedCharge > 0 ? (data.darkness.sacrificedCharge+1)*2 : 1
+
+let dupData = [
+    { text: "Add a 1.2x Multiplier to AutoBuyers", cost: ()=> 1e5**(data.darkness.levels[0]+1), effect: ()=> 1.2*data.darkness.levels[0] },
+    { text: "Add a 2x Multiplier to Dynamic Gain", cost: ()=> 1e8**(data.darkness.levels[1]+1), effect: ()=> 2*data.darkness.levels[1] },
+    { text: "Add 0.1 to both Hierarchy Effect exponents", cost: ()=> 1e15**(data.darkness.levels[2]+1), effect: ()=> 0.1*data.darkness.levels[2] }
+]
+
+function buyDUP(i){
+    if(data.chal.decrementy >= dupData[i].cost()){
+        data.chal.decrementy -= dupData[i].cost()
+        ++data.darkness.levels[i]
+        updateDUPHTML(i)
+    }
+}
 
 function darknessControl(mode){
     if(mode==0) data.darkness.negativeChargeEnabled = !data.darkness.negativeChargeEnabled
@@ -63,7 +86,7 @@ function darknessControl(mode){
 
 function darkenConfirm(){
     data.darkness.darkened 
-        ? createConfirmation('Are you certain?', 'Exiting the Darkness will stop the generation of Negative Charge and Decrementy (you can still buy Dark Upgrades) and force a Booster Reset.', 'No thanks.', 'For sure!', darken)
+        ? createConfirmation('Are you certain?', 'Exiting the Darkness will stop the generation of Negative Charge and Decrementy and force a Booster Reset.', 'No thanks.', 'For sure!', darken)
         : createConfirmation('Are you certain?', 'Darkening will preform a Booster Reset and trap you in Challenge 8. Darkening will also Invert the effect of Booster Power effect 3. However, you will also gain the ability to generate Negative Charge.', 'No thanks.', 'For sure!', darken)
 }
 function darken(){

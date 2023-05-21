@@ -31,6 +31,7 @@ const uHTML = {
 
         DOM('darken').innerText = data.darkness.darkened ? 'Escape' : 'Enter the Darkness'
         updateAllDarknessControlHTML()
+        updateAllDUPHTML()
 
         //Load Settings
         for (let i = 0; i < data.sToggles.length; i++) {
