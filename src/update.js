@@ -30,6 +30,7 @@ const uHTML = {
         DOM('progressBarContainer').style.display = data.sToggles[6] ? 'flex' : 'none'
 
         DOM('darken').innerText = data.darkness.darkened ? 'Escape' : 'Enter the Darkness'
+        updateAllDarknessControlHTML()
 
         //Load Settings
         for (let i = 0; i < data.sToggles.length; i++) {

@@ -268,10 +268,11 @@
                 <button class="dup" id="dup2">DUP2</button>
             </div>
             <div class="flexBox" id="dupControlContainer" style="flex-direction: row;">
-                <button class="dupControl" id="dupC0">Disable</button>
-                <button class="dupControl" id="dupC1">Reset</button>
-                <button class="dupControl" id="dupC2">Sacrifice</button>
+                <button class="dupControl" id="dupC0" onclick="darknessControl(0)">Enable Negative Charge Gain</button>
+                <button class="dupControl" id="dupC3" onclick="createConfirmation('Are you sure?', 'Resetting Sacrificed Charge will also force a Booster Reset and disable Negative Charge gain.', 'Nope.', 'Begone!', darknessControl, 3)">Reset Sacrifice Charge</button>
+                <button class="dupControl" id="dupC1" onclick="createConfirmation('Are you certian?', 'Resetting Negative Charge will also force a Booster Reset, disable Negative Charge gain, and reset Sacrificed Charge.', 'Nope.', 'Begone!', darknessControl, 1)">Reset Negative Charge</button>
             </div>
+            <button id="dupC2" onclick="createConfirmation('Are you sure?', 'Sacrificing Charge will not only consume 1 Charge but also remove it from the Total Charge amount!', 'Keep it!', 'Begone!', darknessControl, 2)">Sacrifice Charge</button>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;">
