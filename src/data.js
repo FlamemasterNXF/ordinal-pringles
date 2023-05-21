@@ -27,7 +27,7 @@ function getDefaultObject() {
         hierachies: { ords:[ {ord:1, over:0, base:10, type:"f"}, {ord:1, over:0, base:10, type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(6).fill(false)},
         overflow: {bp:1, oc:1},
         collapse: {times:0, cardinals:0, bestCardinalsGained:0, alephs:Array(8).fill(0), hasCUP:Array(8).fill(false), hasSluggish:Array(6).fill(false)},
-        darkness: {levels: Array(3).fill(0), negativeCharge:0, drains: Array(7).fill(false), sacrificedCharge:false, enabled:false},
+        darkness: {levels: Array(3).fill(0), negativeCharge:0, drains: Array(7).fill(false), sacrificedCharge:0, negativeChargeEnabled:false, darkened:false},
         autoStatus: {enabled: [false, false]},
         sToggles: Array(7).fill(true),
         successorClicks: 0,

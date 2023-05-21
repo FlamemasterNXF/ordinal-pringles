@@ -83,7 +83,7 @@ function chalExitConfirm(){
     createConfirmation("Are you sure?", "Leaving a Challenge early will force a Booster Reset and you will get no rewards!", "No way!", "Of course!", chalExit)
 }
 function chalComplete(){
-    if(data.chal.html === -1) return
+    if(data.chal.html === -1 || data.darkness.darkened) return
     const currency = data.chal.html===1?data.ord.ordinal:data.markup.powers
     const ex = data.chal.html===1?data.ord.isPsi:true
     if(currency>=chalGoals[data.chal.html][data.chal.completions[data.chal.html]] && ex){

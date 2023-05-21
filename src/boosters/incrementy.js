@@ -10,12 +10,12 @@ function switchIUPText(i, mode){
     : DOM(`iup${i}`).innerText = `[UP${i-2}] ${iupDesc[i]}\n${format(iupCosts[i])} Incrementy`
 }
 
-let incrementyMult = () => Math.max(1, (Math.pow(Math.sqrt(data.incrementy.amt)+10, 1/4))*Math.pow(data.incrementy.amt, 1/16))
+let incrementyMult = () => Math.max(1, ((Math.pow(Math.sqrt(data.incrementy.amt)+10, 1/4))*Math.pow(data.incrementy.amt, 1/16))/negativeChargeEffect(true))
 function incrementyGain() {
     if (!data.ord.isPsi || checkAllIndexes(data.chal.active, true) > 0) return 0
 
     let base = Math.log10(data.ord.ordinal+1) / 10
-    return base*hierarchyData[0].effect()*iup1Effect()*iup3Effect()*iup4Effect()*alephEffect(3)*cupEffect(4)
+    return (base*hierarchyData[0].effect()*iup1Effect()*iup3Effect()*iup4Effect()*alephEffect(3)*cupEffect(4))/negativeChargeEffect(false)
 }
 
 const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Factor boosts Incrementy gain',

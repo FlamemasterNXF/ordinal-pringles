@@ -17,6 +17,8 @@ function isTabUnlocked(t){
 function updateCollapseHTML(){
     DOM(`cardinalsText`).innerText = `You have ${format(data.collapse.cardinals)} Cardinals`
     DOM(`collapseButton`).innerText = `Collapse for ${format(cardinalGain())} Cardinals`
+
+    updateDarknessHTML()
 }
 function initAlephs(){
     const container = DOM('cardinalsSubPage')

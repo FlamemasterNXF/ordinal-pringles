@@ -19,6 +19,7 @@
     <script defer src="src/etc/tick.js"></script>
     <script defer src="src/etc/achievements.js"></script>
 
+    <script defer src="src/collapse/darkness.js"></script>
     <script defer src="src/collapse/collapse.js"></script>
 
     <script defer src="src/boosters/overflow.js"></script>
@@ -258,9 +259,9 @@
             <t class="centeredTexts" style="color: #0e8626; margin-top: 1rem">Collapse in the required Factor Boosts or less to complete Sluggish Milestones</t>
         </div>
         <div class="flexBox" id="darknessSubPage" style="display: none; flex-direction: column;">
-            <button id="darken">Darken</button>
-            <t class="centeredTexts" style="color: #9f9fcce1; margin-top: 1rem">You have zero Negative Charge [+x/s], capping at zero</t>
-            <t class="centeredTexts" style="color: #9f9fcce1;">Your Negative Charge divides Incrementy by the log700 of foxes</t>
+            <button id="darken" onclick="darkenConfirm()">Enter the Darkness</button>
+            <t class="centeredTexts" id="nchargeText1" style="color: #9f9fcce1; margin-top: 1rem">You have zero Negative Charge [+x/s], capping at zero</t>
+            <t class="centeredTexts" id="nchargeText2" style="color: #9f9fcce1;">Your Negative Charge divides Incrementy by the log700 of foxes</t>
             <div class="flexBox" id="dupContainer" style="flex-direction: row;">
                 <button class="dup" id="dup0">DUP0</button>
                 <button class="dup" id="dup1">DUP1</button>
