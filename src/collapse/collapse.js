@@ -1,9 +1,17 @@
 let collapseTab = "cardinals"
 function switchCollapseTab(t){
-    DOM(`${collapseTab}SubPage`).style.display = `none`
-    DOM(`${t}SubPage`).style.display = `flex`
-
-    collapseTab = t
+    if(isTabUnlocked(t)){
+        DOM(`${collapseTab}SubPage`).style.display = `none`
+        DOM(`${t}SubPage`).style.display = `flex`
+    
+        collapseTab = t
+    }
+}
+function isTabUnlocked(t){
+    switch (t) {
+        case 'darkness': return data.collapse.hasSluggish[1]    
+        default: return true
+    }
 }
 
 function updateCollapseHTML(){
@@ -62,6 +70,7 @@ function updateUnlockHTML(mode, i){
             break;
         case 1:
             DOM(`sluggish${i}`).style.background = data.collapse.hasSluggish[i] ? "#0e3000" : "black"
+            if(i == 1) DOM('darkTab').innerText = data.collapse.hasSluggish[1] ? 'Darkness' : '???'
             break;
         default:
             console.error("Invalid \"mode\" at \"updateUnlockHTML\"");
@@ -123,7 +132,7 @@ let cupData = [
 ]
 let sluggishData = [
     {text: "Uncap the Ordinal, gain 1% of Ordinal Powers gained on Markup every second and you always have one free Maximize AutoClicker", req: 34},
-    {text: "Unlock Darkness and keep Challenges and Incrementy unlocked through Collapse", req: 29},
+    {text: "Unlock Darkness (in the Incrementy tab) and keep Challenges and Incrementy unlocked through Collapse", req: 29},
     {text: "Unlock an AutoBuyer for Charge, an AutoBuyer for RUP1-3, and 4 new Hierarchy Upgrades", req: 24},
     {text: "Unlock an AutoBuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, and you can bulk complete Challenges", req: 12},
     {text: "Unlock a new row of Booster Upgrades, keep Hierarchies unlocked through Collapse, and keep Challenge completions on Collapse", req: 2},
@@ -139,17 +148,19 @@ function collapse(first = false){
         DOM('collapseNav').style.display = 'block'
         checkUnlocks(1, 0)
         collapseReset()
+        boosterUnlock()
         makeExcessOrdMarks()
         return createAlert("You have Collapsed!", "Congratulations! You can now Factor Boost beyond FB34! Cardinals are gained based on how many FBs you have before Collapse.", "Got it!")
     }
-    if (data.boost.times >= 34){
+    if (data.ord.ordinal >= BHO_VALUE){
         if(cardinalGain() > data.collapse.bestCardinalsGained) data.collapse.bestCardinalsGained = cardinalGain()
         data.collapse.cardinals += cardinalGain()
         ++data.collapse.times
         checkAllUnlocks(1)
+        boosterUnlock()
         return collapseReset()
     }
-    createAlert("Failure", "Insufficent Factor Boosts. (You need at least 34 to Collapse!)", "Oops.")
+    createAlert("Failure", "Insufficent Ordinal.", "Oops.")
 }
 function collapseReset(){
     boosterRefund()

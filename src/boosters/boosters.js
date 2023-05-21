@@ -97,10 +97,10 @@ function updateBoostersHTML(){
    updateHierarchiesHTML()
    updateOverflowHTML()
 
-    DOM("chalTab").innerText = data.boost.total>=6?'Challenges':'???'
-    DOM("incrementyTab").innerText = data.boost.total>=91?'Incrementy':'???'
-    DOM("hierarchiesTab").innerText = data.boost.total>=325?'Hierachies':'???'
-    DOM("overflowTab").innerText = data.boost.total>=465?'Overflow':'???'
+    DOM("chalTab").innerText = data.boost.unlocks[0]?'Challenges':'???'
+    DOM("incrementyTab").innerText = data.boost.unlocks[1]?'Incrementy':'???'
+    DOM("hierarchiesTab").innerText = data.boost.unlocks[2]?'Hierachies':'???'
+    DOM("overflowTab").innerText = data.boost.unlocks[3]?'Overflow':'???'
     DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
 }
 
@@ -146,11 +146,6 @@ function boost(f=false){
     if(data.boost.times == 30) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
 
     boosterUnlock()
-    if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
-    if(data.boost.unlocks[1]) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
-    if(data.boost.unlocks[2]) DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies'))
-    if(data.boost.unlocks[3]) DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow'))
-
     boosterReset()
 }
 function boostReq(){
@@ -189,10 +184,10 @@ function boosterRefund(c=false){
 }
 
 function boosterUnlock(){
-    if(data.boost.total>=6){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480' }
-    if(data.boost.total>=91){ data.boost.unlocks[1] = true; DOM(`bu1`).style.backgroundColor = '#002480' }
-    if(data.boost.total>=325){ data.boost.unlocks[2] = true; DOM(`bu2`).style.backgroundColor = '#002480' }
-    if(data.boost.total>=465){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480' }
+    if(data.boost.total>=6 || data.collapse.hasSluggish[1]){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480'; DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal')) }
+    if(data.boost.total>=91 || data.collapse.hasSluggish[1]){ data.boost.unlocks[1] = true; DOM(`bu1`).style.backgroundColor = '#002480';  DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy')) }
+    if(data.boost.total>=325){ data.boost.unlocks[2] = true; DOM(`bu2`).style.backgroundColor = '#002480'; DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies')) }
+    if(data.boost.total>=465){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480'; DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow')) }
 }
 
 function toggleAuto(i){

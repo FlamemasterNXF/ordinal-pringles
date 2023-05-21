@@ -244,6 +244,7 @@
             <button class="collapseTabButton" id="cardinalsTab" onclick="switchCollapseTab('cardinals')">Alephs</button>
             <button class="collapseTabButton" id="cupsTab" onclick="switchCollapseTab('cUpgrades')">Cardinal Upgrades</button>
             <button class="collapseTabButton" id="smTab" onclick="switchCollapseTab('sluggish')">Sluggish Milestones</button>
+            <button class="collapseTabButton" id="darkTab" onclick="switchCollapseTab('darkness')">???</button>
         </div>
         <h3 class="centeredTexts" id="cardinalsText" style="margin-top: 1rem; color: #20da45;">You have Collapsed Chips. In your house.</h3>
         <button id="collapseButton" onclick="collapse()" style="color: #20da45;; min-width: 20rem; height: 2rem; background-color: black; border: 2px solid #2da000">Collapse</button>
@@ -254,7 +255,22 @@
         <div class="flexBox" id="cUpgradesSubPage" style="display: none; flex-direction: column;"></div>
         <div class="flexBox" id="sluggishSubPage" style="display: none; flex-direction: column;">
             <div class="flexBox" id="sluggishContainer" style="flex-direction: column;"></div>
-            <t class="centeredTexts" style="color: #0e8626; margin-top: 1rem">Collapse in the required Factor Boosts or less to complete Sluggish Milestones</h3>
+            <t class="centeredTexts" style="color: #0e8626; margin-top: 1rem">Collapse in the required Factor Boosts or less to complete Sluggish Milestones</t>
+        </div>
+        <div class="flexBox" id="darknessSubPage" style="display: none; flex-direction: column;">
+            <button id="darken">Darken</button>
+            <t class="centeredTexts" style="color: #9f9fcce1; margin-top: 1rem">You have zero Negative Charge [+x/s], capping at zero</t>
+            <t class="centeredTexts" style="color: #9f9fcce1;">Your Negative Charge divides Incrementy by the log700 of foxes</t>
+            <div class="flexBox" id="dupContainer" style="flex-direction: row;">
+                <button class="dup" id="dup0">DUP0</button>
+                <button class="dup" id="dup1">DUP1</button>
+                <button class="dup" id="dup2">DUP2</button>
+            </div>
+            <div class="flexBox" id="dupControlContainer" style="flex-direction: row;">
+                <button class="dupControl" id="dupC0">Disable</button>
+                <button class="dupControl" id="dupC1">Reset</button>
+                <button class="dupControl" id="dupC2">Sacrifice</button>
+            </div>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;">
