@@ -1,3 +1,4 @@
+let extraMaximize = () => data.collapse.hasSluggish[0] ? 1 : 0
 function updateMarkupHTML(){
     DOM("powersText").innerText = `You have ${formatWhole(data.markup.powers)} Ordinal Powers`
 
@@ -9,7 +10,7 @@ function updateMarkupHTML(){
         `Perform a Factor Shift<br>Requires: ${format(getFSReq())} Ordinal Powers`
     DOM("auto0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
     DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
-    DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0])} Successor Autoclickers click the Successor button ${formatWhole(data.chal.active[4]?data.autoLevels[0]*factorBoost()/data.dy.level:data.autoLevels[0]*factorBoost()*data.dy.level)} times/second\nYour ${formatWhole(data.autoLevels[1])} Maximize Autoclickers click the Maximize button ${formatWhole(data.chal.active[4]?data.autoLevels[1]*factorBoost()/data.dy.level:data.autoLevels[1]*factorBoost()*data.dy.level)} times/second`
+    DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0])} Successor Autoclickers click the Successor button ${formatWhole(data.chal.active[4]?data.autoLevels[0]*factorBoost()/data.dy.level:data.autoLevels[0]*factorBoost()*data.dy.level)} times/second\nYour ${formatWhole(data.autoLevels[1]+extraMaximize)} Maximize Autoclickers click the Maximize button ${formatWhole(data.chal.active[4]?(data.autoLevels[1]+extraMaximize())*factorBoost()/data.dy.level:(data.autoLevels[1]+extraMaximize())*factorBoost()*data.dy.level)} times/second`
 
     for (let i = 0; i < data.factors.length; i++) {
         DOM(`factor${i}`).innerText = hasFactor(i)?`Factor ${i+1} [${data.boost.hasBUP[10]?formatWhole(data.factors[i]+3):formatWhole(data.factors[i])}] ${formatWhole(factorEffect(i))}x\nCost: ${formatWhole(factorCost(i))} Ordinal Powers`:`Factor ${i+1}\nLOCKED`
@@ -41,7 +42,7 @@ function markup(n=1){
 
     if(data.chal.active[6]) data.markup.powers = 0
     data.ord.isPsi = false
-    data.markup.powers += opGain()*opMult()
+    data.markup.powers += totalOPGain()
     data.ord.ordinal = 0
     data.ord.over = 0
     data.successorClicks = 0
@@ -68,6 +69,7 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
         opGain(ord - divisor * mult, base, over))
     )
 }
+let totalOPGain = () => opGain()*opMult()
 
 const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 5e100, Infinity, Infinity]
 function getFSReq(){

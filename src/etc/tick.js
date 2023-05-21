@@ -22,11 +22,14 @@ function tick(diff){
         ? t2Auto()
         : 0
 
-    for (let i = 0; i < 2; i++) {
-        if(Math.floor(timesToLoop[i]/1000) >= 1){
-            i===0 ? successor(timesToLoop[i]/1000) : maximize()
-            timesToLoop[i] -= Math.floor(timesToLoop[i]/1000)*1000
-        }
+    if(Math.floor(timesToLoop[0]/1000) >= 1){
+        successor(timesToLoop[0]/1000)
+        timesToLoop[0] -= Math.floor(timesToLoop[0]/1000)*1000
+    }
+
+    if(Math.floor(timesToLoop[1]/1000) >= 1 || data.collapse.hasSluggish[0]){
+        maximize()
+        timesToLoop[1] -= Math.floor(timesToLoop[1]/1000)*1000
     }
 
     // Automation Tier 2
