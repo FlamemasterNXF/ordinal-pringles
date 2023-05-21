@@ -22,7 +22,7 @@ const achievements = [
             "Reach a value of 1.79e308",
             "Reach ω^ω",
             "Reach Ψ(Ω)",
-            "Reach BHO"
+            "Reach Ψ(Ω₂)"
         ]
     },
     {
