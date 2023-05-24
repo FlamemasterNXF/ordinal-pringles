@@ -10,7 +10,8 @@ const BHO_VALUE = 4*3**40
 const VERSION = "0.1b1"
 const VERSION_NAME = "Pringle Collapsing Functions"
 const VERSION_DATE = "May 21st, 2023"
-const SAVE_PATH = "ordinalPRINGLESsave"
+const IS_BETA = true
+const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
 //create all the variables in a data object for saving
 function getDefaultObject() {
@@ -35,21 +36,22 @@ function getDefaultObject() {
         achs: [],
         loadedVersion: "null",
         offline: true,
-        gword: false
+        gword: false,
+        isBeta: IS_BETA,
     }
 }
 let data = getDefaultObject()
 
 //saving and loading
 function save(){
-    try{ window.localStorage.setItem(SAVE_PATH, JSON.stringify(data)) }
+    try{ window.localStorage.setItem(SAVE_PATH(), JSON.stringify(data)) }
     catch (e) {
         createAlert('Error', `Save failed.\n${e}`, 'Dang.');
         console.error(e);
     }
 }
 function load() {
-    let savedata = JSON.parse(window.localStorage.getItem(SAVE_PATH))
+    let savedata = JSON.parse(window.localStorage.getItem(SAVE_PATH()))
     if (savedata !== undefined) fixSave(data, savedata)
     const extra = fixOldSaves()
     createAlert('Welcome Back!', `You've loaded into Ordinal PRINGLES v${VERSION}: ${VERSION_NAME}\nEnjoy!`, 'Thanks!')
@@ -178,6 +180,6 @@ function fullReset(){
     deleteSave()
 }
 function deleteSave(){
-    window.localStorage.removeItem(SAVE_PATH)
+    window.localStorage.removeItem(SAVE_PATH())
     location.reload()
 }
