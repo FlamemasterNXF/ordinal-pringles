@@ -1,0 +1,4 @@
+[submodule "pringles-collapse-beta"]
+	path = pringles-collapse-beta
+	url = https://github.com/FlamemasterNXF/ordinal-pringles
+	branch = v01-collapse
