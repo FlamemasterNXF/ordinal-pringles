@@ -1,18 +1,20 @@
 let boostTab = "upgrades"
 function switchBoostTab(t){
-    DOM(`${boostTab}SubPage`).style.display = `none`
-    DOM(`${t}SubPage`).style.display = `flex`
-
-    if (t=="upgrades" && data.incrementy.totalCharge > 0){
-        DOM('bupBottomText').style.color = 'goldenrod'
-        DOM('bupBottomText').innerText = 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
-        DOM('chargeRefund').style.display = 'block'
+    if(isTabUnlocked(t)){
+        DOM(`${boostTab}SubPage`).style.display = `none`
+        DOM(`${t}SubPage`).style.display = `flex`
+    
+        if (t=="upgrades" && data.incrementy.totalCharge > 0){
+            DOM('bupBottomText').style.color = 'goldenrod'
+            DOM('bupBottomText').innerText = 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
+            DOM('chargeRefund').style.display = 'block'
+        }
+        else{
+            DOM('bupBottomText').innerText = 'The Unlockables Column does not consume Boosters'
+            DOM('chargeRefund').style.display = 'none'
+        }
+        boostTab = t
     }
-    else{
-        DOM('bupBottomText').innerText = 'The Unlockables Column does not consume Boosters'
-        DOM('chargeRefund').style.display = 'none'
-    }
-    boostTab = t
 }
 
 const bupDesc = ['Each Factor\'s effect is doubled', 'Boost OP gain by 5x', 'The Ordinal Base is always 5 in Challenges', 'Dynamic Gain is multiplied by your C5 completions in C1-C4',

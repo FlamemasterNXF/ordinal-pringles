@@ -7,12 +7,6 @@ function switchCollapseTab(t){
         collapseTab = t
     }
 }
-function isTabUnlocked(t){
-    switch (t) {
-        case 'darkness': return data.collapse.hasSluggish[1]    
-        default: return true
-    }
-}
 
 function updateCollapseHTML(){
     DOM(`cardinalsText`).innerText = `You have ${format(data.collapse.cardinals)} Cardinals`
@@ -193,6 +187,8 @@ function collapseReset(){
     data.boost.hasBUP = Array(12).fill(false)
     data.boost.isCharged = Array(12).fill(false)
     data.boost.unlocks = Array(4).fill(false)
+
+    DOM('factorBoostButton').style.display = 'none'
 
     data.chal.decrementy = D(1)
     data.chal.html = -1

@@ -10,7 +10,7 @@ function updateMarkupHTML(){
         `Perform a Factor Shift<br>Requires: ${format(getFSReq())} Ordinal Powers`
     DOM("auto0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
     DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
-    DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0])} Successor Autoclickers click the Successor button ${formatWhole(data.chal.active[4]?data.autoLevels[0]*factorBoost()/data.dy.level:data.autoLevels[0]*factorBoost()*data.dy.level)} times/second\nYour ${formatWhole(data.autoLevels[1]+extraMaximize)} Maximize Autoclickers click the Maximize button ${formatWhole(data.chal.active[4]?(data.autoLevels[1]+extraMaximize())*factorBoost()/data.dy.level:(data.autoLevels[1]+extraMaximize())*factorBoost()*data.dy.level)} times/second`
+    DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0])} Successor Autoclickers click the Successor button ${formatWhole(data.chal.active[4]?data.autoLevels[0]*factorBoost()/data.dy.level:data.autoLevels[0]*factorBoost()*data.dy.level)} times/second\nYour ${formatWhole(data.autoLevels[1]+extraMaximize())} Maximize Autoclickers click the Maximize button ${formatWhole(data.chal.active[4]?(data.autoLevels[1]+extraMaximize())*factorBoost()/data.dy.level:(data.autoLevels[1]+extraMaximize())*factorBoost()*data.dy.level)} times/second`
 
     for (let i = 0; i < data.factors.length; i++) {
         DOM(`factor${i}`).innerText = hasFactor(i)?`Factor ${i+1} [${data.boost.hasBUP[10]?formatWhole(data.factors[i]+3):formatWhole(data.factors[i])}] ${formatWhole(factorEffect(i))}x\nCost: ${formatWhole(factorCost(i))} Ordinal Powers`:`Factor ${i+1}\nLOCKED`
@@ -63,11 +63,7 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
     let pow = Math.floor(Math.log(ord + 0.1) / Math.log(base))
     let divisor = Math.pow(base, pow)
     let mult = Math.floor((ord + 0.1) / divisor)
-    return Math.min(
-        (1e258,
-        10 ** opGain(pow, base, 0) * mult +
-        opGain(ord - divisor * mult, base, over))
-    )
+    return (1e258, 10 ** opGain(pow, base, 0) * mult + opGain(ord - divisor * mult, base, over))
 }
 let totalOPGain = () => opGain()*opMult()
 

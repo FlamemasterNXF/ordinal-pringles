@@ -51,3 +51,16 @@ const uHTML = {
         initSluggish()
     }
 }
+
+function isTabUnlocked(t){
+    switch (t) {
+        case 'chal': return data.boost.unlocks[0]
+        case 'incrementy': return data.boost.unlocks[1]
+        case 'hierarchies': return data.boost.unlocks[2]
+        case 'overflow': return data.boost.unlocks[3]
+        
+        case 'darkness': return data.collapse.hasSluggish[1]
+        
+        default: return true
+    }
+}
