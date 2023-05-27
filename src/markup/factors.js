@@ -65,8 +65,8 @@ function buyMaxFactor(){
     }
 }
 function buyMaxT1(){
-    if(data.autoLevels[0] == 0) buyAuto(0)
-    if(data.autoLevels[1] == 0) buyAuto(1)
+    if(data.autoLevels[0] == 0 && data.collapse.times == 0) buyAuto(0)
+    if(data.autoLevels[1] == 0 && data.collapse.times == 0) buyAuto(1)
     buyMaxFactor() 
     buyMaxAuto()
 }
