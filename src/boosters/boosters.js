@@ -126,7 +126,7 @@ function boosterReset(){
     for (let i = 0; i < data.autoLevels.length; i++) {
         data.autoLevels[i] = 0
     }
-    data.chal.decrementy = 1
+    data.chal.decrementy = D(1)
     data.successorClicks = 0
 }
 

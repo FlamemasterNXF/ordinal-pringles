@@ -7,9 +7,9 @@ const GRAHAMS_VALUE = 109
 const BHO_VALUE = 4*3**40
 
 //Version Flags
-const VERSION = "0.1b1"
+const VERSION = "0.1b2"
 const VERSION_NAME = "Pringle Collapsing Functions"
-const VERSION_DATE = "May 21st, 2023"
+const VERSION_DATE = "May 27st, 2023"
 const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
