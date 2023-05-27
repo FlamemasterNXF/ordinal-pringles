@@ -134,7 +134,7 @@ let alephData = [
     {text: "multiplying Dynamic Cap by", effect: ()=> Math.sqrt(data.collapse.alephs[4]+1)*2},
     {text: "multiplying the SGH effect by", effect: ()=> Math.pow(data.collapse.alephs[5]+1, 1/16)},
     {text: "multiplying Booster Power gain by", effect: ()=> Math.log(data.collapse.alephs[6]+1, 1/8)},
-    {text: "multiplying the IUP3 effect by", effect: ()=> Math.sqrt(data.collapse.alephs[7]+1)/2},
+    {text: "multiplying the IUP3 effect by", effect: ()=> Math.sqrt(data.collapse.alephs[7]+4)/2},
 ]
 let cupData = [
     {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max(data.incrementy.totalCharge/2, 1)},
