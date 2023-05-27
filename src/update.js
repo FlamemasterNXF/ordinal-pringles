@@ -59,7 +59,7 @@ function isTabUnlocked(t){
         case 'hierarchies': return data.boost.unlocks[2]
         case 'overflow': return data.boost.unlocks[3]
         
-        case 'darkness': return data.collapse.hasSluggish[1]
+        case 'darkness': return data.collapse.hasSluggish[2]
         
         default: return true
     }

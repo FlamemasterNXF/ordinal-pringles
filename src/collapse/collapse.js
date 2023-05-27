@@ -86,7 +86,7 @@ function updateUnlockHTML(mode, i){
             break;
         case 1:
             DOM(`sluggish${i}`).style.background = data.collapse.hasSluggish[i] ? "#0e3000" : "black"
-            if(i == 1) DOM('darkTab').innerText = data.collapse.hasSluggish[1] ? 'Darkness' : '???'
+            if(i == 1) DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
             break;
         default:
             console.error("Invalid \"mode\" at \"updateUnlockHTML\"");
@@ -148,9 +148,9 @@ let cupData = [
 ]
 let sluggishData = [
     {text: "Uncap the Ordinal, gain 1% of Ordinal Powers gained on Markup every second and you always have one free Maximize AutoClicker", req: 34},
-    {text: "Unlock Darkness and keep Challenges and Incrementy unlocked through Collapse", req: 29},
-    {text: "Unlock an AutoBuyer for Charge, an AutoBuyer for RUP1-3, and 4 new Hierarchy Upgrades\nComing Soon...", req: 24},
-    {text: "???"/*"Unlock an AutoBuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, and you can bulk complete Challenges"*/, req: 12},
+    {text: "Keep Challenges and Incrementy unlocked through Collapse", req: 29},
+    {text: "Unlock an AutoBuyer for Charge, an AutoBuyer for RUP1-3, and Unlock Darkness", req: 24},
+    {text: "???"/*"Unlock an AutoBuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, you can bulk complete Challenges, and unlock 4 new Hierarchy Upgrades"*/, req: 12},
     {text: "???"/*"Unlock a new row of Booster Upgrades, keep Hierarchies unlocked through Collapse, and keep Challenge completions on Collapse"*/, req: 2},
     {text: "???"/*"Uncap Ordinal Powers, keep UP1-6 and Darkness Upgrades on Collapse, and unlock an AutoBuyer for Booster Upgrades"*/, req: 1},
 ]
