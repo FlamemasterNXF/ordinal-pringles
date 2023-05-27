@@ -121,6 +121,12 @@ function checkAllUnlocks(mode, prev = false){
             console.error("Invalid \"mode\" at \"checkAllUnlocks\"");
     }
 }
+function checkCollapseUnlockHTML(){
+    DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'flex' : 'none'
+    DOM('t2AutoText3').style.display = data.collapse.hasSluggish[2] ? 'flex' : 'none'
+    DOM('auto4').style.display = data.collapse.hasSluggish[2] ? 'flex' : 'none'
+    DOM('auto5').style.display = data.collapse.hasSluggish[2] ? 'flex' : 'none'
+}
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : Math.sqrt(data.boost.times-34)+3
 let alephEffect = (i) => data.collapse.alephs[i] > 0 ? alephData[i].effect()*cupEffect(6) : 1
@@ -174,6 +180,7 @@ function collapse(first = false){
         ++data.collapse.times
         checkAllUnlocks(1)
         boosterUnlock()
+        checkCollapseUnlockHTML()
         return collapseReset()
     }
     createAlert("Failure", "Insufficent Ordinal.", "Oops.")

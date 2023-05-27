@@ -47,6 +47,14 @@ function tick(diff){
     let collapseCheck = data.ord.ordinal < BHO_VALUE || data.collapse.times > 0
     if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1] && collapseCheck) markup(timesToLoop[3]*diff/1000)
 
+    // Automation Tier 2: Post-Collapse
+    if(data.collapse.hasSluggish[2] && data.autoStatus.enabled[2]) sacrificeIncrementy() //Charge Autobuyer
+    if(data.collapse.hasSluggish[2] && data.autoStatus.enabled[3]){ // Repeatable IUP Autobuyer
+        for (let i = 0; i < 3; i++) {
+            buyIUP(i, true)
+        }
+    }
+
     // Increase Hierarchies 
     if(data.boost.unlocks[2]) increaseHierarchies(diff)
 

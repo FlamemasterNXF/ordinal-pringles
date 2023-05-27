@@ -99,7 +99,7 @@ function respecCharge(c=false){
 }
 
 function sacrificeIncrementy(){
-    if(data.incrementy.amt >= chargeReq() && data.incrementy.totalCharge < 12){
+    if(data.incrementy.amt >= chargeReq()){
 
         if(data.incrementy.totalCharge < 1) initBUPHover()
 
