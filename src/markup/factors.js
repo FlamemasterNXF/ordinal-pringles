@@ -64,6 +64,12 @@ function buyMaxFactor(){
         while (data.markup.powers >= Math.pow(10 ** (i + 1), Math.pow(2, data.factors[i]))) buyFactor(i);
     }
 }
+function buyMaxT1(){
+    if(data.autoLevels[0] == 0) buyAuto(0)
+    if(data.autoLevels[1] == 0) buyAuto(1)
+    buyMaxFactor() 
+    buyMaxAuto()
+}
 
 function dyGain(){
     if(data.chal.active[6]) return 0

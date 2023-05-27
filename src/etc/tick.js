@@ -34,16 +34,12 @@ function tick(diff){
     }
 
     // Automation Tier 2
+    // BuyMax Autobuyer
     if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3) && data.autoStatus.enabled[0]){ 
-        if (data.autoLevels[0] == 0 || data.autoLevels[1] == 0){
-            // Prioritize Autobuyers Over Factors
-            buyMaxAuto()
-            return buyMaxFactor() 
-        }
-        buyMaxFactor() 
-        buyMaxAuto()
+        buyMaxT1()
     }
 
+    // Markup Autobuyer
     let collapseCheck = data.ord.ordinal < BHO_VALUE || data.collapse.times > 0
     if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1] && collapseCheck) markup(timesToLoop[3]*diff/1000)
 
