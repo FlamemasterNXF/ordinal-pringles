@@ -16,8 +16,8 @@ function tick(diff){
 
     //Automation Tier 1
     for (let i = 0; i < 2; i++) timesToLoop[i] += !data.chal.active[4] 
-        ? (diff*data.autoLevels[i]*t1Auto()*data.dy.level)/data.chal.decrementy
-        : (diff*data.autoLevels[i]*t1Auto()/data.dy.level)/data.chal.decrementy
+        ? (diff*(data.autoLevels[i]+extraT1())*t1Auto()*data.dy.level)/data.chal.decrementy
+        : (diff*(data.autoLevels[i]+extraT1())*t1Auto()/data.dy.level)/data.chal.decrementy
     
     for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]] 
         ? t2Auto()
@@ -28,7 +28,7 @@ function tick(diff){
         timesToLoop[0] -= Math.floor(timesToLoop[0]/1000)*1000
     }
 
-    if(Math.floor(timesToLoop[1]/1000) >= 1 || data.collapse.hasSluggish[0]){
+    if(Math.floor(timesToLoop[1]/1000) >= 1){
         maximize()
         timesToLoop[1] -= Math.floor(timesToLoop[1]/1000)*1000
     }

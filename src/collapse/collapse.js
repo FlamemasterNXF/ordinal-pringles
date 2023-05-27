@@ -153,7 +153,7 @@ let cupData = [
     {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 4e13, effect: ()=> 1},
 ]
 let sluggishData = [
-    {text: "Uncap the Ordinal, gain 1% of Ordinal Powers gained on Markup every second and you always have one free Maximize AutoClicker", req: 34},
+    {text: "Uncap the Ordinal, gain 1% of Ordinal Powers gained on Markup every second and you always have one free Maximize and Successor AutoClicker", req: 34},
     {text: "Keep Challenges and Incrementy unlocked through Collapse", req: 29},
     {text: "Unlock an AutoBuyer for Charge, an AutoBuyer for RUP1-3, and Unlock Darkness", req: 24},
     {text: "???"/*"Unlock an AutoBuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, you can bulk complete Challenges, and unlock 4 new Hierarchy Upgrades"*/, req: 12},
