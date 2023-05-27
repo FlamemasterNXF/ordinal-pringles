@@ -148,11 +148,11 @@ let cupData = [
 ]
 let sluggishData = [
     {text: "Uncap the Ordinal, gain 1% of Ordinal Powers gained on Markup every second and you always have one free Maximize AutoClicker", req: 34},
-    {text: "Unlock Darkness (in the Incrementy tab) and keep Challenges and Incrementy unlocked through Collapse", req: 29},
-    {text: "Unlock an AutoBuyer for Charge, an AutoBuyer for RUP1-3, and 4 new Hierarchy Upgrades", req: 24},
-    {text: "Unlock an AutoBuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, and you can bulk complete Challenges", req: 12},
-    {text: "Unlock a new row of Booster Upgrades, keep Hierarchies unlocked through Collapse, and keep Challenge completions on Collapse", req: 2},
-    {text: "Uncap Ordinal Powers, keep UP1-6 and Darkness Upgrades on Collapse, and unlock an AutoBuyer for Booster Upgrades", req: 1},
+    {text: "Unlock Darkness and keep Challenges and Incrementy unlocked through Collapse", req: 29},
+    {text: "Unlock an AutoBuyer for Charge, an AutoBuyer for RUP1-3, and 4 new Hierarchy Upgrades\nComing Soon...", req: 24},
+    {text: "???"/*"Unlock an AutoBuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, and you can bulk complete Challenges"*/, req: 12},
+    {text: "???"/*"Unlock a new row of Booster Upgrades, keep Hierarchies unlocked through Collapse, and keep Challenge completions on Collapse"*/, req: 2},
+    {text: "???"/*"Uncap Ordinal Powers, keep UP1-6 and Darkness Upgrades on Collapse, and unlock an AutoBuyer for Booster Upgrades"*/, req: 1},
 ]
 
 function collapse(first = false){
