@@ -111,4 +111,4 @@ function sacrificeIncrementy(){
     }
 }
 
-let chargeReq = () => (10**(6+(data.incrementy.totalCharge*2)))/hierarchyData[1].effect()
+let chargeReq = () => (10**(6+(data.incrementy.totalCharge*(2+Math.floor(data.incrementy.totalCharge/12)))))/hierarchyData[1].effect()
