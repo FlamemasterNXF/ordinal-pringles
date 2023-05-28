@@ -21,7 +21,7 @@ function updateCollapseHTML(){
     updateDarknessHTML()
 }
 function initAlephs(){
-    const container = DOM('cardinalsSubPage')
+    const container = DOM('alephContainer')
     for (let i = 0; i < data.collapse.alephs.length; i++) {
         let el = document.createElement('t')   
         el.className = 'alephText'
@@ -80,6 +80,9 @@ function initSluggish(){
 function updateAlephHTML(i){
     DOM(`aleph${i}`).innerHTML = `You have <font color='#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></font>, ${alephData[i].text} <font color='#20da45'><b>${format(alephEffect(i))}x</b></font>`
 }
+function updateTotalAlephHTML(){
+    DOM(`alephTotal`).innerHTML = `You have <font color='#20da45'><b>${format(getTotalAlephs())} Total ℵ</b></font>, multiplying Cardinal gain by <font color='#20da45'><b>${format(alephTotalEffect())}x</b></font>`
+}
 function updateUnlockHTML(mode, i){
     switch (mode) {
         case 0:
@@ -133,6 +136,15 @@ function checkCollapseUnlockHTML(){
 let cardinalGain = () => data.boost.times < 34 ? 0 : Math.sqrt(data.boost.times-34)+3
 let alephEffect = (i) => data.collapse.alephs[i] > 0 ? alephData[i].effect()*cupEffect(6) : 1
 let cupEffect = (i) => data.collapse.hasCUP[i] ? Math.max(cupData[i].effect()*drainEffect(i), 1) : 1
+
+function getTotalAlephs(){
+    let total = 0
+    for (let i = 0; i < data.collapse.alephs.length; i++) {
+        total += data.collapse.alephs[i]        
+    }
+    return total
+}
+let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs()))
 
 let alephData = [
     {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)},
@@ -249,6 +261,7 @@ function collapseCardinals(){
             updateAlephHTML(i)            
         }
         data.collapse.cardinals = 0
+        updateTotalAlephHTML()
         return createAlert("A little help!", "Since this your first Collapse, you have been given exactly one of the first three Alephs because they are the most helpful! From now on Aleph gain will be random.", "Thanks!")
     }
 
@@ -270,6 +283,7 @@ function collapseCardinals(){
             updateAlephHTML(i)   
         }
     }
+    updateTotalAlephHTML()
 }
 
 function buyCardinalUpgrade(i){

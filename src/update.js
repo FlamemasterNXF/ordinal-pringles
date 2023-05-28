@@ -32,6 +32,7 @@ const uHTML = {
         DOM('darken').innerText = data.darkness.darkened ? 'Escape' : 'Enter the Darkness'
 
         checkCollapseUnlockHTML()
+        updateTotalAlephHTML()
         updateAllDarknessControlHTML()
         updateAllDUPHTML()
 
