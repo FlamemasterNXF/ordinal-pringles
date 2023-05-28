@@ -202,6 +202,7 @@ function collapseReset(){
     data.chal.completions = Array(8).fill(0)
     data.chal.active = Array(8).fill(0)
     totalCompletions = 0
+    updateChalHTML()
 
     data.incrementy.amt = 0
     data.incrementy.hasIUP = Array(9).fill(false)
@@ -209,6 +210,7 @@ function collapseReset(){
     data.incrementy.rebuyableCosts = [20, 1000, 100]
     data.incrementy.charge = 0
     data.incrementy.totalCharge = 0
+    updateIncrementyHTML()
 
     data.hierachies.ords[0].ord = 1
     data.hierachies.ords[0].over = 0
@@ -218,6 +220,7 @@ function collapseReset(){
     data.hierachies.ords[1].base = 10
     data.hierachies.rebuyableAmt = Array(6).fill(0)
     data.hierachies.hasUpgrade = Array(6).fill(false)
+    updateHierarchiesHTML()
 
     data.darkness.darkened = false
     data.darkness.levels = Array(3).fill(0)
@@ -226,7 +229,8 @@ function collapseReset(){
     data.darkness.sacrificedCharge = 0
     data.darkness.totalDrains = 0
     data.darkness.negativeChargeEnabled = false
-
+    updateDarknessHTML()
+    updateAllDUPHTML()
     for (let i = 0; i < drainData.length; i++) {
         updateDrainHTML(i)        
     }
