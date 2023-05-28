@@ -34,7 +34,7 @@ function getDefaultObject() {
         successorClicks: 0,
         lastTick: 0,
         achs: [],
-        loadedVersion: "null",
+        loadedVersion: "0.1",
         offline: true,
         gword: false,
         isBeta: IS_BETA,
@@ -114,8 +114,6 @@ function fixOldSavesP2(){
             data.boost.total = 465
             data.boost.amt = 465
         } 
-
-        createAlert('Nerfed :(', `It looks like you had a v0.0.5 save that was beyond endgame. If you had any C7 or C8 completions they have been reset, and if you had more than 30 Factor Boosts you have been reset to 30. Also, Factor Boosts beyond 30 now have a greatly increased requirement!`, 'Onwards!')
     } 
 }
 function exportSave(){

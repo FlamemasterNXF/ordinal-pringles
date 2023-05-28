@@ -42,7 +42,7 @@ function markup(n=1){
 
     if(data.chal.active[6]) data.markup.powers = 0
     data.ord.isPsi = false
-    data.markup.powers += Math.min(4e256, totalOPGain())
+    data.markup.powers += totalOPGain()
     data.ord.ordinal = 0
     data.ord.over = 0
     data.successorClicks = 0
@@ -65,7 +65,7 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
     let mult = Math.floor((ord + 0.1) / divisor)
     return (1e258, 10 ** opGain(pow, base, 0) * mult + opGain(ord - divisor * mult, base, over))
 }
-let totalOPGain = () => opGain()*opMult()
+let totalOPGain = () => Math.min(4e256, opGain()*opMult())
 
 const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 5e100, Infinity, Infinity]
 function getFSReq(){
