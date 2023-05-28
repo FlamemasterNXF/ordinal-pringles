@@ -60,6 +60,8 @@ let drainData = [
     { effect: () => 1.2*data.darkness.drains[5], cost: () => (10**data.darkness.drains[5])*(data.darkness.totalDrains+1) },
     { effect: () => 2*data.darkness.drains[6], cost: () => (10**data.darkness.drains[6])*(data.darkness.totalDrains+1) },
 ]
+
+let dupEffect = (i) => Math.max(1, dupData[i].effect())
 let dupData = [
     { text: "Add a 1.2x Multiplier to AutoBuyers", cost: ()=> D(1e30*Math.floor(2*(data.darkness.levels[0]/10))).pow((data.darkness.levels[0]+(D(1)))), effect: ()=> 1.2*data.darkness.levels[0] },
     { text: "Add a 2x Multiplier to Dynamic Gain", cost: ()=> D(1e15*Math.floor(2*(data.darkness.levels[1]/10))).pow((data.darkness.levels[1]+(D(1)))), effect: ()=> 2*data.darkness.levels[1] },
