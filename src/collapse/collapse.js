@@ -135,12 +135,12 @@ let cupEffect = (i) => data.collapse.hasCUP[i] ? Math.max(cupData[i].effect()*dr
 let alephData = [
     {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)},
     {text: "multiplying Autobuyers by", effect: ()=> Math.log10(10+(90*data.collapse.alephs[1]))},
-    {text: "multiplying Ordinal Power gain by", effect: ()=> Math.log2(data.collapse.alephs[2]+2)},
-    {text: "multiplying Incrementy gain by", effect: ()=> Math.pow(data.collapse.alephs[3]+1, 1/8)},
+    {text: "multiplying Ordinal Power gain by", effect: ()=> Math.log2(data.collapse.alephs[2]+2)*3},
+    {text: "multiplying Incrementy gain by", effect: ()=> Math.pow(data.collapse.alephs[3]+1, 1/4)},
     {text: "multiplying Dynamic Cap by", effect: ()=> Math.sqrt(data.collapse.alephs[4]+1)*2},
-    {text: "multiplying the SGH effect by", effect: ()=> Math.pow(data.collapse.alephs[5]+1, 1/16)},
-    {text: "multiplying Booster Power gain by", effect: ()=> Math.log(data.collapse.alephs[6]+1, 1/8)},
-    {text: "multiplying the IUP3 effect by", effect: ()=> Math.sqrt(data.collapse.alephs[7]+4)/2},
+    {text: "multiplying the SGH effect by", effect: ()=> Math.pow(data.collapse.alephs[5]+1, 1/4)},
+    {text: "multiplying Booster Power gain by", effect: ()=> Math.sqrt(data.collapse.alephs[6]+4)/2},
+    {text: "multiplying the IUP3 effect by", effect: ()=> Math.sqrt(data.collapse.alephs[7]+4)*2},
 ]
 let cupData = [
     {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max(data.incrementy.totalCharge/2, 1)},
