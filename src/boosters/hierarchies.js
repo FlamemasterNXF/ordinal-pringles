@@ -93,10 +93,10 @@ let hupData = [
     // Effcects of 1 mean that it is a true/false effect.
     { text:"The Challenge Boost is Improved", cost: 1e10, effect: ()=> data.hierachies.hasUpgrade[0] ? 2 : 1 },
     { text:"Incrementy Upgrade 6 is Improved", cost: 1e20, effect: ()=> 1 },
-    { text:"Booster Upgrade 1x4 boosts Hierarchy Successors", cost: 1e31, effect: ()=> data.hierachies.hasUpgrade[2] ? bup3Effect()**2 : 1 },
+    { text:"Booster Upgrade 1x4 boosts Hierarchy Successors", cost: 1e30, effect: ()=> data.hierachies.hasUpgrade[2] ? bup3Effect()**2 : 1 },
     { text:"Total Charge Boosts AutoBuyers", cost: 1e10, effect: ()=> data.hierachies.hasUpgrade[3] ? data.incrementy.totalCharge/2 : 1 },
     { text:"Incrementy Upgrade 2 is Improved", cost: 1e20, effect: ()=> 1 },
-    { text:"Booster Upgrade 2x4 boosts Hierarchy Successors", cost: 1e31, effect: ()=> data.hierachies.hasUpgrade[5] ? bup7Effect()**3 : 1 },
+    { text:"Booster Upgrade 2x4 boosts Hierarchy Successors", cost: 1e30, effect: ()=> data.hierachies.hasUpgrade[5] ? bup7Effect()**3 : 1 },
 ]
 
 function increaseHierarchies(diff){

@@ -146,7 +146,7 @@ function boost(f=false){
         ++data.boost.times
     }
 
-    if(data.boost.times == 30 && data.collapse.times > 1) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
+    if(data.boost.times == 30 && data.collapse.times == 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
 
     boosterUnlock()
     boosterReset()
