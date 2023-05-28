@@ -92,6 +92,6 @@ function dyGain(){
     if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return (data.dy.gain*boost)*iup2Effect()*bup3Effect()
     
     
-    if(data.boost.isCharged[3]) return (data.dy.gain*boost*iup2Effect()*bup3Effect())+dupData[1].effect()
-    return (data.dy.gain*boost*iup2Effect())+dupData[1].effect()
+    if(data.boost.isCharged[3]) return (data.dy.gain*boost*iup2Effect()*bup3Effect())*dupData[1].effect()
+    return (data.dy.gain*boost*iup2Effect())*dupData[1].effect()
 }
