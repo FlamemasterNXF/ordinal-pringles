@@ -16,7 +16,7 @@ function updateCollapseHTML(){
         if(data.collapse.hasCUP[i]) DOM(`cup${i}`).innerText = `${cupData[i].text}\n\nCurrently: ${i==1?'^':''}${format(cupData[i].effect()*drainEffect(i))}${i!=1?'x':''}`
     }
 
-    DOM("collapseButton").style.color = data.ord.ordinal>=BHO_VALUE?'#fff480':'#20da45'
+    DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal >= BHO_VALUE ? '#fff480' : '#20da45'
 
     updateDarknessHTML()
 }
