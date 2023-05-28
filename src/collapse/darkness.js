@@ -118,8 +118,8 @@ function darkenConfirm(){
         ? createConfirmation('Are you certain?', 'Exiting the Darkness will stop the generation of Negative Charge and Decrementy and force a Booster Reset.', 'No thanks.', 'For sure!', darken)
         : createConfirmation('Are you certain?', 'Darkening will preform a Booster Reset and trap you in Challenge 8. Darkening will also Invert the effect of Booster Power effect 3. However, you will also gain the ability to generate Negative Charge.', 'No thanks.', 'For sure!', darken)
 }
-function darken(){
-    data.darkness.darkened ? chalExit() : chalEnter(7, true)
+function darken(force = false){
+    data.darkness.darkened && !force ? chalExit() : chalEnter(7, true)
 
     DOM('darken').innerText = data.darkness.darkened ? 'Enter the Darkness' : 'Escape'
     data.darkness.darkened = !data.darkness.darkened
