@@ -35,6 +35,11 @@ function initChals(){
         updateChalHTML(i)
     }
 }
+function updateAllChalHTML(){
+    for (let i = 0; i < data.chal.active.length; i++) {
+        updateChalHTML(i)
+    }
+}
 function updateChalHTML(i){
     DOM(`chalIn`).style.display = data.chal.active.includes(true)?'block':'none'
     DOM(`chal${i}`).style.backgroundColor = data.chal.active[i]?'#002480':data.chal.completions[i]===3?'#078228':'black'

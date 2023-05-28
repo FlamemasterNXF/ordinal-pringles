@@ -216,7 +216,7 @@ function collapseReset(){
     data.chal.completions = Array(8).fill(0)
     data.chal.active = Array(8).fill(0)
     totalCompletions = 0
-    updateChalHTML()
+    updateAllChalHTML()
 
     data.incrementy.amt = 0
     data.incrementy.hasIUP = Array(9).fill(false)
@@ -225,6 +225,9 @@ function collapseReset(){
     data.incrementy.charge = 0
     data.incrementy.totalCharge = 0
     updateIncrementyHTML()
+    for (let i = 0; i < data.incrementy.hasIUP.length; i++) {
+        DOM(`iup${i}`).style.color = '#8080FF'        
+    }
 
     data.hierachies.ords[0].ord = 1
     data.hierachies.ords[0].over = 0
