@@ -208,6 +208,7 @@ function collapseReset(){
     data.boost.hasBUP = Array(12).fill(false)
     data.boost.isCharged = Array(12).fill(false)
     data.boost.unlocks = Array(4).fill(false)
+    boosterUnlock()
 
     DOM('factorBoostButton').style.display = 'none'
 
