@@ -107,6 +107,8 @@ function checkUnlocks(mode, i, preview = false){
         case 1:
             if(data.boost.times <= sluggishData[i].req){
                 data.collapse.hasSluggish[i] = true 
+                data.collapse.cardinals += 3*i
+                createAlert("Congratulations!", `You have completed a Sluggish Milestone!\nYour completion has been rewarded with ${3*i} free Cardinals!`, 'Great!')
                 updateUnlockHTML(1, i)
             }
             break;
@@ -127,6 +129,7 @@ function checkAllUnlocks(mode, prev = false){
     }
 }
 function checkCollapseUnlockHTML(){
+    DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
     DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'flex' : 'none'
     DOM('t2AutoText3').style.display = data.collapse.hasSluggish[2] ? 'flex' : 'none'
     DOM('auto4').style.display = data.collapse.hasSluggish[2] ? 'flex' : 'none'
