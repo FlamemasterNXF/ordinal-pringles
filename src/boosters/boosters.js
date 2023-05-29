@@ -152,6 +152,7 @@ function boost(f=false){
     boosterReset()
 }
 function boostReq(){
+    if(data.boost.times == 0) return GRAHAMS_VALUE
     if(data.boost.times >= 34) return BHO_VALUE*3**(data.boost.times-33) 
     let scaling = data.boost.times < 30 ? 1 : Math.floor(100*(data.boost.times/15))
     return data.boost.times < 33 ? (3 ** (data.boost.times+1) * 4 * 10 * scaling) : BHO_VALUE
