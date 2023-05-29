@@ -215,7 +215,7 @@ function collapseReset(){
     data.chal.html = -1
     data.chal.completions = Array(8).fill(0)
     data.chal.active = Array(8).fill(0)
-    totalCompletions = 0
+    data.chal.totalCompletions = 0
     updateAllChalHTML()
 
     data.incrementy.amt = 0
