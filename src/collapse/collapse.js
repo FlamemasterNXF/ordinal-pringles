@@ -188,7 +188,7 @@ function collapse(first = false){
         makeExcessOrdMarks()
         return createAlert("You have Collapsed!", "Congratulations! You can now Factor Boost beyond FB34! Cardinals are gained based on how many FBs you have before Collapse.", "Got it!")
     }
-    if (data.ord.ordinal >= BHO_VALUE){
+    if (data.ord.ordinal >= BHO_VALUE || data.boost.times > 33){
         if(cardinalGain() > data.collapse.bestCardinalsGained) data.collapse.bestCardinalsGained = cardinalGain()
         data.collapse.cardinals += cardinalGain()
         ++data.collapse.times
