@@ -133,7 +133,7 @@ function checkCollapseUnlockHTML(){
     DOM('auto5').style.display = data.collapse.hasSluggish[2] ? 'flex' : 'none'
 }
 
-let cardinalGain = () => data.boost.times < 34 ? 0 : Math.sqrt(data.boost.times-34)+3
+let cardinalGain = () => data.boost.times < 34 ? 0 : (Math.sqrt(data.boost.times-34)+3)*alephTotalEffect()
 let alephEffect = (i) => data.collapse.alephs[i] > 0 ? alephData[i].effect()*cupEffect(6) : 1
 let cupEffect = (i) => data.collapse.hasCUP[i] ? Math.max(cupData[i].effect()*drainEffect(i), 1) : 1
 

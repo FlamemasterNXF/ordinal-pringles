@@ -63,7 +63,7 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
     let pow = Math.floor(Math.log(ord + 0.1) / Math.log(base))
     let divisor = Math.pow(base, pow)
     let mult = Math.floor((ord + 0.1) / divisor)
-    return (1e258, 10 ** opGain(pow, base, 0) * mult + opGain(ord - divisor * mult, base, over))
+    return 10 ** opGain(pow, base, 0) * mult + opGain(ord - divisor * mult, base, over)
 }
 let totalOPGain = () => Math.min(4e256, opGain()*opMult())
 
