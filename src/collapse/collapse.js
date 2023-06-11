@@ -105,7 +105,7 @@ function checkUnlocks(mode, i, preview = false){
             updateUnlockHTML(0, i)
             break;
         case 1:
-            if(data.boost.times <= sluggishData[i].req){
+            if(data.boost.times <= sluggishData[i].req && !data.collapse.hasSluggish[i]){
                 data.collapse.hasSluggish[i] = true
                 data.collapse.cardinals += 3*i
                 createAlert("Congratulations!", `You have completed a Sluggish Milestone!\nYour completion has been rewarded with ${3*i} free Cardinals!`, 'Great!')
