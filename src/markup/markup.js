@@ -24,7 +24,7 @@ function updateMarkupHTML(){
     DOM("dynamicText").innerText = `Your Dynamic Factor is ${data.chal.active[4]?'dividing':'multiplying'} AutoClickers by ${format(data.dy.level, 3)}\nIt increases by ${format(dyGain())}/s, and caps at ${format(data.dy.cap)}`
     DOM("dynamicText2").innerText = `Your Dynamic Factor is ${format(data.dy.level, 3)} [+${format(dyGain())}/s]. It caps at ${format(data.dy.cap)}`
 
-    DOM("factorBoostButton").innerHTML = `Perform ${getBulkBoostAmt() < 2 ? "a Factor Boost" : getBulkBoostAmt()+" Factor Boosts"} [+${data.boost.times+1}]<br>Requires ${displayPsiOrd(boostReq(), 3)}`
+    DOM("factorBoostButton").innerHTML = `Perform ${getBulkBoostAmt() < 2 ? "a Factor Boost" : getBulkBoostAmt()+" Factor Boosts"} [+${boostersAtGivenFB(data.boost.times+getBulkBoostAmt())-boostersAtGivenFB(data.boost.times)}]<br>Requires ${displayPsiOrd(boostReq(), 3)}`
     DOM("factorBoostButton").style.color = data.ord.isPsi&&data.ord.ordinal>=boostReq()?'#fff480':'#8080FF'
 
     if(data.sToggles[6]) updateProgressBar()

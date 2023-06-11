@@ -30,7 +30,7 @@ function getDefaultObject() {
         collapse: {times:0, cardinals:0, bestCardinalsGained:0, alephs:Array(8).fill(0), hasCUP:Array(8).fill(false), hasSluggish:Array(6).fill(false)},
         darkness: {levels: Array(3).fill(0), negativeCharge:0, drains: Array(7).fill(0), sacrificedCharge:0, totalDrains: 0, negativeChargeEnabled:false, darkened:false},
         autoStatus: {enabled: Array(4).fill(false)},
-        sToggles: Array(7).fill(true),
+        sToggles: Array(8).fill(true),
         successorClicks: 0,
         lastTick: 0,
         achs: [],
@@ -161,6 +161,7 @@ function importSave(x) {
             return
         }
         data = Object.assign(getDefaultObject(), JSON.parse(atob(x)))
+        if(data.isBeta && !IS_BETA) return createAlert('Beta Save detected!', 'You tried to load a Beta Save into the main version. This is not allowed, sorry :(', 'Dang it!')
         save()
         location.reload()
     }

@@ -3,7 +3,7 @@ function switchBoostTab(t){
     if(isTabUnlocked(t)){
         DOM(`${boostTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
-    
+
         if (t=="upgrades" && data.incrementy.totalCharge > 0){
             DOM('bupBottomText').style.color = 'goldenrod'
             DOM('bupBottomText').innerText = 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
@@ -92,7 +92,7 @@ function updateBoostersHTML(){
     for (let i = 0; i < data.autoStatus.enabled.length; i++) {
         DOM(`t2AutoText${i}`).innerText = `Your ${autoDisplayNames[i]} AutoBuyer is clicking the ${autoNames[i]} button${i==3?'s':''} ${i < 2 ? format(t2Auto()) : 1} times/second${autoRequirements[i]}`
         DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]] || i > 1 ?`${autoDisplayNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoDisplayNames[i]} AutoBuyer: LOCKED`
-    
+
     }
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
 
@@ -132,7 +132,7 @@ function boosterReset(){
 }
 
 function boost(f=false){
-    if(data.boost.times == 33 && data.collapse.times == 0) return createConfirmation("Are you certain?", "This will preform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
+    if(data.boost.times === 33 && data.collapse.times === 0) return createConfirmation("Are you certain?", "This will perform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
     if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
 
     if(data.boost.times === 0){
@@ -140,27 +140,33 @@ function boost(f=false){
         DOM('factorBoostButton').style.display = 'inline-block'
     }
 
-    for(let i=1;i<=getBulkBoostAmt();i++) {
+    let bulkBoostAmt = getBulkBoostAmt();
+    for(let i=1;i<=bulkBoostAmt;i++) {
         data.boost.amt += data.boost.times+1
         data.boost.total += data.boost.times+1
         ++data.boost.times
+
+        if(data.boost.times === 30 && data.collapse.times === 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
     }
-
-    if(data.boost.times == 30 && data.collapse.times == 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
-
     boosterUnlock()
     boosterReset()
 }
-function boostReq(){
-    if(data.boost.times == 0) return GRAHAMS_VALUE
-    if(data.boost.times >= 34) return BHO_VALUE*3**(data.boost.times-33) 
-    let scaling = data.boost.times < 30 ? 1 : Math.floor(100*(data.boost.times/15))
-    return data.boost.times < 33 ? (3 ** (data.boost.times+1) * 4 * 10 * scaling) : BHO_VALUE
+function boostReq(n = data.boost.times){
+    if(data.boost.times === 0) return GRAHAMS_VALUE
+    if(n >= 34) return BHO_VALUE*3**(n-33)
+    let scaling = n < 30 ? 1 : Math.floor(100*(n/15))
+    return n < 33 ? (3 ** (n+1) * 4 * 10 * scaling) : BHO_VALUE
 }
+//Credit to ryanleonels
+let boostLimit = () => (data.collapse.times === 0) ? 33 : Infinity;
 function getBulkBoostAmt(){
-    return 1
+    if (!data.sToggles[7] || !data.ord.isPsi || data.ord.ordinal <= boostReq()) return 1
+    let maxBoost = data.boost.times
+    while (data.ord.ordinal >= boostReq(maxBoost) && maxBoost < boostLimit()) maxBoost++
+    return Math.max(maxBoost - data.boost.times, 1)
     //return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
 }
+//End credit
 function buyBUP(i){
     if(data.boost.hasBUP[i]) return chargeBUP(i)
     if(data.boost.amt < bupCosts[i]) return
@@ -174,7 +180,7 @@ function buyBUP(i){
 
 function boosterRefund(c=false){
     respecCharge(c)
-    
+
     let indexes = []
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
         if (data.boost.hasBUP[i]) indexes.push(i)
@@ -202,7 +208,7 @@ function toggleAuto(i){
 function totalBUPs(){
     let total = 0
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
-        if (data.boost.hasBUP[i]) ++total        
+        if (data.boost.hasBUP[i]) ++total
     }
     return total
 }

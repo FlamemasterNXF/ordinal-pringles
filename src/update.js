@@ -1,6 +1,6 @@
 //Important Constants for Loading
 const TABS = ["markup", "boost", "collapse", "ach", "settings"]
-const SETTINGS_DESCS = ["Booster Refund Confirmation", "Challenge Confirmation", "Challenge Completion Popup", "Factor Shift confirmation", "Factor Boost confirmation", "Charge Refund Confirmation", "Boost Progress Bar"]
+const SETTINGS_DESCS = ["Booster Refund Confirmation", "Challenge Confirmation", "Challenge Completion Popup", "Factor Shift confirmation", "Factor Boost confirmation", "Charge Refund Confirmation", "Boost Progress Bar", "ability to Bulk Boost"]
 
 const uHTML = {
     update(){
@@ -26,7 +26,7 @@ const uHTML = {
         if(data.boost.total >= 91) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
         if(data.boost.total >= 325) DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies'))
         if(data.boost.total >= 465) DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow'))
-    
+
         DOM('progressBarContainer').style.display = data.sToggles[6] ? 'flex' : 'none'
 
         DOM('darken').innerText = data.darkness.darkened ? 'Escape' : 'Enter the Darkness'
@@ -61,9 +61,9 @@ function isTabUnlocked(t){
         case 'incrementy': return data.boost.unlocks[1]
         case 'hierarchies': return data.boost.unlocks[2]
         case 'overflow': return data.boost.unlocks[3]
-        
+
         case 'darkness': return data.collapse.hasSluggish[2]
-        
+
         default: return true
     }
 }
