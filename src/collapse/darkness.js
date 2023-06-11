@@ -64,9 +64,9 @@ let drainData = [
 
 let dupEffect = (i) => Math.max(1, dupData[i].effect())
 let dupData = [
-    { text: "Add a 1.2x Multiplier to AutoBuyers", cost: ()=> D(1e30*Math.floor(2*(data.darkness.levels[0]/10))).pow((data.darkness.levels[0]+(D(1)))), effect: ()=> 1.2*data.darkness.levels[0] },
-    { text: "Add a 2x Multiplier to Dynamic Gain", cost: ()=> D(1e15*Math.floor(2*(data.darkness.levels[1]/10))).pow((data.darkness.levels[1]+(D(1)))), effect: ()=> 2*data.darkness.levels[1] },
-    { text: "Add 0.1 to both Hierarchy Effect exponents", cost: ()=> D(1e100*Math.floor(2*(data.darkness.levels[2]/10))).pow((data.darkness.levels[2]+(D(1)))), effect: ()=> 0.1*data.darkness.levels[2] }
+    { text: "Add a 1.2x Multiplier to AutoBuyers", cost: ()=> D(1e30*Math.floor(2*(data.darkness.levels[0]+2/10))).pow((data.darkness.levels[0]+(D(1)))), effect: ()=> 1.2*data.darkness.levels[0] },
+    { text: "Add a 2x Multiplier to Dynamic Gain", cost: ()=> D(1e15*Math.floor(2*(data.darkness.levels[1]+2/10))).pow((data.darkness.levels[1]+(D(1)))), effect: ()=> 2*data.darkness.levels[1] },
+    { text: "Add 0.1 to both Hierarchy Effect exponents", cost: ()=> D(1e100*Math.floor(2*(data.darkness.levels[2]+2/10))).pow((data.darkness.levels[2]+(D(1)))), effect: ()=> 0.1*data.darkness.levels[2] }
 ]
 
 function buyDrain(i){
