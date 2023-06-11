@@ -166,7 +166,7 @@ let cupData = [
     {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 243, effect: ()=> Math.pow(data.markup.powers, 1/256)},
     {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.log10(data.incrementy.amt)},
     {text: "Unlock a 3rd Overcharge Effect and boost Overcharge's 1st Effect", cost: 196608, effect: ()=> 3},
-    {text: "Unspent Cardinals boost Alephs", cost: 3e9, effect: ()=> Math.log2(data.collapse.alephs)},
+    {text: "Unspent Cardinals boost Alephs", cost: 3e9, effect: ()=> Math.log2(data.collapse.cardinals)},
     {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 4e13, effect: ()=> 1},
 ]
 let sluggishData = [
