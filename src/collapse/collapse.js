@@ -3,7 +3,7 @@ function switchCollapseTab(t){
     if(isTabUnlocked(t)){
         DOM(`${collapseTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
-    
+
         collapseTab = t
     }
 }
@@ -23,7 +23,7 @@ function updateCollapseHTML(){
 function initAlephs(){
     const container = DOM('alephContainer')
     for (let i = 0; i < data.collapse.alephs.length; i++) {
-        let el = document.createElement('t')   
+        let el = document.createElement('t')
         el.className = 'alephText'
         el.id = `aleph${i}`
         el.innerHTML = `You have <font color='#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></font>, ${alephData[i].text} <font color='#20da45'><b>${format(alephEffect(i))}x</b></font>`
@@ -45,16 +45,16 @@ function initCUPS(){
 
             let el = document.createElement('button')
             el.className = 'cup'
-            el.id = `cup${id}`       
-            el.innerText = `${cupData[id].text}\n\n${format(cupData[id].cost)} Cardinals`    
+            el.id = `cup${id}`
+            el.innerText = `${cupData[id].text}\n\n${format(cupData[id].cost)} Cardinals`
             el.addEventListener("click", ()=>buyCardinalUpgrade(id))
             innerContainer.append(el)
 
             if(id != 7){
                 let drain = document.createElement('button')
                 drain.className = 'drain'
-                drain.id = `drain${id}`       
-                drain.innerText = `Drain this Cardinal Upgrade (${data.darkness.drains[id]})\n${format(drainData[id].cost())} Negative Charge`    
+                drain.id = `drain${id}`
+                drain.innerText = `Drain this Cardinal Upgrade (${data.darkness.drains[id]})\n${format(drainData[id].cost())} Negative Charge`
                 drain.addEventListener("click", ()=>buyDrain(id))
                 innerContainer.append(drain)
             }
@@ -96,17 +96,17 @@ function updateUnlockHTML(mode, i){
         default:
             console.error("Invalid \"mode\" at \"updateUnlockHTML\"");
     }
-} 
-function checkUnlocks(mode, i, preview = false){ 
+}
+function checkUnlocks(mode, i, preview = false){
     if (preview) return updateUnlockHTML(mode, i)
     switch (mode) {
         case 0:
-            data.collapse.hasCUP[i] = true 
+            data.collapse.hasCUP[i] = true
             updateUnlockHTML(0, i)
             break;
         case 1:
             if(data.boost.times <= sluggishData[i].req){
-                data.collapse.hasSluggish[i] = true 
+                data.collapse.hasSluggish[i] = true
                 data.collapse.cardinals += 3*i
                 createAlert("Congratulations!", `You have completed a Sluggish Milestone!\nYour completion has been rewarded with ${3*i} free Cardinals!`, 'Great!')
                 updateUnlockHTML(1, i)
@@ -116,13 +116,13 @@ function checkUnlocks(mode, i, preview = false){
             console.error("Invalid \"mode\" at \"checkUnlocks\"");
     }
 }
-function checkAllUnlocks(mode, prev = false){ 
+function checkAllUnlocks(mode, prev = false){
     switch (mode) {
         case 0:
-            for (let i = 0; i < data.collapse.hasCUP.length; i++) checkUnlocks(0, i, prev) 
+            for (let i = 0; i < data.collapse.hasCUP.length; i++) checkUnlocks(0, i, prev)
             break;
         case 1:
-            for (let i = 0; i < data.collapse.hasSluggish.length; i++) checkUnlocks(1, i, prev) 
+            for (let i = 0; i < data.collapse.hasSluggish.length; i++) checkUnlocks(1, i, prev)
             break;
         default:
             console.error("Invalid \"mode\" at \"checkAllUnlocks\"");
@@ -136,14 +136,14 @@ function checkCollapseUnlockHTML(){
     DOM('auto5').style.display = data.collapse.hasSluggish[2] ? 'flex' : 'none'
 }
 
-let cardinalGain = () => data.boost.times < 34 ? 0 : (Math.sqrt(data.boost.times-34)+3)*alephTotalEffect()
+let cardinalGain = () => data.boost.times < 34 ? 0 : (((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect()
 let alephEffect = (i) => data.collapse.alephs[i] > 0 ? alephData[i].effect()*cupEffect(6) : 1
 let cupEffect = (i) => data.collapse.hasCUP[i] ? Math.max(cupData[i].effect()*drainEffect(i), 1) : 1
 
 function getTotalAlephs(){
     let total = 0
     for (let i = 0; i < data.collapse.alephs.length; i++) {
-        total += data.collapse.alephs[i]        
+        total += data.collapse.alephs[i]
     }
     return total
 }
@@ -230,7 +230,7 @@ function collapseReset(){
     data.incrementy.totalCharge = 0
     updateIncrementyHTML()
     for (let i = 0; i < data.incrementy.hasIUP.length; i++) {
-        DOM(`iup${i}`).style.color = '#8080FF'        
+        DOM(`iup${i}`).style.color = '#8080FF'
     }
 
     data.hierachies.ords[0].ord = 1
@@ -253,7 +253,7 @@ function collapseReset(){
     updateDarknessHTML()
     updateAllDUPHTML()
     for (let i = 0; i < drainData.length; i++) {
-        updateDrainHTML(i)        
+        updateDrainHTML(i)
     }
 
     data.overflow.bp = 1
@@ -265,7 +265,7 @@ function collapseCardinals(){
     if(data.collapse.times == 1){
         for (let i = 0; i < 3; i++) {
             data.collapse.alephs[i] = 1
-            updateAlephHTML(i)            
+            updateAlephHTML(i)
         }
         data.collapse.cardinals = 0
         updateTotalAlephHTML()
@@ -279,15 +279,15 @@ function collapseCardinals(){
         while (usedCardinals > 0){
             const aleph = getRandom(0,8)
             ++data.collapse.alephs[aleph]
-            updateAlephHTML(aleph)   
+            updateAlephHTML(aleph)
 
             --usedCardinals
         }
     }
     else{
         for (let i = 0; i < data.collapse.alephs.length; i++) {
-            data.collapse.alephs[i] += Math.floor(usedCardinals/8)         
-            updateAlephHTML(i)   
+            data.collapse.alephs[i] += Math.floor(usedCardinals/8)
+            updateAlephHTML(i)
         }
     }
     updateTotalAlephHTML()
