@@ -51,7 +51,7 @@ function negativeChargeEffect(eff){
 let sacrificedChargeEffect = () => data.darkness.sacrificedCharge > 0 ? (data.darkness.sacrificedCharge+1)*2 : 1
 
 let drainEffect = (i) => data.darkness.drains[i] > 0 ? Math.max(drainData[i].effect(), 1) : 1
-let drainCost = (i) => (10**data.darkness.drains[i])**(1+(data.darkness.totalDrains/10))
+let drainCost = (i) => (10**(1+(data.darkness.totalDrains/2)))*(data.darkness.drains[i]+1)
 let drainData = [
     { effect: () => 2*data.darkness.drains[0] },
     { effect: () => 1.1*data.darkness.drains[1] },
