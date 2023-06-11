@@ -7,9 +7,9 @@ const GRAHAMS_VALUE = 109
 const BHO_VALUE = 4*3**40
 
 //Version Flags
-const VERSION = "0.1b5"
+const VERSION = "0.1b6"
 const VERSION_NAME = "Pringle Collapsing Functions"
-const VERSION_DATE = "May 28th, 2023"
+const VERSION_DATE = "June 11th, 2023"
 const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -79,20 +79,20 @@ function fixOldSaves(){
     let extra = false
 
     //v0.0.6 => v0.1+
-    if(data.collapse.times == 0 && data.ord.ordinal > BHO_VALUE) data.ord.ordinal = BHO_VALUE
+    if(data.collapse.times === 0 && data.ord.ordinal > BHO_VALUE) data.ord.ordinal = BHO_VALUE
     //v0.0.5 => v0.0.6+
-    if (data.loadedVersion == "null"){
+    if (data.loadedVersion === "null"){
         if (data.chal.completions[6] > 0) data.chal.completions[6] = 0
         if (data.chal.completions[7] > 0) data.chal.completions[7] = 0
         extra = true
     }
-    if (data.offline != true && data.offline != false) data.offline = true
+    if (data.offline !== true && data.offline !== false) data.offline = true
     // v0.0.4 => v0.0.5+
-    if (data.chal.completions[0] > 0 && data.chal.totalCompletions == 0){
+    if (data.chal.completions[0] > 0 && data.chal.totalCompletions === 0){
         for (let i = 0; i < data.chal.completions.length; i++) {
             data.chal.totalCompletions += data.chal.completions[i]
         }
-    } 
+    }
     //Old
     if(data.markup.shifts === 7 && data.dy.level === 1){
         data.dy.level = 4
@@ -105,7 +105,7 @@ function fixOldSaves(){
 }
 function fixOldSavesP2(){
     //v0.0.5 => v0.0.6+
-    if (data.loadedVersion == "null"){
+    if (data.loadedVersion === "null"){
         data.loadedVersion = "0.0.6"
 
         if (data.boost.times > 30) {
@@ -113,8 +113,8 @@ function fixOldSavesP2(){
             data.boost.times = 30
             data.boost.total = 465
             data.boost.amt = 465
-        } 
-    } 
+        }
+    }
 }
 function exportSave(){
     try {
@@ -152,8 +152,8 @@ async function downloadSave() {
     }
 }
 function importSave(x) {
-    if(x == "gwa") return data.gword = true
-    if(x == "ungwa") return data.gword = false
+    if(x === "gwa") return data.gword = true
+    if(x === "ungwa") return data.gword = false
     try {
         if(x.length <= 0) {
             DOM('promptContainer').style.display = 'none'
