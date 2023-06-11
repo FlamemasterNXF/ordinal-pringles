@@ -45,7 +45,7 @@ const extraOrdMarks = ["","ω","ω<sup>ω</sup>","ω<sup>ω<sup>2</sup></sup>"]
 
 function makeExcessOrdMarks(){
     const length = ordMarks.length-1
-    
+
     // Generates OrdMarks up to BHO*3^41
     for (let i = 0; i < length; i++) {
         ordMarks.push(ordMarks[i].slice(0, 6)+"Ω<sub>2</sub>"+ordMarks[i].slice(6))
@@ -160,7 +160,7 @@ function successor(n = 1, m=false) {
     if(data.ord.isPsi) return
     if(m)++data.successorClicks
 
-    if (data.ord.ordinal % data.ord.base === data.ord.base - 1) data.ord.over+=n
+    if (data.ord.ordinal % data.ord.base === data.ord.base - 1 && data.ord.ordinal < Number.MAX_SAFE_INTEGER) data.ord.over+=n
     else data.ord.ordinal+=n
 }
 
