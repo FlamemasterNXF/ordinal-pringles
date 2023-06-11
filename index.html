@@ -119,7 +119,7 @@
         <div class="flexBox" id="dynamicSubPage" style="margin-top: 1rem; flex-direction: column; display: none">
             <p class="centeredTexts" id="dynamicText" style="color: goldenrod">Hello Cat</p>
         </div>
-        <div class="flexBox" id="progressBarContainer" style="margin-top: 2rem; width: 80%; height: 1.2rem; background-color: #1a1a1a; border: 1px solid 0000ff;">
+        <div class="flexBox" id="progressBarContainer" style="margin-top: 2rem; width: 80%; height: 1.2rem; background-color: #1a1a1a; border: 1px solid;">
             <div id="progressBar" style="height: 1.2rem; background-color: #0000ff; color: #000000; text-align: center; width: 0%; font-family: DosisBold;">0%</div>
         </div>
     </div>
@@ -176,7 +176,7 @@
         <div class="flexBox" id="incrementySubPage" style="display: none; flex-direction: column">
             <div class="centeredTexts" id="incrementyText" style="color: #8080FF; margin-top: 1rem;">Incrementy</div>
             <p class="centeredTexts" id="dynamicText2" style="color: goldenrod; margin-bottom: 0.5rem">Hello Dog</p>
-            <div class="centeredTexts" id="incrementyText" style="color: #8080FF; margin-top: 0.5rem; margin-bottom: 0.5rem">The first row of upgrades are re-buyable.</div>
+            <div class="centeredTexts" id="incrementyText2" style="color: #8080FF; margin-top: 0.5rem; margin-bottom: 0.5rem">The first row of upgrades are re-buyable.</div>
             <div class="flexBox" id="iupRow0" style="flex-direction: row"></div>
             <div class="flexBox" id="iupRow1" style="flex-direction: row"></div>
             <div class="flexBox" id="iupRow2" style="flex-direction: row"></div>
@@ -227,7 +227,7 @@
                 <t class="generalTexts" id="bp2Description">Dividing Decrementy Gain by </t>
                 <t class="overflowText" id="bp2Effect" style="color: aqua">1</t>
             </div>
-            
+
             <strong class="centeredTexts" id="ocTotal" style="margin-top: 1rem; color:rgb(218, 137, 32)">Overcharge is</strong>
             <div class="flexBox, bpEffectContainer">
                 <t class="generalTexts" id="oc0Description">Multiplying Hierarchy Successor speed by </t>
@@ -241,7 +241,7 @@
                 <t class="generalTexts" id="oc2Description">Dividing Darkness Upgrade costs by </t>
                 <t class="overflowText" id="bp5Effect" style="color: goldenrod">1</t>
             </div>
-            <div class="centeredTexts" id="hierarchyInfo" style="margin-top:1rem">"Excess Boosters" means all Boosters above 435<br>"Excess Charge" means all Charge above 12</div>
+            <div class="centeredTexts" id="overflowInfo" style="margin-top:1rem">"Excess Boosters" means all Boosters above 435<br>"Excess Charge" means all Charge above 12</div>
         </div>
     </div>
     <div class="flexBox" id="collapsePage" style="flex-direction: column">
@@ -304,7 +304,7 @@
         <button class="settingsButton" onclick="downloadSave()">Download your Save</button>
         <button class="settingsButton" onclick="createPrompt('Import SaveData', importSave, true)">Import your Save</button>
         <button class="settingsButton" onclick="createConfirmation('Are you sure?', 'Are you absolutely sure you want to do this?\nThis will export your save (just in case) but delete your save from LocalStorage.', 'No Way!', 'Yes, I understand the consequences.', fullReset)" style="color: red">Delete your Save</button>
-        
+
         <div class="centeredTexts" id="versionText" style="margin-top: 3rem; color: #009696; font-family: DosisBold;">Version</div>
     </div>
 </div>
