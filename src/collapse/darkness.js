@@ -92,19 +92,23 @@ function buyDUP(i){
 }
 
 function darknessControl(mode){
-    if(mode==0) data.darkness.negativeChargeEnabled = !data.darkness.negativeChargeEnabled
-    if(mode==1){
+    if(mode===4){
+        data.overflow.thirdEffect = !data.overflow.thirdEffect
+        DOM('bp2Description').innerText = data.overflow.thirdEffect ? 'Dividing Decrementy Gain by ' : 'Multiplying Decrementy Gain by '
+    }
+    if(mode===0) data.darkness.negativeChargeEnabled = !data.darkness.negativeChargeEnabled
+    if(mode===1){
         data.darkness.negativeCharge = 0
         darknessControl(3)
     }
-    if(mode==2){
+    if(mode===2){
         if(data.incrementy.charge > 0){
             --data.incrementy.charge
             --data.incrementy.totalCharge
             ++data.darkness.sacrificedCharge
         }
     }
-    if(mode==3){
+    if(mode===3){
         boosterReset()
         data.incrementy.totalCharge += data.darkness.sacrificedCharge
         data.incrementy.charge += data.darkness.sacrificedCharge
@@ -118,13 +122,11 @@ function darknessControl(mode){
 function darkenConfirm(){
     data.darkness.darkened
         ? createConfirmation('Are you certain?', 'Exiting the Darkness will stop the generation of Negative Charge and Decrementy and force a Booster Reset.', 'No thanks.', 'For sure!', darken)
-        : createConfirmation('Are you certain?', 'Darkening will preform a Booster Reset and trap you in Challenge 8. Darkening will also Invert the effect of Booster Power effect 3. However, you will also gain the ability to generate Negative Charge.', 'No thanks.', 'For sure!', darken)
+        : createConfirmation('Are you certain?', 'Darkening will preform a Booster Reset and trap you in Challenge 8. However, you will also gain the ability to generate Negative Charge.', 'No thanks.', 'For sure!', darken)
 }
 function darken(force = false){
     data.darkness.darkened && !force ? chalExit(true) : chalEnter(7, true)
 
     DOM('darken').innerText = data.darkness.darkened ? 'Enter the Darkness' : 'Escape'
     data.darkness.darkened = !data.darkness.darkened
-
-    DOM('bp2Description').innerText = data.darkness.darkened ? 'Multiplying Decrementy Gain by ' : 'Dividing Decrementy Gain by '
 }

@@ -8,7 +8,7 @@ function updateOverflowHTML(){
     DOM(`ocTotal`).innerText = `Your ${format(data.overflow.oc)} Overcharge is`
 
     for (let i = 0; i < 6; i++) {
-        DOM(`bp${i}Effect`).innerText = (i==2 && !data.darkness.darkened) || i==5 ? `/${format(getOverflowEffect(i))}` : `${format(getOverflowEffect(i))}x`
+        DOM(`bp${i}Effect`).innerText = (i===2 && data.overflow.thirdEffect) || i===5 ? `/${format(getOverflowEffect(i))}` : `${format(getOverflowEffect(i))}x`
     }
 }
 
@@ -22,7 +22,7 @@ function getOverflowGain(i){
 }
 
 function getOverflowEffect(i){
-    if(data.overflow.bp == 1) return 1
+    if(data.overflow.bp === 1) return 1
     switch (i) {
         case 0:
             return Math.max(1, (Math.pow(data.overflow.bp, 1/8))*getOverflowEffect(4))

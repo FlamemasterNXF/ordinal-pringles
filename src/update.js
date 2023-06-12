@@ -27,8 +27,8 @@ const uHTML = {
         if(data.boost.total >= 325) DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies'))
         if(data.boost.total >= 465) DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow'))
 
+        DOM('bp2Description').innerText = data.overflow.thirdEffect ? 'Dividing Decrementy Gain by ' : 'Multiplying Decrementy Gain by '
         DOM('progressBarContainer').style.display = data.sToggles[6] ? 'flex' : 'none'
-
         DOM('darken').innerText = data.darkness.darkened ? 'Escape' : 'Enter the Darkness'
 
         checkCollapseUnlockHTML()
