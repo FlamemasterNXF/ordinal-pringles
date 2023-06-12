@@ -1,8 +1,8 @@
 const chalDesc = [
     "You can only buy 1 of each AutoClicker", "You can't buy Factors",
     "The Base is 5 higher", "Factor Shifts don't reduce the base", "Dynamic divides AutoClicker speed, and each Booster Upgrade bought and completion of this Challenge multiplies Dynamic Gain and Cap by 5",
-    "All previous Challenges at once EXCEPT Challenge 5", "You gain no Dynamic, keep no OP on Markup, Booster Upgrades increase Factor Shift requirements, Booster Upgrade 1x3 is disabled, and you can only manually click Successor 1000 times per Markup",
-    "You exponentially gain Decrementy that divides AutoClicker Speed and you're trapped in Challenge 7"
+    "All previous Challenges at once EXCEPT Challenge 5", "You gain no Dynamic, Booster Upgrades increase Factor Shift requirements, Booster Upgrade 1x3 is disabled, and you can only manually click Successor 1000 times per Markup",
+    "You exponentially gain Decrementy that divides AutoClicker Speed (resets on Markup), keep no OP on Markup, and you're trapped in Challenge 7"
 ]
 const chalGoals = [
     [1e32, 1e223, 4e256, Infinity], //4e256 works as a stand in for Epsilon Naught here
@@ -35,6 +35,11 @@ function initChals(){
         updateChalHTML(i)
     }
 }
+function updateAllChalHTML(){
+    for (let i = 0; i < data.chal.active.length; i++) {
+        updateChalHTML(i)
+    }
+}
 function updateChalHTML(i){
     DOM(`chalIn`).style.display = data.chal.active.includes(true)?'block':'none'
     DOM(`chal${i}`).style.backgroundColor = data.chal.active[i]?'#002480':data.chal.completions[i]===3?'#078228':'black'
@@ -43,8 +48,8 @@ function updateChalHTML(i){
     DOM(`chal1`).innerHTML = `Challenge 2<br>${chalDesc[1]}<br><br>Goal: ${data.chal.completions[1] == 3 ? 'Infinity' : displayPsiOrd(chalGoals[1][data.chal.completions[1]])}<br>Reward: Factor 2 slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[1]}/3`
     DOM(`chal7`).innerHTML = `Challenge 8<br>${chalDesc[7]}<br><br>Goal: ${format(chalGoals[7][data.chal.completions[7]])} OP<br>Reward: Dynamic Factor slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[7]}/3`
 }
-function chalEnter(i){
-    if(data.chal.completions[i] === 3 || data.chal.active.includes(true)) return
+function chalEnter(i, force=false){
+    if((data.chal.completions[i] === 3 || data.chal.active.includes(true)) && !force) return
 
     if(i === 5) for (let j = 0; j < data.chal.active.length-4; j++) data.chal.active[j] = true
     if(i === 7) data.chal.active[6] = true
@@ -53,11 +58,11 @@ function chalEnter(i){
     boosterReset()
     if(i === 2 || i === 5) data.ord.base = 15
     if(data.boost.hasBUP[2]) data.ord.base = 5
-    if(i === 4){ 
+    if(i === 4){
         createAlert('Forced Refund', `Your Booster Upgrades have been refunded to help with the Challenge. Feel free to rebuy them, but remember the debuff!`, 'Thanks!')
         boosterRefund(true)
-        data.dy.gain = 0.002 
-        DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic')) 
+        data.dy.gain = 0.002
+        DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     }
     if(i === 6 || i === 7){
         createAlert('Forced Refund', `Your Booster Upgrades have been refunded to help with the Challenge. Feel free to rebuy them, but remember the debuff!`, 'Thanks!')
@@ -69,7 +74,8 @@ function chalEnter(i){
     }
     data.chal.html = i
 }
-function chalExit(){
+function chalExit(darkness = false){
+    if(data.darkness.darkened && data.chal.active[7] && !darkness) darken(true)
     for (let i = 0; i < data.chal.active.length; i++) {
         data.chal.active[i] = false
         updateChalHTML(i)
@@ -83,7 +89,7 @@ function chalExitConfirm(){
     createConfirmation("Are you sure?", "Leaving a Challenge early will force a Booster Reset and you will get no rewards!", "No way!", "Of course!", chalExit)
 }
 function chalComplete(){
-    if(data.chal.html === -1) return
+    if(data.chal.html === -1 || data.darkness.darkened) return
     const currency = data.chal.html===1?data.ord.ordinal:data.markup.powers
     const ex = data.chal.html===1?data.ord.isPsi:true
     if(currency>=chalGoals[data.chal.html][data.chal.completions[data.chal.html]] && ex){
@@ -103,10 +109,13 @@ function chalEffectTotal(){
     mult += data.dy.level * chalEffect(7)
 
     let base = (mult)*hupData[0].effect()*getOverflowEffect(0)
-    return Math.max(base**2, 1)
+    let cup = data.collapse.hasCUP[2] ? cupEffect(2) : 0
+    return Math.max(base**2+cup, 1)
 }
 function decrementyGain(x) {
-    return (((0.000666 * x) / 50) * (data.markup.powers+1) ** 0.2 * 2)/getOverflowEffect(2)
+    const base = (((D(0.000666).times(x)).div(50)).times((D(data.markup.powers+1)).pow(0.2).times(2)))
+    const overflow = data.overflow.thirdEffect ? base.div(getOverflowEffect(2)) : base.times(getOverflowEffect(2))
+    return overflow
     //* (data.markup.powers < 1e30 ? -1 : 1)
     //((game.omegaChallenge == 2?1:double()) ** game.dups[1]) **
 }

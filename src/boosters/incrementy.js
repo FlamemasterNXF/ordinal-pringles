@@ -10,12 +10,12 @@ function switchIUPText(i, mode){
     : DOM(`iup${i}`).innerText = `[UP${i-2}] ${iupDesc[i]}\n${format(iupCosts[i])} Incrementy`
 }
 
-let incrementyMult = () => Math.max(1, (Math.pow(Math.sqrt(data.incrementy.amt)+10, 1/4))*Math.pow(data.incrementy.amt, 1/16))
+let incrementyMult = () => Math.max(1, ((Math.pow(Math.sqrt(data.incrementy.amt)+10, 1/4))*Math.pow(data.incrementy.amt, 1/16))/negativeChargeEffect(true))
 function incrementyGain() {
     if (!data.ord.isPsi || checkAllIndexes(data.chal.active, true) > 0) return 0
 
-    let base = Math.log10(data.ord.ordinal+1) / 10*iup1Effect()*iup3Effect()*iup4Effect()
-    return base*hierarchyData[0].effect()
+    let base = Math.log10(data.ord.ordinal+1) / 10
+    return (base*hierarchyData[0].effect()*iup1Effect()*iup3Effect()*iup4Effect()*alephEffect(3)*cupEffect(4))/negativeChargeEffect(false)
 }
 
 const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Factor boosts Incrementy gain',
@@ -68,7 +68,7 @@ let iup3Effect = () => data.incrementy.rebuyableAmt[2] > 0 ? (Math.max(1, Math.s
 let iup4Effect = () => data.incrementy.hasIUP[3] ? data.boost.times : 1
 let iup5Effect = () => data.incrementy.hasIUP[4] ? data.hierachies.hasUpgrade[4] ? Math.max(1, Math.pow(data.incrementy.amt, 1/8)+1)
 : Math.max(1, Math.pow(data.incrementy.amt, 1/16)+1) : 1
-let iup6Effect = () => data.incrementy.hasIUP[5] ? Math.max(1, Math.sqrt(data.dy.level+1))*iup9Effect()*hbData[2].effect()*hbData[5].effect() : 1
+let iup6Effect = () => data.incrementy.hasIUP[5] ? Math.max(1, Math.sqrt(data.dy.level+1))*iup9Effect()*hbData[2].effect()*hbData[5].effect()*alephEffect(7) : 1
 let iup7Effect = () => data.incrementy.hasIUP[6] ? Math.floor(data.chal.totalCompletions/3) : 0
 let iup8Effect = () => data.incrementy.hasIUP[7] ? Math.max(1, 1+data.chal.totalCompletions/3) : 1
 let iup9Effect = () => data.incrementy.hasIUP[8] ? data.hierachies.hasUpgrade[1] ? Math.max(1, data.incrementy.rebuyableAmt[2]/10)
@@ -99,7 +99,7 @@ function respecCharge(c=false){
 }
 
 function sacrificeIncrementy(){
-    if(data.incrementy.amt >= chargeReq() && data.incrementy.totalCharge < 12){
+    if(data.incrementy.amt >= chargeReq()){
 
         if(data.incrementy.totalCharge < 1) initBUPHover()
 
@@ -111,4 +111,4 @@ function sacrificeIncrementy(){
     }
 }
 
-let chargeReq = () => (10**(6+(data.incrementy.totalCharge*2)))/hierarchyData[1].effect()
+let chargeReq = () => (10**(6+((data.incrementy.totalCharge+data.darkness.sacrificedCharge)*(2+Math.floor((data.incrementy.totalCharge+data.darkness.sacrificedCharge)/12)))))/hierarchyData[1].effect()

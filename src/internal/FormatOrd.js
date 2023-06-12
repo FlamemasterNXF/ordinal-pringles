@@ -39,10 +39,32 @@ const ordMarks = [
     "&psi;(Ω<sup>Ω<sup>2</sup>2+Ωy</sup>)",
     "&psi;(Ω<sup>Ω<sup>2</sup>y</sup>)",
     "&psi;(Ω<sup>Ω<sup>y</sup></sup>)",
-    "BHO",
-    //"&psi;(ε<sub>Ω+x</sub>)",
+    "&psi;(Ω<sub>2</sub>x)",
 ]
 const extraOrdMarks = ["","ω","ω<sup>ω</sup>","ω<sup>ω<sup>2</sup></sup>"]
+
+function makeExcessOrdMarks(){
+    const length = ordMarks.length-1
+
+    // Generates OrdMarks up to BHO*3^41
+    for (let i = 0; i < length; i++) {
+        ordMarks.push(ordMarks[i].slice(0, 6)+"Ω<sub>2</sub>"+ordMarks[i].slice(6))
+    }
+    ordMarks.push("&psi;(Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>)x)")
+
+    // Generates OrdMarks up to BHO*3^82
+    for (let i = 0; i < length; i++) {
+        ordMarks.push(ordMarks[i].slice(0,6)+"Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>"+ordMarks[i].slice(6)+")")
+    }
+    ordMarks.push("&psi;(Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>x)))")
+
+    // Generates OrdMarks up to BHO*3^123
+    for (let i = 0; i < length; i++) {
+        ordMarks.push(ordMarks[i].slice(0,6)+"Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>"+ordMarks[i].slice(6)+"))")
+    }
+    ordMarks.push("&psi;(Ω<sub>2</sub><sup>2</sup>)")
+}
+
 function displayOrd(ord,over,base,trim = data.ord.trim) {
     if(data.ord.isPsi) return displayPsiOrd(ord, trim)
 
@@ -58,6 +80,7 @@ function displayOrd(ord,over,base,trim = data.ord.trim) {
     if (amount > 1) finalOutput += amount
     const firstAmount = amount*magnitudeAmount
     if(ord-firstAmount > 0) finalOutput += "+" + displayOrd(ord-firstAmount, over, base, trim - 1)
+    if(data.gword) finalOutput = finalOutput.replaceAll("&omega;","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
     return finalOutput
 }
 
@@ -94,6 +117,8 @@ function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
 
 function displayPsiOrd(ord, trim) {
     ord = Math.floor(ord)
+    if(ord == BHO_VALUE) return "&psi;(Ω<sub>2</sub>)"
+
     if(ord === 0) return ""
     if(trim <= 0) return "..."
     if(ord < 4) return extraOrdMarks[ord]
@@ -102,7 +127,10 @@ function displayPsiOrd(ord, trim) {
     let finalOutput = ordMarks[Math.min(magnitude,ordMarks.length-1)]
     if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiOrd(ord-magnitudeAmount, trim-1))
     if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiOrd(ord-magnitudeAmount+1, trim-1))
-    return `${finalOutput}`
+    if(data.gword) finalOutput=finalOutput
+        .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
+        .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
+    return `${finalOutput.replaceAll('undefined', '')}`
 }
 
 function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.base) {
@@ -132,7 +160,7 @@ function successor(n = 1, m=false) {
     if(data.ord.isPsi) return
     if(m)++data.successorClicks
 
-    if (data.ord.ordinal % data.ord.base === data.ord.base - 1) data.ord.over+=n
+    if (data.ord.ordinal % data.ord.base === data.ord.base - 1 && data.ord.ordinal < Number.MAX_SAFE_INTEGER) data.ord.over+=n
     else data.ord.ordinal+=n
 }
 

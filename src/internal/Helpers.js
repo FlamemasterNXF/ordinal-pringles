@@ -52,9 +52,12 @@ function settingsToggle(i){
         DOM(`offlineProgressToggle`).innerText = `Toggle Offline Progress [${boolToReadable(data.offline)}]`
         return save()
     }
+
     data.sToggles[i] = !data.sToggles[i]
+    if (i === 6) DOM(`progressBarContainer`).style.display = data.sToggles[i] ? `flex` : `none`
+
+    DOM(`settingsToggle${i}`).innerText = `Toggle the ${SETTINGS_DESCS[i]} [${boolToReadable(data.sToggles[i])}]`
     save()
-    location.reload()
 }
 
 function allEqual(arr, i){

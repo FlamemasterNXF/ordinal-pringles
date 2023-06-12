@@ -1,11 +1,19 @@
+//Easy Decimal Creation
 const D = x => new Decimal(x)
-//create all the variables in a data object for saving
-const VERSION = "0.0.6"
-const VERSION_NAME = "The Bachmann-Howard Pringle"
-const VERSION_DATE = "May 3rd, 2023"
+
+//Important Constant Variables
 const PSI_VALUE = 7625597484987
 const GRAHAMS_VALUE = 109
-const BHO_VALUE = 48630661836227112960
+const BHO_VALUE = 4*3**40
+
+//Version Flags
+const VERSION = "0.1"
+const VERSION_NAME = "Pringle Collapsing Functions"
+const VERSION_DATE = "June 12th, 2023"
+const IS_BETA = false
+const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
+
+//create all the variables in a data object for saving
 function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
@@ -15,46 +23,42 @@ function getDefaultObject() {
         dy: {level:1, gain:0, cap:40},
         autoLevels: Array(2).fill(0),
         boost: {amt:0, total:0, times:0, hasBUP:Array(12).fill(false), isCharged:Array(12).fill(false), unlocks: Array(4).fill(false)},
-        chal: {decrementy: 1, html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
+        chal: {decrementy: D(1), html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
         incrementy: {amt:0, hasIUP:Array(9).fill(false), rebuyableAmt: Array(3).fill(0), rebuyableCosts: [20, 1000, 100], charge:0, totalCharge:0},
         hierachies: { ords:[ {ord:1, over:0, base:10, type:"f"}, {ord:1, over:0, base:10, type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(6).fill(false)},
-        overflow: {bp:1, oc:1},
-        autoStatus: {enabled: [false, false]},
-        sToggles: Array(7).fill(true),
+        overflow: {bp:1, oc:1, thirdEffect:true}, //for thirdEffect: true=normal, false=inverted
+        collapse: {times:0, cardinals:0, bestCardinalsGained:0, alephs:Array(8).fill(0), hasCUP:Array(8).fill(false), hasSluggish:Array(6).fill(false)},
+        darkness: {levels: Array(3).fill(0), negativeCharge:0, drains: Array(7).fill(0), sacrificedCharge:0, totalDrains: 0, negativeChargeEnabled:false, darkened:false},
+        autoStatus: {enabled: Array(4).fill(false)},
+        sToggles: Array(8).fill(true),
         successorClicks: 0,
         lastTick: 0,
         achs: [],
-        loadedVersion: "null",
-        offline: true
+        loadedVersion: "0.1",
+        offline: true,
+        gword: false,
+        isBeta: IS_BETA,
     }
 }
 let data = getDefaultObject()
+
 //saving and loading
 function save(){
-    try{ window.localStorage.setItem('ordinalPRINGLESsave', JSON.stringify(data)) }
+    try{ window.localStorage.setItem(SAVE_PATH(), JSON.stringify(data)) }
     catch (e) {
         createAlert('Error', `Save failed.\n${e}`, 'Dang.');
         console.error(e);
     }
 }
 function load() {
-    let savedata = JSON.parse(window.localStorage.getItem('ordinalPRINGLESsave'))
+    let savedata = JSON.parse(window.localStorage.getItem(SAVE_PATH()))
     if (savedata !== undefined) fixSave(data, savedata)
     const extra = fixOldSaves()
-    loadHTML()
     createAlert('Welcome Back!', `You've loaded into Ordinal PRINGLES v${VERSION}: ${VERSION_NAME}\nEnjoy!`, 'Thanks!')
 
     return extra
 }
-function loadHTML(){
-    if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
-    if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
-    if(data.boost.total >= 91) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
-    if(data.boost.total >= 325) DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies'))
-    if(data.boost.total >= 465) DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow'))
 
-    DOM('progressBarContainer').style.display = data.sToggles[6] ? 'flex' : 'none'
-}
 //fix saves
 function fixSave(main=getDefaultObject(), data) {
     if (typeof data === "object") {
@@ -74,19 +78,21 @@ function fixSave(main=getDefaultObject(), data) {
 function fixOldSaves(){
     let extra = false
 
+    //v0.0.6 => v0.1+
+    if(data.collapse.times === 0 && data.ord.ordinal > BHO_VALUE) data.ord.ordinal = BHO_VALUE
     //v0.0.5 => v0.0.6+
-    if (data.loadedVersion == "null"){
+    if (data.loadedVersion === "null"){
         if (data.chal.completions[6] > 0) data.chal.completions[6] = 0
         if (data.chal.completions[7] > 0) data.chal.completions[7] = 0
         extra = true
     }
-    if (data.offline != true && data.offline != false) data.offline = true
+    if (data.offline !== true && data.offline !== false) data.offline = true
     // v0.0.4 => v0.0.5+
-    if (data.chal.completions[0] > 0 && data.chal.totalCompletions == 0){
+    if (data.chal.completions[0] > 0 && data.chal.totalCompletions === 0){
         for (let i = 0; i < data.chal.completions.length; i++) {
             data.chal.totalCompletions += data.chal.completions[i]
         }
-    } 
+    }
     //Old
     if(data.markup.shifts === 7 && data.dy.level === 1){
         data.dy.level = 4
@@ -99,7 +105,7 @@ function fixOldSaves(){
 }
 function fixOldSavesP2(){
     //v0.0.5 => v0.0.6+
-    if (data.loadedVersion == "null"){
+    if (data.loadedVersion === "null"){
         data.loadedVersion = "0.0.6"
 
         if (data.boost.times > 30) {
@@ -107,10 +113,8 @@ function fixOldSavesP2(){
             data.boost.times = 30
             data.boost.total = 465
             data.boost.amt = 465
-        } 
-
-        createAlert('Nerfed :(', `It looks like you had a v0.0.5 save that was beyond endgame. If you had any C7 or C8 completions they have been reset, and if you had more than 30 Factor Boosts you have been reset to 30. Also, Factor Boosts beyond 30 now have a greatly increased requirement!`, 'Onwards!')
-    } 
+        }
+    }
 }
 function exportSave(){
     try {
@@ -148,6 +152,8 @@ async function downloadSave() {
     }
 }
 function importSave(x) {
+    if(x === "gwa") return data.gword = true
+    if(x === "ungwa") return data.gword = false
     try {
         if(x.length <= 0) {
             DOM('promptContainer').style.display = 'none'
@@ -155,6 +161,7 @@ function importSave(x) {
             return
         }
         data = Object.assign(getDefaultObject(), JSON.parse(atob(x)))
+        if(data.isBeta && !IS_BETA) return createAlert('Beta Save detected!', 'You tried to load a Beta Save into the main version. This is not allowed, sorry :(', 'Dang it!')
         save()
         location.reload()
     }
@@ -172,6 +179,6 @@ function fullReset(){
     deleteSave()
 }
 function deleteSave(){
-    window.localStorage.removeItem('ordinalPRINGLESsave')
+    window.localStorage.removeItem(SAVE_PATH())
     location.reload()
 }

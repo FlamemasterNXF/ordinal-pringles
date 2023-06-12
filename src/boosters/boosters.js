@@ -1,18 +1,20 @@
 let boostTab = "upgrades"
 function switchBoostTab(t){
-    DOM(`${boostTab}SubPage`).style.display = `none`
-    DOM(`${t}SubPage`).style.display = `flex`
+    if(isTabUnlocked(t)){
+        DOM(`${boostTab}SubPage`).style.display = `none`
+        DOM(`${t}SubPage`).style.display = `flex`
 
-    if (t=="upgrades" && data.incrementy.totalCharge > 0){
-        DOM('bupBottomText').style.color = 'goldenrod'
-        DOM('bupBottomText').innerText = 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
-        DOM('chargeRefund').style.display = 'block'
+        if (t=="upgrades" && data.incrementy.totalCharge > 0){
+            DOM('bupBottomText').style.color = 'goldenrod'
+            DOM('bupBottomText').innerText = 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
+            DOM('chargeRefund').style.display = 'block'
+        }
+        else{
+            DOM('bupBottomText').innerText = 'The Unlockables Column does not consume Boosters'
+            DOM('chargeRefund').style.display = 'none'
+        }
+        boostTab = t
     }
-    else{
-        DOM('bupBottomText').innerText = 'The Unlockables Column does not consume Boosters'
-        DOM('chargeRefund').style.display = 'none'
-    }
-    boostTab = t
 }
 
 const bupDesc = ['Each Factor\'s effect is doubled', 'Boost OP gain by 5x', 'The Ordinal Base is always 5 in Challenges', 'Dynamic Gain is multiplied by your C5 completions in C1-C4',
@@ -71,12 +73,13 @@ let bup48Effect = () => data.boost.isCharged[4] || data.boost.isCharged[8] ? Mat
 let bup5Effect = () => data.boost.hasBUP[5] ? data.boost.isCharged[5] ? Math.max(Math.sqrt(data.boost.total)*3, 1) : Math.max(Math.sqrt(data.boost.total), 1) : 1
 let bup6Effect = () => data.boost.hasBUP[6] ? data.boost.isCharged[6] ? 100 : 10 : 0
 let bup7Effect = () => data.boost.hasBUP[7] ? data.boost.isCharged[7] ? Math.max(1,(-data.ord.base + 6)) : data.ord.base-2 : 1
-let bup9Effect = () => data.boost.hasBUP[9] ? data.boost.isCharged[9] ? 20*(-data.ord.base+11)*getOverflowEffect(1) : 20*getOverflowEffect(1) : 1
+let bup9Effect = () => data.boost.hasBUP[9] ? data.boost.isCharged[9] ? Math.max(20*(-data.ord.base+11)*getOverflowEffect(1), 1) : 20*getOverflowEffect(1) : 1
 let bup10Effect = () => data.boost.hasBUP[10] ? data.boost.isCharged[10] ? 4 : 3 : 0
 let bup11Effect = () => data.boost.hasBUP[11] ? Math.max(Math.log2(data.boost.amt), 1) : 1
 
-const autoNames = ['Max All', 'Markup']
-const autoRequirements = ['you can\'t Factor Shift', 'you\'re past Ψ(Ω)']
+const autoNames = ['Max All', 'Markup', 'Sacrifice for Charge', 'three RUP']
+const autoDisplayNames = ['Max All', 'Markup', 'Charge', 'RUP']
+const autoRequirements = [', but only if you can\'t Factor Shift', ', but only if you\'re past Ψ(Ω)', '', ', but only if you can\'t afford a Charge']
 const autoUps = [4, 8]
 function updateBoostersHTML(){
     DOM('boosterText').innerText = data.incrementy.totalCharge > 0 ?
@@ -87,9 +90,9 @@ function updateBoostersHTML(){
     DOM('bup7').innerText = `${data.boost.isCharged[7]?chargedBUPDesc[7]:bupDesc[7]}\n[${format(bup7Effect())}x]\n${data.boost.isCharged[7]?'':bupCosts[7]} Boosters`
     DOM('bup11').innerText = `${data.boost.isCharged[11]?chargedBUPDesc[11]:bupDesc[11]}\n[${format(bup11Effect())}x]\n${data.boost.isCharged[11]?'':bupCosts[11]} Boosters`
     for (let i = 0; i < data.autoStatus.enabled.length; i++) {
-        DOM(`t2AutoText${i}`).innerText = `Your ${autoNames[i]} AutoBuyer is clicking the ${autoNames[i]} button ${format(t2Auto())} times/second, but only if ${autoRequirements[i]}`
-        DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]]?`${autoNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoNames[i]} AutoBuyer: LOCKED`
-    
+        DOM(`t2AutoText${i}`).innerText = `Your ${autoDisplayNames[i]} AutoBuyer is clicking the ${autoNames[i]} button${i==3?'s':''} ${i < 2 ? format(t2Auto()) : 1} times/second${autoRequirements[i]}`
+        DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]] || i > 1 ?`${autoDisplayNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoDisplayNames[i]} AutoBuyer: LOCKED`
+
     }
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
 
@@ -97,10 +100,10 @@ function updateBoostersHTML(){
    updateHierarchiesHTML()
    updateOverflowHTML()
 
-    DOM("chalTab").innerText = data.boost.total>=6?'Challenges':'???'
-    DOM("incrementyTab").innerText = data.boost.total>=91?'Incrementy':'???'
-    DOM("hierarchiesTab").innerText = data.boost.total>=325?'Hierachies':'???'
-    DOM("overflowTab").innerText = data.boost.total>=465?'Overflow':'???'
+    DOM("chalTab").innerText = data.boost.unlocks[0]?'Challenges':'???'
+    DOM("incrementyTab").innerText = data.boost.unlocks[1]?'Incrementy':'???'
+    DOM("hierarchiesTab").innerText = data.boost.unlocks[2]?'Hierachies':'???'
+    DOM("overflowTab").innerText = data.boost.unlocks[3]?'Overflow':'???'
     DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
 }
 
@@ -124,12 +127,12 @@ function boosterReset(){
     for (let i = 0; i < data.autoLevels.length; i++) {
         data.autoLevels[i] = 0
     }
-    data.chal.decrementy = 1
+    data.chal.decrementy = D(1)
     data.successorClicks = 0
 }
 
 function boost(f=false){
-    if(data.boost.times == 33) return createAlert("Endgame!", "Congratulations, you've reached the BHO! For now, there is nothing beyond. I'd love it if you would join the Discord and let me know how you felt about the game!! :)", "Sounds good to me!")
+    if(data.boost.times === 33 && data.collapse.times === 0) return createConfirmation("Are you certain?", "This will perform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
     if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
 
     if(data.boost.times === 0){
@@ -137,30 +140,33 @@ function boost(f=false){
         DOM('factorBoostButton').style.display = 'inline-block'
     }
 
-    for(let i=1;i<=getBulkBoostAmt();i++) {
+    let bulkBoostAmt = getBulkBoostAmt();
+    for(let i=1;i<=bulkBoostAmt;i++) {
         data.boost.amt += data.boost.times+1
         data.boost.total += data.boost.times+1
         ++data.boost.times
+
+        if(data.boost.times === 30 && data.collapse.times === 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
     }
-
-    if(data.boost.times == 30) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
-
     boosterUnlock()
-    if(data.boost.total >= 6) DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal'))
-    if(data.boost.unlocks[1]) DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy'))
-    if(data.boost.unlocks[2]) DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies'))
-    if(data.boost.unlocks[3]) DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow'))
-
     boosterReset()
 }
-function boostReq(){
-    let scaling = data.boost.times < 30 ? 1 : Math.floor(100*(data.boost.times/15))
-    return data.boost.times < 33 ? (3 ** (data.boost.times+1) * 4 * 10 * scaling) : BHO_VALUE
+function boostReq(n = data.boost.times){
+    if(data.boost.times === 0) return GRAHAMS_VALUE
+    if(n >= 34) return BHO_VALUE*3**(n-33)
+    let scaling = n < 30 ? 1 : Math.floor(100*(n/15))
+    return n < 33 ? (3 ** (n+1) * 4 * 10 * scaling) : BHO_VALUE
 }
+//Credit to ryanleonels
+let boostLimit = () => (data.collapse.times === 0) ? 33 : Infinity;
 function getBulkBoostAmt(){
-    return 1
+    if (!data.sToggles[7] || !data.ord.isPsi || data.ord.ordinal <= boostReq()) return 1
+    let maxBoost = data.boost.times
+    while (data.ord.ordinal >= boostReq(maxBoost) && maxBoost < boostLimit()) maxBoost++
+    return Math.max(maxBoost - data.boost.times, 1)
     //return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
 }
+//End credit
 function buyBUP(i){
     if(data.boost.hasBUP[i]) return chargeBUP(i)
     if(data.boost.amt < bupCosts[i]) return
@@ -174,7 +180,7 @@ function buyBUP(i){
 
 function boosterRefund(c=false){
     respecCharge(c)
-    
+
     let indexes = []
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
         if (data.boost.hasBUP[i]) indexes.push(i)
@@ -188,21 +194,21 @@ function boosterRefund(c=false){
 }
 
 function boosterUnlock(){
-    if(data.boost.total>=6){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480' }
-    if(data.boost.total>=91){ data.boost.unlocks[1] = true; DOM(`bu1`).style.backgroundColor = '#002480' }
-    if(data.boost.total>=325){ data.boost.unlocks[2] = true; DOM(`bu2`).style.backgroundColor = '#002480' }
-    if(data.boost.total>=465){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480' }
+    if(data.boost.total>=6 || data.collapse.hasSluggish[1]){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480'; DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal')) }
+    if(data.boost.total>=91 || data.collapse.hasSluggish[1]){ data.boost.unlocks[1] = true; DOM(`bu1`).style.backgroundColor = '#002480';  DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy')) }
+    if(data.boost.total>=325){ data.boost.unlocks[2] = true; DOM(`bu2`).style.backgroundColor = '#002480'; DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies')) }
+    if(data.boost.total>=465){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480'; DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow')) }
 }
 
 function toggleAuto(i){
-    if(!data.boost.hasBUP[autoUps[i]]) return
+    if(!data.boost.hasBUP[autoUps[i]] && i < 2) return
     data.autoStatus.enabled[i] = !data.autoStatus.enabled[i]
 }
 
 function totalBUPs(){
     let total = 0
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
-        if (data.boost.hasBUP[i]) ++total        
+        if (data.boost.hasBUP[i]) ++total
     }
     return total
 }

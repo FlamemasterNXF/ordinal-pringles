@@ -7,8 +7,8 @@ function updateOverflowHTML(){
     DOM(`overCharge`).innerText = ` ${format(getOverflowGain(1))} Overcharge/s`
     DOM(`ocTotal`).innerText = `Your ${format(data.overflow.oc)} Overcharge is`
 
-    for (let i = 0; i < 5; i++) {
-        DOM(`bp${i}Effect`).innerText = i==2 ? `/${format(getOverflowEffect(i))}` : `${format(getOverflowEffect(i))}x`
+    for (let i = 0; i < 6; i++) {
+        DOM(`bp${i}Effect`).innerText = (i===2 && data.overflow.thirdEffect) || i===5 ? `/${format(getOverflowEffect(i))}` : `${format(getOverflowEffect(i))}x`
     }
 }
 
@@ -17,12 +17,12 @@ let getExtraBoosters = () => Math.max(0, data.boost.total-maxNonOverflowBoosters
 let getExtraCharge = () => Math.max(0, data.incrementy.totalCharge-12)
 
 function getOverflowGain(i){
-    if (i == 0) return Math.sqrt(getExtraBoosters())/10
+    if (i == 0) return (Math.sqrt(getExtraBoosters())/10)*alephEffect(6)
     return Math.sqrt(getExtraCharge())/10
 }
 
 function getOverflowEffect(i){
-    if(data.overflow.bp == 1) return 1
+    if(data.overflow.bp === 1) return 1
     switch (i) {
         case 0:
             return Math.max(1, (Math.pow(data.overflow.bp, 1/8))*getOverflowEffect(4))
@@ -31,9 +31,11 @@ function getOverflowEffect(i){
         case 2:
             return Math.max(1, (Math.sqrt(data.overflow.bp+1))*getOverflowEffect(4))
         case 3:
-            return data.overflow.oc > 1 ? Math.max(1, Math.sqrt(data.overflow.oc)) : 1
+            return data.overflow.oc > 1 ? Math.max(1, Math.sqrt(data.overflow.oc)*cupData[5].effect()) : 1
         case 4:
             return data.overflow.oc > 1 ? Math.max(1, Math.log10(data.overflow.oc+1)) : 1
+        case 5:
+            return data.overflow.oc > 1 && data.collapse.hasCUP[5] ? Math.max(1, Math.sqrt(data.overflow.oc+1)) : 1
         default: return NaN
     }
 }

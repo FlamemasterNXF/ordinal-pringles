@@ -162,6 +162,92 @@
     background: black;
     border: 2px solid;
 }
+.collapseTabButton{
+    width: 10rem;
+    height: 1.5rem;
+    margin-left: 0.3rem;
+    background: black;
+    border: 2px solid #2da000;
+    color: #20da45; 
+}
+.alephText{
+    color: white;
+    font-family: DosisLight;
+    text-align: center;
+}
+.cupRow{
+    display: flex;
+    align-items: center;
+    place-content:center;
+    flex-direction: row;
+}
+.cupContainer{
+    display: flex;
+    align-items: center;
+    place-content: center;
+    flex-direction: column;
+}
+.cup{
+    width: 15rem;
+    height: 6rem;
+    border: 2px solid #2da000;
+    color: #20da45;
+    background: black;
+    margin-left: 0.5rem;
+    margin-top: 1rem;
+}
+.drain{
+    width: 15rem;
+    height: 4rem;
+    border: 2px solid #8000ff4d;
+    color: #9f9fcce1;
+    background: black;
+    margin-left: 0.5rem;
+}
+.sluggish{
+    width: 50rem;
+    height: 4.8rem;
+    border: 1px solid #154b00;
+    color: #0f9329;
+    background: black;
+    margin-top: 0.5rem;
+}
+#darken{
+    width: 25rem;
+    height: 4rem;
+    border: 2px solid #8000ff4d;
+    color: #9f9fcce1;
+    background: rgb(18 1 26);
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+}
+#dupC2{
+    width: 25rem;
+    height: 5rem;
+    border: 2px solid #8000ff4d;
+    color: #9f9fcce1;
+    background: rgb(18 1 26);
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+}
+.dup{
+    width: 15rem;
+    height: 5.5rem;
+    border: 2px solid #8000ff4d;
+    color: #9f9fcce1;
+    background: black;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+.dupControl{
+    width: 10rem;
+    height: 5rem;
+    border: 2px solid #8000ff4d;
+    color: #9f9fcce1;
+    background: black;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
 .settingsButton{
     width: 10rem;
     height: 1.5rem;

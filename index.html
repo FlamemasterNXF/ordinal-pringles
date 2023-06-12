@@ -7,23 +7,34 @@
     <link rel="stylesheet" type="text/css" href="styles/classes.css" />
     <link rel="stylesheet" type="text/css" href="styles/Modal.css" />
     <link rel="icon" href="res/chipper.gif" type="image/gif" sizes="32x32" />
+
     <script defer src="src/internal/BreakEternity.js"></script>
     <script defer src="src/internal/Formatting.js"></script>
     <script defer src="src/internal/Helpers.js"></script>
-    <script defer src="src/internal/Modal.js"></script>
-    <script defer src="src/progressBar.js"></script>
-    <script defer src="src/data.js"></script>
     <script defer src="src/internal/FormatOrd.js"></script>
-    <script defer src="src/overflow.js"></script>
-    <script defer src="src/hierarchies.js"></script>
-    <script defer src="src/incrementy.js"></script>
-    <script defer src="src/challenges.js"></script>
-    <script defer src="src/boosters.js"></script>
-    <script defer src="src/factors.js"></script>
-    <script defer src="src/markup.js"></script>
-    <script defer src="src/achievements.js"></script>
+
+    <script defer src="src/etc/modal.js"></script>
+    <script defer src="src/etc/progressBar.js"></script>
+    <script defer src="src/etc/hotkeys.js"></script>
+    <script defer src="src/etc/tick.js"></script>
+    <script defer src="src/etc/achievements.js"></script>
+
+    <script defer src="src/collapse/darkness.js"></script>
+    <script defer src="src/collapse/collapse.js"></script>
+
+    <script defer src="src/boosters/overflow.js"></script>
+    <script defer src="src/boosters/hierarchies.js"></script>
+    <script defer src="src/boosters/incrementy.js"></script>
+    <script defer src="src/boosters/challenges.js"></script>
+    <script defer src="src/boosters/boosters.js"></script>
+
+    <script defer src="src/markup/factors.js"></script>
+    <script defer src="src/markup/markup.js"></script>
+
+    <script defer src="src/data.js"></script>
     <script defer src="src/main.js"></script>
     <script defer src="src/update.js"></script>
+
     <title>Ordinal Pringles</title>
 </head>
 <body>
@@ -64,8 +75,9 @@
     <div class="centeredTexts" id="chalIn" style="margin-bottom: 0.5rem; color: orangered">Decrementy my beloved</div>
     <div class="flexBox" id="tabs" style="margin-bottom: 0.5rem">
         <button class="tabButton" id="ordNav" onclick="switchTab('ord')" style="color: indianred; border-color: #610000">Ordinals</button>
-        <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchMarkupTab('factor')" style="color: goldenrod; border-color: #785c13 ">Markup</button>
-        <button class="tabButton" id="boostNav" onclick="switchTab('boost'); switchBoostTab('upgrades')" style="display: none; color: #8080FF; border-color: #0000ff">Boosters</button>
+        <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchMarkupTab(markupTab)" style="color: goldenrod; border-color: #785c13 ">Markup</button>
+        <button class="tabButton" id="boostNav" onclick="switchTab('boost'); switchBoostTab(boostTab)" style="display: none; color: #8080FF; border-color: #0000ff">Boosters</button>
+        <button class="tabButton" id="collapseNav" onclick="switchTab('collapse'); switchCollapseTab(collapseTab)" style="display: none; color: #80ff82; border-color: #2da000">Collapse</button>
         <button class="tabButton" id="achNav" onclick="switchTab('ach')" style="color: #20da45; border-color: #307813; width: 6.5rem ">Achievements</button>
         <button class="tabButton" id="settingsNav" onclick="switchTab('settings')" style="color: gray; border-color: #4a4a4a">Settings</button>
     </div>
@@ -84,7 +96,7 @@
         <div class="flexBox" id="factorSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="flexBox" style="flex-direction: row">
                 <button id="factorShiftButton" onclick="data.sToggles[3]?createConfirmation('Are you sure?', 'Performing a Factor Shift will reduce your Base by 1 and unlock a new Factor, but it will reset your Ordinal, Ordinal Powers, Factors, and Automation!', 'No Way!', 'Yes, lets do this.', factorShift):factorShift()" style="color: goldenrod; width: 20rem; height: 3rem; background-color: black; border: 2px solid #785c13">Preform a Factor Shift</button>
-                <button id="factorBoostButton" onclick="data.sToggles[4]?createConfirmation('Are you sure?', 'Performing a Factor Boost will reset your Ordinal, Ordinal Powers, Factors, Automation, Base, and Dynamic Factor in exchange for some Boosters!', 'No Way!', 'Yes, lets do this.', boost):boost()" style="margin-left: 0.2rem; color: #8080FF; width: 20rem; min-height: 3rem; background-color: black; border: 2px solid #0000ff; display: none">Preform a Factor Boost</button>
+                <button id="factorBoostButton" onclick="data.sToggles[4]&&(data.collapse.times > 0 || data.boost.times < 33)?createConfirmation('Are you sure?', 'Performing a Factor Boost will reset your Ordinal, Ordinal Powers, Factors, Automation, Base, and Dynamic Factor in exchange for some Boosters!', 'No Way!', 'Yes, lets do this.', boost):boost()" style="margin-left: 0.2rem; color: #8080FF; width: 20rem; min-height: 3rem; background-color: black; border: 2px solid #0000ff; display: none">Preform a Factor Boost</button>
             </div>
             <button class="factor" id="factorMax" onclick="buyMaxFactor()">Max All Factors [F]</button>
             <button class="factor" id="factor0" onclick="buyFactor(0)">Factor 1</button>
@@ -95,7 +107,7 @@
             <button class="factor" id="factor5" onclick="buyFactor(5)">Factor 1</button>
             <button class="factor" id="factor6" onclick="buyFactor(6)">Factor 1</button>
         </div>
-        <div class="flexBox" id="autoSubPage" style="margin-top:0.8rem; flex-direction: column">
+        <div class="flexBox" id="autoSubPage" style="margin-top:0.8rem; flex-direction: column; display: none">
             <p class="centeredTexts" id="factorText" style="color: orange">Factorial Cog</p>
             <div class="flexBox">
                 <button class="automation" id="auto0" onclick="buyAuto(0)">Succc Auto</button>
@@ -107,7 +119,7 @@
         <div class="flexBox" id="dynamicSubPage" style="margin-top: 1rem; flex-direction: column; display: none">
             <p class="centeredTexts" id="dynamicText" style="color: goldenrod">Hello Cat</p>
         </div>
-        <div class="flexBox" id="progressBarContainer" style="margin-top: 2rem; width: 80%; height: 1.2rem; background-color: #1a1a1a; border: 1px solid 0000ff;">
+        <div class="flexBox" id="progressBarContainer" style="margin-top: 2rem; width: 80%; height: 1.2rem; background-color: #1a1a1a; border: 1px solid;">
             <div id="progressBar" style="height: 1.2rem; background-color: #0000ff; color: #000000; text-align: center; width: 0%; font-family: DosisBold;">0%</div>
         </div>
     </div>
@@ -145,9 +157,13 @@
             <div class="centeredTexts" id="factorText2" style="color: orange; margin-top: 1rem; margin-bottom: 0.5rem">Factorial! Cog</div>
             <div class="centeredTexts" id="t2AutoText0">Your Max All AutoBuyer is clicking the Max All button 0 times/second, but only if you can't Factor Shift</div>
             <div class="centeredTexts" id="t2AutoText1">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
+            <div class="centeredTexts" id="t2AutoText2" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
+            <div class="centeredTexts" id="t2AutoText3" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
             <div class="flexBox">
                 <button class="automation2" id="auto2" onclick="toggleAuto(0)">mall Auto</button>
                 <button class="automation2" id="auto3" onclick="toggleAuto(1)">yes mall Auto</button>
+                <button class="automation2" id="auto4" onclick="toggleAuto(2)" style="display:none">fish Auto</button>
+                <button class="automation2" id="auto5" onclick="toggleAuto(3)" style="display:none">salmon'nt Auto</button>
             </div>
         </div>
         <div class="flexBox" id="chalSubPage" style="display: none; flex-direction: column;">
@@ -160,7 +176,7 @@
         <div class="flexBox" id="incrementySubPage" style="display: none; flex-direction: column">
             <div class="centeredTexts" id="incrementyText" style="color: #8080FF; margin-top: 1rem;">Incrementy</div>
             <p class="centeredTexts" id="dynamicText2" style="color: goldenrod; margin-bottom: 0.5rem">Hello Dog</p>
-            <div class="centeredTexts" id="incrementyText" style="color: #8080FF; margin-top: 0.5rem; margin-bottom: 0.5rem">The first row of upgrades are re-buyable.</div>
+            <div class="centeredTexts" id="incrementyText2" style="color: #8080FF; margin-top: 0.5rem; margin-bottom: 0.5rem">The first row of upgrades are re-buyable.</div>
             <div class="flexBox" id="iupRow0" style="flex-direction: row"></div>
             <div class="flexBox" id="iupRow1" style="flex-direction: row"></div>
             <div class="flexBox" id="iupRow2" style="flex-direction: row"></div>
@@ -211,7 +227,7 @@
                 <t class="generalTexts" id="bp2Description">Dividing Decrementy Gain by </t>
                 <t class="overflowText" id="bp2Effect" style="color: aqua">1</t>
             </div>
-            
+
             <strong class="centeredTexts" id="ocTotal" style="margin-top: 1rem; color:rgb(218, 137, 32)">Overcharge is</strong>
             <div class="flexBox, bpEffectContainer">
                 <t class="generalTexts" id="oc0Description">Multiplying Hierarchy Successor speed by </t>
@@ -221,7 +237,51 @@
                 <t class="generalTexts" id="oc1Description">Multiplying ALL Booster Power effects by </t>
                 <t class="overflowText" id="bp4Effect" style="color: goldenrod">1</t>
             </div>
-            <div class="centeredTexts" id="hierarchyInfo" style="margin-top:1rem">"Excess Boosters" means all Boosters above 435<br>"Excess Charge" means all Charge above 12</div>
+            <div class="flexBox, bpEffectContainer" id="bp5Container" style="display:none">
+                <t class="generalTexts" id="oc2Description">Dividing Darkness Upgrade costs by </t>
+                <t class="overflowText" id="bp5Effect" style="color: goldenrod">1</t>
+            </div>
+            <div class="centeredTexts" id="overflowInfo" style="margin-top:1rem">"Excess Boosters" means all Boosters above 435<br>"Excess Charge" means all Charge above 12</div>
+        </div>
+    </div>
+    <div class="flexBox" id="collapsePage" style="flex-direction: column">
+        <div class="flexBox" style="margin-top: 1rem">
+            <button class="collapseTabButton" id="cardinalsTab" onclick="switchCollapseTab('cardinals')">Alephs</button>
+            <button class="collapseTabButton" id="cupsTab" onclick="switchCollapseTab('cUpgrades')">Cardinal Upgrades</button>
+            <button class="collapseTabButton" id="smTab" onclick="switchCollapseTab('sluggish')">Sluggish Milestones</button>
+            <button class="collapseTabButton" id="darkTab" onclick="switchCollapseTab('darkness')">???</button>
+        </div>
+        <h3 class="centeredTexts" id="cardinalsText" style="margin-top: 1rem; color: #20da45;">You have Collapsed Chips. In your house.</h3>
+        <button id="collapseButton" onclick="collapse()" style="color: #20da45;; min-width: 20rem; height: 2rem; background-color: black; border: 2px solid #2da000">Collapse</button>
+        <div class="flexBox" id="cardinalsSubPage" style="margin-top: 1rem; flex-direction: column;">
+            <button id="distributeButton" onclick="collapseCardinals()" style="color: #20da45; min-width: 20rem; height: 3rem; background-color: black; border: 2px solid #2da000">Collapse all Cardinals into random Alephs</button>
+            <br>
+            <div class="flexBox" id="alephContainer" style="flex-direction: column;"></div>
+            <br>
+            <t class="generalTexts" id="alephTotal">You have <font color='#20da45'><b>Total ℵ</b></font>, ${alephData[i].text} <font color='#20da45'><b>${format(alephEffect(i))}x</b></font></t>
+            <t class="centeredTexts" style="margin-top: 1rem;">You can <font color='#20da45'>Collapse</font> if you reach &psi;Ω<sub>2</sub> or at any point after Factor Boost 34.<br>You must reach Factor Boost 34 to gain any Cardinals.</t>
+        </div>
+        <div class="flexBox" id="cUpgradesSubPage" style="display: none; flex-direction: column;"></div>
+        <div class="flexBox" id="sluggishSubPage" style="display: none; flex-direction: column;">
+            <div class="flexBox" id="sluggishContainer" style="flex-direction: column;"></div>
+            <t class="centeredTexts" style="color: #0e8626; margin-top: 1rem">Each Sluggish Milestone gives you (3*previously completed SMs) free Cardinals!<br>Collapse in the required Factor Boosts or less to complete Sluggish Milestones</t>
+        </div>
+        <div class="flexBox" id="darknessSubPage" style="display: none; flex-direction: column;">
+            <button id="darken" onclick="darkenConfirm()">Enter the Darkness</button>
+            <t class="centeredTexts" id="nchargeText1" style="color: #9f9fcce1; margin-top: 1rem">You have zero Negative Charge [+x/s], capping at zero</t>
+            <t class="centeredTexts" id="nchargeText2" style="color: #9f9fcce1;">Your Negative Charge divides Incrementy by the log700 of foxes</t>
+            <div class="flexBox" id="dupContainer" style="flex-direction: row;">
+                <button class="dup" id="dup0" onclick="buyDUP(0)">DUP0</button>
+                <button class="dup" id="dup1" onclick="buyDUP(1)">DUP1</button>
+                <button class="dup" id="dup2" onclick="buyDUP(2)">DUP2</button>
+            </div>
+            <div class="flexBox" id="dupControlContainer" style="flex-direction: row;">
+                <button class="dupControl" id="dupC4" onclick="darknessControl(4)">Invert the third Booster Power effect</button>
+                <button class="dupControl" id="dupC0" onclick="darknessControl(0)">Enable Negative Charge Gain</button>
+                <button class="dupControl" id="dupC3" onclick="createConfirmation('Are you sure?', 'Resetting Sacrificed Charge will also force a Booster Reset and disable Negative Charge gain.', 'Nope.', 'Begone!', darknessControl, 3)">Reset Sacrifice Charge</button>
+                <button class="dupControl" id="dupC1" onclick="createConfirmation('Are you certian?', 'Resetting Negative Charge will also force a Booster Reset, disable Negative Charge gain, and reset Sacrificed Charge.', 'Nope.', 'Begone!', darknessControl, 1)">Reset Negative Charge</button>
+            </div>
+            <button id="dupC2" onclick="createConfirmation('Are you sure?', 'Sacrificing Charge will not only consume 1 Charge but also remove it from the Total Charge amount!', 'Keep it!', 'Begone!', darknessControl, 2)">Sacrifice Charge</button>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;">
@@ -238,6 +298,7 @@
         <button class="settingsButton" id="settingsToggle1" onclick="settingsToggle(1)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle2" onclick="settingsToggle(2)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle6" onclick="settingsToggle(6)" style="width: 20rem">aaa</button>
+        <button class="settingsButton" id="settingsToggle7" onclick="settingsToggle(7)" style="width: 20rem">aaa</button>
 
         <button class="settingsButton" id="offlineProgressToggle" onclick="settingsToggle(-1)" style="margin-top: 1rem; width: 20rem">Toggle Offline Progress</button>
         <br>
@@ -245,7 +306,7 @@
         <button class="settingsButton" onclick="downloadSave()">Download your Save</button>
         <button class="settingsButton" onclick="createPrompt('Import SaveData', importSave, true)">Import your Save</button>
         <button class="settingsButton" onclick="createConfirmation('Are you sure?', 'Are you absolutely sure you want to do this?\nThis will export your save (just in case) but delete your save from LocalStorage.', 'No Way!', 'Yes, I understand the consequences.', fullReset)" style="color: red">Delete your Save</button>
-        
+
         <div class="centeredTexts" id="versionText" style="margin-top: 3rem; color: #009696; font-family: DosisBold;">Version</div>
     </div>
 </div>
