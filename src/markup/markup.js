@@ -40,7 +40,10 @@ function markup(n=1){
     if(calculateHardy()<10240 && !data.ord.isPsi) return
     if(data.ord.isPsi){ data.ord.ordinal+=n; return data.markup.powers = 4e256}
 
-    if(data.chal.active[6]) data.markup.powers = 0
+    if(data.chal.active[7]){
+        data.markup.powers = 0
+        data.chal.decrementy = D(1)
+    }
     data.ord.isPsi = false
     data.markup.powers += totalOPGain()
     data.ord.ordinal = 0

@@ -1,8 +1,8 @@
 const chalDesc = [
     "You can only buy 1 of each AutoClicker", "You can't buy Factors",
     "The Base is 5 higher", "Factor Shifts don't reduce the base", "Dynamic divides AutoClicker speed, and each Booster Upgrade bought and completion of this Challenge multiplies Dynamic Gain and Cap by 5",
-    "All previous Challenges at once EXCEPT Challenge 5", "You gain no Dynamic, keep no OP on Markup, Booster Upgrades increase Factor Shift requirements, Booster Upgrade 1x3 is disabled, and you can only manually click Successor 1000 times per Markup",
-    "You exponentially gain Decrementy that divides AutoClicker Speed and you're trapped in Challenge 7"
+    "All previous Challenges at once EXCEPT Challenge 5", "You gain no Dynamic, Booster Upgrades increase Factor Shift requirements, Booster Upgrade 1x3 is disabled, and you can only manually click Successor 1000 times per Markup",
+    "You exponentially gain Decrementy that divides AutoClicker Speed (resets on Markup), keep no OP on Markup, and you're trapped in Challenge 7"
 ]
 const chalGoals = [
     [1e32, 1e223, 4e256, Infinity], //4e256 works as a stand in for Epsilon Naught here
@@ -58,11 +58,11 @@ function chalEnter(i, force=false){
     boosterReset()
     if(i === 2 || i === 5) data.ord.base = 15
     if(data.boost.hasBUP[2]) data.ord.base = 5
-    if(i === 4){ 
+    if(i === 4){
         createAlert('Forced Refund', `Your Booster Upgrades have been refunded to help with the Challenge. Feel free to rebuy them, but remember the debuff!`, 'Thanks!')
         boosterRefund(true)
-        data.dy.gain = 0.002 
-        DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic')) 
+        data.dy.gain = 0.002
+        DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     }
     if(i === 6 || i === 7){
         createAlert('Forced Refund', `Your Booster Upgrades have been refunded to help with the Challenge. Feel free to rebuy them, but remember the debuff!`, 'Thanks!')
