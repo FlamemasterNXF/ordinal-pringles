@@ -7,10 +7,10 @@ const GRAHAMS_VALUE = 109
 const BHO_VALUE = 4*3**40
 
 //Version Flags
-const VERSION = "0.1b8"
+const VERSION = "0.1"
 const VERSION_NAME = "Pringle Collapsing Functions"
-const VERSION_DATE = "June 11th, 2023"
-const IS_BETA = true
+const VERSION_DATE = "June 12th, 2023"
+const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
 //create all the variables in a data object for saving
