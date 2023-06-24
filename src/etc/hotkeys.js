@@ -2,7 +2,8 @@ const controls = {
     "s": { pressed: false },
     "m": { pressed: false },
     "i": { pressed: false },
-    "f": { pressed: false }
+    "f": { pressed: false },
+    "h": { pressed: false }
 }
 document.addEventListener('keydown', (event) => {
     let key = event.key;
