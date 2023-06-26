@@ -194,10 +194,26 @@ function boosterRefund(c=false){
 }
 
 function boosterUnlock(){
-    if(data.boost.total>=6 || data.collapse.hasSluggish[1]){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480'; DOM('chalTab').addEventListener('click', _=> switchBoostTab('chal')) }
-    if(data.boost.total>=91 || data.collapse.hasSluggish[1]){ data.boost.unlocks[1] = true; DOM(`bu1`).style.backgroundColor = '#002480';  DOM('incrementyTab').addEventListener('click', _=> switchBoostTab('incrementy')) }
-    if(data.boost.total>=325){ data.boost.unlocks[2] = true; DOM(`bu2`).style.backgroundColor = '#002480'; DOM('hierarchiesTab').addEventListener('click', _=> switchBoostTab('hierarchies')) }
-    if(data.boost.total>=465){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480'; DOM('overflowTab').addEventListener('click', _=> switchBoostTab('overflow')) }
+    if(chalTabUnlocked()){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480'; }
+    if(incrementyTabUnlocked()){ data.boost.unlocks[1] = true; DOM(`bu1`).style.backgroundColor = '#002480';  }
+    if(hierarchiesTabUnlocked()){ data.boost.unlocks[2] = true; DOM(`bu2`).style.backgroundColor = '#002480'; }
+    if(overflowTabUnlocked()){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480'; }
+}
+
+function chalTabUnlocked(){
+    return data.boost.total>=6 || data.collapse.hasSluggish[1];
+}
+
+function incrementyTabUnlocked(){
+    return data.boost.total>=91 || data.collapse.hasSluggish[1];
+}
+
+function hierarchiesTabUnlocked(){
+    return data.boost.total>=325;
+}
+
+function overflowTabUnlocked(){
+    return data.boost.total>=465;
 }
 
 function toggleAuto(i){
