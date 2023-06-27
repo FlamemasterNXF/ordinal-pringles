@@ -32,6 +32,7 @@ function mainLoop() {
     if (controls["m"].pressed) maximize();
     if (controls["i"].pressed) markup();
     if (controls["f"].pressed) { buyMaxFactor(); buyMaxAuto(); }
+    if (controls["h"].pressed) factorShift();
 
     // Update Achievements
     checkAchs()

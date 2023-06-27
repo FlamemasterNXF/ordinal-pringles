@@ -7,7 +7,7 @@ function updateMarkupHTML(){
         calculateHardy()>=10240?`Markup and gain ${formatWhole(opGain()*opMult())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
 
     DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0?`Perform a Factor Shift<br>Requires: ?????`:`Preform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
-        `Perform a Factor Shift<br>Requires: ${format(getFSReq())} Ordinal Powers`
+        `Perform a Factor Shift (H)<br>Requires: ${format(getFSReq())} Ordinal Powers`
     DOM("auto0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
     DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
     DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0]+extraT1())} Successor Autoclickers click the Successor button ${formatWhole(data.chal.active[4]?(data.autoLevels[0]+extraT1())*factorBoost()/data.dy.level:(data.autoLevels[0]+extraT1())*factorBoost()*data.dy.level)} times/second\nYour ${formatWhole(data.autoLevels[1]+extraT1())} Maximize Autoclickers click the Maximize button ${formatWhole(data.chal.active[4]?(data.autoLevels[1]+extraT1())*factorBoost()/data.dy.level:(data.autoLevels[1]+extraT1())*factorBoost()*data.dy.level)} times/second`
@@ -81,12 +81,12 @@ function getFSReq(){
 function factorShift(){
     if(data.markup.shifts === 7){
         if(data.ord.isPsi && data.ord.ordinal >= GRAHAMS_VALUE && data.boost.times == 0) return boost(true)
-        else return createAlert("Failure", "Insufficient Ordinal", "Dang.")
+        else return //createAlert("Failure", "Insufficient Ordinal", "Dang.")
     }
 
     const req = getFSReq()
 
-    if(data.markup.powers < req) return createAlert("Failure", "Insufficient Ordinal Powers", "Dang.")
+    //if(data.markup.powers < req) return createAlert("Failure", "Insufficient Ordinal Powers", "Dang.")
     if(!data.chal.active[3] && !(data.boost.hasBUP[2] && checkAllIndexes(data.chal.active, true))) --data.ord.base
     ++data.markup.shifts
 
