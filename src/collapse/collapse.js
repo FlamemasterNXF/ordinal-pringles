@@ -13,7 +13,7 @@ function updateCollapseHTML(){
     DOM(`collapseButton`).innerText = `Collapse for ${format(cardinalGain())} Cardinals`
 
     for (let i = 0; i < data.collapse.hasCUP.length; i++) {
-        if(data.collapse.hasCUP[i]) DOM(`cup${i}`).innerText = `${cupData[i].text}\n\nCurrently: ${i==1?'^':''}${format(cupData[i].effect()*drainEffect(i))}${i!=1?'x':''}`
+        if(data.collapse.hasCUP[i]) DOM(`cup${i}`).innerText = `${cupData[i].text}\n\nCurrently: ${i==1?'^':''}${i===1 ? format(cupData[i].effect()+drainEffect(i)) : format(cupData[i].effect()*drainEffect(i))}${i!==1?'x':''}`
     }
 
     DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal >= BHO_VALUE ? '#fff480' : '#20da45'
@@ -138,7 +138,10 @@ function checkCollapseUnlockHTML(){
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : (((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect()
 let alephEffect = (i) => data.collapse.alephs[i] > 0 ? alephData[i].effect()*cupEffect(6) : 1
-let cupEffect = (i) => data.collapse.hasCUP[i] ? Math.max(cupData[i].effect()*drainEffect(i), 1) : 1
+let cupEffect = (i) => data.collapse.hasCUP[i] ?
+    i===1 ? Math.max(cupData[i].effect()+drainEffect(i), 1)
+    : Math.max(cupData[i].effect()*drainEffect(i), 1)
+    : 1
 
 function getTotalAlephs(){
     let total = 0
