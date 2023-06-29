@@ -274,6 +274,7 @@ function collapseCardinals(){
     }
 
     let usedCardinals = Math.floor(data.collapse.cardinals)
+    if (usedCardinals >= 1000) usedCardinals = Math.floor(usedCardinals/8)*8
     data.collapse.cardinals -= usedCardinals
 
     if(usedCardinals < 1000){
