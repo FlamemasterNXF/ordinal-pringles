@@ -134,6 +134,7 @@
         </div>
         <div class="flexBox" id="upgradesSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="centeredTexts" id="boosterText">boosteeeeeeeee</div>
+            <div class="centeredTexts" id="boosterTimesText" style="font-size: 0.8rem">boosteeeeeeeee times</div>
             <div class="flexBox" style="flex-direction: row;">
                 <button class="boostTopButton" id="boostRefund" onclick="data.sToggles[0]?createConfirmation('Are you sure?', 'This will reset your Booster Upgrades and return spent Boosters, but it will trigger a Booster Reset!', 'Go back!', 'Go ahead.', boosterRefund)
                 :boosterRefund()">Refund your Booster Upgrades</button>
@@ -258,8 +259,9 @@
             <br>
             <div class="flexBox" id="alephContainer" style="flex-direction: column;"></div>
             <br>
-            <t class="generalTexts" id="alephTotal">You have <font color='#20da45'><b>Total ℵ</b></font>, ${alephData[i].text} <font color='#20da45'><b>${format(alephEffect(i))}x</b></font></t>
-            <t class="centeredTexts" style="margin-top: 1rem;">You can <font color='#20da45'>Collapse</font> if you reach &psi;Ω<sub>2</sub> or at any point after Factor Boost 34.<br>You must reach Factor Boost 34 to gain any Cardinals.</t>
+            <t class="generalTexts" id="alephTotal">You have <span style="color: #20da45; "><b>Total ℵ</b></span>, ${alephData[i].text} <span
+                    style="color: #20da45; "><b>${format(alephEffect(i))}x</b></span></t>
+            <t class="centeredTexts" style="margin-top: 1rem;">You can <span style="color: #20da45; ">Collapse</span> if you reach &psi;Ω<sub>2</sub> or at any point after Factor Boost 34.<br>You must reach Factor Boost 34 to gain any Cardinals.</t>
         </div>
         <div class="flexBox" id="cUpgradesSubPage" style="display: none; flex-direction: column;"></div>
         <div class="flexBox" id="sluggishSubPage" style="display: none; flex-direction: column;">
