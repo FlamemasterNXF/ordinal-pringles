@@ -10,7 +10,7 @@ const ordMarks = [
     "&psi;(Ω<sup>Ω2+1</sup>x)",
     "&psi;(Ω<sup>Ω2+2</sup>x)",
     "&psi;(Ω<sup>Ω2+y</sup>)",
-    "&psi;(Ω<sup>Ωy</sup>x)",
+    "&psi;(Ω<sup>Ωy</sup>)",
     "&psi;(Ω<sup>Ω<sup>2</sup></sup>x)",
     "&psi;(Ω<sup>Ω<sup>2</sup>+1</sup>x)",
     "&psi;(Ω<sup>Ω<sup>2</sup>+2</sup>x)",
