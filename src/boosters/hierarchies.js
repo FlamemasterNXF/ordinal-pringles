@@ -153,12 +153,12 @@ function buyHUP(i){
     if(data.hierachies.hasUpgrade[i]) return
     const cost = hupData[i].cost
 
-    if(data.hierachies.ords[0].ord > cost && i < 2){
+    if(data.hierachies.ords[0].ord >= cost && i <= 2){
         data.hierachies.ords[0].ord -= cost
         data.hierachies.hasUpgrade[i] = true
         updateHUPHTML(i)
     }
-    else if(data.hierachies.ords[1].ord > cost && i > 2 && i < 5){
+    else if(data.hierachies.ords[1].ord >= cost && i > 2 && i <= 5){
         data.hierachies.ords[1].ord -= cost
         data.hierachies.hasUpgrade[i] = true
         updateHUPHTML(i)
