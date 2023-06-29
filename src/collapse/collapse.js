@@ -247,18 +247,7 @@ function collapseReset(){
     updateHierarchiesHTML()
     updateHierarchyPurchaseHTML()
 
-    data.darkness.darkened = false
-    data.darkness.levels = Array(3).fill(0)
-    data.darkness.negativeCharge = 0
-    data.darkness.drains = Array(7).fill(0)
-    data.darkness.sacrificedCharge = 0
-    data.darkness.totalDrains = 0
-    data.darkness.negativeChargeEnabled = false
-    updateDarknessHTML()
-    updateAllDUPHTML()
-    for (let i = 0; i < drainData.length; i++) {
-        updateDrainHTML(i)
-    }
+    resetDarkness()
 
     data.overflow.bp = 1
     data.overflow.oc = 1

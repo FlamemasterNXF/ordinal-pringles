@@ -7,9 +7,9 @@ const GRAHAMS_VALUE = 109
 const BHO_VALUE = 4*3**40
 
 //Version Flags
-const VERSION = "0.1"
+const VERSION = "0.1.1"
 const VERSION_NAME = "Pringle Collapsing Functions"
-const VERSION_DATE = "June 12th, 2023"
+const VERSION_DATE = "June 29th, 2023"
 const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -34,7 +34,7 @@ function getDefaultObject() {
         successorClicks: 0,
         lastTick: 0,
         achs: [],
-        loadedVersion: "0.1",
+        loadedVersion: "0.1.1",
         offline: true,
         gword: false,
         isBeta: IS_BETA,
@@ -53,7 +53,7 @@ function save(){
 function load() {
     let savedata = JSON.parse(window.localStorage.getItem(SAVE_PATH()))
     if (savedata !== undefined) fixSave(data, savedata)
-    const extra = fixOldSaves()
+    let extra = fixOldSaves()
     createAlert('Welcome Back!', `You've loaded into Ordinal PRINGLES v${VERSION}: ${VERSION_NAME}\nEnjoy!`, 'Thanks!')
 
     return extra
@@ -78,6 +78,9 @@ function fixSave(main=getDefaultObject(), data) {
 function fixOldSaves(){
     let extra = false
 
+    //v0.1 => v0.1.1
+    if(data.loadedVersion === "0.0.6") data.loadedVersion = "0.1" //Forgot to do this, thankfully I caught it in time
+    if(data.loadedVersion === "0.1" && data.collapse.hasSluggish[1]) extra = true
     //v0.0.6 => v0.1+
     if(data.collapse.times === 0 && data.ord.ordinal > BHO_VALUE) data.ord.ordinal = BHO_VALUE
     //v0.0.5 => v0.0.6+
@@ -104,8 +107,17 @@ function fixOldSaves(){
     return extra
 }
 function fixOldSavesP2(){
-    //v0.0.5 => v0.0.6+
-    if (data.loadedVersion === "null"){
+    //v0.1 => v0.1.1
+    if(data.loadedVersion === "0.1"){
+        data.incrementy.charge += data.darkness.sacrificedCharge
+        data.incrementy.totalCharge += data.darkness.sacrificedCharge
+        resetDarkness()
+        data.loadedVersion = "0.1.1"
+    }
+
+    //v0.0.5 => v0.0.6
+    // Not very elegant, my first attempt at doing something like this
+    if (data.loadedVersion === "null") {
         data.loadedVersion = "0.0.6"
 
         if (data.boost.times > 30) {
