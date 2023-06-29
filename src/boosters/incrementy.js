@@ -71,7 +71,7 @@ let iup5Effect = () => data.incrementy.hasIUP[4] ? data.hierachies.hasUpgrade[4]
 let iup6Effect = () => data.incrementy.hasIUP[5] ? Math.max(1, Math.sqrt(data.dy.level+1))*iup9Effect()*hbData[2].effect()*hbData[5].effect()*alephEffect(7) : 1
 let iup7Effect = () => data.incrementy.hasIUP[6] ? Math.floor(data.chal.totalCompletions/3) : 0
 let iup8Effect = () => data.incrementy.hasIUP[7] ? Math.max(1, 1+data.chal.totalCompletions/3) : 1
-let iup9Effect = () => data.incrementy.hasIUP[8] ? data.hierachies.hasUpgrade[1] ? Math.max(1, data.incrementy.rebuyableAmt[2]/10)
+let iup9Effect = () => data.incrementy.hasIUP[8] ? data.hierachies.hasUpgrade[1] ? Math.max(1, data.incrementy.rebuyableAmt[2]/3)
 : Math.max(1, Math.sqrt(data.incrementy.rebuyableAmt[2])) : 1
 
 let iupEffects = [iup1Effect, iup2Effect, iup3Effect, iup4Effect, iup5Effect, iup6Effect, iup7Effect, iup8Effect, iup9Effect]

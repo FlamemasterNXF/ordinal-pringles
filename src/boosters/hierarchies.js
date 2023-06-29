@@ -124,9 +124,9 @@ function increaseHierarchies(diff){
 }
 
 function getHBBuyableCost(i){
-    if(i == 2 || i==5) return 1e12*(data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]))
-    if(i < 3) return (data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]))
-    return (data.hierachies.rebuyableAmt[i]+1*10**(1+data.hierachies.rebuyableAmt[i]))
+    if(i == 2 || i==5) return 1e12*(data.hierachies.rebuyableAmt[i]+10 ** (1 + data.hierachies.rebuyableAmt[i]))
+    if(i < 3) return (data.hierachies.rebuyableAmt[i]+10 ** (1 + data.hierachies.rebuyableAmt[i]))
+    return (data.hierachies.rebuyableAmt[i]+10 ** (1 + data.hierachies.rebuyableAmt[i]))
 }
 
 function buyHBuyable(i){
