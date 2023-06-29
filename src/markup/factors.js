@@ -67,15 +67,15 @@ function buyMaxFactor(){
 function buyMaxT1(){
     if(data.autoLevels[0] == 0 && data.collapse.times == 0) buyAuto(0)
     if(data.autoLevels[1] == 0 && data.collapse.times == 0) buyAuto(1)
-    buyMaxFactor() 
+    buyMaxFactor()
     buyMaxAuto()
 }
 
 function dyGain(){
     if(data.chal.active[6]) return 0
 
-    //Could move this to a seperate function if needed
-    data.dy.cap = 40*iup5Effect()*alephEffect(4)
+    //Could move this to a separate function if needed
+    data.dy.cap = 40*iup5Effect()*alephEffect(4)*dupEffect(1)
 
     let boost = 1
     if(data.ord.base < 6 || data.boost.isCharged[11]) boost = bup11Effect()
@@ -90,8 +90,8 @@ function dyGain(){
     }
 
     if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return (data.dy.gain*boost)*iup2Effect()*bup3Effect()
-    
-    
-    if(data.boost.isCharged[3]) return (data.dy.gain*boost*iup2Effect()*bup3Effect())*dupEffect(1)
-    return (data.dy.gain*boost*iup2Effect())*dupEffect(1)
+
+
+    if(data.boost.isCharged[3]) return (data.dy.gain*boost*iup2Effect()*bup3Effect())
+    return (data.dy.gain*boost*iup2Effect())
 }

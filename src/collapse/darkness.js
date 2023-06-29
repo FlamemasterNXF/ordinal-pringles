@@ -28,8 +28,7 @@ function updateAllDarknessControlHTML(){
 }
 
 function updateDUPHTML(i){
-    if (i===2) return DOM(`dup${i}`).innerText = `${dupData[i].text} (${data.darkness.levels[i]})\n${format(dupData[i].cost())} Decrementy\nCurrently: +${format(dupData[i].effect())}`
-    DOM(`dup${i}`).innerText = `${dupData[i].text} (${data.darkness.levels[i]})\n${format(dupData[i].cost())} Decrementy\nCurrently: ${format(dupData[i].effect())}x`
+    DOM(`dup${i}`).innerText = `${dupData[i].text} (${data.darkness.levels[i]})\n${format(dupData[i].cost())} Decrementy\nCurrently: ${format(dupEffect(i))}x`
 }
 function updateAllDUPHTML(){
     for (let i = 0; i < data.darkness.levels.length; i++) {
@@ -64,10 +63,15 @@ let drainData = [
 ]
 
 let dupEffect = (i) => Math.max(1, dupData[i].effect())
+function dupScaling (i){
+    if(i===0) return D(10).pow(D(3).pow(data.darkness.levels[i]+1)).pow(2)
+    if(i===1) return D(10).pow(D(4).pow(data.darkness.levels[i]+1).pow(D(1.5)))
+    if(i===2) return D(10).pow(D(3).pow(data.darkness.levels[i]+1)).pow(3)
+}
 let dupData = [
-    { text: "Multiply AutoBuyer speed by 1.2x", cost: ()=> D(1e30*Math.floor(2*(data.darkness.levels[0]+2/10))).pow((data.darkness.levels[0]+(D(1)))), effect: ()=> 1.2*data.darkness.levels[0] },
-    { text: "Double Dynamic Gain", cost: ()=> D(1e15*Math.floor(2*(data.darkness.levels[1]+2/10))).pow((data.darkness.levels[1]+(D(1)))), effect: ()=> 2*data.darkness.levels[1] },
-    { text: "Add 0.1 to both Hierarchy Effect exponents", cost: ()=> D(1e100*Math.floor(2*(data.darkness.levels[2]+2/10))).pow((data.darkness.levels[2]+(D(1)))), effect: ()=> 0.1*data.darkness.levels[2] }
+    { text: "Multiply AutoBuyer speed by 1.5x", cost: ()=> D(1e30).times(dupScaling(0)), effect: ()=> 1.5**data.darkness.levels[0] },
+    { text: "Double Dynamic Cap", cost: ()=> D(1e15).times(dupScaling(1)), effect: ()=> 2**data.darkness.levels[1] },
+    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)), effect: ()=> 1.1**data.darkness.levels[2] }
 ]
 
 function buyDrain(i){
