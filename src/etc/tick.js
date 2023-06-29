@@ -14,11 +14,11 @@ function tick(diff){
     chalComplete()
 
     //Automation Tier 1
-    for (let i = 0; i < 2; i++) timesToLoop[i] += !data.chal.active[4] 
+    for (let i = 0; i < 2; i++) timesToLoop[i] += !data.chal.active[4]
         ? (diff*(data.autoLevels[i]+extraT1())*t1Auto()*data.dy.level)/data.chal.decrementy
         : (diff*(data.autoLevels[i]+extraT1())*t1Auto()/data.dy.level)/data.chal.decrementy
-    
-    for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]] 
+
+    for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]]
         ? t2Auto()
         : 0
 
@@ -34,7 +34,7 @@ function tick(diff){
 
     // Automation Tier 2
     // BuyMax Autobuyer
-    if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3) && data.autoStatus.enabled[0]){ 
+    if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3) && data.autoStatus.enabled[0]){
         buyMaxT1()
     }
 
@@ -50,11 +50,11 @@ function tick(diff){
         }
     }
 
-    // Increase Hierarchies 
+    // Increase Hierarchies
     if(data.boost.unlocks[2]) increaseHierarchies(diff)
 
     // TODO: Check for "Base is Always 5/4 in Challenges", probably doesn't need to be on tick()
-    if(data.chal.active.includes(true) && data.boost.hasBUP[2]) data.ord.base = bup2Effect()
+    if(data.chal.active.includes(true) && data.boost.hasBUP[2] && !data.chal.active[6]) data.ord.base = bup2Effect()
 
     // Unlock Booster Features
     boosterUnlock()
