@@ -242,6 +242,7 @@ function collapseReset(){
     data.hierachies.rebuyableAmt = Array(6).fill(0)
     data.hierachies.hasUpgrade = Array(6).fill(false)
     updateHierarchiesHTML()
+    updateHierarchyPurchaseHTML()
 
     data.darkness.darkened = false
     data.darkness.levels = Array(3).fill(0)

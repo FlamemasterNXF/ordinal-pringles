@@ -7,6 +7,10 @@ function updateHierarchiesHTML(){
     if (data.hierachies.hasUpgrade[0]) DOM("hup0").innerHTML = `${hupData[0].text}<br>${displayHierarchyOrd(hupData[0].cost, 0, data.hierachies.ords[0].base, 3)} FGH<br><font color='#424242'><b>Currently: ${hupData[0].effect()}x</b></font>`
     if (data.hierachies.hasUpgrade[3]) DOM("hup3").innerHTML = `${hupData[3].text}<br>${displayHierarchyOrd(hupData[3].cost, 0, data.hierachies.ords[1].base, 3)} SGH<br><font color='#424242'><b>Currently: ${hupData[3].effect()}x</b></font>`
 }
+function updateHierarchyPurchaseHTML(){
+    for (let i = 0; i < hbData.length; i++) updateHBBuyableHTML(i)
+    for (let i = 0; i < hupData.length; i++) updateHUPHTML(i)
+}
 function updateHBBuyableHTML(i){
     const el = DOM(`hb${i}`)
     const cost = i < 3 ? 'FGH' : 'SGH'
