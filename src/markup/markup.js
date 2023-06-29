@@ -4,7 +4,7 @@ function updateMarkupHTML(){
 
     DOM("markupButton").innerHTML = data.ord.isPsi&&data.ord.ordinal===GRAHAMS_VALUE&&data.boost.times===0?`Base 2 is required to go further...`:
         data.ord.isPsi?`Markup and gain ${displayPsiOrd(data.ord.ordinal+1, 4)} (I)`:
-        calculateHardy()>=10240?`Markup and gain ${formatWhole(opGain()*opMult())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
+        data.ord.ordinal>=data.ord.base**2?`Markup and gain ${formatWhole(opGain()*opMult())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
 
     DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0?`Perform a Factor Shift<br>Requires: ?????`:`Perform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
         `Perform a Factor Shift (H)<br>Requires: ${format(getFSReq())} Ordinal Powers`
@@ -37,7 +37,7 @@ function switchMarkupTab(t){
 }
 function markup(n=1){
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal === 109) return
-    if(calculateHardy()<10240 && !data.ord.isPsi) return
+    if(data.ord.ordinal<data.ord.base**2 && !data.ord.isPsi) return
     if(data.ord.isPsi){ data.ord.ordinal+=n; return data.markup.powers = 4e256}
 
     if(data.chal.active[7]){
