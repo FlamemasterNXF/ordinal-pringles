@@ -248,7 +248,7 @@ function incrementyTabUnlocked(){
 }
 
 function hierarchiesTabUnlocked(){
-    return data.boost.total>=325;
+    return data.boost.total>=325 || data.collapse.hasSluggish[4];
 }
 
 function overflowTabUnlocked(){
