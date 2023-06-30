@@ -176,9 +176,9 @@ let sluggishData = [
     {text: "Uncap the Ordinal, gain 1% of Ordinal Powers gained on Markup every second and you always have one free Maximize and Successor AutoClicker", req: 34},
     {text: "Keep Challenges and Incrementy unlocked through Collapse", req: 29},
     {text: "Unlock an AutoBuyer for Charge, an AutoBuyer for RUP1-3, and Unlock Darkness", req: 24},
-    {text: "???"/*"Unlock an AutoBuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, you can bulk complete Challenges, and unlock 4 new Hierarchy Upgrades"*/, req: 12},
-    {text: "???"/*"Unlock a new row of Booster Upgrades, keep Hierarchies unlocked through Collapse, and keep Challenge completions on Collapse"*/, req: 2},
-    {text: "???"/*"Uncap Ordinal Powers, keep UP1-6 and Darkness Upgrades on Collapse, and unlock an AutoBuyer for Booster Upgrades"*/, req: 1},
+    {text: "Unlock an AutoBuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, keep UP1-6 and Darkness Upgrades on Collapse, and unlock a new row of Booster Upgrades", req: 12},
+    {text: "???"/*"Unlock 4 new Hierarchy Upgrades, keep Hierarchies unlocked through Collapse, and keep Challenge completions on Collapse"*/, req: 2},
+    {text: "???"/*"Uncap Ordinal Powers, keep UP1-6 and Darkness Upgrades on Collapse, and unlock an AutoBuyer for Booster Upgrades"*/, req: 1}, //Scrapped
 ]
 
 function collapse(first = false){
@@ -211,8 +211,8 @@ function collapseReset(){
     data.boost.amt = 0
     data.boost.total = 0
     data.boost.times = 0
-    data.boost.hasBUP = Array(12).fill(false)
-    data.boost.isCharged = Array(12).fill(false)
+    data.boost.hasBUP = Array(15).fill(false)
+    data.boost.isCharged = Array(15).fill(false)
     data.boost.unlocks = Array(4).fill(false)
     boosterUnlock()
 
@@ -236,14 +236,12 @@ function collapseReset(){
         DOM(`iup${i}`).style.color = '#8080FF'
     }
 
-    data.hierachies.ords[0].ord = 1
-    data.hierachies.ords[0].over = 0
-    data.hierachies.ords[0].base = 10
-    data.hierachies.ords[1].ord = 1
-    data.hierachies.ords[1].over = 0
-    data.hierachies.ords[1].base = 10
-    data.hierachies.rebuyableAmt = Array(6).fill(0)
-    data.hierachies.hasUpgrade = Array(6).fill(false)
+    data.hierarchies.ords[0].ord = 1
+    data.hierarchies.ords[0].over = 0
+    data.hierarchies.ords[1].ord = 1
+    data.hierarchies.ords[1].over = 0
+    data.hierarchies.rebuyableAmt = Array(6).fill(0)
+    data.hierarchies.hasUpgrade = Array(6).fill(false)
     updateHierarchiesHTML()
     updateHierarchyPurchaseHTML()
 

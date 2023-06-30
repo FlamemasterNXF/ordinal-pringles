@@ -76,9 +76,9 @@ let dupData = [
     { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)), effect: ()=> 1.1**data.darkness.levels[2] }
 ]
 
-function buyDrain(i){
-    if(!data.collapse.hasCUP[i]) return createAlert("Failure.", "The Cardinal Upgrade must be purchased before being drained!", "Oops.")
-    if(data.darkness.negativeCharge < drainCost(i)) return createAlert("Failure.", "Insufficient Negative Charge", "Dang.")
+function buyDrain(i) {
+    if (!data.collapse.hasCUP[i]) return createAlert("Failure.", "The Cardinal Upgrade must be purchased before being drained!", "Oops.")
+    if (data.darkness.negativeCharge < drainCost(i)) return createAlert("Failure.", "Insufficient Negative Charge", "Dang.")
 
     data.darkness.negativeCharge -= drainCost(i)
     ++data.darkness.drains[i]
@@ -96,6 +96,7 @@ function buyDUP(i){
         updateDUPHTML(i)
     }
 }
+let getTotalDUPs = () => data.darkness.levels[0]+data.darkness.levels[1]+data.darkness.levels[2]
 
 function darknessControl(mode){
     if(mode===4){

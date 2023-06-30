@@ -6,7 +6,7 @@ function mainLoop() {
     let uDiff = diff/1000
 
     if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level = Math.min(data.dy.cap, data.dy.level+uDiff*dyGain())
-    if(data.boost.hasBUP[9]) data.markup.powers += bup9Effect()*uDiff
+    if(data.boost.hasBUP[10]) data.markup.powers += bup9Effect()*uDiff
 
     if(data.chal.active[7]) data.chal.decrementy = data.chal.decrementy.plus(decrementyGain(data.chal.decrementy.times(50)).times(uDiff))
 

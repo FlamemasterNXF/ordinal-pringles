@@ -4,8 +4,12 @@ function switchBoostTab(t){
         DOM(`${boostTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
 
+        if(t==="upgrades") checkSpecialBUPs()
+
         if (t==="upgrades" && data.boost.unlocks[1]){
-            DOM('bupBottomText').innerText = 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
+            DOM('bupBottomText').innerText = data.collapse.hasSluggish[3]
+                ? `Click a purchased Upgrade to Supercharge it! The cost to Supercharge a bottom-row Upgrade is currently ${getBottomRowChargeCost()} Charge.\nThe Unlockables Column does not consume Boosters`
+                : 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
             DOM('chargeRefund').style.display = 'block'
         }
         else{
@@ -16,17 +20,18 @@ function switchBoostTab(t){
     }
 }
 
-const bupDesc = ['Each Factor\'s effect is doubled', 'Boost OP gain by 5x', 'The Ordinal Base is always 5 in Challenges', 'Dynamic Gain is multiplied by your C5 completions in C1-C4',
-    'Unlock Max All AutoBuyer', 'Boosters Boost Tier 1 and 2 automation', 'Gain 10x OP at Ordinal Base 5 or higher', 'The Ordinal Base boosts Factors (higher is better)',
-    'Unlock Markup AutoBuyer', 'Gain 20 Free OP/s', 'Gain 3 free levels of each Factor', 'Boosters boost Dynamic gain if the Ordinal Base is less than 6']
-const bupCosts = [1, 5, 72, 53,
-    1, 4, 73, 74,
-    1, 8, 16, 66]
+const bupDesc = ['Each Factor\'s effect is doubled', 'Boost OP gain by 5x', 'The Ordinal Base is always 5 in Challenges', 'Dynamic Gain is multiplied by your C5 completions in C1-C4', 'Every 10 Darkness Upgrades purchased reduces Hierarchy Bases by 1',
+    'Unlock Max All AutoBuyer', 'Boosters Boost Tier 1 and 2 automation', 'Gain 10x OP at Ordinal Base 5 or higher', 'The Ordinal Base boosts Factors (higher is better)', 'Each SGH Buyable Purchased boosts the SGH Effect Exponent',
+    'Unlock Markup AutoBuyer', 'Gain 20 Free OP/s', 'Gain 3 free levels of each Factor', 'Boosters boost Dynamic gain if the Ordinal Base is less than 6', 'The Total ℵ effect applies to Incrementy gain']
+const bupCosts = [1, 5, 72, 53, 3522,
+    1, 4, 73, 74, 3522,
+    1, 8, 16, 66, 3562,
+]
 function initBUPs(){
     let rows = [DOM('bupColumn0'), DOM('bupColumn1'), DOM('bupColumn2')]
     let total = 0
     for (let i = 0; i < rows.length; i++) {
-        for (let n = 0; n < bupCosts.length/3; n++) {
+        for (let n = 0; n < 5; n++) {
             let bup = document.createElement('button')
 
             if(data.boost.isCharged[total]){
@@ -44,7 +49,8 @@ function initBUPs(){
         }
     }
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
-        DOM(`bup${i}`).addEventListener('click', ()=>buyBUP(i))
+        let bottomRow = i===4 || i===9 || i===14
+        DOM(`bup${i}`).addEventListener('click', ()=>buyBUP(i, bottomRow))
         DOM(`bup${i}`).addEventListener('mouseenter', ()=>revealChargeEffect(i, true))
         DOM(`bup${i}`).addEventListener('mouseleave', ()=>revealChargeEffect(i, false))
         DOM(`bup${i}`).style.backgroundColor = data.boost.hasBUP[i]?'#002480':'black'
@@ -52,6 +58,8 @@ function initBUPs(){
     for (let i = 0; i < data.boost.unlocks.length; i++) {
         DOM(`bu${i}`).style.backgroundColor = data.boost.unlocks[i]?'#002480':'black'
     }
+
+    checkSpecialBUPs()
 
     if(data.incrementy.totalCharge > 0) initBUPHover()
 }
@@ -61,27 +69,53 @@ function initBUPHover(){
         DOM(`bup${i}`).addEventListener('mouseover', () => revealChargeEffect(index));
     }
 }
+function checkSpecialBUPs(){
+    DOM(`bup4`).style.display = data.collapse.hasSluggish[3] ? `block` : `none`
+    DOM(`bup9`).style.display = data.collapse.hasSluggish[3] ? `block` : `none`
+    DOM(`bup14`).style.display = data.collapse.hasSluggish[3] ? `block` : `none`
+    DOM(`bu4`).style.display = data.collapse.hasSluggish[3] ? `block` : `none`
+}
 
-const chargedBUPDesc = ['Each Factor\'s effect is Quadrupled', 'Boost OP gain by 500x', 'The Ordinal Base is always 4 in Challenges', 'Dynamic Gain is multiplied by your C5 completions',
-    'The AutoBuyers are boosted by Factor 7 (does not stack with Upgrade 3x1)', 'Boosters Boost Tier 1 and 2 Automation at a much higher rate', 'Gain 100x OP at Ordinal Base 4 or higher', 'The Base boosts Factors but lower Base is better',
-    'The AutoBuyers are boosted by Factor 7 (does not stack with Upgrade 2x1)', 'Gain Free OP/s based on your Base', 'Gain 4 free levels of each Factor', 'Boosters boost Dynamic Gain']
+const chargedBUPDesc = ['Each Factor\'s effect is Quadrupled', 'Boost OP gain by 500x', 'The Ordinal Base is always 4 in Challenges', 'Dynamic Gain is multiplied by your C5 completions', 'Every 10 Darkness Upgrades or Drains purchased reduces Hierarchy Bases by 1',
+    'The AutoBuyers are boosted by Factor 7 (does not stack with Upgrade 3x1)', 'Boosters Boost Tier 1 and 2 Automation at a much higher rate', 'Gain 100x OP at Ordinal Base 4 or higher', 'The Base boosts Factors but lower Base is better', 'Each SGH, FGH, and Incrementy Buyable Purchased boosts the SGH Effect Exponent',
+    'The AutoBuyers are boosted by Factor 7 (does not stack with Upgrade 2x1)', 'Gain Free OP/s based on your Base', 'Gain 4 free levels of each Factor', 'Boosters boost Dynamic Gain', 'The Total ℵ effect is multiplied by Darkness Upgrade 1 and applied to Incrementy gain']
+
+/*
+    I hate this code. The only thing worse is the code for Hierarchies and Incrementy, which I wrote when I couldn't
+    remember how half of JS worked after not programming in it for many months. There's no excuse for this.
+    The code above this comment is *okay*. It's not terrible but not great. Beyond this is horrifying.
+    If I could time travel and do one thing I would kick my past self for writing this. WHAT IS THIS???
+    I am going to refactor this at some point. For now, I will be lazy and continue to add to the spaghetti :):
+    -Flame, 6/29/23, while writing the code for v0.1.2
+ */
 
 let bup0Effect = () => data.boost.hasBUP[0] ? data.boost.isCharged[0] ? 4 : 2 : 1
 let bup1Effect = () => data.boost.hasBUP[1] ? data.boost.isCharged[1] ? 500 : 5 : 1
 let bup2Effect = () => data.chal.active[6] ? 10 : data.boost.isCharged[2] ? 4 : 5
 let bup3Effect = () => data.boost.hasBUP[3] ? Math.max(Math.pow(2, data.chal.completions[4]), 1) : 1
-let bup48Effect = () => data.boost.isCharged[4] || data.boost.isCharged[8] ? Math.sqrt(factorEffect(6)) : 1
-let bup5Effect = () => data.boost.hasBUP[5] ? data.boost.isCharged[5] ? Math.max(Math.sqrt(data.boost.total)*3, 1) : Math.max(Math.sqrt(data.boost.total), 1) : 1
-let bup6Effect = () => data.boost.hasBUP[6] ? data.boost.isCharged[6] ? 100 : 10 : 0
-let bup7Effect = () => data.boost.hasBUP[7] ? data.boost.isCharged[7] ? Math.max(1,(-data.ord.base + 6)) : data.ord.base-2 : 1
-let bup9Effect = () => data.boost.hasBUP[9] ? data.boost.isCharged[9] ? Math.max(20*(-data.ord.base+11)*getOverflowEffect(1), 1) : 20*getOverflowEffect(1) : 1
-let bup10Effect = () => data.boost.hasBUP[10] ? data.boost.isCharged[10] ? 4 : 3 : 0
-let bup11Effect = () => data.boost.hasBUP[11] ? Math.max(Math.log2(data.boost.amt), 1) : 1
+let bup48Effect = () => data.boost.isCharged[5] || data.boost.isCharged[10] ? Math.sqrt(factorEffect(6)) : 1
+let bup5Effect = () => data.boost.hasBUP[6] ? data.boost.isCharged[6] ? Math.max(Math.sqrt(data.boost.total)*3, 1) : Math.max(Math.sqrt(data.boost.total), 1) : 1
+let bup6Effect = () => data.boost.hasBUP[7] ? data.boost.isCharged[7] ? 100 : 10 : 0
+let bup7Effect = () => data.boost.hasBUP[8] ? data.boost.isCharged[8] ? Math.max(1,(-data.ord.base + 6)) : data.ord.base-2 : 1
+let bup9Effect = () => data.boost.hasBUP[10] ? data.boost.isCharged[10] ? Math.max(20*(-data.ord.base+11)*getOverflowEffect(1), 1) : 20*getOverflowEffect(1) : 1
+let bup10Effect = () => data.boost.hasBUP[11] ? data.boost.isCharged[11] ? 4 : 3 : 0
+let bup11Effect = () => data.boost.hasBUP[12] ? Math.max(Math.log2(data.boost.amt), 1) : 1
+
+let sBUP0Effect = () => data.boost.hasBUP[4] ? data.boost.isCharged[4] ? Math.floor((data.darkness.totalDrains+getTotalDUPs())/10)
+    : Math.floor(getTotalDUPs()/10)
+    : 0
+let sBUP1Effect = () => data.boost.hasBUP[9] ? data.boost.isCharged[9]
+    ? Math.sqrt(getTotalHBuyables(false)+getTotalIBuyables())
+    : Math.sqrt(getTotalHBuyables(true))
+    : 1
+let sBUP2Effect = () => data.boost.hasBUP[14] ? data.boost.isCharged[14] ? alephTotalEffect()*dupEffect(0)
+    : alephTotalEffect()
+    : 1
 
 const autoNames = ['Max All', 'Markup', 'Sacrifice for Charge', 'three RUP']
 const autoDisplayNames = ['Max All', 'Markup', 'Charge', 'RUP']
 const autoRequirements = [', but only if you can\'t Factor Shift', ', but only if you\'re past Ψ(Ω)', '', ', but only if you can\'t afford a Charge']
-const autoUps = [4, 8]
+const autoUps = [5, 10]
 function updateBoostersHTML(){
     DOM('boosterText').innerHTML = data.boost.unlocks[1] > 0 ?
         `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
@@ -111,7 +145,7 @@ function updateBoostersHTML(){
 
 function revealChargeEffect(i, showCharge) {
     DOM(`bup${i}`).style.color = showCharge && data.boost.unlocks[1] ? 'goldenrod' : '#8080FF'
-    DOM(`bup${i}`).innerText = showCharge ? chargedBUPDesc[i] : bupDesc[i]
+    DOM(`bup${i}`).innerText = showCharge ? chargedBUPDesc[i] : `${bupDesc[i]}\n${bupCosts[i]} Boosters`
     //DOM('bupBottomText').innerText = `This Upgrade's Supercharged effect is \'${chargedBUPDesc[i]}\'\nThe Unlockables Column does not consume Boosters`
 }
 
@@ -171,10 +205,10 @@ function getBulkBoostAmt(){
     //return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
 }
 //End credit
-function buyBUP(i){
-    if(data.boost.hasBUP[i]) return chargeBUP(i)
+function buyBUP(i, bottomRow){
+    if(data.boost.hasBUP[i]) return chargeBUP(i, bottomRow)
     if(data.boost.amt < bupCosts[i]) return
-    if(i % 4 !== 0 && !data.boost.hasBUP[i-1]) return // Force you to buy them in order, but only in columns
+    if(i % 5 !== 0 && !data.boost.hasBUP[i-1]) return // Force you to buy them in order, but only in columns
 
     data.boost.hasBUP[i] = true
     data.boost.amt -= bupCosts[i]
