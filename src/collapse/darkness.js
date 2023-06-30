@@ -138,9 +138,9 @@ function darken(force = false){
     data.darkness.darkened = !data.darkness.darkened
 }
 
-function resetDarkness(){
+function resetDarkness(force = false){
     data.darkness.darkened = false
-    data.darkness.levels = Array(3).fill(0)
+    if(!data.collapse.hasSluggish[3]) data.darkness.levels = Array(3).fill(0)
     data.darkness.negativeCharge = 0
     data.darkness.drains = Array(7).fill(0)
     data.darkness.sacrificedCharge = 0

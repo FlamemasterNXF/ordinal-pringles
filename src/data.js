@@ -111,7 +111,7 @@ function fixOldSavesP2(){
     if(data.loadedVersion === "0.1"){
         data.incrementy.charge += data.darkness.sacrificedCharge
         data.incrementy.totalCharge += data.darkness.sacrificedCharge
-        resetDarkness()
+        resetDarkness(true)
         data.loadedVersion = "0.1.1"
     }
 

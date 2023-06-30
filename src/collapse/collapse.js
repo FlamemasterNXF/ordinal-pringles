@@ -228,14 +228,21 @@ function collapseReset(){
     updateAllChalHTML()
 
     data.incrementy.amt = 0
-    data.incrementy.hasIUP = Array(9).fill(false)
+    if(data.collapse.hasSluggish[3]){
+        data.incrementy.hasIUP[0] = false
+        data.incrementy.hasIUP[1] = false
+        data.incrementy.hasIUP[2] = false
+    }
+    else { data.incrementy.hasIUP = Array(9).fill(false) }
     data.incrementy.rebuyableAmt = Array(3).fill(0)
     data.incrementy.rebuyableCosts = [20, 1000, 100]
     data.incrementy.charge = 0
     data.incrementy.totalCharge = 0
     updateIncrementyHTML()
-    for (let i = 0; i < data.incrementy.hasIUP.length; i++) {
-        DOM(`iup${i}`).style.color = '#8080FF'
+    if(!data.collapse.hasSluggish[3]){
+        for (let i = 0; i < data.incrementy.hasIUP.length; i++) {
+            DOM(`iup${i}`).style.color = '#8080FF'
+        }
     }
 
     data.hierarchies.ords[0].ord = 1
