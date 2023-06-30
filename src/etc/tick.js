@@ -49,6 +49,11 @@ function tick(diff){
             buyIUP(i, true)
         }
     }
+    if(data.collapse.hasSluggish[3] && data.autoStatus.enabled[4]){ // Repeatable HUP Autobuyer
+        for (let i = 0; i < data.hierarchies.rebuyableAmt.length; i++) {
+            buyHBuyable(i)
+        }
+    }
 
     // Increase Hierarchies
     if(data.boost.unlocks[2]) increaseHierarchies(diff)

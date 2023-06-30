@@ -130,10 +130,12 @@ function checkAllUnlocks(mode, prev = false){
 }
 function checkCollapseUnlockHTML(){
     DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
-    DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'flex' : 'none'
-    DOM('t2AutoText3').style.display = data.collapse.hasSluggish[2] ? 'flex' : 'none'
-    DOM('auto4').style.display = data.collapse.hasSluggish[2] ? 'flex' : 'none'
-    DOM('auto5').style.display = data.collapse.hasSluggish[2] ? 'flex' : 'none'
+    DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
+    DOM('t2AutoText3').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
+    DOM('t2AutoText4').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
+    DOM('auto4').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
+    DOM('auto5').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
+    DOM('auto6').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : (((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect()
