@@ -55,6 +55,10 @@ function tick(diff){
         }
     }
 
+    // Automation Tier 3
+    if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[0] && data.ord.base > 3) factorShift()
+    if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[1]) boost(false, true)
+
     // Increase Hierarchies
     if(data.boost.unlocks[2]) increaseHierarchies(diff)
 

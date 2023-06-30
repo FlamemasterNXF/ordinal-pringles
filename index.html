@@ -259,6 +259,7 @@
             <button class="collapseTabButton" id="cupsTab" onclick="switchCollapseTab('cUpgrades')">Cardinal Upgrades</button>
             <button class="collapseTabButton" id="smTab" onclick="switchCollapseTab('sluggish')">Sluggish Milestones</button>
             <button class="collapseTabButton" id="darkTab" onclick="switchCollapseTab('darkness')">???</button>
+            <button class="collapseTabButton" id="autoPrestigeTab" onclick="switchCollapseTab('autoPrestige')">???</button>
         </div>
         <h3 class="centeredTexts" id="cardinalsText" style="margin-top: 1rem; color: #20da45;">You have Collapsed Chips. In your house.</h3>
         <button id="collapseButton" onclick="collapse()" style="color: #20da45;; min-width: 20rem; height: 2rem; background-color: black; border: 2px solid #2da000">Collapse</button>
@@ -292,6 +293,14 @@
                 <button class="dupControl" id="dupC1" onclick="createConfirmation('Are you certian?', 'Resetting Negative Charge will also force a Booster Reset, disable Negative Charge gain, and reset Sacrificed Charge.', 'Nope.', 'Begone!', darknessControl, 1)">Reset Negative Charge</button>
             </div>
             <button id="dupC2" onclick="createConfirmation('Are you sure?', 'Sacrificing Charge will not only consume 1 Charge but also remove it from the Total Charge amount!', 'Keep it!', 'Begone!', darknessControl, 2)">Sacrifice Charge</button>
+        </div>
+        <div class="flexBox" id="autoPrestigeSubPage" style="display: none; flex-direction: column;">
+            <div class="centeredTexts" id="t3AutoText0" style="margin-top: 1rem">Your Max All AutoBuyer is clicking the Max All button 0 times/second, but only if you can't Factor Shift</div>
+            <div class="centeredTexts" id="t3AutoText1">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
+            <div class="flexBox" style="flex-direction: row;">
+                <button class="automation3" id="t3AutoToggle0" onclick="toggleT3Auto(0)">prinlge mall Auto</button>
+                <button class="automation3" id="t3AutoToggle1" onclick="toggleT3Auto(1)">PRONGLE yes mall Auto</button>
+            </div>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;">

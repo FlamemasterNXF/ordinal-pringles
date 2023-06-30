@@ -1,6 +1,7 @@
 let collapseTab = "cardinals"
 function switchCollapseTab(t){
     if(isTabUnlocked(t)){
+        if(t === "autoPrestige") updateAutoPrestigeHTML()
         DOM(`${collapseTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
 
@@ -19,6 +20,12 @@ function updateCollapseHTML(){
     DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal >= BHO_VALUE ? '#fff480' : '#20da45'
 
     updateDarknessHTML()
+}
+function updateAutoPrestigeHTML(){
+    for (let i = 0; i < data.collapse.apEnabled.length; i++) {
+        DOM(`t3AutoText${i}`).innerHTML = `Your <span style='color: #20da45'>${apData[i].name} AutoPrestiger</span> is clicking the ${apData[i].button} button${apData[i].plural ? 's' : ''} <span style='color: #2da000'>1 times/second</span> ${apData[i].hasReq ? `, but only if ${apData[i].requirement}` : ''}`
+        DOM(`t3AutoToggle${i}`).innerText = `${apData[i].name} AutoPrestiger: ${boolToReadable(data.collapse.apEnabled[i], 'EDL')}`
+    }
 }
 function initAlephs(){
     const container = DOM('alephContainer')
@@ -130,6 +137,7 @@ function checkAllUnlocks(mode, prev = false){
 }
 function checkCollapseUnlockHTML(){
     DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
+    DOM('autoPrestigeTab').innerText = data.collapse.hasSluggish[3] ? 'AutoPrestigers' : '???'
     DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('t2AutoText3').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('t2AutoText4').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
@@ -181,6 +189,10 @@ let sluggishData = [
     {text: "Unlock an AutoBuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, keep UP1-6 and Darkness Upgrades on Collapse, and unlock a new row of Booster Upgrades", req: 12},
     {text: "Unlock 4 new Hierarchy Upgrades, keep Hierarchies unlocked through Collapse, and keep Challenge completions on Collapse", req: 2},
     //{text: "???"/*"Uncap Ordinal Powers, keep UP1-6 and Darkness Upgrades on Collapse, and unlock an AutoBuyer for Booster Upgrades"*/, req: 1}, Scrapped
+]
+let apData = [
+    {name: "Factor Shift", button: "Shift", requirement: "", hasReq: false, plural: false},
+    {name: "Factor Boost", button: "Boost", requirement: "", hasReq: false, plural: false},
 ]
 
 function collapse(first = false){
@@ -299,5 +311,10 @@ function buyCardinalUpgrade(i){
         data.collapse.cardinals -= cupData[i].cost
         checkUnlocks(0, i)
     }
+}
+
+function toggleT3Auto(i){
+    data.collapse.apEnabled[i] = !data.collapse.apEnabled[i]
+    DOM(`t3AutoToggle${i}`).innerText = `${apData[i].name} AutoPrestiger: ${boolToReadable(data.collapse.apEnabled[i], 'EDL')}`
 }
 

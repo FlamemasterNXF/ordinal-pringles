@@ -84,6 +84,15 @@
     background: black;
     margin-left: 0.5rem;
 }
+.automation3{
+    margin-top: 1rem;
+    width: 10rem;
+    min-height: 2rem;
+    border: 2px solid #2da000;
+    color: #20da45;
+    background: black;
+    margin-left: 0.5rem;
+}
 .challenge{
     width: 20rem;
     height: 10rem;
