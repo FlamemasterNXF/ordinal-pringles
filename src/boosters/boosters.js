@@ -144,8 +144,8 @@ function updateBoostersHTML(){
 }
 
 function revealChargeEffect(i, showCharge) {
-    DOM(`bup${i}`).style.color = showCharge && data.boost.unlocks[1] ? 'goldenrod' : '#8080FF'
-    DOM(`bup${i}`).innerText = showCharge ? chargedBUPDesc[i] : `${bupDesc[i]}\n${bupCosts[i]} Boosters`
+    DOM(`bup${i}`).style.color = showCharge || data.boost.isCharged[i] && data.boost.unlocks[1] ? 'goldenrod' : '#8080FF'
+    DOM(`bup${i}`).innerText = showCharge || data.boost.isCharged[i] ? chargedBUPDesc[i] : `${bupDesc[i]}\n${bupCosts[i]} Boosters`
     //DOM('bupBottomText').innerText = `This Upgrade's Supercharged effect is \'${chargedBUPDesc[i]}\'\nThe Unlockables Column does not consume Boosters`
 }
 
