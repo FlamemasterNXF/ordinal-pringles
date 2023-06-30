@@ -4,8 +4,7 @@ function switchBoostTab(t){
         DOM(`${boostTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
 
-        if (t=="upgrades" && data.incrementy.totalCharge > 0){
-            DOM('bupBottomText').style.color = 'goldenrod'
+        if (t==="upgrades" && data.boost.unlocks[1]){
             DOM('bupBottomText').innerText = 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
             DOM('chargeRefund').style.display = 'block'
         }
@@ -46,6 +45,8 @@ function initBUPs(){
     }
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
         DOM(`bup${i}`).addEventListener('click', ()=>buyBUP(i))
+        DOM(`bup${i}`).addEventListener('mouseenter', ()=>revealChargeEffect(i, true))
+        DOM(`bup${i}`).addEventListener('mouseleave', ()=>revealChargeEffect(i, false))
         DOM(`bup${i}`).style.backgroundColor = data.boost.hasBUP[i]?'#002480':'black'
     }
     for (let i = 0; i < data.boost.unlocks.length; i++) {
@@ -82,14 +83,14 @@ const autoDisplayNames = ['Max All', 'Markup', 'Charge', 'RUP']
 const autoRequirements = [', but only if you can\'t Factor Shift', ', but only if you\'re past Ψ(Ω)', '', ', but only if you can\'t afford a Charge']
 const autoUps = [4, 8]
 function updateBoostersHTML(){
-    DOM('boosterText').innerText = data.incrementy.totalCharge > 0 ?
-        `You have ${(data.boost.amt)} Boosters (${(data.boost.total)} total) and ${data.incrementy.charge} Charge (${data.incrementy.totalCharge} total)`
-        : `You have ${(data.boost.amt)} Boosters (${(data.boost.total)} total)`
+    DOM('boosterText').innerHTML = data.boost.unlocks[1] > 0 ?
+        `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
+        : `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total)`
     DOM('boosterTimesText').innerHTML = `You have <span style="color: #8080FF">Boosted</span> ${data.boost.times} times`
-    DOM('bup3').innerText = `${bupDesc[3]}\n[${format(bup3Effect())}x]\n53 Boosters`
-    DOM('bup5').innerText = `${data.boost.isCharged[5]?chargedBUPDesc[5]:bupDesc[5]}\n[${format(bup5Effect())}x]\n${data.boost.isCharged[5]?'':bupCosts[5]} Boosters`
-    DOM('bup7').innerText = `${data.boost.isCharged[7]?chargedBUPDesc[7]:bupDesc[7]}\n[${format(bup7Effect())}x]\n${data.boost.isCharged[7]?'':bupCosts[7]} Boosters`
-    DOM('bup11').innerText = `${data.boost.isCharged[11]?chargedBUPDesc[11]:bupDesc[11]}\n[${format(bup11Effect())}x]\n${data.boost.isCharged[11]?'':bupCosts[11]} Boosters`
+    //DOM('bup3').innerText = `${bupDesc[3]}\n[${format(bup3Effect())}x]\n53 Boosters`
+    //DOM('bup5').innerText = `${data.boost.isCharged[5]?chargedBUPDesc[5]:bupDesc[5]}\n[${format(bup5Effect())}x]\n${data.boost.isCharged[5]?'':bupCosts[5]} Boosters`
+    //DOM('bup7').innerText = `${data.boost.isCharged[7]?chargedBUPDesc[7]:bupDesc[7]}\n[${format(bup7Effect())}x]\n${data.boost.isCharged[7]?'':bupCosts[7]} Boosters`
+    //DOM('bup11').innerText = `${data.boost.isCharged[11]?chargedBUPDesc[11]:bupDesc[11]}\n[${format(bup11Effect())}x]\n${data.boost.isCharged[11]?'':bupCosts[11]} Boosters`
     for (let i = 0; i < data.autoStatus.enabled.length; i++) {
         DOM(`t2AutoText${i}`).innerText = `Your ${autoDisplayNames[i]} AutoBuyer is clicking the ${autoNames[i]} button${i==3?'s':''} ${i < 2 ? format(t2Auto()) : 1} times/second${autoRequirements[i]}`
         DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]] || i > 1 ?`${autoDisplayNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoDisplayNames[i]} AutoBuyer: LOCKED`
@@ -108,8 +109,10 @@ function updateBoostersHTML(){
     DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
 }
 
-function revealChargeEffect(i) {
-    DOM('bupBottomText').innerText = `This Upgrade's Supercharged effect is \'${chargedBUPDesc[i]}\'\nThe Unlockables Column does not consume Boosters`
+function revealChargeEffect(i, showCharge) {
+    DOM(`bup${i}`).style.color = showCharge && data.boost.unlocks[1] ? 'goldenrod' : '#8080FF'
+    DOM(`bup${i}`).innerText = showCharge ? chargedBUPDesc[i] : bupDesc[i]
+    //DOM('bupBottomText').innerText = `This Upgrade's Supercharged effect is \'${chargedBUPDesc[i]}\'\nThe Unlockables Column does not consume Boosters`
 }
 
 function boosterReset(){
