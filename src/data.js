@@ -78,6 +78,8 @@ function fixSave(main=getDefaultObject(), data) {
 function fixOldSaves(){
     let extra = false
 
+    //v0.1.1 => v0.1.2
+    if(data.collapse.hasSluggish.length === 6) data.collapse.hasSluggish.pop()
     //v0.1 => v0.1.1
     if(data.loadedVersion === "0.0.6") data.loadedVersion = "0.1" //Forgot to do this, thankfully I caught it in time
     if(data.loadedVersion === "0.1" && data.collapse.hasSluggish[1]) extra = true

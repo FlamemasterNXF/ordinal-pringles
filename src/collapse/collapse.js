@@ -188,7 +188,6 @@ let sluggishData = [
     {text: "Unlock an AutoBuyer for Charge, an AutoBuyer for RUP1-3, and Unlock Darkness", req: 24},
     {text: "Unlock an AutoBuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, keep UP1-6 and Darkness Upgrades on Collapse, and unlock a new row of Booster Upgrades", req: 12},
     {text: "Unlock 4 new Hierarchy Upgrades, keep Hierarchies unlocked through Collapse, and keep Challenge completions on Collapse", req: 2},
-    //{text: "???"/*"Uncap Ordinal Powers, keep UP1-6 and Darkness Upgrades on Collapse, and unlock an AutoBuyer for Booster Upgrades"*/, req: 1}, Scrapped
 ]
 let apData = [
     {name: "Factor Shift", button: "Shift", requirement: "", hasReq: false, plural: false},
