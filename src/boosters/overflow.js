@@ -35,7 +35,7 @@ function getOverflowEffect(i){
         case 4:
             return data.overflow.oc > 1 ? Math.max(1, Math.log10(data.overflow.oc+1)) : 1
         case 5:
-            return data.overflow.oc > 1 && data.collapse.hasCUP[5] ? Math.max(1, Math.sqrt(data.overflow.oc+1)) : 1
+            return data.overflow.oc > 1 && data.collapse.hasCUP[5] ? Math.max(1, Math.pow(data.overflow.oc, 1/16)) : 1
         default: return NaN
     }
 }
