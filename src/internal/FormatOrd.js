@@ -85,6 +85,7 @@ function displayOrd(ord,over,base,trim = data.ord.trim) {
 }
 
 function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
+    if (ord === Infinity) return data.gword ? "<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>" : "Ω"
     ord = Math.floor(ord)
     over = Math.floor(over)
     if(trim <= 0) return `...`
