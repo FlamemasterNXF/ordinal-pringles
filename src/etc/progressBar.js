@@ -47,7 +47,7 @@ function getTargetOrdinal() {
                 if (!data.chal.completions[data.chal.html]) chalGoal = 4e256
                 else return chalGoal
             }
-            let currentOP = (data.chal.html === 8 || data.darkness.darkened) ? 0 : data.markup.powers;
+            let currentOP = (data.chal.html === 7 || data.darkness.darkened) ? 0 : data.markup.powers;
             return OPtoOrd((chalGoal - currentOP) / opMult(), data.ord.base)
         }
     }
