@@ -69,6 +69,7 @@ function getTimeEstimate(){
 }
 function updateProgressBar(){
     DOM("progressBar").style.width = Math.min(100, getBarPercent()) + "%"
+    if((!data.ord.isPsi) && !inNonPsiChallenge()) return DOM("progressBar").innerHTML = "???"
     DOM("progressBar").innerHTML = getBarPercent().toFixed(2) + "%:&nbsp;" + getTimeEstimate().replaceAll(" ","&nbsp;") + "&nbsp;est."
 }
 
