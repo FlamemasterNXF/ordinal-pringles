@@ -234,7 +234,7 @@ function collapseReset(){
     data.chal.decrementy = D(1)
     data.chal.html = -1
     if(!data.collapse.hasSluggish[4]) data.chal.completions = Array(8).fill(0)
-    data.chal.active = Array(8).fill(0)
+    data.chal.active = Array(8).fill(false)
     if(!data.collapse.hasSluggish[4]) data.chal.totalCompletions = 0
     updateAllChalHTML()
 
