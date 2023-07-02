@@ -170,7 +170,7 @@ const achievements = [
     {
         req: [
             _=> data.hierarchies.hasUpgrade[0],
-            _=> data.hierarchies.hasUpgrade[3],
+            _=> data.hierarchies.hasUpgrade[5],
         ],
         name: [
             "Ordinals 2.0",

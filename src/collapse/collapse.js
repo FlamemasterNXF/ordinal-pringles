@@ -167,10 +167,10 @@ let alephData = [
     {text: "multiplying Autobuyers by", effect: ()=> Math.log10(10+(90*data.collapse.alephs[1]))},
     {text: "multiplying Ordinal Power gain by", effect: ()=> Math.log2(data.collapse.alephs[2]+2)*3},
     {text: "multiplying Incrementy gain by", effect: ()=> Math.pow(data.collapse.alephs[3]+1, 1/4)},
-    {text: "multiplying Dynamic Cap by", effect: ()=> Math.sqrt(data.collapse.alephs[4]+1)*2},
+    {text: "multiplying Dynamic Cap by", effect: ()=> (Math.sqrt(data.collapse.alephs[4]+1)*2)+hupData[9].effect()},
     {text: "multiplying the SGH effect by", effect: ()=> Math.pow(data.collapse.alephs[5]+1, 1/4)},
     {text: "multiplying Booster Power gain by", effect: ()=> Math.sqrt(data.collapse.alephs[6]+4)/2},
-    {text: "multiplying the IUP3 effect by", effect: ()=> Math.sqrt(data.collapse.alephs[7]+4)*2},
+    {text: "multiplying the IUP3 effect by", effect: ()=> (Math.sqrt(data.collapse.alephs[7]+4)*2)+hupData[9].effect()},
 ]
 let cupData = [
     {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max(data.incrementy.totalCharge/2, 1)},
@@ -261,7 +261,7 @@ function collapseReset(){
     data.hierarchies.ords[1].ord = 1
     data.hierarchies.ords[1].over = 0
     data.hierarchies.rebuyableAmt = Array(6).fill(0)
-    data.hierarchies.hasUpgrade = Array(6).fill(false)
+    data.hierarchies.hasUpgrade = Array(10).fill(false)
     updateHierarchiesHTML()
     updateHierarchyPurchaseHTML()
 

@@ -4,8 +4,6 @@ function updateHierarchiesHTML(){
         DOM(`h${i}Info`).innerText = `(+${format(hierarchyData[i].gain())}/s), ${hierarchyData[i].text}`
         DOM(`h${i}Effect`).innerText = `${format(hierarchyData[i].effect())}`
     }
-    if (data.hierarchies.hasUpgrade[0]) DOM("hup0").innerHTML = `${hupData[0].text}<br>${displayHierarchyOrd(hupData[0].cost, 0, hierarchyData[0].base(), 1)} FGH<br><font color='#424242'><b>Currently: ${hupData[0].effect()}x</b></font>`
-    if (data.hierarchies.hasUpgrade[3]) DOM("hup3").innerHTML = `${hupData[3].text}<br>${displayHierarchyOrd(hupData[3].cost, 0, hierarchyData[1].base(), 1)} SGH<br><font color='#424242'><b>Currently: ${hupData[3].effect()}x</b></font>`
 }
 function updateHierarchyPurchaseHTML(){
     for (let i = 0; i < hbData.length; i++) updateHBBuyableHTML(i)
@@ -53,7 +51,7 @@ function initHierarchies(){
     let total2 = 0
     for (let i = 0; i < columns.length; i++) {
         let cost = i == 0 ? 'FGH' : 'SGH'
-        for (let n = 0; n < 3; n++) {
+        for (let n = 0; n < 5; n++) {
             let hup = document.createElement('button')
             hup.className = ' hup'
             hup.id = `hup${total2}`
@@ -72,6 +70,12 @@ function initHierarchies(){
     }
 }
 
+function checkSpecialHUPs(){
+    DOM(`hup3`).style.display = data.collapse.hasSluggish[4] ? `block` : `none`
+    DOM(`hup4`).style.display = data.collapse.hasSluggish[4] ? `block` : `none`
+    DOM(`hup8`).style.display = data.collapse.hasSluggish[4] ? `block` : `none`
+    DOM(`hup9`).style.display = data.collapse.hasSluggish[4] ? `block` : `none`
+}
 
 let hierarchyData = [
     { text:"Multiplying Incrementy Gain by", effect: ()=> Math.max((Math.log10(data.hierarchies.ords[0].ord+1)*hbData[1].effect())**(dupEffect(2)), 1),
@@ -84,7 +88,7 @@ let hierarchyGainBases = [
     () => Math.max(Math.floor(Math.pow(t2Auto()+1, 1/4)), 1)
 ]
 let hierarchyGainGlobalMults = () =>
-    hupData[2].effect()*hupData[5].effect()*hbData[0].effect()*hbData[3].effect()*getOverflowEffect(3)
+    hupData[2].effect()*hupData[7].effect()*hbData[0].effect()*hbData[5].effect()*getOverflowEffect(3)
 
 let hbData = [
     { text:"Boost FGH and SGH gain based on Challenge Completions", cost: ()=> getHBBuyableCost(0), effect: ()=> Math.max(1, Math.sqrt(data.chal.totalCompletions+1)*data.hierarchies.rebuyableAmt[0]) },
@@ -96,12 +100,16 @@ let hbData = [
 ]
 let hupData = [
     // Effcects of 1 mean that it is a true/false effect.
-    { text:"The Challenge Boost is Improved", cost: 1e10, effect: ()=> data.hierarchies.hasUpgrade[0] ? 2 : 1 },
+    { text:"The Challenge Boost is Improved", cost: 1e10, effect: ()=> data.hierarchies.hasUpgrade[0] ? 2*hupData[8].effect() : 1 },
     { text:"Incrementy Upgrade 6 is Improved", cost: 1e20, effect: ()=> 1 },
     { text:"Booster Upgrade 1x4 boosts Hierarchy Successors", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[2] ? bup3Effect()**2 : 1 },
-    { text:"Total Charge Boosts AutoBuyers", cost: 1e10, effect: ()=> data.hierarchies.hasUpgrade[3] ? Math.max(1, data.incrementy.totalCharge/2) : 1 },
+    { text:"If Booster Upgrades 2x1 and 3x1 are Supercharged their effects multiply each other", cost: 1e40, effect: ()=> 1},
+    { text:"The BUP 2x1 and 3x1 effect divided by 100 adds to the Decrementy gain exponent", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[4] ? bup48Effect()/100 : 0 },
+    { text:"Total Charge Boosts AutoBuyers", cost: 1e10, effect: ()=> data.hierarchies.hasUpgrade[5] ? Math.max(1, data.incrementy.totalCharge/2)*hupData[8].effect() : 1 },
     { text:"Incrementy Upgrade 2 is Improved", cost: 1e20, effect: ()=> 1 },
-    { text:"Booster Upgrade 2x4 boosts Hierarchy Successors", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[5] ? bup7Effect()**3 : 1 },
+    { text:"Booster Upgrade 2x4 boosts Hierarchy Successors", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[7] ? bup7Effect()**3 : 1 },
+    { text:"Each Drain boosts the effects of the first Hierarchy Upgrade of each column", cost: 1e40, effect: ()=> data.hierarchies.hasUpgrade[8] ? Math.sqrt(data.darkness.totalDrains) : 1 },
+    { text:"The final Hierarchy Buyable of each column's effect adds to the ℵ<sub>5</sub> and ℵ<sub>8</sub> effects", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[9] ? hbData[2].effect()+hbData[5].effect() : 1 },
 ]
 
 function increaseHierarchies(diff){
@@ -151,7 +159,7 @@ function buyHBuyable(i){
 }
 function getTotalHBuyables(sgh){
     let total = 0
-    let start = sgh ? 3 : 0
+    let start = sgh ? 5 : 0
 
     for (let i = start; i < data.hierarchies.rebuyableAmt.length; i++) {
         total += data.hierarchies.rebuyableAmt[i]
@@ -163,12 +171,12 @@ function buyHUP(i){
     if(data.hierarchies.hasUpgrade[i]) return
     const cost = hupData[i].cost
 
-    if(data.hierarchies.ords[0].ord >= cost && i <= 2){
+    if(data.hierarchies.ords[0].ord >= cost && i <= 4){
         data.hierarchies.ords[0].ord -= cost
         data.hierarchies.hasUpgrade[i] = true
         updateHUPHTML(i)
     }
-    else if(data.hierarchies.ords[1].ord >= cost && i > 2 && i <= 5){
+    else if(data.hierarchies.ords[1].ord >= cost && i > 4){
         data.hierarchies.ords[1].ord -= cost
         data.hierarchies.hasUpgrade[i] = true
         updateHUPHTML(i)

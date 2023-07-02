@@ -5,6 +5,7 @@ function switchBoostTab(t){
         DOM(`${t}SubPage`).style.display = `flex`
 
         if(t==="upgrades") checkSpecialBUPs()
+        if(t==="hierarchies") checkSpecialHUPs()
 
         if (t==="upgrades" && data.boost.unlocks[1]){
             DOM('bupBottomText').innerText = data.collapse.hasSluggish[3]
@@ -93,7 +94,11 @@ let bup0Effect = () => data.boost.hasBUP[0] ? data.boost.isCharged[0] ? 4 : 2 : 
 let bup1Effect = () => data.boost.hasBUP[1] ? data.boost.isCharged[1] ? 500 : 5 : 1
 let bup2Effect = () => data.chal.active[6] ? 10 : data.boost.isCharged[2] ? 4 : 5
 let bup3Effect = () => data.boost.hasBUP[3] ? Math.max(Math.pow(2, data.chal.completions[4]), 1) : 1
-let bup48Effect = () => data.boost.isCharged[5] || data.boost.isCharged[10] ? Math.sqrt(factorEffect(6)) : 1
+function bup48Effect(){
+    if(data.boost.isCharged[5] && data.boost.isCharged[10] && data.hierarchies.hasUpgrade[4]) return Math.sqrt(factorEffect(6))**2
+    if(data.boost.isCharged[5] || data.boost.isCharged[10]) return Math.sqrt(factorEffect(6))
+    return 1
+}
 let bup5Effect = () => data.boost.hasBUP[6] ? data.boost.isCharged[6] ? Math.max(Math.sqrt(data.boost.total)*3, 1) : Math.max(Math.sqrt(data.boost.total), 1) : 1
 let bup6Effect = () => data.boost.hasBUP[7] ? data.boost.isCharged[7] ? 100 : 10 : 0
 let bup7Effect = () => data.boost.hasBUP[8] ? data.boost.isCharged[8] ? Math.max(1,(-data.ord.base + 6)) : data.ord.base-2 : 1
