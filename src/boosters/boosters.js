@@ -212,6 +212,7 @@ function getBulkBoostAmt(){
 }
 //End credit
 function buyBUP(i, bottomRow){
+    updateHierarchyPurchaseHTML()
     if(data.boost.hasBUP[i]) return chargeBUP(i, bottomRow)
     if(data.boost.amt < bupCosts[i]) return
     if(i % 5 !== 0 && !data.boost.hasBUP[i-1]) return // Force you to buy them in order, but only in columns
@@ -220,11 +221,12 @@ function buyBUP(i, bottomRow){
     data.boost.amt -= bupCosts[i]
 
     DOM(`bup${i}`).style.backgroundColor = '#002480'
+    
 }
 
 function boosterRefund(c=false){
     respecCharge(c)
-
+    updateHierarchyPurchaseHTML()
     //let indexes = []
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
         //if (data.boost.hasBUP[i]) indexes.push(i)
