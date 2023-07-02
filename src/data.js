@@ -7,9 +7,9 @@ const GRAHAMS_VALUE = 109
 const BHO_VALUE = 4*3**40
 
 //Version Flags
-const VERSION = "0.1.1"
-const VERSION_NAME = "Pringle Collapsing Functions"
-const VERSION_DATE = "June 29th, 2023"
+const VERSION = "0.1.2"
+const VERSION_NAME = "The Sluggishly Collapsing Pringle"
+const VERSION_DATE = "July 1st, 2023"
 const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -34,10 +34,10 @@ function getDefaultObject() {
         successorClicks: 0,
         lastTick: 0,
         achs: [],
-        loadedVersion: "0.1.1",
+        loadedVersion: VERSION,
+        isBeta: IS_BETA,
         offline: true,
         gword: false,
-        isBeta: IS_BETA,
     }
 }
 let data = getDefaultObject()
@@ -80,6 +80,11 @@ function fixOldSaves(){
 
     //v0.1.1 => v0.1.2
     if(data.collapse.hasSluggish.length === 6) data.collapse.hasSluggish.pop()
+    if(data.loadedVersion !== "0.1.2" && data.collapse.hasSluggish[3]){
+        data.collapse.hasSluggish[3] = false
+        data.collapse.hasSluggish[4] = false
+        data.loadedVersion = "0.1.2"
+    }
     //v0.1 => v0.1.1
     if(data.loadedVersion === "0.0.6") data.loadedVersion = "0.1" //Forgot to do this, thankfully I caught it in time
     if(data.loadedVersion === "0.1" && data.collapse.hasSluggish[1]) extra = true
