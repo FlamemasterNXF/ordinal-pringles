@@ -85,6 +85,7 @@ function displayOrd(ord,over,base,trim = data.ord.trim) {
 }
 
 function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
+    if (ord === Infinity) return data.gword ? "<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>" : "Ω"
     ord = Math.floor(ord)
     over = Math.floor(over)
     if(trim <= 0) return `...`
@@ -97,6 +98,8 @@ function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
     if (amount > 1) finalOutput += amount
     const firstAmount = amount*magnitudeAmount
     if(ord-firstAmount > 0) finalOutput += "+" + displayHierarchyOrd(ord-firstAmount, over, base, trim - 1)
+    if(data.gword) finalOutput = finalOutput.replaceAll("&omega;","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
+                                            .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
     return finalOutput
 }
 
@@ -117,8 +120,16 @@ function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
 
 function displayPsiOrd(ord, trim) {
     ord = Math.floor(ord)
-    if(ord == BHO_VALUE) return "&psi;(Ω<sub>2</sub>)"
-
+    if(ord == BHO_VALUE) {
+        let finalOutput = "&psi;(Ω<sub>2</sub>)"
+        if(data.gword) finalOutput=finalOutput
+            .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
+        return `${finalOutput}`
+    }
+    let maxOrdMarks = (3**(ordMarks.length-1))*4
+    if(maxOrdMarks < Infinity && new Decimal(ord).gt(new Decimal(maxOrdMarks.toString()))) {
+        return displayPsiOrd(maxOrdMarks) + "x" + format(ord/Number(maxOrdMarks),2)
+    }
     if(ord === 0) return ""
     if(trim <= 0) return "..."
     if(ord < 4) return extraOrdMarks[ord]

@@ -79,11 +79,20 @@ function fixOldSaves(){
     let extra = false
 
     //v0.1.1 => v0.1.2
-    if(data.collapse.hasSluggish.length === 6) data.collapse.hasSluggish.pop()
-    if(data.loadedVersion !== "0.1.2" && data.collapse.hasSluggish[3]){
-        data.collapse.hasSluggish[3] = false
-        data.collapse.hasSluggish[4] = false
-        data.loadedVersion = "0.1.2"
+    if(data.loadedVersion < "0.1.2" || data.loadedVersion === "null") {
+        data.hierarchies = data.hierachies;
+        for (let i = 7; i >= 5; i--) data.hierarchies.hasUpgrade[i] = data.hierarchies.hasUpgrade[i-2];
+        for (let i = 3; i < 5; i++) data.hierarchies.hasUpgrade[i] = false;
+        for (let i = 13; i >= 10; i--) { data.boost.hasBUP[i] = data.boost.hasBUP[i-2]; data.boost.isCharged[i] = data.boost.isCharged[i-2]; }
+        data.boost.hasBUP[9] = false; data.boost.isCharged[9] = false;
+        for (let i = 8; i >= 5; i--) { data.boost.hasBUP[i] = data.boost.hasBUP[i-1]; data.boost.isCharged[i] = data.boost.isCharged[i-1]; }
+        data.boost.hasBUP[4] = false; data.boost.isCharged[4] = false;
+        if(data.collapse.hasSluggish.length === 6) data.collapse.hasSluggish.pop();
+        if(data.collapse.hasSluggish[3]){
+            data.collapse.hasSluggish[3] = false
+            data.collapse.hasSluggish[4] = false
+        }
+        extra = true
     }
     //v0.1 => v0.1.1
     if(data.loadedVersion === "0.0.6") data.loadedVersion = "0.1" //Forgot to do this, thankfully I caught it in time
@@ -115,11 +124,10 @@ function fixOldSaves(){
 }
 function fixOldSavesP2(){
     //v0.1 => v0.1.1
-    if(data.loadedVersion === "0.1"){
+    if(data.loadedVersion < "0.1.1" || data.loadedVersion === "null"){
         data.incrementy.charge += data.darkness.sacrificedCharge
         data.incrementy.totalCharge += data.darkness.sacrificedCharge
         resetDarkness(true)
-        data.loadedVersion = "0.1.1"
     }
 
     //v0.0.5 => v0.0.6
@@ -134,6 +142,8 @@ function fixOldSavesP2(){
             data.boost.amt = 465
         }
     }
+
+    data.loadedVersion = "0.1.2"
 }
 function exportSave(){
     try {

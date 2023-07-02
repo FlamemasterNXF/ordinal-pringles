@@ -92,7 +92,7 @@ const chargedBUPDesc = ['Each Factor\'s effect is Quadrupled', 'Boost OP gain by
 
 let bup0Effect = () => data.boost.hasBUP[0] ? data.boost.isCharged[0] ? 4 : 2 : 1
 let bup1Effect = () => data.boost.hasBUP[1] ? data.boost.isCharged[1] ? 500 : 5 : 1
-let bup2Effect = () => data.chal.active[6] ? 10 : data.boost.isCharged[2] ? 4 : 5
+let bup2Effect = () => data.chal.active[6] ? 10 - data.markup.shifts : data.boost.isCharged[2] ? 4 : 5
 let bup3Effect = () => data.boost.hasBUP[3] ? Math.max(Math.pow(2, data.chal.completions[4]), 1) : 1
 function bup48Effect(){
     if(data.boost.isCharged[5] && data.boost.isCharged[10] && data.hierarchies.hasUpgrade[4]) return Math.sqrt(factorEffect(6))**2
@@ -101,10 +101,10 @@ function bup48Effect(){
 }
 let bup5Effect = () => data.boost.hasBUP[6] ? data.boost.isCharged[6] ? Math.max(Math.sqrt(data.boost.total)*3, 1) : Math.max(Math.sqrt(data.boost.total), 1) : 1
 let bup6Effect = () => data.boost.hasBUP[7] ? data.boost.isCharged[7] ? 100 : 10 : 0
-let bup7Effect = () => data.boost.hasBUP[8] ? data.boost.isCharged[8] ? Math.max(1,(-data.ord.base + 6)) : data.ord.base-2 : 1
-let bup9Effect = () => data.boost.hasBUP[10] ? data.boost.isCharged[10] ? Math.max(20*(-data.ord.base+11)*getOverflowEffect(1), 1) : 20*getOverflowEffect(1) : 1
-let bup10Effect = () => data.boost.hasBUP[11] ? data.boost.isCharged[11] ? 4 : 3 : 0
-let bup11Effect = () => data.boost.hasBUP[12] ? Math.max(Math.log2(data.boost.amt), 1) : 1
+let bup7Effect = () => data.boost.hasBUP[8] ? data.boost.isCharged[8] ? Math.max(1,(-data.ord.base + 6)) : Math.max(1,data.ord.base-2) : 1
+let bup9Effect = () => data.boost.hasBUP[11] ? data.boost.isCharged[11] ? Math.max(20*(-data.ord.base+11)*getOverflowEffect(1), 1) : 20*getOverflowEffect(1) : 1
+let bup10Effect = () => data.boost.hasBUP[12] ? data.boost.isCharged[12] ? 4 : 3 : 0
+let bup11Effect = () => data.boost.hasBUP[13] ? Math.max(Math.log2(data.boost.amt), 1) : 1
 
 let sBUP0Effect = () => data.boost.hasBUP[4] ? data.boost.isCharged[4] ? Math.floor((data.darkness.totalDrains+getTotalDUPs())/10)
     : Math.floor(getTotalDUPs()/10)
@@ -225,15 +225,16 @@ function buyBUP(i, bottomRow){
 function boosterRefund(c=false){
     respecCharge(c)
 
-    let indexes = []
+    //let indexes = []
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
-        if (data.boost.hasBUP[i]) indexes.push(i)
+        //if (data.boost.hasBUP[i]) indexes.push(i)
         data.boost.hasBUP[i] = false
         DOM(`bup${i}`).style.backgroundColor = 'black'
     }
-    for (let i = 0; i < indexes.length; i++){
+    /*for (let i = 0; i < indexes.length; i++){
         data.boost.amt += bupCosts[indexes[i]]
-    }
+    }*/
+    data.boost.amt = data.boost.total
     c?boosterReset():chalExit()
 }
 
