@@ -72,7 +72,7 @@ function displayOrd(ord,over,base,trim = data.ord.trim) {
     over = Math.floor(over)
     if(trim <= 0) return `...`
     if(ord < base) return ord+over
-    const magnitude = Math.floor(Math.log(ord)/Math.log(base))
+    const magnitude = Math.floor(Math.log(ord)/Math.log(base)+1e-14)
     const magnitudeAmount = base**magnitude
     const amount = Math.floor(ord/magnitudeAmount)
     let finalOutput = "&omega;"
@@ -89,7 +89,7 @@ function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
     over = Math.floor(over)
     if(trim <= 0) return `...`
     if(ord < base) return ord+over
-    const magnitude = Math.floor(Math.log(ord)/Math.log(base))
+    const magnitude = Math.floor(Math.log(ord)/Math.log(base)+1e-14)
     const magnitudeAmount = base**magnitude
     const amount = Math.floor(ord/magnitudeAmount)
     let finalOutput = "&omega;"
