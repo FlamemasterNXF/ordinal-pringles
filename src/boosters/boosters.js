@@ -106,8 +106,8 @@ let bup9Effect = () => data.boost.hasBUP[11] ? data.boost.isCharged[11] ? Math.m
 let bup10Effect = () => data.boost.hasBUP[12] ? data.boost.isCharged[12] ? 4 : 3 : 0
 let bup11Effect = () => data.boost.hasBUP[13] ? Math.max(Math.log2(data.boost.amt), 1) : 1
 
-let sBUP0Effect = () => data.boost.hasBUP[4] ? data.boost.isCharged[4] ? Math.floor((data.darkness.totalDrains+getTotalDUPs())/10)
-    : Math.floor(getTotalDUPs()/10)
+let sBUP0Effect = () => data.boost.hasBUP[4] ? data.boost.isCharged[4] ? Math.min(6, Math.floor((data.darkness.totalDrains+getTotalDUPs())/10))
+    : Math.min(6, Math.floor(getTotalDUPs()/10))
     : 0
 let sBUP1Effect = () => data.boost.hasBUP[9] ? data.boost.isCharged[9]
     ? Math.sqrt(getTotalHBuyables(false)+getTotalIBuyables())
