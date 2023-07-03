@@ -81,12 +81,12 @@ function checkSpecialHUPs(){
     DOM(`hup9`).style.display = data.collapse.hasSluggish[4] ? `block` : `none`
 }
 
-let effectiveFGH = () => Math.min(opGain(data.hierarchies.ords[0].ord, hierarchyData[0].base(), data.hierarchies.ords[0].over), Number.MAX_VALUE);
-let effectiveSGH = () => Math.min(opGain(data.hierarchies.ords[1].ord, hierarchyData[1].base(), data.hierarchies.ords[1].over), Number.MAX_VALUE);
+let effectiveFGH = () => calcOrdPoints(data.hierarchies.ords[0].ord, hierarchyData[0].base(), data.hierarchies.ords[0].over);
+let effectiveSGH = () => calcOrdPoints(data.hierarchies.ords[1].ord, hierarchyData[1].base(), data.hierarchies.ords[1].over);
 let hierarchyData = [
-    { text:"Multiplying Incrementy Gain by", effect: ()=> Math.min(Math.max((Math.log10(effectiveFGH()+1)*hbData[1].effect())**(dupEffect(2)), 1), Number.MAX_VALUE),
+    { text:"Multiplying Incrementy Gain by", effect: ()=> Math.min(Math.max((Decimal.log10(effectiveFGH().add(1)).toNumber()*hbData[1].effect())**(dupEffect(2)), 1), Number.MAX_VALUE),
         gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults(), base: ()=> 10-sBUP0Effect() },
-    { text:"Dividing Charge Requirement by", effect: ()=> Math.min(Math.max((Math.log10(effectiveSGH()+1)*hbData[4].effect()*alephEffect(5))**((dupEffect(2))+sBUP1Effect()), 1), Number.MAX_VALUE),
+    { text:"Dividing Charge Requirement by", effect: ()=> Math.min(Math.max((Decimal.log10(effectiveSGH().add(1)).toNumber()*hbData[4].effect()*alephEffect(5))**((dupEffect(2))+sBUP1Effect()), 1), Number.MAX_VALUE),
         gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults(), base: ()=> 10-sBUP0Effect() }
 ]
 let hierarchyGainBases = [
