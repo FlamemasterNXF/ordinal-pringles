@@ -58,12 +58,13 @@ function getTargetOrdinal() {
 function getBarPercent(){
     if((!data.ord.isPsi) && !inNonPsiChallenge()) return 0
     if (data.ord.isPsi && inNonPsiChallenge()) return 100
+    if(data.ord.ordinal / getTargetOrdinal() * 100 >= 100) return 100
     return Math.min(100, data.ord.ordinal / getTargetOrdinal() * 100)
 }
 function getTimeEstimate(){
     if((!data.ord.isPsi) && !inNonPsiChallenge()) return "Unknown... "
     if (data.ord.isPsi && inNonPsiChallenge()) return "0s"
-    if(boostReq()===data.ord.ordinal)return "0s"
+    if(boostReq() <= data.ord.ordinal)return "0s"
     let autoSpeed = Math.max(1, (data.ord.isPsi ? t2Auto() : (data.autoLevels[0]+extraT1())*t1Auto()*(data.chal.active[4] ? (1/data.dy.level) : data.dy.level) / data.chal.decrementy.toNumber()))
     return formatTime(Math.max((getTargetOrdinal()-data.ord.ordinal)/autoSpeed, 0))
 }
