@@ -113,10 +113,8 @@ function chalEffectTotal(){
     return Math.max(base**2+cup, 1)
 }
 function decrementyGain(x) {
-    const base = (((D(0.000666).times(x)).div(50)).times((D(data.markup.powers+1)).pow(0.2).times(2)))
-    const overflow = data.overflow.thirdEffect ? base.div(getOverflowEffect(2)) : base.times(getOverflowEffect(2))
     const exponent = 1+hupData[4].effect()
-    return overflow.pow(exponent)
-    //* (data.markup.powers < 1e30 ? -1 : 1)
-    //((game.omegaChallenge == 2?1:double()) ** game.dups[1]) **
+    const base = ((D(0.000666).times(x)).div(50)).times((D(data.markup.powers+1)).pow(0.2).times(2).pow(exponent))
+    const overflow = data.overflow.thirdEffect ? base.div(getOverflowEffect(2)) : base.times(getOverflowEffect(2))
+    return overflow
 }
