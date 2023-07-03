@@ -23,7 +23,7 @@ function updateCollapseHTML(){
 }
 function updateAutoPrestigeHTML(){
     for (let i = 0; i < data.collapse.apEnabled.length; i++) {
-        DOM(`t3AutoText${i}`).innerHTML = `Your <span style='color: #20da45'>${apData[i].name} AutoPrestiger</span> is clicking the ${apData[i].button} button${apData[i].plural ? 's' : ''} <span style='color: #2da000'>1 times/second</span> ${apData[i].hasReq ? `, but only if ${apData[i].requirement}` : ''}`
+        DOM(`t3AutoText${i}`).innerHTML = `Your <span style='color: #20da45'>${apData[i].name} AutoPrestiger</span> is clicking the ${apData[i].button} button${apData[i].plural ? 's' : ''} <span style='color: #2da000'>20 times/second</span> ${apData[i].hasReq ? `, but only if ${apData[i].requirement}` : ''}`
         DOM(`t3AutoToggle${i}`).innerText = `${apData[i].name} AutoPrestiger: ${boolToReadable(data.collapse.apEnabled[i], 'EDL')}`
     }
 }
@@ -191,7 +191,7 @@ let sluggishData = [
 ]
 let apData = [
     {name: "Factor Shift", button: "Shift", requirement: "", hasReq: false, plural: false},
-    {name: "Factor Boost", button: "Boost", requirement: "", hasReq: false, plural: false},
+    {name: "Factor Boost", button: "Boost", requirement: "you can\'t get a Sluggish Milestone", hasReq: true, plural: false},
 ]
 
 function collapse(first = false){
