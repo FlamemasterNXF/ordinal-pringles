@@ -14,7 +14,6 @@ function updateHBBuyableHTML(i){
     const cost = i < 3 ? 'FGH' : 'SGH'
     const ord = i < 3 ? 0 : 1
 
-
     el.innerHTML = i == 2 || i==5 ? `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>${format(hbData[i].cost())} Incrementy<br>Currently: ${format(hbData[i].effect())}x`
     : `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>${displayHierarchyOrd(hbData[i].cost(), 0, 10/*hierarchyData[ord].base()*/, 1)} ${cost}<br>Currently: ${format(hbData[i].effect())}x`
 }
@@ -23,8 +22,10 @@ function updateHUPHTML(i){
     const cost = i < 5 ? 'FGH' : 'SGH'
     const ord = i < 5 ? 0 : 1
 
-
-    el.innerHTML = `${hupData[i].text}<br>${displayHierarchyOrd(hupData[i].cost, 0, 10/*hierarchyData[ord].base*/, 1)} ${cost}<br><font color='#424242'><b>Bought!</b></font>`
+    el.innerHTML = `${hupData[i].text}<br>${displayHierarchyOrd(hupData[i].cost, 0, 10/*hierarchyData[ord].base*/, 1)} ${cost}<br>`
+    if (data.hierarchies.hasUpgrade[i]) {
+        el.innerHTML += `<font color='#424242'><b>Bought!</b></font>`
+    }
 }
 
 function initHierarchies(){
