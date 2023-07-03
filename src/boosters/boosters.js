@@ -188,7 +188,7 @@ function boost(f=false, auto=false){
     }
 
     let bulkBoostAmt = getBulkBoostAmt();
-    if (auto && data.boost.times < 2 && !hasSluggish[4]) bulkBoostAmt = Math.min(2 - data.boost.times, bulkBoostAmt) // do not automatically boost past SM2
+    if (auto && data.boost.times < 2 && !data.collapse.hasSluggish[4]) bulkBoostAmt = Math.min(2 - data.boost.times, bulkBoostAmt) // do not automatically boost past SM2
     for(let i=1;i<=bulkBoostAmt;i++) {
         data.boost.amt += data.boost.times+1
         data.boost.total += data.boost.times+1
