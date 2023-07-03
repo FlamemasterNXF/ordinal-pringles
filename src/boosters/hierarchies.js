@@ -121,7 +121,7 @@ function increaseHierarchies(diff){
     for (let i = 0; i < data.hierarchies.ords.length; i++) {
         let n = hierarchyData[i].gain()*diff/1000
         // Successor
-        if (data.hierarchies.ords[i].ord % hierarchyData[i].base() === hierarchyData[i].base() - 1) data.hierarchies.ords[i].over+=n
+        if (data.hierarchies.ords[i].ord % hierarchyData[i].base() === hierarchyData[i].base() - 1 && data.hierarchies.ords[i].ord < Number.MAX_SAFE_INTEGER) data.hierarchies.ords[i].over+=n
         else data.hierarchies.ords[i].ord+=n
 
         //Maximize
