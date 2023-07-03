@@ -180,7 +180,7 @@ function boost(f=false, auto=false){
     if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && auto) return
     if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
 
-    if(data.boost.times === boostTimesLimit) return createAlert("The End... for now!", "You've reached the limits of our current Ordinals! You may continue playing and gaining Ordinal but boosting past this point is not possible for now :)", "Thanks!")
+    if(data.boost.times === boostTimesLimit) return createAlert("The End... for now!", "You've reached the current Endgame!", "Thanks!")
 
     if(data.boost.times === 0){
         DOM('boostNav').style.display = 'block'
