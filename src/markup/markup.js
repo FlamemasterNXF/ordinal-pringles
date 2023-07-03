@@ -69,7 +69,20 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
     return 10 ** opGain(pow, base, 0) * mult + opGain(ord - divisor * mult, base, over)
 }
 let totalOPGain = () => Math.min(4e256, opGain()*opMult())
-
+function calcOrdPoints(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over, trim=0) {
+    opBase = new Decimal(10)
+    if (trim >= 10) return new Decimal(0)
+    if (Decimal.lt(ord, base)) {
+        return Decimal.add(ord, over)
+    } else if (new Decimal(ord).slog(base).lt(base)) {
+        let powerOfOmega = Decimal.log(new Decimal(ord).add(0.1), base).floor()
+        let highestPower = Decimal.pow(base,powerOfOmega)
+        let powerMultiplier = Decimal.floor(Decimal.div(new Decimal(ord).add(0.1),highestPower))
+        return Decimal.add(Decimal.mul(Decimal.pow(opBase, calcOrdPoints(powerOfOmega,base,0)), powerMultiplier), new Decimal(ord).lt(Decimal.tetrate(base, 3)) ? calcOrdPoints(new Decimal(ord).sub(Decimal.mul(highestPower,powerMultiplier)),base,over,trim+1) : 0)
+    } else {
+        return new Decimal(opBase).tetrate(calcOrdPoints(new Decimal(ord).slog(base),base,0,trim))
+    }
+}
 const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 5e100, Infinity, Infinity]
 function getFSReq(){
     const reqScale = data.chal.active[6] ? (totalBUPs()/2)+1.5 : 1
