@@ -174,10 +174,13 @@ function boosterReset(){
     data.successorClicks = 0
 }
 
+const boostTimesLimit = 156
 function boost(f=false, auto=false){
     if(data.boost.times === 33 && data.collapse.times === 0) return createConfirmation("Are you certain?", "This will perform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
     if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && auto) return
     if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
+
+    if(data.boost.times === boostTimesLimit) return createAlert("The End... for now!", "You've reached the limits of our current Ordinals! You may continue playing and gaining Ordinal but boosting past this point is not possible for now :)", "Thanks!")
 
     if(data.boost.times === 0){
         DOM('boostNav').style.display = 'block'
@@ -221,7 +224,7 @@ function buyBUP(i, bottomRow){
     data.boost.amt -= bupCosts[i]
 
     DOM(`bup${i}`).style.backgroundColor = '#002480'
-    
+
 }
 
 function boosterRefund(c=false){
