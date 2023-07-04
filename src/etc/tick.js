@@ -26,13 +26,13 @@ function tick(diff){
         successor(timesToLoop[0]/1000)
         timesToLoop[0] -= Math.floor(timesToLoop[0]/1000)*1000
     }
-    if(isNaN(timesToLoop[0])) timesToLoop[0] = 0
+    if(isNaN(timesToLoop[0]) || timesToLoop[0] < 0) timesToLoop[0] = 0
 
     if(Math.floor(timesToLoop[1]/1000) >= 1){
         maximize()
         timesToLoop[1] -= Math.floor(timesToLoop[1]/1000)*1000
     }
-    if(isNaN(timesToLoop[1])) timesToLoop[1] = 0
+    if(isNaN(timesToLoop[1]) || timesToLoop[1] < 0) timesToLoop[1] = 0
 
     // Automation Tier 2
     // BuyMax Autobuyer
