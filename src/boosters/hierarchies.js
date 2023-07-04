@@ -114,7 +114,7 @@ let hupData = [
     { text:"Total Charge Boosts AutoBuyers", cost: 1e10, effect: ()=> data.hierarchies.hasUpgrade[5] ? Math.max(1, data.incrementy.totalCharge/2)*hupData[8].effect() : 1 },
     { text:"Incrementy Upgrade 2 is Improved", cost: 1e20, effect: ()=> 1 },
     { text:"Booster Upgrade 2x4 boosts Hierarchy Successors", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[7] ? bup7Effect()**3 : 1 },
-    { text:"Each Drain boosts the effects of the first Hierarchy Upgrade of each column", cost: 1e40, effect: ()=> data.hierarchies.hasUpgrade[8] ? Math.sqrt(data.darkness.totalDrains) : 1 },
+    { text:"Each Drain boosts the effects of the first Hierarchy Upgrade of each column", cost: 1e40, effect: ()=> data.hierarchies.hasUpgrade[8] ?  Math.max(1, Math.sqrt(data.darkness.totalDrains)) : 1 },
     { text:"The final Hierarchy Buyable of each column's effect adds to the ℵ<sub>5</sub> and ℵ<sub>8</sub> effects", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[9] ? hbData[2].effect()+hbData[5].effect() : 1 },
 ]
 
