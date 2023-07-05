@@ -8,7 +8,7 @@ function mainLoop() {
     if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level = Math.min(data.dy.cap, data.dy.level+uDiff*dyGain())
     if(data.boost.hasBUP[11]) data.markup.powers += bup9Effect()*uDiff
 
-    if(data.chal.active[7]) data.chal.decrementy = data.chal.decrementy.plus(decrementyGain(data.chal.decrementy.times(50)).times(uDiff))
+    if(data.chal.active[7]) data.chal.decrementy = data.chal.decrementy.mul(decrementyGain().pow(uDiff))
 
     if(data.ord.isPsi && data.boost.unlocks[1]) data.incrementy.amt += uDiff*incrementyGain()
     if(data.boost.unlocks[3]) {
