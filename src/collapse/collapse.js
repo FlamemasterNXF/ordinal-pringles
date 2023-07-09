@@ -1,6 +1,7 @@
 let collapseTab = "cardinals"
 function switchCollapseTab(t){
     if(isTabUnlocked(t)){
+        DOM(`cardinalsText`).style.display = t === 'sing' ? 'none' : 'flex'
         if(t === "autoPrestige") updateAutoPrestigeHTML()
         DOM(`${collapseTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
@@ -20,6 +21,7 @@ function updateCollapseHTML(){
     DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal >= BHO_VALUE ? '#fff480' : '#20da45'
 
     updateDarknessHTML()
+    updateSingularityHTML()
 }
 function updateAutoPrestigeHTML(){
     for (let i = 0; i < data.collapse.apEnabled.length; i++) {

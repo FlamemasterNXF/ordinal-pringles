@@ -32,6 +32,7 @@ const uHTML = {
         updateTotalAlephHTML()
         updateAllDarknessControlHTML()
         updateAllDUPHTML()
+        loadSingularityHTML()
 
         //Load Settings
         for (let i = 0; i < data.sToggles.length; i++) {

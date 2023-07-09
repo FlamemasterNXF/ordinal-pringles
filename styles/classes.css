@@ -257,6 +257,15 @@
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }
+.singControl{
+    width: 12rem;
+    height: 3rem;
+    border: 1px solid #2da000;
+    color: #2da000;
+    background: black;
+    font-size: 0.75rem;
+}
+
 .settingsButton{
     width: 10rem;
     height: 1.5rem;
