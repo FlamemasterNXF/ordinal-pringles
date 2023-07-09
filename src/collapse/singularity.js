@@ -4,7 +4,7 @@ function updateSingularityHTML(){
 function updateSingLevelHTML(){
     DOM(`singLevel`).innerHTML = `Your Singularity has a density of <b>${data.sing.level > 0 ? ordinalDisplay('H', data.sing.level, 0, 10, 3, false) : `H<sub>0</sub>`}</b> (10)`
     DOM(`singLevel2`).innerHTML = `Your Singularity's highest ever density was <b>${data.sing.level > 0 ? ordinalDisplay('H', data.sing.highestLevel, 0, 10, 3, false) : `H<sub>0</sub>`}</b> (10)`
-    DOM(`singEffect`).innerHTML = `Your Singularity is raising Cardinal Gain to the <b>${format(mainSingEffect(), 3)}</b>`
+    DOM(`singEffect`).innerHTML = `Your Singularity is raising Cardinal Gain to the <b>${format(mainSingEffect(), 3)}</b> and dividing the Markup Autobuyer's speed by ${format(singAutoEffect())}`
 }
 
 function loadSingularityHTML(){
@@ -14,6 +14,7 @@ function loadSingularityHTML(){
 }
 
 let mainSingEffect = () => 1 + Math.sqrt(data.sing.level)/1000
+let singAutoEffect = () => data.sing.level > 0 ? Math.max(2**data.sing.level) : 1
 
 function changeSingLevel(){
     data.sing.level = parseInt(DOM(`singSlider`).value)
