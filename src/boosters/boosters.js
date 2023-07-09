@@ -249,6 +249,7 @@ function boosterUnlock(){
     if(incrementyTabUnlocked()){ data.boost.unlocks[1] = true; DOM(`bu1`).style.backgroundColor = '#002480';  }
     if(hierarchiesTabUnlocked()){ data.boost.unlocks[2] = true; DOM(`bu2`).style.backgroundColor = '#002480'; }
     if(overflowTabUnlocked()){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480'; }
+    if(data.boost.total >= 12246){ data.boost.unlocks[4] = true; DOM(`bu4`).style.backgroundColor = '#002480'; }
 }
 
 function chalTabUnlocked(){

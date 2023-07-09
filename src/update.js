@@ -61,6 +61,7 @@ function isTabUnlocked(t){
 
         case 'darkness': return data.collapse.hasSluggish[2]
         case 'autoPrestige': return data.collapse.hasSluggish[3]
+        case 'sing': return data.boost.unlocks[4]
 
         default: return true
     }

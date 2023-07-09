@@ -138,6 +138,7 @@ function checkAllUnlocks(mode, prev = false){
 function checkCollapseUnlockHTML(){
     DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
     DOM('autoPrestigeTab').innerText = data.collapse.hasSluggish[3] ? 'AutoPrestigers' : '???'
+    DOM('singTab').innerText = data.boost.unlocks[4] ? 'Singularity' : '???'
     DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('t2AutoText3').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('t2AutoText4').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'

@@ -22,7 +22,7 @@ function getDefaultObject() {
         factors: Array(7).fill(0),
         dy: {level:1, gain:0, cap:40},
         autoLevels: Array(2).fill(0),
-        boost: {amt:0, total:0, times:0, bottomRowCharges:0, hasBUP:Array(15).fill(false), isCharged:Array(15).fill(false), unlocks: Array(4).fill(false)},
+        boost: {amt:0, total:0, times:0, bottomRowCharges:0, hasBUP:Array(15).fill(false), isCharged:Array(15).fill(false), unlocks: Array(5).fill(false)},
         chal: {decrementy: D(1), html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
         incrementy: {amt:0, hasIUP:Array(9).fill(false), rebuyableAmt: Array(3).fill(0), rebuyableCosts: [20, 1000, 100], charge:0, totalCharge:0},
         hierarchies: { ords:[ {ord:1, over:0, type:"f"}, {ord:1, over:0, type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(10).fill(false)},
