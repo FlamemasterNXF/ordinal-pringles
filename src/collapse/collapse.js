@@ -157,9 +157,11 @@ function checkCollapseUnlockHTML(){
     DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('t2AutoText3').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('t2AutoText4').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
+    DOM('t2AutoText5').style.display = hasSingFunction(1) ? 'block' : 'none'
     DOM('auto4').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('auto5').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('auto6').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
+    DOM('auto7').style.display = hasSingFunction(1) ? 'block' : 'none'
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : (((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect()
@@ -237,12 +239,12 @@ function collapse(first = false){
 function collapseReset(){
     boosterRefund()
 
-    data.boost.amt = 0
-    data.boost.total = 0
+    data.boost.amt = hasSingFunction(1) ? 2 : 0
+    data.boost.total = hasSingFunction(1) ? 2 : 0
     data.boost.times = 0
     data.boost.hasBUP = Array(15).fill(false)
     data.boost.isCharged = Array(15).fill(false)
-    data.boost.unlocks = Array(4).fill(false)
+    data.boost.unlocks = Array(4).fill(false).concat(data.boost.unlocks[4])
     boosterUnlock()
 
     DOM('factorBoostButton').style.display = 'none'
@@ -263,8 +265,8 @@ function collapseReset(){
     else { data.incrementy.hasIUP = Array(9).fill(false) }
     data.incrementy.rebuyableAmt = Array(3).fill(0)
     data.incrementy.rebuyableCosts = [20, 1000, 100]
-    data.incrementy.charge = 0
-    data.incrementy.totalCharge = 0
+    data.incrementy.charge = data.boost.unlocks[4] ? data.incrementy.totalCharge-data.sing.level : 0
+    data.incrementy.totalCharge = data.boost.unlocks[4] ? data.incrementy.totalCharge : 0
     updateIncrementyHTML()
     if(!data.collapse.hasSluggish[3]){
         for (let i = 0; i < data.incrementy.hasIUP.length; i++) {

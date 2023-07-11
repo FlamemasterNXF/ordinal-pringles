@@ -66,11 +66,11 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
     let pow = Math.floor(Math.log(ord + 0.1) / Math.log(base))
     let divisor = Math.pow(base, pow)
     let mult = Math.floor((ord + 0.1) / divisor)
-    return 10 ** opGain(pow, base, 0) * mult + opGain(ord - divisor * mult, base, over)
+    return Math.min(4e256, 10 ** Math.min(4e256, opGain(pow, base, 0)) * mult + Math.min(4e256, opGain(ord - divisor * mult, base, over)))
 }
 let totalOPGain = () => Math.min(4e256, opGain()*opMult())
 function calcOrdPoints(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over, trim=0) {
-    opBase = new Decimal(10)
+    let opBase = new Decimal(10)
     if (trim >= 10) return new Decimal(0)
     if (Decimal.lt(ord, base)) {
         return Decimal.add(ord, over)

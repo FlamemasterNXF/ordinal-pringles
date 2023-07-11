@@ -94,7 +94,7 @@ class SingularityFunction {
 let hasSingFunction = (i) => data.sing.level >= singFunctions[i].requiredLevel
 const singFunctions = [
     new SingularityFunction(10, true, 'The 7th Cardinal Upgrade now affects the Total ℵ Effect. Drains are now kept on Collapse.'),
-    new SingularityFunction(12, true, 'Gain two free Boosters and unlock a Booster Upgrade AutoBuyer'),
+    new SingularityFunction(12, true, 'Gain two free Boosters on Collapse and unlock a Booster Upgrade AutoBuyer'),
     new SingularityFunction(15, true, 'Keep Hierarchy Upgrades on Collapse', true, 'Negative Charge multiplies ℵ<sub>5</sub> by', 1),
     new SingularityFunction(20, true, 'Unlock an AutoBuyer for Supercharge', true, 'Total Boosters over 12246 multiply the second Overcharge Effect by', 1),
     new SingularityFunction(25, true, 'If you have the third Cardinal Upgrade double the effect of IUP4', true, 'RUP2 multiplies Dynamic Cap (at an extremely reduced rate) by', 1),

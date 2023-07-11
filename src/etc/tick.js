@@ -46,7 +46,9 @@ function tick(diff){
 
     // Markup Autobuyer
     let collapseCheck = data.ord.ordinal < BHO_VALUE || data.collapse.times > 0
-    if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1] && collapseCheck) markup(timesToLoop[3]*diff/1000)
+    let boostCheck = data.boost.times > 0
+    if(timesToLoop[3] >= 1 && data.ord.isPsi && data.autoStatus.enabled[1] && !boostCheck && data.ord.isPsi) data.ord.ordinal = GRAHAMS_VALUE
+    if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1] && collapseCheck && boostCheck) markup(timesToLoop[3]*diff/1000)
 
     // Automation Tier 2: Post-Collapse
     if(data.collapse.hasSluggish[2] && data.autoStatus.enabled[2]) sacrificeIncrementy() //Charge Autobuyer
@@ -58,6 +60,17 @@ function tick(diff){
     if(data.collapse.hasSluggish[3] && data.autoStatus.enabled[4]){ // Repeatable HUP Autobuyer
         for (let i = 0; i < data.hierarchies.rebuyableAmt.length; i++) {
             buyHBuyable(i)
+        }
+    }
+    if(hasSingFunction(1) && data.autoStatus.enabled[5]){ // BUP AutoBuyer
+        if(!data.boost.hasBUP[5]) buyBUP(5, false, true)
+        if(!data.boost.hasBUP[10]) buyBUP(10, false, true)
+        if(!data.boost.hasBUP[0]) buyBUP(0, false, true)
+        for (let i = 1; i < 5; i++) {
+            let isBottom = i===5
+            for (let j = 0; j < 3; j++) {
+                if(!data.boost.hasBUP[i+(5*j)]) buyBUP(i+(5*j), isBottom, true)
+            }
         }
     }
 
