@@ -213,6 +213,15 @@
     background: black;
     margin-left: 0.5rem;
 }
+#drainReset{
+    width: 15rem;
+    height: 6rem;
+    border: 2px solid #8000ff4d;
+    color: #9f9fcce1;
+    background: black;
+    margin-left: 0.5rem;
+    margin-top: 1rem;
+}
 .sluggish{
     width: 50rem;
     height: 4.8rem;

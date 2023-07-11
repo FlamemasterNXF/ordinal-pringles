@@ -138,11 +138,22 @@ function darken(force = false){
     data.darkness.darkened = !data.darkness.darkened
 }
 
+function resetDrains(){
+    for (let i = 0; i < data.darkness.drains.length; i++) {
+        data.darkness.negativeCharge += (data.darkness.drains[i])*(10**(((data.darkness.totalDrains-1)/2)+1))
+        data.darkness.totalDrains -= data.darkness.drains[i]
+        data.darkness.drains[i] = 0
+    }
+    for (let i = 0; i < data.darkness.drains.length; i++) {
+        updateDrainHTML(i)
+    }
+}
+
 function resetDarkness(force = false){
     data.darkness.darkened = false
     if(!data.collapse.hasSluggish[3]) data.darkness.levels = Array(3).fill(0)
     data.darkness.negativeCharge = 0
-    data.darkness.drains = Array(7).fill(0)
+    if(!hasSingFunction(0)) data.darkness.drains = Array(7).fill(0)
     data.darkness.sacrificedCharge = 0
     data.darkness.totalDrains = 0
     data.darkness.negativeChargeEnabled = false

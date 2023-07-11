@@ -55,6 +55,8 @@ function initCUPS(){
             let innerContainer = document.createElement('div')
             innerContainer.className = 'cupContainer'
             innerContainer.id = `cupContainer${id}`
+            if(id===7) innerContainer.style.flexDirection = `row`
+
 
             let el = document.createElement('button')
             el.className = 'cup'
@@ -63,7 +65,7 @@ function initCUPS(){
             el.addEventListener("click", ()=>buyCardinalUpgrade(id))
             innerContainer.append(el)
 
-            if(id != 7){
+            if(id !== 7){
                 let drain = document.createElement('button')
                 drain.className = 'drain'
                 drain.id = `drain${id}`
@@ -71,9 +73,16 @@ function initCUPS(){
                 drain.addEventListener("click", ()=>buyDrain(id))
                 innerContainer.append(drain)
             }
+            else{
+                let el = document.createElement('button')
+                el.id = `drainReset`
+                el.innerText = `Respec Drains\nThis will only return Negative Charge spent on the highest level of each Drain!`
+                el.addEventListener('click', ()=>resetDrains())
+                innerContainer.append(el)
+            }
 
 
-            id != 7 ? row.append(innerContainer) : container.append(innerContainer)
+            id !== 7 ? row.append(innerContainer) : container.append(innerContainer)
         }
     }
     checkAllUnlocks(0, true)
@@ -167,7 +176,7 @@ function getTotalAlephs(){
     }
     return total
 }
-let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs()))
+let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs()))*(hasSingFunction(0) ? cupEffect(6) : 1)
 
 let alephData = [
     {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)*3},
@@ -186,7 +195,7 @@ let cupData = [
     {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 243, effect: ()=> Math.pow(data.markup.powers, 1/256)},
     {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.max(1, Math.log10(data.incrementy.amt))}, //TODO: Add a safety function
     {text: "Unlock a 3rd Overcharge Effect and boost Overcharge's 1st Effect", cost: 196608, effect: ()=> 3},
-    {text: "Unspent Cardinals boost Alephs", cost: 3e9, effect: ()=> Math.log2(data.collapse.cardinals)},
+    {text: "Unspent Cardinals boost Alephs", cost: 3e9, effect: ()=> Math.max(1, Math.log2(data.collapse.cardinals))},
     {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 4e13, effect: ()=> 1},
 ]
 let sluggishData = [
