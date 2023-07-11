@@ -29,7 +29,7 @@ function getDefaultObject() {
         overflow: {bp:1, oc:1, thirdEffect:true}, //for thirdEffect: true=normal, false=inverted
         collapse: {times:0, cardinals:0, bestCardinalsGained:0, alephs:Array(8).fill(0), hasCUP:Array(8).fill(false), hasSluggish:Array(5).fill(false), apEnabled:Array(2).fill(false)},
         darkness: {levels: Array(3).fill(0), negativeCharge:0, drains: Array(7).fill(0), sacrificedCharge:0, totalDrains: 0, negativeChargeEnabled:false, darkened:false},
-        sing: {highestLevel:0, level:0, tutorial:false},
+        sing: {highestLevel:0, level:0, tutorial:false, hasEverHadFunction: Array(singFunctions.length).fill(false)},
         autoStatus: {enabled: Array(5).fill(false)},
         sToggles: Array(8).fill(true),
         successorClicks: 0,

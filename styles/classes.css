@@ -265,7 +265,11 @@
     background: black;
     font-size: 0.75rem;
 }
-
+.singFunction{
+    color: #00ce0a;
+    font-family: DosisLight;
+    text-align: center;
+}
 .settingsButton{
     width: 10rem;
     height: 1.5rem;

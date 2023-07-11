@@ -50,6 +50,7 @@ const uHTML = {
         initAlephs()
         initCUPS()
         initSluggish()
+        initSingularityFunctions()
     }
 }
 
