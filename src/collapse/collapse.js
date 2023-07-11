@@ -3,7 +3,7 @@ function switchCollapseTab(t){
     if(isTabUnlocked(t)){
         DOM(`cardinalsText`).style.display = t === 'sing' ? 'none' : 'flex'
         if(t==='sing' && !data.sing.tutorial){
-            createAlert('Tutorial Time!', 'Increase the Singularity\'s Density with the slider! Each increase will grant you a boost to Cardinal gain, with every few increases unlocking a new Singularity Function! Singularity Functions can boost or unlock things. But beware, as your Singularity grows it will begin absorbing your Markup AutoBuyer\'s speed! Make sure to balance your Singularity well - don\'t let it absorb your entire AutoBuyer!', 'Thanks for the tips!')
+            createAlert('Tutorial Time!', 'Increase the Singularity\'s Density with the slider! Each increase will grant you a boost to Cardinal gain, with every few increases unlocking a new Singularity Function! Singularity Functions can boost or unlock things. But beware, growing your Singularity costs Charge!', 'Thanks for the tips!')
             data.sing.tutorial = true
         }
         if(t === "autoPrestige") updateAutoPrestigeHTML()
