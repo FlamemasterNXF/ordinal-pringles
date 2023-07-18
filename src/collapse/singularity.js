@@ -1,5 +1,9 @@
 function updateSingularityHTML(){
     DOM(`singCostText`).innerHTML = `You have <span style="color: goldenrod">${data.incrementy.charge} Charge</span>`
+    for (let i = 0; i < data.sing.hasEverHadFunction.length; i++) {
+        if(data.sing.hasEverHadFunction[i] && singFunctions[i].hasEffect)
+            DOM(`singFunction${i}`).innerHTML = `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
+    }
 }
 function updateSingLevelHTML(){
     DOM(`singLevel`).innerHTML = `Your Singularity has a density of <b>${data.sing.level > 0 ? ordinalDisplay('H', data.sing.level, 0, 10, 3, false) : `H<sub>0</sub>`}</b> (10)`
@@ -9,9 +13,9 @@ function updateSingLevelHTML(){
 function updateSingFunctionHTML(i){
     if(data.sing.hasEverHadFunction[i]){
         DOM(`singFunction${i}`).innerHTML =
-            `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${singFunctions[i].effect()}` : ``}`
-        if(data.sing.hasEverHadFunction.length < i+1)
-            DOM(`singFunction${i+1}`).innerHTML = `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ?????????????????????????`
+            `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
+        if(!data.sing.hasEverHadFunction[i+1])
+            DOM(`singFunction${i+1}`).innerHTML = `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i+1].requiredLevel, 0, 10, 3, false)}:</span> ?????????????????????????`
     }
 }
 
@@ -28,7 +32,7 @@ function initSingularityFunctions(){
         el.className = `singFunction`
         el.id = `singFunction${i}`
         el.innerHTML = data.sing.hasEverHadFunction[i]
-            ? `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${singFunctions[i].effect()}` : ``}`
+            ? `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
             : data.sing.hasEverHadFunction[i-1] || i===0 ? `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ?????????????????????????` : `?????????????????????????`
         DOM(`singFunctionContainer`).append(el)
     }
@@ -80,24 +84,14 @@ function singControl(i){
     DOM(`singSlider`).value = data.sing.level
 }
 
-class SingularityFunction {
-    constructor(requiredLevel, hasUnlock, unlockDescription = null, hasEffect = false, effectDescription = null, effect=null) {
-        this.requiredLevel = requiredLevel
-        this.hasUnlock = hasUnlock
-        this.hasEffect = hasEffect
-        this.unlockDescription = unlockDescription
-        this.effectDescription = effectDescription
-        this.effect = () => effect
-    }
-}
+let singFunctions = [
+    {requiredLevel: 10, hasUnlock: true, unlockDescription: 'The 7th Cardinal Upgrade now affects the Total ℵ Effect. Drains are now kept on Collapse.'},
+    {requiredLevel: 12, hasUnlock: true, unlockDescription: 'Gain two free Boosters on Collapse and unlock a Booster Upgrade AutoBuyer'},
+    {requiredLevel: 15, hasUnlock: true, unlockDescription: 'Keep Hierarchy Upgrades on Collapse', hasEffect: true, effectDescription: 'Negative Charge multiplies ℵ<sub>5</sub> by', effect: () => Math.max(1, Math.log10(data.darkness.negativeCharge))},
+    {requiredLevel: 20, hasUnlock: true, unlockDescription: 'Unlock an AutoBuyer for Supercharge', hasEffect: true, effectDescription: 'Total Boosters over 12246 multiply the second Overcharge Effect by', effect: () => 1},
+    {requiredLevel: 25, hasUnlock: true, unlockDescription: 'If you have the third Cardinal Upgrade double the effect of IUP4', hasEffect: true, effectDescription: 'RUP2 multiplies Dynamic Cap (at an extremely reduced rate) by', effect: () => 1},
+    {requiredLevel: 40, hasUnlock: false, unlockDescription: null, hasEffect: true, effectDescription: 'Negative Charge multiplies the Total ℵ effect by', effect: () => 1},
+    {requiredLevel: 50, hasUnlock: true, unlockDescription: 'The second Darkness Buyable now Quadruples the Dynamic Cap'},
+]
 
 let hasSingFunction = (i) => data.sing.level >= singFunctions[i].requiredLevel
-const singFunctions = [
-    new SingularityFunction(10, true, 'The 7th Cardinal Upgrade now affects the Total ℵ Effect. Drains are now kept on Collapse.'),
-    new SingularityFunction(12, true, 'Gain two free Boosters on Collapse and unlock a Booster Upgrade AutoBuyer'),
-    new SingularityFunction(15, true, 'Keep Hierarchy Upgrades on Collapse', true, 'Negative Charge multiplies ℵ<sub>5</sub> by', 1),
-    new SingularityFunction(20, true, 'Unlock an AutoBuyer for Supercharge', true, 'Total Boosters over 12246 multiply the second Overcharge Effect by', 1),
-    new SingularityFunction(25, true, 'If you have the third Cardinal Upgrade double the effect of IUP4', true, 'RUP2 multiplies Dynamic Cap (at an extremely reduced rate) by', 1),
-    new SingularityFunction(40, false, null, true, 'Negative Charge multiplies the Total ℵ effect by', 1),
-    new SingularityFunction(50, true, 'The second Darkness Buyable now Quadruples the Dynamic Cap'),
-]
