@@ -4,7 +4,7 @@ let t1Auto = () => (factorBoost()*bup5Effect()*alephEffect(0))**cupEffect(1)*cup
 let t2AutoPure = () => 1*chalEffectTotal()*bup5Effect()*incrementyMult()*iup6Effect()*bup48Effect()*hupData[5].effect()
     *alephEffect(1)*cupEffect(0)*cupEffect(3)*dupEffect(0)
 
-let t2Auto = () => t2AutoPure()
+let t2Auto = () => t2AutoPure()**singEffects[2].effect()
 
 
 function tick(diff){

@@ -8,7 +8,10 @@ function updateSingularityHTML(){
 function updateSingLevelHTML(){
     DOM(`singLevel`).innerHTML = `Your Singularity has a density of <b>${data.sing.level > 0 ? ordinalDisplay('H', data.sing.level, 0, 10, 3, false) : `H<sub>0</sub>`}</b> (10)`
     DOM(`singLevel2`).innerHTML = `Your Singularity's highest ever density was <b>${data.sing.highestLevel > 0 ? ordinalDisplay('H', data.sing.highestLevel, 0, 10, 3, false) : `H<sub>0</sub>`}</b> (10)`
-    DOM(`singEffect`).innerHTML = `Your Singularity is raising Cardinal Gain to the <b>${format(mainSingEffect(), 3)}</b>`
+
+    for (let i = 0; i < singEffects.length; i++) {
+        DOM(`singEffect${i}`).innerHTML = `Your Singularity is ${singEffects[i].desc} <b>${format(singEffects[i].effect(), 3)}</b>`
+    }
 }
 function updateSingFunctionHTML(i){
     if(data.sing.hasEverHadFunction[i]){
@@ -39,7 +42,11 @@ function initSingularityFunctions(){
 }
 
 let lastSingFunctionUnlockedIndex = 0
-let mainSingEffect = () => 1 + Math.sqrt(data.sing.level)/1000
+let singEffects = [
+    {desc: "raising Cardinal gain to the", effect: () => 1 + Math.sqrt(data.sing.level)/1000},
+    {desc: "reducing the Decrementy gain exponent by", effect: () => Math.sqrt(data.sing.level)/200},
+    {desc: "raising AutoBuyer speed to the", effect: () => 1-Math.pow(data.sing.level, 1/4)/100},
+]
 let maxSingLevel = () => data.incrementy.charge
 
 function changeSingLevel(single = false){
