@@ -155,7 +155,7 @@ function resetDarkness(force = false){
     data.darkness.negativeCharge = 0
     if(!hasSingFunction(0)) data.darkness.drains = Array(7).fill(0)
     if(!data.boost.unlocks[4]) data.darkness.sacrificedCharge = 0
-    data.darkness.totalDrains = 0
+    if(!data.boost.unlocks[4]) data.darkness.totalDrains = 0
     data.darkness.negativeChargeEnabled = false
     updateDarknessHTML()
     updateAllDUPHTML()
