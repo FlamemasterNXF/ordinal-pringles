@@ -1,6 +1,8 @@
 function updateSingularityHTML(){
     DOM(`singCostText`).innerHTML = `You have <span style="color: goldenrod">${data.incrementy.charge} Charge</span>`
     for (let i = 0; i < data.sing.hasEverHadFunction.length; i++) {
+        if(hasSingFunction(i)) DOM(`singFunction${i}`).style.color = '#00ce0a'
+        if(!hasSingFunction(i)) DOM(`singFunction${i}`).style.color = 'darkgray'
         if(data.sing.hasEverHadFunction[i] && singFunctions[i].hasEffect)
             DOM(`singFunction${i}`).innerHTML = `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
     }
@@ -34,6 +36,7 @@ function initSingularityFunctions(){
         let el = document.createElement('t')
         el.className = `singFunction`
         el.id = `singFunction${i}`
+
         el.innerHTML = data.sing.hasEverHadFunction[i]
             ? `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
             : data.sing.hasEverHadFunction[i-1] || i===0 ? `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ?????????????????????????` : `?????????????????????????`
