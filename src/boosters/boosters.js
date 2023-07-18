@@ -51,7 +51,7 @@ function initBUPs(){
     }
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
         let bottomRow = i===4 || i===9 || i===14
-        DOM(`bup${i}`).addEventListener('click', ()=>buyBUP(i, bottomRow))
+        DOM(`bup${i}`).addEventListener('click', ()=>buyBUP(i, bottomRow, true))
         DOM(`bup${i}`).addEventListener('mouseenter', ()=>revealChargeEffect(i, true))
         DOM(`bup${i}`).addEventListener('mouseleave', ()=>revealChargeEffect(i, false))
         DOM(`bup${i}`).style.backgroundColor = data.boost.hasBUP[i]?'#002480':'black'
@@ -117,9 +117,9 @@ let sBUP2Effect = () => data.boost.hasBUP[14] ? data.boost.isCharged[14] ? aleph
     : alephTotalEffect()
     : 1
 
-const autoNames = ['Max All', 'Markup', 'Sacrifice for Charge', 'three RUP', 'Hierarchy Buyable', 'Booster Upgrade']
-const autoDisplayNames = ['Max All', 'Markup', 'Charge', 'RUP', 'Hierarchy Buyable', 'Booster Upgrade']
-const autoRequirements = [', but only if you can\'t Factor Shift', ', but only if you\'re past Ψ(Ω)', '', ', but only if you can\'t afford a Charge', '', '']
+const autoNames = ['Max All', 'Markup', 'Sacrifice for Charge', 'three RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge']
+const autoDisplayNames = ['Max All', 'Markup', 'Charge', 'RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge']
+const autoRequirements = [', but only if you can\'t Factor Shift', ', but only if you\'re past Ψ(Ω)', '', ', but only if you can\'t afford a Charge', '', '', ', but only if you already have the required Booster Upgrade']
 const autoUps = [5, 10]
 function updateBoostersHTML(){
     DOM('boosterText').innerHTML = data.boost.unlocks[1] > 0 ?
@@ -131,7 +131,7 @@ function updateBoostersHTML(){
     //DOM('bup7').innerText = `${data.boost.isCharged[7]?chargedBUPDesc[7]:bupDesc[7]}\n[${format(bup7Effect())}x]\n${data.boost.isCharged[7]?'':bupCosts[7]} Boosters`
     //DOM('bup11').innerText = `${data.boost.isCharged[11]?chargedBUPDesc[11]:bupDesc[11]}\n[${format(bup11Effect())}x]\n${data.boost.isCharged[11]?'':bupCosts[11]} Boosters`
     for (let i = 0; i < data.autoStatus.enabled.length; i++) {
-        DOM(`t2AutoText${i}`).innerHTML = `Your <span style="color: #80ceff">${autoDisplayNames[i]} AutoBuyer</span> is clicking the ${autoNames[i]} button${i === 3 || i === 4 || i === 5 ? 's' : ''} <span style="color: #8080FF">${i < 2 ? format(t2Auto()) : 20} times/second</span>${autoRequirements[i]}`
+        DOM(`t2AutoText${i}`).innerHTML = `Your <span style="color: #80ceff">${autoDisplayNames[i]} AutoBuyer</span> is clicking the ${autoNames[i]} button${i > 2 ? 's' : ''} <span style="color: #8080FF">${i < 2 ? format(t2Auto()) : 20} times/second</span>${autoRequirements[i]}`
         DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]] || i > 1 ?`${autoDisplayNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoDisplayNames[i]} AutoBuyer: LOCKED`
 
     }
@@ -215,9 +215,9 @@ function getBulkBoostAmt(){
     //return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
 }
 //End credit
-function buyBUP(i, bottomRow, isAuto){
+function buyBUP(i, bottomRow, useCharge){
     updateHierarchyPurchaseHTML()
-    if(data.boost.hasBUP[i] && !isAuto) return chargeBUP(i, bottomRow)
+    if(data.boost.hasBUP[i] && useCharge) return chargeBUP(i, bottomRow)
     if(data.boost.amt < bupCosts[i]) return
     if(i % 5 !== 0 && !data.boost.hasBUP[i-1]) return // Force you to buy them in order, but only in columns
 

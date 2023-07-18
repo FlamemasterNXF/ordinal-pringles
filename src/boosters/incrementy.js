@@ -100,6 +100,7 @@ function chargeBUP(i, bottomRow){
 
     DOM(`bup${i}`).className = 'chargedBUP'
     DOM(`bup${i}`).innerText = `${chargedBUPDesc[i]}`
+    DOM(`bup${i}`).style.color = 'goldenrod'
 }
 let getBottomRowChargeCost = () => 13+(12*data.boost.bottomRowCharges)
 

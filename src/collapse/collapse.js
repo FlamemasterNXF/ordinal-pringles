@@ -154,14 +154,18 @@ function checkCollapseUnlockHTML(){
     DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
     DOM('autoPrestigeTab').innerText = data.collapse.hasSluggish[3] ? 'AutoPrestigers' : '???'
     DOM('singTab').innerText = data.boost.unlocks[4] ? 'Singularity' : '???'
+
+    //TODO: I REALLY need to optimize this garbage :(
     DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('t2AutoText3').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('t2AutoText4').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
-    DOM('t2AutoText5').style.display = hasSingFunction(1) ? 'block' : 'none'
+    DOM('t2AutoText5').style.display = data.sing.hasEverHadFunction[1] ? 'block' : 'none'
+    DOM('t2AutoText6').style.display = data.sing.hasEverHadFunction[3] ? 'block' : 'none'
     DOM('auto4').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('auto5').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('auto6').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
-    DOM('auto7').style.display = hasSingFunction(1) ? 'block' : 'none'
+    DOM('auto7').style.display = data.sing.hasEverHadFunction[1] ? 'block' : 'none'
+    DOM('auto8').style.display = data.sing.hasEverHadFunction[3] ? 'block' : 'none'
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect())**singEffects[0].effect()
@@ -185,7 +189,7 @@ let alephData = [
     {text: "multiplying Autobuyers by", effect: ()=> Math.log10(10+(90*data.collapse.alephs[1]))},
     {text: "multiplying Ordinal Power gain by", effect: ()=> Math.log2(data.collapse.alephs[2]+2)*3},
     {text: "multiplying Incrementy gain by", effect: ()=> Math.pow(data.collapse.alephs[3]+1, 1/4)},
-    {text: "multiplying Dynamic Cap by", effect: ()=> ((Math.sqrt(data.collapse.alephs[4]+1)*2)+hupData[9].effect())*singFunctions[2].effect()},
+    {text: "multiplying Dynamic Cap by", effect: ()=> ((Math.sqrt(data.collapse.alephs[4]+1)*2)+hupData[9].effect())*getSingFunctionEffect(2)},
     {text: "multiplying the SGH effect by", effect: ()=> Math.pow(data.collapse.alephs[5]+1, 1/4)},
     {text: "multiplying Booster Power gain by", effect: ()=> Math.sqrt(data.collapse.alephs[6]+4)/2},
     {text: "multiplying the IUP3 effect by", effect: ()=> (Math.sqrt(data.collapse.alephs[7]+4)*2)+hupData[9].effect()},
