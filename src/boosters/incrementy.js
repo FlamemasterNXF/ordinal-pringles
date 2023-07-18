@@ -113,7 +113,7 @@ function respecCharge(c=false){
         DOM(`bup${i}`).innerText = `${bupDesc[i]}\n${bupCosts[i]} Boosters`
         DOM(`bup${i}`).style.color = `#8080FF`
     }
-    data.incrementy.charge = data.incrementy.totalCharge
+    data.incrementy.charge = data.incrementy.totalCharge-data.sing.level
     data.boost.bottomRowCharges = 0
     if(data.collapse.hasSluggish[3]) DOM('bupBottomText').innerText = `Click a purchased Upgrade to Supercharge it! The cost to Supercharge a bottom-row Upgrade is currently ${getBottomRowChargeCost()} Charge.\nThe Unlockables Column does not consume Boosters`
     if(!c) chalExit()
