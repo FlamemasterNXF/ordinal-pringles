@@ -72,7 +72,7 @@ function dupScaling (i){
 }
 let dupData = [
     { text: "Multiply AutoBuyer speed by 1.5x", cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)), effect: ()=> 1.5**data.darkness.levels[0] },
-    { text: "Double Dynamic Cap", cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> 2**data.darkness.levels[1] },
+    { text: 'Double Dynamic Cap', cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> hasSingFunction(6) ? 4**data.darkness.levels[1] : 2**data.darkness.levels[1]},
     { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> 1.1**data.darkness.levels[2] }
 ]
 

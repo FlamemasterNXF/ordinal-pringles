@@ -2,6 +2,7 @@ let collapseTab = "cardinals"
 function switchCollapseTab(t){
     if(isTabUnlocked(t)){
         DOM(`cardinalsText`).style.display = t === 'sing' ? 'none' : 'flex'
+        if(t==='darkness') updateDUPHTML(1)
         if(t==='sing' && !data.sing.tutorial){
             createAlert('Tutorial Time!', 'Increase the Singularity\'s Density with the slider! Each increase will grant you a boost to Cardinal gain, with every few increases unlocking a new Singularity Function! Singularity Functions can boost or unlock things. But beware, growing your Singularity costs Charge!', 'Thanks for the tips!')
             data.sing.tutorial = true
@@ -182,7 +183,7 @@ function getTotalAlephs(){
     }
     return total
 }
-let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs()))*(hasSingFunction(0) ? cupEffect(6) : 1)
+let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs())*getSingFunctionEffect(5))*(hasSingFunction(0) ? cupEffect(6) : 1)
 
 let alephData = [
     {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)*3},

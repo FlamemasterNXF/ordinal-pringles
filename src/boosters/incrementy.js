@@ -78,7 +78,7 @@ let iup4Effect = () => data.incrementy.hasIUP[3] ? Math.max(1, data.boost.times)
 let iup5Effect = () => data.incrementy.hasIUP[4] ? data.hierarchies.hasUpgrade[6] ? Math.max(1, Math.pow(data.incrementy.amt, 1/8)+1)
 : Math.max(1, Math.pow(data.incrementy.amt, 1/16)+1) : 1
 let iup6Effect = () => data.incrementy.hasIUP[5] ? Math.max(1, Math.sqrt(data.dy.level+1))*iup9Effect()*hbData[2].effect()*hbData[5].effect()*alephEffect(7) : 1
-let iup7Effect = () => data.incrementy.hasIUP[6] ? Math.floor(data.chal.totalCompletions/3) : 0
+let iup7Effect = () => data.incrementy.hasIUP[6] ? Math.floor(data.chal.totalCompletions/3)*(hasSingFunction(4) ? 2 : 1) : 0
 let iup8Effect = () => data.incrementy.hasIUP[7] ? Math.max(1, 1+data.chal.totalCompletions/3) : 1
 let iup9Effect = () => data.incrementy.hasIUP[8] ? data.hierarchies.hasUpgrade[1] ? Math.max(1, data.incrementy.rebuyableAmt[2]/3)
 : Math.max(1, Math.sqrt(data.incrementy.rebuyableAmt[2])) : 1
