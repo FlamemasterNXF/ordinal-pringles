@@ -174,7 +174,7 @@ function boosterReset(){
     data.successorClicks = 0
 }
 
-const boostTimesLimit = 156
+const boostTimesLimit = 9999
 function boost(f=false, auto=false){
     if(data.boost.times === 33 && data.collapse.times === 0) return createConfirmation("Are you certain?", "This will perform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
     if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && auto) return
