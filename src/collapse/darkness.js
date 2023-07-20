@@ -102,6 +102,7 @@ function darknessControl(mode){
     if(mode===4){
         data.overflow.thirdEffect = !data.overflow.thirdEffect
         DOM('bp2Description').innerText = data.overflow.thirdEffect ? 'Dividing Decrementy Gain by ' : 'Multiplying Decrementy Gain by '
+        DOM('dupC4').innerHTML = `Invert the third Booster Power effect<br><span style="font-size: 0.7rem">Currently: ${data.overflow.thirdEffect ? 'Dividing': 'Multiplying'}</span>`
     }
     if(mode===0) data.darkness.negativeChargeEnabled = !data.darkness.negativeChargeEnabled
     if(mode===1){
@@ -156,7 +157,7 @@ function resetDarkness(force = false){
     if(!hasSingFunction(0)) data.darkness.drains = Array(7).fill(0)
     if(!data.boost.unlocks[4]) data.darkness.sacrificedCharge = 0
     if(!data.boost.unlocks[4]) data.darkness.totalDrains = 0
-    data.darkness.negativeChargeEnabled = false
+    //data.darkness.negativeChargeEnabled = false
     updateDarknessHTML()
     updateAllDUPHTML()
     for (let i = 0; i < drainData.length; i++) {
