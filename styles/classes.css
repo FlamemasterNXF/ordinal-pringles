@@ -279,6 +279,15 @@
     font-family: DosisLight;
     text-align: center;
 }
+#baseless{
+    width: 25rem;
+    height: 10rem;
+    border: 2px solid #6d3d00;
+    color: #ae6610;
+    background: black;
+    margin-top: 0.5rem;
+    font-family: DosisSemiBold;
+}
 .settingsButton{
     width: 10rem;
     height: 1.5rem;

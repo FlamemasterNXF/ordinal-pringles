@@ -1,7 +1,7 @@
 let collapseTab = "cardinals"
 function switchCollapseTab(t){
     if(isTabUnlocked(t)){
-        DOM(`cardinalsText`).style.display = t === 'sing' ? 'none' : 'block'
+        //DOM(`cardinalsText`).style.display = t === 'sing' ? 'none' : 'block'
         if(t==='darkness'){
             updateDUPHTML(1)
             DOM('dupC4').innerHTML = `Invert the third Booster Power effect<br><span style="font-size: 0.7rem">Currently: ${data.overflow.thirdEffect ? 'Dividing': 'Multiplying'}</span>`
@@ -11,6 +11,7 @@ function switchCollapseTab(t){
             data.sing.tutorial = true
         }
         if(t === "autoPrestige") updateAutoPrestigeHTML()
+        if(t==="baseless") updateAlephNullHTML()
         DOM(`${collapseTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
 
@@ -158,6 +159,7 @@ function checkCollapseUnlockHTML(){
     DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
     DOM('autoPrestigeTab').innerText = data.collapse.hasSluggish[3] ? 'AutoPrestigers' : '???'
     DOM('singTab').innerText = data.boost.unlocks[4] ? 'Singularity' : '???'
+    DOM('baselessTab').innerText = data.boost.unlocks[4] ? 'Baseless Milestones' : '???'
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect())**singEffects[0].effect()

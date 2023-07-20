@@ -19,6 +19,7 @@
     <script defer src="src/etc/tick.js"></script>
     <script defer src="src/etc/achievements.js"></script>
 
+    <script defer src="src/collapse/baseless.js"></script>
     <script defer src="src/collapse/singularity.js"></script>
     <script defer src="src/collapse/darkness.js"></script>
     <script defer src="src/collapse/collapse.js"></script>
@@ -151,7 +152,7 @@
                     <button class="bup" id="bu1">Unlock Incrementy<br>Requires: 91 Boosters</button>
                     <button class="bup" id="bu2">Unlock Hierarchies<br>Requires: 325 Boosters</button>
                     <button class="bup" id="bu3">Unlock Overflow<br>Requires: 465 Boosters</button>
-                    <button class="bup" id="bu4">Unlock Singularity and keep all forms of Charge on Collapse<br>Requires: 12246 Boosters</button>
+                    <button class="bup" id="bu4">Unlock Singularity, unlock Baseless Milestones, and keep all forms of Charge on Collapse<br>Requires: 12246 Boosters</button>
                 </div>
             </div>
             <p class="centeredTexts" id="bupBottomText">The Unlockables Column does not consume Boosters</p>
@@ -266,6 +267,7 @@
             <button class="collapseTabButton" id="darkTab" onclick="switchCollapseTab('darkness')">???</button>
             <button class="collapseTabButton" id="autoPrestigeTab" onclick="switchCollapseTab('autoPrestige')">???</button>
             <button class="collapseTabButton" id="singTab" onclick="switchCollapseTab('sing')">???</button>
+            <button class="collapseTabButton" id="baselessTab" onclick="switchCollapseTab('baseless')">???</button>
         </div>
         <div class="flexBox" style="margin-top: 0.1rem; flex-direction: column">
             <h3 class="centeredTexts" id="cardinalsText" style="color: #20da45;">You have Collapsed Chips. In your house.</h3>
@@ -324,6 +326,20 @@
                 <button class="singControl" onclick="singControl(1)">Shrink the Singularity to Zero</button>
             </div>
             <div class="flexBox" id="singFunctionContainer" style="flex-direction: column; margin-top: 1rem"></div>
+        </div>
+        <div class="flexBox" id="baselessSubPage" style="display: none; flex-direction: column;">
+            <t class="centeredTexts" id="alephNull" style="color: darkorange; margin-top: 1rem">Based</t>
+            <button id="baseless" style="font-size: 1.1rem">Enter the
+                <select style="appearance: none; background-color: black; border: hidden; color: darkred; font-family: DosisBold; font-size: 1.1rem; text-align: center" onchange="updateBaselessEnterHTML(this.selectedIndex)">
+                    <option value="0">Baseless</option>
+                    <option value="1">Obliterated</option>
+                    <option value="2">Forgotten</option>
+                </select>
+                realm
+                <span style="font-size: 1rem"></span>
+            </button>
+            <t class="centeredTexts" style="color: #9e5803; margin-top: 2rem">Click the red Realm text to change the Realm you enter</t>
+            <t class="centeredTexts" style="color: #9e5803;">You cannot enter Darkness while in any of the Baseless Realms</t>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;">

@@ -33,6 +33,7 @@ const uHTML = {
         updateAllDarknessControlHTML()
         updateAllDUPHTML()
         loadSingularityHTML()
+        updateBaselessEnterHTML(data.baseless.mode, true)
 
         //Load Settings
         for (let i = 0; i < data.sToggles.length; i++) {
@@ -41,7 +42,7 @@ const uHTML = {
         DOM(`offlineProgressToggle`).innerText = `Toggle Offline Progress [${boolToReadable(data.offline)}]`
         DOM(`versionText`).innerText = `You're playing Ordinal Pringles v${VERSION}: ${VERSION_NAME}\n Last Update: ${VERSION_DATE}`
 
-        //Initalize all Tabs
+        //Initialize all Tabs
         initAchs()
         initBUPs()
         initChals()
@@ -64,6 +65,7 @@ function isTabUnlocked(t){
         case 'darkness': return data.collapse.hasSluggish[2]
         case 'autoPrestige': return data.collapse.hasSluggish[3]
         case 'sing': return data.boost.unlocks[4]
+        case 'baseless': return data.boost.unlocks[4]
 
         default: return true
     }
