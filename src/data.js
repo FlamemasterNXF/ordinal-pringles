@@ -7,9 +7,9 @@ const GRAHAMS_VALUE = 109
 const BHO_VALUE = 4*3**40
 
 //Version Flags
-const VERSION = "0.1.3b1"
+const VERSION = "0.2b2"
 const VERSION_NAME = "The Pringularity"
-const VERSION_DATE = "July 18th, 2023"
+const VERSION_DATE = "July 20th, 2023"
 const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
