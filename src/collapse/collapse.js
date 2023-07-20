@@ -1,7 +1,7 @@
 let collapseTab = "cardinals"
 function switchCollapseTab(t){
     if(isTabUnlocked(t)){
-        DOM(`cardinalsText`).style.display = t === 'sing' ? 'none' : 'flex'
+        DOM(`cardinalsText`).style.display = t === 'sing' ? 'none' : 'block'
         if(t==='darkness') updateDUPHTML(1)
         if(t==='sing' && !data.sing.tutorial){
             createAlert('Tutorial Time!', 'Increase the Singularity\'s Density with the slider! Each increase will grant you a boost to Cardinal gain, with every few increases unlocking a new Singularity Function! Singularity Functions can boost or unlock things. But beware, growing your Singularity costs Charge!', 'Thanks for the tips!')
@@ -155,18 +155,6 @@ function checkCollapseUnlockHTML(){
     DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
     DOM('autoPrestigeTab').innerText = data.collapse.hasSluggish[3] ? 'AutoPrestigers' : '???'
     DOM('singTab').innerText = data.boost.unlocks[4] ? 'Singularity' : '???'
-
-    //TODO: I REALLY need to optimize this garbage :(
-    DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
-    DOM('t2AutoText3').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
-    DOM('t2AutoText4').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
-    DOM('t2AutoText5').style.display = data.sing.hasEverHadFunction[1] ? 'block' : 'none'
-    DOM('t2AutoText6').style.display = data.sing.hasEverHadFunction[3] ? 'block' : 'none'
-    DOM('auto4').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
-    DOM('auto5').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
-    DOM('auto6').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
-    DOM('auto7').style.display = data.sing.hasEverHadFunction[1] ? 'block' : 'none'
-    DOM('auto8').style.display = data.sing.hasEverHadFunction[3] ? 'block' : 'none'
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect())**singEffects[0].effect()

@@ -16,10 +16,11 @@ function updateSingLevelHTML(){
     }
 }
 function updateSingFunctionHTML(i){
+    if(i >= data.sing.hasEverHadFunction.length) return
     if(data.sing.hasEverHadFunction[i]){
         DOM(`singFunction${i}`).innerHTML =
             `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
-        if(!data.sing.hasEverHadFunction[i+1])
+        if(!data.sing.hasEverHadFunction[i+1] && !i+1 >= data.sing.level)
             DOM(`singFunction${i+1}`).innerHTML = `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i+1].requiredLevel, 0, 10, 3, false)}:</span> ?????????????????????????`
     }
 }

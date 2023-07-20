@@ -67,7 +67,7 @@ function tick(diff){
         if(!data.boost.hasBUP[10] || chargeAutoCheck()) buyBUP(10, false, data.autoStatus.enabled[6]&&hasSingFunction(3))
         if(!data.boost.hasBUP[0] || chargeAutoCheck()) buyBUP(0, false, data.autoStatus.enabled[6]&&hasSingFunction(3))
         for (let i = 1; i < 5; i++) {
-            let isBottom = i===5
+            let isBottom = i===4
             for (let j = 0; j < 3; j++) {
                 if(!data.boost.hasBUP[i+(5*j)] || chargeAutoCheck()) buyBUP(i+(5*j), isBottom, data.autoStatus.enabled[6]&&hasSingFunction(3))
             }
@@ -84,7 +84,7 @@ function tick(diff){
     if(data.boost.unlocks[2]) increaseHierarchies(diff)
 
     // TODO: Check for "Base is Always 5/4 in Challenges", probably doesn't need to be on tick()
-    if(data.chal.active.includes(true) && data.boost.hasBUP[2] && !data.chal.active[6]) data.ord.base = bup2Effect()
+    if(data.chal.active.includes(true) && data.boost.hasBUP[2]) data.ord.base = bup2Effect()
 
     // Unlock Booster Features
     boosterUnlock()

@@ -5,6 +5,7 @@ function switchBoostTab(t){
         DOM(`${t}SubPage`).style.display = `flex`
 
         if(t==="upgrades") checkSpecialBUPs()
+        if(t==="auto2") checkAutobuyerDisplay()
         if(t==="hierarchies") checkSpecialHUPs()
 
         if (t==="upgrades" && data.boost.unlocks[1]){
@@ -19,6 +20,19 @@ function switchBoostTab(t){
         }
         boostTab = t
     }
+}
+function checkAutobuyerDisplay(){
+    //TODO: I REALLY need to optimize this garbage :(
+    DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
+    DOM('t2AutoText3').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
+    DOM('t2AutoText4').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
+    DOM('t2AutoText5').style.display = data.sing.hasEverHadFunction[1] ? 'block' : 'none'
+    DOM('t2AutoText6').style.display = data.sing.hasEverHadFunction[3] ? 'block' : 'none'
+    DOM('auto4').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
+    DOM('auto5').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
+    DOM('auto6').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
+    DOM('auto7').style.display = data.sing.hasEverHadFunction[1] ? 'block' : 'none'
+    DOM('auto8').style.display = data.sing.hasEverHadFunction[3] ? 'block' : 'none'
 }
 
 const bupDesc = ['Each Factor\'s effect is doubled', 'Boost OP gain by 5x', 'The Ordinal Base is always 5 in Challenges', 'Dynamic Gain is multiplied by your C5 completions in C1-C4', 'Every 10 Darkness Upgrades purchased reduces Hierarchy Bases by 1',
