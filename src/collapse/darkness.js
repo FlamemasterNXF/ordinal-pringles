@@ -100,6 +100,7 @@ function buyDUP(i){
 let getTotalDUPs = () => data.darkness.levels[0]+data.darkness.levels[1]+data.darkness.levels[2]
 
 function darknessControl(mode){
+    if(data.baseless.baseless) return createAlert('Illegal Move', 'You cannot access Darkness Controls in the Baseless Realms', 'Dang.')
     updateDarknessControlHTML(0)
     if(mode===4){
         data.overflow.thirdEffect = !data.overflow.thirdEffect
