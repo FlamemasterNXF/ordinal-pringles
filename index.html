@@ -331,7 +331,7 @@
         </div>
         <div class="flexBox" id="baselessSubPage" style="display: none; flex-direction: column;">
             <t class="centeredTexts" id="alephNull" style="color: darkorange; margin-top: 1rem">Based</t>
-            <button id="baseless" style="font-size: 1.1rem" onclick="createConfirmation('Are you sure?', 'Entering or exiting will perform a Collapse reset!', 'Nope!', 'Yep!', baselessControl)"><span id="baselessEnterText">Enter</span> the
+            <button id="baseless" style="font-size: 1.1rem" onclick="data.sToggles[8] ? createConfirmation('Are you sure?', 'Entering or exiting will perform a Collapse reset!', 'Nope!', 'Yep!', baselessControl) : baselessControl()"><span id="baselessEnterText">Enter</span> the
                 <select style="appearance: none; background-color: black; border: hidden; color: darkred; font-family: DosisBold; font-size: 1.1rem; text-align: center" onclick="event.stopPropagation()" onchange="updateBaselessEnterHTML(this.selectedIndex)">
                     <option value="0">Baseless</option>
                     <option value="1">Obliterated</option>
@@ -359,6 +359,7 @@
         <button class="settingsButton" id="settingsToggle2" onclick="settingsToggle(2)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle6" onclick="settingsToggle(6)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle7" onclick="settingsToggle(7)" style="width: 20rem">aaa</button>
+        <button class="settingsButton" id="settingsToggle8" onclick="settingsToggle(8)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="offlineProgressToggle" onclick="settingsToggle(-1)" style="width: 20rem">Toggle Offline Progress</button>
         <br>
         <button class="settingsButton" onclick="save()">Manual Save</button>
