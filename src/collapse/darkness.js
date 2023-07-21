@@ -50,7 +50,7 @@ function negativeChargeEffect(eff){
 
 let sacrificedChargeEffect = () => data.darkness.sacrificedCharge > 0 ? (data.darkness.sacrificedCharge+1)*2 : 1
 
-let drainEffect = (i) => data.darkness.drains[i] > 0 ? i===1 ? Math.max(0, drainData[1].effect())
+let drainEffect = (i) => data.darkness.drains[i] > 0 ? i===1 ? Math.max(0, drain1Effect())
     : Math.max(drainData[i].effect(), 1)
     : i===1 ? 0 : 1
 let drainCost = (i) => (10**(1+(data.darkness.totalDrains/2)))*(data.darkness.drains[i]+1)
@@ -146,6 +146,7 @@ function darken(force = false){
 function resetDrains(){
     if(!data.darkness.negativeChargeEnabled){
         data.darkness.negativeChargeEnabled = true
+        updateDarknessControlHTML(0)
         createAlert('Too close!', 'You almost respec\'d without enabling Negative Charge gain! Luckily, I caught it for you :)', 'Phew, thanks!')
     }
     data.darkness.negativeCharge += data.darkness.chargeSpent
