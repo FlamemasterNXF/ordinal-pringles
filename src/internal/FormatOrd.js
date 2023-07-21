@@ -125,8 +125,7 @@ function displayOrd(ord,over,base,trim = data.ord.trim) {
 }
 
 function numberFromOrdinal(string, base) {
-    const initial = string.replaceAll("&omega;", `${base}`).replaceAll('<sup>', '**')
-        .replaceAll('</sup>', '*').replaceAll('...', '').replaceAll('*+', '+')
+    const initial = string.replaceAll("&omega;", `${base}`).replaceAll('<sup>', '**').replaceAll('</sup>', '*').replaceAll('...', '').replaceAll('*+', '+')
     const secondary = initial.replaceAll('+...', '').replaceAll('*...', '')
 
     if(secondary.charAt(secondary.length-1) === '+' || secondary.charAt(secondary.length-1) === '*'){

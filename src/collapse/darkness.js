@@ -28,7 +28,7 @@ function updateAllDarknessControlHTML(){
 }
 
 function updateDUPHTML(i){
-    DOM(`dup${i}`).innerText = `${dupData[i].text} (${data.darkness.levels[i]})\n${format(dupData[i].cost())} Decrementy\nCurrently: ${format(dupEffect(i))}x`
+    DOM(`dup${i}`).innerText = `${dupData[i].text} (${data.darkness.levels[i]}${i===2 && alephNullEffects[1]() > 0 ? ` + ${alephNullEffects[1]()}` : ''})\n${format(dupData[i].cost())} Decrementy\nCurrently: ${format(dupEffect(i))}x`
 }
 function updateAllDUPHTML(){
     for (let i = 0; i < data.darkness.levels.length; i++) {
@@ -73,7 +73,7 @@ function dupScaling (i){
 let dupData = [
     { text: "Multiply AutoBuyer speed by 1.5x", cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)), effect: ()=> 1.5**data.darkness.levels[0] },
     { text: 'Double Dynamic Cap', cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> hasSingFunction(6) ? 4**data.darkness.levels[1] : 2**data.darkness.levels[1]},
-    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> 1.1**data.darkness.levels[2] }
+    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> 1.1**(data.darkness.levels[2]+alephNullEffects[1]()) }
 ]
 
 function buyDrain(i) {

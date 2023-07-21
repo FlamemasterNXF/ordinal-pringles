@@ -71,7 +71,7 @@ function getTotalIBuyables(){
     return total+iup7Effect()
 }
 
-let iup1Effect = () => Math.max(1, 2**(data.incrementy.rebuyableAmt[0] + iup7Effect()))
+let iup1Effect = () => Math.max(1, (2+alephNullEffects[0]())**(data.incrementy.rebuyableAmt[0] + iup7Effect()))
 let iup2Effect = () => Math.max(1, (3**data.incrementy.rebuyableAmt[1])*iup8Effect())
 let iup3Effect = () => data.incrementy.rebuyableAmt[2] > 0 ? (Math.max(1, Math.sqrt(data.dy.level)))*(1+(data.incrementy.rebuyableAmt[2])) : 1
 let iup4Effect = () => data.incrementy.hasIUP[3] ? Math.max(1, data.boost.times) : 1
@@ -136,5 +136,5 @@ function sacrificeIncrementy(){
 function chargeReq() {
     let chargeExp = 6+((data.incrementy.totalCharge+data.darkness.sacrificedCharge)*(2+Math.floor((data.incrementy.totalCharge+data.darkness.sacrificedCharge)/12)));
     chargeExp -= Math.log10(hierarchyData[1].effect());
-    return 10**chargeExp;
+    return (10**chargeExp);
 }

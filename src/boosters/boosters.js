@@ -151,9 +151,9 @@ function updateBoostersHTML(){
     }
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
 
-   updateIncrementyHTML()
-   updateHierarchiesHTML()
-   updateOverflowHTML()
+    if(boostTab === 'incrementy') updateIncrementyHTML()
+    if(boostTab === 'hierarchies') updateHierarchiesHTML()
+    if(boostTab === 'overflow') updateOverflowHTML()
 
     DOM("chalTab").innerText = data.boost.unlocks[0]?'Challenges':'???'
     DOM("incrementyTab").innerText = data.boost.unlocks[1]?'Incrementy':'???'
