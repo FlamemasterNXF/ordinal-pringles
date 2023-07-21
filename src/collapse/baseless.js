@@ -46,6 +46,7 @@ function baselessControl(){
     else{
         data.baseless.shifts = 0
         data.baseless.alephNull += gain
+        data.ord.base = 10
         DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${baselessLocks[data.baseless.mode]}</span> with Dynamic Shifts providing a ${baselessMultipliers[data.baseless.mode]}x multiplier to ℵ<sub>0</sub> gain`
     }
 
