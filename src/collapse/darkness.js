@@ -100,6 +100,7 @@ function buyDUP(i){
 let getTotalDUPs = () => data.darkness.levels[0]+data.darkness.levels[1]+data.darkness.levels[2]
 
 function darknessControl(mode){
+    updateDarknessControlHTML(0)
     if(mode===4){
         data.overflow.thirdEffect = !data.overflow.thirdEffect
         DOM('bp2Description').innerText = data.overflow.thirdEffect ? 'Dividing Decrementy Gain by ' : 'Multiplying Decrementy Gain by '
@@ -141,6 +142,10 @@ function darken(force = false){
 }
 
 function resetDrains(){
+    if(!data.darkness.negativeChargeEnabled){
+        data.darkness.negativeChargeEnabled = true
+        createAlert('Too close!', 'You almost respec\'d without enabling Negative Charge gain! Luckily, I caught it for you :)', 'Phew, thanks!')
+    }
     data.darkness.negativeCharge += data.darkness.chargeSpent
     data.darkness.totalDrains = 0
     for (let i = 0; i < data.darkness.drains.length; i++) {
