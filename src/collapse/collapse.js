@@ -28,7 +28,7 @@ function updateCollapseHTML(){
     DOM(`collapseButton`).innerText = `Collapse for ${format(cardinalGain())} Cardinals`
 
     for (let i = 0; i < data.collapse.hasCUP.length; i++) {
-        if(data.collapse.hasCUP[i]) DOM(`cup${i}`).innerText = `${cupData[i].text}\n\nCurrently: ${i==1?'^':''}${i===1 ? format(cupData[i].effect()+drainEffect(i)) : format(cupData[i].effect()*drainEffect(i))}${i!==1?'x':''}`
+        if(data.collapse.hasCUP[i]) DOM(`cup${i}`).innerText = `${cupData[i].text}\n\nCurrently: ${i===1?'^':''}${i===1 ? format(cupData[i].effect()+drainEffect(i)) : format(cupData[i].effect()*drainEffect(i))}${i!==1?'x':''}`
     }
 
     DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal >= BHO_VALUE ? '#fff480' : '#20da45'
@@ -176,7 +176,13 @@ let cupEffect = (i) => data.collapse.hasCUP[i] ?
     : Math.max(cupData[i].effect()*drainEffect(i), 1)
     : 1
 
-let drain1Effect = () => data.darkness.drains[1] > 10 ? ((data.darkness.drains[1]-10)/2)+10 : data.darkness.drains[1]
+let drain1Effect = () =>
+    data.darkness.drains[1] > 50 ? ((data.darkness.drains[1]-50)/128)+2.5+(1.25*2)+0.625+0.15625
+    : data.darkness.drains[1] > 40 ? ((data.darkness.drains[1]-40)/64)+2.5+(1.25*2)+0.625+0.3125
+    : data.darkness.drains[1] > 30 ? ((data.darkness.drains[1]-30)/32)+2.5+(1.25*2)+0.625
+    : data.darkness.drains[1] > 20 ? ((data.darkness.drains[1]-20)/16)+2.5+(1.25*2)
+    : data.darkness.drains[1] > 10 ? ((data.darkness.drains[1]-10)/8)+2.5+1.25
+    : data.darkness.drains[1] > 5 ? ((data.darkness.drains[1]-5)/4)+2.5 : data.darkness.drains[1]/2
 
 function getTotalAlephs(){
     let total = 0

@@ -56,7 +56,7 @@ let drainEffect = (i) => data.darkness.drains[i] > 0 ? i===1 ? Math.max(0, drain
 let drainCost = (i) => (10**(1+(data.darkness.totalDrains/2)))*(data.darkness.drains[i]+1)
 let drainData = [
     { effect: () => 2*data.darkness.drains[0] },
-    { effect: () => data.darkness.drains[1] },
+    { effect: () => drain1Effect() },
     { effect: () => 1.5*data.darkness.drains[2] },
     { effect: () => 2*data.darkness.drains[3] },
     { effect: () => 5*data.darkness.drains[4] },
@@ -163,7 +163,7 @@ function resetDarkness(force = false){
     data.darkness.negativeCharge = 0
     if(!hasSingFunction(1)) data.darkness.drains = Array(7).fill(0)
     if(!data.boost.unlocks[4]) data.darkness.sacrificedCharge = 0
-    if(!data.boost.unlocks[4]) data.darkness.totalDrains = 0
+    if(!hasSingFunction(1)) data.darkness.totalDrains = 0
     //data.darkness.negativeChargeEnabled = false
     updateDarknessHTML()
     updateAllDUPHTML()
