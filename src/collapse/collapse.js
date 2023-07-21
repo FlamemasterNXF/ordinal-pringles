@@ -4,6 +4,7 @@ function switchCollapseTab(t){
         //DOM(`cardinalsText`).style.display = t === 'sing' ? 'none' : 'block'
         if(t==='darkness'){
             updateDUPHTML(1)
+            updateDUPHTML(2)
             DOM('dupC4').innerHTML = `Invert the third Booster Power effect<br><span style="font-size: 0.7rem">Currently: ${data.overflow.thirdEffect ? 'Dividing': 'Multiplying'}</span>`
         }
         if(t==='sing' && !data.sing.tutorial){

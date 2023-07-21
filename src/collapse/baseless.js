@@ -1,5 +1,5 @@
 function updateAlephNullHTML(){
-    DOM(`alephNull`).innerHTML = `You have <span style="color: red; font-family: DosisSemiBold">${format(data.baseless.alephNull)} ℵ<sub>0</sub></span>, increasing the RUP1 effect base by <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[0]())}</span> and providing <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[1]())}</span> free levels of the last Darkness Buyable</span><br>Your <span style="color: #80ce0b; font-family: DosisSemiBold">Singularity</span> is multiplying AutoClicker Speed in the Baseless Realms by <span style="color: #80ce0b; font-family: DosisSemiBold">1x</span>`
+    DOM(`alephNull`).innerHTML = `You have <span style="color: red; font-family: DosisSemiBold">${format(data.baseless.alephNull)} ℵ<sub>0</sub></span>, increasing the RUP1 effect base by <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[0]())}</span> and providing <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[1]())}</span> free levels of the last Darkness Buyable</span><br>Your <span style="color: #80ce0b; font-family: DosisSemiBold">Singularity</span> is multiplying AutoClicker Speed in the Baseless Realms by <span style="color: #80ce0b; font-family: DosisSemiBold">${singBoostToBaseless(true)}x</span>`
 }
 function updateDynamicShiftHTML(){
     DOM(`dynamicShift`).style.display = `${data.baseless.baseless ? 'block' : 'none'}`
@@ -72,3 +72,4 @@ let alephNullEffects = [
     () => Math.max(0, Math.log10(data.baseless.alephNull)/10),
     () => Math.max(0, Math.floor(Math.log10(data.baseless.alephNull)))
 ]
+let singBoostToBaseless = (display = false) => data.baseless.baseless || display ? Math.max(1, data.sing.level) : 1
