@@ -62,7 +62,7 @@ function makeExcessOrdMarks(){
     for (let i = 0; i < length; i++) {
         ordMarks.push(ordMarks[i].slice(0,6)+"Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>"+ordMarks[i].slice(6)+"))")
     }
-    ordMarks.push("&psi;(Ω<sub>2</sub><sup>2</sup>)")
+    ordMarks.push("&psi;(Ω<sub>2</sub><sup>2</sup>x)")
 
     // POST W_2^2
 
@@ -70,7 +70,7 @@ function makeExcessOrdMarks(){
     for (let i = 0; i < length; i++) {
         ordMarks.push(ordMarks[i].slice(0, 6)+"Ω<sub>2</sub><sup>2</sup>"+ordMarks[i].slice(6))
     }
-    ordMarks.push("&psi;(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub>)x)")
+    ordMarks.push("&psi;(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub>x))")
 
     // Generates OrdMarks up to BHO*3^205
     for (let i = 0; i < length; i++) {
@@ -90,6 +90,7 @@ function makeExcessOrdMarks(){
     }
     ordMarks.push("&psi;(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub>x)))")
 
+
     // Generates OrdMarks up to BHO*3^328
     for (let i = 0; i < length; i++) {
         ordMarks.push(ordMarks[i].slice(0,6)+"Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub>"+ordMarks[i].slice(6)+"))")
@@ -98,7 +99,7 @@ function makeExcessOrdMarks(){
 
     // Generates OrdMarks up to BHO*3^369
     for (let i = 0; i < length; i++) {
-        ordMarks.push(ordMarks[i].slice(0,6)+"Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>"+ordMarks[i].slice(6)+")))")
+        ordMarks.push(ordMarks[i].slice(0,6)+"Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>x"+ordMarks[i].slice(6)+")))")
     }
     ordMarks.push("&psi;(Ω<sub>2</sub><sup>ω</sup>)")
 

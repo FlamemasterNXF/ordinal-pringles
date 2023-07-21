@@ -245,6 +245,7 @@ function buyBUP(i, bottomRow, useCharge){
 }
 
 function boosterRefund(c=false){
+    if(data.baseless.baseless) return
     respecCharge(c)
     updateHierarchyPurchaseHTML()
     //let indexes = []
