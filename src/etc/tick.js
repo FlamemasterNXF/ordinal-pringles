@@ -63,7 +63,7 @@ function tick(diff){
             buyHBuyable(i)
         }
     }
-    if(hasSingFunction(1) && data.autoStatus.enabled[5]){ // BUP + Supercharge AutoBuyer
+    if(hasSingFunction(0) && data.autoStatus.enabled[5]){ // BUP + Supercharge AutoBuyer
         if(!data.boost.hasBUP[5] || chargeAutoCheck()) buyBUP(5, false, data.autoStatus.enabled[6]&&hasSingFunction(3))
         if(!data.boost.hasBUP[10] || chargeAutoCheck()) buyBUP(10, false, data.autoStatus.enabled[6]&&hasSingFunction(3))
         if(!data.boost.hasBUP[0] || chargeAutoCheck()) buyBUP(0, false, data.autoStatus.enabled[6]&&hasSingFunction(3))

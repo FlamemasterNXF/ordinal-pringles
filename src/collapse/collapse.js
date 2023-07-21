@@ -183,7 +183,7 @@ function getTotalAlephs(){
     }
     return total
 }
-let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs())*getSingFunctionEffect(5))*(hasSingFunction(0) ? cupEffect(6) : 1)
+let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs())*getSingFunctionEffect(5))*(hasSingFunction(1) ? cupEffect(6) : 1)
 
 let alephData = [
     {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)*3},
@@ -218,6 +218,7 @@ let apData = [
 ]
 
 function collapse(first = false){
+    if(data.baseless.baseless) return
     if (first){
         data.collapse.cardinals = 3
         data.collapse.bestCardinalsGained = 3
@@ -244,8 +245,8 @@ function collapse(first = false){
 function collapseReset(){
     boosterRefund()
 
-    data.boost.amt = hasSingFunction(1) ? 2 : 0
-    data.boost.total = hasSingFunction(1) ? 2 : 0
+    data.boost.amt = hasSingFunction(0) ? 2 : 0
+    data.boost.total = hasSingFunction(0) ? 2 : 0
     data.boost.times = 0
     data.boost.hasBUP = Array(15).fill(false)
     data.boost.isCharged = Array(15).fill(false)
