@@ -1,12 +1,12 @@
 const achievements = [
     {
         req: [
-            _=> (data.ord.ordinal >= 10 || data.ord.isPsi),
-            _=> data.ord.ordinal >= data.ord.base**2 || data.ord.isPsi,
+            _=> (data.ord.ordinal.gte(10) || data.ord.isPsi),
+            _=> data.ord.ordinal.gte(data.ord.base**2) || data.ord.isPsi,
             _=> calculateHardy() >= 1.78e308 || data.ord.isPsi,
-            _=> data.ord.ordinal >= data.ord.base**data.ord.base || data.ord.isPsi ,
+            _=> data.ord.ordinal.gte(data.ord.base**data.ord.base) || data.ord.isPsi ,
             _=> data.ord.isPsi,
-            _=> data.ord.ordinal >= BHO_VALUE,
+            _=> data.ord.ordinal.gte(BHO_VALUE),
         ],
         name: [
             "The First Ordinal",

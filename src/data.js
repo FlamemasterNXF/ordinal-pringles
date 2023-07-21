@@ -17,7 +17,7 @@ const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsa
 function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
-        ord: {ordinal:1, over:0, base:10, trim: 5, isPsi: false},
+        ord: {ordinal:D(1), over:0, base:10, trim: 5, isPsi: false},
         markup: {powers:0, shifts:0},
         factors: Array(7).fill(0),
         dy: {level:1, gain:0, cap:40},
@@ -100,7 +100,7 @@ function fixOldSaves(){
     if(data.loadedVersion === "0.0.6") data.loadedVersion = "0.1" //Forgot to do this, thankfully I caught it in time
     if(data.loadedVersion === "0.1" && data.collapse.hasSluggish[1]) extra = true
     //v0.0.6 => v0.1+
-    if(data.collapse.times === 0 && data.ord.ordinal > BHO_VALUE) data.ord.ordinal = BHO_VALUE
+    if(data.collapse.times === 0 && data.ord.ordinal.gt(BHO_VALUE)) data.ord.ordinal = BHO_VALUE
     //v0.0.5 => v0.0.6+
     if (data.loadedVersion === "null"){
         if (data.chal.completions[6] > 0) data.chal.completions[6] = 0
@@ -120,7 +120,7 @@ function fixOldSaves(){
         data.dy.gain = 0.002
     }
     if(data.dy.level > data.dy.cap) data.dy.level = data.dy.cap
-    if(data.ord.isPsi && data.ord.ordinal > GRAHAMS_VALUE && data.boost.times === 0) data.ord.ordinal = GRAHAMS_VALUE
+    if(data.ord.isPsi && data.ord.ordinal.gt(GRAHAMS_VALUE) && data.boost.times === 0) data.ord.ordinal = GRAHAMS_VALUE
 
     return extra
 }

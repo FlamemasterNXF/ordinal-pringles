@@ -14,7 +14,7 @@ let incrementyMult = () => Math.max(1, ((Math.pow(Math.sqrt(data.incrementy.amt)
 function incrementyGain() {
     if (!data.ord.isPsi || checkAllIndexes(data.chal.active, true) > 0) return 0
 
-    let base = Math.log10(data.ord.ordinal+1) / 10
+    let base = Math.log10(data.ord.ordinal.plus(1)) / 10
     let iupMults= base*iup1Effect()*iup3Effect()*iup4Effect()
     let otherMults = iupMults*hierarchyData[0].effect()*alephEffect(3)*cupEffect(4)*sBUP2Effect()
     return otherMults/negativeChargeEffect(false)

@@ -37,7 +37,7 @@ function inNonPsiChallenge() {
 
 function getTargetBoost() {
     if (data.boost.times >= boostLimit()) return data.boost.times
-    return Math.min(data.boost.times + getBulkBoostAmt() - (data.ord.ordinal < boostReq() || !data.sToggles[7] ? 1 : 0), boostLimit() - 1)
+    return Math.min(data.boost.times + getBulkBoostAmt() - (data.ord.ordinal.lt(boostReq()) || !data.sToggles[7] ? 1 : 0), boostLimit() - 1)
 }
 function getTargetOrdinal() {
     if (data.chal.html !== -1) {
@@ -58,8 +58,8 @@ function getTargetOrdinal() {
 function getBarPercent(){
     if((!data.ord.isPsi) && !inNonPsiChallenge()) return 0
     if (data.ord.isPsi && inNonPsiChallenge()) return 100
-    if(data.ord.ordinal / getTargetOrdinal() * 100 >= 100) return 100
-    return Math.min(100, data.ord.ordinal / getTargetOrdinal() * 100)
+    if(data.ord.ordinal.div(getTargetOrdinal()) * 100 >= 100) return 100
+    return Math.min(100, data.ord.ordinal.div(getTargetOrdinal()) * 100)
 }
 function getTimeEstimate(){
     if((!data.ord.isPsi) && !inNonPsiChallenge()) return "Unknown... "

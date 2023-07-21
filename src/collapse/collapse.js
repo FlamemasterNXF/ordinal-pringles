@@ -31,7 +31,7 @@ function updateCollapseHTML(){
         if(data.collapse.hasCUP[i]) DOM(`cup${i}`).innerText = `${cupData[i].text}\n\nCurrently: ${i===1?'^':''}${i===1 ? format(cupData[i].effect()+drainEffect(i)) : format(cupData[i].effect()*drainEffect(i))}${i!==1?'x':''}`
     }
 
-    DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal >= BHO_VALUE ? '#fff480' : '#20da45'
+    DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) ? '#fff480' : '#20da45'
 
     if(data.baseless.baseless) DOM(`baseless`).children[2].innerHTML = `<br><br>You will gain <span style="color: darkred">${format(alephNullGain())} ℵ<sub>0</sub></span> if you exit now`
 
@@ -239,7 +239,7 @@ function collapse(first = false){
         makeExcessOrdMarks()
         return createAlert("You have Collapsed!", "Congratulations! You can now Factor Boost beyond FB34! Cardinals are gained based on how many FBs you have before Collapse.", "Got it!")
     }
-    if (data.ord.ordinal >= BHO_VALUE || data.boost.times > 33){
+    if (data.ord.ordinal.gte(BHO_VALUE) || data.boost.times > 33){
         if(cardinalGain() > data.collapse.bestCardinalsGained) data.collapse.bestCardinalsGained = cardinalGain()
         data.collapse.cardinals += cardinalGain()
         ++data.collapse.times

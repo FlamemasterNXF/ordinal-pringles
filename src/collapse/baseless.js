@@ -55,7 +55,7 @@ function baselessControl(){
 }
 
 function dynamicShift(){
-    if(data.ord.ordinal < numberFromOrdinal('&omega;<sup>&omega;</sup>', data.ord.base)) return
+    if(data.ord.ordinal.lt(numberFromOrdinal('&omega;<sup>&omega;</sup>', data.ord.base))) return
     ++data.baseless.shifts
     data.ord.base *= 2
     fsReset()

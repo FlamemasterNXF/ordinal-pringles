@@ -171,7 +171,7 @@ function revealChargeEffect(i, showCharge) {
 }
 
 function boosterReset(){
-    data.ord.ordinal = 0
+    data.ord.ordinal = D(0)
     data.ord.over = 0
     data.ord.base = data.chal.active[2]?15:10
     data.ord.isPsi = false
@@ -193,8 +193,8 @@ function boosterReset(){
 const boostTimesLimit = 9999
 function boost(f=false, auto=false){
     if(data.boost.times === 33 && data.collapse.times === 0) return createConfirmation("Are you certain?", "This will perform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
-    if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && auto) return
-    if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
+    if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && auto) return
+    if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
 
     if(data.boost.times === boostTimesLimit) return createAlert("The End... for now!", "You've reached the current Endgame!", "Thanks!")
 
@@ -224,9 +224,9 @@ function boostReq(n = data.boost.times){
 //Credit to ryanleonels
 let boostLimit = () => (data.collapse.times === 0) ? 33 : Infinity;
 function getBulkBoostAmt(){
-    if (!data.sToggles[7] || !data.ord.isPsi || data.ord.ordinal <= boostReq()) return 1
+    if (!data.sToggles[7] || !data.ord.isPsi || data.ord.ordinal.lte(boostReq())) return 1
     let maxBoost = data.boost.times
-    while (data.ord.ordinal >= boostReq(maxBoost) && maxBoost < boostLimit()) maxBoost++
+    while (data.ord.ordinal.gte(boostReq(maxBoost)) && maxBoost < boostLimit()) maxBoost++
     return Math.max(maxBoost - data.boost.times, 1)
     //return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
 }

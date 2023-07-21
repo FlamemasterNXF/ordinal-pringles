@@ -2,9 +2,9 @@ let extraT1 = () => data.collapse.hasSluggish[0] ? 1 : 0
 function updateMarkupHTML(){
     DOM("powersText").innerText = `You have ${formatWhole(data.markup.powers)} Ordinal Powers`
 
-    DOM("markupButton").innerHTML = data.ord.isPsi&&data.ord.ordinal===GRAHAMS_VALUE&&data.boost.times===0?`Base 2 is required to go further...`:
-        data.ord.isPsi?`Markup and gain ${displayPsiOrd(data.ord.ordinal+1, 4)} (I)`:
-        data.ord.ordinal>=data.ord.base**2?`Markup and gain ${formatWhole(opGain()*opMult())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
+    DOM("markupButton").innerHTML = data.ord.isPsi&&data.ord.ordinal.eq(GRAHAMS_VALUE)&&data.boost.times===0?`Base 2 is required to go further...`:
+        data.ord.isPsi?`Markup and gain ${displayPsiOrd(data.ord.ordinal.plus(1), 4)} (I)`:
+        data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${formatWhole(opGain()*opMult())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
 
     DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0?`Perform a Factor Shift<br>Requires: ?????`:`Perform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
         `Perform a Factor Shift (H)<br>Requires: ${format(getFSReq())} Ordinal Powers`
@@ -25,7 +25,7 @@ function updateMarkupHTML(){
     DOM("dynamicText2").innerText = `Your Dynamic Factor is ${format(data.dy.level, 3)} [+${format(dyGain())}/s]. It caps at ${format(data.dy.cap)}`
 
     DOM("factorBoostButton").innerHTML = `Perform ${getBulkBoostAmt() < 2 ? "a Factor Boost" : getBulkBoostAmt()+" Factor Boosts"} [+${boostersAtGivenFB(data.boost.times+getBulkBoostAmt())-boostersAtGivenFB(data.boost.times)}]<br>Requires ${displayPsiOrd(boostReq(), 3)}`
-    DOM("factorBoostButton").style.color = data.ord.isPsi&&data.ord.ordinal>=boostReq()?'#fff480':'#8080FF'
+    DOM("factorBoostButton").style.color = data.ord.isPsi&&data.ord.ordinal.gte(boostReq())?'#fff480':'#8080FF'
 
     if(data.sToggles[6]) updateProgressBar()
 }
@@ -37,9 +37,9 @@ function switchMarkupTab(t){
     markupTab = t
 }
 function markup(n=1){
-    if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal === 109) return
-    if(data.ord.ordinal<data.ord.base**2 && !data.ord.isPsi) return
-    if(data.ord.isPsi){ data.ord.ordinal+=n; return data.markup.powers = 4e256}
+    if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal.eq(109)) return
+    if(data.ord.ordinal.lt(data.ord.base**2) && !data.ord.isPsi) return
+    if(data.ord.isPsi){ data.ord.ordinal = data.ord.ordinal.plus(n); return data.markup.powers = 4e256}
 
     if(data.chal.active[7]){
         data.markup.powers = 0
@@ -47,7 +47,7 @@ function markup(n=1){
     }
     data.ord.isPsi = false
     data.markup.powers += totalOPGain()
-    data.ord.ordinal = 0
+    data.ord.ordinal = D(0)
     data.ord.over = 0
     data.successorClicks = 0
 }
@@ -60,6 +60,8 @@ function opMult(){
     return mult*alephEffect(2)
 }
 function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over) {
+    if(ord===data.ord.ordinal && ord.gte(Number.MAX_VALUE)) return 4e256
+    if(ord===data.ord.ordinal) ord = Number(ord)
     //if(data.ord.isPsi && base === 3){
     //    return Math.round(ord / 1e270 + 1) * 1e270
     //}
@@ -95,7 +97,7 @@ function getFSReq(){
 function factorShift(){
     if(data.baseless.baseless) return
     if(data.markup.shifts === 7){
-        if(data.ord.isPsi && data.ord.ordinal >= GRAHAMS_VALUE && data.boost.times == 0) return boost(true)
+        if(data.ord.isPsi && data.ord.ordinal.gte(GRAHAMS_VALUE) && data.boost.times === 0) return boost(true)
         else return //createAlert("Failure", "Insufficient Ordinal", "Dang.")
     }
 
@@ -116,7 +118,7 @@ function factorShift(){
 }
 
 function fsReset(){
-    data.ord.ordinal = 0
+    data.ord.ordinal = D(0)
     data.ord.over = 0
     data.markup.powers = 0
     for (let i = 0; i < data.autoLevels.length; i++) {

@@ -10,9 +10,9 @@ let t2Auto = () => t2AutoPure()**singEffects[2].effect()
 
 function tick(diff){
     // TODO: PSI Check, probably doesn't need to be on tick()
-    if(!data.ord.isPsi && data.ord.ordinal >= PSI_VALUE && data.ord.base === 3) {
+    if(!data.ord.isPsi && data.ord.ordinal.gte(PSI_VALUE) && data.ord.base === 3) {
         data.ord.isPsi = true
-        data.ord.ordinal = 4
+        data.ord.ordinal = D(4)
     }
 
     // Check for Challenge Completion
@@ -46,9 +46,9 @@ function tick(diff){
     }
 
     // Markup Autobuyer
-    let collapseCheck = data.ord.ordinal < BHO_VALUE || data.collapse.times > 0
+    let collapseCheck = data.ord.ordinal.gt(BHO_VALUE) || data.collapse.times > 0
     let boostCheck = data.boost.times > 0
-    if(timesToLoop[3] >= 1 && data.ord.isPsi && data.autoStatus.enabled[1] && !boostCheck && data.ord.isPsi) data.ord.ordinal = GRAHAMS_VALUE
+    if(timesToLoop[3] >= 1 && data.ord.isPsi && data.autoStatus.enabled[1] && !boostCheck && data.ord.isPsi) data.ord.ordinal = D(GRAHAMS_VALUE)
     if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1] && collapseCheck && boostCheck) markup(timesToLoop[3]*diff/1000)
 
     // Automation Tier 2: Post-Collapse
