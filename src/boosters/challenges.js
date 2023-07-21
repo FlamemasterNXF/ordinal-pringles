@@ -41,7 +41,7 @@ function updateAllChalHTML(){
     }
 }
 function updateChalHTML(i){
-    DOM(`chalIn`).style.display = data.chal.active.includes(true)?'block':'none'
+    DOM(`chalIn`).style.display = data.chal.active.includes(true)||data.baseless.baseless?'block':'none'
     DOM(`chal${i}`).style.backgroundColor = data.chal.active[i]?'#002480':data.chal.completions[i]===3?'#078228':'black'
     DOM(`chal${i}`).style.color = (!(data.chal.completions[i]===3)||data.chal.active[i])?'#8080FF':'black'
     DOM(`chal${i}`).innerText = `Challenge ${i+1}\n${chalDesc[i]}\n\nGoal: ${format(chalGoals[i][data.chal.completions[i]])} OP\nReward: Factor ${i+1} slightly boosts Tier 2 Automation\nCompletions: ${data.chal.completions[i]}/3`

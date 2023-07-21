@@ -40,7 +40,7 @@ function tick(diff){
 
     // Automation Tier 2
     // BuyMax Autobuyer
-    if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3) && data.autoStatus.enabled[0]){
+    if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3 || data.baseless.baseless) && data.autoStatus.enabled[0]){
         buyMaxT1()
     }
 

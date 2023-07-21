@@ -57,6 +57,8 @@ const uHTML = {
 
 function isTabUnlocked(t){
     switch (t) {
+        case 'dynamic': return data.markup.shifts === 7 || data.chal.active[4] || data.baseless.baseless
+
         case 'chal': return data.boost.unlocks[0]
         case 'incrementy': return data.boost.unlocks[1]
         case 'hierarchies': return data.boost.unlocks[2]

@@ -91,7 +91,7 @@
         <div class="flexBox" style="margin-top: 1rem">
             <button class="tabButton" id="factorTab" onclick="switchMarkupTab('factor')" style="color: goldenrod; border-color: #785c13">Factors</button>
             <button class="tabButton" id="autoTab" onclick="switchMarkupTab('auto')" style="color: goldenrod; border-color: #785c13; width:5.5rem">AutoClickers</button>
-            <button class="tabButton" id="dynamicTab" onclick="" style="color: goldenrod; border-color: #785c13">Dynamic</button>
+            <button class="tabButton" id="dynamicTab" onclick="switchMarkupTab('dynamic')" style="color: goldenrod; border-color: #785c13">Dynamic</button>
         </div>
         <h3 class="centeredTexts" id="powersText" style="margin-top: 1rem; color: goldenrod;">You have Chips. In your house.</h3>
         <button id="markupButton" onclick="markup()" style="color: goldenrod; min-width: 20rem; height: 2rem; background-color: black; border: 2px solid #785c13">ω<sup>2</sup> is required to Markup</button>
@@ -329,13 +329,13 @@
         </div>
         <div class="flexBox" id="baselessSubPage" style="display: none; flex-direction: column;">
             <t class="centeredTexts" id="alephNull" style="color: darkorange; margin-top: 1rem">Based</t>
-            <button id="baseless" style="font-size: 1.1rem">Enter the
-                <select style="appearance: none; background-color: black; border: hidden; color: darkred; font-family: DosisBold; font-size: 1.1rem; text-align: center" onchange="updateBaselessEnterHTML(this.selectedIndex)">
+            <button id="baseless" style="font-size: 1.1rem" onclick="createConfirmation('Are you sure?', 'Entering or exiting will perform a Collapse reset!', 'Nope!', 'Yep!', baselessControl)"><span id="baselessEnterText">Enter</span> the
+                <select style="appearance: none; background-color: black; border: hidden; color: darkred; font-family: DosisBold; font-size: 1.1rem; text-align: center" onclick="event.stopPropagation()" onchange="updateBaselessEnterHTML(this.selectedIndex)">
                     <option value="0">Baseless</option>
                     <option value="1">Obliterated</option>
                     <option value="2">Forgotten</option>
                 </select>
-                realm
+                Realm
                 <span style="font-size: 1rem"></span>
             </button>
             <t class="centeredTexts" style="color: #9e5803; margin-top: 2rem">Click the red Realm text to change the Realm you enter</t>

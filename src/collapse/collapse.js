@@ -10,8 +10,11 @@ function switchCollapseTab(t){
             createAlert('Tutorial Time!', 'Increase the Singularity\'s Density with the slider! Each increase will grant you a boost to Cardinal gain, with every few increases unlocking a new Singularity Function! Singularity Functions can boost or unlock things. But beware, growing your Singularity costs Charge!', 'Thanks for the tips!')
             data.sing.tutorial = true
         }
+        if(t==="baseless"){
+            updateAlephNullHTML()
+            DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
+        }
         if(t === "autoPrestige") updateAutoPrestigeHTML()
-        if(t==="baseless") updateAlephNullHTML()
         DOM(`${collapseTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
 
