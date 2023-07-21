@@ -105,6 +105,7 @@ function chargeBUP(i, bottomRow){
 let getBottomRowChargeCost = () => 13+(12*data.boost.bottomRowCharges)
 
 function respecCharge(c=false){
+    if(data.baseless.baseless) return
     let indexes = []
     for (let i = 0; i < data.boost.isCharged.length; i++) {
         if (data.boost.isCharged[i]) indexes.push(i)
