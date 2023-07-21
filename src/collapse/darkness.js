@@ -135,6 +135,7 @@ function darkenConfirm(){
         : createConfirmation('Are you certain?', 'Darkening will preform a Booster Reset and trap you in Challenge 8. However, you will also gain the ability to generate Negative Charge.', 'No thanks.', 'For sure!', darken)
 }
 function darken(force = false){
+    if(data.baseless.baseless) return
     data.darkness.darkened && !force ? chalExit(true) : chalEnter(7, true)
 
     DOM('darken').innerText = data.darkness.darkened ? 'Enter the Darkness' : 'Escape'
