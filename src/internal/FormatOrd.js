@@ -124,6 +124,17 @@ function displayOrd(ord,over,base,trim = data.ord.trim) {
     return finalOutput
 }
 
+function numberFromOrdinal(string, base) {
+    const initial = string.replaceAll("&omega;", `${base}`).replaceAll('<sup>', '**')
+        .replaceAll('</sup>', '*').replaceAll('...', '').replaceAll('*+', '+')
+    const secondary = initial.replaceAll('+...', '').replaceAll('*...', '')
+
+    if(secondary.charAt(secondary.length-1) === '+' || secondary.charAt(secondary.length-1) === '*'){
+        return eval(secondary.substring(0, secondary.length-1))
+    }
+    return eval(secondary)
+}
+
 function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
     if (ord === Infinity) return data.gword ? "<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>" : "Ω"
     ord = Math.floor(ord)

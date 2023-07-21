@@ -36,7 +36,7 @@ function factorCost(n){
     return (10**(n+1))**(2**data.factors[n])
 }
 function hasFactor(n){
-    return data.markup.shifts >= n+1
+    return data.markup.shifts >= n+1 || data.baseless.shifts >= n+1
 }
 function factorEffect(n){
     const mult = bup0Effect()
@@ -59,6 +59,13 @@ function buyFactor(n){
 function buyMaxFactor(){
     if(data.chal.active[1]) return
     if(data.ord.isPsi) return data.factors = [9,8,7,7,6,6,6]
+    if(data.baseless.baseless){
+        for (let i = data.baseless.shifts-1; i >= 0; i--){
+            if(!hasFactor(i)) break
+            while (data.markup.powers >= Math.pow(10 ** (i + 1), Math.pow(2, data.factors[i]))) buyFactor(i);
+        }
+        return
+    }
     for (let i = data.markup.shifts-1; i >= 0; i--){
         if(!hasFactor(i)) break
         while (data.markup.powers >= Math.pow(10 ** (i + 1), Math.pow(2, data.factors[i]))) buyFactor(i);
@@ -93,5 +100,5 @@ function dyGain(){
 
 
     if(data.boost.isCharged[3]) return (data.dy.gain*boost*iup2Effect()*bup3Effect())
-    return (data.dy.gain*boost*iup2Effect())
+    return (data.dy.gain*boost*iup2Effect()*dynamicShiftMultipliers[1]())
 }

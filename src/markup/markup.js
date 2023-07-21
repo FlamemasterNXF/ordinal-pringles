@@ -112,7 +112,10 @@ function factorShift(){
 
     if(data.chal.active[4]) data.dy.gain = 0.002
 
+    fsReset()
+}
 
+function fsReset(){
     data.ord.ordinal = 0
     data.ord.over = 0
     data.markup.powers = 0

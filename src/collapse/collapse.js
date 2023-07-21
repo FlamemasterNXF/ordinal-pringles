@@ -32,6 +32,7 @@ function updateCollapseHTML(){
 
     DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal >= BHO_VALUE ? '#fff480' : '#20da45'
 
+    updateTotalAlephHTML()
     updateDarknessHTML()
     updateSingularityHTML()
 }
@@ -162,7 +163,7 @@ function checkCollapseUnlockHTML(){
     DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
     DOM('autoPrestigeTab').innerText = data.collapse.hasSluggish[3] ? 'AutoPrestigers' : '???'
     DOM('singTab').innerText = data.boost.unlocks[4] ? 'Singularity' : '???'
-    DOM('baselessTab').innerText = data.boost.unlocks[4] ? 'Baseless Milestones' : '???'
+    DOM('baselessTab').innerText = data.boost.unlocks[4] ? 'Baselessness' : '???'
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect())**singEffects[0].effect()

@@ -34,6 +34,7 @@ const uHTML = {
         updateAllDUPHTML()
         loadSingularityHTML()
         updateBaselessEnterHTML(data.baseless.mode, true)
+        updateDynamicShiftHTML()
 
         //Load Settings
         for (let i = 0; i < data.sToggles.length; i++) {
