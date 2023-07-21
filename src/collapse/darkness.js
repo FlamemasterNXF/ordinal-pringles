@@ -80,6 +80,7 @@ function buyDrain(i) {
     if (!data.collapse.hasCUP[i]) return createAlert("Failure.", "The Cardinal Upgrade must be purchased before being drained!", "Oops.")
     if (data.darkness.negativeCharge < drainCost(i)) return createAlert("Failure.", "Insufficient Negative Charge", "Dang.")
 
+    data.darkness.chargeSpent += drainCost(i)
     data.darkness.negativeCharge -= drainCost(i)
     ++data.darkness.drains[i]
     ++data.darkness.totalDrains
@@ -140,12 +141,10 @@ function darken(force = false){
 }
 
 function resetDrains(){
+    data.darkness.negativeCharge += data.darkness.chargeSpent
+    data.darkness.totalDrains = 0
     for (let i = 0; i < data.darkness.drains.length; i++) {
-        data.darkness.negativeCharge += (data.darkness.drains[i])*(10**(((data.darkness.totalDrains-1)/2)+1))
-        data.darkness.totalDrains -= data.darkness.drains[i]
         data.darkness.drains[i] = 0
-    }
-    for (let i = 0; i < data.darkness.drains.length; i++) {
         updateDrainHTML(i)
     }
 }

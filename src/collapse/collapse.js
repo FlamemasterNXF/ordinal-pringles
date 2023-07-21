@@ -88,7 +88,7 @@ function initCUPS(){
             else{
                 let el = document.createElement('button')
                 el.id = `drainReset`
-                el.innerText = `Respec Drains\nThis will only return Negative Charge spent on the highest level of each Drain!`
+                el.innerText = `Respec Drains`
                 el.addEventListener('click', ()=>resetDrains())
                 innerContainer.append(el)
             }
