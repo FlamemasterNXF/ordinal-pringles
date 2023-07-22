@@ -62,7 +62,7 @@ function makeExcessOrdMarks(){
     for (let i = 0; i < length; i++) {
         ordMarks.push(ordMarks[i].slice(0,6)+"Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>"+ordMarks[i].slice(6)+"))")
     }
-    ordMarks.push("&psi;(Ω<sub>2</sub><sup>2</sup>)")
+    ordMarks.push("&psi;(Ω<sub>2</sub><sup>2</sup>x)")
 
     // POST W_2^2
 
@@ -70,7 +70,7 @@ function makeExcessOrdMarks(){
     for (let i = 0; i < length; i++) {
         ordMarks.push(ordMarks[i].slice(0, 6)+"Ω<sub>2</sub><sup>2</sup>"+ordMarks[i].slice(6))
     }
-    ordMarks.push("&psi;(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub>)x)")
+    ordMarks.push("&psi;(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub>x))")
 
     // Generates OrdMarks up to BHO*3^205
     for (let i = 0; i < length; i++) {
@@ -82,13 +82,14 @@ function makeExcessOrdMarks(){
     for (let i = 0; i < length; i++) {
         ordMarks.push(ordMarks[i].slice(0,6)+"Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>"+ordMarks[i].slice(6)+"))")
     }
-    ordMarks.push("&psi;(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>)")
+    ordMarks.push("&psi;(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>x))")
 
     // Generates OrdMarks up to BHO*3^287
     for (let i = 0; i < length; i++) {
         ordMarks.push(ordMarks[i].slice(0, 6)+"Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>"+ordMarks[i].slice(6)+")")
     }
     ordMarks.push("&psi;(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub>x)))")
+
 
     // Generates OrdMarks up to BHO*3^328
     for (let i = 0; i < length; i++) {
@@ -98,7 +99,7 @@ function makeExcessOrdMarks(){
 
     // Generates OrdMarks up to BHO*3^369
     for (let i = 0; i < length; i++) {
-        ordMarks.push(ordMarks[i].slice(0,6)+"Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>"+ordMarks[i].slice(6)+")))")
+        ordMarks.push(ordMarks[i].slice(0,6)+"Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>x"+ordMarks[i].slice(6)+")))")
     }
     ordMarks.push("&psi;(Ω<sub>2</sub><sup>ω</sup>)")
 
@@ -107,6 +108,8 @@ function makeExcessOrdMarks(){
 
 function displayOrd(ord,over,base,trim = data.ord.trim) {
     if(data.ord.isPsi) return displayPsiOrd(ord, trim)
+    if(ord === data.ord.ordinal && ord.gt(Number.MAX_VALUE)) return displayInfiniteOrd(ord, over, base, trim)
+    if(ord === data.ord.ordinal) ord = Number(ord)
 
     ord = Math.floor(ord)
     over = Math.floor(over)
@@ -122,6 +125,33 @@ function displayOrd(ord,over,base,trim = data.ord.trim) {
     if(ord-firstAmount > 0) finalOutput += "+" + displayOrd(ord-firstAmount, over, base, trim - 1)
     if(data.gword) finalOutput = finalOutput.replaceAll("&omega;","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
     return finalOutput
+}
+
+function displayInfiniteOrd(ord, over, base, trim = data.ord.trim){
+    ord = Decimal.floor(ord)
+    over = Decimal.floor(over)
+    if(trim <= 0) return `...`
+    if(ord.lt(base)) return ord.plus(over)
+    const magnitude = Decimal.floor(Decimal.ln(ord).div(Decimal.ln(base)).plus(D(1e-14)))
+    const magnitudeAmount = D(base).pow(magnitude)
+    const amount = Decimal.floor(ord.div(magnitudeAmount))
+    let finalOutput = "&omega;"
+    if (magnitude.gt(1)) finalOutput += "<sup>"+displayInfiniteOrd(magnitude, 0, base)+"</sup>"
+    if (amount.gt(1)) finalOutput += amount
+    const firstAmount = amount.times(magnitudeAmount)
+    if(ord.sub(firstAmount).gt(0)) finalOutput += "+" + displayInfiniteOrd(ord.sub(firstAmount), over, base, trim - 1)
+    if(data.gword) finalOutput = finalOutput.replaceAll("&omega;","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
+    return finalOutput
+}
+
+function numberFromOrdinal(string, base) {
+    const initial = string.replaceAll("&omega;", `${base}`).replaceAll('<sup>', '**').replaceAll('</sup>', '*').replaceAll('...', '').replaceAll('*+', '+')
+    const secondary = initial.replaceAll('+...', '').replaceAll('*...', '')
+
+    if(secondary.charAt(secondary.length-1) === '+' || secondary.charAt(secondary.length-1) === '*'){
+        return eval(secondary.substring(0, secondary.length-1))
+    }
+    return eval(secondary)
 }
 
 function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
@@ -159,25 +189,25 @@ function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
 */
 
 function displayPsiOrd(ord, trim) {
-    ord = Math.floor(ord)
-    if(ord == BHO_VALUE) {
+    ord = D(Math.floor(ord))
+    if(ord.eq(BHO_VALUE)) {
         let finalOutput = "&psi;(Ω<sub>2</sub>)"
         if(data.gword) finalOutput=finalOutput
             .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
         return `${finalOutput}`
     }
     let maxOrdMarks = (3**(ordMarks.length-1))*4
-    if(maxOrdMarks < Infinity && new Decimal(ord).gt(new Decimal(maxOrdMarks.toString()))) {
-        return displayPsiOrd(maxOrdMarks) + "x" + format(ord/Number(maxOrdMarks),2)
+    if(maxOrdMarks < Infinity && D(ord).gt(D(maxOrdMarks.toString()))) {
+        return displayPsiOrd(maxOrdMarks) + "x" + format(ord.div(Number(maxOrdMarks)),2)
     }
-    if(ord === 0) return ""
+    if(ord.eq(0)) return ""
     if(trim <= 0) return "..."
-    if(ord < 4) return extraOrdMarks[ord]
-    const magnitude = Math.floor(Math.log(ord/4)/Math.log(3))
+    if(ord.lt(4)) return extraOrdMarks[ord]
+    const magnitude = Math.floor(Math.log(ord.div(4))/Math.log(3))
     const magnitudeAmount = 4*3**magnitude
     let finalOutput = ordMarks[Math.min(magnitude,ordMarks.length-1)]
-    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiOrd(ord-magnitudeAmount, trim-1))
-    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiOrd(ord-magnitudeAmount+1, trim-1))
+    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiOrd(ord.sub(magnitudeAmount), trim-1))
+    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiOrd(ord.sub(magnitudeAmount+1), trim-1))
     if(data.gword) finalOutput=finalOutput
         .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
         .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
@@ -185,6 +215,7 @@ function displayPsiOrd(ord, trim) {
 }
 
 function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.base) {
+    ord = Number(ord)
     if (ord >= base**3) return Infinity
     let f2 = Math.floor(ord/base**2)
     const f1 = Math.floor((ord-(f2*base**2))/base)
@@ -211,19 +242,19 @@ function successor(n = 1, m=false) {
     if(data.ord.isPsi) return
     if(m)++data.successorClicks
 
-    if (data.ord.ordinal % data.ord.base === data.ord.base - 1 && data.ord.ordinal < Number.MAX_SAFE_INTEGER) data.ord.over+=n
-    else data.ord.ordinal+=n
+    if (data.ord.ordinal.mod(data.ord.base) === data.ord.base - 1 && data.ord.ordinal.lt(Number.MAX_SAFE_INTEGER)) data.ord.over+=n
+    else data.ord.ordinal = data.ord.ordinal.plus(n)
 }
 
 function maximize() {
     if(data.ord.isPsi) return
-    if (data.ord.ordinal % data.ord.base === data.ord.base - 1 && data.ord.over >= 1) {
-        while(data.ord.over + data.ord.base >= data.ord.base * 2 && data.ord.ordinal % data.ord.base ** 2 !== 0){
+    if (data.ord.ordinal.mod(data.ord.base) === data.ord.base - 1 && data.ord.over >= 1) {
+        while(data.ord.over + data.ord.base >= data.ord.base * 2 && data.ord.ordinal.mod(data.ord.base ** 2) !== 0){
             data.ord.over -= Math.ceil((data.ord.over + data.ord.base) / 2 - 0.1)
-            data.ord.ordinal += data.ord.base
+            data.ord.ordinal = data.ord.ordinal.plus(data.ord.base)
         }
 
-        if (data.ord.ordinal % data.ord.base ** 2 !== 0) data.ord.ordinal += data.ord.over
+        if (data.ord.ordinal.mod(data.ord.base ** 2) !== 0) data.ord.ordinal = data.ord.ordinal.plus(data.ord.over)
         data.ord.over = 0
     }
 }

@@ -447,6 +447,10 @@
                 return D(value).div(other);
             };
 
+            Decimal.mod = function (value, other) {
+                return D(value).mod(other)
+            };
+
             Decimal.recip = function (value) {
                 return D(value).recip();
             };
@@ -1532,6 +1536,10 @@
             Decimal.prototype.dividedBy = function (value) {
                 return this.div(value);
             };
+
+            Decimal.prototype.mod = function (value){
+                return D(this%value)
+            }
 
             Decimal.prototype.recip = function () {
                 if (this.mag === 0)

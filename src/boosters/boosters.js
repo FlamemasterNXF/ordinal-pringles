@@ -5,6 +5,7 @@ function switchBoostTab(t){
         DOM(`${t}SubPage`).style.display = `flex`
 
         if(t==="upgrades") checkSpecialBUPs()
+        if(t==="auto2") checkAutobuyerDisplay()
         if(t==="hierarchies") checkSpecialHUPs()
 
         if (t==="upgrades" && data.boost.unlocks[1]){
@@ -19,6 +20,19 @@ function switchBoostTab(t){
         }
         boostTab = t
     }
+}
+function checkAutobuyerDisplay(){
+    //TODO: I REALLY need to optimize this garbage :(
+    DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
+    DOM('t2AutoText3').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
+    DOM('t2AutoText4').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
+    DOM('t2AutoText5').style.display = data.sing.hasEverHadFunction[1] ? 'block' : 'none'
+    DOM('t2AutoText6').style.display = data.sing.hasEverHadFunction[3] ? 'block' : 'none'
+    DOM('auto4').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
+    DOM('auto5').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
+    DOM('auto6').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
+    DOM('auto7').style.display = data.sing.hasEverHadFunction[1] ? 'block' : 'none'
+    DOM('auto8').style.display = data.sing.hasEverHadFunction[3] ? 'block' : 'none'
 }
 
 const bupDesc = ['Each Factor\'s effect is doubled', 'Boost OP gain by 5x', 'The Ordinal Base is always 5 in Challenges', 'Dynamic Gain is multiplied by your C5 completions in C1-C4', 'Every 10 Darkness Upgrades purchased reduces Hierarchy Bases by 1',
@@ -51,7 +65,7 @@ function initBUPs(){
     }
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
         let bottomRow = i===4 || i===9 || i===14
-        DOM(`bup${i}`).addEventListener('click', ()=>buyBUP(i, bottomRow))
+        DOM(`bup${i}`).addEventListener('click', ()=>buyBUP(i, bottomRow, true))
         DOM(`bup${i}`).addEventListener('mouseenter', ()=>revealChargeEffect(i, true))
         DOM(`bup${i}`).addEventListener('mouseleave', ()=>revealChargeEffect(i, false))
         DOM(`bup${i}`).style.backgroundColor = data.boost.hasBUP[i]?'#002480':'black'
@@ -117,9 +131,9 @@ let sBUP2Effect = () => data.boost.hasBUP[14] ? data.boost.isCharged[14] ? aleph
     : alephTotalEffect()
     : 1
 
-const autoNames = ['Max All', 'Markup', 'Sacrifice for Charge', 'three RUP', 'Hierarchy Buyable']
-const autoDisplayNames = ['Max All', 'Markup', 'Charge', 'RUP', 'Hierarchy Buyable']
-const autoRequirements = [', but only if you can\'t Factor Shift', ', but only if you\'re past Ψ(Ω)', '', ', but only if you can\'t afford a Charge', '']
+const autoNames = ['Max All', 'Markup', 'Sacrifice for Charge', 'three RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge']
+const autoDisplayNames = ['Max All', 'Markup', 'Charge', 'RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge']
+const autoRequirements = [', but only if you can\'t Factor Shift', ', but only if you\'re past Ψ(Ω)', '', ', but only if you can\'t afford a Charge', '', '', ', but only if you already have the required Booster Upgrade']
 const autoUps = [5, 10]
 function updateBoostersHTML(){
     DOM('boosterText').innerHTML = data.boost.unlocks[1] > 0 ?
@@ -131,21 +145,23 @@ function updateBoostersHTML(){
     //DOM('bup7').innerText = `${data.boost.isCharged[7]?chargedBUPDesc[7]:bupDesc[7]}\n[${format(bup7Effect())}x]\n${data.boost.isCharged[7]?'':bupCosts[7]} Boosters`
     //DOM('bup11').innerText = `${data.boost.isCharged[11]?chargedBUPDesc[11]:bupDesc[11]}\n[${format(bup11Effect())}x]\n${data.boost.isCharged[11]?'':bupCosts[11]} Boosters`
     for (let i = 0; i < data.autoStatus.enabled.length; i++) {
-        DOM(`t2AutoText${i}`).innerHTML = `Your <span style="color: #80ceff">${autoDisplayNames[i]} AutoBuyer</span> is clicking the ${autoNames[i]} button${i === 3 || i === 4 ? 's' : ''} <span style="color: #8080FF">${i < 2 ? format(t2Auto()) : 20} times/second</span>${autoRequirements[i]}`
+        DOM(`t2AutoText${i}`).innerHTML = `Your <span style="color: #80ceff">${autoDisplayNames[i]} AutoBuyer</span> is clicking the ${autoNames[i]} button${i > 2 ? 's' : ''} <span style="color: #8080FF">${i < 2 ? format(t2Auto()) : 20} times/second</span>${i=== 1 && data.baseless.baseless ? autoRequirements[i] : ''}`
         DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]] || i > 1 ?`${autoDisplayNames[i]} AutoBuyer: ${boolToReadable(data.autoStatus.enabled[i], 'EDL')}`:`${autoDisplayNames[i]} AutoBuyer: LOCKED`
 
     }
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
 
-   updateIncrementyHTML()
-   updateHierarchiesHTML()
-   updateOverflowHTML()
+    if(boostTab === 'incrementy') updateIncrementyHTML()
+    if(boostTab === 'hierarchies') updateHierarchiesHTML()
+    if(boostTab === 'overflow') updateOverflowHTML()
 
     DOM("chalTab").innerText = data.boost.unlocks[0]?'Challenges':'???'
     DOM("incrementyTab").innerText = data.boost.unlocks[1]?'Incrementy':'???'
     DOM("hierarchiesTab").innerText = data.boost.unlocks[2]?'Hierarchies':'???'
     DOM("overflowTab").innerText = data.boost.unlocks[3]?'Overflow':'???'
-    DOM(`chalIn`).innerText = data.chal.active[7]?`You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
+    DOM(`chalIn`).innerText = data.baseless.baseless
+        ? `You are in the ${baselessNames[data.baseless.mode]} Realm`
+        : data.chal.active[7] ? `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
 }
 
 function revealChargeEffect(i, showCharge) {
@@ -155,7 +171,7 @@ function revealChargeEffect(i, showCharge) {
 }
 
 function boosterReset(){
-    data.ord.ordinal = 0
+    data.ord.ordinal = D(0)
     data.ord.over = 0
     data.ord.base = data.chal.active[2]?15:10
     data.ord.isPsi = false
@@ -174,11 +190,11 @@ function boosterReset(){
     data.successorClicks = 0
 }
 
-const boostTimesLimit = 156
+const boostTimesLimit = 9999
 function boost(f=false, auto=false){
     if(data.boost.times === 33 && data.collapse.times === 0) return createConfirmation("Are you certain?", "This will perform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
-    if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && auto) return
-    if((!data.ord.isPsi || data.ord.ordinal < boostReq()) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
+    if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && auto) return
+    if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
 
     if(data.boost.times === boostTimesLimit) return createAlert("The End... for now!", "You've reached the current Endgame!", "Thanks!")
 
@@ -208,16 +224,16 @@ function boostReq(n = data.boost.times){
 //Credit to ryanleonels
 let boostLimit = () => (data.collapse.times === 0) ? 33 : Infinity;
 function getBulkBoostAmt(){
-    if (!data.sToggles[7] || !data.ord.isPsi || data.ord.ordinal <= boostReq()) return 1
+    if (!data.sToggles[7] || !data.ord.isPsi || data.ord.ordinal.lte(boostReq())) return 1
     let maxBoost = data.boost.times
-    while (data.ord.ordinal >= boostReq(maxBoost) && maxBoost < boostLimit()) maxBoost++
+    while (data.ord.ordinal.gte(boostReq(maxBoost)) && maxBoost < boostLimit()) maxBoost++
     return Math.max(maxBoost - data.boost.times, 1)
     //return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
 }
 //End credit
-function buyBUP(i, bottomRow){
+function buyBUP(i, bottomRow, useCharge){
     updateHierarchyPurchaseHTML()
-    if(data.boost.hasBUP[i]) return chargeBUP(i, bottomRow)
+    if(data.boost.hasBUP[i] && useCharge) return chargeBUP(i, bottomRow)
     if(data.boost.amt < bupCosts[i]) return
     if(i % 5 !== 0 && !data.boost.hasBUP[i-1]) return // Force you to buy them in order, but only in columns
 
@@ -229,6 +245,7 @@ function buyBUP(i, bottomRow){
 }
 
 function boosterRefund(c=false){
+    if(data.baseless.baseless) return
     respecCharge(c)
     updateHierarchyPurchaseHTML()
     //let indexes = []
@@ -249,6 +266,7 @@ function boosterUnlock(){
     if(incrementyTabUnlocked()){ data.boost.unlocks[1] = true; DOM(`bu1`).style.backgroundColor = '#002480';  }
     if(hierarchiesTabUnlocked()){ data.boost.unlocks[2] = true; DOM(`bu2`).style.backgroundColor = '#002480'; }
     if(overflowTabUnlocked()){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480'; }
+    if(data.boost.total >= 12246 || data.boost.unlocks[4]){ data.boost.unlocks[4] = true; DOM(`bu4`).style.backgroundColor = '#002480'; }
 }
 
 function chalTabUnlocked(){

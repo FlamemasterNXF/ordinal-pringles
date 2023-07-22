@@ -213,6 +213,15 @@
     background: black;
     margin-left: 0.5rem;
 }
+#drainReset{
+    width: 15rem;
+    height: 6rem;
+    border: 2px solid #8000ff4d;
+    color: #9f9fcce1;
+    background: black;
+    margin-left: 0.5rem;
+    margin-top: 1rem;
+}
 .sluggish{
     width: 50rem;
     height: 4.8rem;
@@ -256,6 +265,28 @@
     background: black;
     margin-top: 0.5rem;
     margin-left: 0.5rem;
+}
+.singControl{
+    width: 12rem;
+    height: 3rem;
+    border: 1px solid #2da000;
+    color: #2da000;
+    background: black;
+    font-size: 0.75rem;
+}
+.singFunction{
+    color: darkgray;
+    font-family: DosisLight;
+    text-align: center;
+}
+#baseless{
+    width: 25rem;
+    height: 10rem;
+    border: 2px solid #6d3d00;
+    color: #ae6610;
+    background: black;
+    margin-top: 0.5rem;
+    font-family: DosisSemiBold;
 }
 .settingsButton{
     width: 10rem;

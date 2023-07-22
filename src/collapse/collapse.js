@@ -1,6 +1,20 @@
 let collapseTab = "cardinals"
 function switchCollapseTab(t){
     if(isTabUnlocked(t)){
+        //DOM(`cardinalsText`).style.display = t === 'sing' ? 'none' : 'block'
+        if(t==='darkness'){
+            updateDUPHTML(1)
+            updateDUPHTML(2)
+            DOM('dupC4').innerHTML = `Invert the third Booster Power effect<br><span style="font-size: 0.7rem">Currently: ${data.overflow.thirdEffect ? 'Dividing': 'Multiplying'}</span>`
+        }
+        if(t==='sing' && !data.sing.tutorial){
+            createAlert('Tutorial Time!', 'Increase the Singularity\'s Density with the slider! Each increase will grant you a boost to Cardinal gain, with every few increases unlocking a new Singularity Function! Singularity Functions can boost or unlock things. But beware, growing your Singularity costs Charge!', 'Thanks for the tips!')
+            data.sing.tutorial = true
+        }
+        if(t==="baseless"){
+            updateAlephNullHTML()
+            DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
+        }
         if(t === "autoPrestige") updateAutoPrestigeHTML()
         DOM(`${collapseTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
@@ -14,12 +28,16 @@ function updateCollapseHTML(){
     DOM(`collapseButton`).innerText = `Collapse for ${format(cardinalGain())} Cardinals`
 
     for (let i = 0; i < data.collapse.hasCUP.length; i++) {
-        if(data.collapse.hasCUP[i]) DOM(`cup${i}`).innerText = `${cupData[i].text}\n\nCurrently: ${i==1?'^':''}${i===1 ? format(cupData[i].effect()+drainEffect(i)) : format(cupData[i].effect()*drainEffect(i))}${i!==1?'x':''}`
+        if(data.collapse.hasCUP[i]) DOM(`cup${i}`).innerText = `${cupData[i].text}\n\nCurrently: ${i===1?'^':''}${i===1 ? format(cupData[i].effect()+drainEffect(i)) : format(cupData[i].effect()*drainEffect(i))}${i!==1?'x':''}`
     }
 
-    DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal >= BHO_VALUE ? '#fff480' : '#20da45'
+    DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) ? '#fff480' : '#20da45'
 
+    if(data.baseless.baseless) DOM(`baseless`).children[2].innerHTML = `<br><br>You will gain <span style="color: darkred">${format(alephNullGain())} ℵ<sub>0</sub></span> if you exit now`
+
+    updateTotalAlephHTML()
     updateDarknessHTML()
+    updateSingularityHTML()
 }
 function updateAutoPrestigeHTML(){
     for (let i = 0; i < data.collapse.apEnabled.length; i++) {
@@ -49,6 +67,8 @@ function initCUPS(){
             let innerContainer = document.createElement('div')
             innerContainer.className = 'cupContainer'
             innerContainer.id = `cupContainer${id}`
+            if(id===7) innerContainer.style.flexDirection = `row`
+
 
             let el = document.createElement('button')
             el.className = 'cup'
@@ -57,7 +77,7 @@ function initCUPS(){
             el.addEventListener("click", ()=>buyCardinalUpgrade(id))
             innerContainer.append(el)
 
-            if(id != 7){
+            if(id !== 7){
                 let drain = document.createElement('button')
                 drain.className = 'drain'
                 drain.id = `drain${id}`
@@ -65,9 +85,16 @@ function initCUPS(){
                 drain.addEventListener("click", ()=>buyDrain(id))
                 innerContainer.append(drain)
             }
+            else{
+                let el = document.createElement('button')
+                el.id = `drainReset`
+                el.innerText = `Respec Drains`
+                el.addEventListener('click', ()=>resetDrains())
+                innerContainer.append(el)
+            }
 
 
-            id != 7 ? row.append(innerContainer) : container.append(innerContainer)
+            id !== 7 ? row.append(innerContainer) : container.append(innerContainer)
         }
     }
     checkAllUnlocks(0, true)
@@ -138,20 +165,24 @@ function checkAllUnlocks(mode, prev = false){
 function checkCollapseUnlockHTML(){
     DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
     DOM('autoPrestigeTab').innerText = data.collapse.hasSluggish[3] ? 'AutoPrestigers' : '???'
-    DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
-    DOM('t2AutoText3').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
-    DOM('t2AutoText4').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
-    DOM('auto4').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
-    DOM('auto5').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
-    DOM('auto6').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
+    DOM('singTab').innerText = data.boost.unlocks[4] ? 'Singularity' : '???'
+    DOM('baselessTab').innerText = data.boost.unlocks[4] ? 'Baselessness' : '???'
 }
 
-let cardinalGain = () => data.boost.times < 34 ? 0 : (((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect()
+let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect())**singEffects[0].effect()
 let alephEffect = (i) => data.collapse.alephs[i] > 0 ? alephData[i].effect()*cupEffect(6) : 1
 let cupEffect = (i) => data.collapse.hasCUP[i] ?
-    i===1 ? Math.max(cupData[i].effect()+drainEffect(i), 1)
+    i===1 ? Math.max(cupData[i].effect()+drain1Effect(), 1)
     : Math.max(cupData[i].effect()*drainEffect(i), 1)
     : 1
+
+let drain1Effect = () =>
+    data.darkness.drains[1] > 50 ? ((data.darkness.drains[1]-50)/128)+2.5+(1.25*2)+0.625+0.15625
+    : data.darkness.drains[1] > 40 ? ((data.darkness.drains[1]-40)/64)+2.5+(1.25*2)+0.625+0.3125
+    : data.darkness.drains[1] > 30 ? ((data.darkness.drains[1]-30)/32)+2.5+(1.25*2)+0.625
+    : data.darkness.drains[1] > 20 ? ((data.darkness.drains[1]-20)/16)+2.5+(1.25*2)
+    : data.darkness.drains[1] > 10 ? ((data.darkness.drains[1]-10)/8)+2.5+1.25
+    : data.darkness.drains[1] > 5 ? ((data.darkness.drains[1]-5)/4)+2.5 : data.darkness.drains[1]/2
 
 function getTotalAlephs(){
     let total = 0
@@ -160,14 +191,14 @@ function getTotalAlephs(){
     }
     return total
 }
-let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs()))
+let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs())*getSingFunctionEffect(5))*(hasSingFunction(1) ? cupEffect(6) : 1)
 
 let alephData = [
     {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)*3},
     {text: "multiplying Autobuyers by", effect: ()=> Math.log10(10+(90*data.collapse.alephs[1]))},
     {text: "multiplying Ordinal Power gain by", effect: ()=> Math.log2(data.collapse.alephs[2]+2)*3},
     {text: "multiplying Incrementy gain by", effect: ()=> Math.pow(data.collapse.alephs[3]+1, 1/4)},
-    {text: "multiplying Dynamic Cap by", effect: ()=> (Math.sqrt(data.collapse.alephs[4]+1)*2)+hupData[9].effect()},
+    {text: "multiplying Dynamic Cap by", effect: ()=> ((Math.sqrt(data.collapse.alephs[4]+1)*2)+hupData[9].effect())*getSingFunctionEffect(2)},
     {text: "multiplying the SGH effect by", effect: ()=> Math.pow(data.collapse.alephs[5]+1, 1/4)},
     {text: "multiplying Booster Power gain by", effect: ()=> Math.sqrt(data.collapse.alephs[6]+4)/2},
     {text: "multiplying the IUP3 effect by", effect: ()=> (Math.sqrt(data.collapse.alephs[7]+4)*2)+hupData[9].effect()},
@@ -179,7 +210,7 @@ let cupData = [
     {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 243, effect: ()=> Math.pow(data.markup.powers, 1/256)},
     {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.max(1, Math.log10(data.incrementy.amt))}, //TODO: Add a safety function
     {text: "Unlock a 3rd Overcharge Effect and boost Overcharge's 1st Effect", cost: 196608, effect: ()=> 3},
-    {text: "Unspent Cardinals boost Alephs", cost: 3e9, effect: ()=> Math.log2(data.collapse.cardinals)},
+    {text: "Unspent Cardinals boost Alephs", cost: 3e9, effect: ()=> Math.max(1, Math.log2(data.collapse.cardinals))},
     {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 4e13, effect: ()=> 1},
 ]
 let sluggishData = [
@@ -195,6 +226,7 @@ let apData = [
 ]
 
 function collapse(first = false){
+    if(data.baseless.baseless) return
     if (first){
         data.collapse.cardinals = 3
         data.collapse.bestCardinalsGained = 3
@@ -207,7 +239,7 @@ function collapse(first = false){
         makeExcessOrdMarks()
         return createAlert("You have Collapsed!", "Congratulations! You can now Factor Boost beyond FB34! Cardinals are gained based on how many FBs you have before Collapse.", "Got it!")
     }
-    if (data.ord.ordinal >= BHO_VALUE || data.boost.times > 33){
+    if (data.ord.ordinal.gte(BHO_VALUE) || data.boost.times > 33){
         if(cardinalGain() > data.collapse.bestCardinalsGained) data.collapse.bestCardinalsGained = cardinalGain()
         data.collapse.cardinals += cardinalGain()
         ++data.collapse.times
@@ -221,12 +253,12 @@ function collapse(first = false){
 function collapseReset(){
     boosterRefund()
 
-    data.boost.amt = 0
-    data.boost.total = 0
+    data.boost.amt = hasSingFunction(0) ? 2 : 0
+    data.boost.total = hasSingFunction(0) ? 2 : 0
     data.boost.times = 0
     data.boost.hasBUP = Array(15).fill(false)
     data.boost.isCharged = Array(15).fill(false)
-    data.boost.unlocks = Array(4).fill(false)
+    data.boost.unlocks = Array(4).fill(false).concat(data.boost.unlocks[4])
     boosterUnlock()
 
     DOM('factorBoostButton').style.display = 'none'
@@ -247,8 +279,8 @@ function collapseReset(){
     else { data.incrementy.hasIUP = Array(9).fill(false) }
     data.incrementy.rebuyableAmt = Array(3).fill(0)
     data.incrementy.rebuyableCosts = [20, 1000, 100]
-    data.incrementy.charge = 0
-    data.incrementy.totalCharge = 0
+    data.incrementy.charge = data.boost.unlocks[4] ? data.incrementy.totalCharge-data.sing.level : 0
+    data.incrementy.totalCharge = data.boost.unlocks[4] ? data.incrementy.totalCharge : 0
     updateIncrementyHTML()
     if(!data.collapse.hasSluggish[3]){
         for (let i = 0; i < data.incrementy.hasIUP.length; i++) {
@@ -261,7 +293,7 @@ function collapseReset(){
     data.hierarchies.ords[1].ord = 1
     data.hierarchies.ords[1].over = 0
     data.hierarchies.rebuyableAmt = Array(6).fill(0)
-    data.hierarchies.hasUpgrade = Array(10).fill(false)
+    if(!hasSingFunction(2)) data.hierarchies.hasUpgrade = Array(10).fill(false)
     updateHierarchiesHTML()
     updateHierarchyPurchaseHTML()
 

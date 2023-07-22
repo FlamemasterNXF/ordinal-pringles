@@ -1,6 +1,6 @@
 //Important Constants for Loading
 const TABS = ["markup", "boost", "collapse", "ach", "settings"]
-const SETTINGS_DESCS = ["Booster Refund Confirmation", "Challenge Confirmation", "Challenge Completion Popup", "Factor Shift confirmation", "Factor Boost confirmation", "Charge Refund Confirmation", "Boost Progress Bar", "ability to Bulk Boost"]
+const SETTINGS_DESCS = ["Booster Refund Confirmation", "Challenge Confirmation", "Challenge Completion Popup", "Factor Shift confirmation", "Factor Boost confirmation", "Charge Refund Confirmation", "Boost Progress Bar", "ability to Bulk Boost", "Baselessness Confirmation"]
 
 const uHTML = {
     update(){
@@ -32,6 +32,9 @@ const uHTML = {
         updateTotalAlephHTML()
         updateAllDarknessControlHTML()
         updateAllDUPHTML()
+        loadSingularityHTML()
+        updateBaselessEnterHTML(data.baseless.mode, true)
+        updateDynamicShiftHTML()
 
         //Load Settings
         for (let i = 0; i < data.sToggles.length; i++) {
@@ -40,7 +43,7 @@ const uHTML = {
         DOM(`offlineProgressToggle`).innerText = `Toggle Offline Progress [${boolToReadable(data.offline)}]`
         DOM(`versionText`).innerText = `You're playing Ordinal Pringles v${VERSION}: ${VERSION_NAME}\n Last Update: ${VERSION_DATE}`
 
-        //Initalize all Tabs
+        //Initialize all Tabs
         initAchs()
         initBUPs()
         initChals()
@@ -49,11 +52,14 @@ const uHTML = {
         initAlephs()
         initCUPS()
         initSluggish()
+        initSingularityFunctions()
     }
 }
 
 function isTabUnlocked(t){
     switch (t) {
+        case 'dynamic': return data.markup.shifts === 7 || data.chal.active[4] || data.baseless.baseless
+
         case 'chal': return data.boost.unlocks[0]
         case 'incrementy': return data.boost.unlocks[1]
         case 'hierarchies': return data.boost.unlocks[2]
@@ -61,6 +67,8 @@ function isTabUnlocked(t){
 
         case 'darkness': return data.collapse.hasSluggish[2]
         case 'autoPrestige': return data.collapse.hasSluggish[3]
+        case 'sing': return data.boost.unlocks[4]
+        case 'baseless': return data.boost.unlocks[4]
 
         default: return true
     }

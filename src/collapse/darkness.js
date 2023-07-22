@@ -28,7 +28,7 @@ function updateAllDarknessControlHTML(){
 }
 
 function updateDUPHTML(i){
-    DOM(`dup${i}`).innerText = `${dupData[i].text} (${data.darkness.levels[i]})\n${format(dupData[i].cost())} Decrementy\nCurrently: ${format(dupEffect(i))}x`
+    DOM(`dup${i}`).innerText = `${dupData[i].text} (${data.darkness.levels[i]}${i===2 && alephNullEffects[1]() > 0 ? ` + ${alephNullEffects[1]()}` : ''})\n${format(dupData[i].cost())} Decrementy\nCurrently: ${format(dupEffect(i))}x`
 }
 function updateAllDUPHTML(){
     for (let i = 0; i < data.darkness.levels.length; i++) {
@@ -50,13 +50,13 @@ function negativeChargeEffect(eff){
 
 let sacrificedChargeEffect = () => data.darkness.sacrificedCharge > 0 ? (data.darkness.sacrificedCharge+1)*2 : 1
 
-let drainEffect = (i) => data.darkness.drains[i] > 0 ? i===1 ? Math.max(0, drainData[1].effect())
+let drainEffect = (i) => data.darkness.drains[i] > 0 ? i===1 ? Math.max(0, drain1Effect())
     : Math.max(drainData[i].effect(), 1)
     : i===1 ? 0 : 1
 let drainCost = (i) => (10**(1+(data.darkness.totalDrains/2)))*(data.darkness.drains[i]+1)
 let drainData = [
     { effect: () => 2*data.darkness.drains[0] },
-    { effect: () => data.darkness.drains[1] },
+    { effect: () => drain1Effect() },
     { effect: () => 1.5*data.darkness.drains[2] },
     { effect: () => 2*data.darkness.drains[3] },
     { effect: () => 5*data.darkness.drains[4] },
@@ -72,14 +72,15 @@ function dupScaling (i){
 }
 let dupData = [
     { text: "Multiply AutoBuyer speed by 1.5x", cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)), effect: ()=> 1.5**data.darkness.levels[0] },
-    { text: "Double Dynamic Cap", cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> 2**data.darkness.levels[1] },
-    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> 1.1**data.darkness.levels[2] }
+    { text: 'Double Dynamic Cap', cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> hasSingFunction(6) ? 4**data.darkness.levels[1] : 2**data.darkness.levels[1]},
+    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> 1.1**(data.darkness.levels[2]+alephNullEffects[1]()) }
 ]
 
 function buyDrain(i) {
     if (!data.collapse.hasCUP[i]) return createAlert("Failure.", "The Cardinal Upgrade must be purchased before being drained!", "Oops.")
     if (data.darkness.negativeCharge < drainCost(i)) return createAlert("Failure.", "Insufficient Negative Charge", "Dang.")
 
+    data.darkness.chargeSpent += drainCost(i)
     data.darkness.negativeCharge -= drainCost(i)
     ++data.darkness.drains[i]
     ++data.darkness.totalDrains
@@ -99,9 +100,12 @@ function buyDUP(i){
 let getTotalDUPs = () => data.darkness.levels[0]+data.darkness.levels[1]+data.darkness.levels[2]
 
 function darknessControl(mode){
+    if(data.baseless.baseless) return createAlert('Illegal Move', 'You cannot access Darkness Controls in the Baseless Realms', 'Dang.')
+    updateDarknessControlHTML(0)
     if(mode===4){
         data.overflow.thirdEffect = !data.overflow.thirdEffect
         DOM('bp2Description').innerText = data.overflow.thirdEffect ? 'Dividing Decrementy Gain by ' : 'Multiplying Decrementy Gain by '
+        DOM('dupC4').innerHTML = `Invert the third Booster Power effect<br><span style="font-size: 0.7rem">Currently: ${data.overflow.thirdEffect ? 'Dividing': 'Multiplying'}</span>`
     }
     if(mode===0) data.darkness.negativeChargeEnabled = !data.darkness.negativeChargeEnabled
     if(mode===1){
@@ -132,20 +136,35 @@ function darkenConfirm(){
         : createConfirmation('Are you certain?', 'Darkening will preform a Booster Reset and trap you in Challenge 8. However, you will also gain the ability to generate Negative Charge.', 'No thanks.', 'For sure!', darken)
 }
 function darken(force = false){
+    if(data.baseless.baseless) return
     data.darkness.darkened && !force ? chalExit(true) : chalEnter(7, true)
 
     DOM('darken').innerText = data.darkness.darkened ? 'Enter the Darkness' : 'Escape'
     data.darkness.darkened = !data.darkness.darkened
 }
 
+function resetDrains(){
+    if(!data.darkness.negativeChargeEnabled){
+        data.darkness.negativeChargeEnabled = true
+        updateDarknessControlHTML(0)
+        createAlert('Too close!', 'You almost respec\'d without enabling Negative Charge gain! Luckily, I caught it for you :)', 'Phew, thanks!')
+    }
+    data.darkness.negativeCharge += data.darkness.chargeSpent
+    data.darkness.totalDrains = 0
+    for (let i = 0; i < data.darkness.drains.length; i++) {
+        data.darkness.drains[i] = 0
+        updateDrainHTML(i)
+    }
+}
+
 function resetDarkness(force = false){
     data.darkness.darkened = false
     if(!data.collapse.hasSluggish[3]) data.darkness.levels = Array(3).fill(0)
     data.darkness.negativeCharge = 0
-    data.darkness.drains = Array(7).fill(0)
-    data.darkness.sacrificedCharge = 0
-    data.darkness.totalDrains = 0
-    data.darkness.negativeChargeEnabled = false
+    if(!hasSingFunction(1)) data.darkness.drains = Array(7).fill(0)
+    if(!data.boost.unlocks[4]) data.darkness.sacrificedCharge = 0
+    if(!hasSingFunction(1)) data.darkness.totalDrains = 0
+    //data.darkness.negativeChargeEnabled = false
     updateDarknessHTML()
     updateAllDUPHTML()
     for (let i = 0; i < drainData.length; i++) {
