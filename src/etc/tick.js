@@ -46,7 +46,7 @@ function tick(diff){
     }
 
     // Markup Autobuyer
-    let collapseCheck = data.ord.ordinal.gt(BHO_VALUE) || data.collapse.times > 0
+    let collapseCheck = data.ord.ordinal.lt(BHO_VALUE) || data.collapse.times > 0
     let boostCheck = data.boost.times > 0
     if(timesToLoop[3] >= 1 && data.ord.isPsi && data.autoStatus.enabled[1] && !boostCheck && data.ord.isPsi) data.ord.ordinal = D(GRAHAMS_VALUE)
     if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1] && collapseCheck && boostCheck) markup(timesToLoop[3]*diff/1000)
