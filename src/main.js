@@ -8,7 +8,7 @@ function mainLoop() {
     if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level = Math.min(data.dy.cap, data.dy.level+uDiff*dyGain())
     if(data.boost.hasBUP[11]) data.markup.powers += bup9Effect()*uDiff
 
-    if(data.chal.active[7]) data.chal.decrementy = data.chal.decrementy.mul(decrementyGain().pow(uDiff))
+    if(data.chal.active[7]) data.chal.decrementy = Decimal.max(1, data.chal.decrementy.mul(decrementyGain().pow(uDiff)))
 
     if(data.ord.isPsi && data.boost.unlocks[1]) data.incrementy.amt += uDiff*incrementyGain()
     if(data.boost.unlocks[3]) {
@@ -33,6 +33,8 @@ function mainLoop() {
     if (controls["i"].pressed) markup();
     if (controls["f"].pressed) { buyMaxFactor(); buyMaxAuto(); }
     if (controls["h"].pressed) factorShift();
+    if (controls["b"].pressed) boost(false, true);
+    if (controls["c"].pressed) collapseConfirm(true);
 
     // Update Achievements
     checkAchs()

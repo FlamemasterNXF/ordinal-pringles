@@ -25,7 +25,7 @@ function switchCollapseTab(t){
 
 function updateCollapseHTML(){
     DOM(`cardinalsText`).innerText = `You have ${format(data.collapse.cardinals)} Cardinals`
-    DOM(`collapseButton`).innerText = `Collapse for ${format(cardinalGain())} Cardinals`
+    DOM(`collapseButton`).innerText = `Collapse for ${format(cardinalGain())} Cardinals (C)`
 
     for (let i = 0; i < data.collapse.hasCUP.length; i++) {
         if(data.collapse.hasCUP[i]) DOM(`cup${i}`).innerText = `${cupData[i].text}\n\nCurrently: ${i===1?'^':''}${i===1 ? format(cupData[i].effect()+drainEffect(i)) : format(cupData[i].effect()*drainEffect(i))}${i!==1?'x':''}`
@@ -214,7 +214,7 @@ let cupData = [
     {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 4e13, effect: ()=> 1},
 ]
 let sluggishData = [
-    {text: "Uncap the Ordinal, gain 1% of Ordinal Powers gained on Markup every second and you always have one free Maximize and Successor AutoClicker", req: 34},
+    {text: "Uncap the Ordinal, you can pass Graham's Number without Boosting, gain 1% of Ordinal Powers gained on Markup every second, and you always have one free Maximize and Successor AutoClicker", req: 34},
     {text: "Keep Challenges and Incrementy unlocked through Collapse", req: 29},
     {text: "Unlock an AutoBuyer for Charge, an AutoBuyer for RUP1-3, and Unlock Darkness", req: 24},
     {text: "Unlock an AutoBuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, keep UP1-6 and Darkness Upgrades on Collapse, and unlock a new row of Booster Upgrades", req: 12},
@@ -225,7 +225,12 @@ let apData = [
     {name: "Factor Boost", button: "Boost", requirement: "you can\'t get a Sluggish Milestone", hasReq: true, plural: false},
 ]
 
-function collapse(first = false){
+let collapseConfirm = (auto = false) =>
+    data.sToggles[9]
+    ? createConfirmation('Are you certain?', `Collapsing will reset everything prior and Darkness!\n${data.boost.unlocks[4] && data.sing.level === 0 ? `WARNING: Your Singularity density is Zero!` : ''}`, 'No Way!', 'Go Ahead!', collapse)
+    : collapse(false, auto)
+
+function collapse(first = false, auto = false){
     if(data.baseless.baseless) return
     if (first){
         data.collapse.cardinals = 3
@@ -248,7 +253,7 @@ function collapse(first = false){
         checkCollapseUnlockHTML()
         return collapseReset()
     }
-    createAlert("Failure", "Insufficent Ordinal.", "Oops.")
+    if (!auto) createAlert("Failure", "Insufficent Ordinal.", "Oops.")
 }
 function collapseReset(){
     boosterRefund()
@@ -261,7 +266,7 @@ function collapseReset(){
     data.boost.unlocks = Array(4).fill(false).concat(data.boost.unlocks[4])
     boosterUnlock()
 
-    DOM('factorBoostButton').style.display = 'none'
+    DOM('factorBoostButton').style.display = 'inline-block'
 
     data.chal.decrementy = D(1)
     data.chal.html = -1

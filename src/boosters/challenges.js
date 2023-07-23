@@ -59,12 +59,10 @@ function chalEnter(i, force=false){
     if(i === 2 || i === 5) data.ord.base = 15
     if(data.boost.hasBUP[2]) data.ord.base = 5
     if(i === 4){
-        createAlert('Forced Refund', `Your Booster Upgrades have been refunded to help with the Challenge. Feel free to rebuy them, but remember the debuff!`, 'Thanks!')
-        boosterRefund(true)
         data.dy.gain = 0.002
-        DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
+        //DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     }
-    if(i === 6 || i === 7){
+    if((i === 4 || i === 6 || i === 7) && data.sToggles[10]){
         createAlert('Forced Refund', `Your Booster Upgrades have been refunded to help with the Challenge. Feel free to rebuy them, but remember the debuff!`, 'Thanks!')
         boosterRefund(true)
     }
@@ -112,7 +110,7 @@ function chalEffectTotal(){
     let cup = data.collapse.hasCUP[2] ? cupEffect(2) : 0
     return Math.max(base**2+cup, 1)
 }
-function decrementyGain(x) {
+function decrementyGain() {
     const exponent = 1+hupData[4].effect()-singEffects[1].effect()
     const base = D(0.000666).times((D(data.markup.powers+1)).pow(0.2).times(2).pow(exponent))
     const overflow = data.overflow.thirdEffect ? base.div(getOverflowEffect(2)) : base.times(getOverflowEffect(2))

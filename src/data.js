@@ -7,9 +7,9 @@ const GRAHAMS_VALUE = 109
 const BHO_VALUE = 4*3**40
 
 //Version Flags
-const VERSION = "0.2"
+const VERSION = "0.2.1"
 const VERSION_NAME = "The Baseless Pringularity"
-const VERSION_DATE = "July 21st, 2023"
+const VERSION_DATE = "July 23rd, 2023"
 const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -32,7 +32,7 @@ function getDefaultObject() {
         sing: {highestLevel:0, level:0, tutorial:false, hasEverHadFunction: Array(singFunctions.length).fill(false)},
         baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), tutorial: false},
         autoStatus: {enabled: Array(7).fill(false)},
-        sToggles: Array(9).fill(true),
+        sToggles: Array(11).fill(true),
         successorClicks: 0,
         lastTick: 0,
         achs: [],
@@ -120,7 +120,7 @@ function fixOldSaves(){
         data.dy.gain = 0.002
     }
     if(data.dy.level > data.dy.cap) data.dy.level = data.dy.cap
-    if(data.ord.isPsi && data.ord.ordinal.gt(GRAHAMS_VALUE) && data.boost.times === 0) data.ord.ordinal = GRAHAMS_VALUE
+    //if(data.ord.isPsi && data.ord.ordinal.gt(GRAHAMS_VALUE) && data.boost.times === 0) data.ord.ordinal = GRAHAMS_VALUE
 
     return extra
 }

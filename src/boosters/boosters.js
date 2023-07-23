@@ -216,7 +216,7 @@ function boost(f=false, auto=false){
     boosterReset()
 }
 function boostReq(n = data.boost.times){
-    if(data.boost.times === 0) return GRAHAMS_VALUE
+    if(data.boost.times === 0 && !data.collapse.hasSluggish[0]) return GRAHAMS_VALUE
     if(n >= 34) return BHO_VALUE*3**(n-33)
     let scaling = n < 30 ? 1 : Math.floor(100*(n/15))
     return n < 33 ? (3 ** (n+1) * 4 * 10 * scaling) : BHO_VALUE
@@ -263,10 +263,15 @@ function boosterRefund(c=false){
 
 function boosterUnlock(){
     if(chalTabUnlocked()){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480'; }
+    else {DOM(`bu0`).style.backgroundColor = 'black';}
     if(incrementyTabUnlocked()){ data.boost.unlocks[1] = true; DOM(`bu1`).style.backgroundColor = '#002480';  }
+    else {DOM(`bu1`).style.backgroundColor = 'black';}
     if(hierarchiesTabUnlocked()){ data.boost.unlocks[2] = true; DOM(`bu2`).style.backgroundColor = '#002480'; }
+    else {DOM(`bu2`).style.backgroundColor = 'black';}
     if(overflowTabUnlocked()){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480'; }
+    else {DOM(`bu3`).style.backgroundColor = 'black';}
     if(data.boost.total >= 12246 || data.boost.unlocks[4]){ data.boost.unlocks[4] = true; DOM(`bu4`).style.backgroundColor = '#002480'; }
+    else {DOM(`bu4`).style.backgroundColor = 'black';}
 }
 
 function chalTabUnlocked(){

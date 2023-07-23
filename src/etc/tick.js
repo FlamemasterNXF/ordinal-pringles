@@ -47,7 +47,7 @@ function tick(diff){
 
     // Markup Autobuyer
     let collapseCheck = data.ord.ordinal.gt(BHO_VALUE) || data.collapse.times > 0
-    let boostCheck = data.boost.times > 0
+    let boostCheck = data.boost.times > 0 || data.collapse.hasSluggish[0]
     if(timesToLoop[3] >= 1 && data.ord.isPsi && data.autoStatus.enabled[1] && !boostCheck && data.ord.isPsi) data.ord.ordinal = D(GRAHAMS_VALUE)
     if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1] && collapseCheck && boostCheck) markup(timesToLoop[3]*diff/1000)
 
@@ -78,7 +78,7 @@ function tick(diff){
     // Automation Tier 3
     let inSluggish = false
     if (data.boost.times === 2 && !data.collapse.hasSluggish[4]) inSluggish = true
-    if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[0] && data.ord.base > 3) factorShift()
+    if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[0] && data.ord.base > 3) factorShift(true)
     if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[1] && data.boost.times < boostTimesLimit && !inSluggish) boost(false, true)
 
     // Increase Hierarchies

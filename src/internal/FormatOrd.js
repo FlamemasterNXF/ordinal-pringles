@@ -145,7 +145,9 @@ function displayInfiniteOrd(ord, over, base, trim = data.ord.trim){
 }
 
 function numberFromOrdinal(string, base) {
-    const initial = string.replaceAll("&omega;", `${base}`).replaceAll('<sup>', '**').replaceAll('</sup>', '*').replaceAll('...', '').replaceAll('*+', '+')
+    const ungwa = string.replaceAll("<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>", "&omega;")
+
+    const initial = ungwa.replaceAll("&omega;", `${base}`).replaceAll('<sup>', '**').replaceAll('</sup>', '*').replaceAll('...', '').replaceAll('*+', '+')
     const secondary = initial.replaceAll('+...', '').replaceAll('*...', '')
 
     if(secondary.charAt(secondary.length-1) === '+' || secondary.charAt(secondary.length-1) === '*'){

@@ -2,11 +2,11 @@ let extraT1 = () => data.collapse.hasSluggish[0] ? 1 : 0
 function updateMarkupHTML(){
     DOM("powersText").innerText = `You have ${formatWhole(data.markup.powers)} Ordinal Powers`
 
-    DOM("markupButton").innerHTML = data.ord.isPsi&&data.ord.ordinal.eq(GRAHAMS_VALUE)&&data.boost.times===0?`Base 2 is required to go further...`:
+    DOM("markupButton").innerHTML = data.ord.isPsi&&data.ord.ordinal.eq(GRAHAMS_VALUE)&&data.boost.times===0&&!data.collapse.hasSluggish[0]?`Base 2 is required to go further...`:
         data.ord.isPsi?`Markup and gain ${displayPsiOrd(data.ord.ordinal.plus(1), 4)} (I)`:
         data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${formatWhole(opGain()*opMult())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
 
-    DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0?`Perform a Factor Shift<br>Requires: ?????`:`Perform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
+    DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0||data.collapse.hasSluggish[0]?`Perform a Factor Shift<br>Requires: ?????`:`Perform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
         `Perform a Factor Shift (H)<br>Requires: ${format(getFSReq())} Ordinal Powers`
     DOM("auto0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
     DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
@@ -17,14 +17,14 @@ function updateMarkupHTML(){
     }
     DOM("factorText").innerText = `Your Factors are multiplying AutoClicker speed by a total of ${formatWhole(factorBoost())}x`
 
-    DOM("factorShiftButton").style.borderColor = data.ord.base===3&&data.boost.times===0?`#0000ff`:`#785c13`
-    DOM("factorShiftButton").style.color = data.ord.base===3&&data.boost.times===0?`#8080FF`:`goldenrod`
+    DOM("factorShiftButton").style.borderColor = data.ord.base===3&&data.boost.times===0&&!data.collapse.hasSluggish[0]?`#0000ff`:`#785c13`
+    DOM("factorShiftButton").style.color = data.ord.base===3&&data.boost.times===0&&!data.collapse.hasSluggish[0]?`#8080FF`:`goldenrod`
 
     DOM("dynamicTab").innerText = data.markup.shifts===7||data.chal.active[4]||data.baseless.baseless?'Dynamic':'???'
     DOM("dynamicText").innerText = `Your Dynamic Factor is ${data.chal.active[4]?'dividing':'multiplying'} AutoClickers by ${format(data.dy.level, 3)}\nIt increases by ${format(dyGain())}/s, and caps at ${format(data.dy.cap)}`
     DOM("dynamicText2").innerText = `Your Dynamic Factor is ${format(data.dy.level, 3)} [+${format(dyGain())}/s]. It caps at ${format(data.dy.cap)}`
 
-    DOM("factorBoostButton").innerHTML = `Perform ${getBulkBoostAmt() < 2 ? "a Factor Boost" : getBulkBoostAmt()+" Factor Boosts"} [+${boostersAtGivenFB(data.boost.times+getBulkBoostAmt())-boostersAtGivenFB(data.boost.times)}]<br>Requires ${displayPsiOrd(boostReq(), 3)}`
+    DOM("factorBoostButton").innerHTML = `Perform ${getBulkBoostAmt() < 2 ? "a Factor Boost" : getBulkBoostAmt()+" Factor Boosts"} [+${boostersAtGivenFB(data.boost.times+getBulkBoostAmt())-boostersAtGivenFB(data.boost.times)}] (B)<br>Requires ${displayPsiOrd(boostReq(), 3)}`
     DOM("factorBoostButton").style.color = data.ord.isPsi&&data.ord.ordinal.gte(boostReq())?'#fff480':'#8080FF'
 
     if(data.sToggles[6]) updateProgressBar()
@@ -37,7 +37,7 @@ function switchMarkupTab(t){
     markupTab = t
 }
 function markup(n=1){
-    if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal.eq(109)) return
+    if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal.eq(GRAHAMS_VALUE) && !data.collapse.hasSluggish[0]) return
     if(data.ord.ordinal.lt(data.ord.base**2) && !data.ord.isPsi) return
     if(data.ord.isPsi){ data.ord.ordinal = data.ord.ordinal.plus(n); return data.markup.powers = 4e256}
 
@@ -94,9 +94,9 @@ function getFSReq(){
     return req > 1e256 ? 1e256 : req
 }
 
-function factorShift(){
+function factorShift(isAuto = false){
     if(data.baseless.baseless) return
-    if(data.markup.shifts === 7){
+    if(data.markup.shifts === 7 && !isAuto){
         if(data.ord.isPsi && data.ord.ordinal.gte(GRAHAMS_VALUE) && data.boost.times === 0) return boost(true)
         else return //createAlert("Failure", "Insufficient Ordinal", "Dang.")
     }
