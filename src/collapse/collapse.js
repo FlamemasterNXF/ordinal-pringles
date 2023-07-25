@@ -89,7 +89,7 @@ function initCUPS(){
                 let el = document.createElement('button')
                 el.id = `drainReset`
                 el.innerText = `Respec Drains`
-                el.addEventListener('click', ()=>resetDrains())
+                el.addEventListener('click', ()=>respecDrains())
                 innerContainer.append(el)
             }
 

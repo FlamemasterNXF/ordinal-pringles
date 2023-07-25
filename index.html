@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="styles/misc.css" />
     <link rel="stylesheet" type="text/css" href="styles/classes.css" />
     <link rel="stylesheet" type="text/css" href="styles/Modal.css" />
+    <link rel="stylesheet" type="text/css" href="styles/tooltip.css" />
     <link rel="icon" href="res/chipper.gif" type="image/gif" sizes="32x32" />
 
     <script defer src="src/internal/BreakEternity.js"></script>
@@ -154,7 +155,7 @@
                     <button class="bup" id="bu1">Unlock Incrementy<br>Requires: 91 Boosters</button>
                     <button class="bup" id="bu2">Unlock Hierarchies<br>Requires: 325 Boosters</button>
                     <button class="bup" id="bu3">Unlock Overflow<br>Requires: 465 Boosters</button>
-                    <button class="bup" id="bu4">Unlock Singularity, unlock Baseless Milestones, and keep all forms of Charge on Collapse<br>Requires: 12246 Boosters</button>
+                    <button class="bup" id="bu4">Unlock Singularity, unlock Baselessness, and keep all forms of Charge on Collapse<br>Requires: 12246 Boosters</button>
                 </div>
             </div>
             <p class="centeredTexts" id="bupBottomText">The Unlockables Column does not consume Boosters</p>
@@ -321,7 +322,7 @@
             <t class="centeredTexts" id="singEffect0" style="color: #53ce0b; margin-top: 0.2rem">;!LEve2l</t>
             <t class="centeredTexts" id="singEffect1" style="color: #dc672a">;!LEve2l</t>
             <t class="centeredTexts" id="singEffect2" style="color: #dc672a">;!LEve2l</t>
-            <label for="singSlider">z</label><input id="singSlider" type="range" value="0" min="0" max="1" oninput="changeSingLevel()" onchange="changeSingLevel()" style="width: 30rem">
+            <label for="singSlider">Import 'gwa' in Settings!</label><input id="singSlider" type="range" value="0" min="0" max="1" oninput="changeSingLevel()" onchange="changeSingLevel()" style="width: 30rem">
             <div class="flexBox" style="flex-direction: row; gap: 0.5rem; margin-top: 0.2rem">
                 <button class="singControl" onclick="singControl(0)">Grow the Singularity to the Highest Density possible</button>
                 <button class="singControl" onclick="singControl(2)">Grow the Singularity by One</button>
@@ -344,9 +345,7 @@
             <t class="centeredTexts" style="color: #9e5803;">You cannot enter Darkness while in any of the Baseless Realms</t>
         </div>
     </div>
-    <div class="flexBox" id="achPage" style="flex-direction: column;">
-        <p class="centeredTexts" id="achText">Hover over an Achievement to view its information!</p>
-    </div>
+    <div class="flexBox" id="achPage" style="flex-direction: column;"></div>
     <div class="flexBox" id="settingsPage" style="flex-direction: column">
         <p class="centeredTexts">Consider joining <a href="https://discord.com/invite/dauxGZwc9u" target="_blank">the Discord</a> :)</p>
         <button class="settingsButton" onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 15rem">Change Max Ordinal Display Length</button>

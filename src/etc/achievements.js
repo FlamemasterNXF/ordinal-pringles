@@ -1,216 +1,364 @@
 const achievements = [
     {
-        req: [
-            _=> (data.ord.ordinal.gte(10) || data.ord.isPsi),
-            _=> data.ord.ordinal.gte(data.ord.base**2) || data.ord.isPsi,
-            _=> calculateHardy() >= 1.78e308 || data.ord.isPsi,
-            _=> data.ord.ordinal.gte(data.ord.base**data.ord.base) || data.ord.isPsi ,
-            _=> data.ord.isPsi,
-            _=> data.ord.ordinal.gte(BHO_VALUE),
-        ],
-        name: [
-            "The First Ordinal",
-            "Many More Ordinals",
-            "Infinity...?",
-            "The Tower of Infinities",
-            "A New Kind of Infinity",
-            "The Ultimate Infinity"
-        ],
-        popup: [
-            "Reach ω",
-            "Reach ω^2",
-            "Reach a value of 1.79e308",
-            "Reach ω^ω",
-            "Reach Ψ(Ω)",
-            "Reach Ψ(Ω₂)"
-        ]
+        id: 11,
+        name: "The First Ordinal",
+        description: "Reach ω",
+        req: () => data.ord.ordinal.gte(10)
     },
     {
-        req: [
-            _=> data.factors[0] > 0,
-            _=> data.factors[1] > 0,
-            _=> data.factors[2] > 0,
-            _=> data.factors[3] > 0,
-            _=> data.factors[4] > 0,
-            _=> data.factors[5] > 0,
-            _=> data.factors[6] > 0,
-        ],
-        name: [
-            "Speed",
-            "Breaking the Speed Limit",
-            "The Speed of Sound",
-            "The Speed of Light",
-            "Physics is a Myth",
-            "Infinite Speed",
-            "The Speed of Gator",
-        ],
-        popup: [
-            "Purchase Factor 1",
-            "Purchase Factor 2",
-            "Purchase Factor 3",
-            "Purchase Factor 4",
-            "Purchase Factor 5",
-            "Purchase Factor 6",
-            "Purchase Factor 7",
-        ]
+        id: 12,
+        name: "Many More Ordinals",
+        description: "Reach ω^2",
+        req: () => data.ord.ordinal.gte(data.ord.base**2)
     },
     {
-        req: [
-            _=> data.ord.base < 10,
-            _=> data.ord.base < 8,
-            _=> data.ord.base < 6,
-            _=> data.ord.base < 4,
-            _=> data.boost.times > 0,
-            _=> data.boost.times > 4,
-            _=> data.boost.times > 9,
-            _=> data.boost.times > 19,
-            _=> data.boost.times > 32
-        ],
-        name: [
-            "Lower is Better",
-            "How Low Can You Go?",
-            "Descending into the Depths",
-            "Penultimate",
-            "...what?",
-            "Base 2 Soon!",
-            "Base 2: Only 30 Years Away!",
-            "Temporary Delays",
-            "Base 2 NOW"
-        ],
-        popup: [
-            "Reach Base 9",
-            "Reach Base 7",
-            "Reach Base 5",
-            "Reach Base 3",
-            "Boost Once",
-            "Boost Five Times",
-            "Boost Ten Times",
-            "Boost Twenty Times",
-            "Boost Thirty-Three Times"
-        ]
+        id: 13,
+        name: "Infinity...?",
+        description: "Reach a value of 1.79e308",
+        req: () => calculateHardy() >= 1.78e308
     },
     {
-        req: [
-            _=> data.dy.level >= 10,
-            _=> data.dy.level >= 40,
-            _=> data.dy.level >= 400,
-            _=> data.dy.level >= 4e4,
-        ],
-        name: [
-            "Overdrive",
-            "Maximum Overdrive",
-            "Maximum is Irrelevant",
-            "Irrelevancy is Irrelevant"
-        ],
-        popup: [
-            "Reach a Dynamic Factor of 10",
-            "Reach a Dynamic Factor of 40",
-            "Reach a Dynamic Factor of 400",
-            "Reach a Dynamic Factor of 4e4"
-        ]
+        id: 14,
+        name: "The Tower of Infinities",
+        description: "Reach ω^ω",
+        req: () => data.ord.ordinal.gte(data.ord.base**data.ord.base)
     },
     {
-        req: [
-            _=> data.chal.completions[0] >= 1,
-            _=> data.chal.completions[0] >= 3,
-            _=> data.chal.completions[5] >= 1,
-            _=> data.chal.completions[5] >= 3,
-            _=> data.chal.completions[7] >= 1,
-            _=> data.chal.completions[7] >= 3,
-            _=> allEqual(data.chal.completions, 3)
-        ],
-        name: [
-            "Way Too Easy",
-            "Still Too Easy",
-            "Even a Child Could Do This",
-            "I Could Do This in My Sleep",
-            "Not Challenging",
-            "I Swear it is NOT Challenging",
-            "I Did This in My Sleep"
-        ],
-        popup: [
-            "Complete Challenge 1",
-            "Complete Challenge 1x3",
-            "Complete Challenge 6",
-            "Complete Challenge 6x3",
-            "Complete Challenge 8",
-            "Complete Challenge 8x3",
-            "Complete all Challenges"
-        ]
+        id: 15,
+        name: "A New Kind of Infinity",
+        description: "Reach Ψ(Ω)",
+        req: () => data.ord.isPsi
     },
     {
-        req: [
-            _=> data.incrementy.rebuyableAmt[0] >= 1,
-            _=> data.incrementy.hasIUP[4],
-            _=> data.incrementy.hasIUP[5],
-            _=> data.incrementy.hasIUP[8],
-            _=> data.incrementy.totalCharge >= 1,
-            _=> data.incrementy.totalCharge >= 4,
-            _=> data.incrementy.totalCharge >= 12,
-        ],
-        name: [
-            "Increment the Increment of the Incrementy",
-            "What Cap?",
-            "Dynamic is finally useful!",
-            "The Strongest Factor",
-            "Electric Shuffle",
-            "Electric Boogaloo",
-            "Maximum Voltage",
-        ],
-        popup: [
-            "Purchase a level of Rebuyable Upgrade 1",
-            "Purchase Incrementy Upgrade 2",
-            "Purchase Incrementy Upgrade 3",
-            "Purchase Incrementy Upgrade 9",
-            "Sacrifice Incrementy for Charge",
-            "Sacrifice Incrementy for Charge 4 times",
-            "Sacrifice Incrementy for Charge 12 times",
-        ]
+        id: 16,
+        name: "The Ultimate Infinity",
+        description: "Reach Ψ(Ω₂)",
+        req: () => data.ord.ordinal.gte(BHO_VALUE)
     },
     {
-        req: [
-            _=> data.hierarchies.hasUpgrade[0],
-            _=> data.hierarchies.hasUpgrade[5],
-        ],
-        name: [
-            "Ordinals 2.0",
-            "Ordinals 3.0",
-        ],
-        popup: [
-            "Purchase the first FGH Upgrade",
-            "Purchase the first SGH Upgrade",
-        ]
+        id: 21,
+        name: "Speedy",
+        description: "Purchase Factor 1",
+        req: () => data.factors[0] > 0
+    },
+    {
+        id: 22,
+        name: "Breaking the Speed Limit",
+        description: "Purchase Factor 2",
+        req: () => data.factors[1] > 0
+    },
+    {
+        id: 23,
+        name: "The Speed of Sound",
+        description: "Purchase Factor 3",
+        req: () => data.factors[2] > 0
+    },
+    {
+        id: 24,
+        name: "The Speed of Light",
+        description: "Purchase Factor 4",
+        req: () => data.factors[3] > 0
+    },
+    {
+        id: 25,
+        name: "Physics is a Myth",
+        description: "Purchase Factor 5",
+        req: () => data.factors[4] > 0
+    },
+    {
+        id: 26,
+        name: "Infinite Speed",
+        description: "Purchase Factor 6",
+        req: () => data.factors[5] > 0
+    },
+    {
+        id: 27,
+        name: "The Speed of Gator",
+        description: "Purchase Factor 7",
+        req: () => data.factors[6] > 0
+    },
+    {
+        id: 31,
+        name: "Base 2 Soon!",
+        description: "Boost Once",
+        req: () => data.boost.times > 0
+    },
+    {
+        id: 32,
+        name: "Base 2: Only 30 Years Away!",
+        description: "Boost Ten Times",
+        req: () => data.boost.times > 9
+    },
+    {
+        id: 33,
+        name: "Base 2: Only 30 Years Away!",
+        description: "Boost Twenty Times",
+        req: () => data.boost.times > 19
+    },
+    {
+        id: 34,
+        name: "Temporary Delays",
+        description: "Boost Thirty Three Times",
+        req: () => data.boost.times > 32
+    },
+    {
+        id: 35,
+        name: "Base 2... Only 30 Years Away...",
+        description: "Boost One Hundred Times",
+        req: () => data.boost.times > 99
+    },
+    {
+        id: 36,
+        name: "30 Years' Base",
+        description: "Boost Three Hundred Times",
+        req: () => data.boost.times > 299
+    },
+    {
+        id: 41,
+        name: "Easy",
+        description: "Complete Challenge 1x3",
+        req: () => data.chal.completions[0] > 2
+    },
+    {
+        id: 42,
+        name: "Dynamic Hater",
+        description: "Complete Challenge 5x3",
+        req: () => data.chal.completions[4] > 2
+    },
+    {
+        id: 43,
+        name: "Quite Simple",
+        description: "Complete Challenge 6x3",
+        req: () => data.chal.completions[5] > 2
+    },
+    {
+        id: 44,
+        name: "The Difficulty is Negligible",
+        description: "Complete Challenge 8x3",
+        req: () => data.chal.completions[7] > 2
+    },
+    {
+        id: 45,
+        name: "The Most Difficult Test of The Gods",
+        description: "Complete Challenge 3x3",
+        req: () => data.chal.completions[2] > 2
+    },
+    {
+        id: 46,
+        name: "I Hate The Third One",
+        description: "Complete all Challenges",
+        req: () => allEqual(data.chal.completions, 3)
+    },
+    {
+        id: 51,
+        name: "Incrementy Incrementing",
+        description: "Purchase a Level of RUP1",
+        req: () => data.incrementy.rebuyableAmt[0] > 0
+    },
+    {
+        id: 52,
+        name: "Dynamic isn't useless?",
+        description: "Purchase IUP3",
+        req: () => data.incrementy.hasIUP[5]
+    },
+    {
+        id: 53,
+        name: "Dynamic isn't useless!",
+        description: "Purchase IUP6",
+        req: () => data.incrementy.hasIUP[8]
+    },
+    {
+        id: 54,
+        name: "Electric Shuffle",
+        description: "Sacrifice Incrementy for Charge",
+        req: () => data.incrementy.totalCharge > 0
+    },
+    {
+        id: 55,
+        name: "Electric Boogaloo",
+        description: "Reach 12 Charge",
+        req: () => data.incrementy.totalCharge > 11
+    },
+    {
+        id: 56,
+        name: "Stupidly High Electric Bill",
+        description: "Reach 25 Charge",
+        req: () => data.incrementy.totalCharge > 24
+    },
+    {
+        id: 57,
+        name: "The Sacrificial Ritual of Electricity",
+        description: "Reach 61 Charge",
+        req: () => data.incrementy.totalCharge > 60
+    },
+    {
+        id: 58,
+        name: "I use Alienware",
+        description: "Reach 73 Charge",
+        req: () => data.incrementy.totalCharge > 72
+    },
+    {
+        id: 61,
+        name: "Ordinals 2??",
+        description: "Purchase the first FGH and SGH Upgrades",
+        req: () => data.hierarchies.hasUpgrade[0] && data.hierarchies.hasUpgrade[5]
+    },
+    {
+        id: 62,
+        name: "Haha Base 4 in 30 Years",
+        description: "Reach Hierarchy Base 5",
+        req: () => sBUP0Effect() > 4
+    },
+    {
+        id: 63,
+        name: "Oh",
+        description: "Reach Hierarchy Base 4",
+        req: () => sBUP0Effect() > 5
+    },
+    {
+        id: 71,
+        name: "My cup runneth over",
+        description: "Produce 1 Booster Power per Second",
+        req: () => getOverflowGain(0) >= 1
+    },
+    {
+        id: 72,
+        name: "My Cup Flooded The World",
+        description: "Produce 1e6 Booster Power per Second",
+        req: () => getOverflowGain(0) >= 1e6
+    },
+    {
+        id: 73,
+        name: "My Electrical Bill Runneth Over",
+        description: "Produce Overcharge",
+        req: () => getOverflowGain(1) > 0
+    },
+    {
+        id: 74,
+        name: "We Need More Batteries",
+        description: "Produce 1 Overcharge per Second",
+        req: () => getOverflowGain(1) >= 1
+    },
+    {
+        id: 81,
+        name: "YOU HAVE COLLAPSED!",
+        description: "Collapse Once",
+        req: () => data.collapse.hasSluggish[0]
+    },
+    {
+        id: 82,
+        name: "Nightlight, Please",
+        description: "Unlock Sluggish Milestone 24",
+        req: () => data.collapse.hasSluggish[2]
+    },
+    {
+        id: 83,
+        name: "I'm Sure These Won't be Expensive",
+        description: "Unlock Sluggish Milestone 12",
+        req: () => data.collapse.hasSluggish[3]
+    },
+    {
+        id: 84,
+        name: "I forgot about Hierarchies",
+        description: "Unlock Sluggish Milestone 2",
+        req: () => data.collapse.hasSluggish[4]
+    },
+    {
+        id: 85,
+        name: "Collapsing Walls",
+        description: "Purchase the 7th Cardinal Upgrade",
+        req: () => data.collapse.hasCUP[6]
+    },
+    {
+        id: 91,
+        name: "Infinitely Dense",
+        description: "Reach Singularity Density ω",
+        req: () => data.sing.level > 9
+    },
+    {
+        id: 92,
+        name: "Bigger Infinitely Dense",
+        description: "Reach Singularity Density ω2",
+        req: () => data.sing.level > 19
+    },
+    {
+        id: 93,
+        name: "PLEASE DO NOT FEED WILD SINGULARITIES",
+        description: "Reach Singularity Density ω5",
+        req: () => data.sing.level > 49
+    },
+    {
+        id: 94,
+        name: "I Fed The Wild Singularity",
+        description: "Reach Singularity Density ω8",
+        req: () => data.sing.level > 79
+    },
+    {
+        id: 101,
+        name: "Never Liked Those Bases Anyway",
+        description: "Dynamic Shift in Any Baseless Realm",
+        req: () => data.baseless.shifts > 0
+    },
+    {
+        id: 102,
+        name: "Definitely Broke The Speed Limit",
+        description: "Dynamic Shift Twice in Any Baseless Realm",
+        req: () => data.baseless.shifts > 1
+    },
+    {
+        id: 103,
+        name: "The Sound of Light",
+        description: "Dynamic Shift Four Times in Any Baseless Realm",
+        req: () => data.baseless.shifts > 3
+    },
+    {
+        id: 104,
+        name: "The Gator is Proud",
+        description: "Dynamic Shift Seven Times in Any Baseless Realm",
+        req: () => data.baseless.shifts > 6
+    },
+    {
+        id: 105,
+        name: "Unknowable Horrors",
+        description: "Dynamic Shift in the Forgotten Realm",
+        req: () => data.baseless.shifts > 0 && data.baseless.mode === 2
+    },
+    {
+        id: 106,
+        name: "Forgotten Horrors",
+        description: "Dynamic Shift Twice in the Forgotten Realm",
+        req: () => data.baseless.shifts > 1 && data.baseless.mode === 2
     },
 ]
+
 function initAchs(){
     const achTab = DOM('achPage')
+    let rows = Math.floor(achievements[achievements.length-1].id/10)
     let total = 0
-    for (let i = 0; i < achievements.length; i++) {
+    for (let i = 0; i < rows; i++) {
         let row = document.createElement('div')
         row.className = 'flexBox'
         row.id = `achRow${i}`
         row.cssText = 'flex-direction: row'
         achTab.append(row)
-        for (let j = 0; j < achievements[i].name.length; j++) {
-            let ach = document.createElement('button')
-            ach.className = 'achievement'
-            ach.id = `achievement${total}`
-            ach.textContent =  `${achievements[i].name[j]}`
-            ach.addEventListener('mouseover', ()=>DOM('achText').innerText = achievements[i].popup[j])
-            row.append(ach)
-            ++total
-        }
+    }
+    for (let i = 0; i < achievements.length; i++) {
+        let row = Math.floor(Math.floor(i/8))
+        let ach = document.createElement('button')
+        ach.className = 'achievement'
+        ach.id = `ach${achievements[i].id}`
+        ach.innerText = achievements[i].name
+        ach.setAttribute("tooltip", achievements[i].description)
+        DOM(`achRow${row}`).append(ach)
     }
 }
 function checkAchs(){
-    let total = 0
     for (let i=0; i < achievements.length; i++){
-        for (let j = 0; j < achievements[i].req.length; j++) {
-            let ach = DOM(`achievement${total}`)
-            if(achievements[i].req[j]() && !data.achs.includes(total))data.achs.push(total)
-            ach.style.backgroundColor = data.achs.includes(total)?'#0f6f00':'#151515'
-            ach.style.color = data.achs.includes(total)?'#c8c500':'#9d5700'
-            ++total
-        }
+        let id = achievements[i].id
+        let ach = DOM(`ach${id}`)
+        if(achievements[i].req() && !data.achs[i]) data.achs[i] = true
+        ach.style.backgroundColor = data.achs[i] ? '#2c4126' : '#151515'
+        ach.style.border = data.achs[i] ? '1px solid goldenrod' : '1px solid #464646'
+        ach.style.color = data.achs[i] ? 'goldenrod' : '#9d5700'
     }
 }

@@ -35,7 +35,7 @@ function getDefaultObject() {
         sToggles: Array(11).fill(true),
         successorClicks: 0,
         lastTick: 0,
-        achs: [],
+        achs: Array(achievements.length).fill(false),
         loadedVersion: VERSION,
         isBeta: IS_BETA,
         offline: true,
@@ -79,6 +79,12 @@ function fixSave(main=getDefaultObject(), data) {
 }
 function fixOldSaves(){
     let extra = false
+
+    //Any => v0.2.1
+    if(data.loadedVersion !== "0.2.1"){
+        data.achs = Array(achievements.length).fill(false)
+        data.loadedVersion = "0.2.1"
+    }
 
     //v0.1.1 => v0.1.2
     if(data.loadedVersion < "0.1.2" || data.loadedVersion === "null") {

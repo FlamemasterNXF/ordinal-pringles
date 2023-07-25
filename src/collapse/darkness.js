@@ -143,12 +143,14 @@ function darken(force = false){
     data.darkness.darkened = !data.darkness.darkened
 }
 
-function resetDrains(){
+function respecDrains(){
+    /*
     if(!data.darkness.negativeChargeEnabled){
         data.darkness.negativeChargeEnabled = true
         updateDarknessControlHTML(0)
         createAlert('Too close!', 'You almost respec\'d without enabling Negative Charge gain! Luckily, I caught it for you :)', 'Phew, thanks!')
     }
+     */
     data.darkness.negativeCharge += data.darkness.chargeSpent
     data.darkness.totalDrains = 0
     for (let i = 0; i < data.darkness.drains.length; i++) {
