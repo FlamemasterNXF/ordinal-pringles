@@ -22,7 +22,7 @@ function getOverflowGain(i){
 }
 
 function getOverflowEffect(i){
-    if(data.overflow.bp === 1) return 1
+    if(data.overflow.bp === 1 && i < 3 && data.overflow.oc === 1) return 1
     switch (i) {
         case 0:
             return Math.max(1, (Math.pow(data.overflow.bp, 1/8))*getOverflowEffect(4))
