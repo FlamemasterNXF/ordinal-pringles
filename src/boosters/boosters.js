@@ -287,7 +287,7 @@ function hierarchiesTabUnlocked(){
 }
 
 function overflowTabUnlocked(){
-    return data.boost.total>=465;
+    return data.boost.total>=465 || data.boost.unlocks[4];
 }
 
 function toggleAuto(i){
