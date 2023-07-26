@@ -302,10 +302,10 @@
             <div class="flexBox" id="dupControlContainer" style="flex-direction: row;">
                 <button class="dupControl" id="dupC4" onclick="darknessControl(4)">Invert the third Booster Power effect</button>
                 <button class="dupControl" id="dupC0" onclick="darknessControl(0)">Enable Negative Charge Gain</button>
-                <button class="dupControl" id="dupC3" onclick="createConfirmation('Are you sure?', 'Resetting Sacrificed Charge will also force a Booster Reset and disable Negative Charge gain.', 'Nope.', 'Begone!', darknessControl, 3)">Reset Sacrifice Charge</button>
-                <button class="dupControl" id="dupC1" onclick="createConfirmation('Are you certian?', 'Resetting Negative Charge will also force a Booster Reset, disable Negative Charge gain, and reset Sacrificed Charge.', 'Nope.', 'Begone!', darknessControl, 1)">Reset Negative Charge</button>
+                <button class="dupControl" id="dupC3" onclick="darknessControl(3)">Reset Sacrifice Charge</button>
+                <button class="dupControl" id="dupC1" onclick="darknessControl(1)">Reset Negative Charge</button>
             </div>
-            <button id="dupC2" onclick="createConfirmation('Are you sure?', 'Sacrificing Charge will not only consume 1 Charge but also remove it from the Total Charge amount!', 'Keep it!', 'Begone!', darknessControl, 2)">Sacrifice Charge</button>
+            <button id="dupC2" onclick="chargeSacConfirm()">Sacrifice Charge</button>
         </div>
         <div class="flexBox" id="autoPrestigeSubPage" style="display: none; flex-direction: column;">
             <div class="centeredTexts" id="t3AutoText0" style="margin-top: 1rem">Your Max All AutoBuyer is clicking the Max All button 0 times/second, but only if you can't Factor Shift</div>
@@ -360,6 +360,8 @@
         <button class="settingsButton" id="settingsToggle7" onclick="settingsToggle(7)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle10" onclick="settingsToggle(10)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle9" onclick="settingsToggle(9)" style="width: 20rem">aaa</button>
+        <button class="settingsButton" id="settingsToggle11" onclick="settingsToggle(11)" style="width: 20rem">aaa</button>
+        <button class="settingsButton" id="settingsToggle12" onclick="settingsToggle(12)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="settingsToggle8" onclick="settingsToggle(8)" style="width: 20rem">aaa</button>
         <button class="settingsButton" id="offlineProgressToggle" onclick="settingsToggle(-1)" style="width: 20rem">Toggle Offline Progress</button>
         <br>

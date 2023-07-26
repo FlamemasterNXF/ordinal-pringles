@@ -3,7 +3,8 @@ const TABS = ["markup", "boost", "collapse", "ach", "settings"]
 const SETTINGS_DESCS = [
     "Booster Refund Confirmation", "Challenge Confirmation", "Challenge Completion Popup", "Factor Shift confirmation",
     "Factor Boost confirmation", "Charge Refund Confirmation", "Boost Progress Bar", "ability to Bulk Boost",
-    "Baselessness Confirmation", "Collapse Confirmation", "Booster Refund in C5 and C7"
+    "Baselessness Confirmation", "Collapse Confirmation", "Booster Refund in C5 and C7", "Darkness Confirmation",
+    "Charge Sacrifice Confirmation"
 ]
 
 const uHTML = {

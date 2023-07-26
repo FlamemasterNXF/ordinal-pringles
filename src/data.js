@@ -32,7 +32,7 @@ function getDefaultObject() {
         sing: {highestLevel:0, level:0, tutorial:false, hasEverHadFunction: Array(singFunctions.length).fill(false)},
         baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), tutorial: false},
         autoStatus: {enabled: Array(7).fill(false)},
-        sToggles: Array(11).fill(true),
+        sToggles: Array(13).fill(true),
         successorClicks: 0,
         lastTick: 0,
         achs: Array(achievements.length).fill(false),
