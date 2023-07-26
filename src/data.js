@@ -9,7 +9,7 @@ const BHO_VALUE = 4*3**40
 //Version Flags
 const VERSION = "0.2.1"
 const VERSION_NAME = "The Baseless Pringularity"
-const VERSION_DATE = "July 23rd, 2023"
+const VERSION_DATE = "July 26th, 2023"
 const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
