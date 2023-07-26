@@ -1,26 +1,3 @@
-let boostTab = "upgrades"
-function switchBoostTab(t){
-    if(isTabUnlocked(t)){
-        DOM(`${boostTab}SubPage`).style.display = `none`
-        DOM(`${t}SubPage`).style.display = `flex`
-
-        if(t==="upgrades") checkSpecialBUPs()
-        if(t==="auto2") checkAutobuyerDisplay()
-        if(t==="hierarchies") checkSpecialHUPs()
-
-        if (t==="upgrades" && data.boost.unlocks[1]){
-            DOM('bupBottomText').innerText = data.collapse.hasSluggish[3]
-                ? `Click a purchased Upgrade to Supercharge it! The cost to Supercharge a bottom-row Upgrade is currently ${getBottomRowChargeCost()} Charge.\nThe Unlockables Column does not consume Boosters`
-                : 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
-            DOM('chargeRefund').style.display = 'block'
-        }
-        else{
-            DOM('bupBottomText').innerText = 'The Unlockables Column does not consume Boosters'
-            DOM('chargeRefund').style.display = 'none'
-        }
-        boostTab = t
-    }
-}
 function checkAutobuyerDisplay(){
     //TODO: I REALLY need to optimize this garbage :(
     DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'

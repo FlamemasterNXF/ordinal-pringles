@@ -29,13 +29,6 @@ function updateMarkupHTML(){
 
     if(data.sToggles[6]) updateProgressBar()
 }
-let markupTab = "factor"
-function switchMarkupTab(t){
-    if(!isTabUnlocked(t)) return
-    DOM(`${markupTab}SubPage`).style.display = `none`
-    DOM(`${t}SubPage`).style.display = `flex`
-    markupTab = t
-}
 function markup(n=1){
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal.eq(GRAHAMS_VALUE) && !data.collapse.hasSluggish[0]) return
     if(data.ord.ordinal.lt(data.ord.base**2) && !data.ord.isPsi) return

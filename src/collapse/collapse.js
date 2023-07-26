@@ -1,28 +1,3 @@
-let collapseTab = "cardinals"
-function switchCollapseTab(t){
-    if(isTabUnlocked(t)){
-        //DOM(`cardinalsText`).style.display = t === 'sing' ? 'none' : 'block'
-        if(t==='darkness'){
-            updateDUPHTML(1)
-            updateDUPHTML(2)
-            DOM('dupC4').innerHTML = `Invert the third Booster Power effect<br><span style="font-size: 0.7rem">Currently: ${data.overflow.thirdEffect ? 'Dividing': 'Multiplying'}</span>`
-        }
-        if(t==='sing' && !data.sing.tutorial){
-            createAlert('Tutorial Time!', 'Increase the Singularity\'s Density with the slider! Each increase will grant you a boost to Cardinal gain, with every few increases unlocking a new Singularity Function! Singularity Functions can boost or unlock things. But beware, growing your Singularity costs Charge!', 'Thanks for the tips!')
-            data.sing.tutorial = true
-        }
-        if(t==="baseless"){
-            updateAlephNullHTML()
-            DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
-        }
-        if(t === "autoPrestige") updateAutoPrestigeHTML()
-        DOM(`${collapseTab}SubPage`).style.display = `none`
-        DOM(`${t}SubPage`).style.display = `flex`
-
-        collapseTab = t
-    }
-}
-
 function updateCollapseHTML(){
     DOM(`cardinalsText`).innerText = `You have ${format(data.collapse.cardinals)} Cardinals`
     DOM(`collapseButton`).innerText = `Collapse for ${format(cardinalGain())} Cardinals (C)`

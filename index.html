@@ -19,6 +19,7 @@
     <script defer src="src/etc/hotkeys.js"></script>
     <script defer src="src/etc/tick.js"></script>
     <script defer src="src/etc/achievements.js"></script>
+    <script defer src="src/etc/tabs.js"></script>
 
     <script defer src="src/collapse/baseless.js"></script>
     <script defer src="src/collapse/singularity.js"></script>
@@ -78,9 +79,9 @@
     <div class="centeredTexts" id="chalIn" style="margin-bottom: 0.5rem; color: orangered">Decrementy my beloved</div>
     <div class="flexBox" id="tabs" style="margin-bottom: 0.5rem">
         <button class="tabButton" id="ordNav" onclick="switchTab('ord')" style="color: indianred; border-color: #610000">Ordinals</button>
-        <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchMarkupTab(markupTab)" style="color: goldenrod; border-color: #785c13 ">Markup</button>
-        <button class="tabButton" id="boostNav" onclick="switchTab('boost'); switchBoostTab(boostTab)" style="display: none; color: #8080FF; border-color: #0000ff">Boosters</button>
-        <button class="tabButton" id="collapseNav" onclick="switchTab('collapse'); switchCollapseTab(collapseTab)" style="display: none; color: #80ff82; border-color: #2da000">Collapse</button>
+        <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchSubtab(markupTab, 'markup')" style="color: goldenrod; border-color: #785c13 ">Markup</button>
+        <button class="tabButton" id="boostNav" onclick="switchTab('boost'); switchSubtab(boostTab, 'boosters')" style="display: none; color: #8080FF; border-color: #0000ff">Boosters</button>
+        <button class="tabButton" id="collapseNav" onclick="switchTab('collapse'); switchSubtab(collapseTab, 'collapse')" style="display: none; color: #80ff82; border-color: #2da000">Collapse</button>
         <button class="tabButton" id="achNav" onclick="switchTab('ach')" style="color: #20da45; border-color: #307813; width: 6.5rem ">Achievements</button>
         <button class="tabButton" id="settingsNav" onclick="switchTab('settings')" style="color: gray; border-color: #4a4a4a">Settings</button>
     </div>
@@ -90,9 +91,9 @@
     </div>
     <div class="flexBox" id="markupPage" style="flex-direction: column">
         <div class="flexBox" style="margin-top: 1rem">
-            <button class="tabButton" id="factorTab" onclick="switchMarkupTab('factor')" style="color: goldenrod; border-color: #785c13">Factors</button>
-            <button class="tabButton" id="autoTab" onclick="switchMarkupTab('auto')" style="color: goldenrod; border-color: #785c13; width:5.5rem">AutoClickers</button>
-            <button class="tabButton" id="dynamicTab" onclick="switchMarkupTab('dynamic')" style="color: goldenrod; border-color: #785c13">Dynamic</button>
+            <button class="tabButton" id="factorTab" onclick="switchSubtab('factor', 'markup')" style="color: goldenrod; border-color: #785c13">Factors</button>
+            <button class="tabButton" id="autoTab" onclick="switchSubtab('auto', 'markup')" style="color: goldenrod; border-color: #785c13; width:5.5rem">AutoClickers</button>
+            <button class="tabButton" id="dynamicTab" onclick="switchSubtab('dynamic', 'markup')" style="color: goldenrod; border-color: #785c13">Dynamic</button>
         </div>
         <h3 class="centeredTexts" id="powersText" style="margin-top: 1rem; color: goldenrod;">You have Chips. In your house.</h3>
         <button id="markupButton" onclick="markup()" style="color: goldenrod; min-width: 20rem; height: 2rem; background-color: black; border: 2px solid #785c13">ω<sup>2</sup> is required to Markup</button>
@@ -130,12 +131,12 @@
     </div>
     <div class="flexBox" id="boostPage" style="flex-direction: column">
         <div class="flexBox" style="margin-top: 1rem">
-            <button class="tabButton" id="upgradeTab" onclick="switchBoostTab('upgrades')" style="color: #8080FF; border-color: #0000ff">Upgrades</button>
-            <button class="tabButton" id="auto2Tab" onclick="switchBoostTab('auto2')" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">AutoBuyers</button>
-            <button class="tabButton" id="chalTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem" onclick="if(chalTabUnlocked()) {switchBoostTab('chal');}">Challenges</button>
-            <button class="tabButton" id="incrementyTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem" onclick="if(incrementyTabUnlocked()) {switchBoostTab('incrementy');}">Incrementy</button>
-            <button class="tabButton" id="hierarchiesTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem" onclick="if(hierarchiesTabUnlocked()) {switchBoostTab('hierarchies');}">Hierarchies</button>
-            <button class="tabButton" id="overflowTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem" onclick="if(overflowTabUnlocked()) {switchBoostTab('overflow');}">Overflow</button>
+            <button class="tabButton" id="upgradeTab" onclick="switchSubtab('upgrades', 'boosters')" style="color: #8080FF; border-color: #0000ff">Upgrades</button>
+            <button class="tabButton" id="auto2Tab" onclick="switchSubtab('auto2', 'boosters')" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">AutoBuyers</button>
+            <button class="tabButton" id="chalTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem" onclick="if(chalTabUnlocked()) {switchSubtab('chal', 'boosters');}">Challenges</button>
+            <button class="tabButton" id="incrementyTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem" onclick="if(incrementyTabUnlocked()) {switchSubtab('incrementy', 'boosters');}">Incrementy</button>
+            <button class="tabButton" id="hierarchiesTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem" onclick="if(hierarchiesTabUnlocked()) {switchSubtab('hierarchies', 'boosters');}">Hierarchies</button>
+            <button class="tabButton" id="overflowTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem" onclick="if(overflowTabUnlocked()) {switchSubtab('overflow', 'boosters');}">Overflow</button>
         </div>
         <div class="flexBox" id="upgradesSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="centeredTexts" id="boosterText">boosteeeeeeeee</div>
@@ -264,13 +265,13 @@
     </div>
     <div class="flexBox" id="collapsePage" style="flex-direction: column">
         <div class="flexBox" style="margin-top: 1rem">
-            <button class="collapseTabButton" id="cardinalsTab" onclick="switchCollapseTab('cardinals')">Alephs</button>
-            <button class="collapseTabButton" id="cupsTab" onclick="switchCollapseTab('cUpgrades')">Cardinal Upgrades</button>
-            <button class="collapseTabButton" id="smTab" onclick="switchCollapseTab('sluggish')">Sluggish Milestones</button>
-            <button class="collapseTabButton" id="darkTab" onclick="switchCollapseTab('darkness')">???</button>
-            <button class="collapseTabButton" id="autoPrestigeTab" onclick="switchCollapseTab('autoPrestige')">???</button>
-            <button class="collapseTabButton" id="singTab" onclick="switchCollapseTab('sing')">???</button>
-            <button class="collapseTabButton" id="baselessTab" onclick="switchCollapseTab('baseless')">???</button>
+            <button class="collapseTabButton" id="cardinalsTab" onclick="switchSubtab('cardinals', 'collapse')">Alephs</button>
+            <button class="collapseTabButton" id="cupsTab" onclick="switchSubtab('cUpgrades', 'collapse')">Cardinal Upgrades</button>
+            <button class="collapseTabButton" id="smTab" onclick="switchSubtab('sluggish', 'collapse')">Sluggish Milestones</button>
+            <button class="collapseTabButton" id="darkTab" onclick="switchSubtab('darkness', 'collapse')">???</button>
+            <button class="collapseTabButton" id="autoPrestigeTab" onclick="switchSubtab('autoPrestige', 'collapse')">???</button>
+            <button class="collapseTabButton" id="singTab" onclick="switchSubtab('sing', 'collapse')">???</button>
+            <button class="collapseTabButton" id="baselessTab" onclick="switchSubtab('baseless', 'collapse')">???</button>
         </div>
         <div class="flexBox" style="margin-top: 0.1rem; flex-direction: column">
             <h3 class="centeredTexts" id="cardinalsText" style="color: #20da45;">You have Collapsed Chips. In your house.</h3>
@@ -348,29 +349,37 @@
     <div class="flexBox" id="achPage" style="flex-direction: column;"></div>
     <div class="flexBox" id="settingsPage" style="flex-direction: column">
         <p class="centeredTexts">Consider joining <a href="https://discord.com/invite/dauxGZwc9u" target="_blank">the Discord</a> :)</p>
-        <button class="settingsButton" onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 15rem">Change Max Ordinal Display Length</button>
-        <br>
-        <button class="settingsButton" id="settingsToggle3" onclick="settingsToggle(3)" style="width: 20rem">aaa</button>
-        <button class="settingsButton" id="settingsToggle4" onclick="settingsToggle(4)" style="width: 20rem">aaa</button>
-        <button class="settingsButton" id="settingsToggle0" onclick="settingsToggle(0)" style="width: 20rem">aaa</button>
-        <button class="settingsButton" id="settingsToggle5" onclick="settingsToggle(5)" style="width: 20rem">aaa</button>
-        <button class="settingsButton" id="settingsToggle1" onclick="settingsToggle(1)" style="width: 20rem">aaa</button>
-        <button class="settingsButton" id="settingsToggle2" onclick="settingsToggle(2)" style="width: 20rem">aaa</button>
-        <button class="settingsButton" id="settingsToggle6" onclick="settingsToggle(6)" style="width: 20rem">aaa</button>
-        <button class="settingsButton" id="settingsToggle7" onclick="settingsToggle(7)" style="width: 20rem">aaa</button>
-        <button class="settingsButton" id="settingsToggle10" onclick="settingsToggle(10)" style="width: 20rem">aaa</button>
-        <button class="settingsButton" id="settingsToggle9" onclick="settingsToggle(9)" style="width: 20rem">aaa</button>
-        <button class="settingsButton" id="settingsToggle11" onclick="settingsToggle(11)" style="width: 20rem">aaa</button>
-        <button class="settingsButton" id="settingsToggle12" onclick="settingsToggle(12)" style="width: 20rem">aaa</button>
-        <button class="settingsButton" id="settingsToggle8" onclick="settingsToggle(8)" style="width: 20rem">aaa</button>
-        <button class="settingsButton" id="offlineProgressToggle" onclick="settingsToggle(-1)" style="width: 20rem">Toggle Offline Progress</button>
-        <br>
-        <button class="settingsButton" onclick="save()">Manual Save</button>
-        <button class="settingsButton" onclick="exportSave()">Export your Save</button>
-        <button class="settingsButton" onclick="downloadSave()">Download your Save</button>
-        <button class="settingsButton" onclick="createPrompt('Import SaveData', importSave, true)">Import your Save</button>
-        <button class="settingsButton" onclick="createConfirmation('Are you sure?', 'Are you absolutely sure you want to do this?\nThis will export your save (just in case) but delete your save from LocalStorage.', 'No Way!', 'Yes, I understand the consequences.', fullReset)" style="color: red">Delete your Save</button>
-
+        <div class="flexBox" style="margin-top: 0.5rem; margin-bottom: 1rem">
+            <button class="settingsButton" id="gameTab" onclick="switchSubtab('gameSettings', 'settings')">Game</button>
+            <button class="settingsButton" id="togglesTab" onclick="switchSubtab('toggles', 'settings')" style="margin-left: 0.5rem">Toggles</button>
+            <button class="settingsButton" id="savingTab" onclick="switchSubtab('saving', 'settings')" style="margin-left: 0.5rem">Saving</button>
+        </div>
+        <div class="flexBox" id="gameSettingsSubPage" style="flex-direction: column;">
+            <button class="settingsButton" onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 15rem">Change Max Ordinal Display Length</button>
+            <button class="settingsButton" id="offlineProgressToggle" onclick="settingsToggle(-1)" style="width: 15rem">Toggle Offline Progress</button>
+        </div>
+        <div class="flexBox" id="togglesSubPage" style="display: none; flex-direction: column">
+            <button class="settingsButton" id="settingsToggle3" onclick="settingsToggle(3)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle4" onclick="settingsToggle(4)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle0" onclick="settingsToggle(0)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle5" onclick="settingsToggle(5)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle1" onclick="settingsToggle(1)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle2" onclick="settingsToggle(2)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle6" onclick="settingsToggle(6)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle7" onclick="settingsToggle(7)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle10" onclick="settingsToggle(10)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle9" onclick="settingsToggle(9)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle11" onclick="settingsToggle(11)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle12" onclick="settingsToggle(12)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle8" onclick="settingsToggle(8)" style="width: 20rem">aaa</button>
+        </div>
+        <div class="flexBox" id="savingSubPage" style="display: none; flex-direction: column">
+            <button class="settingsButton" onclick="save()">Manual Save</button>
+            <button class="settingsButton" onclick="exportSave()">Export your Save</button>
+            <button class="settingsButton" onclick="downloadSave()">Download your Save</button>
+            <button class="settingsButton" onclick="createPrompt('Import SaveData', importSave, true)">Import your Save</button>
+            <button class="settingsButton" onclick="createConfirmation('Are you sure?', 'Are you absolutely sure you want to do this?\nThis will export your save (just in case) but delete your save from LocalStorage.', 'No Way!', 'Yes, I understand the consequences.', fullReset)" style="color: red">Delete your Save</button>
+        </div>
         <div class="centeredTexts" id="versionText" style="margin-top: 3rem; color: #009696; font-family: DosisBold;">Version</div>
     </div>
 </div>

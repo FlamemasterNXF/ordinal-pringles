@@ -60,21 +60,3 @@ const uHTML = {
         initSingularityFunctions()
     }
 }
-
-function isTabUnlocked(t){
-    switch (t) {
-        case 'dynamic': return data.markup.shifts === 7 || data.chal.active[4] || data.baseless.baseless
-
-        case 'chal': return data.boost.unlocks[0]
-        case 'incrementy': return data.boost.unlocks[1]
-        case 'hierarchies': return data.boost.unlocks[2]
-        case 'overflow': return data.boost.unlocks[3]
-
-        case 'darkness': return data.collapse.hasSluggish[2]
-        case 'autoPrestige': return data.collapse.hasSluggish[3]
-        case 'sing': return data.boost.unlocks[4]
-        case 'baseless': return data.boost.unlocks[4]
-
-        default: return true
-    }
-}
