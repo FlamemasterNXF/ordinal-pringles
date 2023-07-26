@@ -147,13 +147,26 @@ function displayInfiniteOrd(ord, over, base, trim = data.ord.trim){
 function numberFromOrdinal(string, base) {
     const ungwa = string.replaceAll("<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>", "&omega;")
 
-    const initial = ungwa.replaceAll("&omega;", `${base}`).replaceAll('<sup>', '**').replaceAll('</sup>', '*').replaceAll('...', '').replaceAll('*+', '+')
-    const secondary = initial.replaceAll('+...', '').replaceAll('*...', '')
+    const initial = ungwa.replaceAll("&omega;", `${base}`).replaceAll('<sup>', ').pow(')
+        .replaceAll('</sup>', ').mul(').replaceAll('...', '').replaceAll('+', ').add(')
+    const secondary = "D(" + initial.replaceAll('+...', '').replaceAll('*...', '')
+        //.replaceAll('.mul().add(', '')
 
-    if(secondary.charAt(secondary.length-1) === '+' || secondary.charAt(secondary.length-1) === '*'){
-        return eval(secondary.substring(0, secondary.length-1))
+    if(secondary.charAt(secondary.length-5) === '.'){
+        const noTrailing = secondary.substring(0, secondary.length-5)
+
+        if(noTrailing.charAt(noTrailing.length-6) === '.'){ // Rare Edge Case
+            const noTrailing2 = noTrailing.substring(0, noTrailing.length-6)
+            return eval(noTrailing2)
+        }
+
+        return eval(noTrailing)
     }
-    return eval(secondary)
+
+    if(secondary.charAt(secondary.length-6) === '.'){ // Rare Edge Case
+        const noTrailing = secondary.substring(0, secondary.length-6)
+        return eval(noTrailing)
+    }
 }
 
 function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {

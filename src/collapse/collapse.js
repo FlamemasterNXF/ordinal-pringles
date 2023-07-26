@@ -177,7 +177,7 @@ let cupEffect = (i) => data.collapse.hasCUP[i] ?
     : 1
 
 let drain1Effect = () =>
-    data.darkness.drains[1] > 50 ? ((data.darkness.drains[1]-50)/128)+2.5+(1.25*2)+0.625+0.15625
+    data.darkness.drains[1] > 50 ? ((data.darkness.drains[1]-50)/128)+2.5+(1.25*2)+0.625+0.3125+0.15625
     : data.darkness.drains[1] > 40 ? ((data.darkness.drains[1]-40)/64)+2.5+(1.25*2)+0.625+0.3125
     : data.darkness.drains[1] > 30 ? ((data.darkness.drains[1]-30)/32)+2.5+(1.25*2)+0.625
     : data.darkness.drains[1] > 20 ? ((data.darkness.drains[1]-20)/16)+2.5+(1.25*2)

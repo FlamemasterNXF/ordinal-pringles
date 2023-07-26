@@ -152,6 +152,7 @@ function respecDrains(){
     }
      */
     data.darkness.negativeCharge += data.darkness.chargeSpent
+    data.darkness.chargeSpent = 0
     data.darkness.totalDrains = 0
     for (let i = 0; i < data.darkness.drains.length; i++) {
         data.darkness.drains[i] = 0
