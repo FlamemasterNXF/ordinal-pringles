@@ -236,25 +236,25 @@ function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
 */
 
 function displayPsiOrd(ord, trim) {
-    ord = D(Math.floor(ord))
+    ord = D(Decimal.floor(ord))
     if(ord.eq(BHO_VALUE)) {
         let finalOutput = "&psi;(Ω<sub>2</sub>)"
         if(data.gword) finalOutput=finalOutput
             .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
         return `${finalOutput}`
     }
-    let maxOrdMarks = (3**(ordMarks.length-1))*4
-    if(maxOrdMarks < Infinity && D(ord).gt(D(maxOrdMarks.toString()))) {
-        return displayPsiOrd(maxOrdMarks) + "x" + format(ord.div(Number(maxOrdMarks)),2)
+    let maxOrdMarks = (D(3).pow(ordMarks.length-1)).times(4)
+    if(D(ord).gt(maxOrdMarks)) {
+        return displayPsiOrd(maxOrdMarks) + "x" + format(ord.div(maxOrdMarks),2)
     }
     if(ord.eq(0)) return ""
     if(trim <= 0) return "..."
     if(ord.lt(4)) return extraOrdMarks[ord]
-    const magnitude = Math.floor(Math.log(ord.div(4))/Math.log(3))
-    const magnitudeAmount = 4*3**magnitude
-    let finalOutput = ordMarks[Math.min(magnitude,ordMarks.length-1)]
+    const magnitude = Decimal.floor(Decimal.ln(ord.div(4)).div(Decimal.ln(3)))
+    const magnitudeAmount = D(4).times(3).pow(magnitude)
+    let finalOutput = ordMarks[Decimal.min(magnitude,ordMarks.length-1)]
     if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiOrd(ord.sub(magnitudeAmount), trim-1))
-    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiOrd(ord.sub(magnitudeAmount+1), trim-1))
+    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiOrd(ord.sub(magnitudeAmount.plus(1)), trim-1))
     if(data.gword) finalOutput=finalOutput
         .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
         .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")

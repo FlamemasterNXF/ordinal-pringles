@@ -73,6 +73,8 @@ function formatWhole(decimal) {
 }
 
 function formatTime(s) {
+    if (s.gt(Number.MAX_VALUE)) return "Eternity"
+    s = s.toNumber()
     if (s < 60) return format(s) + "s"
     else if (s < 3600) return formatWhole(Math.floor(s / 60)) + "m " + format(s % 60) + "s"
     else if (s < 86400) return formatWhole(Math.floor(s / 3600)) + "h " + formatWhole(Math.floor(s / 60) % 60) + "m " + format(s % 60) + "s"

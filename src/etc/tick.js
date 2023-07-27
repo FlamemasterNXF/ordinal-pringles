@@ -2,10 +2,11 @@ let timesToLoop = [0,0, 0,0]
 
 let t1Auto = () => (factorBoost()*bup5Effect()*alephEffect(0))**cupEffect(1)*cupEffect(3)*singBoostToBaseless()
 
-let t2AutoPure = () => 1*chalEffectTotal()*bup5Effect()*incrementyMult()*iup6Effect()*bup48Effect()*hupData[5].effect()
-    *alephEffect(1)*cupEffect(0)*cupEffect(3)*dupEffect(0)
+let t2AutoPure = () => D(1).times(chalEffectTotal()).times(bup5Effect()).times(incrementyMult()).times(iup6Effect())
+    .times(bup48Effect()).times(hupData[5].effect()).times(alephEffect(1)).times(cupEffect(0)).times(cupEffect(3))
+    .times(dupEffect(0))
 
-let t2Auto = () => t2AutoPure()**singEffects[2].effect()
+let t2Auto = () => t2AutoPure().pow(singEffects[2].effect())
 
 
 function tick(diff){
@@ -23,9 +24,8 @@ function tick(diff){
         ? (diff*(data.autoLevels[i]+extraT1())*t1Auto()*data.dy.level)/data.chal.decrementy
         : (diff*(data.autoLevels[i]+extraT1())*t1Auto()/data.dy.level)/data.chal.decrementy
 
-    for (let i = 2; i < 4; i++) timesToLoop[i] = data.boost.hasBUP[autoUps[i-2]]
-        ? t2Auto()
-        : 0
+    timesToLoop[2] = data.boost.hasBUP[autoUps[0]] ? 1 : 0
+    timesToLoop[3] = data.boost.hasBUP[autoUps[1]] ? t2Auto() : D(0)
 
     if(Math.floor(timesToLoop[0]/1000) >= 1){
         successor(timesToLoop[0]/1000)
@@ -48,8 +48,8 @@ function tick(diff){
     // Markup Autobuyer
     let collapseCheck = data.ord.ordinal.lt(BHO_VALUE) || data.collapse.times > 0
     let boostCheck = data.boost.times > 0 || data.collapse.hasSluggish[0]
-    if(timesToLoop[3] >= 1 && data.ord.isPsi && data.autoStatus.enabled[1] && !boostCheck && data.ord.isPsi) data.ord.ordinal = D(GRAHAMS_VALUE)
-    if(timesToLoop[3]>=1 && data.ord.isPsi && data.autoStatus.enabled[1] && collapseCheck && boostCheck) markup(timesToLoop[3]*diff/1000)
+    if(timesToLoop[3].gte(1) && data.ord.isPsi && data.autoStatus.enabled[1] && !boostCheck && data.ord.isPsi) data.ord.ordinal = D(GRAHAMS_VALUE)
+    if(timesToLoop[3].gte(1) && data.ord.isPsi && data.autoStatus.enabled[1] && collapseCheck && boostCheck) markup(timesToLoop[3].times(diff/1000))
 
     // Automation Tier 2: Post-Collapse
     if(data.collapse.hasSluggish[2] && data.autoStatus.enabled[2]) sacrificeIncrementy() //Charge Autobuyer

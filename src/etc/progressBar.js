@@ -48,25 +48,25 @@ function getTargetOrdinal() {
                 else return chalGoal
             }
             let currentOP = (data.chal.html === 7 || data.darkness.darkened) ? 0 : data.markup.powers;
-            return OPtoOrd((chalGoal - currentOP) / opMult(), data.ord.base)
+            return D(OPtoOrd((chalGoal - currentOP) / opMult(), data.ord.base))
         }
     }
 
     if (data.boost.times >= 33 && data.collapse.times === 0) return BHO_VALUE
-    return boostReq(getTargetBoost())
+    return D(boostReq(getTargetBoost()))
 }
 function getBarPercent(){
-    if((!data.ord.isPsi) && !inNonPsiChallenge()) return 0
-    if (data.ord.isPsi && inNonPsiChallenge()) return 100
-    if(data.ord.ordinal.div(getTargetOrdinal()) * 100 >= 100) return 100
-    return Math.min(100, data.ord.ordinal.div(getTargetOrdinal()) * 100)
+    if((!data.ord.isPsi) && !inNonPsiChallenge()) return D(0)
+    if (data.ord.isPsi && inNonPsiChallenge()) return D(100)
+    if(data.ord.ordinal.div(getTargetOrdinal()).times(100).gte(100)) return 100
+    return Decimal.min(D(100), data.ord.ordinal.div(getTargetOrdinal()).times(100))
 }
 function getTimeEstimate(){
     if((!data.ord.isPsi) && !inNonPsiChallenge()) return "Unknown... "
     if (data.ord.isPsi && inNonPsiChallenge()) return "0s"
-    if(getTargetOrdinal() <= data.ord.ordinal)return "0s"
-    let autoSpeed = Math.max(1, (data.ord.isPsi ? t2Auto() : (data.autoLevels[0]+extraT1())*t1Auto()*(data.chal.active[4] ? (1/data.dy.level) : data.dy.level) / data.chal.decrementy.toNumber()))
-    return formatTime(Math.max((getTargetOrdinal()-data.ord.ordinal)/autoSpeed, 0))
+    if(getTargetOrdinal().lt(data.ord.ordinal))return "0s"
+    let autoSpeed = Decimal.max(1, (data.ord.isPsi ? t2Auto() : D(data.autoLevels[0]+extraT1())*t1Auto()*(data.chal.active[4] ? (1/data.dy.level) : data.dy.level).div(data.chal.decrementy.toNumber())))
+    return formatTime(Decimal.max((getTargetOrdinal().sub(data.ord.ordinal)).div(autoSpeed), D(0)))
 }
 function updateProgressBar(){
     DOM("progressBar").style.width = Math.min(100, getBarPercent()) + "%"

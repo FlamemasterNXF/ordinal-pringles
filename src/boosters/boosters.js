@@ -194,7 +194,7 @@ function boost(f=false, auto=false){
 }
 function boostReq(n = data.boost.times){
     if(data.boost.times === 0 && !data.collapse.hasSluggish[0]) return GRAHAMS_VALUE
-    if(n >= 34) return BHO_VALUE*3**(n-33)
+    if(n >= 34) return D(BHO_VALUE).times(D(3).pow(n-33))
     let scaling = n < 30 ? 1 : Math.floor(100*(n/15))
     return n < 33 ? (3 ** (n+1) * 4 * 10 * scaling) : BHO_VALUE
 }

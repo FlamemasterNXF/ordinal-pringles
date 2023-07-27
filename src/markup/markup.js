@@ -29,7 +29,7 @@ function updateMarkupHTML(){
 
     if(data.sToggles[6]) updateProgressBar()
 }
-function markup(n=1){
+function markup(n=D(1)){
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal.eq(GRAHAMS_VALUE) && !data.collapse.hasSluggish[0]) return
     if(data.ord.ordinal.lt(data.ord.base**2) && !data.ord.isPsi) return
     if(data.ord.isPsi){ data.ord.ordinal = data.ord.ordinal.plus(n); return data.markup.powers = 4e256}

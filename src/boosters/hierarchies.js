@@ -91,7 +91,7 @@ let hierarchyData = [
 ]
 let hierarchyGainBases = [
     () => Math.max(Math.floor(Decimal.pow(data.incrementy.amt, 1/3).toNumber()), 1),
-    () => Math.max(Math.floor(Math.pow(t2Auto()+1, 1/4)), 1)
+    () => Math.max(Math.floor(Decimal.pow(t2Auto().plus(1), 1/4).toNumber()), 1)
 ]
 let hierarchyGainGlobalMults = () =>
     hupData[2].effect()*hupData[7].effect()*hbData[0].effect()*hbData[5].effect()*getOverflowEffect(3)
@@ -139,7 +139,7 @@ function increaseHierarchies(diff){
 }
 
 function getHBBuyableCost(i){
-    if(i == 2 || i==5) return 1e12*(data.hierarchies.rebuyableAmt[i]+10 ** (1 + data.hierarchies.rebuyableAmt[i]))
+    if(i == 2 || i==5) return D(1e12).times(D(data.hierarchies.rebuyableAmt[i]+10).pow(1 + data.hierarchies.rebuyableAmt[i]))
     if(i < 3) return (data.hierarchies.rebuyableAmt[i]+10 ** (1 + data.hierarchies.rebuyableAmt[i]))
     return (data.hierarchies.rebuyableAmt[i]+10 ** (1 + data.hierarchies.rebuyableAmt[i]))
 }
