@@ -80,6 +80,12 @@ function fixSave(main=getDefaultObject(), data) {
 function fixOldSaves(){
     let extra = false
 
+    //Incrementy Fix
+    if(Number.isNaN(data.incrementy.amt.toNumber())) data.incrementy.amt = D(0)
+
+    //Any => v0.2.2
+    if(data.loadedVersion !== "0.2.2") data.loadedVersion = "0.2.2"
+
     //Any => v0.2.1
     if(data.loadedVersion !== "0.2.1"){
         data.achs = Array(achievements.length).fill(false)

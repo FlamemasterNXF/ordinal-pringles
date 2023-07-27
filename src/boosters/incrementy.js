@@ -12,7 +12,7 @@ function switchIUPText(i, mode){
 
 let incrementyMult = () => Math.max(1, ((Math.pow(Decimal.sqrt(data.incrementy.amt).toNumber()+10, 1/4))*Decimal.pow(data.incrementy.amt, 1/16).toNumber())/negativeChargeEffect(true))
 function incrementyGain() {
-    if (!data.ord.isPsi || checkAllIndexes(data.chal.active, true) > 0) return 0
+    if (!data.ord.isPsi || checkAllIndexes(data.chal.active, true) > 0) return D(0)
 
     let base = Decimal.log10(data.ord.ordinal.plus(1)).div(10)
     let iupMults= base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect())
