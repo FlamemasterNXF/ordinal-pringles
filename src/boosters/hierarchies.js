@@ -139,7 +139,7 @@ function increaseHierarchies(diff){
 }
 
 function getHBBuyableCost(i){
-    if(i == 2 || i==5) return D(1e12).times(D(data.hierarchies.rebuyableAmt[i]+10).pow(1 + data.hierarchies.rebuyableAmt[i]))
+    if(i == 2 || i==5) return D(1e12).times(D(data.hierarchies.rebuyableAmt[i]).plus((D(10).pow(1 + data.hierarchies.rebuyableAmt[i]))))
     if(i < 3) return (data.hierarchies.rebuyableAmt[i]+10 ** (1 + data.hierarchies.rebuyableAmt[i]))
     return (data.hierarchies.rebuyableAmt[i]+10 ** (1 + data.hierarchies.rebuyableAmt[i]))
 }
