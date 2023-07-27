@@ -10,14 +10,14 @@ function switchIUPText(i, mode){
     : DOM(`iup${i}`).innerText = `[UP${i-2}] ${iupDesc[i]}\n${format(iupCosts[i])} Incrementy`
 }
 
-let incrementyMult = () => Math.max(1, ((Math.pow(Math.sqrt(data.incrementy.amt)+10, 1/4))*Math.pow(data.incrementy.amt, 1/16))/negativeChargeEffect(true))
+let incrementyMult = () => Math.max(1, ((Math.pow(Decimal.sqrt(data.incrementy.amt).toNumber()+10, 1/4))*Decimal.pow(data.incrementy.amt, 1/16).toNumber())/negativeChargeEffect(true))
 function incrementyGain() {
     if (!data.ord.isPsi || checkAllIndexes(data.chal.active, true) > 0) return 0
 
-    let base = Math.log10(data.ord.ordinal.plus(1)) / 10
-    let iupMults= base*iup1Effect()*iup3Effect()*iup4Effect()
-    let otherMults = iupMults*hierarchyData[0].effect()*alephEffect(3)*cupEffect(4)*sBUP2Effect()
-    return otherMults/negativeChargeEffect(false)
+    let base = Decimal.log10(data.ord.ordinal.plus(1)).div(10)
+    let iupMults= base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect())
+    let otherMults = iupMults.times(hierarchyData[0].effect()).times(alephEffect(3)).times(cupEffect(4)).times(sBUP2Effect())
+    return otherMults.div(negativeChargeEffect(false))
 }
 
 const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Factor boosts Incrementy gain',
@@ -26,7 +26,7 @@ const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Facto
 const iupCosts = [1, 1, 1, 2e6, 2e5, 1e10, 3e4, 1e8, 1e12]
 let rebuyableCostBases = [20, 1000, 100]
 
-let getRebuyableCost = (i) => rebuyableCostBases[i] * Decimal.sqrt(2*(2*data.incrementy.rebuyableAmt[i]+1)).mul(Decimal.pow((2*data.incrementy.rebuyableAmt[i]+1)/Math.E, (2*data.incrementy.rebuyableAmt[i]+1)/2)).ceil().toNumber()
+let getRebuyableCost = (i) => Decimal.sqrt(2*(2*data.incrementy.rebuyableAmt[i]+1)).mul(Decimal.pow((2*data.incrementy.rebuyableAmt[i]+1)/Math.E, (2*data.incrementy.rebuyableAmt[i]+1)/2)).ceil().times(rebuyableCostBases[i])
 function initIUPs(){
     let rows = [DOM('iupRow0'), DOM('iupRow1'), DOM('iupRow2')]
     let total = 0
@@ -58,17 +58,17 @@ function initIUPs(){
 }
 
 function buyIUP(i){
-    if(data.incrementy.hasIUP[i] || data.incrementy.amt < iupCosts[i]) return
+    if(data.incrementy.hasIUP[i] || data.incrementy.amt.lt(iupCosts[i])) return
 
     data.incrementy.hasIUP[i] = true
-    data.incrementy.amt -= iupCosts[i]
+    data.incrementy.amt = data.incrementy.amt.sub(iupCosts[i])
 
     DOM(`iup${i}`).style.color = '#f542a4'
 }
 function buyRUP(i){
-    if(data.incrementy.amt < getRebuyableCost(i)) return
+    if(data.incrementy.amt.lt(getRebuyableCost(i))) return
 
-    data.incrementy.amt -= getRebuyableCost(i)
+    data.incrementy.amt = data.incrementy.amt.sub(getRebuyableCost(i))
     ++data.incrementy.rebuyableAmt[i]
 
     DOM(`iup${i}`).innerText = `${iupDesc[i]} (${formatWhole(data.incrementy.rebuyableAmt[i])})\n${format(getRebuyableCost(i))} Incrementy\nCurrently: ${format(iupEffects[i]())}x`
@@ -85,8 +85,8 @@ let iup1Effect = () => Math.max(1, (2+alephNullEffects[0]())**(data.incrementy.r
 let iup2Effect = () => Math.max(1, (3**data.incrementy.rebuyableAmt[1])*iup8Effect())
 let iup3Effect = () => data.incrementy.rebuyableAmt[2] > 0 ? (Math.max(1, Math.sqrt(data.dy.level)))*(1+(data.incrementy.rebuyableAmt[2])) : 1
 let iup4Effect = () => data.incrementy.hasIUP[3] ? Math.max(1, data.boost.times) : 1
-let iup5Effect = () => data.incrementy.hasIUP[4] ? data.hierarchies.hasUpgrade[6] ? Math.max(1, Math.pow(data.incrementy.amt, 1/8)+1)
-: Math.max(1, Math.pow(data.incrementy.amt, 1/16)+1) : 1
+let iup5Effect = () => data.incrementy.hasIUP[4] ? data.hierarchies.hasUpgrade[6] ? Math.max(1, Decimal.pow(data.incrementy.amt, 1/8).toNumber()+1)
+: Math.max(1, Decimal.pow(data.incrementy.amt, 1/16).toNumber()+1) : 1
 let iup6Effect = () => data.incrementy.hasIUP[5] ? Math.max(1, Math.sqrt(data.dy.level+1))*iup9Effect()*hbData[2].effect()*hbData[5].effect()*alephEffect(7) : 1
 let iup7Effect = () => data.incrementy.hasIUP[6] ? Math.floor(data.chal.totalCompletions/3)*(hasSingFunction(4) ? 2 : 1) : 0
 let iup8Effect = () => data.incrementy.hasIUP[7] ? Math.max(1, 1+data.chal.totalCompletions/3) : 1
@@ -131,11 +131,11 @@ function respecCharge(c=false){
 }
 
 function sacrificeIncrementy(){
-    if(data.incrementy.amt >= chargeReq()){
+    if(data.incrementy.amt.gte(chargeReq())){
 
         if(data.incrementy.totalCharge < 1) initBUPHover()
 
-        data.incrementy.amt -= chargeReq()
+        data.incrementy.amt = data.incrementy.amt.sub(chargeReq())
         ++data.incrementy.totalCharge
         ++data.incrementy.charge
 
@@ -147,5 +147,5 @@ function sacrificeIncrementy(){
 function chargeReq() {
     let chargeExp = 6+((data.incrementy.totalCharge+data.darkness.sacrificedCharge)*(2+Math.floor((data.incrementy.totalCharge+data.darkness.sacrificedCharge)/12)));
     chargeExp -= Math.log10(hierarchyData[1].effect());
-    return (10**chargeExp);
+    return D(10).pow(chargeExp);
 }

@@ -41,7 +41,7 @@ function updateDrainHTML(i){
 }
 
 let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5) : 0
-let negativeChargeCap = () => Math.pow(data.incrementy.amt, 1/3)
+let negativeChargeCap = () => Decimal.pow(data.incrementy.amt, 1/3).toNumber()
 
 function negativeChargeEffect(eff){
     if(eff == false) return Math.sqrt(data.darkness.negativeCharge+1)/sacrificedChargeEffect()
@@ -148,13 +148,6 @@ function darken(force = false){
 }
 
 function respecDrains(){
-    /*
-    if(!data.darkness.negativeChargeEnabled){
-        data.darkness.negativeChargeEnabled = true
-        updateDarknessControlHTML(0)
-        createAlert('Too close!', 'You almost respec\'d without enabling Negative Charge gain! Luckily, I caught it for you :)', 'Phew, thanks!')
-    }
-     */
     data.darkness.negativeCharge += data.darkness.chargeSpent
     data.darkness.chargeSpent = 0
     data.darkness.totalDrains = 0

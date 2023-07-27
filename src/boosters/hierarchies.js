@@ -90,7 +90,7 @@ let hierarchyData = [
         gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults(), base: ()=> 10-sBUP0Effect() }
 ]
 let hierarchyGainBases = [
-    () => Math.max(Math.floor(Math.pow(data.incrementy.amt, 1/3)), 1),
+    () => Math.max(Math.floor(Decimal.pow(data.incrementy.amt, 1/3).toNumber()), 1),
     () => Math.max(Math.floor(Math.pow(t2Auto()+1, 1/4)), 1)
 ]
 let hierarchyGainGlobalMults = () =>
@@ -147,8 +147,8 @@ function getHBBuyableCost(i){
 function buyHBuyable(i){
     const cost = hbData[i].cost()
 
-    if(data.incrementy.amt > cost && (i == 2 || i == 5)){
-        data.incrementy.amt -= cost
+    if(data.incrementy.amt.gt(cost) && (i == 2 || i == 5)){
+        data.incrementy.amt = data.incrementy.amt.sub(cost)
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
     }
