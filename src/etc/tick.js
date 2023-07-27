@@ -55,7 +55,7 @@ function tick(diff){
     if(data.collapse.hasSluggish[2] && data.autoStatus.enabled[2]) sacrificeIncrementy() //Charge Autobuyer
     if(data.collapse.hasSluggish[2] && data.autoStatus.enabled[3]){ // Repeatable IUP Autobuyer
         for (let i = 0; i < 3; i++) {
-            buyIUP(i, true)
+            buyRUP(i)
         }
     }
     if(data.collapse.hasSluggish[3] && data.autoStatus.enabled[4]){ // Repeatable HUP Autobuyer
