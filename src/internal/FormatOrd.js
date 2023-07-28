@@ -203,13 +203,13 @@ function numberFromOrdinal(string, base) {
 
 function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
     if (ord === Infinity) return data.gword ? "<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>" : "Ω"
-    ord = D.floor(ord)
+    ord = Decimal.floor(ord)
     over = Math.floor(over)
     if(trim <= 0) return `...`
     if(ord.lt(base)) return Number(ord.add(over))
-    const magnitude = D.floor(D.log(ord).div(D.log(base))+1e-14)
+    const magnitude = Decimal.floor(Decimal.log(ord).div(Decimal.log(base))+1e-14)
     const magnitudeAmount = D(base).pow(magnitude)
-    const amount = D.floor(ord/magnitudeAmount)
+    const amount = Decimal.floor(ord/magnitudeAmount)
     let finalOutput = "&omega;"
     if (magnitude.gt(1)) finalOutput += "<sup>"+displayHierarchyOrd(magnitude, 0, base)+"</sup>"
     if (amount.gt(1)) finalOutput += amount.toNumber()
