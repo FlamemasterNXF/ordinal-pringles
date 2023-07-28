@@ -88,7 +88,7 @@ function fixOldSaves(){
     if(data.loadedVersion !== "0.2.2") data.loadedVersion = "0.2.2"
 
     //Any => v0.2.1
-    if(data.loadedVersion !== "0.2.1"){
+    if(data.loadedVersion < "0.2.1"){
         data.achs = Array(achievements.length).fill(false)
         data.loadedVersion = "0.2.1"
     }
