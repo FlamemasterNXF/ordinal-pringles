@@ -203,18 +203,18 @@ function numberFromOrdinal(string, base) {
 
 function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
     if (ord === Infinity) return data.gword ? "<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>" : "Ω"
-    ord = Math.floor(ord)
+    ord = D.floor(ord)
     over = Math.floor(over)
     if(trim <= 0) return `...`
-    if(ord < base) return ord+over
-    const magnitude = Math.floor(Math.log(ord)/Math.log(base)+1e-14)
-    const magnitudeAmount = base**magnitude
-    const amount = Math.floor(ord/magnitudeAmount)
+    if(ord.lt(base)) return Number(ord.add(over))
+    const magnitude = D.floor(D.log(ord).div(D.log(base))+1e-14)
+    const magnitudeAmount = D(base).pow(magnitude)
+    const amount = D.floor(ord/magnitudeAmount)
     let finalOutput = "&omega;"
-    if (magnitude > 1) finalOutput += "<sup>"+displayHierarchyOrd(magnitude, 0, base)+"</sup>"
-    if (amount > 1) finalOutput += amount
-    const firstAmount = amount*magnitudeAmount
-    if(ord-firstAmount > 0) finalOutput += "+" + displayHierarchyOrd(ord-firstAmount, over, base, trim - 1)
+    if (magnitude.gt(1)) finalOutput += "<sup>"+displayHierarchyOrd(magnitude, 0, base)+"</sup>"
+    if (amount.gt(1)) finalOutput += amount.toNumber()
+    const firstAmount = amount.mul(magnitudeAmount)
+    if(ord.sub(firstAmount).gt(0)) finalOutput += "+" + displayHierarchyOrd(ord.sub(firstAmount), over, base, trim - 1)
     if(data.gword) finalOutput = finalOutput.replaceAll("&omega;","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
                                             .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
     return finalOutput
