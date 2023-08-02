@@ -251,7 +251,7 @@ function displayPsiOrd(ord, trim) {
     if(trim <= 0) return "..."
     if(ord.lt(4)) return extraOrdMarks[ord]
     const magnitude = Decimal.floor(Decimal.ln(ord.div(4)).div(Decimal.ln(3)))
-    const magnitudeAmount = D(4).times(3).pow(magnitude)
+    const magnitudeAmount = D(4).times(Decimal.pow(3, magnitude))
     let finalOutput = ordMarks[Decimal.min(magnitude,ordMarks.length-1)]
     if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiOrd(ord.sub(magnitudeAmount), trim-1))
     if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiOrd(ord.sub(magnitudeAmount.plus(1)), trim-1))
