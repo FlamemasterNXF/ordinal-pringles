@@ -7,9 +7,9 @@ const GRAHAMS_VALUE = 109
 const BHO_VALUE = 4*3**40
 
 //Version Flags
-const VERSION = "0.2.2"
+const VERSION = "0.2.3"
 const VERSION_NAME = "The Baseless Pringularity"
-const VERSION_DATE = "July 26th, 2023"
+const VERSION_DATE = "August 3rd, 2023"
 const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -80,12 +80,15 @@ function fixSave(main=getDefaultObject(), data) {
 function fixOldSaves(){
     let extra = false
 
-    //Incrementy Fix
+    //Decimal Fix
     if(Number.isNaN(data.incrementy.amt.toNumber())) data.incrementy.amt = D(0)
     if(Number.isNaN(data.ord.ordinal.toNumber())) data.ord.ordinal = D(0)
 
-    //Any => v0.2.2
-    if(data.loadedVersion !== "0.2.2") data.loadedVersion = "0.2.2"
+    //v0.2.2 => v0.2.3
+    if(data.loadedVersion === "0.2.2") extra = true
+
+    //0.2.1 => v0.2.2
+    if(data.loadedVersion === "0.2.1") data.loadedVersion = "0.2.2"
 
     //Any => v0.2.1
     if(data.loadedVersion < "0.2.1"){
@@ -138,6 +141,13 @@ function fixOldSaves(){
     return extra
 }
 function fixOldSavesP2(){
+    //v0.2.2 => v0.2.3
+    if(data.loadedVersion === "0.2.2"){
+        data.loadedVersion = "0.2.3"
+        if(!data.boost.unlocks[4]) return
+        if(data.baseless.baseless) return baselessControl()
+        return collapse()
+    }
     //v0.1 => v0.1.1
     if(data.loadedVersion < "0.1.1" || data.loadedVersion === "null"){
         data.incrementy.charge += data.darkness.sacrificedCharge
