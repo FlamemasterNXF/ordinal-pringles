@@ -288,6 +288,16 @@
     margin-top: 0.5rem;
     font-family: DosisSemiBold;
 }
+.oc{
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    width: 20rem;
+    height: 15rem;
+    color: white;
+    background: black;
+    border: 2px solid darkred;
+}
 .settingsButton{
     width: 10rem;
     height: 1.5rem;

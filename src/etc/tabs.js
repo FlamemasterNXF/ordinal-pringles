@@ -47,6 +47,8 @@ function switchSubtab(t, mode){
 
     // Special Collapse Rules
     if(mode === "collapse"){
+        DOM(`collapseInfoContainer`).style.display = t==='omega' ? 'none' : 'flex'
+
         if(t==='darkness'){
             updateDUPHTML(1)
             updateDUPHTML(2)
@@ -88,6 +90,7 @@ function isTabUnlocked(t){
         case 'autoPrestige': return data.collapse.hasSluggish[3]
         case 'sing': return data.boost.unlocks[4]
         case 'baseless': return data.boost.unlocks[4]
+        case 'omega': return data.boost.unlocks[4]
 
         default: return true
     }

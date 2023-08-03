@@ -21,6 +21,7 @@
     <script defer src="src/etc/achievements.js"></script>
     <script defer src="src/etc/tabs.js"></script>
 
+    <script defer src="src/collapse/omega.js"></script>
     <script defer src="src/collapse/baseless.js"></script>
     <script defer src="src/collapse/singularity.js"></script>
     <script defer src="src/collapse/darkness.js"></script>
@@ -272,8 +273,9 @@
             <button class="collapseTabButton" id="autoPrestigeTab" onclick="switchSubtab('autoPrestige', 'collapse')">???</button>
             <button class="collapseTabButton" id="singTab" onclick="switchSubtab('sing', 'collapse')">???</button>
             <button class="collapseTabButton" id="baselessTab" onclick="switchSubtab('baseless', 'collapse')">???</button>
+            <button class="collapseTabButton" id="omegaTab" onclick="switchSubtab('omega', 'collapse')">???</button>
         </div>
-        <div class="flexBox" style="margin-top: 0.1rem; flex-direction: column">
+        <div class="flexBox" id="collapseInfoContainer" style="margin-top: 0.1rem; flex-direction: column">
             <h3 class="centeredTexts" id="cardinalsText" style="color: #20da45;">You have Collapsed Chips. In your house.</h3>
             <button id="collapseButton" onclick="collapseConfirm()" style="color: #20da45;; min-width: 20rem; height: 2rem; background-color: black; border: 2px solid #2da000">Collapse</button>
         </div>
@@ -344,6 +346,10 @@
             </button>
             <t class="centeredTexts" style="color: #9e5803; margin-top: 2rem">Click the red Realm text to change the Realm you enter</t>
             <t class="centeredTexts" style="color: #9e5803;">You cannot enter Darkness while in any of the Baseless Realms</t>
+        </div>
+        <div class="flexBox" id="omegaSubPage" style="display: none; flex-direction: column;">
+            <t class="centeredTexts" id="ocInfo" style="color: #ce0b0b; font-size: 1.3rem; font-family: DosisSemiBold; margin-top: 0.5rem">Based</t>
+            <div class="flexBox" id="ocContainer" style="flex-direction: column;"></div>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;"></div>
