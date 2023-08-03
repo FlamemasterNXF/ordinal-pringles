@@ -73,10 +73,9 @@ let dynamicShiftMultipliers = [
     (i = data.baseless.shifts) => Math.max(1, 1000**(i+data.baseless.mode))
 ]
 
-let alephNullGain = () => Math.max(1, Decimal.log10((numberFromOrdinal(displayOrd(data.ord.ordinal, data.ord.over, data.ord.base, data.ord.trim), 10))).toNumber()
-    *dynamicShiftMultipliers[0]())
+let alephNullGain = () => Math.max(1, Decimal.log10(data.ord.ordinal).toNumber()*dynamicShiftMultipliers[0]())
 let alephNullEffects = [
-    () => Math.max(0, Math.log10(data.baseless.alephNull+1)/(10+Math.sqrt(Math.log10(data.baseless.alephNull+1)))),
-    () => Math.max(0, Math.floor(Math.sqrt(Math.log10(data.baseless.alephNull+1))))
+    () => Math.max(0, Math.log10(data.baseless.alephNull)/10),
+    () => Math.max(0, Math.floor(Math.log10(data.baseless.alephNull)))
 ]
 let singBoostToBaseless = (display = false) => data.baseless.baseless || display ? Math.max(1, data.sing.level) : 1
