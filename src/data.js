@@ -145,14 +145,15 @@ function fixOldSavesP2(){
     if(data.loadedVersion === "0.2.2"){
         data.loadedVersion = "0.2.3"
         if(!data.boost.unlocks[4]) return
-        if(data.baseless.baseless) return baselessControl()
-        return collapse()
+        data.baseless.baseless ? baselessControl() : collapse()
+        data.baseless.alephNull = 0
     }
     //v0.1 => v0.1.1
     if(data.loadedVersion < "0.1.1" || data.loadedVersion === "null"){
         data.incrementy.charge += data.darkness.sacrificedCharge
         data.incrementy.totalCharge += data.darkness.sacrificedCharge
         resetDarkness(true)
+        data.loadedVersion = "0.1.2"
     }
 
     //v0.0.5 => v0.0.6
@@ -167,8 +168,6 @@ function fixOldSavesP2(){
             data.boost.amt = 465
         }
     }
-
-    data.loadedVersion = "0.1.2"
 }
 function exportSave(){
     try {
