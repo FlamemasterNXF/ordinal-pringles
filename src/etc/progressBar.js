@@ -3,7 +3,6 @@
     ALL CREDIT GOES TO ryanleonels ON DISCORD FOR EVERYTHING BEFORE THE "LEGACY" SECTION
     Source: https://ordinal-pringles-dark-mode.glitch.me/src/etc/progressBar.js
 
-
  */
 
 function OPtoOrd(x, b, trim=0) {
@@ -45,7 +44,7 @@ function getTargetOrdinal() {
         if (chalGoal !== Infinity) {
             if (data.chal.html===1) {
                 if (!data.chal.completions[data.chal.html]) chalGoal = 4e256
-                else return chalGoal
+                else return D(chalGoal)
             }
             let currentOP = (data.chal.html === 7 || data.darkness.darkened) ? 0 : data.markup.powers;
             return D(OPtoOrd((chalGoal - currentOP) / opMult(), data.ord.base))
@@ -62,15 +61,18 @@ function getBarPercent(){
     return Decimal.min(D(100), data.ord.ordinal.div(getTargetOrdinal()).times(100))
 }
 function getTimeEstimate(){
-    if((!data.ord.isPsi) && !inNonPsiChallenge()) return "Unknown... "
+    if(!data.ord.isPsi && !inNonPsiChallenge()) return "Unknown... "
     if (data.ord.isPsi && inNonPsiChallenge()) return "0s"
+
     if(getTargetOrdinal().lt(data.ord.ordinal))return "0s"
     let autoSpeed = Decimal.max(1, (data.ord.isPsi ? t2Auto() : D(data.autoLevels[0]+extraT1()*t1Auto()*(data.chal.active[4] ? (1/data.dy.level) : data.dy.level)).div(data.chal.decrementy)))
     return formatTime(Decimal.max((getTargetOrdinal().sub(data.ord.ordinal)).div(autoSpeed), D(0)))
 }
 function updateProgressBar(){
     DOM("progressBar").style.width = Math.min(100, getBarPercent()) + "%"
-    if((!data.ord.isPsi) && !inNonPsiChallenge()) return DOM("progressBar").innerHTML = "???"
+    if(!data.ord.isPsi && !inNonPsiChallenge()) return DOM("progressBar").innerHTML = "???"
+
+    if(getTargetOrdinal().eq(Infinity)) return DOM("progressBar").innerHTML = "???"
     DOM("progressBar").innerHTML = getBarPercent().toFixed(2) + "%:&nbsp;" + getTimeEstimate().replaceAll(" ","&nbsp;") + "&nbsp;est."
 }
 
