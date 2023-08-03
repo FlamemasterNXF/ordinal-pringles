@@ -145,7 +145,7 @@ function fixOldSavesP2(){
     if(data.loadedVersion === "0.2.2"){
         data.loadedVersion = "0.2.3"
         if(!data.boost.unlocks[4]) return
-        data.baseless.baseless ? baselessControl() : collapse()
+        data.baseless.baseless ? baselessControl() : collapse(false, true)
         data.baseless.alephNull = 0
     }
     //v0.1 => v0.1.1
