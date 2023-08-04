@@ -82,8 +82,8 @@ function changeSingLevel(single = false){
 
 function singControl(i){
     if(i === 0){
-        data.sing.level = maxSingLevel()
-        data.incrementy.charge = 0
+        data.sing.level = data.sing.level+maxSingLevel()
+        data.incrementy.charge -= maxSingLevel()
         if(data.sing.level > data.sing.highestLevel) data.sing.highestLevel = data.sing.level
     }
     if(i === 1){
