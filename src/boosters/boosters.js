@@ -8,7 +8,7 @@ function checkAutobuyerDisplay(){
     DOM('auto4').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('auto5').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
     DOM('auto6').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
-    DOM('auto7').style.display = data.sing.hasEverHadFunction[1] ? 'block' : 'none'
+    DOM('auto7').style.display = data.sing.hasEverHadFunction[0] ? 'block' : 'none'
     DOM('auto8').style.display = data.sing.hasEverHadFunction[3] ? 'block' : 'none'
 }
 
@@ -247,7 +247,7 @@ function boosterUnlock(){
     else {DOM(`bu2`).style.backgroundColor = 'black';}
     if(overflowTabUnlocked()){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480'; }
     else {DOM(`bu3`).style.backgroundColor = 'black';}
-    if(data.boost.total >= 12246 || data.boost.unlocks[4]){ data.boost.unlocks[4] = true; DOM(`bu4`).style.backgroundColor = '#002480'; }
+    if((data.boost.total >= 12246 && data.collapse.hasSluggish[3]) || data.boost.unlocks[4]){ data.boost.unlocks[4] = true; DOM(`bu4`).style.backgroundColor = '#002480'; }
     else {DOM(`bu4`).style.backgroundColor = 'black';}
 }
 

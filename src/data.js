@@ -117,7 +117,7 @@ function fixOldSaves(){
     if(data.loadedVersion === "0.0.6") data.loadedVersion = "0.1" //Forgot to do this, thankfully I caught it in time
     if(data.loadedVersion === "0.1" && data.collapse.hasSluggish[1]) extra = true
     //v0.0.6 => v0.1+
-    if(data.collapse.times === 0 && data.ord.ordinal.gt(BHO_VALUE)) data.ord.ordinal = BHO_VALUE
+    if(data.collapse.times === 0 && data.ord.ordinal.gt(BHO_VALUE)) data.ord.ordinal = D(BHO_VALUE)
     //v0.0.5 => v0.0.6+
     if (data.loadedVersion === "null"){
         if (data.chal.completions[6] > 0) data.chal.completions[6] = 0
