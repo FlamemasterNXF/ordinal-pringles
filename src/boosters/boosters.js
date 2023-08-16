@@ -136,8 +136,8 @@ function updateBoostersHTML(){
     DOM("incrementyTab").innerText = data.boost.unlocks[1]?'Incrementy':'???'
     DOM("hierarchiesTab").innerText = data.boost.unlocks[2]?'Hierarchies':'???'
     DOM("overflowTab").innerText = data.boost.unlocks[3]?'Overflow':'???'
-    DOM(`chalIn`).innerText = data.baseless.baseless
-        ? `You are in the ${baselessNames[data.baseless.mode]} Realm`
+    DOM(`chalIn`).innerText = inOC() ? `You are in Omega Challenge ${numToRoman(data.omega.selected+1)}: ${data.omega.selected < 5 ? `Challenge of the ${ocData[data.omega.selected].name}` : `The ${ocData[data.omega.selected].name} Challenge`}`
+        : data.baseless.baseless ? `You are in the ${baselessNames[data.baseless.mode]} Realm`
         : data.chal.active[7] ? `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
 }
 

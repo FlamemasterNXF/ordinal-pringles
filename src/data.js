@@ -31,7 +31,7 @@ function getDefaultObject() {
         darkness: {levels: Array(3).fill(0), negativeCharge:0, drains: Array(7).fill(0), sacrificedCharge:0, totalDrains: 0, chargeSpent:0, negativeChargeEnabled:false, darkened:false},
         sing: {highestLevel:0, level:0, tutorial:false, hasEverHadFunction: Array(singFunctions.length).fill(false)},
         baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), tutorial: false},
-        omega:{completions: Array(6).fill(0)},
+        omega:{completions: Array(6).fill(0), active:Array(6).fill(false), selected:-1},
         autoStatus: {enabled: Array(7).fill(false)},
         sToggles: Array(13).fill(true),
         successorClicks: 0,
