@@ -4,7 +4,7 @@ const ocData = [
         desc: "If you are past Ψ(Ω) you gain Decrementy based on your Ordinal which divides your AutoBuyer speed. Each Booster Upgrade purchased or Supercharged increases Decrementy gain",
         goal: () => 4,
         special: {
-            desc: "Greatly Boost Cardinal Upgrade 3 based on total OC Completions",
+            desc: "Greatly Boost Cardinal Upgrade 1 based on total OC Completions",
             req: 3,
             showEffect: true,
             effect: () => 1,
@@ -122,11 +122,13 @@ function ocControl(i){
     if(inOC() && i !== data.omega.selected) return swapOC(i)
 
     data.omega.selected = i
-    if(data.omega.selected === 5) data.omega.active = Array(6).fill(!data.omega.active[5])
+    if(i === 5) data.omega.active = Array(6).fill(!data.omega.active[5])
     else data.omega.active[i] = !data.omega.active[i]
 
-    DOM(`chalIn`).style.display = inOC() ? 'block' : 'none'
+    data.omega.tempComps = inOC() ? data.omega.completions[i] : 0
+
     omegaReset()
+    updateHeaderHTML()
 }
 function swapOC(i){
     if(data.omega.selected === 5)  data.omega.active = Array(6).fill(false)
@@ -136,7 +138,10 @@ function swapOC(i){
     if(data.omega.selected === 5) data.omega.active = Array(6).fill(true)
     else data.omega.active[i] = true
 
+    data.omega.tempComps = data.omega.completions[i]
+
     omegaReset()
+    updateHeaderHTML()
 }
 
 function omegaReset(){
@@ -153,3 +158,4 @@ function getTotalOCs() {
     return total
 }
 let inOC = () => data.omega.active.includes(true)
+let ocGoal = (i) => displayPsiOrd(ocData[i].goal(), 5)

@@ -42,7 +42,6 @@ function baselessControl(){
     data.baseless.tutorial = true
     data.baseless.baseless = !data.baseless.baseless
 
-    DOM(`chalIn`).style.display = data.chal.active.includes(true)||data.baseless.baseless?'block':'none'
     DOM(`baseless`).children[0].innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
 
     if(data.baseless.baseless){
@@ -58,6 +57,7 @@ function baselessControl(){
 
     updateDynamicShiftHTML()
     updateAlephNullHTML()
+    updateHeaderHTML()
 }
 
 function dynamicShift(){

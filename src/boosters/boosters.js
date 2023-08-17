@@ -136,9 +136,19 @@ function updateBoostersHTML(){
     DOM("incrementyTab").innerText = data.boost.unlocks[1]?'Incrementy':'???'
     DOM("hierarchiesTab").innerText = data.boost.unlocks[2]?'Hierarchies':'???'
     DOM("overflowTab").innerText = data.boost.unlocks[3]?'Overflow':'???'
-    DOM(`chalIn`).innerText = inOC() ? `You are in Omega Challenge ${numToRoman(data.omega.selected+1)}: ${data.omega.selected < 5 ? `Challenge of the ${ocData[data.omega.selected].name}` : `The ${ocData[data.omega.selected].name} Challenge`}`
-        : data.baseless.baseless ? `You are in the ${baselessNames[data.baseless.mode]} Realm`
-        : data.chal.active[7] ? `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy`:`You are in Challenge ${data.chal.html+1}`
+
+    if(data.chal.active[7]) updateHeaderHTML()
+}
+
+function updateHeaderHTML(){
+    const el = DOM(`chalIn`)
+    el.style.display = data.chal.active.includes(true) || data.baseless.baseless || inOC() ? 'block' : 'none'
+    if(inOC()){
+        return el.innerHTML = `You are in Omega Challenge ${numToRoman(data.omega.selected+1)}: ${data.omega.selected < 5 ? `Challenge of the ${ocData[data.omega.selected].name}` : `The ${ocData[data.omega.selected].name} Challenge`}<br>Goal: ${ocGoal(data.omega.selected)} [+${data.omega.completions[data.omega.selected]-data.omega.tempComps} Completions]`
+    }
+    el.innerText = data.baseless.baseless
+        ? `You are in the ${baselessNames[data.baseless.mode]} Realm`
+        : data.chal.active[7] ? `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy` : `You are in Challenge ${data.chal.html+1}`
 }
 
 function revealChargeEffect(i, showCharge) {
