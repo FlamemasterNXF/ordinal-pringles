@@ -2,7 +2,7 @@ const ocData = [
     {
         name: "Infinite Mind",
         desc: "If you are past Ψ(Ω) you gain Decrementy based on your Ordinal which divides your AutoBuyer speed. Each Booster Upgrade purchased or Supercharged increases Decrementy gain",
-        goal: () => 4,
+        goal: () => 4*(data.omega.completions[0]+1),
         special: {
             desc: "Greatly Boost Cardinal Upgrade 1 based on total OC Completions",
             req: 3,
@@ -59,9 +59,9 @@ const ocData = [
         desc: "You are trapped within all previous Omega Challenges",
         goal: () => 4,
         special: {
-            desc: "Uncap Dynamic Factor, total OC Completions boost Dynamic Gain, and all upgrades that used to boost Dynamic Cap now combine to boost Dynamic Gain",
+            desc: "Uncap Dynamic Factor and unlock Purity",
             req: 1,
-            showEffect: true,
+            showEffect: false,
             effect: () => 1,
         }
     },
@@ -109,6 +109,10 @@ function updateOCInHTML(){
         DOM(`oc${i}`).style.background = data.omega.active[i] ? `#1B0D0D` : `black`
     }
 }
+function updateOCHTML(i){
+    const el = DOM(`oc${i}`)
+    el.innerHTML = `<b><span style="color: indianred">${i !== 5 ? `${numToRoman(i+1)}: Challenge of the ${ocData[i].name}` : `${numToRoman(i+1)}: The ${ocData[i].name} Challenge`}</span></b><br><span style="color: orangered">${ocData[i].desc}</span><br><br><span style="color: orange">At <span style="color: orangered">${ocData[i].special.req}</span> Completions: ${ocData[i].special.desc} ${ocData[i].special.showEffect ? `[${format(ocData[i].special.effect())}x]` : ``}</span><br><br><span style="color: red">Completions: ${data.omega.completions[i]}</span><br><span style="color: red">Requirement for next Completion: ${displayPsiOrd(ocData[i].goal(), 5)}</span>`
+}
 
 function ocConfirm(i){
     if(inOC() && i !== data.omega.selected){
@@ -119,6 +123,8 @@ function ocConfirm(i){
     }
 }
 function ocControl(i){
+    updateOCHTML(i)
+    updateOCEffectsHTML()
     if(inOC() && i !== data.omega.selected) return swapOC(i)
 
     data.omega.selected = i
@@ -131,6 +137,7 @@ function ocControl(i){
     updateHeaderHTML()
 }
 function swapOC(i){
+    updateOCHTML(data.omega.selected)
     if(data.omega.selected === 5)  data.omega.active = Array(6).fill(false)
     else data.omega.active[data.omega.selected] = false
 
@@ -144,12 +151,16 @@ function swapOC(i){
     updateHeaderHTML()
 }
 
+function checkOCComps(i){
+    if(!inOC() || !data.ord.isPsi) return
+    if(data.ord.ordinal >= ocData[i].goal()) ++data.omega.completions[i]
+    updateHeaderHTML()
+}
 function omegaReset(){
     if(data.baseless.baseless) baselessControl()
     data.ord.ordinal.gte(BHO_VALUE) || data.boost.times > 33 ? collapse(): collapseReset()
     updateOCInHTML()
 }
-
 function getTotalOCs() {
     let total = 0
     for (let i = 0; i < data.omega.completions.length; i++) {
@@ -158,4 +169,4 @@ function getTotalOCs() {
     return total
 }
 let inOC = () => data.omega.active.includes(true)
-let ocGoal = (i) => displayPsiOrd(ocData[i].goal(), 5)
+let formatOCGoal = (i) => displayPsiOrd(ocData[i].goal(), 5)
