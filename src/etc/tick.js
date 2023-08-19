@@ -35,7 +35,7 @@ function tick(diff){
 
     if(Math.floor(timesToLoop[1]/1000) >= 1){
         maximize()
-        timesToLoop[0] -= 1000
+        timesToLoop[1] -= 1000
     }
     if(isNaN(timesToLoop[1]) || timesToLoop[1] < 0) timesToLoop[1] = 0
 
