@@ -289,13 +289,13 @@ function successor(n = 1, m=false) {
     if(data.ord.isPsi) return
     if(m)++data.successorClicks
 
-    if (data.ord.ordinal.mod(data.ord.base) === data.ord.base - 1 && data.ord.ordinal.lt(Number.MAX_SAFE_INTEGER)) data.ord.over+=n
+    if (data.ord.ordinal.mod(data.ord.base) >= data.ord.base - 1 && data.ord.ordinal.lt(Number.MAX_SAFE_INTEGER)) data.ord.over+=n
     else data.ord.ordinal = data.ord.ordinal.plus(n)
 }
 
 function maximize() {
     if(data.ord.isPsi) return
-    if (data.ord.ordinal.mod(data.ord.base) === data.ord.base - 1 && data.ord.over >= 1) {
+    if (data.ord.ordinal.mod(data.ord.base) >= data.ord.base - 1 && data.ord.over >= 1) {
         while(data.ord.over + data.ord.base >= data.ord.base * 2 && data.ord.ordinal.mod(data.ord.base ** 2) !== 0){
             data.ord.over -= Math.ceil((data.ord.over + data.ord.base) / 2 - 0.1)
             data.ord.ordinal = data.ord.ordinal.plus(data.ord.base)

@@ -28,16 +28,35 @@ function tick(diff){
     timesToLoop[3] = data.boost.hasBUP[autoUps[1]] ? t2Auto() : D(0)
 
     if(Math.floor(timesToLoop[0]/1000) >= 1){
-        successor(timesToLoop[0]/1000)
-        timesToLoop[0] -= Math.floor(timesToLoop[0]/1000)*1000
+        successor()
+        timesToLoop[0] -= 1000
     }
     if(isNaN(timesToLoop[0]) || timesToLoop[0] < 0) timesToLoop[0] = 0
 
     if(Math.floor(timesToLoop[1]/1000) >= 1){
         maximize()
-        timesToLoop[1] -= Math.floor(timesToLoop[1]/1000)*1000
+        timesToLoop[1] -= 1000
     }
     if(isNaN(timesToLoop[1]) || timesToLoop[1] < 0) timesToLoop[1] = 0
+
+    if (!data.ord.isPsi) { // the rest of successor / maximize if they can be used (non-psi)
+        if (Math.floor(timesToLoop[0]/1000) >= 1) { // if there are more successors
+            if (Math.floor(timesToLoop[1]/1000) >= 1) { // if there are also matching # of maximizes, do both
+                data.ord.over = 0
+                successor(Math.min(Math.floor(timesToLoop[0]/1000), data.ord.base * Math.floor(timesToLoop[1]/1000)))
+            } else {
+                if (Math.floor(timesToLoop[0]/1000) >= data.ord.base - (data.ord.ordinal.toNumber() % data.ord.base)) { // stop at ordinal % (base - 1) and spill the rest to over
+                    let ord1 = D(data.ord.base).sub(data.ord.ordinal.mod(data.ord.base)).sub(1) //(data.ord.base - (data.ord.ordinal % data.ord.base)) - 1
+                    successor(ord1.toNumber())
+                    data.ord.over += (Math.floor(timesToLoop[0]/1000) - ord1.toNumber())
+                } else { // add the rest
+                    successor(Math.floor(timesToLoop[0]/1000))
+                }
+            }
+        }
+    }
+    timesToLoop[0] -= Math.floor(timesToLoop[0]/1000)*1000
+    timesToLoop[1] -= Math.floor(timesToLoop[1]/1000)*1000
 
     // Automation Tier 2
     // BuyMax Autobuyer
