@@ -38,18 +38,17 @@ function tick(diff){
         timesToLoop[1] = D(timesToLoop[1]).sub(1000)
     }
     if(isNaN(D(timesToLoop[1]).toNumber()) || D(timesToLoop[1]).lt(0)) timesToLoop[1] = D(0)
-
     if (!data.ord.isPsi) { // the rest of successor / maximize if they can be used (non-psi)
         if (Decimal.floor(D(timesToLoop[0]).div(1000)).gte(1)) { // if there are more successors
             if (Decimal.floor(D(timesToLoop[1]).div(1000)).gte(1)) { // if there are also matching # of maximizes, do both
                 data.ord.over = 0
-                successor(Decimal.min(Decimal.floor(D(timesToLoop[0]).div(1000)), D(data.ord.base).mul(Decimal.floor(D(timesToLoop[1]).div(1000)))))
+                successor(Decimal.max(Decimal.min(Decimal.floor(D(timesToLoop[0]).div(1000)), D(data.ord.base).mul(Decimal.floor(D(timesToLoop[1]).div(1000))))),0)
             } else {
                 if (Decimal.floor(D(timesToLoop[0]).div(1000)).gte(D(data.ord.base).sub(D(data.ord.ordinal).mod(data.ord.base)))) { // stop at ordinal % (base - 1) and spill the rest to over
                     let ord1 = D(data.ord.base).sub(data.ord.ordinal.mod(data.ord.base)).sub(1) //(data.ord.base - (data.ord.ordinal % data.ord.base)) - 1
                     successor(ord1)
                     let ordOver = (Decimal.floor(D(timesToLoop[0]).div(1000)).sub(ord1).toNumber())
-                    if (isFinite(ordOver)) data.ord.over += ordOver
+                    if (isFinite(ordOver)) data.ord.over += ordOver.toNumber()
                 } else { // add the rest
                     successor(Decimal.floor(D(timesToLoop[0]).div(1000)))
                 }
@@ -57,7 +56,7 @@ function tick(diff){
         }
     }
     timesToLoop[0] = D(timesToLoop[0]).sub(Decimal.floor(D(timesToLoop[0]).div(1000)).mul(1000))
-    timesToLoop[1] = D(timesToLoop[0]).sub(Decimal.floor(D(timesToLoop[1]).div(1000)).mul(1000))
+    timesToLoop[1] = D(timesToLoop[1]).sub(Decimal.floor(D(timesToLoop[1]).div(1000)).mul(1000))
 
     // Automation Tier 2
     // BuyMax Autobuyer
