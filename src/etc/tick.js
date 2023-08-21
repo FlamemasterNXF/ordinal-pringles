@@ -48,7 +48,7 @@ function tick(diff){
                     let ord1 = D(data.ord.base).sub(data.ord.ordinal.mod(data.ord.base)).sub(1) //(data.ord.base - (data.ord.ordinal % data.ord.base)) - 1
                     successor(ord1)
                     let ordOver = (Decimal.floor(D(timesToLoop[0]).div(1000)).sub(ord1).toNumber())
-                    if (isFinite(ordOver)) data.ord.over += ordOver.toNumber()
+                    if (isFinite(ordOver)) data.ord.over += D(ordOver).toNumber()
                 } else { // add the rest
                     successor(Decimal.floor(D(timesToLoop[0]).div(1000)))
                 }
