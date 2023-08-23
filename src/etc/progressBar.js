@@ -6,15 +6,16 @@
  */
 
 function OPtoOrd(x, b, trim=0) {
-    if (x <= 0.000000000001 || trim >= 12) return 0;
-    if (x >= 1e256 && b==3) return 3**27
-    let exp = Math.floor(Math.log10(x) + 0.000000000001);
+    x = D(x)
+    if (x.lt(0.000000000001) || trim >= 12) return 0;
+    if (x.gte(1e256) && b==3) return 3**27
+    let exp = Decimal.floor(Decimal.log10(x) + 0.000000000001);
     if (validInBase(exp, b)) {
-        let coef = Math.floor(x / 10 ** exp + 0.000000000001);
-        if (coef >= b) return b ** (OPtoOrd(exp, b, trim+1) + 1);
-        return b ** OPtoOrd(exp, b, trim+1) * coef + OPtoOrd(x - coef * 10 ** exp, b, trim+1);
+        let coef = Decimal.floor(x.div(Decimal.pow(10,exp)).add(0.000000000001));
+        if (coef.gte(b)) return Decimal.pow(b,Decimal.add(OPtoOrd(exp, b, trim+1),1));
+        return Decimal.pow(b,OPtoOrd(exp, b, trim+1)).mul(coef).add(OPtoOrd(x.sub(coef.mul(Decimal.pow(10,exp))), b, trim+1));
     } else {
-        return b ** OPtoOrd(exp, b, trim+1);
+        return Decimal.pow(b,OPtoOrd(exp, b, trim+1));
     }
 }
 
