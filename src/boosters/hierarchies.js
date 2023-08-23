@@ -151,13 +151,13 @@ function buyHBuyable(i){
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
     }
-    if(data.hierarchies.ords[0].ord.gte(OPtoOrd(cost, hierarchyData[0].base())) && i < 2){
-        data.hierarchies.ords[0].ord=data.hierarchies.ords[0].ord.sub(OPtoOrd(cost, hierarchyData[0].base()))
+    if(data.hierarchies.ords[0].ord > OPtoOrd(cost, hierarchyData[0].base()) && i < 2){
+        data.hierarchies.ords[0].ord -= OPtoOrd(cost, hierarchyData[0].base())
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
     }
-    if(data.hierarchies.ords[1].ord.gte(OPtoOrd(cost, hierarchyData[1].base())) && i > 2 && i < 5){
-        data.hierarchies.ords[1].ord=data.hierarchies.ords[1].ord.sub(OPtoOrd(cost, hierarchyData[1].base()))
+    if(data.hierarchies.ords[1].ord > OPtoOrd(cost, hierarchyData[1].base()) && i > 2 && i < 5){
+        data.hierarchies.ords[1].ord -= OPtoOrd(cost, hierarchyData[1].base())
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
     }
