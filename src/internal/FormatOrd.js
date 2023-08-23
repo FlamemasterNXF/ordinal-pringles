@@ -206,7 +206,7 @@ function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
     over = Decimal.floor(over)
     if(trim <= 0) return `...`
     if(ord < base) return ord.plus(over)
-    const magnitude = Decimal.floor(Decimal.ln(ord)/Decimal.ln(base).plis(D(1e-14)))
+    const magnitude = Decimal.floor(Decimal.ln(ord)/Decimal.ln(base).plus(D(1e-14)))
     const magnitudeAmount = D(base).pow(magnitude)
     const amount = Decimal.floor(ord.div(magnitudeAmount))
     let finalOutput = "&omega;"
