@@ -47,7 +47,7 @@ const ocData = [
     },
     {
         name: "Finite",
-        desc: "Incrementy Gain is disabled and Incrementy Upgrades are useless",
+        desc: "Incrementy Gain is disabled and Incrementy Upgrades are useless. Entering this Challenge temporarily resets your Charge, you will get it back upon exiting (Sacrificed Charge is not effected)",
         goal: () => 1000,
         special: {
             desc: "Unlock a new row of Incrementy Upgrades",
@@ -141,6 +141,14 @@ function ocControl(i){
     data.omega.tempComps = inOC() ? data.omega.completions[i] : 0
 
     omegaReset()
+
+    if(data.omega.selected === 3 || data.omega.selected === 4){
+        const oldCharge = data.incrementy.totalCharge
+        data.incrementy.totalCharge = inOC() ? 0 : data.omega.oldCharge
+        data.incrementy.charge = inOC() ? 0 : data.omega.oldCharge
+        data.omega.oldCharge = oldCharge
+    }
+
     updateHeaderHTML()
 }
 function swapOC(i){
@@ -155,6 +163,12 @@ function swapOC(i){
     data.omega.tempComps = data.omega.completions[i]
 
     omegaReset()
+    if(data.omega.selected === 3 || data.omega.selected === 4){
+        data.incrementy.totalCharge = 0
+        data.incrementy.charge = 0
+        data.omega.oldCharge = data.incrementy.totalCharge
+    }
+
     updateHeaderHTML()
 }
 
