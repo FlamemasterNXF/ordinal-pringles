@@ -172,4 +172,5 @@ function getTotalOCs() {
     }
     return total
 }
-let inOC = () => data.omega.active.includes(true)
+let inOC = (i) => data.omega.active[i]
+let inAnyOC = () => data.omega.active.includes(true)

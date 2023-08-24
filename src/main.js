@@ -21,7 +21,7 @@ function mainLoop() {
 
     data.darkness.negativeCharge = Math.min(negativeChargeCap(), data.darkness.negativeCharge+negativeChargeGain()*uDiff)
 
-    if(inOC()) checkOCComps(data.omega.selected)
+    if(inAnyOC()) checkOCComps(data.omega.selected)
 
     // Run the tick() function to calculate things that rely on normal diff
     tick(diff)

@@ -142,8 +142,8 @@ function updateBoostersHTML(){
 
 function updateHeaderHTML(){
     const el = DOM(`chalIn`)
-    el.style.display = data.chal.active.includes(true) || data.baseless.baseless || inOC() ? 'block' : 'none'
-    if(inOC()){
+    el.style.display = data.chal.active.includes(true) || data.baseless.baseless || inAnyOC() ? 'block' : 'none'
+    if(inAnyOC()){
         return el.innerHTML = `You are in Omega Challenge ${numToRoman(data.omega.selected+1)}: ${data.omega.selected < 5 ? `Challenge of the ${ocData[data.omega.selected].name}` : `The ${ocData[data.omega.selected].name} Challenge`}<br>Goal: Factor Boost ${(ocData[data.omega.selected].goal())} [+${data.omega.completions[data.omega.selected]-data.omega.tempComps} Completions]`
     }
     el.innerText = data.baseless.baseless
