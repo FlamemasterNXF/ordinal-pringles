@@ -89,6 +89,11 @@ function initSluggish(){
 function updateAlephHTML(i){
     DOM(`aleph${i}`).innerHTML = `You have <span style='color: #20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></span>, ${alephData[i].text} <span style='color: #20da45'><b>${format(alephEffect(i))}x</b></span>`
 }
+function updateAllAlephHTML(){
+    for (let i = 0; i < data.collapse.alephs.length; i++) {
+        updateAlephHTML(i)
+    }
+}
 function updateTotalAlephHTML(){
     DOM(`alephTotal`).innerHTML = `You have <span style='color: #20da45'><b>${format(getTotalAlephs())} Total ℵ</b></span>, multiplying Cardinal gain by <span style='color: #20da45'><b>${format(alephTotalEffect())}x</b></span>`
 }
@@ -146,7 +151,7 @@ function checkCollapseUnlockHTML(){
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect())**singEffects[0].effect()
-let alephEffect = (i) => data.collapse.alephs[i] > 0 && !inOC(1) ? alephData[i].effect()*cupEffect(6) : 1
+let alephEffect = (i) => data.collapse.alephs[i] > 0 && (i === 0 || !inOC(1)) ? alephData[i].effect()*cupEffect(6) : 1
 let cupEffect = (i) => data.collapse.hasCUP[i] ?
     i===1 ? Math.max(cupData[i].effect()+drain1Effect(), 1)
     : Math.max(cupData[i].effect()*drainEffect(i), 1)

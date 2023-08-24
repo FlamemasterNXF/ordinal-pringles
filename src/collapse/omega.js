@@ -3,7 +3,7 @@ const ocData = [
     {
         name: "Infinite Mind",
         desc: "If you are past Ψ(Ω) you gain Decrementy based on your Ordinal which divides your AutoBuyer speed. Each Booster Upgrade purchased or Supercharged increases Decrementy gain",
-        goal: () => 4*(data.omega.completions[0]+1),
+        goal: () => 1000*(data.omega.completions[0]+1),
         special: {
             desc: "Greatly Boost Cardinal Upgrade 1 based on total OC Completions",
             req: 3,
@@ -25,10 +25,10 @@ const ocData = [
     },
     {
         name: "Lost Infinities",
-        desc: "Alephs are useless and Dynamic Factor divides AutoBuyer speed",
-        goal: () => 4,
+        desc: "Alephs except ℵ<sub>1</sub> are useless, Dynamic Factor divides AutoBuyer speed, and IUP3 is disabled",
+        goal: () => 1000,
         special: {
-            desc: "Aleph 2 is greatly boosted based on total OC completions if you’re not Baseless. Otherwise, Aleph 1 is greatly boosted based on total OC completions",
+            desc: "ℵ<sub>2</sub> is greatly boosted based on total OC completions if you’re not Baseless. Otherwise, ℵ<sub>1</sub> is greatly boosted based on total OC completions",
             req: 4,
             showEffect: true,
             effect: () => 1,
@@ -37,7 +37,7 @@ const ocData = [
     {
         name: "Effortless Eternity",
         desc: "The Challenge Boost to AutoBuyers is disabled and Factor Boosts scale much quicker",
-        goal: () => 4,
+        goal: () => 1000,
         special: {
             desc: "Boost Booster Power gain and Overcharge gain based on total OC completions",
             req: 6,
@@ -48,7 +48,7 @@ const ocData = [
     {
         name: "Finite",
         desc: "Incrementy Gain is disabled and Incrementy Upgrades are useless",
-        goal: () => 4,
+        goal: () => 1000,
         special: {
             desc: "Unlock a new row of Incrementy Upgrades",
             req: 8,
@@ -59,7 +59,7 @@ const ocData = [
     {
         name: "Ω",
         desc: "You are trapped within all previous Omega Challenges",
-        goal: () => 4,
+        goal: () => 1000,
         special: {
             desc: "Uncap Dynamic Factor and unlock Purity",
             req: 1,
@@ -129,6 +129,7 @@ function ocConfirm(i){
 function ocControl(i){
     updateOCHTML(i)
     updateOCEffectsHTML()
+    updateAllAlephHTML()
     if(inOC() && i !== data.omega.selected) return swapOC(i)
 
     data.omega.selected = i
@@ -174,3 +175,4 @@ function getTotalOCs() {
 }
 let inOC = (i) => data.omega.active[i]
 let inAnyOC = () => data.omega.active.includes(true)
+let oc1Effect = () => inOC(1) && data.dy.level >= 1 ? data.dy.level : 1
