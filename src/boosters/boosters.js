@@ -144,7 +144,7 @@ function updateHeaderHTML(){
     const el = DOM(`chalIn`)
     el.style.display = data.chal.active.includes(true) || data.baseless.baseless || inOC() ? 'block' : 'none'
     if(inOC()){
-        return el.innerHTML = `You are in Omega Challenge ${numToRoman(data.omega.selected+1)}: ${data.omega.selected < 5 ? `Challenge of the ${ocData[data.omega.selected].name}` : `The ${ocData[data.omega.selected].name} Challenge`}<br>Goal: ${formatOCGoal(data.omega.selected)} [+${data.omega.completions[data.omega.selected]-data.omega.tempComps} Completions]`
+        return el.innerHTML = `You are in Omega Challenge ${numToRoman(data.omega.selected+1)}: ${data.omega.selected < 5 ? `Challenge of the ${ocData[data.omega.selected].name}` : `The ${ocData[data.omega.selected].name} Challenge`}<br>Goal: Factor Boost ${(ocData[data.omega.selected].goal())} [+${data.omega.completions[data.omega.selected]-data.omega.tempComps} Completions]`
     }
     el.innerText = data.baseless.baseless
         ? `You are in the ${baselessNames[data.baseless.mode]} Realm`
@@ -177,13 +177,12 @@ function boosterReset(){
     data.successorClicks = 0
 }
 
-const boostTimesLimit = 9999
 function boost(f=false, auto=false){
     if(data.boost.times === 33 && data.collapse.times === 0) return createConfirmation("Are you certain?", "This will perform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
     if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && auto) return
     if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
 
-    if(data.boost.times === boostTimesLimit) return createAlert("The End... for now!", "You've reached the current Endgame!", "Thanks!")
+    if(data.boost.times === boostLimit()) return createAlert("The End... for now!", "You've reached the current Endgame!", "Thanks!")
 
     if(data.boost.times === 0){
         DOM('boostNav').style.display = 'block'
@@ -192,9 +191,10 @@ function boost(f=false, auto=false){
 
     let bulkBoostAmt = getBulkBoostAmt();
     if (auto && data.boost.times < 2 && !data.collapse.hasSluggish[4]) bulkBoostAmt = Math.min(2 - data.boost.times, bulkBoostAmt) // do not automatically boost past SM2
+
     for(let i=1;i<=bulkBoostAmt;i++) {
-        data.boost.amt += data.boost.times+1
-        data.boost.total += data.boost.times+1
+        data.boost.amt += inOC(0) ? 1 : data.boost.times+1
+        data.boost.total += inOC(0) ? 1 : data.boost.times+1
         ++data.boost.times
 
         if(data.boost.times === 30 && data.collapse.times === 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')

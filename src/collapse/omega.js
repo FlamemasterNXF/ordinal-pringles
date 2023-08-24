@@ -1,4 +1,5 @@
 const ocData = [
+    /*
     {
         name: "Infinite Mind",
         desc: "If you are past Ψ(Ω) you gain Decrementy based on your Ordinal which divides your AutoBuyer speed. Each Booster Upgrade purchased or Supercharged increases Decrementy gain",
@@ -10,12 +11,13 @@ const ocData = [
             effect: () => 1,
         }
     },
+     */
     {
-        name: "Eternal Decline",
-        desc: "Every Factor Boost yields only one Booster",
-        goal: () => 4,
+        name: "Infinite Light",
+        desc: "Every Factor Boost yields only one Booster and Darkness Upgrades are disabled",
+        goal: () => 100*data.omega.completions[0],
         special: {
-            desc: "Booster Upgrade 2x2's effect is cubed",
+            desc: "Greatly Boost Cardinal Upgrade 1 based on total OC Completions",
             req: 5,
             showEffect: false,
             effect: () => 3,
@@ -80,19 +82,21 @@ const totalOCEffects = [
 function initOCs(){
     updateOCEffectsHTML()
     const container = DOM(`ocContainer`)
-    for (let i = 0; i < ocData.length/3; i++) {
+    for (let i = 0; i < 2; i++) {
         let row = document.createElement('div')
         row.className = 'cupRow'
         row.id = `ocRow${i}`
 
         for (let j = 0; j < 3; j++) {
             let id = j+(i*3)
-            let el = document.createElement('button')
-            el.className = 'oc'
-            el.id = `oc${id}`
-            el.innerHTML = `<b><span style="color: indianred">${id !== 5 ? `${numToRoman(id+1)}: Challenge of the ${ocData[id].name}` : `${numToRoman(id+1)}: The ${ocData[id].name} Challenge`}</span></b><br><span style="color: orangered">${ocData[id].desc}</span><br><br><span style="color: orange">At <span style="color: orangered">${ocData[id].special.req}</span> Completions: ${ocData[id].special.desc} ${ocData[id].special.showEffect ? `[${format(ocData[id].special.effect())}x]` : ``}</span><br><br><span style="color: red">Completions: ${data.omega.completions[id]}</span><br><span style="color: red">Requirement for next Completion: ${displayPsiOrd(ocData[id].goal(), 5)}</span>`
-            el.addEventListener('click', () => ocConfirm(id))
-            row.append(el)
+            if(id < 5){
+                let el = document.createElement('button')
+                el.className = 'oc'
+                el.id = `oc${id}`
+                el.innerHTML = `<b><span style="color: indianred">${id !== 4 ? `${numToRoman(id+1)}: Challenge of the ${ocData[id].name}` : `${numToRoman(id+1)}: The ${ocData[id].name} Challenge`}</span></b><br><span style="color: orangered">${ocData[id].desc}</span><br><br><span style="color: orange">At <span style="color: orangered">${ocData[id].special.req}</span> Completions: ${ocData[id].special.desc} ${ocData[id].special.showEffect ? `[${format(ocData[id].special.effect())}x]` : ``}</span><br><br><span style="color: red">Completions: ${data.omega.completions[id]}</span><br><span style="color: red">Requirement for next Completion: Factor Boost ${(ocData[id].goal())}</span>`
+                el.addEventListener('click', () => ocConfirm(id))
+                row.append(el)
+            }
         }
         container.append(row)
     }
@@ -111,7 +115,7 @@ function updateOCInHTML(){
 }
 function updateOCHTML(i){
     const el = DOM(`oc${i}`)
-    el.innerHTML = `<b><span style="color: indianred">${i !== 5 ? `${numToRoman(i+1)}: Challenge of the ${ocData[i].name}` : `${numToRoman(i+1)}: The ${ocData[i].name} Challenge`}</span></b><br><span style="color: orangered">${ocData[i].desc}</span><br><br><span style="color: orange">At <span style="color: orangered">${ocData[i].special.req}</span> Completions: ${ocData[i].special.desc} ${ocData[i].special.showEffect ? `[${format(ocData[i].special.effect())}x]` : ``}</span><br><br><span style="color: red">Completions: ${data.omega.completions[i]}</span><br><span style="color: red">Requirement for next Completion: ${displayPsiOrd(ocData[i].goal(), 5)}</span>`
+    el.innerHTML = `<b><span style="color: indianred">${i !== 4 ? `${numToRoman(i+1)}: Challenge of the ${ocData[i].name}` : `${numToRoman(i+1)}: The ${ocData[i].name} Challenge`}</span></b><br><span style="color: orangered">${ocData[i].desc}</span><br><br><span style="color: orange">At <span style="color: orangered">${ocData[i].special.req}</span> Completions: ${ocData[i].special.desc} ${ocData[i].special.showEffect ? `[${format(ocData[i].special.effect())}x]` : ``}</span><br><br><span style="color: red">Completions: ${data.omega.completions[i]}</span><br><span style="color: red">Requirement for next Completion: Factor Boost ${(ocData[i].goal())}</span>`
 }
 
 function ocConfirm(i){
@@ -128,7 +132,7 @@ function ocControl(i){
     if(inOC() && i !== data.omega.selected) return swapOC(i)
 
     data.omega.selected = i
-    if(i === 5) data.omega.active = Array(6).fill(!data.omega.active[5])
+    if(i === 4) data.omega.active = Array(5).fill(!data.omega.active[4])
     else data.omega.active[i] = !data.omega.active[i]
 
     data.omega.tempComps = inOC() ? data.omega.completions[i] : 0
@@ -138,11 +142,11 @@ function ocControl(i){
 }
 function swapOC(i){
     updateOCHTML(data.omega.selected)
-    if(data.omega.selected === 5)  data.omega.active = Array(6).fill(false)
+    if(data.omega.selected === 4)  data.omega.active = Array(5).fill(false)
     else data.omega.active[data.omega.selected] = false
 
     data.omega.selected = i
-    if(data.omega.selected === 5) data.omega.active = Array(6).fill(true)
+    if(data.omega.selected === 4) data.omega.active = Array(5).fill(true)
     else data.omega.active[i] = true
 
     data.omega.tempComps = data.omega.completions[i]
@@ -153,7 +157,7 @@ function swapOC(i){
 
 function checkOCComps(i){
     if(!inOC() || !data.ord.isPsi) return
-    if(data.ord.ordinal >= ocData[i].goal()) ++data.omega.completions[i]
+    if(data.boost.times >= ocData[i].goal()) ++data.omega.completions[i]
     updateHeaderHTML()
 }
 function omegaReset(){
@@ -169,4 +173,3 @@ function getTotalOCs() {
     return total
 }
 let inOC = () => data.omega.active.includes(true)
-let formatOCGoal = (i) => displayPsiOrd(ocData[i].goal(), 5)
