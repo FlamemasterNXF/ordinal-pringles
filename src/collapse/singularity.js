@@ -8,7 +8,7 @@ function updateSingularityHTML(){
     }
 }
 function updateSingLevelHTML(){
-    DOM(`singLevel`).innerHTML = `Your Singularity has a density of <b>${data.sing.level > 0 ? ordinalDisplay('H', data.sing.level, 0, 10, 3, false) : `H<sub>0</sub>`}</b> (10)`
+    DOM(`singLevel`).innerHTML = `Your Singularity has a density of <b>${data.sing.level > 0 || inOC(2) ? ordinalDisplay('H', inOC(2) ? oc2Effects[0]() : data.sing.level, 0, 10, 3, false) : `H<sub>0</sub>`}</b> (10)`
     DOM(`singLevel2`).innerHTML = `Your Singularity's highest ever density was <b>${data.sing.highestLevel > 0 ? ordinalDisplay('H', data.sing.highestLevel, 0, 10, 3, false) : `H<sub>0</sub>`}</b> (10)`
 
     for (let i = 0; i < singEffects.length; i++) {
@@ -48,8 +48,8 @@ function initSingularityFunctions(){
 let lastSingFunctionUnlockedIndex = 0
 let singEffects = [
     {desc: "raising Cardinal gain to the", effect: () => 1 + Math.sqrt(data.sing.level)/100},
-    {desc: "reducing the Decrementy gain exponent by", effect: () => Math.sqrt(data.sing.level)/50},
-    {desc: "raising AutoBuyer speed to the", effect: () => 1-Math.pow(data.sing.level, 1/2)/100},
+    {desc: "reducing the Decrementy gain exponent by", effect: () => Math.sqrt(inOC(2) ? oc2Effects[0]() : data.sing.level)/50},
+    {desc: "raising AutoBuyer speed to the", effect: () => 1-Math.pow(inOC(2) ? oc2Effects[0]() : data.sing.level, 1/2)/100},
 ]
 let maxSingLevel = () => data.incrementy.charge
 

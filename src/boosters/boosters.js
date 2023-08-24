@@ -19,6 +19,7 @@ const bupCosts = [1, 5, 72, 53, 3522,
     1, 4, 73, 74, 3522,
     1, 8, 16, 66, 3562,
 ]
+let getBUPCosts = (i) => bupCosts[i] * oc2Effects[1]()
 function initBUPs(){
     let rows = [DOM('bupColumn0'), DOM('bupColumn1'), DOM('bupColumn2')]
     let total = 0
@@ -34,7 +35,7 @@ function initBUPs(){
             else{
                 bup.className = 'bup'
                 bup.id = `bup${total}`
-                bup.innerText = `${bupDesc[total]}\n${bupCosts[total]} Boosters`
+                bup.innerText = `${bupDesc[total]}\n${getBUPCosts(total)} Boosters`
             }
             rows[i].append(bup)
             ++total
@@ -151,9 +152,15 @@ function updateHeaderHTML(){
         : data.chal.active[7] ? `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy` : `You are in Challenge ${data.chal.html+1}`
 }
 
+function updateAllBUPHTML(){
+    for (let i = 0; i < data.boost.hasBUP.length; i++) {
+        DOM(`bup${i}`).innerText = `${bupDesc[i]}\n${getBUPCosts(i)} Boosters`
+    }
+}
+
 function revealChargeEffect(i, showCharge) {
     DOM(`bup${i}`).style.color = showCharge || data.boost.isCharged[i] && data.boost.unlocks[1] ? 'goldenrod' : '#8080FF'
-    DOM(`bup${i}`).innerText = showCharge || data.boost.isCharged[i] ? chargedBUPDesc[i] : `${bupDesc[i]}\n${bupCosts[i]} Boosters`
+    DOM(`bup${i}`).innerText = showCharge || data.boost.isCharged[i] ? chargedBUPDesc[i] : `${bupDesc[i]}\n${getBUPCosts(i)} Boosters`
     //DOM('bupBottomText').innerText = `This Upgrade's Supercharged effect is \'${chargedBUPDesc[i]}\'\nThe Unlockables Column does not consume Boosters`
 }
 
@@ -221,14 +228,17 @@ function getBulkBoostAmt(){
 function buyBUP(i, bottomRow, useCharge){
     updateHierarchyPurchaseHTML()
     if(data.boost.hasBUP[i] && useCharge) return chargeBUP(i, bottomRow)
-    if(data.boost.amt < bupCosts[i]) return
+    if(data.boost.amt < getBUPCosts(i)) return
     if(i % 5 !== 0 && !data.boost.hasBUP[i-1]) return // Force you to buy them in order, but only in columns
 
+    data.boost.amt -= getBUPCosts(i)
     data.boost.hasBUP[i] = true
-    data.boost.amt -= bupCosts[i]
 
     DOM(`bup${i}`).style.backgroundColor = '#002480'
-
+    if(inOC(2)){
+        updateSingLevelHTML()
+        updateAllBUPHTML()
+    }
 }
 
 function boosterRefund(c=false){
@@ -245,6 +255,7 @@ function boosterRefund(c=false){
         data.boost.amt += bupCosts[indexes[i]]
     }*/
     data.boost.amt = data.boost.total
+    if(inOC(2)) updateAllBUPHTML()
     c?boosterReset():chalExit()
 }
 
@@ -286,6 +297,13 @@ function totalBUPs(){
     let total = 0
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
         if (data.boost.hasBUP[i]) ++total
+    }
+    return total
+}
+function totalCharges(){
+    let total = 0
+    for (let i = 0; i < data.boost.isCharged.length; i++) {
+        if (data.boost.isCharged[i]) ++total
     }
     return total
 }

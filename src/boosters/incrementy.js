@@ -121,7 +121,7 @@ function respecCharge(c=false){
         if (data.boost.isCharged[i]) indexes.push(i)
         data.boost.isCharged[i] = false
         DOM(`bup${i}`).className = 'bup'
-        DOM(`bup${i}`).innerText = `${bupDesc[i]}\n${bupCosts[i]} Boosters`
+        DOM(`bup${i}`).innerText = `${bupDesc[i]}\n${getBUPCosts(i)} Boosters`
         DOM(`bup${i}`).style.color = `#8080FF`
     }
     data.incrementy.charge = data.incrementy.totalCharge-data.sing.level

@@ -35,8 +35,8 @@ const ocData = [
         }
     },
     {
-        name: "Effortless Eternity",
-        desc: "The Challenge Boost to AutoBuyers is disabled and Factor Boosts scale much quicker",
+        name: "Infinite Mind",
+        desc: `Your Singularity is locked at a density of &omega;<sup>4</sup> and only its effect to AutoBuyers works, every Booster Upgrade purchased divides the Singularity's density by 1.25 and decuples all other Booster Upgrade costs, and every Booster Upgrade Supercharged doubles Singularity Density (to a max of 1e4)`,
         goal: () => 1000,
         special: {
             desc: "Boost Booster Power gain and Overcharge gain based on total OC completions",
@@ -120,16 +120,18 @@ function updateOCHTML(i){
 
 function ocConfirm(i){
     if(inOC() && i !== data.omega.selected){
-        createConfirmation("Are you sure?", `Swapping Omega Challenges will preform a Collapse and force you to exit any Baseless Realms!`, "No chance.", "Of course!", ocControl, i)
+        createConfirmation("Are you sure?", `Swapping Omega Challenges will preform a Collapse, force you to exit any Baseless Realms, and reset your Singularity!`, "No chance.", "Of course!", ocControl, i)
     }
     else{
-        createConfirmation("Are you sure?", `${inOC() ? 'Exiting' : 'Entering'} an Omega Challenge will preform a Collapse and force you to exit any Baseless Realms!`, "No chance.", "Of course!", ocControl, i)
+        createConfirmation("Are you sure?", `${inOC() ? 'Exiting' : 'Entering'} an Omega Challenge will preform a Collapse, force you to exit any Baseless Realms, and reset your Singularity!`, "No chance.", "Of course!", ocControl, i)
     }
 }
 function ocControl(i){
     updateOCHTML(i)
     updateOCEffectsHTML()
     updateAllAlephHTML()
+    singControl(1)
+
     if(inOC() && i !== data.omega.selected) return swapOC(i)
 
     data.omega.selected = i
@@ -176,3 +178,8 @@ function getTotalOCs() {
 let inOC = (i) => data.omega.active[i]
 let inAnyOC = () => data.omega.active.includes(true)
 let oc1Effect = () => inOC(1) && data.dy.level >= 1 ? data.dy.level : 1
+let oc2Effects = [
+    () => totalBUPs() > 0 ? Math.min(1e4, (1e4 / (2*totalBUPs()) * (totalCharges() > 0 ? 2*totalCharges() : 1))) : 1e4,
+    () => totalBUPs() > 0 && inOC(2) ? 10*totalBUPs() : 1,
+]
+let oc2Effect = () => totalBUPs() > 0 ? 1e4 / (1.25*totalBUPs()) : 1e4
