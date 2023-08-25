@@ -23,6 +23,8 @@ function mainLoop() {
 
     if(inAnyOC()) checkOCComps(data.omega.selected)
 
+    if(omegaUnlocked()) data.omega.alephOmega += alephOmegaProduction()*uDiff
+
     // Run the tick() function to calculate things that rely on normal diff
     tick(diff)
 

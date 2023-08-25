@@ -9,6 +9,7 @@ function updateCollapseHTML(){
     DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) ? '#fff480' : '#20da45'
 
     if(data.baseless.baseless) DOM(`baseless`).children[2].innerHTML = `<br><br>You will gain <span style="color: darkred">${format(alephNullGain())} ℵ<sub>0</sub></span> if you exit now`
+    if(inOC(4)) updateAlephOmegaHTML()
 
     updateTotalAlephHTML()
     updateDarknessHTML()

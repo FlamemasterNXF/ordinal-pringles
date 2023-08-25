@@ -298,6 +298,23 @@
     background: black;
     border: 2px solid darkred;
 }
+.appeasement{
+    width: 50rem;
+    height: 4.8rem;
+    border: 1px solid darkred;
+    color: #840404;
+    background: black;
+    margin-top: 0.5rem;
+}
+.pup{
+    width: 15rem;
+    height: 6rem;
+    border: 2px solid darkred;
+    color: #ce0b0b;
+    background: black;
+    margin-left: 0.5rem;
+    margin-top: 1rem;
+}
 .settingsButton{
     width: 10rem;
     height: 1.5rem;

@@ -47,7 +47,12 @@ function switchSubtab(t, mode){
 
     // Special Collapse Rules
     if(mode === "collapse"){
-        DOM(`collapseInfoContainer`).style.display = t==='omega' ? 'none' : 'flex'
+        if(t === "cardinals" && omegaUnlocked()) t = "pureAlephs"
+        if(t === "cUpgrades" && omegaUnlocked()) t = "pUpgrades"
+        if(t === "sluggish" && inOC(4)) t = "appeasements"
+        DOM(`collapseInfoContainer`).style.display =
+            t==='omega'||t==='appeasements' || t==='pUpgrades' || t==='pureAlephs'
+            ? 'none' : 'flex'
 
         if(t==='darkness'){
             updateDUPHTML(1)
@@ -63,6 +68,7 @@ function switchSubtab(t, mode){
             DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
         }
         if(t === "autoPrestige") updateAutoPrestigeHTML()
+
         DOM(`${collapseTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
 
