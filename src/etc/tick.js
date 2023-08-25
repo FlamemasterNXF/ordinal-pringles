@@ -97,7 +97,7 @@ function tick(diff){
     // Automation Tier 3
     let inSluggish = false
     if (data.boost.times === 2 && !data.collapse.hasSluggish[4]) inSluggish = true
-    if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[0] && data.ord.base > 3) factorShift(true)
+    if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[0] && data.ord.base > 3 && data.markup.shifts < 7) factorShift(true)
     if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[1] && data.boost.times < boostTimesLimit && !inSluggish) boost(false, true)
 
     // Increase Hierarchies
