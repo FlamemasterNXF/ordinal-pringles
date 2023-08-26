@@ -147,6 +147,6 @@ function sacrificeIncrementy(){
 //let chargeReq = () => (10**(6+((data.incrementy.totalCharge+data.darkness.sacrificedCharge)*(2+Math.floor((data.incrementy.totalCharge+data.darkness.sacrificedCharge)/12)))))/hierarchyData[1].effect()
 function chargeReq() {
     let chargeExp = 6+((data.incrementy.totalCharge+data.darkness.sacrificedCharge)*(2+Math.floor((data.incrementy.totalCharge+data.darkness.sacrificedCharge)/12)));
-    chargeExp -= Math.log10(hierarchyData[1].effect());
+    chargeExp -= Decimal.log10(hierarchyData[1].effect());
     return D(10).pow(chargeExp);
 }

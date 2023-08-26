@@ -17,10 +17,10 @@ const ocData = [
         desc: "Every Factor Boost yields only one Booster and Darkness Upgrades are disabled",
         goal: () => 100*data.omega.completions[0],
         special: {
-            desc: "Greatly Boost Cardinal Upgrade 1 based on total OC Completions",
+            desc: "Total OC Completions Boost Cardinal Upgrade 1 and remove the Hierarchy Effect cap",
             req: 5,
-            showEffect: false,
-            effect: () => 3,
+            showEffect: true,
+            effect: () => Math.sqrt(getTotalOCs()),
         }
     },
     {
@@ -28,10 +28,10 @@ const ocData = [
         desc: "Alephs except ℵ<sub>1</sub> are useless, Dynamic Factor divides AutoBuyer speed, and IUP3 is disabled",
         goal: () => 1000,
         special: {
-            desc: "ℵ<sub>2</sub> is greatly boosted based on total OC completions if you’re not Baseless. Otherwise, ℵ<sub>1</sub> is greatly boosted based on total OC completions",
+            desc: "ℵ<sub>2</sub> and ℵ<sub>1</sub> are greatly boosted based on total OC completions",
             req: 4,
             showEffect: true,
-            effect: () => 1,
+            effect: () => Math.sqrt(getTotalOCs()),
         }
     },
     {
@@ -39,10 +39,10 @@ const ocData = [
         desc: `Your Singularity is locked at a density of &omega;<sup>4</sup> and only its effect to AutoBuyers works, every Booster Upgrade purchased divides the Singularity's density by 1.25 and decuples all other Booster Upgrade costs, and every Booster Upgrade Supercharged doubles Singularity Density (to a max of 1e4)`,
         goal: () => 1000,
         special: {
-            desc: "Boost Booster Power gain and Overcharge gain based on total OC completions",
+            desc: "Boost Overcharge gain based on total OC completions",
             req: 6,
             showEffect: true,
-            effect: () => 1,
+            effect: () => Math.sqrt(getTotalOCs()),
         }
     },
     {
@@ -61,7 +61,7 @@ const ocData = [
         desc: "You are trapped within all previous Omega Challenges, but things long kept a secret will be revealed...",
         goal: () => 1000,
         special: {
-            desc: "Uncap Dynamic Factor and unlock Purity",
+            desc: "???",
             req: 1,
             showEffect: false,
             effect: () => 1,
@@ -109,7 +109,7 @@ function initOCs(){
                 let el = document.createElement('button')
                 el.className = 'oc'
                 el.id = `oc${id}`
-                el.innerHTML = `<b><span style="color: indianred">${id !== 4 ? `${numToRoman(id+1)}: Challenge of the ${ocData[id].name}` : `${numToRoman(id+1)}: The ${ocData[id].name} Challenge`}</span></b><br><span style="color: orangered">${ocData[id].desc}</span><br><br><span style="color: orange">At <span style="color: orangered">${ocData[id].special.req}</span> Completions: ${ocData[id].special.desc} ${ocData[id].special.showEffect ? `[${format(ocData[id].special.effect())}x]` : ``}</span><br><br><span style="color: red">Completions: ${data.omega.completions[id]}</span><br><span style="color: red">Requirement for next Completion: Factor Boost ${(ocData[id].goal())}</span>`
+                el.innerHTML = `<b><span style="color: indianred">${id !== 4 ? `${numToRoman(id+1)}: Challenge of the ${ocData[id].name}` : `${numToRoman(id+1)}: The ${ocData[id].name} Challenge`}</span></b><br><span style="color: orangered">${ocData[id].desc}</span><br><br><span style="color: orange">At <span style="color: orangered">${ocData[id].special.req}</span> Completions: ${ocData[id].special.desc} ${ocData[id].special.showEffect ? `[${format(getOCEffect(id))}x]` : ``}</span><br><br><span style="color: red">Completions: ${data.omega.completions[id]}</span><br><span style="color: red">Requirement for next Completion: Factor Boost ${(ocData[id].goal())}</span>`
                 el.addEventListener('click', () => ocConfirm(id))
                 row.append(el)
             }
@@ -165,7 +165,7 @@ function updateOCInHTML(){
 }
 function updateOCHTML(i){
     const el = DOM(`oc${i}`)
-    el.innerHTML = `<b><span style="color: indianred">${i !== 4 ? `${numToRoman(i+1)}: Challenge of the ${ocData[i].name}` : `${numToRoman(i+1)}: The ${ocData[i].name} Challenge`}</span></b><br><span style="color: orangered">${ocData[i].desc}</span><br><br><span style="color: orange">At <span style="color: orangered">${ocData[i].special.req}</span> Completions: ${ocData[i].special.desc} ${ocData[i].special.showEffect ? `[${format(ocData[i].special.effect())}x]` : ``}</span><br><br><span style="color: red">Completions: ${data.omega.completions[i]}</span><br><span style="color: red">Requirement for next Completion: Factor Boost ${(ocData[i].goal())}</span>`
+    el.innerHTML = `<b><span style="color: indianred">${i !== 4 ? `${numToRoman(i+1)}: Challenge of the ${ocData[i].name}` : `${numToRoman(i+1)}: The ${ocData[i].name} Challenge`}</span></b><br><span style="color: orangered">${ocData[i].desc}</span><br><br><span style="color: orange">At <span style="color: orangered">${ocData[i].special.req}</span> Completions: ${ocData[i].special.desc} ${ocData[i].special.showEffect ? `[${format(getOCEffect(i))}x]` : ``}</span><br><br><span style="color: red">Completions: ${data.omega.completions[i]}</span><br><span style="color: red">Requirement for next Completion: Factor Boost ${(ocData[i].goal())}</span>`
 }
 
 function revealAppeasementHTML(){
@@ -247,7 +247,7 @@ function ocControl(i){
     if(data.omega.selected === 4 && !inAnyOC()){
         data.omega.remnants = 0
         data.omega.alephOmega = 0
-        data.omega.hasPUP = Array(8).fill(false)
+        data.omega.hasPUP = Array(7).fill(false)
         data.omega.hasAppeasement = Array(5).fill(false)
     }
 
@@ -351,10 +351,11 @@ function getTotalOCs() {
 
 let inOC = (i) => data.omega.active[i]
 let inAnyOC = () => data.omega.active.includes(true)
+let getOCEffect = (i) => getTotalOCs() > ocData[i].special.req ? Math.max(ocData[i].special.effect()) : 1
 let oc1Effect = () => inOC(1) && data.dy.level >= 1 ? data.dy.level/getPUPEffect(4) : 1
 let oc2Effects = [
-    () => totalBUPs() > 0 ? Math.min(1e4, (1e4 / (2*totalBUPs()) * (totalCharges() > 0 ? (2-getPUPEffect(3))*totalCharges() : 1))/appeasementData[3].effect()) : 1e4,
-    () => totalBUPs() > 0 && !hasAppeasement(0) ? 10*totalBUPs() : 1,
+    () => totalBUPs() > 0 && inOC(2) ? Math.min(1e4, (1e4 / (2*totalBUPs()) * (totalCharges() > 0 ? (2-getPUPEffect(3))*totalCharges() : 1))/appeasementData[3].effect()) : 1e4,
+    () => totalBUPs() > 0 && !hasAppeasement(0) && inOC(2) ? 10*totalBUPs() : 1,
 ]
 
 let alephOmegaProduction = () => omegaUnlocked() ? ((data.omega.remnants+getPUPEffect(5))/1000)*getPUPEffect(0) : 0
