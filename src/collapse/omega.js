@@ -73,7 +73,7 @@ let appeasementData = [
     {req: 10, desc: 'It demands more, but gives a slightly stronger reward.<br>Gain 1 working level of the first Darkness Upgrade for every Appeasement completed', effect: ()=> hasAppeasement(1) ? 5 : 0},
     {req: 20, desc: 'It seems to expect more. It flaunts its endless power in this reward.<br>Gain 1 free Charge every 5 Factor Boosts', effect: ()=>hasAppeasement(2) ? (Math.floor(data.boost.times / 5)) : 0},
     {req: 30, desc: 'It is pleased and gives a far more powerful gift.<br>Divide the Singularity Density by 1.01 every 2 Factor Boosts', effect: ()=>hasAppeasement(3) ? 1.01*(Math.floor(data.boost.times / 2)): 1},
-    {req: 999, desc: 'It is satisfied.<br>Increase Booster gain by 1 every 10 Factor Boosts and unlock the last great secrets.', effect: ()=>hasAppeasement(4) ? (Math.floor(data.boost.times / 10)) : 0},
+    {req: Infinity, desc: 'It is satisfied.<br>Increase Booster gain by 1 every 10 Factor Boosts and unlock the last great secrets.', effect: ()=>hasAppeasement(4) ? (Math.floor(data.boost.times / 10)) : 0},
 ]
 let pupData = [
     {text: "Factor Boosts boost ℵ<sub>&omega;</sub> gain", symbol: 'x', cost: 0, effect: ()=> Math.sqrt(data.boost.times), min: 1},
