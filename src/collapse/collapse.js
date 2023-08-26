@@ -187,7 +187,7 @@ let alephData = [
 ]
 let cupData = [
     {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max((data.incrementy.totalCharge/2)*getOCEffect(0), 1)},
-    {text: "Square AutoClicker speeds", cost: 27, effect: ()=> 2},
+    {text: "Square AutoClicker speeds", cost: 27, effect: ()=> 2+totalOCEffects[1].effect()},
     {text: "Challenges 1-7 provide greatly reduced boosts when at zero completions", cost: 81, effect: ()=> 0.2*8},
     {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 243, effect: ()=> Math.pow(data.markup.powers, 1/256)},
     {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.max(1, Decimal.log10(data.incrementy.amt.plus(1)).toNumber())}, //TODO: Add a safety function

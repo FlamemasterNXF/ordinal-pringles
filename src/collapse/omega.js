@@ -87,11 +87,11 @@ let pupData = [
 const totalOCEffects = [
     {
         desc: `increasing the second Cardinal Upgrade's effect by `,
-        effect: () => 1
+        effect: () => getTotalOCs() > 0 ? getTotalOCs()/100 : 0
     },
     {
         desc: `multiplying your Singularity's boost to Cardinal gain by `,
-        effect: () => 1
+        effect: () => getTotalOCs() > 0 ? 1+Math.sqrt(getTotalOCs()+1)/100 : 1
     },
 ]
 
