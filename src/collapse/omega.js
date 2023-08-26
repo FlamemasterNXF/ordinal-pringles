@@ -68,12 +68,12 @@ const ocData = [
         }
     },
 ]
-const appeasementData = [
+let appeasementData = [
     {req: 5, desc: 'It responds to this tiny gift with a tiny reward.<br>Nullify any increases to Booster Upgrade costs'},
-    {req: 10, desc: 'It demands more, but gives a slightly stronger reward.<br>Gain 1 working level of the first Darkness Upgrade for every 10 Omega Challenge Completions up to 50'},
-    {req: 20, desc: 'It seems to expect more. It flaunts its endless power in this reward.<br>Gain 1 free Charge every 5 Factor Boosts'},
-    {req: 30, desc: 'It is pleased and gives a far more powerful gift.<br>Divide the Singularity Density by 1.01 every 2 Factor Boosts'},
-    {req: 40, desc: 'It is satisfied.<br>Increase Booster gain by 1 every 10 Factor Boosts and unlock the last great secrets.'},
+    {req: 10, desc: 'It demands more, but gives a slightly stronger reward.<br>Gain 1 working level of the first Darkness Upgrade for every Appeasement completed', effect: ()=> hasAppeasement(1) ? 5 : 0},
+    {req: 20, desc: 'It seems to expect more. It flaunts its endless power in this reward.<br>Gain 1 free Charge every 5 Factor Boosts', effect: ()=>hasAppeasement(2) ? (Math.floor(data.boost.times / 5)) : 0},
+    {req: 30, desc: 'It is pleased and gives a far more powerful gift.<br>Divide the Singularity Density by 1.01 every 2 Factor Boosts', effect: ()=>hasAppeasement(3) ? 1.01*(Math.floor(data.boost.times / 2)): 1},
+    {req: 40, desc: 'It is satisfied.<br>Increase Booster gain by 1 every 10 Factor Boosts and unlock the last great secrets.', effect: ()=>hasAppeasement(4) ? (Math.floor(data.boost.times / 10)) : 0},
 ]
 let pupData = [
     {text: "Factor Boosts boost ℵ<sub>&omega;</sub> gain", symbol: 'x', cost: 0, effect: ()=> Math.sqrt(data.boost.times), min: 1},
@@ -186,6 +186,7 @@ function revealAppeasementHTML(){
 
     updateRemnantHTML()
     updateAllPureHTML(0)
+    updateAllPureHTML(1)
 }
 
 function updateRemnantHTML(){
@@ -352,8 +353,8 @@ let inOC = (i) => data.omega.active[i]
 let inAnyOC = () => data.omega.active.includes(true)
 let oc1Effect = () => inOC(1) && data.dy.level >= 1 ? data.dy.level/getPUPEffect(4) : 1
 let oc2Effects = [
-    () => totalBUPs() > 0 ? Math.min(1e4, (1e4 / (2*totalBUPs()) * (totalCharges() > 0 ? (2-getPUPEffect(3))*totalCharges() : 1))) : 1e4,
-    () => totalBUPs() > 0 && inOC(2) ? 10*totalBUPs() : 1,
+    () => totalBUPs() > 0 ? Math.min(1e4, (1e4 / (2*totalBUPs()) * (totalCharges() > 0 ? (2-getPUPEffect(3))*totalCharges() : 1))/appeasementData[3].effect()) : 1e4,
+    () => totalBUPs() > 0 && !hasAppeasement(0) ? 10*totalBUPs() : 1,
 ]
 
 let alephOmegaProduction = () => omegaUnlocked() ? ((data.omega.remnants+getPUPEffect(5))/1000)*getPUPEffect(0) : 0
@@ -363,5 +364,6 @@ let alephOmegaEffects = [
 ]
 
 let getPUPEffect = (i) => data.omega.hasPUP[i] && omegaUnlocked() ? Math.max(pupData[i].min, pupData[i].effect()) : pupData[i].min
+let hasAppeasement = (i) => omegaUnlocked() && data.omega.hasAppeasement[i]
 
 let omegaUnlocked = () => inOC(4) && data.omega.hasAppeasement[4]

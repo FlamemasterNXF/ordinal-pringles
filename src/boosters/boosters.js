@@ -115,7 +115,7 @@ const autoRequirements = [', but only if you can\'t Factor Shift', ', but only i
 const autoUps = [5, 10]
 function updateBoostersHTML(){
     DOM('boosterText').innerHTML = data.boost.unlocks[1] > 0 ?
-        `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
+        `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge+(omegaUnlocked() ? appeasementData[2].effect()-totalCharges() : 0)} Charge</span> (${data.incrementy.totalCharge+appeasementData[2].effect()} total)`
         : `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total)`
     DOM('boosterTimesText').innerHTML = `You have <span style="color: #8080FF">Boosted</span> ${data.boost.times} times`
     //DOM('bup3').innerText = `${bupDesc[3]}\n[${format(bup3Effect())}x]\n53 Boosters`
@@ -201,8 +201,8 @@ function boost(f=false, auto=false){
     if (auto && data.boost.times < 2 && !data.collapse.hasSluggish[4]) bulkBoostAmt = Math.min(2 - data.boost.times, bulkBoostAmt) // do not automatically boost past SM2
 
     for(let i=1;i<=bulkBoostAmt;i++) {
-        data.boost.amt += inOC(0) ? 1 : data.boost.times+1
-        data.boost.total += inOC(0) ? 1 : data.boost.times+1
+        data.boost.amt += inOC(0) ? 1+appeasementData[4].effect() : data.boost.times+1
+        data.boost.total += inOC(0) ? 1+appeasementData[4].effect() : data.boost.times+1
         ++data.boost.times
 
         if(data.boost.times === 30 && data.collapse.times === 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')

@@ -97,11 +97,12 @@ let iupEffects = [iup1Effect, iup2Effect, iup3Effect, iup4Effect, iup5Effect, iu
 
 
 function chargeBUP(i, bottomRow){
-    if(!data.incrementy.charge > 0 || data.boost.isCharged[i]) return
+    if(data.boost.isCharged[i]) return
+    if(!data.incrementy.charge > 0 && (omegaUnlocked() && data.incrementy+(appeasementData[2].effect()-totalCharges() === 0))) return
     if(bottomRow && data.incrementy.charge < getBottomRowChargeCost()) return
 
     data.boost.isCharged[i] = true
-    data.incrementy.charge -= bottomRow ? getBottomRowChargeCost() : 1
+    if(!omegaUnlocked()) data.incrementy.charge -= bottomRow ? getBottomRowChargeCost() : 1
 
     if(bottomRow){
         ++data.boost.bottomRowCharges
