@@ -15,10 +15,11 @@ function incrementyGain() {
     if (!data.ord.isPsi || checkAllIndexes(data.chal.active, true) > 0 || inOC(3)) return D(0)
 
     let ord = D(data.ord.ordinal)
+    let hierarchyEffect = getOCEffect(0) < 1 ? Decimal.max(hierarchyData[0].effect(), Number.MAX_VALUE) : hierarchyData[0].effect()
 
     let base = Decimal.log10(ord.plus(1)).div(10)
     let iupMults = base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect()).times(iup11Effect())
-    let otherMults = iupMults.times(hierarchyData[0].effect()).times(alephEffect(3)).times(cupEffect(4)).times(sBUP2Effect())
+    let otherMults = iupMults.times(hierarchyEffect).times(alephEffect(3)).times(cupEffect(4)).times(sBUP2Effect())
     return otherMults.div(negativeChargeEffect(false))
 }
 
