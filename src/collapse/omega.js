@@ -15,7 +15,7 @@ const ocData = [
     {
         name: "Infinite Light",
         desc: "Every Factor Boost yields only one Booster and Darkness Upgrades are disabled",
-        goal: () => 100*data.omega.completions[0],
+        goal: () => Math.floor(158*(Math.pow(data.omega.completions[0]+1, 1/6))),
         special: {
             desc: "Total OC Completions Boost Cardinal Upgrade 1 and remove the Hierarchy Effect cap",
             req: 5,
@@ -26,10 +26,10 @@ const ocData = [
     {
         name: "Lost Infinities",
         desc: "Alephs except ℵ<sub>1</sub> are useless, Dynamic Factor divides AutoBuyer speed, and IUP3 is disabled",
-        goal: () => 1000,
+        goal: () => Math.floor(45*(Math.pow(data.omega.completions[1]+1, 1/6))),
         special: {
             desc: "ℵ<sub>2</sub> and ℵ<sub>1</sub> are greatly boosted based on total OC completions",
-            req: 4,
+            req: 5,
             showEffect: true,
             effect: () => Math.sqrt(getTotalOCs()),
         }
@@ -37,10 +37,10 @@ const ocData = [
     {
         name: "Infinite Mind",
         desc: `Your Singularity is locked at a density of &omega;<sup>4</sup> and only its effect to AutoBuyers works, every Booster Upgrade purchased divides the Singularity's density by 1.25 and decuples all other Booster Upgrade costs, and every Booster Upgrade Supercharged doubles Singularity Density (to a max of 1e4)`,
-        goal: () => 1000,
+        goal: () => Math.floor(154*(Math.pow(data.omega.completions[2]+1, 1/6))),
         special: {
             desc: "Boost Overcharge gain based on total OC completions",
-            req: 6,
+            req: 5,
             showEffect: true,
             effect: () => Math.sqrt(getTotalOCs()),
         }
@@ -48,12 +48,12 @@ const ocData = [
     {
         name: "Finite",
         desc: "Incrementy Gain is disabled and Incrementy Upgrades are useless. Entering this Challenge temporarily resets your Charge, you will get it back upon exiting (Sacrificed Charge is not effected)",
-        goal: () => 1000,
+        goal: () => Math.floor(43*(Math.pow(data.omega.completions[3]+1, 1/6))),
         special: {
             desc: "Unlock a new row of Incrementy Upgrades",
-            req: 8,
+            req: 5,
             showEffect: false,
-            effect: () => data.omega.completions[3] > 7,
+            effect: () => data.omega.completions[3] > 4,
         }
     },
     {
@@ -281,7 +281,7 @@ function swapOC(i){
  */
 
 function checkOCComps(i){
-    if(!inOC() || !data.ord.isPsi) return
+    if(!inAnyOC() || !data.ord.isPsi) return
     if(data.boost.times >= ocData[i].goal()) ++data.omega.completions[i]
     updateHeaderHTML()
 }

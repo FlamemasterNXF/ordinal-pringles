@@ -146,7 +146,7 @@ function updateHeaderHTML(){
     el.style.display = data.chal.active.includes(true) || data.baseless.baseless || inAnyOC() ? 'block' : 'none'
     if(inAnyOC()){
         if(inOC(4)) return el.innerHTML = `You are in The ${ocData[data.omega.selected].name} Challenge<br>Goal: Factor Boost ${(ocData[data.omega.selected].goal())} [+${data.omega.completions[data.omega.selected]-data.omega.tempComps} Completions]`
-        return el.innerHTML = `You are in Omega Challenge ${numToRoman(data.omega.selected+1)}: ${data.omega.selected < 4 ? `Challenge of the ${ocData[data.omega.selected].name}` : `The ${ocData[data.omega.selected].name} Challenge`}<br>Goal: Factor Boost ${(ocData[data.omega.selected].goal())} [+${data.omega.completions[data.omega.selected]-data.omega.tempComps} Completions]`
+        return el.innerHTML = `You are in Omega Challenge ${numToRoman(data.omega.selected+1)}: Challenge of the ${ocData[data.omega.selected].name}<br>Goal: Factor Boost ${(ocData[data.omega.selected].goal())} [+${data.omega.completions[data.omega.selected]-data.omega.tempComps} Completions]`
     }
     el.innerText = data.baseless.baseless
         ? `You are in the ${baselessNames[data.baseless.mode]} Realm`
