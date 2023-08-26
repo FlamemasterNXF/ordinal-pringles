@@ -329,6 +329,60 @@ const achievements = [
         description: "Dynamic Shift Twice in the Forgotten Realm",
         req: () => data.baseless.shifts > 1 && data.baseless.mode === 2
     },
+    {
+        id: 107,
+        name: "The Gator's Prodigy",
+        description: "Dynamic Shift Seven Times in the Forgotten Realm",
+        req: () => data.baseless.shifts > 6  && data.baseless.mode === 2
+    },
+    {
+        id: 108,
+        name: "They're back!",
+        description: "Complete an Omega Challenge",
+        req: () => getTotalOCs() > 0
+    },
+    {
+        id: 109,
+        name: "The First of Not That Many",
+        description: "Unlock the special effect from Omega Challenge I",
+        req: () => data.omega.completions[0] > ocData[0].special.req
+    },
+    {
+        id: 110,
+        name: "#justiceforalephs",
+        description: "Unlock the special effect from Omega Challenge II",
+        req: () => data.omega.completions[1] > ocData[1].special.req
+    },
+    {
+        id: 111,
+        name: "Strategy? In MY Ordinal Pringles?",
+        description: "Unlock the special effect from Omega Challenge III",
+        req: () => data.omega.completions[2] > ocData[2].special.req
+    },
+    {
+        id: 112,
+        name: "0/5 ★, The Number Didn't Go Up",
+        description: "Unlock the special effect from Omega Challenge IV",
+        req: () => data.omega.completions[3] > ocData[3].special.req
+    },
+    {
+        id: 113,
+        name: "Ahh, Simpler Times Those Were",
+        description: "Purchase all Incrementy Upgrades",
+        req: () => data.incrementy.hasIUP[11] === true
+    },
+    {
+        id: 114,
+        name: "What Am I Appeasing?",
+        description: "Complete ??? Omega Challenges",
+        req: () => getTotalOCs() > appeasementData[4].req
+    },
+    {
+        id: 115,
+        name: "The End?",
+        description: "Complete Omega Challenge V",
+        req: () => data.omega.completions[4] > 0
+    },
 ]
 
 function initAchs(){
