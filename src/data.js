@@ -31,7 +31,7 @@ function getDefaultObject() {
         darkness: {levels: Array(3).fill(0), negativeCharge:0, drains: Array(7).fill(0), sacrificedCharge:0, totalDrains: 0, chargeSpent:0, negativeChargeEnabled:false, darkened:false},
         sing: {highestLevel:0, level:0, tutorial:false, hasEverHadFunction: Array(singFunctions.length).fill(false)},
         baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), tutorial: false},
-        omega:{completions: Array(5).fill(0), sacrificedComps: Array(5).fill(0), active:Array(5).fill(false), hasAppeasement:Array(5).fill(false), hasPUP:Array(8).fill(false), selected:-1, tempComps: 0, oldCharge: 0, remnants:0, alephOmega:0},
+        omega:{completions: Array(5).fill(0), sacrificedComps: Array(5).fill(0), active:Array(5).fill(false), hasAppeasement:Array(5).fill(false), hasPUP:Array(7).fill(false), selected:-1, tempComps: 0, oldCharge: 0, remnants:0, alephOmega:0},
         autoStatus: {enabled: Array(7).fill(false)},
         sToggles: Array(13).fill(true),
         successorClicks: 0,

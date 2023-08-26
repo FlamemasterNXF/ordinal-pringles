@@ -6,7 +6,7 @@ let t2AutoPure = () => D(1).times(chalEffectTotal()).times(bup5Effect()).times(i
     .times(bup48Effect()).times(hupData[5].effect()).times(alephEffect(1)).times(cupEffect(0)).times(cupEffect(3))
     .times(dupEffect(0))
 
-let t2Auto = () => t2AutoPure().pow(singEffects[2].effect()).div(oc1Effect())
+let t2Auto = () => t2AutoPure().pow(singEffects[2].effect()).div(oc1Effect()).times(getAlephOmegaEffect(0))
 
 
 function tick(diff){

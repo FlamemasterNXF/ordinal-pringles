@@ -76,14 +76,13 @@ const appeasementData = [
     {req: 40, desc: 'It is satisfied.<br>Increase Booster gain by 1 every 10 Factor Boosts and unlock the last great secrets.'},
 ]
 let pupData = [
-    {text: "Factor Boosts boost ℵ<sub>&omega;</sub> gain", cost: 0, effect: ()=> 1},
-    {text: "ℵ<sub>&omega;</sub> boosts the second Booster Upgrade in the second column", cost: 96, effect: ()=> 1},
-    {text: "Factor Boosts boost the ℵ<sub>&omega;</sub> effect", cost: 96, effect: ()=> 1},
-    {text: "ℵ<sub>&omega;</sub> reduces the Supercharge multiplier to Singularity Density", cost: 96, effect: ()=> 1},
-    {text: "The fourth Booster Upgrades in the first and third column now divide Dynamic's effect", cost: 96, effect: ()=> 1},
-    {text: "ℵ<sub>&omega;</sub> divides Dynamic's effect, and the Dynamic divisor can now go beneath 1", cost: 96, effect: ()=> 1},
-    {text: "Factor Boosts provide free &omega; Remnants", cost: 96, effect: ()=> 1},
-    {text: "&omega; Remnants boost the ℵ<sub>&omega;</sub> effect", cost: 96, effect: ()=> 1},
+    {text: "Factor Boosts boost ℵ<sub>&omega;</sub> gain", symbol: 'x', cost: 0, effect: ()=> Math.sqrt(data.boost.times), min: 1},
+    {text: "ℵ<sub>&omega;</sub> boosts the second Booster Upgrade in the second column", symbol: 'x', cost: 96, effect: ()=> 1+(data.omega.alephOmega)/1000, min: 1},
+    {text: "Factor Boosts boost the ℵ<sub>&omega;</sub> effect", symbol: 'x', cost: 96, effect: ()=> data.boost.times/2, min: 1},
+    {text: "ℵ<sub>&omega;</sub> reduces the Supercharge multiplier to Singularity Density", symbol: '-', cost: 96, effect: ()=> data.omega.alephOmega/10, min: 0},
+    {text: "ℵ<sub>&omega;</sub> divides Dynamic's effect", symbol: '/', cost: 96, effect: ()=> 1+(data.omega.alephOmega), min: 1},
+    {text: "Factor Boosts provide free &omega; Remnants", cost: 96, symbol: '+', effect: ()=> data.boost.times, min: 0},
+    {text: "&omega; Remnants boost the ℵ<sub>&omega;</sub> effect", symbol: 'x', cost: 96, effect: ()=> Math.sqrt(data.omega.remnants), min: 1},
 ]
 const totalOCEffects = [
     {
@@ -142,6 +141,7 @@ function initPUPS(){
         container.append(row)
         for (let j = 0; j < 4; j++) {
             let id = j+(i*4)
+            if(id === 7) return
 
             let el = document.createElement('button')
             el.className = 'pup'
@@ -189,15 +189,18 @@ function revealAppeasementHTML(){
 }
 
 function updateRemnantHTML(){
-    DOM(`remnantTotal`).children[0].innerHTML = `${format(data.omega.remnants)} &omega; Remnants`
+    DOM(`remnantTotal`).children[0].innerHTML = `${format(data.omega.remnants+getPUPEffect(5))} &omega; Remnants`
     DOM(`remnantTotal`).children[1].innerHTML = `${format(alephOmegaProduction())}`
 }
 function updateAlephOmegaHTML(){
     DOM(`alephOmega`).children[0].children[0].innerHTML = `${format(data.omega.alephOmega, 3)} ℵ<sub>&omega;</sub>`
-    DOM(`alephOmega`).children[1].children[0].innerText = `${format(alephOmegaEffects[0](), 5)}x`
+    DOM(`alephOmega`).children[1].children[0].innerText = `${format(getAlephOmegaEffect(0), 5)}x`
 }
 function updatePureHTML(i, mode){
-    if(mode === 0) DOM(`pup${i}`).style.backgroundColor = data.omega.hasPUP[i] ? `#110000` : `black`
+    if(mode === 0){
+        DOM(`pup${i}`).style.backgroundColor = data.omega.hasPUP[i] ? `#110000` : `black`
+        DOM(`pup${i}`).innerHTML = `${pupData[i].text}<br><br>${data.omega.hasPUP[i] ? `Currently: ${pupData[i].symbol !== 'x' ? pupData[i].symbol : ''}${format(getPUPEffect(i))}${pupData[i].symbol === 'x' ? pupData[i].symbol : ''}` : `Requires: ${format(pupData[i].cost)} Boosters`}`
+    }
     if(mode === 1) DOM(`appeasement${i}`).style.backgroundColor = data.omega.hasAppeasement[i] ? `#110000` : `black`
 }
 function updateAllPureHTML(mode){
@@ -347,15 +350,18 @@ function getTotalOCs() {
 
 let inOC = (i) => data.omega.active[i]
 let inAnyOC = () => data.omega.active.includes(true)
-let oc1Effect = () => inOC(1) && data.dy.level >= 1 ? data.dy.level : 1
+let oc1Effect = () => inOC(1) && data.dy.level >= 1 ? data.dy.level/getPUPEffect(4) : 1
 let oc2Effects = [
-    () => totalBUPs() > 0 ? Math.min(1e4, (1e4 / (2*totalBUPs()) * (totalCharges() > 0 ? 2*totalCharges() : 1))) : 1e4,
+    () => totalBUPs() > 0 ? Math.min(1e4, (1e4 / (2*totalBUPs()) * (totalCharges() > 0 ? (2-getPUPEffect(3))*totalCharges() : 1))) : 1e4,
     () => totalBUPs() > 0 && inOC(2) ? 10*totalBUPs() : 1,
 ]
 
-let alephOmegaProduction = () => omegaUnlocked(4) ? data.omega.remnants/1000 : 0
+let alephOmegaProduction = () => omegaUnlocked() ? ((data.omega.remnants+getPUPEffect(5))/1000)*getPUPEffect(0) : 0
+let getAlephOmegaEffect =(i) => omegaUnlocked() ? Math.max(1, alephOmegaEffects[i]()) : 1
 let alephOmegaEffects = [
-    () => Math.max(1, 1+data.omega.alephOmega/1000)
+    () => (1+(data.omega.alephOmega/1000))*getPUPEffect(2)*getPUPEffect(6)
 ]
+
+let getPUPEffect = (i) => data.omega.hasPUP[i] && omegaUnlocked() ? Math.max(pupData[i].min, pupData[i].effect()) : pupData[i].min
 
 let omegaUnlocked = () => inOC(4) && data.omega.hasAppeasement[4]
