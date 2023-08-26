@@ -6,8 +6,8 @@ function updateIncrementyHTML(){
     DOM('chargeButton').innerText = `Sacrifice ${format(chargeReq())} Incrementy for 1 Charge\nYou have ${data.incrementy.charge} Charge (${data.incrementy.totalCharge} total)`
 }
 function switchIUPText(i, mode){
-    mode ? DOM(`iup${i}`).innerText = `[UP${i-2}] ${iupDesc[i]}\nCurrently: ${format(iupEffects[i]())}`
-    : DOM(`iup${i}`).innerText = `[UP${i-2}] ${iupDesc[i]}\n${format(iupCosts[i])} Incrementy`
+    mode ? DOM(`iup${i}`).innerHTML = `[UP${i-2}] ${iupDesc[i]}<br>Currently: ${format(iupEffects[i]())}`
+    : DOM(`iup${i}`).innerHTML = `[UP${i-2}] ${iupDesc[i]}<br>${format(iupCosts[i])} Incrementy`
 }
 
 let incrementyMult = () => Math.max(1, ((Math.pow(Decimal.sqrt(data.incrementy.amt).toNumber()+10, 1/4))*Decimal.pow(data.incrementy.amt, 1/16).toNumber())/negativeChargeEffect(true))
@@ -15,20 +15,22 @@ function incrementyGain() {
     if (!data.ord.isPsi || checkAllIndexes(data.chal.active, true) > 0 || inOC(3)) return D(0)
 
     let base = Decimal.log10(data.ord.ordinal.plus(1)).div(10)
-    let iupMults= base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect())
+    let iupMults= base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect()).times(iup11Effect())
     let otherMults = iupMults.times(hierarchyData[0].effect()).times(alephEffect(3)).times(cupEffect(4)).times(sBUP2Effect())
     return otherMults.div(negativeChargeEffect(false))
 }
 
 const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Factor boosts Incrementy gain',
-                 'Total Factor Boosts boost Incrementy Gain', 'Incrementy Multiplies the Dynamic Cap at a reduced rate (does not affect C5)', 'Dynamic boosts AutoBuyers at a reduced rate',
-                 'Challenge Completions provide free levels of Repeatable Upgrade 1', 'Repeatable Upgrade 2 is boosted by Challenge Completions', 'Total Repeatable Upgrade 3 levels boosts Upgrade 3']
-const iupCosts = [1, 1, 1, 2e6, 2e5, 1e10, 3e4, 1e8, 1e12]
+    'Total Factor Boosts boost Incrementy Gain', 'Incrementy Multiplies the Dynamic Cap at a reduced rate (does not affect C5)', 'Dynamic boosts AutoBuyers at a reduced rate',
+    'Challenge Completions provide free levels of Repeatable Upgrade 1', 'Repeatable Upgrade 2 is boosted by Challenge Completions', 'Total Repeatable Upgrade 3 levels boosts Upgrade 3',
+    'Omega Challenge Completions boost the FGH effect', 'Boosters boost Incrementy Gain', ' ℵ<sub>0</sub> boosts RUP3'
+]
+const iupCosts = [1, 1, 1, 2e6, 2e5, 1e10, 3e4, 1e8, 1e12, 1e100, 1e150, 1e200]
 let rebuyableCostBases = [20, 1000, 100]
 
 let getRebuyableCost = (i) => Decimal.sqrt(2*(2*data.incrementy.rebuyableAmt[i]+1)).mul(Decimal.pow((2*data.incrementy.rebuyableAmt[i]+1)/Math.E, (2*data.incrementy.rebuyableAmt[i]+1)/2)).ceil().times(rebuyableCostBases[i])
 function initIUPs(){
-    let rows = [DOM('iupRow0'), DOM('iupRow1'), DOM('iupRow2')]
+    let rows = [DOM('iupRow0'), DOM('iupRow1'), DOM('iupRow2'), DOM('iupRow3')]
     let total = 0
     for (let i = 0; i < rows.length; i++) {
         let r = i == 0 ? true : false
@@ -36,8 +38,8 @@ function initIUPs(){
             let iup = document.createElement('button')
             iup.className = 'iup'
             iup.id = `iup${total}`
-            iup.innerText = r ? `[UP${total-2}] ${iupDesc[total]} (${formatWhole(data.incrementy.rebuyableAmt[total])})\n${format(getRebuyableCost(total))} Incrementy\nCurrently: ${format(iupEffects[total]())}x`
-            : `[UP${total-2}] ${iupDesc[total]}\n${format(iupCosts[total])} Incrementy`
+            iup.innerHTML = r ? `[UP${total-2}] ${iupDesc[total]} (${formatWhole(data.incrementy.rebuyableAmt[total])})<br>${format(getRebuyableCost(total))} Incrementy\nCurrently: ${format(iupEffects[total]())}x`
+            : `[UP${total-2}] ${iupDesc[total]}<br>${format(iupCosts[total])} Incrementy`
             rows[i].append(iup)
             ++total
         }
@@ -81,9 +83,13 @@ function getTotalIBuyables(){
     return total+iup7Effect()
 }
 
+/*
+        Pain
+        -Flame, 8/26/23
+ */
 let iup1Effect = () => !inOC(3) ? Math.max(1, (2+alephNullEffects[0]())**(data.incrementy.rebuyableAmt[0] + iup7Effect())) : 1
 let iup2Effect = () => !inOC(3) ? Math.max(1, (3**data.incrementy.rebuyableAmt[1])*iup8Effect()) :1
-let iup3Effect = () => data.incrementy.rebuyableAmt[2] > 0 && !inOC(3) ? (Math.max(1, Math.sqrt(data.dy.level)))*(1+(data.incrementy.rebuyableAmt[2])) : 1
+let iup3Effect = () => data.incrementy.rebuyableAmt[2] > 0 && !inOC(3) ? (Math.max(1, Math.sqrt(data.dy.level)))*(1+(data.incrementy.rebuyableAmt[2])*iup12Effect()) : 1
 let iup4Effect = () => data.incrementy.hasIUP[3] && !inOC(3) ? Math.max(1, data.boost.times) : 1
 let iup5Effect = () => data.incrementy.hasIUP[4] && !inOC(3) ? data.hierarchies.hasUpgrade[6] ? Math.max(1, Decimal.pow(data.incrementy.amt, 1/8).toNumber()+1)
 : Math.max(1, Decimal.pow(data.incrementy.amt, 1/16).toNumber()+1) : 1
@@ -92,8 +98,11 @@ let iup7Effect = () => data.incrementy.hasIUP[6] && !inOC(3) ? Math.floor(data.c
 let iup8Effect = () => data.incrementy.hasIUP[7] && !inOC(3) ? Math.max(1, 1+data.chal.totalCompletions/3) : 1
 let iup9Effect = () => data.incrementy.hasIUP[8] && !inOC(3) ? data.hierarchies.hasUpgrade[1] ? Math.max(1, data.incrementy.rebuyableAmt[2]/3)
 : Math.max(1, Math.sqrt(data.incrementy.rebuyableAmt[2])) : 1
+let iup10Effect = () => data.incrementy.hasIUP[9] && !inOC(3) ? Math.max(1, Math.sqrt(getTotalOCs())) : 1
+let iup11Effect = () => data.incrementy.hasIUP[10] && !inOC(3) ? Math.max(1, Math.log10(data.boost.total)) : 1
+let iup12Effect = () => data.incrementy.hasIUP[11] && !inOC(3) ? Math.max(1, data.baseless.alephNull/2) : 1
 
-let iupEffects = [iup1Effect, iup2Effect, iup3Effect, iup4Effect, iup5Effect, iup6Effect, iup7Effect, iup8Effect, iup9Effect]
+let iupEffects = [iup1Effect, iup2Effect, iup3Effect, iup4Effect, iup5Effect, iup6Effect, iup7Effect, iup8Effect, iup9Effect, iup10Effect, iup11Effect, iup12Effect]
 
 
 function chargeBUP(i, bottomRow){

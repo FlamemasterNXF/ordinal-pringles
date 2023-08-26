@@ -53,7 +53,7 @@ const ocData = [
             desc: "Unlock a new row of Incrementy Upgrades",
             req: 8,
             showEffect: false,
-            effect: () => false,
+            effect: () => data.omega.completions[3] > 7,
         }
     },
     {

@@ -31,6 +31,7 @@ function switchSubtab(t, mode){
         if(t==="upgrades") checkSpecialBUPs()
         if(t==="auto2") checkAutobuyerDisplay()
         if(t==="hierarchies") checkSpecialHUPs()
+        if(t==='incrementy') DOM(`iupRow3`).style.display = ocData[3].special.effect() ? `flex` : `none`
 
         if (t==="upgrades" && data.boost.unlocks[1]){
             DOM('bupBottomText').innerText = data.collapse.hasSluggish[3]
