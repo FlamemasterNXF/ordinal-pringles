@@ -14,8 +14,10 @@ let incrementyMult = () => Math.max(1, ((Math.pow(Decimal.sqrt(data.incrementy.a
 function incrementyGain() {
     if (!data.ord.isPsi || checkAllIndexes(data.chal.active, true) > 0 || inOC(3)) return D(0)
 
-    let base = Decimal.log10(data.ord.ordinal.plus(1)).div(10)
-    let iupMults= base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect()).times(iup11Effect())
+    let ord = D(data.ord.ordinal)
+
+    let base = Decimal.log10(ord.plus(1)).div(10)
+    let iupMults = base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect()).times(iup11Effect())
     let otherMults = iupMults.times(hierarchyData[0].effect()).times(alephEffect(3)).times(cupEffect(4)).times(sBUP2Effect())
     return otherMults.div(negativeChargeEffect(false))
 }

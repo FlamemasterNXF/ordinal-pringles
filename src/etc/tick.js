@@ -1,6 +1,6 @@
 let timesToLoop = [0,0, 0,0]
 
-let t1Auto = () => (factorBoost()*bup5Effect()*alephEffect(0))**cupEffect(1)*cupEffect(3)*singBoostToBaseless()
+let t1Auto = () => D(factorBoost()).mul(bup5Effect()).mul(alephEffect(0)).pow(cupEffect(1)).mul(cupEffect(3)).mul(singBoostToBaseless())
 
 let t2AutoPure = () => D(1).times(chalEffectTotal()).times(bup5Effect()).times(incrementyMult()).times(iup6Effect())
     .times(bup48Effect()).times(hupData[5].effect()).times(alephEffect(1)).times(cupEffect(0)).times(cupEffect(3))
@@ -20,28 +20,47 @@ function tick(diff){
     chalComplete()
 
     //Automation Tier 1
-    for (let i = 0; i < 2; i++) timesToLoop[i] += !data.chal.active[4]
-        ? (diff*(data.autoLevels[i]+extraT1())*t1Auto()*data.dy.level)/data.chal.decrementy
-        : (diff*(data.autoLevels[i]+extraT1())*t1Auto()/data.dy.level)/data.chal.decrementy
+    for (let i = 0; i < 2; i++) timesToLoop[i] = D(timesToLoop[i]).add(!data.chal.active[4]
+        ? D(diff).mul(D(data.autoLevels[i]).add(extraT1())).mul(t1Auto()).mul(data.dy.level).div(data.chal.decrementy)
+        : D(diff).mul(D(data.autoLevels[i]).add(extraT1())).mul(t1Auto()).div(data.dy.level).div(data.chal.decrementy))
 
-    timesToLoop[2] = data.boost.hasBUP[autoUps[0]] ? 1 : 0
+    timesToLoop[2] = data.boost.hasBUP[autoUps[0]] ? D(1) : D(0)
     timesToLoop[3] = data.boost.hasBUP[autoUps[1]] ? t2Auto() : D(0)
 
-    if(Math.floor(timesToLoop[0]/1000) >= 1){
-        successor(timesToLoop[0]/1000)
-        timesToLoop[0] -= Math.floor(timesToLoop[0]/1000)*1000
+    if(Decimal.floor(D(timesToLoop[0]).div(1000)).gte(1)) {
+        successor()
+        timesToLoop[0] = D(timesToLoop[0]).sub(1000)
     }
-    if(isNaN(timesToLoop[0]) || timesToLoop[0] < 0) timesToLoop[0] = 0
+    if(isNaN(D(timesToLoop[0]).toNumber()) || D(timesToLoop[0]).lt(0)) timesToLoop[0] = D(0)
 
-    if(Math.floor(timesToLoop[1]/1000) >= 1){
+    if(Decimal.floor(D(timesToLoop[1]).div(1000)).gte(1)) {
         maximize()
-        timesToLoop[1] -= Math.floor(timesToLoop[1]/1000)*1000
+        timesToLoop[1] = D(timesToLoop[1]).sub(1000)
     }
-    if(isNaN(timesToLoop[1]) || timesToLoop[1] < 0) timesToLoop[1] = 0
+    if(isNaN(D(timesToLoop[1]).toNumber()) || D(timesToLoop[1]).lt(0)) timesToLoop[1] = D(0)
+    if (!data.ord.isPsi) { // the rest of successor / maximize if they can be used (non-psi)
+        if (Decimal.floor(D(timesToLoop[0]).div(1000)).gte(1)) { // if there are more successors
+            if (Decimal.floor(D(timesToLoop[1]).div(1000)).gte(1)) { // if there are also matching # of maximizes, do both
+                data.ord.over = 0
+                successor(Decimal.max(Decimal.min(Decimal.floor(D(timesToLoop[0]).div(1000)), D(data.ord.base).mul(Decimal.floor(D(timesToLoop[1]).div(1000))))),0)
+            } else {
+                if (Decimal.floor(D(timesToLoop[0]).div(1000)).gte(D(data.ord.base).sub(D(data.ord.ordinal).mod(data.ord.base)))) { // stop at ordinal % (base - 1) and spill the rest to over
+                    let ord1 = D(data.ord.base).sub(data.ord.ordinal.mod(data.ord.base)).sub(1) //(data.ord.base - (data.ord.ordinal % data.ord.base)) - 1
+                    successor(ord1)
+                    let ordOver = (Decimal.floor(D(timesToLoop[0]).div(1000)).sub(ord1).toNumber())
+                    if (isFinite(ordOver)) data.ord.over += D(ordOver).toNumber()
+                } else { // add the rest
+                    successor(Decimal.floor(D(timesToLoop[0]).div(1000)))
+                }
+            }
+        }
+    }
+    timesToLoop[0] = D(timesToLoop[0]).sub(Decimal.floor(D(timesToLoop[0]).div(1000)).mul(1000))
+    timesToLoop[1] = D(timesToLoop[1]).sub(Decimal.floor(D(timesToLoop[1]).div(1000)).mul(1000))
 
     // Automation Tier 2
     // BuyMax Autobuyer
-    if(timesToLoop[2]>=1 && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3 || data.baseless.baseless) && data.autoStatus.enabled[0]){
+    if(timesToLoop[2].gte(1) && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3 || data.baseless.baseless) && data.autoStatus.enabled[0]){
         buyMaxT1()
     }
 
