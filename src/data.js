@@ -118,7 +118,7 @@ function fixOldSaves(){
     if(data.loadedVersion === "0.0.6") data.loadedVersion = "0.1" //Forgot to do this, thankfully I caught it in time
     if(data.loadedVersion === "0.1" && data.collapse.hasSluggish[1]) extra = true
     //v0.0.6 => v0.1+
-    if(data.collapse.times === 0 && data.ord.ordinal.gt(BHO_VALUE)) data.ord.ordinal = BHO_VALUE
+    if(data.collapse.times === 0 && data.ord.ordinal.gt(BHO_VALUE)) data.ord.ordinal = D(BHO_VALUE)
     //v0.0.5 => v0.0.6+
     if (data.loadedVersion === "null"){
         if (data.chal.completions[6] > 0) data.chal.completions[6] = 0
@@ -138,7 +138,7 @@ function fixOldSaves(){
         data.dy.gain = 0.002
     }
     if(data.dy.level > data.dy.cap) data.dy.level = data.dy.cap
-    //if(data.ord.isPsi && data.ord.ordinal.gt(GRAHAMS_VALUE) && data.boost.times === 0) data.ord.ordinal = GRAHAMS_VALUE
+    if(data.ord.isPsi && data.ord.ordinal.gt(GRAHAMS_VALUE) && data.boost.times === 0 && !data.collapse.hasSluggish[0]) data.ord.ordinal = D(GRAHAMS_VALUE)
 
     return extra
 }
