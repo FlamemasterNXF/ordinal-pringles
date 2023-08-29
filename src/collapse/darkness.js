@@ -41,11 +41,11 @@ function updateDrainHTML(i){
 }
 
 let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5) : 0
-let negativeChargeCap = () => Decimal.pow(data.incrementy.amt, 1/3).toNumber()
+let negativeChargeCap = () => Math.min(Decimal.pow(data.incrementy.amt, 1/3).toNumber(), Number.MAX_VALUE)
 
 function negativeChargeEffect(eff){
-    if(eff == false) return Math.sqrt(data.darkness.negativeCharge+1)/sacrificedChargeEffect()
-    if(eff == true) return Math.log10(data.darkness.negativeCharge+10)/sacrificedChargeEffect()
+    if(eff == false) return Decimal.sqrt(data.darkness.negativeCharge+1).div(sacrificedChargeEffect())
+    if(eff == true) return Decimal.log10(data.darkness.negativeCharge+10).div(sacrificedChargeEffect())
  }
 
 let sacrificedChargeEffect = () => data.darkness.sacrificedCharge > 0 ? (data.darkness.sacrificedCharge+1)*2 : 1

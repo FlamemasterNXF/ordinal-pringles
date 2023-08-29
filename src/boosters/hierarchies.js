@@ -85,13 +85,13 @@ let effectiveFGH = () => calcOrdPoints(data.hierarchies.ords[0].ord, hierarchyDa
 let effectiveSGH = () => calcOrdPoints(data.hierarchies.ords[1].ord, hierarchyData[1].base(), data.hierarchies.ords[1].over);
 let hierarchyData = [
     { text:"Multiplying Incrementy Gain by", effect: ()=> Math.min(Math.max((Decimal.log10(effectiveFGH().add(1)).toNumber()*hbData[1].effect())**(dupEffect(2)), 1), Number.MAX_VALUE),
-        gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults(), base: ()=> 10-sBUP0Effect() },
+        gain: ()=> Math.min(hierarchyGainBases[0]()*hierarchyGainGlobalMults(), Number.MAX_VALUE), base: ()=> 10-sBUP0Effect() },
     { text:"Dividing Charge Requirement by", effect: ()=> Math.min(Math.max((Decimal.log10(effectiveSGH().add(1)).toNumber()*hbData[4].effect()*alephEffect(5))**((dupEffect(2))+sBUP1Effect()), 1), Number.MAX_VALUE),
-        gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults(), base: ()=> 10-sBUP0Effect() }
+        gain: ()=> Math.min(hierarchyGainBases[1]()*hierarchyGainGlobalMults(), Number.MAX_VALUE), base: ()=> 10-sBUP0Effect() }
 ]
 let hierarchyGainBases = [
-    () => Math.max(Math.floor(Decimal.pow(data.incrementy.amt, 1/3).toNumber()), 1),
-    () => Math.max(Math.floor(Decimal.pow(t2Auto().plus(1), 1/4).toNumber()), 1)
+    () => Decimal.min(Decimal.max(Decimal.floor(Decimal.pow(data.incrementy.amt, 1/3)), 1), Number.MAX_VALUE).toNumber(),
+    () => Decimal.min(Decimal.max(Decimal.floor(Decimal.pow(t2Auto().plus(1), 1/4)), 1), Number.MAX_VALUE).toNumber()
 ]
 let hierarchyGainGlobalMults = () =>
     hupData[2].effect()*hupData[7].effect()*hbData[0].effect()*hbData[5].effect()*getOverflowEffect(3)
@@ -135,6 +135,8 @@ function increaseHierarchies(diff){
             if (data.hierarchies.ords[i].ord % hierarchyData[i].base() ** 2 !== 0) data.hierarchies.ords[i].ord += data.hierarchies.ords[i].over
             data.hierarchies.ords[i].over = 0
         }
+
+        if (data.hierarchies.ords[i].ord === Infinity) data.hierarchies.ords[i].ord = Number.MAX_VALUE
     }
 }
 
