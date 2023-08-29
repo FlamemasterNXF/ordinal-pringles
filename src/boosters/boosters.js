@@ -167,7 +167,7 @@ function boosterReset(){
     data.successorClicks = 0
 }
 
-const boostTimesLimit = 9999
+const boostTimesLimit = Infinity //9999
 function boost(f=false, auto=false){
     if(data.boost.times === 33 && data.collapse.times === 0) return createConfirmation("Are you certain?", "This will perform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
     if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && auto) return
@@ -182,13 +182,17 @@ function boost(f=false, auto=false){
 
     let bulkBoostAmt = getBulkBoostAmt();
     if (auto && data.boost.times < 2 && !data.collapse.hasSluggish[4]) bulkBoostAmt = Math.min(2 - data.boost.times, bulkBoostAmt) // do not automatically boost past SM2
-    for(let i=1;i<=bulkBoostAmt;i++) {
+    data.boost.amt += ((data.boost.times * bulkBoostAmt) + (bulkBoostAmt * (bulkBoostAmt+1) / 2))
+    data.boost.total += ((data.boost.times * bulkBoostAmt) + (bulkBoostAmt * (bulkBoostAmt+1) / 2))
+    data.boost.times += bulkBoostAmt
+    if (data.boost.times >= 30 && data.boost.times < 30 + bulkBoostAmt && data.collapse.times === 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
+    /*for(let i=1;i<=bulkBoostAmt;i++) {
         data.boost.amt += data.boost.times+1
         data.boost.total += data.boost.times+1
         ++data.boost.times
 
         if(data.boost.times === 30 && data.collapse.times === 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
-    }
+    }*/
     boosterUnlock()
     boosterReset()
 }
@@ -203,7 +207,13 @@ let boostLimit = () => (data.collapse.times === 0) ? 33 : Infinity;
 function getBulkBoostAmt(){
     if (!data.sToggles[7] || !data.ord.isPsi || data.ord.ordinal.lte(boostReq())) return 1
     let maxBoost = data.boost.times
-    while (data.ord.ordinal.gte(boostReq(maxBoost)) && maxBoost < boostLimit()) maxBoost++
+    while (data.ord.ordinal.gte(boostReq(maxBoost)) && maxBoost < boostLimit()) {
+        maxBoost++
+        if (maxBoost >= 34) {
+            maxBoost = 34 + Decimal.floor(Decimal.log(data.ord.ordinal.div(BHO_VALUE),3).add(0.000000000001)).toNumber()
+            break
+        }
+    }
     return Math.max(maxBoost - data.boost.times, 1)
     //return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
 }
