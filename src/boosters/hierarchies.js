@@ -95,7 +95,7 @@ let hierarchyGainBases = [
 ]
 let hierarchyGainGlobalMults = () =>
     hupData[2].effect()*hupData[7].effect()*hbData[0].effect()*hbData[5].effect()*getOverflowEffect(3)
-let hierarchyCap = () => D(Number.MAX_VALUE)*totalOCEffects[2].effect()
+let hierarchyCap = () => D(Number.MAX_VALUE).times(totalOCEffects[2].effect())
 let getHierarchyEffect = (i) => Decimal.min(hierarchyData[i].effect(), hierarchyCap())
 
 let hbData = [
