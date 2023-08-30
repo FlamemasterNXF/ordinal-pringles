@@ -84,6 +84,8 @@ function fixOldSaves(){
     //Decimal Fix
     if(Number.isNaN(data.incrementy.amt.toNumber())) data.incrementy.amt = D(0)
     if(Number.isNaN(data.ord.ordinal.toNumber())) data.ord.ordinal = D(0)
+    data.incrementy.amt = D(data.incrementy.amt)
+    data.ord.ordinal = D(data.ord.ordinal)
 
     //v0.2.2 => v0.2.3
     if(data.loadedVersion === "0.2.2") extra = true
@@ -137,7 +139,7 @@ function fixOldSaves(){
         data.dy.gain = 0.002
     }
     if(data.dy.level > data.dy.cap) data.dy.level = data.dy.cap
-    //if(data.ord.isPsi && data.ord.ordinal.gt(GRAHAMS_VALUE) && data.boost.times === 0) data.ord.ordinal = GRAHAMS_VALUE
+    if(data.ord.isPsi && data.ord.ordinal.gt(GRAHAMS_VALUE) && data.boost.times === 0 && !data.collapse.hasSluggish[0]) data.ord.ordinal = D(GRAHAMS_VALUE)
 
     return extra
 }

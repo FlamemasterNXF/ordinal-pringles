@@ -200,28 +200,38 @@ function boost(f=false, auto=false){
     let bulkBoostAmt = getBulkBoostAmt();
     if (auto && data.boost.times < 2 && !data.collapse.hasSluggish[4]) bulkBoostAmt = Math.min(2 - data.boost.times, bulkBoostAmt) // do not automatically boost past SM2
 
-    for(let i=1;i<=bulkBoostAmt;i++) {
-        data.boost.amt += inOC(0) ? 1+appeasementData[4].effect() : data.boost.times+1
-        data.boost.total += inOC(0) ? 1+appeasementData[4].effect() : data.boost.times+1
+    data.boost.amt += ((data.boost.times * bulkBoostAmt) + (bulkBoostAmt * (bulkBoostAmt+1) / 2))
+    data.boost.total += ((data.boost.times * bulkBoostAmt) + (bulkBoostAmt * (bulkBoostAmt+1) / 2))
+    data.boost.times += bulkBoostAmt
+    if (data.boost.times >= 30 && data.boost.times < 30 + bulkBoostAmt && data.collapse.times === 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
+    /*for(let i=1;i<=bulkBoostAmt;i++) {
+        data.boost.amt += data.boost.times+1
+        data.boost.total += data.boost.times+1
         ++data.boost.times
 
         if(data.boost.times === 30 && data.collapse.times === 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
-    }
+    }*/
     boosterUnlock()
     boosterReset()
 }
 function boostReq(n = data.boost.times){
-    if(data.boost.times === 0 && !data.collapse.hasSluggish[0]) return GRAHAMS_VALUE
+    if(data.boost.times === 0 && !data.collapse.hasSluggish[0]) return D(GRAHAMS_VALUE)
     if(n >= 34) return D(BHO_VALUE).times(D(3).pow(n-33))
     let scaling = n < 30 ? 1 : Math.floor(100*(n/15))
-    return n < 33 ? (3 ** (n+1) * 4 * 10 * scaling) : BHO_VALUE
+    return n < 33 ? D(3 ** (n+1) * 4 * 10 * scaling) : D(BHO_VALUE)
 }
 //Credit to ryanleonels
 let boostLimit = () => (data.collapse.times === 0) ? 33 : Infinity;
 function getBulkBoostAmt(){
     if (!data.sToggles[7] || !data.ord.isPsi || data.ord.ordinal.lte(boostReq())) return 1
     let maxBoost = data.boost.times
-    while (data.ord.ordinal.gte(boostReq(maxBoost)) && maxBoost < boostLimit()) maxBoost++
+    while (data.ord.ordinal.gte(boostReq(maxBoost)) && maxBoost < boostLimit()) {
+        maxBoost++
+        if (maxBoost >= 34) {
+            maxBoost = 34 + Decimal.floor(Decimal.log(data.ord.ordinal.div(BHO_VALUE),3).add(0.000000000001)).toNumber()
+            break
+        }
+    }
     return Math.max(maxBoost - data.boost.times, 1)
     //return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
 }

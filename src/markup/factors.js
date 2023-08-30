@@ -82,7 +82,7 @@ function dyGain(){
     if(data.chal.active[6]) return 0
 
     //Could move this to a separate function if needed
-    data.dy.cap = 40*iup5Effect()*alephEffect(4)*dupEffect(1)*getSingFunctionEffect(4)
+    data.dy.cap = Math.min(D(40).mul(iup5Effect()).mul(alephEffect(4)).mul(dupEffect(1)).mul(getSingFunctionEffect(4)).toNumber(), Number.MAX_VALUE)
 
     let boost = 1
     if(data.ord.base < 6 || data.boost.isCharged[11]) boost = bup11Effect()
@@ -96,9 +96,9 @@ function dyGain(){
         return data.dy.gain*((5**m)*m2)
     }
 
-    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return (data.dy.gain*boost)*iup2Effect()*bup3Effect()
+    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(bup3Effect()).toNumber(), Number.MAX_VALUE)
 
 
-    if(data.boost.isCharged[3]) return (data.dy.gain*boost*iup2Effect()*bup3Effect())
-    return (data.dy.gain*boost*iup2Effect()*dynamicShiftMultipliers[1]())
+    if(data.boost.isCharged[3]) return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(bup3Effect()).toNumber(), Number.MAX_VALUE)
+    return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).toNumber(), Number.MAX_VALUE)
 }

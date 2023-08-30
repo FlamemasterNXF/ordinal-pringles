@@ -100,7 +100,7 @@ let singFunctions = [
     {requiredLevel: 10, hasUnlock: true, unlockDescription: 'The 7th Cardinal Upgrade now affects the Total ℵ Effect. Drains are now kept on Collapse.'},
     {requiredLevel: 20, hasUnlock: true, unlockDescription: 'Keep Hierarchy Upgrades on Collapse', hasEffect: true, effectDescription: 'Negative Charge multiplies ℵ<sub>5</sub> by', effect: () => Math.max(1, Math.log10(data.darkness.negativeCharge))},
     {requiredLevel: 35, hasUnlock: true, unlockDescription: 'Unlock an AutoBuyer for Supercharge', hasEffect: true, effectDescription: 'Total Boosters over 12246 multiply the second Overcharge Effect by', effect: () => Math.max(1, Math.log10(Math.max(1, data.boost.total-12246))/2)},
-    {requiredLevel: 50, hasUnlock: true, unlockDescription: 'If you have the third Cardinal Upgrade double the effect of IUP4', hasEffect: true, effectDescription: 'RUP2 multiplies Dynamic Cap (at an extremely reduced rate) by', effect: () => data.collapse.hasCUP[2] ? Math.max(1, Math.log10(iup2Effect())) : 1},
+    {requiredLevel: 50, hasUnlock: true, unlockDescription: 'If you have the third Cardinal Upgrade double the effect of IUP4', hasEffect: true, effectDescription: 'RUP2 multiplies Dynamic Cap (at an extremely reduced rate) by', effect: () => data.collapse.hasCUP[2] ? Math.min(Math.max(1, Decimal.log10(iup2Effect()).toNumber()), Number.MAX_VALUE) : 1},
     {requiredLevel: 65, hasUnlock: false, unlockDescription: null, hasEffect: true, effectDescription: 'Negative Charge multiplies the Total ℵ effect by', effect: () => Math.max(1, Math.log2(data.darkness.negativeCharge))},
     {requiredLevel: 80, hasUnlock: true, unlockDescription: 'The second Darkness Buyable now Quadruples the Dynamic Cap'},
 ]

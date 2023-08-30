@@ -10,7 +10,7 @@ function switchIUPText(i, mode){
     : DOM(`iup${i}`).innerHTML = `[UP${i-2}] ${iupDesc[i]}<br>${format(iupCosts[i])} Incrementy`
 }
 
-let incrementyMult = () => Math.max(1, ((Math.pow(Decimal.sqrt(data.incrementy.amt).toNumber()+10, 1/4))*Decimal.pow(data.incrementy.amt, 1/16).toNumber())/negativeChargeEffect(true))
+let incrementyMult = () => Decimal.max(1, Decimal.pow(Decimal.sqrt(data.incrementy.amt).add(10), 1/4).mul(Decimal.pow(data.incrementy.amt, 1/16)).div(negativeChargeEffect(true)))
 function incrementyGain() {
     if (!data.ord.isPsi || checkAllIndexes(data.chal.active, true) > 0 || inOC(3)) return D(0)
 
@@ -83,27 +83,27 @@ function getTotalIBuyables(){
     for (let i = 0; i < data.incrementy.rebuyableAmt.length; i++) {
         total += data.incrementy.rebuyableAmt[i]
     }
-    return total+iup7Effect()
+    return D(total).add(iup7Effect()).toNumber()
 }
 
 /*
         Pain
         -Flame, 8/26/23
  */
-let iup1Effect = () => !inOC(3) ? Math.max(1, (2+alephNullEffects[0]())**(data.incrementy.rebuyableAmt[0] + iup7Effect())) : 1
-let iup2Effect = () => !inOC(3) ? Math.max(1, (3**data.incrementy.rebuyableAmt[1])*iup8Effect()) :1
-let iup3Effect = () => data.incrementy.rebuyableAmt[2] > 0 && !inOC(3) ? (Math.max(1, Math.sqrt(data.dy.level)))*(1+(data.incrementy.rebuyableAmt[2])*iup12Effect()) : 1
-let iup4Effect = () => data.incrementy.hasIUP[3] && !inOC(3) ? Math.max(1, data.boost.times) : 1
-let iup5Effect = () => data.incrementy.hasIUP[4] && !inOC(3) ? data.hierarchies.hasUpgrade[6] ? Math.max(1, Decimal.pow(data.incrementy.amt, 1/8).toNumber()+1)
-: Math.max(1, Decimal.pow(data.incrementy.amt, 1/16).toNumber()+1) : 1
-let iup6Effect = () => data.incrementy.hasIUP[5] && !inOC(1) && !inOC(3) ? Math.max(1, Math.sqrt(data.dy.level+1))*iup9Effect()*hbData[2].effect()*hbData[5].effect()*alephEffect(7) : 1
-let iup7Effect = () => data.incrementy.hasIUP[6] && !inOC(3) ? Math.floor(data.chal.totalCompletions/3)*(hasSingFunction(4) ? 2 : 1) : 0
-let iup8Effect = () => data.incrementy.hasIUP[7] && !inOC(3) ? Math.max(1, 1+data.chal.totalCompletions/3) : 1
-let iup9Effect = () => data.incrementy.hasIUP[8] && !inOC(3) ? data.hierarchies.hasUpgrade[1] ? Math.max(1, data.incrementy.rebuyableAmt[2]/3)
-: Math.max(1, Math.sqrt(data.incrementy.rebuyableAmt[2])) : 1
-let iup10Effect = () => data.incrementy.hasIUP[9] && !inOC(3) ? Math.max(1, Math.sqrt(getTotalOCs())) : 1
-let iup11Effect = () => data.incrementy.hasIUP[10] && !inOC(3) ? Math.max(1, Math.log10(data.boost.total)) : 1
-let iup12Effect = () => data.incrementy.hasIUP[11] && !inOC(3) ? Math.max(1, data.baseless.alephNull/2) : 1
+let iup1Effect = () => !inOC(3) ? Decimal.max(1, D(2+alephNullEffects[0]()).pow(D(data.incrementy.rebuyableAmt[0]).add(iup7Effect()))) : D(1)
+let iup2Effect = () =>  !inOC(3) ? Decimal.max(1, D(3).pow(data.incrementy.rebuyableAmt[1]).mul(iup8Effect())) : D(1)
+let iup3Effect = () => data.incrementy.rebuyableAmt[2] > 0 && !inOC(3)  ? (Decimal.max(1, Decimal.sqrt(data.dy.level))).mul(1+(data.incrementy.rebuyableAmt[2])) : D(1)
+let iup4Effect = () => data.incrementy.hasIUP[3] && !inOC(3)  ? Decimal.max(1, data.boost.times) : D(1)
+let iup5Effect = () => data.incrementy.hasIUP[4] && !inOC(3)  ? data.hierarchies.hasUpgrade[6] ? Decimal.max(1, Decimal.pow(data.incrementy.amt, 1/8).add(1))
+: Decimal.max(1, Decimal.pow(data.incrementy.amt, 1/16).add(1)) : D(1)
+let iup6Effect = () => data.incrementy.hasIUP[5] && !inOC(3) ? Decimal.max(1, Decimal.sqrt(data.dy.level+1)).mul(iup9Effect()).mul(hbData[2].effect()).mul(hbData[5].effect()).mul(alephEffect(7)) : D(1)
+let iup7Effect = () => data.incrementy.hasIUP[6] && !inOC(3)  ? Decimal.floor(data.chal.totalCompletions/3).mul(hasSingFunction(4) ? 2 : 1) : D(0)
+let iup8Effect = () => data.incrementy.hasIUP[7] && !inOC(3)  ? Decimal.max(1, 1+data.chal.totalCompletions/3) : D(1)
+let iup9Effect = () => data.incrementy.hasIUP[8] && !inOC(3)  ? data.hierarchies.hasUpgrade[1] ? Decimal.max(1, data.incrementy.rebuyableAmt[2]/3)
+: Decimal.max(1, Decimal.sqrt(data.incrementy.rebuyableAmt[2])) : D(1)
+let iup10Effect = () => data.incrementy.hasIUP[9] && !inOC(3) ? Decimal.max(1, Decimal.sqrt(getTotalOCs())) : D(1)
+let iup11Effect = () => data.incrementy.hasIUP[10] && !inOC(3) ? Decimal.max(1, Decimal.log10(data.boost.total)) : D(1)
+let iup12Effect = () => data.incrementy.hasIUP[11] && !inOC(3) ? Decimal.max(1, data.baseless.alephNull/2) : D(1)
 
 let iupEffects = [iup1Effect, iup2Effect, iup3Effect, iup4Effect, iup5Effect, iup6Effect, iup7Effect, iup8Effect, iup9Effect, iup10Effect, iup11Effect, iup12Effect]
 

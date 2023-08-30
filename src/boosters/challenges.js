@@ -110,7 +110,7 @@ function chalEffectTotal(){
 
     let base = (mult)*hupData[0].effect()*getOverflowEffect(0)
     let cup = data.collapse.hasCUP[2] ? cupEffect(2) : 0
-    return Math.max(base**2+cup, 1)
+    return Math.min(Math.max(base**2+cup, 1), Number.MAX_VALUE)
 }
 function decrementyGain() {
     const exponent = 1+hupData[4].effect()-singEffects[1].effect()
