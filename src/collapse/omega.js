@@ -95,7 +95,7 @@ const totalOCEffects = [
     },
     {
         desc: `multiplying the Hierarchy effect cap by `,
-        effect: () => getTotalOCs() > 0 ? 10*getTotalOCs() : 1
+        effect: () => getTotalOCs() > 0 ? 10**getTotalOCs() : 1
     }
 ]
 
