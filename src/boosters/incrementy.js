@@ -153,6 +153,7 @@ function sacrificeIncrementy(){
 
         DOM('chargeRefund').style.display = 'block'
     }
+    if(data.incrementy.totalCharge === 72) checkCollapseUnlockHTML()
 }
 
 //let chargeReq = () => (10**(6+((data.incrementy.totalCharge+data.darkness.sacrificedCharge)*(2+Math.floor((data.incrementy.totalCharge+data.darkness.sacrificedCharge)/12)))))/hierarchyData[1].effect()
