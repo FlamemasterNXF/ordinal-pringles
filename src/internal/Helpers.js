@@ -39,20 +39,6 @@ function checkAllIndexes(array, value) {
     return indexes
 }
 
-function settingsToggle(i){
-    if (i == -1){
-        data.offline = !data.offline
-        DOM(`offlineProgressToggle`).innerText = `Toggle Offline Progress [${boolToReadable(data.offline)}]`
-        return save()
-    }
-
-    data.sToggles[i] = !data.sToggles[i]
-    if (i === 6) DOM(`progressBarContainer`).style.display = data.sToggles[i] ? `flex` : `none`
-
-    DOM(`settingsToggle${i}`).innerText = `Toggle the ${SETTINGS_DESCS[i]} [${boolToReadable(data.sToggles[i])}]`
-    save()
-}
-
 function allEqual(arr, i){
     return arr.every( v => v === i )
 }

@@ -42,10 +42,7 @@ const uHTML = {
         updateDynamicShiftHTML()
 
         //Load Settings
-        for (let i = 0; i < data.sToggles.length; i++) {
-            DOM(`settingsToggle${i}`).innerText = `Toggle the ${SETTINGS_DESCS[i]} [${boolToReadable(data.sToggles[i])}]`
-        }
-        DOM(`offlineProgressToggle`).innerText = `Toggle Offline Progress [${boolToReadable(data.offline)}]`
+        loadSettings()
         DOM(`versionText`).innerText = `You're playing Ordinal Pringles v${VERSION}: ${VERSION_NAME}\n Last Update: ${VERSION_DATE}`
 
         //Initialize all Tabs
