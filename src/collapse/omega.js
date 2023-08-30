@@ -69,11 +69,11 @@ const ocData = [
     },
 ]
 let appeasementData = [
-    {req: 5, desc: 'It responds to this tiny gift with a tiny reward.<br>Nullify any increases to Booster Upgrade costs'},
-    {req: 10, desc: 'It demands more, but gives a slightly stronger reward.<br>Gain 1 working level of the first Darkness Upgrade for every Appeasement completed', effect: ()=> hasAppeasement(1) ? 5 : 0},
-    {req: 20, desc: 'It seems to expect more. It flaunts its endless power in this reward.<br>Gain 1 free Charge every 5 Factor Boosts', effect: ()=>hasAppeasement(2) ? (Math.floor(data.boost.times / 5)) : 0},
-    {req: 30, desc: 'It is pleased and gives a far more powerful gift.<br>Divide the Singularity Density by 1.01 every 2 Factor Boosts', effect: ()=>hasAppeasement(3) ? 1.01*(Math.floor(data.boost.times / 2)): 1},
-    {req: Infinity, desc: 'It is satisfied.<br>Increase Booster gain by 1 every 10 Factor Boosts and unlock the last great secrets.', effect: ()=>hasAppeasement(4) ? (Math.floor(data.boost.times / 10)) : 0},
+    {desc: 'It responds to this tiny gift with a tiny reward.<br>Nullify any increases to Booster Upgrade costs'},
+    {desc: 'It demands more, but gives a slightly stronger reward.<br>Gain 1 working level of the first Darkness Upgrade for every Appeasement completed', effect: ()=> hasAppeasement(1) ? 5 : 0},
+    {desc: 'It seems to expect more. It flaunts its endless power in this reward.<br>Gain 1 free Charge every 5 Factor Boosts', effect: ()=>hasAppeasement(2) ? (Math.floor(data.boost.times / 5)) : 0},
+    {desc: 'It is pleased and gives a far more powerful gift.<br>Divide the Singularity Density by 1.01 every 2 Factor Boosts', effect: ()=>hasAppeasement(3) ? 1.01*(Math.floor(data.boost.times / 2)): 1},
+    {desc: 'It is satisfied.<br>Increase Booster gain by 1 every 10 Factor Boosts and unlock the last great secrets.', effect: ()=>hasAppeasement(4) ? (Math.floor(data.boost.times / 10)) : 0},
 ]
 let pupData = [
     {text: "Factor Boosts boost ℵ<sub>&omega;</sub> gain", symbol: 'x', cost: 0, effect: ()=> Math.sqrt(data.boost.times), min: 1},
@@ -131,7 +131,9 @@ function initAppeasements(){
         let el = document.createElement('button')
         el.className = 'appeasement'
         el.id = `appeasement${i}`
-        el.innerHTML = `<b>${appeasementData[i].req} Omega Challenge Completions</b><br><br>${appeasementData[i].desc}`
+        el.innerHTML = i === 4
+            ? `Complete <b>??? Omega Challenges</b><br><br>${appeasementData[i].desc}`
+            : `Complete <b>Omega Challenge ${numToRoman(i+1)} ${ocData[i].special.req} times</b><br><br>${appeasementData[i].desc}`
         container.append(el)
     }
     revealAppeasementHTML()
@@ -297,12 +299,14 @@ function omegaReset(){
 }
 
 function checkAppeasements(){
-    for (let i = 0; i < data.omega.hasAppeasement.length; i++) {
-        if(getTotalOCs() > appeasementData[i].req){
+    for (let i = 0; i < data.omega.hasAppeasement.length-1; i++) {
+        if(data.omega.completions[i] > ocData[i].special.req){
             data.omega.hasAppeasement[i] = true
             updatePureHTML(i, 1)
         }
     }
+    data.omega.hasAppeasement[4] = getTotalOCs() > Infinity
+    updatePureHTML(4, 1)
 }
 function buyPureUpgrade(i){
     if(data.boost.total >= pupData[i].cost && !data.omega.hasPUP[i]){
