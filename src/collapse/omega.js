@@ -17,7 +17,7 @@ const ocData = [
         desc: "Every Factor Boost yields only one Booster and Darkness Upgrades are disabled",
         goal: () => Math.floor(158*(Math.pow(data.omega.completions[0]+1, 1/6))),
         special: {
-            desc: "Total OC Completions Boost Cardinal Upgrade 1 and remove the Hierarchy Effect cap",
+            desc: "Total OC Completions Boost Cardinal Upgrade 1",
             req: 5,
             showEffect: true,
             effect: () => Math.sqrt(getTotalOCs()),
@@ -93,6 +93,10 @@ const totalOCEffects = [
         desc: `multiplying your Singularity's boost to Cardinal gain by `,
         effect: () => getTotalOCs() > 0 ? 1+Math.sqrt(getTotalOCs()+1)/100 : 1
     },
+    {
+        desc: `multiplying the Hierarchy effect cap by `,
+        effect: () => getTotalOCs() > 0 ? getTotalOCs() : 1
+    }
 ]
 
 function initOCs(){
@@ -153,7 +157,7 @@ function initPUPS(){
     }
 }
 function updateOCEffectsHTML(){
-    DOM(`ocInfo`).innerHTML = `You have completed ${getTotalOCs()} Omega Challenges<br><span style="font-size: 0.9rem; color: darkorange">Your completions are ${totalOCEffects[0].desc}${format(totalOCEffects[0].effect())} and ${totalOCEffects[1].desc}${format(totalOCEffects[1].effect())}</span>`
+    DOM(`ocInfo`).innerHTML = `You have completed ${getTotalOCs()} Omega Challenges<br><span style="font-size: 0.9rem; color: darkorange">Your completions are ${totalOCEffects[0].desc}${format(totalOCEffects[0].effect())}, ${totalOCEffects[1].desc}${format(totalOCEffects[1].effect())}, and ${totalOCEffects[2].desc}${format(totalOCEffects[2].effect())}</span>`
 }
 function updateOCInHTML(){
     //Pretty Lazy Function -\_('')_/-

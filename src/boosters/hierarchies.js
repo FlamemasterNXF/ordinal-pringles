@@ -2,7 +2,7 @@ function updateHierarchiesHTML(){
     for (let i = 0; i < data.hierarchies.ords.length; i++) {
         DOM(`h${i}Text`).innerHTML =  `${ordinalDisplay(data.hierarchies.ords[i].type, data.hierarchies.ords[i].ord, data.hierarchies.ords[i].over, hierarchyData[i].base(), 3, false)} (${hierarchyData[i].base()})`
         DOM(`h${i}Info`).innerText = `(+${format(hierarchyData[i].gain())}/s), ${hierarchyData[i].text}`
-        DOM(`h${i}Effect`).innerText = `${format(hierarchyData[i].effect())}`
+        DOM(`h${i}Effect`).innerText = `${format(getHierarchyEffect(i))}`
     }
 }
 function updateHierarchyPurchaseHTML(){
@@ -95,6 +95,8 @@ let hierarchyGainBases = [
 ]
 let hierarchyGainGlobalMults = () =>
     hupData[2].effect()*hupData[7].effect()*hbData[0].effect()*hbData[5].effect()*getOverflowEffect(3)
+let hierarchyCap = () => D(Number.MAX_VALUE)*getOCEffect(2)
+let getHierarchyEffect = (i) => Decimal.min(hierarchyData[i].effect(), hierarchyCap())
 
 let hbData = [
     { text:"Boost FGH and SGH gain based on Challenge Completions", cost: ()=> getHBBuyableCost(0), effect: ()=> Math.max(1, Math.sqrt(data.chal.totalCompletions+1)*data.hierarchies.rebuyableAmt[0]) },

@@ -15,11 +15,10 @@ function incrementyGain() {
     if (!data.ord.isPsi || checkAllIndexes(data.chal.active, true) > 0 || inOC(3)) return D(0)
 
     let ord = D(data.ord.ordinal)
-    let hierarchyEffect = getOCEffect(0) > 1 ?  hierarchyData[0].effect() : Decimal.min(hierarchyData[0].effect(), Number.MAX_VALUE)
 
     let base = Decimal.log10(ord.plus(1)).div(10)
     let iupMults = base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect()).times(iup11Effect())
-    let otherMults = iupMults.times(hierarchyEffect).times(alephEffect(3)).times(cupEffect(4)).times(sBUP2Effect())
+    let otherMults = iupMults.times(getHierarchyEffect(0)).times(alephEffect(3)).times(cupEffect(4)).times(sBUP2Effect())
     return otherMults.div(negativeChargeEffect(false))
 }
 
@@ -158,8 +157,7 @@ function sacrificeIncrementy(){
 
 //let chargeReq = () => (10**(6+((data.incrementy.totalCharge+data.darkness.sacrificedCharge)*(2+Math.floor((data.incrementy.totalCharge+data.darkness.sacrificedCharge)/12)))))/hierarchyData[1].effect()
 function chargeReq() {
-    let hierarchyEffect = getOCEffect(0) > 1 ?  hierarchyData[1].effect() : Decimal.min(hierarchyData[1].effect(), Number.MAX_VALUE)
     let chargeExp = 6+((data.incrementy.totalCharge+data.darkness.sacrificedCharge)*(2+Math.floor((data.incrementy.totalCharge+data.darkness.sacrificedCharge)/12)));
-    chargeExp -= Decimal.log10(hierarchyEffect);
+    chargeExp -= Decimal.log10(getHierarchyEffect(1));
     return D(10).pow(chargeExp);
 }
