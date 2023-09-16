@@ -206,7 +206,7 @@ function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
     over = Decimal.floor(over)
     if(trim <= 0) return `...`
     if(ord < base) return ord.plus(over)
-    const magnitude = Decimal.floor(Decimal.ln(ord)/Decimal.ln(base).plus(D(1e-14)))
+    const magnitude = Decimal.floor(Decimal.ln(ord).div(Decimal.ln(base)).plus(D(1e-14)))
     const magnitudeAmount = D(base).pow(magnitude)
     const amount = Decimal.floor(ord.div(magnitudeAmount))
     let finalOutput = "&omega;"
@@ -234,8 +234,38 @@ function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
 }
 */
 
-function displayPsiOrd(ord, trim) {
-    ord = D(Decimal.floor(ord))
+function displayPsiOrd(ord, trim = data.ord.trim, base = data.ord.base) {
+    if (D(ord).mag === Infinity || isNaN(D(ord).mag)) return data.gword ? "<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>" : "Ω"
+    if(D(ord).gt(Number.MAX_VALUE)) return displayInfinitePsiOrd(ord, trim, base)
+    ord = Math.floor(ord)
+    if(ord == BHO_VALUE) {
+        let finalOutput = "&psi;(Ω<sub>2</sub>)"
+        if(data.gword) finalOutput=finalOutput
+            .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
+            .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
+        return `${finalOutput.replaceAll('undefined', '')}`
+    }
+    let maxOrdMarks = (3**(ordMarks.length-1))*4
+    if(maxOrdMarks < Infinity && new Decimal(ord).gt(new Decimal(maxOrdMarks.toString()))) {
+        return displayPsiOrd(maxOrdMarks) + "x" + format(ord/Number(maxOrdMarks),2)
+    }
+    if(ord === 0) return ""
+    if(trim <= 0) return "..."
+    if(ord < 4) return extraOrdMarks[ord]
+    const magnitude = Math.floor(Math.log(ord/4)/Math.log(3))
+    const magnitudeAmount = 4*3**magnitude
+    let finalOutput = ordMarks[Math.min(magnitude,ordMarks.length-1)]
+    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiOrd(ord-magnitudeAmount, trim-1))
+    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiOrd(ord-magnitudeAmount+1, trim-1))
+    if(data.gword) finalOutput=finalOutput
+        .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
+        .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
+    return `${finalOutput.replaceAll('undefined', '')}`
+}
+
+function displayInfinitePsiOrd(ord, trim = data.ord.trim, base = data.ord.base) {
+    if (D(ord).mag === Infinity || isNaN(D(ord).mag)) return data.gword ? "<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>" : "Ω"
+    ord = D(Decimal.floor(D(ord).add(0.000000000001)))
     if(ord.eq(BHO_VALUE)) {
         let finalOutput = "&psi;(Ω<sub>2</sub>)"
         if(data.gword) finalOutput=finalOutput
@@ -244,7 +274,7 @@ function displayPsiOrd(ord, trim) {
     }
     let maxOrdMarks = (D(3).pow(ordMarks.length-1)).times(4)
     if(D(ord).gt(maxOrdMarks)) {
-        return displayPsiOrd(maxOrdMarks) + "x" + format(ord.div(maxOrdMarks),2)
+        return displayInfinitePsiOrd(maxOrdMarks) + "x" + format(ord.div(maxOrdMarks),2)
     }
     if(ord.eq(0)) return ""
     if(trim <= 0) return "..."
@@ -252,8 +282,8 @@ function displayPsiOrd(ord, trim) {
     const magnitude = Decimal.floor(Decimal.ln(ord.div(4)).div(Decimal.ln(3)))
     const magnitudeAmount = D(4).times(Decimal.pow(3, magnitude))
     let finalOutput = ordMarks[Decimal.min(magnitude,ordMarks.length-1)]
-    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiOrd(ord.sub(magnitudeAmount), trim-1))
-    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiOrd(ord.sub(magnitudeAmount.plus(1)), trim-1))
+    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayInfinitePsiOrd(ord.sub(magnitudeAmount), trim-1))
+    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayInfinitePsiOrd(ord.sub(magnitudeAmount).plus(1), trim-1))
     if(data.gword) finalOutput=finalOutput
         .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
         .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
