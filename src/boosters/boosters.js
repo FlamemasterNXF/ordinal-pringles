@@ -19,7 +19,7 @@ const bupCosts = [1, 5, 72, 53, 3522,
     1, 4, 73, 74, 3522,
     1, 8, 16, 66, 3562,
 ]
-let getBUPCosts = (i) => bupCosts[i] * oc2Effects[1]()
+let getBUPCosts = (i) => bupCosts[i]
 function initBUPs(){
     let rows = [DOM('bupColumn0'), DOM('bupColumn1'), DOM('bupColumn2')]
     let total = 0
@@ -91,7 +91,7 @@ function bup48Effect(){
     if(data.boost.isCharged[5] || data.boost.isCharged[10]) return Math.sqrt(factorEffect(6))
     return 1
 }
-let bup5Effect = () => data.boost.hasBUP[6] ? data.boost.isCharged[6] ? Math.max(Math.sqrt(data.boost.total)*3, 1)*getPUPEffect(1) : Math.max(Math.sqrt(data.boost.total)*getPUPEffect(1), 1) : 1
+let bup5Effect = () => data.boost.hasBUP[6] ? data.boost.isCharged[6] ? Math.max(Math.sqrt(data.boost.total)*3, 1) : Math.max(Math.sqrt(data.boost.total), 1) : 1
 let bup6Effect = () => data.boost.hasBUP[7] ? data.boost.isCharged[7] ? 100 : 10 : 0
 let bup7Effect = () => data.boost.hasBUP[8] ? data.boost.isCharged[8] ? Math.max(1,(-data.ord.base + 6)) : Math.max(1,data.ord.base-2) : 1
 let bup9Effect = () => data.boost.hasBUP[11] ? data.boost.isCharged[11] ? Math.max(20*(-data.ord.base+11)*getOverflowEffect(1), 1) : 20*getOverflowEffect(1) : 1
@@ -115,7 +115,7 @@ const autoRequirements = [', but only if you can\'t Factor Shift', ', but only i
 const autoUps = [5, 10]
 function updateBoostersHTML(){
     DOM('boosterText').innerHTML = data.boost.unlocks[1] > 0 ?
-        `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge+(omegaUnlocked() ? appeasementData[2].effect()-totalCharges() : 0)} Charge</span> (${data.incrementy.totalCharge+appeasementData[2].effect()} total)`
+        `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
         : `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total)`
     DOM('boosterTimesText').innerHTML = `You have <span style="color: #8080FF">Boosted</span> ${data.boost.times} times`
     //DOM('bup3').innerText = `${bupDesc[3]}\n[${format(bup3Effect())}x]\n53 Boosters`
@@ -143,11 +143,7 @@ function updateBoostersHTML(){
 
 function updateHeaderHTML(){
     const el = DOM(`chalIn`)
-    el.style.display = data.chal.active.includes(true) || data.baseless.baseless || inAnyOC() ? 'block' : 'none'
-    if(inAnyOC()){
-        if(inOC(4)) return el.innerHTML = `You are in The ${ocData[data.omega.selected].name} Challenge<br>Goal: Factor Boost ${(ocData[data.omega.selected].goal())} [+${data.omega.completions[data.omega.selected]-data.omega.tempComps} Completions]`
-        return el.innerHTML = `You are in Omega Challenge ${numToRoman(data.omega.selected+1)}: Challenge of the ${ocData[data.omega.selected].name}<br>Goal: Factor Boost ${(ocData[data.omega.selected].goal())} [+${data.omega.completions[data.omega.selected]-data.omega.tempComps} Completions]`
-    }
+    el.style.display = data.chal.active.includes(true) || data.baseless.baseless ? 'block' : 'none'
     el.innerText = data.baseless.baseless
         ? `You are in the ${baselessNames[data.baseless.mode]} Realm`
         : data.chal.active[7] ? `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy` : `You are in Challenge ${data.chal.html+1}`
@@ -200,9 +196,7 @@ function boost(f=false, auto=false){
     let bulkBoostAmt = getBulkBoostAmt();
     if (auto && data.boost.times < 2 && !data.collapse.hasSluggish[4]) bulkBoostAmt = Math.min(2 - data.boost.times, bulkBoostAmt) // do not automatically boost past SM2
 
-    let boosterGain = inOC(0)
-        ? (1+appeasementData[4].effect())*bulkBoostAmt
-        : ((data.boost.times * bulkBoostAmt) + (bulkBoostAmt * (bulkBoostAmt+1) / 2))
+    let boosterGain = ((data.boost.times * bulkBoostAmt) + (bulkBoostAmt * (bulkBoostAmt+1) / 2))
 
     data.boost.amt += boosterGain
     data.boost.total += boosterGain
@@ -250,10 +244,6 @@ function buyBUP(i, bottomRow, useCharge){
     data.boost.hasBUP[i] = true
 
     DOM(`bup${i}`).style.backgroundColor = '#002480'
-    if(inOC(2)){
-        updateSingLevelHTML()
-        updateAllBUPHTML()
-    }
 }
 
 function boosterRefund(c=false){
@@ -270,7 +260,6 @@ function boosterRefund(c=false){
         data.boost.amt += bupCosts[indexes[i]]
     }*/
     data.boost.amt = data.boost.total
-    if(inOC(2)) updateAllBUPHTML()
     c?boosterReset():chalExit()
 }
 

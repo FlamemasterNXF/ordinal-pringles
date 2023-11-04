@@ -8,7 +8,7 @@
 function OPtoOrd(x, b, trim=0) {
     x = D(x)
     if (x.lt(0.000000000001) || trim >= 12) return 0;
-    if (x.gte(1e256) && b==3) return 3**27
+    if (x.gte(1e256) && b===3) return 3**27
     let exp = Decimal.floor(Decimal.log10(x).add(0.000000000001));
     if (validInBase(exp, b)) {
         let coef = Decimal.floor(x.div(Decimal.pow(10,exp)).add(0.000000000001));

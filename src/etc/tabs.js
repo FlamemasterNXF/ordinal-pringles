@@ -31,7 +31,6 @@ function switchSubtab(t, mode){
         if(t==="upgrades") checkSpecialBUPs()
         if(t==="auto2") checkAutobuyerDisplay()
         if(t==="hierarchies") checkSpecialHUPs()
-        if(t==='incrementy') DOM(`iupRow3`).style.display = ocData[3].special.effect() ? `flex` : `none`
 
         if (t==="upgrades" && data.boost.unlocks[1]){
             DOM('bupBottomText').innerText = data.collapse.hasSluggish[3]
@@ -48,9 +47,6 @@ function switchSubtab(t, mode){
 
     // Special Collapse Rules
     if(mode === "collapse"){
-        if(t === "cardinals" && omegaUnlocked()) t = "pureAlephs"
-        if(t === "cUpgrades" && omegaUnlocked()) t = "pUpgrades"
-        if(t === "sluggish" && inOC(4)) t = "appeasements"
         DOM(`collapseInfoContainer`).style.display =
             t==='omega'||t==='appeasements' || t==='pUpgrades' || t==='pureAlephs'
             ? 'none' : 'flex'
@@ -97,7 +93,7 @@ function isTabUnlocked(t){
         case 'autoPrestige': return data.collapse.hasSluggish[3]
         case 'sing': return data.boost.unlocks[4]
         case 'baseless': return data.boost.unlocks[4]
-        case 'omega': return ocsUnlocked()
+        case 'omega': return false
 
         default: return true
     }

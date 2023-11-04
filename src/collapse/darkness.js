@@ -44,8 +44,8 @@ let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeC
 let negativeChargeCap = () => Math.min(Decimal.pow(data.incrementy.amt, 1/3).toNumber(), Number.MAX_VALUE)
 
 function negativeChargeEffect(eff){
-    if(eff == false) return Decimal.sqrt(data.darkness.negativeCharge+1).div(sacrificedChargeEffect())
-    if(eff == true) return Decimal.log10(data.darkness.negativeCharge+10).div(sacrificedChargeEffect())
+    if(eff === false) return Decimal.sqrt(data.darkness.negativeCharge+1).div(sacrificedChargeEffect())
+    if(eff === true) return Decimal.log10(data.darkness.negativeCharge+10).div(sacrificedChargeEffect())
  }
 
 let sacrificedChargeEffect = () => data.darkness.sacrificedCharge > 0 ? (data.darkness.sacrificedCharge+1)*2 : 1
@@ -71,9 +71,9 @@ function dupScaling (i){
     if(i===2) return D(10).pow(D(3).pow(data.darkness.levels[i]+1)).pow(3)
 }
 let dupData = [
-    { text: "Multiply AutoBuyer speed by 1.5x", cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)), effect: ()=> 1.5**(inOC(0) ? (data.darkness.levels[0]-(data.darkness.levels[0]-appeasementData[1].effect())) : data.darkness.levels[0]) },
-    { text: 'Double Dynamic Cap', cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> inOC(0) ? 1 : hasSingFunction(6) ? 4**data.darkness.levels[1] : 2**data.darkness.levels[1]},
-    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> inOC(0) ? 1 : 1.1**(data.darkness.levels[2]+alephNullEffects[1]()) }
+    { text: "Multiply AutoBuyer speed by 1.5x", cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)), effect: ()=> 1.5**data.darkness.levels[0] },
+    { text: 'Double Dynamic Cap', cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> hasSingFunction(6) ? 4**data.darkness.levels[1] : 2**data.darkness.levels[1]},
+    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> 1.1**(data.darkness.levels[2]+alephNullEffects[1]()) }
 ]
 
 function buyDrain(i) {

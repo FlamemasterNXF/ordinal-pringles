@@ -9,7 +9,6 @@ function updateCollapseHTML(){
     DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) ? '#fff480' : '#20da45'
 
     if(data.baseless.baseless) DOM(`baseless`).children[2].innerHTML = `<br><br>You will gain <span style="color: darkred">${format(alephNullGain())} ℵ<sub>0</sub></span> if you exit now`
-    if(inOC(4)) updateAlephOmegaHTML()
 
     updateTotalAlephHTML()
     updateDarknessHTML()
@@ -102,11 +101,11 @@ function updateUnlockHTML(mode, i){
     switch (mode) {
         case 0:
             DOM(`cup${i}`).style.background = data.collapse.hasCUP[i] ? "#0e3000" : "black"
-            if(i == 5) DOM(`bp5Container`).style.display = data.collapse.hasCUP[5] ? 'flex' : 'none'
+            if(i === 5) DOM(`bp5Container`).style.display = data.collapse.hasCUP[5] ? 'flex' : 'none'
             break;
         case 1:
             DOM(`sluggish${i}`).style.background = data.collapse.hasSluggish[i] ? "#0e3000" : "black"
-            if(i == 1) DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
+            if(i === 1) DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
             break;
         default:
             console.error("Invalid \"mode\" at \"updateUnlockHTML\"");
@@ -148,11 +147,11 @@ function checkCollapseUnlockHTML(){
     DOM('autoPrestigeTab').innerText = data.collapse.hasSluggish[3] ? 'AutoPrestigers' : '???'
     DOM('singTab').innerText = data.boost.unlocks[4] ? 'Singularity' : '???'
     DOM('baselessTab').innerText = data.boost.unlocks[4] ? 'Baselessness' : '???'
-    DOM('omegaTab').innerText = ocsUnlocked() ? 'Omega' : '???'
+    DOM('omegaTab').innerText = false ? 'Omega' : '???'
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect())**singEffects[0].effect()
-let alephEffect = (i) => data.collapse.alephs[i] > 0 && (i === 0 || !inOC(1)) ? alephData[i].effect()*cupEffect(6) : 1
+let alephEffect = (i) => data.collapse.alephs[i] > 0 && (i === 0) ? alephData[i].effect()*cupEffect(6) : 1
 let cupEffect = (i) => data.collapse.hasCUP[i] ?
     i===1 ? Math.max(cupData[i].effect()+drain1Effect(), 1)
     : Math.max(cupData[i].effect()*drainEffect(i), 1)
@@ -176,8 +175,8 @@ function getTotalAlephs(){
 let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs())*getSingFunctionEffect(5))*(hasSingFunction(1) ? cupEffect(6) : 1)
 
 let alephData = [
-    {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)*3*getOCEffect(1)},
-    {text: "multiplying Autobuyers by", effect: ()=> Math.log10(10+(90*data.collapse.alephs[1]))*getOCEffect(1)},
+    {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)*3},
+    {text: "multiplying Autobuyers by", effect: ()=> Math.log10(10+(90*data.collapse.alephs[1]))},
     {text: "multiplying Ordinal Power gain by", effect: ()=> Math.log2(data.collapse.alephs[2]+2)*3},
     {text: "multiplying Incrementy gain by", effect: ()=> Math.pow(data.collapse.alephs[3]+1, 1/4)},
     {text: "multiplying Dynamic Cap by", effect: ()=> ((Math.sqrt(data.collapse.alephs[4]+1)*2)+hupData[9].effect())*getSingFunctionEffect(2)},
@@ -186,8 +185,8 @@ let alephData = [
     {text: "multiplying the IUP3 effect by", effect: ()=> (Math.sqrt(data.collapse.alephs[7]+4)*2)+hupData[9].effect()},
 ]
 let cupData = [
-    {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max((data.incrementy.totalCharge/2)*getOCEffect(0), 1)},
-    {text: "Square AutoClicker speeds", cost: 27, effect: ()=> 2+totalOCEffects[0].effect()},
+    {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max((data.incrementy.totalCharge/2), 1)},
+    {text: "Square AutoClicker speeds", cost: 27, effect: ()=> 2},
     {text: "Challenges 1-7 provide greatly reduced boosts when at zero completions", cost: 81, effect: ()=> 0.2*8},
     {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 243, effect: ()=> Math.pow(data.markup.powers, 1/256)},
     {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.min(Math.max(1, Decimal.log10(data.incrementy.amt.plus(1)).toNumber()), Number.MAX_VALUE)}, //TODO: Add a safety function
@@ -290,8 +289,8 @@ function collapseReset(){
 }
 
 function collapseCardinals(){
-    if (data.collapse.cardinals == 0) return createAlert("Failure", "No Cardinals to Collapse.", "Oops.")
-    if(data.collapse.times == 1){
+    if (data.collapse.cardinals === 0) return createAlert("Failure", "No Cardinals to Collapse.", "Oops.")
+    if(data.collapse.times === 1){
         for (let i = 0; i < 3; i++) {
             data.collapse.alephs[i] = 1
             updateAlephHTML(i)

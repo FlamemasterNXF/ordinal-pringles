@@ -2,7 +2,7 @@ let extraT1 = () => data.collapse.hasSluggish[0] ? 1 : 0
 function updateMarkupHTML(){
     DOM("powersText").innerText = `You have ${formatWhole(data.markup.powers)} Ordinal Powers`
 
-    DOM("markupButton").innerHTML = inOC(4) && !omegaUnlocked() ? `You may not move forward.` :
+    DOM("markupButton").innerHTML =
         data.ord.isPsi&&data.ord.ordinal.eq(GRAHAMS_VALUE)&&data.boost.times===0&&!data.collapse.hasSluggish[0]?`Base 2 is required to go further...`:
         data.ord.isPsi?`Markup and gain ${displayPsiOrd(data.ord.ordinal.plus(1), 4)} (I)`:
         data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${formatWhole(opGain()*opMult())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
@@ -25,13 +25,12 @@ function updateMarkupHTML(){
     DOM("dynamicText").innerText = `Your Dynamic Factor is ${data.chal.active[4]?'dividing':'multiplying'} AutoClickers by ${format(data.dy.level, 3)}\nIt increases by ${format(dyGain())}/s, and caps at ${format(data.dy.cap)}`
     DOM("dynamicText2").innerText = `Your Dynamic Factor is ${format(data.dy.level, 3)} [+${format(dyGain())}/s]. It caps at ${format(data.dy.cap)}`
 
-    DOM("factorBoostButton").innerHTML = `Perform ${getBulkBoostAmt() < 2 ? "a Factor Boost" : getBulkBoostAmt()+" Factor Boosts"} [+${inOC(0) ? getBulkBoostAmt()*(1+appeasementData[4].effect()) : boostersAtGivenFB(data.boost.times+getBulkBoostAmt())-boostersAtGivenFB(data.boost.times)}] (B)<br>Requires ${displayPsiOrd(boostReq(), 3)}`
+    DOM("factorBoostButton").innerHTML = `Perform ${getBulkBoostAmt() < 2 ? "a Factor Boost" : getBulkBoostAmt()+" Factor Boosts"} [boostersAtGivenFB(data.boost.times+getBulkBoostAmt())-boostersAtGivenFB(data.boost.times)}] (B)<br>Requires ${displayPsiOrd(boostReq(), 3)}`
     DOM("factorBoostButton").style.color = data.ord.isPsi&&data.ord.ordinal.gte(boostReq())?'#fff480':'#8080FF'
 
     if(data.sToggles[6]) updateProgressBar()
 }
 function markup(n=D(1)){
-    if(inOC(4) && !omegaUnlocked()) return
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal.eq(GRAHAMS_VALUE) && !data.collapse.hasSluggish[0]) return
     if(data.ord.ordinal.lt(data.ord.base**2) && !data.ord.isPsi) return
     if(data.ord.isPsi){ data.ord.ordinal = data.ord.ordinal.plus(n); return data.markup.powers = 4e256}

@@ -31,7 +31,7 @@ function createConfirmation(name,desc,no,yes,func,arg) {
     document.getElementById('confirm').style.display = 'block'
     document.getElementById('confirmContainer').style.display = 'block'
     document.getElementById('noConfirm').addEventListener('click', () => {closeModal('confirm')})
-    arg != undefined?document.getElementById('yesConfirm').addEventListener('click', () => {func(arg);closeModal('confirm')})
+    arg !== undefined?document.getElementById('yesConfirm').addEventListener('click', () => {func(arg);closeModal('confirm')})
         :document.getElementById('yesConfirm').addEventListener('click', () => {func();closeModal('confirm')})
 }
 function closeModal(i) {

@@ -1,17 +1,5 @@
+/*
 const ocData = [
-    /*
-    {
-        name: "Infinite Mind",
-        desc: "If you are past Ψ(Ω) you gain Decrementy based on your Ordinal which divides your AutoBuyer speed. Each Booster Upgrade purchased or Supercharged increases Decrementy gain",
-        goal: () => 1000*(data.omega.completions[0]+1),
-        special: {
-            desc: "Greatly Boost Cardinal Upgrade 1 based on total OC Completions",
-            req: 3,
-            showEffect: true,
-            effect: () => 1,
-        }
-    },
-     */
     {
         name: "Infinite Light",
         desc: "Every Factor Boost yields only one Booster and Darkness Upgrades are disabled",
@@ -218,14 +206,7 @@ function updateAllPureHTML(mode){
 }
 
 function ocConfirm(i){
-    /*
-    if(inOC() && i !== data.omega.selected){
-        createConfirmation("Are you sure?", `Swapping Omega Challenges will preform a Collapse, force you to exit any Baseless Realms, and reset your Singularity!`, "No chance.", "Of course!", ocControl, i)
-    }
-     */
-    //else{
         createConfirmation("Are you sure?", `${inAnyOC() ? 'Exiting' : 'Entering'} an Omega Challenge will preform a Collapse, force you to exit any Baseless Realms, and reset your Singularity!`, "No chance.", "Of course!", ocControl, i)
-    //}
 }
 function ocControl(i){
     updateOCHTML(i)
@@ -262,29 +243,6 @@ function ocControl(i){
     revealAppeasementHTML()
     updateHeaderHTML()
 }
-
-/*
-function swapOC(i){
-    updateOCHTML(data.omega.selected)
-    if(data.omega.selected === 4)  data.omega.active = Array(5).fill(false)
-    else data.omega.active[data.omega.selected] = false
-
-    data.omega.selected = i
-    if(data.omega.selected === 4) data.omega.active = Array(5).fill(true)
-    else data.omega.active[i] = true
-
-    data.omega.tempComps = data.omega.completions[i]
-
-    omegaReset()
-    if(data.omega.selected === 3 || data.omega.selected === 4){
-        data.incrementy.totalCharge = 0
-        data.incrementy.charge = 0
-        data.omega.oldCharge = data.incrementy.totalCharge
-    }
-
-    updateHeaderHTML()
-}
- */
 
 function checkOCComps(i){
     if(!inAnyOC() || !data.ord.isPsi) return
@@ -378,3 +336,4 @@ let hasAppeasement = (i) => omegaUnlocked() && data.omega.hasAppeasement[i]
 let omegaUnlocked = () => inOC(4) && data.omega.hasAppeasement[4]
 
 let ocsUnlocked = () => data.incrementy.totalCharge > 71 || inAnyOC() || getTotalOCs() > 0
+*/

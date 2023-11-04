@@ -14,17 +14,17 @@ function updateHBBuyableHTML(i){
     const cost = i < 3 ? 'FGH' : 'SGH'
     const ord = i < 3 ? 0 : 1
 
-    el.innerHTML = i == 2 || i==5 ? `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>${format(hbData[i].cost())} Incrementy<br>Currently: ${format(hbData[i].effect())}x`
-    : `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>${displayHierarchyOrd(hbData[i].cost(), 0, 10/*hierarchyData[ord].base()*/, 1, false)} ${cost}<br>Currently: ${format(hbData[i].effect())}x`
+    el.innerHTML = i === 2 || i===5 ? `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>${format(hbData[i].cost())} Incrementy<br>Currently: ${format(hbData[i].effect())}x`
+    : `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>${displayHierarchyOrd(hbData[i].cost(), 0, 10, 1, /*false*/)} ${cost}<br>Currently: ${format(hbData[i].effect())}x`
 }
 function updateHUPHTML(i){
     const el = DOM(`hup${i}`)
     const cost = i < 5 ? 'FGH' : 'SGH'
     const ord = i < 5 ? 0 : 1
 
-    el.innerHTML = `${hupData[i].text}<br>${displayHierarchyOrd(hupData[i].cost, 0, 10/*hierarchyData[ord].base*/, 1, false)} ${cost}<br>`
+    el.innerHTML = `${hupData[i].text}<br>${displayHierarchyOrd(hupData[i].cost, 0, 10, 1, /*false*/)} ${cost}<br>`
     if (data.hierarchies.hasUpgrade[i]) {
-        el.innerHTML += `<font color='#424242'><b>Bought!</b></font>`
+        el.innerHTML += `<span style="color='#424242'"><b>Bought!</b></span>`
     }
 }
 
@@ -33,7 +33,7 @@ function initHierarchies(){
     let columns = [DOM('h0Buyables'), DOM('h1Buyables')]
     let total = 0
     for (let i = 0; i < columns.length; i++) {
-        let cost = i == 0 ? 'FGH' : 'SGH'
+        let cost = i === 0 ? 'FGH' : 'SGH'
         for (let n = 0; n < 3; n++) {
             let hb = document.createElement('button')
             hb.className = `hb${i}`
@@ -51,13 +51,13 @@ function initHierarchies(){
     let columns2 = [DOM('h0Upgrades'), DOM('h1Upgrades')]
     let total2 = 0
     for (let i = 0; i < columns.length; i++) {
-        let cost = i == 0 ? 'FGH' : 'SGH'
+        let cost = i === 0 ? 'FGH' : 'SGH'
         for (let n = 0; n < 5; n++) {
             let hup = document.createElement('button')
             hup.className = ' hup'
             hup.id = `hup${total2}`
 
-            data.hierarchies.hasUpgrade[total2] ? hup.innerHTML = `${hupData[total2].text}<br>${displayHierarchyOrd(hupData[total2].cost, 0, 10/*hierarchyData[i].base()*/, 1)} ${cost}<br><font color='#424242'><b>Bought!</b></font>`
+            data.hierarchies.hasUpgrade[total2] ? hup.innerHTML = `${hupData[total2].text}<br>${displayHierarchyOrd(hupData[total2].cost, 0, 10/*hierarchyData[i].base()*/, 1)} ${cost}<br><span style="color='#424242'"><b>Bought!</b></span>`
             : hup.innerHTML = `${hupData[total2].text}<br>${displayHierarchyOrd(hupData[total2].cost, 0, 10/*hierarchyData[i].base()*/, 1)} ${cost}`
 
             columns2[i].append(hup)
@@ -84,7 +84,7 @@ function checkSpecialHUPs(){
 let effectiveFGH = () => calcOrdPoints(data.hierarchies.ords[0].ord, hierarchyData[0].base(), data.hierarchies.ords[0].over);
 let effectiveSGH = () => calcOrdPoints(data.hierarchies.ords[1].ord, hierarchyData[1].base(), data.hierarchies.ords[1].over);
 let hierarchyData = [
-    { text:"Multiplying Incrementy Gain by", effect: ()=> Decimal.max((Decimal.log10(effectiveFGH().add(1)).times(hbData[1].effect()).times(iup10Effect())).pow(dupEffect(2)), 1),
+    { text:"Multiplying Incrementy Gain by", effect: ()=> Decimal.max((Decimal.log10(effectiveFGH().add(1)).times(hbData[1].effect())).pow(dupEffect(2)), 1),
         gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults(), base: ()=> 10-sBUP0Effect() },
     { text:"Dividing Charge Requirement by", effect: ()=> Decimal.max((Decimal.log10(effectiveSGH().add(1)).times(hbData[4].effect()).times(alephEffect(5))).pow((dupEffect(2))+sBUP1Effect()), 1),
         gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults(), base: ()=> 10-sBUP0Effect() }
@@ -95,7 +95,7 @@ let hierarchyGainBases = [
 ]
 let hierarchyGainGlobalMults = () =>
     hupData[2].effect()*hupData[7].effect()*hbData[0].effect()*hbData[5].effect()*getOverflowEffect(3)
-let hierarchyCap = () => D(Number.MAX_VALUE).times(totalOCEffects[2].effect())
+let hierarchyCap = () => D(Number.MAX_VALUE)
 let getHierarchyEffect = (i) => Decimal.min(hierarchyData[i].effect(), hierarchyCap())
 
 let hbData = [
@@ -143,14 +143,14 @@ function increaseHierarchies(diff){
 }
 
 function getHBBuyableCost(i){
-    if(i == 2 || i==5) return D(1e12).times(D(data.hierarchies.rebuyableAmt[i]).plus((D(10).pow(1 + data.hierarchies.rebuyableAmt[i]))))
+    if(i === 2 || i===5) return D(1e12).times(D(data.hierarchies.rebuyableAmt[i]).plus((D(10).pow(1 + data.hierarchies.rebuyableAmt[i]))))
     return D(data.hierarchies.rebuyableAmt[i]).add(D(10).pow(1 + data.hierarchies.rebuyableAmt[i]))
 }
 
 function buyHBuyable(i){
     const cost = hbData[i].cost()
 
-    if(data.incrementy.amt.gt(cost) && (i == 2 || i == 5)){
+    if(data.incrementy.amt.gt(cost) && (i === 2 || i === 5)){
         data.incrementy.amt = data.incrementy.amt.sub(cost)
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
