@@ -270,12 +270,12 @@
         <div class="flexBox" style="margin-top: 1rem">
             <button class="collapseTabButton" id="cardinalsTab" onclick="switchSubtab('cardinals', 'collapse')">Alephs</button>
             <button class="collapseTabButton" id="cupsTab" onclick="switchSubtab('cUpgrades', 'collapse')">Cardinal Upgrades</button>
-            <button class="collapseTabButton" id="smTab" onclick="switchSubtab('sluggish', 'collapse')">Sluggish</button>
-            <button class="collapseTabButton" id="darkTab" onclick="switchSubtab('darkness', 'collapse')">???</button>
+            <button class="collapseTabButton" id="smTab" onclick="switchSubtab('sluggish', 'collapse')">Sluggishness</button>
+            <button class="collapseTabButton" id="darkTab" onclick="switchSubtab('darkness', 'collapse')" style="border-color: rgba(128,0,255,0.5); color: rgba(159,159,204,0.92)">???</button>
             <button class="collapseTabButton" id="autoPrestigeTab" onclick="switchSubtab('autoPrestige', 'collapse')">???</button>
             <button class="collapseTabButton" id="singTab" onclick="switchSubtab('sing', 'collapse')">???</button>
             <button class="collapseTabButton" id="baselessTab" onclick="switchSubtab('baseless', 'collapse')">???</button>
-            <button class="collapseTabButton" id="omegaTab" onclick="switchSubtab('omega', 'collapse')">???</button>
+            <button class="collapseTabButton" id="omegaTab" onclick="switchSubtab('omega', 'collapse')" style="border-color:darkred; color:#ce0b0b">???</button>
         </div>
         <div class="flexBox" id="collapseInfoContainer" style="margin-top: 0.1rem; flex-direction: column">
             <h3 class="centeredTexts" id="cardinalsText" style="color: #20da45;">You have Collapsed Chips. In your house.</h3>
@@ -350,7 +350,10 @@
             <t class="centeredTexts" style="color: #9e5803;">You cannot enter Darkness while in any of the Baseless Realms</t>
         </div>
         <div class="flexBox" id="omegaSubPage" style="display: none; flex-direction: column;">
-
+            <t class="centeredTexts" id="alephOmega" style="color: darkred; margin-top: 1rem">Omegel</t>
+            <div class="flexBox" id="purificationContainer" style="margin-top: 1rem"></div>
+            <div class="flexBox" id="aoRebuyableContainer" style="flex-direction: column; margin-top: 0.5rem"></div>
+            <div class="flexBox" id="aoMilestoneContainer" style="flex-direction: column;"></div>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;"></div>

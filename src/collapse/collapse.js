@@ -13,6 +13,7 @@ function updateCollapseHTML(){
     updateTotalAlephHTML()
     updateDarknessHTML()
     updateSingularityHTML()
+    updatePurificationHTML()
 }
 function updateAutoPrestigeHTML(){
     for (let i = 0; i < data.collapse.apEnabled.length; i++) {
@@ -147,7 +148,7 @@ function checkCollapseUnlockHTML(){
     DOM('autoPrestigeTab').innerText = data.collapse.hasSluggish[3] ? 'AutoPrestigers' : '???'
     DOM('singTab').innerText = data.boost.unlocks[4] ? 'Singularity' : '???'
     DOM('baselessTab').innerText = data.boost.unlocks[4] ? 'Baselessness' : '???'
-    DOM('omegaTab').innerText = false ? 'Omega' : '???'
+    DOM('omegaTab').innerText = data.incrementy.totalCharge > 71 ? 'Purification' : '???'
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect())**singEffects[0].effect()

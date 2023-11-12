@@ -16,10 +16,11 @@ const chalGoals = [
 ]
 
 function initChals(){
-    const rows = [DOM('chalRow0'), DOM('chalRow1'), DOM('chalRow2'), DOM('chalRow3')]
+    const rows = [DOM('chalRow0'), DOM('chalRow1'), DOM('chalRow2')]
     let total = 0
     for (let i = 0; i < rows.length; i++) {
-        for (let n = 0; n < chalDesc.length/4; n++) {
+        for (let n = 0; n < chalDesc.length/3; n++) {
+            if(total === 8) break
             let chal = document.createElement('button')
             chal.className = 'challenge'
             chal.id = `chal${total}`
@@ -42,7 +43,7 @@ function updateAllChalHTML(){
     }
 }
 function updateChalHTML(i){
-    DOM(`chal${i}`).style.backgroundColor = data.chal.active[i]?'#002480':data.chal.completions[i]===3?'#078228':'black'
+    DOM(`chal${i}`).style.backgroundColor = data.chal.active[i]?'#002480':data.chal.completions[i]===3?'rgba(0,175,35,0.7)':'black'
     DOM(`chal${i}`).style.color = (!(data.chal.completions[i]===3)||data.chal.active[i])?'#8080FF':'black'
     DOM(`chal${i}`).innerText = `Challenge ${i+1}\n${chalDesc[i]}\n\nGoal: ${format(chalGoals[i][data.chal.completions[i]])} OP\nReward: Factor ${i+1} slightly boosts Tier 2 Automation\nCompletions: ${data.chal.completions[i]}/3`
     DOM(`chal1`).innerHTML = `Challenge 2<br>${chalDesc[1]}<br><br>Goal: ${data.chal.completions[1] === 3 ? 'Infinity' : displayPsiOrd(chalGoals[1][data.chal.completions[1]])}<br>Reward: Factor 2 slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[1]}/3`

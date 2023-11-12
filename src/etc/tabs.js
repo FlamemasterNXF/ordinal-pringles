@@ -47,9 +47,7 @@ function switchSubtab(t, mode){
 
     // Special Collapse Rules
     if(mode === "collapse"){
-        DOM(`collapseInfoContainer`).style.display =
-            t==='omega'||t==='appeasements' || t==='pUpgrades' || t==='pureAlephs'
-            ? 'none' : 'flex'
+        DOM(`collapseInfoContainer`).style.display = t==='omega' ? 'none' : 'flex'
 
         if(t==='darkness'){
             updateDUPHTML(1)
@@ -93,7 +91,7 @@ function isTabUnlocked(t){
         case 'autoPrestige': return data.collapse.hasSluggish[3]
         case 'sing': return data.boost.unlocks[4]
         case 'baseless': return data.boost.unlocks[4]
-        case 'omega': return false
+        case 'omega': return data.incrementy.totalCharge > 71
 
         default: return true
     }
