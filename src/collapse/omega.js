@@ -1,64 +1,64 @@
 const purificationData = [
     {
-        name: "Light",
+        name: "Obscurity",
         desc: "Each Factor Boost yields only one Booster and Darkness Upgrades are useless",
-        boostDesc: "Boost the effect base of the first Darkness Upgrade",
+        boostDesc: "Boosting the effect base of the first Darkness Upgrade by",
         eff: () => 1
     },
     {
         name: "Infinity",
-        desc: "Alephs except Aleph 1 are useless, Dynamic Factor divides AutoBuyer speed, and IUP3 is disabled",
-        boostDesc: "Boost Alephs 1, 2, and 8",
+        desc: "Alephs except ℵ<sub>1</sub> are useless, Dynamic Factor divides AutoBuyer speed, and IUP3 is disabled",
+        boostDesc: "Boosting ℵ<sub>1</sub>, ℵ<sub>2</sub>, and ℵ<sub>8</sub> by",
         eff: () => 1
     },
     {
         name: "Eternity",
         desc: "Each BUP purchased doubles all other BUP costs and increases the Boost requirement scaling",
-        boostDesc: "Boost Overcharge and Booster Power gain",
+        boostDesc: "Boosting Overcharge and Booster Power gain by",
         eff: () => 1
     },
     {
-        name: "Inferior",
+        name: "Inferiority",
         desc: "Incrementy, its upgrades, Charge, and Hierarchies are disabled",
-        boostDesc: "Boost the first and fifth Cardinal Upgrade",
+        boostDesc: "Boosting the first and fifth Cardinal Upgrade by",
         eff: () => 1
     }
 ]
 const aoRebuyableData = [
     {
-        desc: "ℵ<sub>0</sub> SLIGHTLY boosts Omega Remnant gain",
+        desc: "ℵ<sub>0</sub> SLIGHTLY boosts ℶ<sub>&omega;</sub> gain",
         eff: () => 1
     },
     {
-        desc: "ℵ<sub>0</sub> boosts Aleph Omega gain",
+        desc: "ℵ<sub>0</sub> boosts ℵ<sub>&omega;</sub> gain",
         eff: () => 1
     },
     {
-        desc: "Aleph Omega divides Dynamic Factor gain while Purification 02 is active",
+        desc: "ℵ<sub>&omega;</sub> divides Dynamic Factor gain while Purification 02 is active",
         eff: () => 1
     },
     {
-        desc: "Aleph Omega reduces the Boost req scaling increases while Purification 03 is active",
+        desc: "ℵ<sub>&omega;</sub> reduces the Boost req scaling increases while Purification 03 is active",
         eff: () => 1
     },
     {
-        desc: "Aleph Omega multiplies AutoBuyer speed AGAIN while Purification 01 or 04 are active",
+        desc: "ℵ<sub>&omega;</sub> multiplies AutoBuyer speed AGAIN while Purification 01 or 04 are active",
         eff: () => 1
     },
     {
-        desc: "Aleph Omega boosts Purification 01 and 04s effects",
+        desc: "ℵ<sub>&omega;</sub> boosts Purification 01 and 04s effects",
         eff: () => 1
     },
     {
-        desc: "Aleph Omega boosts the second BUP in the second column",
+        desc: "ℵ<sub>&omega;</sub> boosts the second BUP in the second column",
         eff: () => 1
     },
     {
-        desc: "Aleph Omega boosts the last Cardinal Upgrade",
+        desc: "ℵ<sub>&omega;</sub> boosts the last Cardinal Upgrade",
         eff: () => 1
     },
     /*{
-        desc: "Aleph Omega boosts RUP1",
+        desc: "ℵ<sub>&omega;</sub> boosts RUP1",
         eff: () => 1
     }
      */
@@ -68,21 +68,21 @@ const aoMilestoneData = [
         desc: "The first three Singularity Functions are now always active, and unlock a new Singularity Function",
         req: 1
     },{
-        desc: "Purification 02 now boosts Aleph 5",
-        req: 1
+        desc: "Purification 02 now boosts ℵ<sub>5</sub>",
+        req: 96
     },{
         desc: "Purification 03 now boosts the first Overcharge effect",
-        req: 1
+        req: 96
     },{
         desc: "Unlock a new row of Incrementy Rebuyables",
-        req: 1
+        req: 96
     },{
         desc: "ℵ<sub>0</sub> now also boosts the RUP2 base and the SGH Successor at a reduced rate",
-        req: 1,
+        req: 96,
         eff: () => 1
     },{
         desc: "Unlock Ω Purification",
-        req: 1
+        req: 96
     },
 ]
 
@@ -97,7 +97,7 @@ function initPurifications(){
         let el = document.createElement('button')
         el.className = 'purification'
         el.id = `purification${i}`
-        el.innerHTML = `<span style="color: #ce0b0b">Purification of ${purificationData[i].name}</span><br><span style="color: #ce390b">Best Factor Boost: <b>${data.omega.bestFBInPurification[i]}</b></span><br><span style="color: darkred">${purificationData[i].desc}</brspan><br><span style="color: #ce460b">${purificationData[i].boostDesc}</span>`
+        el.innerHTML = `<span style="color: #ce0b0b">Purification of ${purificationData[i].name}</span><br><span style="color: #ce390b">Best Factor Boost: <b>${data.omega.bestFBInPurification[i]}</b></span><br><span style="color: darkred">${purificationData[i].desc}</brspan><br><span style="color: #ce460b">${purificationData[i].boostDesc} ${format(purificationData[i].eff())}x</span>`
         //el.addEventListener("click", ()=>enterPurification(i))
         container.append(el)
     }
@@ -131,7 +131,7 @@ function initAOMilestones(){
             let el = document.createElement('button')
             el.className = 'aoMilestone'
             el.id = `aoM${id}`
-            el.innerHTML = `<span style="color: #c2052c">${aoMilestoneData[id].desc}</span><br>Requires: ${aoMilestoneData[id].req} Omega Remnants`
+            el.innerHTML = `<span style="color: #c2052c">${aoMilestoneData[id].desc}</span><br>Requires: ${aoMilestoneData[id].req} ℶ<sub>&omega;</sub>`
             //el.addEventListener("click", ()=>enterPurification(i))
             row.append(el)
         }
@@ -140,7 +140,7 @@ function initAOMilestones(){
 }
 
 function updatePurificationHTML(){
-    DOM(`alephOmega`).innerHTML = `<span style="font-size: 1.1rem">You have <span style="color: #ce0b0b">${format(data.omega.alephOmega)} ℵ<sub>&omega;</sub></span>, multiplying <span style="color: #ce0b0b">AutoBuyer Speed by ${format(aoEffects[0]())}x</span>, <span style="color: #ce0b0b">ℵ<sub>0</sub> gain by ${format(aoEffects[1]())}x</span>, and the <span style="color: #ce0b0b">Hierarchy Effect Cap by ${format(aoEffects[2]())}x</span></span><br>You have <span style="color: #ce0b0b">${format(data.omega.remnants)} Omega Remnants</span>, producing <span style="color: #ce0b0b">${format(aoGain())} ℵ<sub>&omega;</sub>/s</span>`
+    DOM(`alephOmega`).innerHTML = `<span style="font-size: 1.1rem">You have <span style="color: #ce0b0b">${format(data.omega.alephOmega)} ℵ<sub>&omega;</sub></span>, multiplying <span style="color: #ce0b0b">AutoBuyer Speed by ${format(aoEffects[0]())}x</span>, <span style="color: #ce0b0b">ℵ<sub>0</sub> gain by ${format(aoEffects[1]())}x</span>, and the <span style="color: #ce0b0b">Hierarchy Effect Cap by ${format(aoEffects[2]())}x</span></span><br>You have <span style="color: #ce0b0b">${format(data.omega.remnants)} ℶ<sub>&omega;</sub></span>, producing <span style="color: #ce0b0b">${format(aoGain())} ℵ<sub>&omega;</sub>/s</span>`
 }
 
 let aoGain = () => data.omega.remnants/1000

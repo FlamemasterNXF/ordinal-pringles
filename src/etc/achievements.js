@@ -335,6 +335,54 @@ const achievements = [
         description: "Dynamic Shift Seven Times in the Forgotten Realm",
         req: () => data.baseless.shifts > 6  && data.baseless.mode === 2
     },
+    {
+        id: 111,
+        name: "99% Pure Water!",
+        description: "Complete the first Purification Milestone",
+        req: () => hasAOMilestone(0)
+    },
+    {
+        id: 112,
+        name: "100% PURE WATER!!!",
+        description: "Complete the third Purification Milestone",
+        req: () => hasAOMilestone(2)
+    },
+    {
+        id: 113,
+        name: "Incrementy Incrementing but BETTER",
+        description: "Complete the fourth Purification Milestone",
+        req: () => hasAOMilestone(3)
+    },
+    {
+        id: 114,
+        name: "Obesity",
+        description: "Reach Singularity Density ω*ω",
+        req: () => data.sing.highestLevel > 99
+    },
+    {
+        id: 115,
+        name: "The Unholy Electrical Outlet",
+        description: "Reach PLACEHOLDER Charge",
+        req: () => false
+    },
+    {
+        id: 116,
+        name: "Nuclear Fusion",
+        description: "Boost Three Thousand Times",
+        req: () => data.boost.times > 2999
+    },
+    {
+        id: 117,
+        name: "The End?",
+        description: "Unlock Ω Purification",
+        req: () => hasAOMilestone(5)
+    },
+    {
+        id: 118,
+        name: "Base 2 NOW.",
+        description: "Δ",
+        req: () => false
+    },
 ]
 
 function initAchs(){
