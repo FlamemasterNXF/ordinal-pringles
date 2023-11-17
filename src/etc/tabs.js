@@ -54,9 +54,12 @@ function switchSubtab(t, mode){
             updateDUPHTML(2)
             DOM('dupC4').innerHTML = `Invert the third Booster Power effect<br><span style="font-size: 0.7rem">Currently: ${data.overflow.thirdEffect ? 'Dividing': 'Multiplying'}</span>`
         }
-        if(t==='sing' && !data.sing.tutorial){
-            createAlert('Tutorial Time!', 'Increase the Singularity\'s Density with the slider! Each increase will grant you a boost to Cardinal gain, with every few increases unlocking a new Singularity Function! Singularity Functions can boost or unlock things. But beware, growing your Singularity costs Charge!', 'Thanks for the tips!')
-            data.sing.tutorial = true
+        if(t==='sing'){
+            if(!data.sing.tutorial){
+                createAlert('Tutorial Time!', 'Increase the Singularity\'s Density with the slider! Each increase will grant you a boost to Cardinal gain, with every few increases unlocking a new Singularity Function! Singularity Functions can boost or unlock things. But beware, growing your Singularity costs Charge!', 'Thanks for the tips!')
+                data.sing.tutorial = true
+            }
+            checkPermanentFunctions()
         }
         if(t==="baseless"){
             updateAlephNullHTML()

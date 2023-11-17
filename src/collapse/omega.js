@@ -26,11 +26,11 @@ const purificationData = [
 ]
 const aoRebuyableData = [
     {
-        desc: "Aleph Null SLIGHTLY boosts Omega Remnant gain",
+        desc: "ℵ<sub>0</sub> SLIGHTLY boosts Omega Remnant gain",
         eff: () => 1
     },
     {
-        desc: "Aleph Null boosts Aleph Omega gain",
+        desc: "ℵ<sub>0</sub> boosts Aleph Omega gain",
         eff: () => 1
     },
     {
@@ -65,7 +65,7 @@ const aoRebuyableData = [
 ]
 const aoMilestoneData = [
     {
-        desc: "All QoL Singularity effects are now always active, and unlock a new Singularity effect",
+        desc: "The first three Singularity Functions are now always active, and unlock a new Singularity Function",
         req: 1
     },{
         desc: "Purification 02 now boosts Aleph 5",
@@ -77,7 +77,7 @@ const aoMilestoneData = [
         desc: "Unlock a new row of Incrementy Rebuyables",
         req: 1
     },{
-        desc: "Aleph Null now also boosts the RUP2 base and the SGH Successor at a reduced rate",
+        desc: "ℵ<sub>0</sub> now also boosts the RUP2 base and the SGH Successor at a reduced rate",
         req: 1,
         eff: () => 1
     },{
@@ -140,13 +140,14 @@ function initAOMilestones(){
 }
 
 function updatePurificationHTML(){
-    DOM(`alephOmega`).innerHTML = `<span style="font-size: 1.1rem">You have <span style="color: #ce0b0b">${format(data.omega.alephOmega)} ℵ<sub>&omega;</sub></span>, multiplying <span style="color: #ce0b0b">AutoBuyer Speed by ${format(aoEffects[0]())}x</span>, <span style="color: #ce0b0b">Aleph Null gain by ${format(aoEffects[1]())}x</span>, and the <span style="color: #ce0b0b">Hierarchy Effect Cap by ${format(aoEffects[2]())}x</span></span><br>You have <span style="color: #ce0b0b">${format(data.omega.remnants)} Omega Remnants</span>, producing <span style="color: #ce0b0b">${format(aoGain())} ℵ<sub>&omega;</sub>/s</span>`
+    DOM(`alephOmega`).innerHTML = `<span style="font-size: 1.1rem">You have <span style="color: #ce0b0b">${format(data.omega.alephOmega)} ℵ<sub>&omega;</sub></span>, multiplying <span style="color: #ce0b0b">AutoBuyer Speed by ${format(aoEffects[0]())}x</span>, <span style="color: #ce0b0b">ℵ<sub>0</sub> gain by ${format(aoEffects[1]())}x</span>, and the <span style="color: #ce0b0b">Hierarchy Effect Cap by ${format(aoEffects[2]())}x</span></span><br>You have <span style="color: #ce0b0b">${format(data.omega.remnants)} Omega Remnants</span>, producing <span style="color: #ce0b0b">${format(aoGain())} ℵ<sub>&omega;</sub>/s</span>`
 }
 
 let aoGain = () => data.omega.remnants/1000
-
 let aoEffects = [
     () => 1,
     () => 1,
     () => 1
 ]
+
+let hasAOMilestone = (i) => data.omega.remnants >= aoMilestoneData[i].req
