@@ -13,7 +13,7 @@ function updateCollapseHTML(){
     updateTotalAlephHTML()
     updateDarknessHTML()
     updateSingularityHTML()
-    updatePurificationHTML()
+    updatePurificationTabHTML()
 }
 function updateAutoPrestigeHTML(){
     for (let i = 0; i < data.collapse.apEnabled.length; i++) {

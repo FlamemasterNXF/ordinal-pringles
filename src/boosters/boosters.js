@@ -143,9 +143,9 @@ function updateBoostersHTML(){
 
 function updateHeaderHTML(){
     const el = DOM(`chalIn`)
-    el.style.display = data.chal.active.includes(true) || data.baseless.baseless ? 'block' : 'none'
-    el.innerText = data.baseless.baseless
-        ? `You are in the ${baselessNames[data.baseless.mode]} Realm`
+    el.style.display = data.chal.active.includes(true) || data.baseless.baseless || inAnyPurification() ? 'block' : 'none'
+    el.innerText = inAnyPurification() ? `The ${purificationData[data.omega.whichPurification].alt} will be Purified`
+        : data.baseless.baseless ? `You are in the ${baselessNames[data.baseless.mode]} Realm`
         : data.chal.active[7] ? `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy` : `You are in Challenge ${data.chal.html+1}`
 }
 

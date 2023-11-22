@@ -1,24 +1,28 @@
 const purificationData = [
     {
         name: "Obscurity",
+        alt: "Obscure",
         desc: "Each Factor Boost yields only one Booster and Darkness Upgrades are useless",
         boostDesc: "Boosting the effect base of the first Darkness Upgrade by",
         eff: () => 1
     },
     {
         name: "Infinity",
+        alt: "Infinite",
         desc: "Alephs except ℵ<sub>1</sub> are useless, Dynamic Factor divides AutoBuyer speed, and IUP3 is disabled",
         boostDesc: "Boosting ℵ<sub>1</sub>, ℵ<sub>2</sub>, and ℵ<sub>8</sub> by",
         eff: () => 1
     },
     {
         name: "Eternity",
+        alt: "Eternal",
         desc: "Each BUP purchased doubles all other BUP costs and increases the Boost requirement scaling",
         boostDesc: "Boosting Overcharge and Booster Power gain by",
         eff: () => 1
     },
     {
         name: "Inferiority",
+        alt: "Inferior",
         desc: "Incrementy, its upgrades, Charge, and Hierarchies are disabled",
         boostDesc: "Boosting the first and fifth Cardinal Upgrade by",
         eff: () => 1
@@ -97,9 +101,9 @@ function initPurifications(){
         let el = document.createElement('button')
         el.className = 'purification'
         el.id = `purification${i}`
-        el.innerHTML = `<span style="color: #ce0b0b">Purification of ${purificationData[i].name}</span><br><span style="color: #ce390b">Best Factor Boost: <b>${data.omega.bestFBInPurification[i]}</b></span><br><span style="color: darkred">${purificationData[i].desc}</brspan><br><span style="color: #ce460b">${purificationData[i].boostDesc} ${format(purificationData[i].eff())}x</span>`
-        //el.addEventListener("click", ()=>enterPurification(i))
+        el.addEventListener("click", ()=>enterPurification(i))
         container.append(el)
+        updatePurificationHTML(i)
     }
 }
 function initAORebuyables(){
@@ -139,8 +143,35 @@ function initAOMilestones(){
     }
 }
 
-function updatePurificationHTML(){
+function updatePurificationTabHTML(){
     DOM(`alephOmega`).innerHTML = `<span style="font-size: 1.1rem">You have <span style="color: #ce0b0b">${format(data.omega.alephOmega)} ℵ<sub>&omega;</sub></span>, multiplying <span style="color: #ce0b0b">AutoBuyer Speed by ${format(aoEffects[0]())}x</span>, <span style="color: #ce0b0b">ℵ<sub>0</sub> gain by ${format(aoEffects[1]())}x</span>, and the <span style="color: #ce0b0b">Hierarchy Effect Cap by ${format(aoEffects[2]())}x</span></span><br>You have <span style="color: #ce0b0b">${format(data.omega.remnants)} ℶ<sub>&omega;</sub></span>, producing <span style="color: #ce0b0b">${format(aoGain())} ℵ<sub>&omega;</sub>/s</span>`
+}
+function updatePurificationHTML(i){
+    DOM(`purification${i}`).innerHTML = `<span style="color: #ce0b0b">Purification of ${purificationData[i].name}</span><br><span style="color: #ce390b">Highest ${purificationData[i].alt} Boost: <b>${data.omega.bestFBInPurification[i]}</b></span><br><span style="color: darkred">${purificationData[i].desc}</brspan><br><span style="color: #ce460b">${purificationData[i].boostDesc} ${format(purificationData[i].eff())}x</span>`
+    DOM(`purification${i}`).style.backgroundColor = data.omega.purificationIsActive[i] ? `#120303` : `black`
+}
+
+function enterPurification(i){
+    if(inAnyPurification() && (i === data.omega.whichPurification)) return exitPurification(i)
+    if(inAnyPurification()) exitPurification(i,true)
+
+    collapseReset()
+    data.omega.whichPurification = i
+    data.omega.purificationIsActive[i] = true
+
+    updatePurificationHTML(i)
+    updateHeaderHTML()
+}
+function exitPurification(i, swap = false){
+    data.omega.remnants += remnantGain()
+    if(!swap) collapseReset()
+
+    data.omega.purificationIsActive = Array(data.omega.purificationIsActive.length).fill(false)
+    if(swap) updatePurificationHTML(data.omega.whichPurification)
+    data.omega.whichPurification = -1
+
+    updatePurificationHTML(i)
+    updateHeaderHTML()
 }
 
 let aoGain = () => data.omega.remnants/1000
@@ -150,4 +181,7 @@ let aoEffects = [
     () => 1
 ]
 
+let remnantGain = () => 1
+
 let hasAOMilestone = (i) => data.omega.remnants >= aoMilestoneData[i].req
+let inAnyPurification = () => data.omega.purificationIsActive.includes(true)
