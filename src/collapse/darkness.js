@@ -64,7 +64,7 @@ let drainData = [
     { effect: () => 2*data.darkness.drains[6] },
 ]
 
-let dupEffect = (i) => Math.max(1, dupData[i].effect())
+let dupEffect = (i) => inPurification(0) ? 1 : Math.max(1, dupData[i].effect())
 function dupScaling (i){
     if(i===0) return D(10).pow(D(3).pow(data.darkness.levels[i]+1)).pow(2)
     if(i===1) return D(10).pow(D(4).pow(data.darkness.levels[i]+1).pow(D(1.5)))

@@ -93,6 +93,7 @@ let hierarchyGainBases = [
     () => Decimal.min(Decimal.max(Decimal.floor(Decimal.pow(data.incrementy.amt, 1/3)), 1), Number.MAX_VALUE).toNumber(),
     () => Decimal.min(Decimal.max(Decimal.floor(Decimal.pow(t2Auto().plus(1), 1/4)), 1), Number.MAX_VALUE).toNumber()
 ]
+let fasterHierarchy = () => Math.min(hierarchyData[0].gain(), hierarchyData[1].gain())
 let hierarchyGainGlobalMults = () =>
     hupData[2].effect()*hupData[7].effect()*hbData[0].effect()*hbData[5].effect()*getOverflowEffect(3)
 let hierarchyCap = () => D(Number.MAX_VALUE)

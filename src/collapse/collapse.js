@@ -152,7 +152,7 @@ function checkCollapseUnlockHTML(){
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect())**singEffects[0].effect()
-let alephEffect = (i) => data.collapse.alephs[i] > 0 && (i === 0) ? alephData[i].effect()*cupEffect(6) : 1
+let alephEffect = (i) => data.collapse.alephs[i] > 0 && (!inPurification(1) || i === 0) ? alephData[i].effect()*cupEffect(6) : 1
 let cupEffect = (i) => data.collapse.hasCUP[i] ?
     i===1 ? Math.max(cupData[i].effect()+drain1Effect(), 1)
     : Math.max(cupData[i].effect()*drainEffect(i), 1)

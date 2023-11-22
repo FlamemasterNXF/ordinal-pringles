@@ -181,6 +181,7 @@ function boosterReset(){
     data.successorClicks = 0
 }
 
+const boosterGain = () => inPurification(0) ? 1 * getBulkBoostAmt() : ((data.boost.times * getBulkBoostAmt()) + (getBulkBoostAmt() * (getBulkBoostAmt() + 1) / 2));
 function boost(f=false, auto=false){
     if(data.boost.times === 33 && data.collapse.times === 0) return createConfirmation("Are you certain?", "This will perform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
     if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && auto) return
@@ -196,10 +197,8 @@ function boost(f=false, auto=false){
     let bulkBoostAmt = getBulkBoostAmt();
     if (auto && data.boost.times < 2 && !data.collapse.hasSluggish[4]) bulkBoostAmt = Math.min(2 - data.boost.times, bulkBoostAmt) // do not automatically boost past SM2
 
-    let boosterGain = ((data.boost.times * bulkBoostAmt) + (bulkBoostAmt * (bulkBoostAmt+1) / 2))
-
-    data.boost.amt += boosterGain
-    data.boost.total += boosterGain
+    data.boost.amt += boosterGain()
+    data.boost.total += boosterGain()
     data.boost.times += bulkBoostAmt
     if (data.boost.times >= 30 && data.boost.times < 30 + bulkBoostAmt && data.collapse.times === 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
     /*for(let i=1;i<=bulkBoostAmt;i++) {
@@ -244,6 +243,7 @@ function buyBUP(i, bottomRow, useCharge){
     data.boost.hasBUP[i] = true
 
     DOM(`bup${i}`).style.backgroundColor = '#002480'
+    if(inPurification(2)) updateAllBUPHTML()
 }
 
 function boosterRefund(c=false){

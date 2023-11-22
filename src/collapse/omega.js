@@ -1,7 +1,7 @@
 const purificationData = [
     {
-        name: "Obscurity",
-        alt: "Obscure",
+        name: "Eternity",
+        alt: "Eternal",
         desc: "Each Factor Boost yields only one Booster and Darkness Upgrades are useless",
         boostDesc: "Boosting the effect base of the first Darkness Upgrade by",
         eff: () => 1
@@ -9,16 +9,17 @@ const purificationData = [
     {
         name: "Infinity",
         alt: "Infinite",
-        desc: "Alephs except ℵ<sub>1</sub> are useless, Dynamic Factor divides AutoBuyer speed, and IUP3 is disabled",
+        desc: "Alephs except ℵ<sub>1</sub> are useless, Dynamic Factor divides AutoBuyer speed, and RUP2, RUP3, and IUP3 are disabled",
         boostDesc: "Boosting ℵ<sub>1</sub>, ℵ<sub>2</sub>, and ℵ<sub>8</sub> by",
-        eff: () => 1
+        eff: () => 1,
+        special: () => inPurification(1) ? data.dy.level : 1
     },
     {
-        name: "Eternity",
-        alt: "Eternal",
-        desc: "Each BUP purchased doubles all other BUP costs and increases the Boost requirement scaling",
-        boostDesc: "Boosting Overcharge and Booster Power gain by",
-        eff: () => 1
+        name: "Obscurity",
+        alt: "Obscure",
+        desc: "Your Markup AutoBuyer is equivalent to your FGH successor, your Hierarchies cannot grow, and Charge boosts FGH Successor",
+        boostDesc: "Boosting Overcharge gain, Booster Power gain, and both Hierarchy Successors by",
+        eff: () => 1,
     },
     {
         name: "Inferiority",
@@ -159,19 +160,29 @@ function enterPurification(i){
     data.omega.whichPurification = i
     data.omega.purificationIsActive[i] = true
 
+    updatePossiblePurificationHTML()
     updatePurificationHTML(i)
     updateHeaderHTML()
 }
 function exitPurification(i, swap = false){
     data.omega.remnants += remnantGain()
+    if(data.boost.times > data.omega.bestFBInPurification[data.omega.whichPurification]) data.omega.bestFBInPurification[data.omega.whichPurification] = data.boost.times
     if(!swap) collapseReset()
 
     data.omega.purificationIsActive = Array(data.omega.purificationIsActive.length).fill(false)
+
     if(swap) updatePurificationHTML(data.omega.whichPurification)
+    updatePossiblePurificationHTML()
+
     data.omega.whichPurification = -1
 
     updatePurificationHTML(i)
     updateHeaderHTML()
+}
+function updatePossiblePurificationHTML(){
+    if(data.omega.whichPurification === 0) updateAllDUPHTML()
+    if(data.omega.whichPurification === 1) updateAllAlephHTML()
+    if(data.omega.whichPurification === 2) updateAllBUPHTML()
 }
 
 let aoGain = () => data.omega.remnants/1000
@@ -182,6 +193,6 @@ let aoEffects = [
 ]
 
 let remnantGain = () => 0
-
 let hasAOMilestone = (i) => data.omega.remnants >= aoMilestoneData[i].req
 let inAnyPurification = () => data.omega.purificationIsActive.includes(true)
+let inPurification = (i) => data.omega.purificationIsActive[i]
