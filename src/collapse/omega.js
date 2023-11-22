@@ -181,7 +181,7 @@ let aoEffects = [
     () => 1
 ]
 
-let remnantGain = () => 1
+let remnantGain = () => 0
 
 let hasAOMilestone = (i) => data.omega.remnants >= aoMilestoneData[i].req
 let inAnyPurification = () => data.omega.purificationIsActive.includes(true)

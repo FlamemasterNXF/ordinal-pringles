@@ -66,6 +66,12 @@ function switchSubtab(t, mode){
             DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
         }
         if(t === "autoPrestige") updateAutoPrestigeHTML()
+        if(t === "omega") {
+            if(!data.omega.tutorial){
+                createAlert('Tutorial Time!', 'In order to gain ℶ<sub>&omega;</sub> you must enter a Purification and reach a never-before-reached Factor Boost within that Purification! This means ℶ<sub>&omega;</sub> is NOT farmable! Have fun!', 'Thanks for the tips!')
+                data.omega.tutorial = true
+            }
+        }
 
         DOM(`${collapseTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
