@@ -152,7 +152,7 @@ function initAOMilestones(){
 }
 
 function updatePurificationTabHTML(){
-    DOM(`alephOmega`).innerHTML = `<span style="font-size: 1.1rem">You have <span style="color: #ce0b0b">${format(data.omega.alephOmega)} ℵ<sub>&omega;</sub></span>, multiplying <span style="color: #ce0b0b">AutoBuyer Speed by ${format(aoEffects[0]())}x</span>, <span style="color: #ce0b0b">ℵ<sub>0</sub> gain by ${format(aoEffects[1]())}x</span>, and the <span style="color: #ce0b0b">Hierarchy Effect Cap by ${format(aoEffects[2]())}x</span></span><br>You have <span style="color: #ce0b0b">${format(remnantAmt())} ℶ<sub>&omega;</sub></span>, producing <span style="color: #ce0b0b">${format(aoGain())} ℵ<sub>&omega;</sub>/s</span> until ℵ<sub>&omega;</sub> reaches ℶ<sub>&omega;</sub>`
+    DOM(`alephOmega`).innerHTML = `<span style="font-size: 1.1rem">You have <span style="color: #ce0b0b">${format(data.omega.alephOmega)} ℵ<sub>&omega;</sub></span>, multiplying <span style="color: #ce0b0b">AutoBuyer Speed by ${format(aoEffects[0]())}x</span> and <span style="color: #ce0b0b">ℵ<sub>0</sub> gain by ${format(aoEffects[1]())}x</span></span><br>You have <span style="color: #ce0b0b">${format(remnantAmt())} ℶ<sub>&omega;</sub></span>, producing <span style="color: #ce0b0b">${format(aoGain())} ℵ<sub>&omega;</sub>/s</span> until ℵ<sub>&omega;</sub> reaches ℶ<sub>&omega;</sub>`
     if(inAnyPurification()) DOM(`purification${data.omega.whichPurification}`).innerHTML = `<span style="color: #ce0b0b">Purification of ${purificationData[data.omega.whichPurification].name}</span><br><span style="color: #ce390b">You will gain ${formatWhole(pureBoostGain())} more Boosts if you exit now (Highest Boost: ${data.omega.bestFBInPurification[data.omega.whichPurification]})</span><br><span style="color: darkred">${purificationData[data.omega.whichPurification].desc}</brspan><br><span style="color: #ce460b">${purificationData[data.omega.whichPurification].boostDesc} ${format(purificationData[data.omega.whichPurification].eff())}x</span>\``
 }
 function updatePurificationHTML(i){
@@ -216,7 +216,6 @@ let aoGain = () => (remnantAmt()/1000)*getAOREffect(1)
 let aoEffects = [
     () => data.omega.alephOmega,
     () => Math.sqrt(data.omega.alephOmega),
-    () => data.omega.alephOmega**2
 ]
 
 let remnantAmt = () => (data.omega.bestFBInPurification[0]+data.omega.bestFBInPurification[1]+data.omega.bestFBInPurification[2]+data.omega.bestFBInPurification[3])*getAOREffect(0)
