@@ -96,9 +96,6 @@ const aoMilestoneData = [
         desc: "Purification of Eternity now provides free levels of the first Darkness Upgrade, and unlock two new ℵ<sub>0</sub> Rebuyables",
         req: 1,
         eff: () => hasAOMilestone(4) ? 0 : 0
-    },{
-        desc: "Unlock Ω Purification",
-        req: 96
     },
 ]
 
@@ -146,6 +143,7 @@ function initAOMilestones(){
         row.id = `aoMRow${i}`
         for (let j = 0; j < 3; j++ ){
             let id = i*3+j
+            if (id === 5) break
             let el = document.createElement('button')
             el.className = 'aoMilestone'
             el.id = `aoM${id}`

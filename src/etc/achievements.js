@@ -337,51 +337,39 @@ const achievements = [
     },
     {
         id: 111,
-        name: "99% Pure Water!",
+        name: "Blue, like this 99% PURE WATER!",
         description: "Complete the first Purification Milestone",
         req: () => hasAOMilestone(0)
     },
     {
         id: 112,
-        name: "100% PURE WATER!!!",
+        name: "We afforded, purchased, and used nine",
+        description: "Complete the second Purification Milestone",
+        req: () => hasAOMilestone(1)
+    },
+    {
+        id: 113,
+        name: "The Unholy Electrical Outlet",
         description: "Complete the third Purification Milestone",
         req: () => hasAOMilestone(2)
     },
     {
-        id: 113,
-        name: "Incrementy Incrementing but BETTER",
+        id: 114,
+        name: "Incrementy isn't even a word",
         description: "Complete the fourth Purification Milestone",
         req: () => hasAOMilestone(3)
     },
     {
-        id: 114,
-        name: "Obesity",
-        description: "Reach Singularity Density ω*ω",
-        req: () => data.sing.highestLevel > 99
-    },
-    {
         id: 115,
-        name: "The Unholy Electrical Outlet",
-        description: "Reach PLACEHOLDER Charge",
-        req: () => false
+        name: "Purely Baseless Accusations",
+        description: "Complete the fifth Purification Milestone",
+        req: () => hasAOMilestone(4)
     },
     {
         id: 116,
-        name: "Nuclear Fusion",
-        description: "Boost Three Thousand Times",
-        req: () => data.boost.times > 2999
-    },
-    {
-        id: 117,
-        name: "The End?",
-        description: "Unlock Ω Purification",
-        req: () => hasAOMilestone(5)
-    },
-    {
-        id: 118,
-        name: "Base 2 NOW.",
-        description: "Δ",
-        req: () => false
+        name: "Obesity",
+        description: "Reach Singularity Density ω*ω",
+        req: () => data.sing.level > 99
     },
 ]
 
