@@ -176,21 +176,21 @@ function getTotalAlephs(){
 let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs())*getSingFunctionEffect(5))*(hasSingFunction(1) ? cupEffect(6) : 1)
 
 let alephData = [
-    {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)*3},
-    {text: "multiplying Autobuyers by", effect: ()=> Math.log10(10+(90*data.collapse.alephs[1]))},
+    {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)*3*purificationEffect(1)},
+    {text: "multiplying Autobuyers by", effect: ()=> Math.log10(10+(90*data.collapse.alephs[1]))*purificationEffect(1)},
     {text: "multiplying Ordinal Power gain by", effect: ()=> Math.log2(data.collapse.alephs[2]+2)*3},
     {text: "multiplying Incrementy gain by", effect: ()=> Math.pow(data.collapse.alephs[3]+1, 1/4)},
     {text: "multiplying Dynamic Cap by", effect: ()=> ((Math.sqrt(data.collapse.alephs[4]+1)*2)+hupData[9].effect())*getSingFunctionEffect(2)},
     {text: "multiplying the SGH effect by", effect: ()=> Math.pow(data.collapse.alephs[5]+1, 1/4)},
     {text: "multiplying Booster Power gain by", effect: ()=> Math.sqrt(data.collapse.alephs[6]+4)/2},
-    {text: "multiplying the IUP3 effect by", effect: ()=> (Math.sqrt(data.collapse.alephs[7]+4)*2)+hupData[9].effect()},
+    {text: "multiplying the IUP3 effect by", effect: ()=> (Math.sqrt(data.collapse.alephs[7]+4)*2*purificationEffect(1))+hupData[9].effect()},
 ]
 let cupData = [
-    {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max((data.incrementy.totalCharge/2), 1)},
+    {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max((data.incrementy.totalCharge/2)*purificationEffect(3), 1)},
     {text: "Square AutoClicker speeds", cost: 27, effect: ()=> 2},
     {text: "Challenges 1-7 provide greatly reduced boosts when at zero completions", cost: 81, effect: ()=> 0.2*8},
     {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 243, effect: ()=> Math.pow(data.markup.powers, 1/256)},
-    {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.min(Math.max(1, Decimal.log10(data.incrementy.amt.plus(1)).toNumber()), Number.MAX_VALUE)}, //TODO: Add a safety function
+    {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.min(Math.max(1, Decimal.log10(data.incrementy.amt.plus(1)).toNumber())*purificationEffect(3), Number.MAX_VALUE)}, //TODO: Add a safety function
     {text: "Unlock a 3rd Overcharge Effect and boost Overcharge's 1st Effect", cost: 196608, effect: ()=> 3},
     {text: "Unspent Cardinals boost Alephs", cost: 3e9, effect: ()=> Math.max(1, Math.log2(data.collapse.cardinals))},
     {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 4e13, effect: ()=> 1},

@@ -196,3 +196,4 @@ let remnantGain = () => 0
 let hasAOMilestone = (i) => data.omega.remnants >= aoMilestoneData[i].req
 let inAnyPurification = () => data.omega.purificationIsActive.includes(true)
 let inPurification = (i) => data.omega.purificationIsActive[i]
+let purificationEffect = (i) => Math.max(purificationData[i].eff(), 1)
