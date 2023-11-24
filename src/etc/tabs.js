@@ -49,6 +49,9 @@ function switchSubtab(t, mode){
     if(mode === "collapse"){
         DOM(`collapseInfoContainer`).style.display = t==='omega' ? 'none' : 'flex'
 
+        if(t==='cardinals'){
+            DOM(`aleph8`).style.display = hasAOMilestone(1) ? `block` : `none`
+        }
         if(t==='darkness'){
             updateDUPHTML(1)
             updateDUPHTML(2)

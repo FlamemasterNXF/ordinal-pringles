@@ -82,7 +82,8 @@ const aoMilestoneData = [
         req: 1
     },{
         desc: "Purification of Infinity now boosts ℵ<sub>5</sub>, and unlock a new Aleph",
-        req: 96
+        req: 96,
+        eff: () => hasAOMilestone(1) ? purificationEffect(1) : 1
     },{
         desc: "Purification of Obscurity now boosts the first Overcharge effect, and unlock a new Booster Power and Overcharge effect",
         req: 96
@@ -231,3 +232,4 @@ let inPurification = (i) => data.omega.purificationIsActive[i]
 let purificationEffect = (i) => Math.max(purificationData[i].eff(), 1)
 let getAORCost = (i) => aoRebuyableData[i].cost()
 let getAOREffect = (i) => Math.max(1, aoRebuyableData[i].eff())
+let getAOMEffect = (i) => Math.max(1, aoMilestoneData[i].eff())

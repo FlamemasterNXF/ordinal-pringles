@@ -152,7 +152,9 @@ function checkCollapseUnlockHTML(){
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect())**singEffects[0].effect()
-let alephEffect = (i) => data.collapse.alephs[i] > 0 && (!inPurification(1) || i === 0) ? alephData[i].effect()*cupEffect(6) : 1
+let alephEffect = (i) => data.collapse.alephs[i] > 0 && (!inPurification(1) || i === 0) && alephData[i].unl()
+    ? alephData[i].effect()*cupEffect(6)
+    : 1
 let cupEffect = (i) => data.collapse.hasCUP[i] ?
     i===1 ? Math.max(cupData[i].effect()+drain1Effect(), 1)
     : Math.max(cupData[i].effect()*drainEffect(i), 1)
@@ -176,14 +178,15 @@ function getTotalAlephs(){
 let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs())*getSingFunctionEffect(5))*(hasSingFunction(1) ? cupEffect(6) : 1)
 
 let alephData = [
-    {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)*3*purificationEffect(1)},
-    {text: "multiplying Autobuyers by", effect: ()=> Math.log10(10+(90*data.collapse.alephs[1]))*purificationEffect(1)},
-    {text: "multiplying Ordinal Power gain by", effect: ()=> Math.log2(data.collapse.alephs[2]+2)*3},
-    {text: "multiplying Incrementy gain by", effect: ()=> Math.pow(data.collapse.alephs[3]+1, 1/4)},
-    {text: "multiplying Dynamic Cap by", effect: ()=> ((Math.sqrt(data.collapse.alephs[4]+1)*2)+hupData[9].effect())*getSingFunctionEffect(2)},
-    {text: "multiplying the SGH effect by", effect: ()=> Math.pow(data.collapse.alephs[5]+1, 1/4)},
-    {text: "multiplying Booster Power gain by", effect: ()=> Math.sqrt(data.collapse.alephs[6]+4)/2},
-    {text: "multiplying the IUP3 effect by", effect: ()=> (Math.sqrt(data.collapse.alephs[7]+4)*2*purificationEffect(1))+hupData[9].effect()},
+    {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)*3*purificationEffect(1), unl: () => true},
+    {text: "multiplying Autobuyers by", effect: ()=> Math.log10(10+(90*data.collapse.alephs[1]))*purificationEffect(1), unl: () => true},
+    {text: "multiplying Ordinal Power gain by", effect: ()=> Math.log2(data.collapse.alephs[2]+2)*3, unl: () => true},
+    {text: "multiplying Incrementy gain by", effect: ()=> Math.pow(data.collapse.alephs[3]+1, 1/4), unl: () => true},
+    {text: "multiplying Dynamic Cap by", effect: ()=> ((Math.sqrt(data.collapse.alephs[4]+1)*2)+hupData[9].effect())*getSingFunctionEffect(2)*getAOMEffect(1), unl: () => true},
+    {text: "multiplying the SGH effect by", effect: ()=> Math.pow(data.collapse.alephs[5]+1, 1/4), unl: () => true},
+    {text: "multiplying Booster Power gain by", effect: ()=> Math.sqrt(data.collapse.alephs[6]+4)/2, unl: () => true},
+    {text: "multiplying the IUP3 effect by", effect: ()=> (Math.sqrt(data.collapse.alephs[7]+4)*2*purificationEffect(1))+hupData[9].effect(), unl: () => true},
+    {text: "multiplying Decrementy gain by", effect: ()=> Math.log2(2+(data.collapse.alephs[8])), unl: () => hasAOMilestone(1)},
 ]
 let cupData = [
     {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max((data.incrementy.totalCharge/2)*purificationEffect(3), 1)},
