@@ -32,7 +32,7 @@ const purificationData = [
 const aoRebuyableData = [
     {
         desc: "ℵ<sub>0</sub> SLIGHTLY boosts ℶ<sub>&omega;</sub> gain",
-        eff: () => 1,
+        eff: () => (1)*getOverflowEffect(6),
         cost: () => 96*data.omega.aoRebuyables[0]
     },
     {
@@ -85,8 +85,9 @@ const aoMilestoneData = [
         req: 1,
         eff: () => hasAOMilestone(1) ? purificationEffect(1) : 1
     },{
-        desc: "Purification of Obscurity now boosts the first Overcharge effect, and unlock a new Booster Power and Overcharge effect",
-        req: 1
+        desc: "Purification of Obscurity now boosts the first Overcharge effect, and unlock two new Overcharge effects",
+        req: 1,
+        eff: () => hasAOMilestone(2) ? purificationEffect(2) : 1
     },{
         desc: "Purification of Inferiority now boosts the seventh Cardinal Upgrade, and unlock a new row of Incrementy Rebuyables",
         req: 1

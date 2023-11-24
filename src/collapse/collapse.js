@@ -102,7 +102,7 @@ function updateUnlockHTML(mode, i){
     switch (mode) {
         case 0:
             DOM(`cup${i}`).style.background = data.collapse.hasCUP[i] ? "#0e3000" : "black"
-            if(i === 5) DOM(`bp5Container`).style.display = data.collapse.hasCUP[5] ? 'flex' : 'none'
+            if(i === 5) DOM(`bp5Container`).style.display = data.collapse.hasCUP[5] ? 'block' : 'none'
             break;
         case 1:
             DOM(`sluggish${i}`).style.background = data.collapse.hasSluggish[i] ? "#0e3000" : "black"

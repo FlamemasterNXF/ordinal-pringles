@@ -32,6 +32,11 @@ function switchSubtab(t, mode){
         if(t==="auto2") checkAutobuyerDisplay()
         if(t==="hierarchies") checkSpecialHUPs()
 
+        if(t==="overflow"){
+            DOM(`bp6Container`).style.display = hasAOMilestone(2) ? 'block' : 'none'
+            DOM(`bp7Container`).style.display = hasAOMilestone(2) ? 'block' : 'none'
+        }
+
         if (t==="upgrades" && data.boost.unlocks[1]){
             DOM('bupBottomText').innerText = data.collapse.hasSluggish[3]
                 ? `Click a purchased Upgrade to Supercharge it! The cost to Supercharge a bottom-row Upgrade is currently ${getBottomRowChargeCost()} Charge.\nThe Unlockables Column does not consume Boosters`

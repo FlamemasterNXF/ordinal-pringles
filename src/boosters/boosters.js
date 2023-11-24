@@ -82,6 +82,11 @@ const chargedBUPDesc = ['Each Factor\'s effect is Quadrupled', 'Boost OP gain by
     -Flame, 6/29/23, while writing the code for v0.1.2
  */
 
+/*
+    Adding to the spaghetti was a mistake
+    -Flame, 11/24/23, while writing the code for v0.3
+ */
+
 let bup0Effect = () => data.boost.hasBUP[0] ? data.boost.isCharged[0] ? 4 : 2 : 1
 let bup1Effect = () => data.boost.hasBUP[1] ? data.boost.isCharged[1] ? 500 : 5 : 1
 let bup2Effect = () => data.chal.active[6] ? 10 - data.markup.shifts : data.boost.isCharged[2] ? 4 : 5
@@ -98,6 +103,7 @@ let bup9Effect = () => data.boost.hasBUP[11] ? data.boost.isCharged[11] ? Math.m
 let bup10Effect = () => data.boost.hasBUP[12] ? data.boost.isCharged[12] ? 4 : 3 : 0
 let bup11Effect = () => data.boost.hasBUP[13] ? Math.max(Math.log2(data.boost.amt), 1) : 1
 
+// Die
 let sBUP0Effect = () => data.boost.hasBUP[4] ? data.boost.isCharged[4] ? Math.min(6, Math.floor((data.darkness.totalDrains+getTotalDUPs())/10))
     : Math.min(6, Math.floor(getTotalDUPs()/10))
     : 0
@@ -105,8 +111,8 @@ let sBUP1Effect = () => data.boost.hasBUP[9] ? data.boost.isCharged[9]
     ? Math.sqrt(getTotalHBuyables(false)+getTotalIBuyables())
     : Math.sqrt(getTotalHBuyables(true))
     : 1
-let sBUP2Effect = () => data.boost.hasBUP[14] ? data.boost.isCharged[14] ? alephTotalEffect()*dupEffect(0)
-    : alephTotalEffect()
+let sBUP2Effect = () => data.boost.hasBUP[14] ? data.boost.isCharged[14] ? alephTotalEffect()*dupEffect(0)*getOverflowEffect(7)
+    : alephTotalEffect()*getOverflowEffect(7)
     : 1
 
 const autoNames = ['Max All', 'Markup', 'Sacrifice for Charge', 'three RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge']
