@@ -1,6 +1,7 @@
 let timesToLoop = [0,0, 0,0]
 
-let t1Auto = () => D(factorBoost()).mul(bup5Effect()).mul(alephEffect(0)).pow(cupEffect(1)).mul(cupEffect(3)).mul(singBoostToBaseless())
+let t1Auto = () => D(factorBoost()).mul(bup5Effect()).mul(alephEffect(0)).pow(cupEffect(1)).mul(cupEffect(3))
+    .mul(singBoostToBaseless()).mul(getANREffect(0))
 
 let t2AutoPure = () => D(1).times(chalEffectTotal()).times(bup5Effect()).times(incrementyMult()).times(iup6Effect())
     .times(bup48Effect()).times(hupData[5].effect()).times(alephEffect(1)).times(cupEffect(0)).times(cupEffect(3))

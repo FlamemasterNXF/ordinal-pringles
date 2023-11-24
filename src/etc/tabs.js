@@ -63,6 +63,7 @@ function switchSubtab(t, mode){
         }
         if(t==="baseless"){
             updateAlephNullHTML()
+            checkANRUnlockHTML()
             DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
         }
         if(t === "autoPrestige") updateAutoPrestigeHTML()

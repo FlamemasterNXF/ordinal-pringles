@@ -55,6 +55,7 @@ const uHTML = {
         initCUPS()
         initSluggish()
         initSingularityFunctions()
+        initANRebuyables()
         initPurification()
     }
 }

@@ -95,7 +95,8 @@ let hierarchyGainBases = [
 ]
 let fasterHierarchy = () => Math.min(hierarchyData[0].gain(), hierarchyData[1].gain())
 let hierarchyGainGlobalMults = () =>
-    hupData[2].effect()*hupData[7].effect()*hbData[0].effect()*hbData[5].effect()*getOverflowEffect(3)*purificationEffect(2)
+    hupData[2].effect()*hupData[7].effect()*hbData[0].effect()*hbData[5].effect()*getOverflowEffect(3)
+    *purificationEffect(2)*getANREffect(2)
 let hierarchyCap = () => D(Number.MAX_VALUE)
 let getHierarchyEffect = (i) => Decimal.min(hierarchyData[i].effect(), hierarchyCap())
 
