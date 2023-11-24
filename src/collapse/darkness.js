@@ -28,7 +28,7 @@ function updateAllDarknessControlHTML(){
 }
 
 function updateDUPHTML(i){
-    DOM(`dup${i}`).innerText = `${dupData[i].text} (${data.darkness.levels[i]}${i===2 && alephNullEffects[1]() > 0 ? ` + ${alephNullEffects[1]()}` : ''})\n${format(dupData[i].cost())} Decrementy\nCurrently: ${format(dupEffect(i))}x`
+    DOM(`dup${i}`).innerText = `${dupData[i].text} (${data.darkness.levels[i]} + ${formatWhole(getExtraDUPLevels(i))})\n${format(dupData[i].cost())} Decrementy\nCurrently: ${format(dupEffect(i))}x`
 }
 function updateAllDUPHTML(){
     for (let i = 0; i < data.darkness.levels.length; i++) {
@@ -41,7 +41,7 @@ function updateDrainHTML(i){
 }
 
 let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5) : 0
-let negativeChargeCap = () => Math.min(Decimal.pow(data.incrementy.amt, 1/3).toNumber(), Number.MAX_VALUE)
+let negativeChargeCap = () => Math.min(Decimal.pow(data.incrementy.amt, 1/3).toNumber()*(iup10Effect().toNumber()), Number.MAX_VALUE)
 
 function negativeChargeEffect(eff){
     if(eff === false) return Decimal.sqrt(data.darkness.negativeCharge+1).div(sacrificedChargeEffect())
@@ -71,9 +71,14 @@ function dupScaling (i){
     if(i===2) return D(10).pow(D(3).pow(data.darkness.levels[i]+1)).pow(3)
 }
 let dupData = [
-    { text: "Multiply AutoBuyer speed by 1.5x", cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)), effect: ()=> (1.5*purificationEffect(0))**data.darkness.levels[0] },
-    { text: 'Double Dynamic Cap', cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> hasSingFunction(6) ? 4**data.darkness.levels[1] : 2**data.darkness.levels[1]},
-    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> 1.1**(data.darkness.levels[2]+alephNullEffects[1]()) }
+    { text: "Multiply AutoBuyer speed by 1.5x", cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)), effect: ()=> (1.5*purificationEffect(0))**(data.darkness.levels[0]+getExtraDUPLevels(0)) },
+    { text: 'Double Dynamic Cap', cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> hasSingFunction(6) ? 4**(data.darkness.levels[1]+getExtraDUPLevels(1)) : 2**data.darkness.levels[1]},
+    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> 1.1**(data.darkness.levels[2]+getExtraDUPLevels(2)) }
+]
+let extraDUPLevels = [
+    () => aoMilestoneData[4].eff(), // Can't use wrapper here because it has a minimum of 1
+    () => iup11Effect(),
+    () => alephNullEffects[1]()
 ]
 
 function buyDrain(i) {
@@ -172,3 +177,5 @@ function resetDarkness(force = false){
     }
     DOM('darken').innerText = data.darkness.darkened ? 'Escape' : 'Enter the Darkness'
 }
+
+let getExtraDUPLevels = (i) => extraDUPLevels[i]()

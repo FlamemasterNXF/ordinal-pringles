@@ -3,6 +3,9 @@ function updateIncrementyHTML(){
     DOM(`iup0`).innerText = `[RUP1] ${iupDesc[0]} (${formatWhole(data.incrementy.rebuyableAmt[0])}+${iup7Effect()})\n${format(getRebuyableCost(0))} Incrementy\nCurrently: ${format(iupEffects[0]())}x`
     DOM(`iup1`).innerText = `[RUP2] ${iupDesc[1]} (${formatWhole(data.incrementy.rebuyableAmt[1])})\n${format(getRebuyableCost(1))} Incrementy\nCurrently: ${format(iupEffects[1]())}x`
     DOM(`iup2`).innerText = `[RUP3] ${iupDesc[2]} (${formatWhole(data.incrementy.rebuyableAmt[2])})\n${format(getRebuyableCost(2))} Incrementy\nCurrently: ${format(iupEffects[2]())}x`
+    DOM(`iup9`).innerText = `[RUP4] ${iupDesc[9]} (${formatWhole(data.incrementy.rebuyableAmt[3])})\n${format(getRebuyableCost(3))} Incrementy\nCurrently: ${format(iupEffects[9]())}x`
+    DOM(`iup10`).innerText = `[RUP5] ${iupDesc[10]} (${formatWhole(data.incrementy.rebuyableAmt[4])})\n${format(getRebuyableCost(4))} Incrementy\nCurrently: ${format(iupEffects[10]())}x`
+    DOM(`iup11`).innerText = `[RUP6] ${iupDesc[11]} (${formatWhole(data.incrementy.rebuyableAmt[5])})\n${format(getRebuyableCost(5))} Incrementy\nCurrently: ${format(iupEffects[11]())}x`
     DOM('chargeButton').innerText = `Sacrifice ${format(chargeReq())} Incrementy for 1 Charge\nYou have ${data.incrementy.charge} Charge (${data.incrementy.totalCharge} total)`
 }
 function switchIUPText(i, mode){
@@ -25,16 +28,18 @@ function incrementyGain() {
 const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Factor boosts Incrementy gain',
     'Total Factor Boosts boost Incrementy Gain', 'Incrementy Multiplies the Dynamic Cap at a reduced rate (does not affect C5)', 'Dynamic boosts AutoBuyers at a reduced rate',
     'Challenge Completions provide free levels of Repeatable Upgrade 1', 'Repeatable Upgrade 2 is boosted by Challenge Completions', 'Total Repeatable Upgrade 3 levels boosts Upgrade 3',
+    'Double Negative Charge gain and Cap', 'Gain a level of the second Darkness Upgrade', 'Boost Cardinal gain'
 ]
 const iupCosts = [1, 1, 1, 2e6, 2e5, 1e10, 3e4, 1e8, 1e12, 1e100, 1e150, 1e200]
-let rebuyableCostBases = [20, 1000, 100]
+let rebuyableCostBases = [20, 1000, 100, 1e150, 1e150, 1e150]
+let rebuyableCostScalings = [2, 2, 2, 30, 40, 10]
 
-let getRebuyableCost = (i) => Decimal.sqrt(2*(2*data.incrementy.rebuyableAmt[i]+1)).mul(Decimal.pow((2*data.incrementy.rebuyableAmt[i]+1)/Math.E, (2*data.incrementy.rebuyableAmt[i]+1)/2)).ceil().times(rebuyableCostBases[i])
+let getRebuyableCost = (i) => Decimal.sqrt(rebuyableCostScalings[i]*(rebuyableCostScalings[i]*data.incrementy.rebuyableAmt[i]+1)).mul(Decimal.pow((rebuyableCostScalings[i]*data.incrementy.rebuyableAmt[i]+1)/Math.E, (rebuyableCostScalings[i]*data.incrementy.rebuyableAmt[i]+1)/2)).ceil().times(rebuyableCostBases[i])
 function initIUPs(){
-    let rows = [DOM('iupRow0'), DOM('iupRow1'), DOM('iupRow2'), DOM('iupRow3')]
+    let rows = [DOM('iupRow0'), DOM('iupRow1'), DOM('iupRow2'), DOM('iupRow3'),]
     let total = 0
     for (let i = 0; i < rows.length; i++) {
-        let r = i === 0
+        let r = i === 0 || i === 4
         for (let n = 0; n < 3; n++) {
             let iup = document.createElement('button')
             iup.className = 'iup'
@@ -46,8 +51,7 @@ function initIUPs(){
         }
     }
     for (let i = 0; i < data.incrementy.hasIUP.length; i++) {
-
-        if(i > 2){
+        if(i > 2 && i < 9){
             DOM(`iup${i}`).addEventListener('mouseenter', ()=>switchIUPText(i, true))
             DOM(`iup${i}`).addEventListener('mouseleave', ()=>switchIUPText(i, false))
             DOM(`iup${i}`).addEventListener('click', ()=>buyIUP(i))
@@ -71,10 +75,12 @@ function buyIUP(i){
 function buyRUP(i){
     if(data.incrementy.amt.lt(getRebuyableCost(i))) return
 
-    data.incrementy.amt = data.incrementy.amt.sub(getRebuyableCost(i))
-    ++data.incrementy.rebuyableAmt[i]
+    let reb = i > 2 ? i-6 : i
 
-    DOM(`iup${i}`).innerText = `${iupDesc[i]} (${formatWhole(data.incrementy.rebuyableAmt[i])})\n${format(getRebuyableCost(i))} Incrementy\nCurrently: ${format(iupEffects[i]())}x`
+    data.incrementy.amt = data.incrementy.amt.sub(getRebuyableCost(reb))
+    ++data.incrementy.rebuyableAmt[reb]
+
+    DOM(`iup${i}`).innerText = `${iupDesc[i]} (${formatWhole(data.incrementy.rebuyableAmt[reb])})\n${format(getRebuyableCost(reb))} Incrementy\nCurrently: ${format(iupEffects[i]())}x`
 }
 function getTotalIBuyables(){
     let total = 0
@@ -92,6 +98,12 @@ function getTotalIBuyables(){
 /*
         I really need to fix this
         - Flame, again, 22/11/23
+        Wait that date doesn't exist
+        - Flame, 11/24/23
+ */
+/*
+    YIPEEEEEEEEEEEEE HERE WE GO AGAIN
+    - Flame, once again, 11/24/23
  */
 let iup1Effect = () => Decimal.max(1, D(2+alephNullEffects[0]()).pow(D(data.incrementy.rebuyableAmt[0]).add(iup7Effect())))
 let iup2Effect = () =>  inPurification(1) ? Decimal.max(1, D(3).pow(data.incrementy.rebuyableAmt[1]).mul(iup8Effect())) : 1
@@ -104,8 +116,11 @@ let iup7Effect = () => data.incrementy.hasIUP[6] && !inPurification(3) ? Decimal
 let iup8Effect = () => data.incrementy.hasIUP[7] && !inPurification(3) ? Decimal.max(1, 1+data.chal.totalCompletions/3) : D(1)
 let iup9Effect = () => data.incrementy.hasIUP[8] && !inPurification(3) ? data.hierarchies.hasUpgrade[1] ? Decimal.max(1, data.incrementy.rebuyableAmt[2]/3)
 : Decimal.max(1, Decimal.sqrt(data.incrementy.rebuyableAmt[2])) : D(1)
+let iup10Effect = () => Decimal.max(1, 1)
+let iup11Effect = () =>  Decimal.max(1, 1)
+let iup12Effect = () => Decimal.max(1, 1)
 
-let iupEffects = [iup1Effect, iup2Effect, iup3Effect, iup4Effect, iup5Effect, iup6Effect, iup7Effect, iup8Effect, iup9Effect]
+let iupEffects = [iup1Effect, iup2Effect, iup3Effect, iup4Effect, iup5Effect, iup6Effect, iup7Effect, iup8Effect, iup9Effect, iup10Effect, iup11Effect, iup12Effect]
 
 
 function chargeBUP(i, bottomRow){

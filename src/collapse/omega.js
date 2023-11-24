@@ -90,11 +90,12 @@ const aoMilestoneData = [
         eff: () => hasAOMilestone(2) ? purificationEffect(2) : 1
     },{
         desc: "Purification of Inferiority now boosts the seventh Cardinal Upgrade, and unlock a new row of Incrementy Rebuyables",
-        req: 1
+        req: 1,
+        eff: () => hasAOMilestone(3) ? purificationEffect(3) : 1
     },{
         desc: "Purification of Eternity now provides free levels of the first Darkness Upgrade, and unlock two new ℵ<sub>0</sub> Rebuyables",
         req: 1,
-        eff: () => 1
+        eff: () => hasAOMilestone(4) ? 0 : 0
     },{
         desc: "Unlock Ω Purification",
         req: 96
