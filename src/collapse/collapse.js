@@ -153,7 +153,7 @@ function checkCollapseUnlockHTML(){
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect())**singEffects[0].effect()
 let alephEffect = (i) => data.collapse.alephs[i] > 0 && (!inPurification(1) || i === 0) && alephData[i].unl()
-    ? alephData[i].effect()*cupEffect(6)
+    ? alephData[i].effect()*(i !== 8 ? cupEffect(6) : 1)
     : 1
 let cupEffect = (i) => data.collapse.hasCUP[i] ?
     i===1 ? Math.max(cupData[i].effect()+drain1Effect(), 1)
@@ -186,7 +186,7 @@ let alephData = [
     {text: "multiplying the SGH effect by", effect: ()=> Math.pow(data.collapse.alephs[5]+1, 1/4), unl: () => true},
     {text: "multiplying Booster Power gain by", effect: ()=> Math.sqrt(data.collapse.alephs[6]+4)/2, unl: () => true},
     {text: "multiplying the IUP3 effect by", effect: ()=> (Math.sqrt(data.collapse.alephs[7]+4)*2*purificationEffect(1))+hupData[9].effect(), unl: () => true},
-    {text: "multiplying Decrementy gain by", effect: ()=> Math.log2(2+(data.collapse.alephs[8])), unl: () => hasAOMilestone(1)},
+    {text: "multiplying the first Singularity effect by", effect: ()=> 1+(Math.log10(10+data.collapse.alephs[8]))/1000, unl: () => hasAOMilestone(1)},
 ]
 let cupData = [
     {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max((data.incrementy.totalCharge/2)*purificationEffect(3), 1)},

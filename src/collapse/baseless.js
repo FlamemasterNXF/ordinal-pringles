@@ -1,11 +1,11 @@
 function initANRebuyables(){
     const container = DOM('anRebuyableContainer')
-    for (let i = 0; i < data.baseless.anRebuyables.length/4; i++) {
+    for (let i = 0; i < data.baseless.anRebuyables.length/5; i++) {
         let row = document.createElement('div')
         row.className = `aoRow`
         row.id = `anRRow${i}`
-        for (let j = 0; j < 4; j++ ){
-            let id = i*4+j
+        for (let j = 0; j < 5; j++ ){
+            let id = i*5+j
             let el = document.createElement('button')
             el.className = 'anRebuyable'
             el.id = `anR${id}`
@@ -71,6 +71,12 @@ const anRebuyableData = [
     },
     {
         desc: "Boost the Singularity boost to AutoClickers while in Baseless Realms",
+        eff: () => 1,
+        cost: () => 96*data.baseless.anRebuyables[0],
+        unl: () => true
+    },
+    {
+        desc: "Boost Decrementy gain after Ψ(Ω)",
         eff: () => 1,
         cost: () => 96*data.baseless.anRebuyables[0],
         unl: () => true
@@ -146,7 +152,7 @@ let alephNullEffects = [
     () => Math.max(0, Math.log10(data.baseless.alephNull)/10),
     () => Math.max(0, Math.floor(Math.log10(data.baseless.alephNull)))
 ]
-let getBaselessMult = (i) => baselessMultipliers[i]*getANREffect(3)
+let getBaselessMult = (i) => baselessMultipliers[i]*getANREffect(4)
 let singBoostToBaseless = (display = false) => data.baseless.baseless || display
     ? Math.max(1, data.sing.level*getANREffect(1))
     : 1

@@ -62,7 +62,7 @@ function initSingularityFunctions(){
 
 let lastSingFunctionUnlockedIndex = 0
 let singEffects = [
-    {desc: "raising Cardinal gain to the", effect: () => (1 + Math.sqrt(data.sing.level)/100)},
+    {desc: "raising Cardinal gain to the", effect: () => (1 + Math.sqrt(data.sing.level)/100)*alephEffect(8)},
     {desc: "reducing the Decrementy gain exponent by", effect: () => Math.sqrt(data.sing.level)/50},
     {desc: "raising AutoBuyer speed to the", effect: () => 1-Math.pow(data.sing.level, 1/2)/100},
 ]

@@ -81,18 +81,18 @@ const aoMilestoneData = [
         desc: "The first three Singularity Functions are now always active, and unlock a new Singularity Function",
         req: 1
     },{
-        desc: "Purification of Infinity now boosts ℵ<sub>5</sub>, and unlock a new Aleph",
-        req: 96,
+        desc: "Purification of Infinity now boosts ℵ<sub>5</sub>, and unlock a new Aleph that is not effected by the seventh Cardinal Upgrade",
+        req: 1,
         eff: () => hasAOMilestone(1) ? purificationEffect(1) : 1
     },{
         desc: "Purification of Obscurity now boosts the first Overcharge effect, and unlock a new Booster Power and Overcharge effect",
-        req: 96
+        req: 1
     },{
         desc: "Purification of Inferiority now boosts the seventh Cardinal Upgrade, and unlock a new row of Incrementy Rebuyables",
-        req: 96
+        req: 1
     },{
         desc: "Purification of Eternity now provides free levels of the first Darkness Upgrade, and unlock two new ℵ<sub>0</sub> Rebuyables",
-        req: 96,
+        req: 1,
         eff: () => 1
     },{
         desc: "Unlock Ω Purification",
