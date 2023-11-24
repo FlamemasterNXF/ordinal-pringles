@@ -96,7 +96,7 @@ function bup48Effect(){
     if(data.boost.isCharged[5] || data.boost.isCharged[10]) return Math.sqrt(factorEffect(6))
     return 1
 }
-let bup5Effect = () => data.boost.hasBUP[6] ? data.boost.isCharged[6] ? Math.max(Math.sqrt(data.boost.total)*3*getAOEffect(6), 1) : Math.max(Math.sqrt(data.boost.total)*getAOREffect(6), 1) : 1
+let bup5Effect = () => data.boost.hasBUP[6] ? data.boost.isCharged[6] ? Math.max(Math.sqrt(data.boost.total)*3*getAOREffect(6), 1) : Math.max(Math.sqrt(data.boost.total)*getAOREffect(6), 1) : 1
 let bup6Effect = () => data.boost.hasBUP[7] ? data.boost.isCharged[7] ? 100 : 10 : 0
 let bup7Effect = () => data.boost.hasBUP[8] ? data.boost.isCharged[8] ? Math.max(1,(-data.ord.base + 6)) : Math.max(1,data.ord.base-2) : 1
 let bup9Effect = () => data.boost.hasBUP[11] ? data.boost.isCharged[11] ? Math.max(20*(-data.ord.base+11)*getOverflowEffect(1), 1) : 20*getOverflowEffect(1) : 1

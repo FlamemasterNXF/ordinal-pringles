@@ -9,7 +9,7 @@ function initANRebuyables(){
             let el = document.createElement('button')
             el.className = 'anRebuyable'
             el.id = `anR${id}`
-            el.addEventListener("click", ()=>buyANR(i))
+            el.addEventListener("click", ()=>buyANR(id))
             row.append(el)
         }
         container.append(row)
@@ -33,7 +33,7 @@ function updateDynamicShiftHTML(){
     }
 }
 function updateANRHTML(i){
-    DOM(`anR${i}`).innerHTML = `<span style="color: #ce5c0b">${anRebuyableData[i].desc} (${formatWhole(data.baseless.anRebuyables[i])})</span><br>Requires: ${format(getANRCost(i))} ℵ<sub>0</sub><br>Currently: ${format(anRebuyableData[i].eff())}x`
+    DOM(`anR${i}`).innerHTML = `<span style="color: #ce5c0b">${anRebuyableData[i].desc} (${formatWhole(data.baseless.anRebuyables[i])})</span><br>Requires: ${format(getANRCost(i))} ℵ<sub>0</sub><br>Currently: ${format(getANREffect(i))}x`
 }
 function checkANRUnlockHTML(){
     for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
@@ -65,20 +65,20 @@ const baselessNames = ['Baseless', 'Obliterated', 'Forgotten']
 const anRebuyableData = [
     {
         desc: "Cardinals boost AutoClickers while in a Baseless Realm",
-        eff: () => data.baseless.baseless ? 1 : 1,
-        cost: () => 96*data.baseless.anRebuyables[0],
+        eff: () => Math.log10(10+data.collapse.cardinals)*data.baseless.anRebuyables[0],
+        costBase: 1e3,
         unl: () => true
     },
     {
         desc: "Boost the Singularity boost to AutoClickers while in Baseless Realms",
-        eff: () => 1,
-        cost: () => 96*data.baseless.anRebuyables[0],
+        eff: () => 2*data.baseless.anRebuyables[1],
+        costBase: 1e6,
         unl: () => true
     },
     {
         desc: "Boost Decrementy gain after Ψ(Ω)",
-        eff: () => 1,
-        cost: () => 96*data.baseless.anRebuyables[0],
+        eff: () => 10**data.baseless.anRebuyables[2],
+        costBase: 1e4,
         unl: () => true
     },
 
@@ -86,13 +86,13 @@ const anRebuyableData = [
     {
         desc: "Boost both Hierarchy Successors",
         eff: () => inPurification(1) ? 1 : 1,
-        cost: () => 96*data.baseless.anRebuyables[0],
+        costBase: 1e9,
         unl: () => hasAOMilestone(4)
     },
     {
         desc: "Boost the multiplier to ℵ<sub>0</sub> in higher Baseless Realms",
         eff: () => inPurification(0) ? 1 : 1,
-        cost: () => 96*data.baseless.anRebuyables[0],
+        costBase: 1e11,
         unl: () => hasAOMilestone(4)
     },
 ]
@@ -137,9 +137,10 @@ function dynamicShift(){
 }
 
 function buyANR(i){
-    if(data.baseless.alephNull < getAORCost(i)) return
+    if(data.baseless.alephNull < getANRCost(i)) return
     ++data.baseless.anRebuyables[i]
     updateANRHTML(i)
+    updateAlephNullHTML()
 }
 
 let dynamicShiftMultipliers = [
@@ -156,5 +157,5 @@ let getBaselessMult = (i) => baselessMultipliers[i]*getANREffect(4)
 let singBoostToBaseless = (display = false) => data.baseless.baseless || display
     ? Math.max(1, data.sing.level*getANREffect(1))
     : 1
-let getANRCost = (i) => anRebuyableData[i].cost()
+let getANRCost = (i) => ((anRebuyableData[i].costBase/100+1)**data.baseless.anRebuyables[i])*anRebuyableData[i].costBase
 let getANREffect = (i) => Math.max(1, anRebuyableData[i].eff())

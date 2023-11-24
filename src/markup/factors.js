@@ -98,5 +98,6 @@ function dyGain(){
 */
 function calcDyGain(){
     let chargeBoost = data.boost.isCharged[3] ? bup3Effect() : 1
-    return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).mul(chargeBoost).div(getAOREffect(2)).toNumber(), Number.MAX_VALUE)
+    let ao2 = inPurification(1) ? getAOREffect(2) : 1
+    return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).mul(chargeBoost).div(ao2).toNumber(), Number.MAX_VALUE)
 }

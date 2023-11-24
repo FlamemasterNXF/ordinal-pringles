@@ -44,3 +44,5 @@ function allEqual(arr, i){
 }
 
 let boostersAtGivenFB = (i = data.boost.times) => i > 0 ? (i*(i+1))/2 : 0
+
+let logn = (num, logBase) => num === 0 ? 0 : Math.log10(num) / Math.log10(logBase);

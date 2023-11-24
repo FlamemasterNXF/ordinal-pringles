@@ -242,7 +242,8 @@ function collapse(first = false, auto = false){
 }
 function boostersOnCollapse(){
     let sing = hasSingFunction(0) ? 2 : 0
-    return 0+sing+getAOREffect(3)
+    let ao3 = inPurification(0) ? getAOREffect(3) : 0
+    return 0+sing+ao3
 }
 function collapseReset(){
     boosterRefund()
@@ -270,8 +271,8 @@ function collapseReset(){
         data.incrementy.hasIUP[1] = false
         data.incrementy.hasIUP[2] = false
     }
-    else { data.incrementy.hasIUP = Array(9).fill(false) }
-    data.incrementy.rebuyableAmt = Array(3).fill(0)
+    else { data.incrementy.hasIUP = Array(12).fill(false) }
+    data.incrementy.rebuyableAmt = Array(6).fill(0)
     data.incrementy.charge = data.boost.unlocks[4] ? data.incrementy.totalCharge-data.sing.level : 0
     data.incrementy.totalCharge = data.boost.unlocks[4] ? data.incrementy.totalCharge : 0
     updateIncrementyHTML()
