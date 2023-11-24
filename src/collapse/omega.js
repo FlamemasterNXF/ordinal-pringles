@@ -152,6 +152,7 @@ function initAOMilestones(){
         }
         container.append(row)
     }
+    updateAllAOMHTML()
 }
 
 function updatePurificationTabHTML(){
@@ -169,6 +170,14 @@ function updatePossiblePurificationHTML(){
 function updateAORHTML(i){
     DOM(`aoR${i}`).innerHTML = `<span style="color: #ce280b">${aoRebuyableData[i].desc} (${formatWhole(data.omega.aoRebuyables[i])})</span><br>Cost: ${format(getAORCost(i))} ℵ<sub>&omega;</sub><br>Currently: ${format(aoRebuyableData[i].eff())}x`
 }
+function updateAOMilestoneHTML(i){
+    DOM(`aoM${i}`).style.backgroundColor = hasAOMilestone(i) ? `#120303` : `black`
+}
+function updateAllAOMHTML(){
+    for (let i = 0; i < aoMilestoneData.length; i++) {
+        updateAOMilestoneHTML(i)
+    }
+}
 
 
 function enterPurification(i){
@@ -185,6 +194,7 @@ function enterPurification(i){
 }
 function exitPurification(i, swap = false) {
     data.omega.remnants += remnantGain()
+    updateAllAOMHTML()
     if (data.boost.times > data.omega.bestFBInPurification[data.omega.whichPurification]) data.omega.bestFBInPurification[data.omega.whichPurification] = data.boost.times
     if (!swap) collapseReset()
 

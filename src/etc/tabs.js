@@ -59,6 +59,7 @@ function switchSubtab(t, mode){
                 createAlert('Tutorial Time!', 'Increase the Singularity\'s Density with the slider! Each increase will grant you a boost to Cardinal gain, with every few increases unlocking a new Singularity Function! Singularity Functions can boost or unlock things. But beware, growing your Singularity costs Charge!', 'Thanks for the tips!')
                 data.sing.tutorial = true
             }
+            DOM(`singFunction8`).style.display = hasAOMilestone(0) ? `block` : `none`
             checkPermanentFunctions()
         }
         if(t==="baseless"){

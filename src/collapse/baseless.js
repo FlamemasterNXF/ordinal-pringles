@@ -51,11 +51,15 @@ function updateBaselessEnterHTML(id, load=false) {
     }
 
     data.baseless.mode = id
-    DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${baselessLocks[id]}</span> with Dynamic Shifts providing a ${getBaselessMult(id)}x multiplier to ℵ<sub>0</sub> gain`
+    DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${baselessLocks[id]()}</span> with Dynamic Shifts providing a ${getBaselessMult(id)}x multiplier to ℵ<sub>0</sub> gain`
 }
 
 const baselessMultipliers = [2, 100, 10000]
-const baselessLocks = [10, 20, 100]
+const baselessLocks = [
+    () => 10,
+    () => 20,
+    () => 100-(hasSingFunction(8) ? 20 : 0)
+]
 const baselessNames = ['Baseless', 'Obliterated', 'Forgotten']
 
 const anRebuyableData = [
@@ -103,14 +107,14 @@ function baselessControl(){
     DOM(`baseless`).children[0].innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
 
     if(data.baseless.baseless){
-        data.ord.base = baselessLocks[data.baseless.mode]
+        data.ord.base = baselessLocks[data.baseless.mode]()
         data.dy.gain = 0.002
     }
     else{
         data.baseless.shifts = 0
         data.baseless.alephNull += gain
         data.ord.base = 10
-        DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${baselessLocks[data.baseless.mode]}</span> with Dynamic Shifts providing a ${getBaselessMult(data.baseless.mode)}x multiplier to ℵ<sub>0</sub> gain`
+        DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${baselessLocks[data.baseless.mode]()}</span> with Dynamic Shifts providing a ${getBaselessMult(data.baseless.mode)}x multiplier to ℵ<sub>0</sub> gain`
     }
 
     updateDynamicShiftHTML()
