@@ -16,7 +16,7 @@ function mainLoop() {
         data.overflow.oc += getOverflowGain(1)*uDiff
     }
 
-    if(data.collapse.hasCUP[7]) data.collapse.cardinals += (data.collapse.bestCardinalsGained/100)*uDiff
+    if(data.collapse.hasCUP[7]) data.collapse.cardinals += (data.collapse.bestCardinalsGained/100)*cupEffect(7)*uDiff
     if(data.collapse.hasSluggish[0] && calculateHardy()>10240 && !data.ord.isPsi && data.markup.powers < 4e256) data.markup.powers += (totalOPGain()/100)*uDiff
 
     data.darkness.negativeCharge = Math.min(negativeChargeCap(), data.darkness.negativeCharge+negativeChargeGain()*uDiff)

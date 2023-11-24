@@ -90,7 +90,13 @@ function dyGain(){
 
     if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(bup3Effect()).toNumber(), Number.MAX_VALUE)
 
+    return calcDyGain()
+}
 
-    if(data.boost.isCharged[3]) return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(bup3Effect()).toNumber(), Number.MAX_VALUE)
-    return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).toNumber(), Number.MAX_VALUE)
+/*
+ NOTE: The above function contains special logic for challenge cases, as this function was not added until v0.3
+*/
+function calcDyGain(){
+    let chargeBoost = data.boost.isCharged[3] ? bup3Effect() : 1
+    return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).mul(chargeBoost).div(getAOREffect(2)).toNumber(), Number.MAX_VALUE)
 }

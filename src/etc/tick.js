@@ -4,9 +4,11 @@ let t1Auto = () => D(factorBoost()).mul(bup5Effect()).mul(alephEffect(0)).pow(cu
 
 let t2AutoPure = () => D(1).times(chalEffectTotal()).times(bup5Effect()).times(incrementyMult()).times(iup6Effect())
     .times(bup48Effect()).times(hupData[5].effect()).times(alephEffect(1)).times(cupEffect(0)).times(cupEffect(3))
-    .times(dupEffect(0)).div(purificationData[1].special())
+    .times(dupEffect(0)).times(getAOEffect(0)).times(getAOREffect(4))
 
-let t2Auto = () => inPurification(2) ? D(hierarchyData[0].gain()*data.incrementy.totalCharge) :  t2AutoPure().pow(singEffects[2].effect())
+let t2Auto = () => inPurification(2)
+    ? D(hierarchyData[0].gain()*data.incrementy.totalCharge)
+    :  t2AutoPure().div(purificationData[1].special()).pow(singEffects[2].effect())
 
 
 function tick(diff){

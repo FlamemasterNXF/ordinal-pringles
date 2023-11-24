@@ -193,7 +193,7 @@ let cupData = [
     {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.min(Math.max(1, Decimal.log10(data.incrementy.amt.plus(1)).toNumber())*purificationEffect(3), Number.MAX_VALUE)}, //TODO: Add a safety function
     {text: "Unlock a 3rd Overcharge Effect and boost Overcharge's 1st Effect", cost: 196608, effect: ()=> 3},
     {text: "Unspent Cardinals boost Alephs", cost: 3e9, effect: ()=> Math.max(1, Math.log2(data.collapse.cardinals))},
-    {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 4e13, effect: ()=> 1},
+    {text: "Gain 1% of best Cardinals gained on Collapse every second", cost: 4e13, effect: ()=> getAOREffect(7)},
 ]
 let sluggishData = [
     {text: "Uncap the Ordinal, you can pass Graham's Number without Boosting, gain 1% of Ordinal Powers gained on Markup every second, and you always have one free Maximize and Successor AutoClicker", req: 34},
@@ -237,11 +237,15 @@ function collapse(first = false, auto = false){
     }
     if (!auto) createAlert("Failure", "Insufficent Ordinal.", "Oops.")
 }
+function boostersOnCollapse(){
+    let sing = hasSingFunction(0) ? 2 : 0
+    return 0+sing+getAOREffect(3)
+}
 function collapseReset(){
     boosterRefund()
 
-    data.boost.amt = hasSingFunction(0) ? 2 : 0
-    data.boost.total = hasSingFunction(0) ? 2 : 0
+    data.boost.amt = boostersOnCollapse()
+    data.boost.total = boostersOnCollapse()
     data.boost.times = 0
     data.boost.hasBUP = Array(15).fill(false)
     data.boost.isCharged = Array(15).fill(false)
