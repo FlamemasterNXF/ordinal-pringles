@@ -47,6 +47,10 @@ function switchSubtab(t, mode){
             DOM('bupBottomText').innerText = 'The Unlockables Column does not consume Boosters'
             DOM('chargeRefund').style.display = 'none'
         }
+
+        if(t==="incrementy"){
+            DOM(`iupRow3`).style.display = hasAOMilestone(3) ? `flex` : `none`
+        }
         boostTab = t
     }
 
