@@ -73,10 +73,8 @@ function buyIUP(i){
     DOM(`iup${i}`).style.color = '#f542a4'
 }
 function buyRUP(i){
-    if(data.incrementy.amt.lt(getRebuyableCost(i))) return
-
     let reb = i > 2 ? i-6 : i
-
+    if(data.incrementy.amt.lt(getRebuyableCost(reb))) return
     data.incrementy.amt = data.incrementy.amt.sub(getRebuyableCost(reb))
     ++data.incrementy.rebuyableAmt[reb]
 
@@ -106,7 +104,7 @@ function getTotalIBuyables(){
     - Flame, once again, 11/24/23
  */
 let iup1Effect = () => Decimal.max(1, D(2+alephNullEffects[0]()).pow(D(data.incrementy.rebuyableAmt[0]).add(iup7Effect())))
-let iup2Effect = () =>  inPurification(1) ? Decimal.max(1, D(3).pow(data.incrementy.rebuyableAmt[1]).mul(iup8Effect())) : 1
+let iup2Effect = () =>  inPurification(1) ? 1 : Decimal.max(1, D(3).pow(data.incrementy.rebuyableAmt[1]).mul(iup8Effect()))
 let iup3Effect = () => data.incrementy.rebuyableAmt[2] > 0 && !inPurification(1) && !inPurification(3) ? (Decimal.max(1, Decimal.sqrt(data.dy.level))).mul(1+(data.incrementy.rebuyableAmt[2])) : D(1)
 let iup4Effect = () => data.incrementy.hasIUP[3] && !inPurification(3) ? Decimal.max(1, data.boost.times) : D(1)
 let iup5Effect = () => data.incrementy.hasIUP[4] && !inPurification(3) ? data.hierarchies.hasUpgrade[6] ? Decimal.max(1, Decimal.pow(data.incrementy.amt, 1/8).add(1))
