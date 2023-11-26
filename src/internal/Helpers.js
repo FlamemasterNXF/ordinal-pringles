@@ -12,13 +12,14 @@ function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min
 }
 
-function boolToReadable (bool, mode='OF'){
+function formatBool (bool, mode='OF'){
     if(mode==='OF') return bool?'ON':'OFF'
     if(mode==='OFL') return bool?'On':'Off'
     if(mode==='ED') return bool?'ENABLED':'DISABLED'
     if(mode==='EDL') return bool?'Enabled':'Disabled'
     if(mode==='EDT') return bool?'Enable':'Disable'
     if(mode==='UL') return bool?'Unlocked':'Locked'
+    if(mode==='AU') return bool?'Active':'Inactive'
 }
 
 function numToRoman(num) {

@@ -13,8 +13,8 @@ function settingsToggle(i){
 }
 function settingsColor(bool){
     return bool
-        ? `<span style="color: #2da000">[${boolToReadable(bool)}]</span>`
-        : `<span style="color: #ce0b0b">[${boolToReadable(bool)}]</span>`
+        ? `<span style="color: #2da000">[${formatBool(bool)}]</span>`
+        : `<span style="color: #ce0b0b">[${formatBool(bool)}]</span>`
 }
 
 function loadSettings(){

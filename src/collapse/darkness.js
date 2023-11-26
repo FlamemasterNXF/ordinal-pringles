@@ -6,7 +6,7 @@ function updateDarknessHTML(){
 function updateDarknessControlHTML(mode){
     switch (mode) {
         case 0:
-            DOM('dupC0').innerText = `${boolToReadable(!data.darkness.negativeChargeEnabled, 'EDT')} Negative Charge gain`
+            DOM('dupC0').innerText = `${formatBool(!data.darkness.negativeChargeEnabled, 'EDT')} Negative Charge gain`
             break;
         case 1:
             DOM('dupC1').innerText = `Reset Negative Charge`

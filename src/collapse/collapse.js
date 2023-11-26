@@ -18,7 +18,7 @@ function updateCollapseHTML(){
 function updateAutoPrestigeHTML(){
     for (let i = 0; i < data.collapse.apEnabled.length; i++) {
         DOM(`t3AutoText${i}`).innerHTML = `Your <span style='color: #20da45'>${apData[i].name} AutoPrestiger</span> is clicking the ${apData[i].button} button${apData[i].plural ? 's' : ''} <span style='color: #2da000'>20 times/second</span> ${apData[i].hasReq ? `, but only if ${apData[i].requirement}` : ''}`
-        DOM(`t3AutoToggle${i}`).innerText = `${apData[i].name} AutoPrestiger: ${boolToReadable(data.collapse.apEnabled[i], 'EDL')}`
+        DOM(`t3AutoToggle${i}`).innerText = `${apData[i].name} AutoPrestiger: ${formatBool(data.collapse.apEnabled[i], 'EDL')}`
     }
 }
 function initAlephs(){
@@ -340,6 +340,6 @@ function buyCardinalUpgrade(i){
 
 function toggleT3Auto(i){
     data.collapse.apEnabled[i] = !data.collapse.apEnabled[i]
-    DOM(`t3AutoToggle${i}`).innerText = `${apData[i].name} AutoPrestiger: ${boolToReadable(data.collapse.apEnabled[i], 'EDL')}`
+    DOM(`t3AutoToggle${i}`).innerText = `${apData[i].name} AutoPrestiger: ${formatBool(data.collapse.apEnabled[i], 'EDL')}`
 }
 
