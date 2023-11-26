@@ -41,7 +41,7 @@ function updateDrainHTML(i){
 }
 
 let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5) : 0
-let negativeChargeCap = () => Math.min(Decimal.pow(data.incrementy.amt, 1/3).toNumber()*(iup10Effect().toNumber()), Number.MAX_VALUE)
+let negativeChargeCap = () => Math.min(Decimal.pow(data.incrementy.amt, 1/3).toNumber()*(iup10Effect()), Number.MAX_VALUE)
 
 function negativeChargeEffect(eff){
     if(eff === false) return Decimal.sqrt(data.darkness.negativeCharge+1).div(sacrificedChargeEffect())

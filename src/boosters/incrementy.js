@@ -114,9 +114,10 @@ let iup7Effect = () => data.incrementy.hasIUP[6] && !inPurification(3) ? Decimal
 let iup8Effect = () => data.incrementy.hasIUP[7] && !inPurification(3) ? Decimal.max(1, 1+data.chal.totalCompletions/3) : D(1)
 let iup9Effect = () => data.incrementy.hasIUP[8] && !inPurification(3) ? data.hierarchies.hasUpgrade[1] ? Decimal.max(1, data.incrementy.rebuyableAmt[2]/3)
 : Decimal.max(1, Decimal.sqrt(data.incrementy.rebuyableAmt[2])) : D(1)
-let iup10Effect = () => Decimal.max(1, 1)
-let iup11Effect = () =>  Decimal.max(1, 1)
-let iup12Effect = () => Decimal.max(1, 1)
+
+let iup10Effect = () => 2**data.incrementy.rebuyableAmt[3]
+let iup11Effect = () =>  data.incrementy.rebuyableAmt[4]
+let iup12Effect = () => data.incrementy.rebuyableAmt[5] > 0 ? data.incrementy.rebuyableAmt[5]+1 : 1
 
 let iupEffects = [iup1Effect, iup2Effect, iup3Effect, iup4Effect, iup5Effect, iup6Effect, iup7Effect, iup8Effect, iup9Effect, iup10Effect, iup11Effect, iup12Effect]
 
