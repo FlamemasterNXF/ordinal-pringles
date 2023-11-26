@@ -123,7 +123,7 @@ let iupEffects = [iup1Effect, iup2Effect, iup3Effect, iup4Effect, iup5Effect, iu
 
 
 function chargeBUP(i, bottomRow){
-    if(data.boost.isCharged[i]) return
+    if(data.boost.isCharged[i] || inPurification(3)) return
     if(!data.incrementy.charge > 0) return
     if(bottomRow && data.incrementy.charge < getBottomRowChargeCost()) return
 

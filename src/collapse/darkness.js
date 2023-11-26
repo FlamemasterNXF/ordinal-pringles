@@ -118,7 +118,7 @@ function darknessControl(mode){
         if(data.darkness.negativeChargeEnabled) darknessControl(0)
     }
     if(mode===2){
-        if(data.incrementy.charge > 0){
+        if(data.incrementy.charge > 0 && !inPurification(3)){
             --data.incrementy.charge
             --data.incrementy.totalCharge
             ++data.darkness.sacrificedCharge

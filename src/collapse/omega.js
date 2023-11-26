@@ -24,7 +24,7 @@ const purificationData = [
     {
         name: "Inferiority",
         alt: "Inferior",
-        desc: "Incrementy, its upgrades, Charge, and Hierarchies are disabled",
+        desc: "Incrementy, its upgrades, and Hierarchies are disabled, and Charge cannot be used",
         boostDesc: "Boosting the first and fifth Cardinal Upgrade by",
         eff: () => ((data.omega.bestFBInPurification[3]))*getAOREffect(5)
     }
@@ -181,6 +181,11 @@ function updateAllAOMHTML(){
 function enterPurification(i){
     if(inAnyPurification() && (i === data.omega.whichPurification)) return exitPurification(i)
     if(inAnyPurification()) exitPurification(i,true)
+
+    if(i === 3){
+        singControl(1)
+        darknessControl(3)
+    }
 
     data.omega.whichPurification = i
     data.omega.purificationIsActive[i] = true

@@ -69,6 +69,7 @@ let singEffects = [
 let maxSingLevel = () => data.incrementy.charge
 
 function changeSingLevel(single = false){
+    if(inPurification(3)) return
     DOM(`singSlider`).max = Math.max(1, data.incrementy.charge+data.sing.level)
 
     const change = single ? data.sing.level + 1 : parseInt(DOM(`singSlider`).value)
@@ -96,6 +97,7 @@ function changeSingLevel(single = false){
 }
 
 function singControl(i){
+    if(inPurification(3)) return
     if(i === 0){
         data.sing.level = data.sing.level+maxSingLevel()
         data.incrementy.charge -= maxSingLevel()
