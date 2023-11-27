@@ -242,8 +242,7 @@ function collapse(first = false, auto = false){
 }
 function boostersOnCollapse(){
     let sing = hasSingFunction(0) ? 2 : 0
-    let ao3 = inPurification(0) ? getAOREffect(3) : 0
-    return 0+sing+ao3
+    return 0+sing
 }
 function collapseReset(){
     boosterRefund()

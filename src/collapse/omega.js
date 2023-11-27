@@ -46,45 +46,45 @@ const aoRebuyableData = [
     },
     {
         desc: "ℵ<sub>&omega;</sub> divides Dynamic Factor gain while Purification of Infinity is active",
-        eff: () => Math.log10(10+data.omega.alephOmega)*data.omega.aoRebuyables[2],
+        eff: () => Math.log10(10+data.omega.alephOmega)*(data.omega.aoRebuyables[2]+1),
         costBase: 125,
         symbol: '/',
         req: () => inPurification(1),
     },
     {
-        desc: "Grants a free Booster when Purification of Eternity is active",
-        eff: () => data.omega.aoRebuyables[3],
+        desc: "Double the amount of Boosters gained in an Eternal Boost",
+        eff: () => 2**data.omega.aoRebuyables[3],
         costBase: 150,
-        symbol: '+',
+        symbol: 'x',
         req: () => inPurification(0)
     },
     {
         desc: "ℵ<sub>&omega;</sub> multiplies AutoBuyer speed while Purification of Obscurity or Inferiority are active",
-        eff: () => Math.sqrt(getAOEffect(0))*Math.sqrt(data.omega.aoRebuyables[4]),
+        eff: () => Math.sqrt(getAOEffect(0))*Math.sqrt(data.omega.aoRebuyables[4]+1),
         costBase: 200,
         symbol: 'x',
         req: () => inPurification(2) || inPurification(3)
     },
     {
         desc: "ℵ<sub>&omega;</sub> boosts Purification of Inferiority's effects",
-        eff: () => Math.log10(10+data.omega.aoRebuyables[5]),
+        eff: () => Math.log2(2+data.omega.alephOmega)*(data.omega.aoRebuyables[5]+1),
         costBase: 400,
         req: () => true,
         symbol: 'x'
     },
     {
         desc: "ℵ<sub>&omega;</sub> boosts the second BUP in the second column",
-        eff: () => Math.sqrt(data.omega.aoRebuyables[6]+1),
+        eff: () => Math.log10(10+data.omega.alephOmega)*(data.omega.aoRebuyables[6]+1),
         costBase: 300,
         req: () => true,
         symbol: 'x'
     },
     {
-        desc: "ℵ<sub>&omega;</sub> boosts the last Cardinal Upgrade",
+        desc: "Boost the last Cardinal Upgrade by +1%",
         eff: () => 1+data.omega.aoRebuyables[7],
         costBase: 600,
         req: () => true,
-        symbol: 'x'
+        symbol: '+'
     },
 ]
 const aoMilestoneData = [
@@ -254,6 +254,6 @@ let hasAOMilestone = (i) => remnantAmt() >= aoMilestoneData[i].req
 let inAnyPurification = () => data.omega.purificationIsActive.includes(true)
 let inPurification = (i) => data.omega.purificationIsActive[i]
 let purificationEffect = (i) => Math.max(purificationData[i].eff(), 1)
-let getAOREffect = (i) => Math.max(1, aoRebuyableData[i].eff())
+let getAOREffect = (i) => data.omega.aoRebuyables[i] > 0 ? Math.max(1, aoRebuyableData[i].eff()) : 1
 let getAORCost = (i) => ((aoRebuyableData[i].costBase/100+1)**data.omega.aoRebuyables[i])*aoRebuyableData[i].costBase
 let getAOMEffect = (i) => Math.max(1, aoMilestoneData[i].eff())
