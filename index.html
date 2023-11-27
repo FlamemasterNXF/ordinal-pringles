@@ -13,6 +13,7 @@
     <script defer src="src/internal/Formatting.js"></script>
     <script defer src="src/internal/Helpers.js"></script>
     <script defer src="src/internal/FormatOrd.js"></script>
+    <script defer src="src/internal/OrdColor.js"></script>
 
     <script defer src="src/etc/modal.js"></script>
     <script defer src="src/etc/progressBar.js"></script>
@@ -372,10 +373,10 @@
         <div class="flexBox" style="margin-top: 0.5rem; margin-bottom: 1rem">
             <button class="settingsButton" id="gameTab" onclick="switchSubtab('gameSettings', 'settings')">Game</button>
             <button class="settingsButton" id="togglesTab" onclick="switchSubtab('toggles', 'settings')" style="margin-left: 0.5rem">Confirmations</button>
+            <button class="settingsButton" id="uiTab" onclick="switchSubtab('ui', 'settings')" style="margin-left: 0.5rem">UI</button>
             <button class="settingsButton" id="savingTab" onclick="switchSubtab('saving', 'settings')" style="margin-left: 0.5rem">Saving</button>
         </div>
         <div class="flexBox" id="gameSettingsSubPage" style="flex-direction: column;">
-            <button class="settingsButton" id='changeOrdLength' onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 20rem">Change Max Ordinal Display Length <span style="color: #8080FF">[0]</span></button>
             <button class="settingsButton" id="offlineProgressToggle" onclick="settingsToggle(-1)" style="width: 20rem">Toggle Offline Progress</button>
             <button class="settingsButton" id="settingsToggle6" onclick="settingsToggle(6)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle7" onclick="settingsToggle(7)" style="width: 20rem">aaa</button>
@@ -392,6 +393,11 @@
             <button class="settingsButton" id="settingsToggle11" onclick="settingsToggle(11)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle12" onclick="settingsToggle(12)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle8" onclick="settingsToggle(8)" style="width: 20rem">aaa</button>
+        </div>
+        <div class="flexBox" id="uiSubPage" style="display: none; flex-direction: column">
+            <button class="settingsButton" id='changeOrdLength' onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 20rem">Change Max Ordinal Display Length <span style="color: #8080FF">[0]</span></button>
+            <button class="settingsButton" id="changeOrdColor" onclick="toggleOrdColor()" style="width: 20rem">Change the Ordinal Color Mode <span style="color: #2da000">[Normal]</span></button>
+            <t class="centeredTexts" style="margin-top: 1rem;">Changing any of these from their default may cause lag!</t>
         </div>
         <div class="flexBox" id="savingSubPage" style="display: none; flex-direction: column">
             <button class="settingsButton" onclick="save()">Manual Save</button>

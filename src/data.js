@@ -17,7 +17,7 @@ const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsa
 function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
-        ord: {ordinal:D(1), over:0, base:10, trim: 5, isPsi: false},
+        ord: {ordinal:D(1), over:0, base:10, trim: 5, isPsi: false, color:false},
         markup: {powers:0, shifts:0},
         factors: Array(7).fill(0),
         dy: {level:1, gain:0, cap:40},
@@ -33,7 +33,7 @@ function getDefaultObject() {
         baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), anRebuyables: Array(anRebuyableData.length).fill(0), tutorial: false},
         omega:{remnants: 0, alephOmega:1, bestFBInPurification: Array(4).fill(0), purificationIsActive: Array(4).fill(false), whichPurification: -1, aoRebuyables:Array(8).fill(0), tutorial: false},
         autoStatus: {enabled: Array(7).fill(false)},
-        sToggles: Array(13).fill(true),
+        sToggles: Array(SETTINGS_DESCS.length).fill(true),
         successorClicks: 0,
         lastTick: 0,
         achs: Array(achievements.length).fill(false),
