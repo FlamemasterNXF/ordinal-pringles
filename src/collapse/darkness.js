@@ -76,7 +76,7 @@ let dupData = [
     { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> 1.1**(data.darkness.levels[2]+getExtraDUPLevels(2)) }
 ]
 let extraDUPLevels = [
-    () => aoMilestoneData[4].eff(), // Can't use wrapper here because it has a minimum of 1
+    () => 0,
     () => iup11Effect(),
     () => alephNullEffects[1]()
 ]

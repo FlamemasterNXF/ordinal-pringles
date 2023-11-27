@@ -33,7 +33,7 @@ function updateDynamicShiftHTML(){
     }
 }
 function updateANRHTML(i){
-    DOM(`anR${i}`).innerHTML = `<span style="color: #ce5c0b">${anRebuyableData[i].desc} (${formatWhole(data.baseless.anRebuyables[i])})</span><br>Requires: ${format(getANRCost(i))} ℵ<sub>0</sub><br>Currently: ${i !== 2 ? '' : '+'}${format(getANREffect(i))}${i !== 2 ? 'x' : ''}`
+    DOM(`anR${i}`).innerHTML = `<span style="color: #ce5c0b">${anRebuyableData[i].desc} (${formatWhole(data.baseless.anRebuyables[i])})</span><br>Requires: ${format(getANRCost(i))} ℵ<sub>0</sub><br>Currently: ${anRebuyableData[i].symbol !== 'x' ? anRebuyableData[i].symbol : ''}${format(getANREffect(i))}${anRebuyableData[i].symbol === 'x' ? anRebuyableData[i].symbol : ''}`
 }
 function checkANRUnlockHTML(){
     for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
@@ -67,32 +67,37 @@ const anRebuyableData = [
         desc: "Cardinals boost AutoClickers while in a Baseless Realm",
         eff: () => Math.log10(10+data.collapse.cardinals)*data.baseless.anRebuyables[0],
         costBase: 1e3,
+        symbol: 'x',
         unl: () => true
     },
     {
         desc: "Boost the Singularity boost to AutoClickers while in Baseless Realms",
         eff: () => 2*data.baseless.anRebuyables[1],
         costBase: 1e6,
+        symbol: 'x',
         unl: () => true
     },
     {
         desc: "Increase the Decrementy gain exponent",
         eff: () => 0.1*data.baseless.anRebuyables[2],
         costBase: 1e4,
+        symbol: '+',
         unl: () => true
     },
 
     // Unlocked by a Remnant / Beth Omega Milestone
     {
-        desc: "Boost both Hierarchy Successors",
-        eff: () => inPurification(1) ? 1 : 1,
+        desc: "ℵ<sub>0</sub> boosts both Hierarchy Successors",
+        eff: () => Math.sqrt(data.baseless.alephNull)*data.baseless.anRebuyables[3],
         costBase: 1e9,
+        symbol: 'x',
         unl: () => hasAOMilestone(4)
     },
     {
-        desc: "Boost the multiplier to ℵ<sub>0</sub> in higher Baseless Realms",
-        eff: () => inPurification(0) ? 1 : 1,
+        desc: "Provide a free level of the 1st, 3rd, 4th, and 5th ℵ<sub>&omega;</sub> Rebuyables",
+        eff: () => data.baseless.anRebuyables[4] > 0 ? data.baseless.anRebuyables[4] : 0,
         costBase: 1e11,
+        symbol: '+',
         unl: () => hasAOMilestone(4)
     },
 ]
@@ -153,7 +158,7 @@ let alephNullEffects = [
     () => Math.max(0, Math.log10(data.baseless.alephNull)/10),
     () => Math.max(0, Math.floor(Math.log10(data.baseless.alephNull)))
 ]
-let getBaselessMult = (i) => baselessMultipliers[i]*getANREffect(4)
+let getBaselessMult = (i) => baselessMultipliers[i]
 let singBoostToBaseless = (display = false) => data.baseless.baseless || display
     ? Math.max(1, data.sing.level*getANREffect(1))
     : 1

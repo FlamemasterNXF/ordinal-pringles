@@ -32,59 +32,67 @@ const purificationData = [
 const aoRebuyableData = [
     {
         desc: "SLIGHTLY boost ℶ<sub>&omega;</sub> gain",
-        eff: () => (1+data.omega.aoRebuyables[0]/10)*getOverflowEffect(6),
+        eff: () => (1+getAORLevel(0)/10)*getOverflowEffect(6),
         costBase: 50,
         symbol: 'x',
         req: () => true,
+        extraLevels: () => anRebuyableData[4].eff()
     },
     {
         desc: "Boost ℵ<sub>&omega;</sub> gain",
-        eff: () => data.omega.aoRebuyables[1]/2+1,
+        eff: () => getAORLevel(1)/2+1,
         costBase: 25,
         symbol: 'x',
         req: () => true,
+        extraLevels: () => 0
     },
     {
         desc: "ℵ<sub>&omega;</sub> divides Dynamic Factor gain while Purification of Infinity is active",
-        eff: () => Math.log10(10+data.omega.alephOmega)*(data.omega.aoRebuyables[2]+1),
+        eff: () => Math.log10(10+data.omega.alephOmega)*(getAORLevel(2)+1),
         costBase: 125,
         symbol: '/',
         req: () => inPurification(1),
+        extraLevels: () => anRebuyableData[4].eff()
     },
     {
         desc: "Double the amount of Boosters gained in an Eternal Boost",
-        eff: () => 2**data.omega.aoRebuyables[3],
+        eff: () => 2**getAORLevel(3),
         costBase: 150,
         symbol: 'x',
-        req: () => inPurification(0)
+        req: () => inPurification(0),
+        extraLevels: () => anRebuyableData[4].eff()
     },
     {
         desc: "ℵ<sub>&omega;</sub> multiplies AutoBuyer speed while Purification of Obscurity or Inferiority are active",
-        eff: () => Math.sqrt(getAOEffect(0))*Math.sqrt(data.omega.aoRebuyables[4]+1),
+        eff: () => Math.sqrt(getAOEffect(0))*Math.sqrt(getAORLevel(4)+1),
         costBase: 200,
         symbol: 'x',
-        req: () => inPurification(2) || inPurification(3)
+        req: () => inPurification(2) || inPurification(3),
+        extraLevels: () => anRebuyableData[4].eff()
     },
     {
         desc: "ℵ<sub>&omega;</sub> boosts Purification of Inferiority's effects",
-        eff: () => Math.log2(2+data.omega.alephOmega)*(data.omega.aoRebuyables[5]+1),
+        eff: () => Math.log2(2+data.omega.alephOmega)*(getAORLevel(5)+1),
         costBase: 400,
+        symbol: 'x',
         req: () => true,
-        symbol: 'x'
+        extraLevels: () => 0
     },
     {
         desc: "ℵ<sub>&omega;</sub> boosts the second BUP in the second column",
-        eff: () => Math.log10(10+data.omega.alephOmega)*(data.omega.aoRebuyables[6]+1),
+        eff: () => Math.log10(10+data.omega.alephOmega)*(getAORLevel(6)+1),
         costBase: 300,
+        symbol: 'x',
         req: () => true,
-        symbol: 'x'
+        extraLevels: () => 0
     },
     {
         desc: "Boost the last Cardinal Upgrade by +1%",
-        eff: () => 1+data.omega.aoRebuyables[7],
+        eff: () => 1+getAORLevel(7),
         costBase: 600,
+        symbol: '+',
         req: () => true,
-        symbol: '+'
+        extraLevels: () => 0
     },
 ]
 const aoMilestoneData = [
@@ -104,9 +112,9 @@ const aoMilestoneData = [
         req: 1000,
         eff: () => hasAOMilestone(3) ? purificationEffect(3) : 1
     },{
-        desc: "Purification of Eternity now provides free levels of the first Darkness Upgrade, and unlock two new ℵ<sub>0</sub> Rebuyables",
-        req: 9.6e9,
-        eff: () => hasAOMilestone(4) ? 0 : 0
+        desc: "Boosters boost Cardinal Gain, and unlock two new ℵ<sub>0</sub> Rebuyables",
+        req: 1750,
+        eff: () => hasAOMilestone(4) ? data.boost.amt : 1
     },
 ]
 
@@ -183,7 +191,7 @@ function updatePossiblePurificationHTML(){
     if(data.omega.whichPurification === 2) updateAllBUPHTML()
 }
 function updateAORHTML(i){
-    DOM(`aoR${i}`).innerHTML = `<span style="color: #ce280b">${aoRebuyableData[i].desc} (${formatWhole(data.omega.aoRebuyables[i])})</span><br>Cost: ${format(getAORCost(i))} ℵ<sub>&omega;</sub><br>Currently: ${aoRebuyableData[i].symbol !== 'x' ? aoRebuyableData[i].symbol : ''}${format(getAOREffect(i))}${aoRebuyableData[i].symbol === 'x' ? 'x' : ''} ${aoRebuyableData[i].req() ? '' : `(${formatBool(aoRebuyableData[i].req(), 'AU')})`}`
+    DOM(`aoR${i}`).innerHTML = `<span style="color: #ce280b">${aoRebuyableData[i].desc} (${formatWhole(getAORLevel(i))})</span><br>Cost: ${format(getAORCost(i))} ℵ<sub>&omega;</sub><br>Currently: ${aoRebuyableData[i].symbol !== 'x' ? aoRebuyableData[i].symbol : ''}${format(getAOREffect(i))}${aoRebuyableData[i].symbol === 'x' ? 'x' : ''} ${aoRebuyableData[i].req() ? '' : `(${formatBool(aoRebuyableData[i].req(), 'AU')})`}`
 }
 function updateAllAORHTML(){
     for (let i = 0; i < data.omega.aoRebuyables.length; i++) {
@@ -254,7 +262,8 @@ let hasAOMilestone = (i) => data.omega.bestRemnants >= aoMilestoneData[i].req
 let inAnyPurification = () => data.omega.purificationIsActive.includes(true)
 let inPurification = (i) => data.omega.purificationIsActive[i]
 let purificationEffect = (i) => Math.max(purificationData[i].eff(), 1)
-let getAOREffect = (i) => data.omega.aoRebuyables[i] > 0 ? Math.max(1, aoRebuyableData[i].eff()) : 1
+let getAOREffect = (i) => getAORLevel(i) > 0 ? Math.max(1, aoRebuyableData[i].eff()) : 1
 let getAORCost = (i) => ((aoRebuyableData[i].costBase/100+1)**data.omega.aoRebuyables[i])*aoRebuyableData[i].costBase
+let getAORLevel = (i) => data.omega.aoRebuyables[i] + aoRebuyableData[i].extraLevels()
 let getAOMEffect = (i) => Math.max(1, aoMilestoneData[i].eff())
 let aomArray = () => [hasAOMilestone(0), hasAOMilestone(1), hasAOMilestone(2), hasAOMilestone(3)]
