@@ -368,7 +368,7 @@ const achievements = [
     {
         id: 116,
         name: "Obesity",
-        description: "Reach Singularity Density ω*ω",
+        description: "Reach Singularity Density ω²",
         req: () => data.sing.level > 99
     },
 ]

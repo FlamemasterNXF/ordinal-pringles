@@ -121,7 +121,7 @@ let singFunctions = [
     {requiredLevel: 65, hasUnlock: false, unlockDescription: null, hasEffect: true, effectDescription: 'Negative Charge multiplies the Total ℵ effect by', effect: () => Math.max(1, Math.log2(data.darkness.negativeCharge)), canBePerm: false, permReq: () => false},
     {requiredLevel: 72, hasUnlock: true, unlockDescription: 'Unlock Purification', canBePerm: true, permReq: () => data.incrementy.totalCharge > 71},
     {requiredLevel: 80, hasUnlock: true, unlockDescription: 'The second Darkness Buyable now Quadruples the Dynamic Cap', canBePerm: false, permReq: () => false},
-    {requiredLevel: 100, hasUnlock: false, unlockDescription: null, hasEffect: true, effectDescription: 'Reduce the Base in the Forgotten Realm by 15 for every ℶ<sub>&omega;</sub> Milestone obtained', effect: () => 15*checkAllIndexes(aomArray(), true), canBePerm: false, permReq: () => false},
+    {requiredLevel: 100, hasUnlock: true, unlockDescription: 'Reduce the Base in the Forgotten Realm by 15 for every ℶ<sub>&omega;</sub> Milestone obtained', effect: () => 15*checkAllIndexes(aomArray(), true), canBePerm: false, permReq: () => false},
 ]
 
 let hasPermanentFunction = (i) => singFunctions[i].permReq()
