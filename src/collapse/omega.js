@@ -257,3 +257,4 @@ let purificationEffect = (i) => Math.max(purificationData[i].eff(), 1)
 let getAOREffect = (i) => data.omega.aoRebuyables[i] > 0 ? Math.max(1, aoRebuyableData[i].eff()) : 1
 let getAORCost = (i) => ((aoRebuyableData[i].costBase/100+1)**data.omega.aoRebuyables[i])*aoRebuyableData[i].costBase
 let getAOMEffect = (i) => Math.max(1, aoMilestoneData[i].eff())
+let aomArray = () => [hasAOMilestone(0), hasAOMilestone(1), hasAOMilestone(2), hasAOMilestone(3)]
