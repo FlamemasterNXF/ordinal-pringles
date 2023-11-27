@@ -33,7 +33,7 @@ function updateDynamicShiftHTML(){
     }
 }
 function updateANRHTML(i){
-    DOM(`anR${i}`).innerHTML = `<span style="color: #ce5c0b">${anRebuyableData[i].desc} (${formatWhole(data.baseless.anRebuyables[i])})</span><br>Requires: ${format(getANRCost(i))} ℵ<sub>0</sub><br>Currently: ${format(getANREffect(i))}x`
+    DOM(`anR${i}`).innerHTML = `<span style="color: #ce5c0b">${anRebuyableData[i].desc} (${formatWhole(data.baseless.anRebuyables[i])})</span><br>Requires: ${format(getANRCost(i))} ℵ<sub>0</sub><br>Currently: ${i !== 2 ? '' : '+'}${format(getANREffect(i))}${i !== 2 ? 'x' : ''}`
 }
 function checkANRUnlockHTML(){
     for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
@@ -76,8 +76,8 @@ const anRebuyableData = [
         unl: () => true
     },
     {
-        desc: "Boost Decrementy gain after Ψ(Ω)",
-        eff: () => 10**data.baseless.anRebuyables[2],
+        desc: "Increase the Decrementy gain exponent",
+        eff: () => 0.1*data.baseless.anRebuyables[2],
         costBase: 1e4,
         unl: () => true
     },
@@ -158,4 +158,7 @@ let singBoostToBaseless = (display = false) => data.baseless.baseless || display
     ? Math.max(1, data.sing.level*getANREffect(1))
     : 1
 let getANRCost = (i) => ((anRebuyableData[i].costBase/100+1)**data.baseless.anRebuyables[i])*anRebuyableData[i].costBase
-let getANREffect = (i) => Math.max(1, anRebuyableData[i].eff())
+let getANREffect = (i) => {
+    if(i === 2) return data.baseless.anRebuyables[2] > 0 ? anRebuyableData[i].eff() : 0
+    return Math.max(1, anRebuyableData[i].eff());
+}
