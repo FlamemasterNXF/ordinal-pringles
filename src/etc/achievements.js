@@ -371,6 +371,12 @@ const achievements = [
         description: "Reach Singularity Density ω²",
         req: () => data.sing.level > 99
     },
+    {
+        id: 117,
+        name: "The Only Hierarchy Achievement",
+        description: "Reach Level 3333 of Any Hierarchy Rebuyable",
+        req: () => checkAllIndexes(data.hierarchies.rebuyableAmt, 3333) > 0
+    },
 ]
 
 function initAchs(){
