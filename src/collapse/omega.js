@@ -266,4 +266,4 @@ let getAOREffect = (i) => getAORLevel(i) > 0 ? Math.max(1, aoRebuyableData[i].ef
 let getAORCost = (i) => ((aoRebuyableData[i].costBase/100+1)**data.omega.aoRebuyables[i])*aoRebuyableData[i].costBase
 let getAORLevel = (i) => data.omega.aoRebuyables[i] + aoRebuyableData[i].extraLevels()
 let getAOMEffect = (i) => Math.max(1, aoMilestoneData[i].eff())
-let aomArray = () => [hasAOMilestone(0), hasAOMilestone(1), hasAOMilestone(2), hasAOMilestone(3)]
+let aomArray = () => [hasAOMilestone(0), hasAOMilestone(1), hasAOMilestone(2), hasAOMilestone(3), hasAOMilestone(4)]
