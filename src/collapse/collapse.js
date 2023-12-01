@@ -5,7 +5,7 @@ function updateCollapseHTML(){
     for (let i = 0; i < data.collapse.hasCUP.length-1; i++) {
         if(data.collapse.hasCUP[i]) DOM(`cup${i}`).innerText = `${cupData[i].text}\n\nCurrently: ${i===1?'^':''}${i===1 ? format(cupData[i].effect()+drainEffect(i)) : format(cupData[i].effect()*drainEffect(i))}${i!==1?'x':''}`
     }
-    DOM(`cup7`).innerText = `${cupData[7].text}\n\nCurrently: ${format(cupData[7].effect())}%`
+    if(data.collapse.hasCUP[7]) DOM(`cup7`).innerText = `${cupData[7].text}\n\nCurrently: ${format(cupData[7].effect())}%`
 
     DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) ? '#fff480' : '#20da45'
 
@@ -152,7 +152,9 @@ function checkCollapseUnlockHTML(){
     DOM('omegaTab').innerText = data.incrementy.totalCharge > 71 ? 'Purification' : '???'
 }
 
-let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34) * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect())**singEffects[0].effect()*iup12Effect()
+let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34)
+    * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect())
+    *iup12Effect()*getAOMEffect(4)**singEffects[0].effect()
 let alephEffect = (i) => data.collapse.alephs[i] > 0 && (!inPurification(1) || i === 0) && alephData[i].unl()
     ? alephData[i].effect()*(i !== 8 ? cupEffect(6) : 1)
     : 1
@@ -213,7 +215,7 @@ let apData = [
 
 let collapseConfirm = (auto = false) =>
     data.sToggles[9]
-    ? createConfirmation('Are you certain?', `Collapsing will reset everything prior and Darkness!\n${data.boost.unlocks[4] && data.sing.level === 0 ? `WARNING: Your Singularity density is Zero!` : ''}`, 'No Way!', 'Go Ahead!', collapse)
+    ? createConfirmation('Are you certain?', `Collapsing will reset everything prior and Darkness!\n${data.boost.unlocks[4] && data.sing.level === 0 && !hasAOMilestone(0) ? `WARNING: Your Singularity density is Zero!` : ''}`, 'No Way!', 'Go Ahead!', collapse)
     : collapse(false, auto)
 
 function collapse(first = false, auto = false){
