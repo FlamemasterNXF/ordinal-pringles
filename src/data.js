@@ -7,9 +7,9 @@ const GRAHAMS_VALUE = 109
 const BHO_VALUE = 4*3**40
 
 //Version Flags
-const VERSION = "0.2.3"
-const VERSION_NAME = "The Baseless Pringularity"
-const VERSION_DATE = "August 3rd, 2023"
+const VERSION = "0.3"
+const VERSION_NAME = "The World's Purest Pringle"
+const VERSION_DATE = "December 1st, 2023"
 const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -17,22 +17,23 @@ const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsa
 function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
-        ord: {ordinal:D(1), over:0, base:10, trim: 5, isPsi: false},
+        ord: {ordinal:D(1), over:0, base:10, trim: 5, isPsi: false, color:false},
         markup: {powers:0, shifts:0},
         factors: Array(7).fill(0),
         dy: {level:1, gain:0, cap:40},
         autoLevels: Array(2).fill(0),
         boost: {amt:0, total:0, times:0, bottomRowCharges:0, hasBUP:Array(15).fill(false), isCharged:Array(15).fill(false), unlocks: Array(5).fill(false)},
         chal: {decrementy: D(1), html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
-        incrementy: {amt:D(0), hasIUP:Array(9).fill(false), rebuyableAmt: Array(3).fill(0), charge:0, totalCharge:0},
+        incrementy: {amt:D(0), hasIUP:Array(12).fill(false), rebuyableAmt: Array(6).fill(0), charge:0, totalCharge:0},
         hierarchies: { ords:[ {ord:1, over:0, type:"f"}, {ord:1, over:0, type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(10).fill(false)},
         overflow: {bp:1, oc:1, thirdEffect:true}, //for thirdEffect: true=normal, false=inverted
-        collapse: {times:0, cardinals:0, bestCardinalsGained:0, alephs:Array(8).fill(0), hasCUP:Array(8).fill(false), hasSluggish:Array(5).fill(false), apEnabled:Array(2).fill(false)},
+        collapse: {times:0, cardinals:0, bestCardinalsGained:0, alephs:Array(alephData.length).fill(0), hasCUP:Array(8).fill(false), hasSluggish:Array(5).fill(false), apEnabled:Array(2).fill(false)},
         darkness: {levels: Array(3).fill(0), negativeCharge:0, drains: Array(7).fill(0), sacrificedCharge:0, totalDrains: 0, chargeSpent:0, negativeChargeEnabled:false, darkened:false},
         sing: {highestLevel:0, level:0, tutorial:false, hasEverHadFunction: Array(singFunctions.length).fill(false)},
-        baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), tutorial: false},
+        baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), anRebuyables: Array(anRebuyableData.length).fill(0), tutorial: false},
+        omega:{bestRemnants: 0, alephOmega:1, bestFBInPurification: Array(4).fill(0), purificationIsActive: Array(4).fill(false), whichPurification: -1, aoRebuyables:Array(8).fill(0), tutorial: false},
         autoStatus: {enabled: Array(7).fill(false)},
-        sToggles: Array(13).fill(true),
+        sToggles: Array(SETTINGS_DESCS.length).fill(true),
         successorClicks: 0,
         lastTick: 0,
         achs: Array(achievements.length).fill(false),
@@ -85,6 +86,20 @@ function fixOldSaves(){
     if(Number.isNaN(data.ord.ordinal.toNumber())) data.ord.ordinal = D(0)
     data.incrementy.amt = D(data.incrementy.amt)
     data.ord.ordinal = D(data.ord.ordinal)
+
+    //v0.2.3 and v0.3b2 => v0.3
+    if(data.loadedVersion === "0.2.3" || data.loadedVersion === "0.3b2"){
+        for (let i = 0; i < data.hierarchies.rebuyableAmt.length; i++) {
+            if(data.hierarchies.rebuyableAmt[i] > 3333) data.hierarchies.rebuyableAmt[i] = 3333
+        }
+        data.loadedVersion = "0.3"
+    }
+
+    //v0.2.3 => v0.3b2 (b1 was skipped)
+    if(data.loadedVersion === "0.2.3"){
+        if(data.omega.completions !== Array(5).fill(0)) data.omega.completions = Array(5).fill(0)
+        data.loadedVersion = "0.3b2"
+    }
 
     //v0.2.2 => v0.2.3
     if(data.loadedVersion === "0.2.2") extra = true

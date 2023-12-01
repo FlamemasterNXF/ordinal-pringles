@@ -13,6 +13,7 @@
     <script defer src="src/internal/Formatting.js"></script>
     <script defer src="src/internal/Helpers.js"></script>
     <script defer src="src/internal/FormatOrd.js"></script>
+    <script defer src="src/internal/OrdColor.js"></script>
 
     <script defer src="src/etc/modal.js"></script>
     <script defer src="src/etc/progressBar.js"></script>
@@ -20,7 +21,9 @@
     <script defer src="src/etc/tick.js"></script>
     <script defer src="src/etc/achievements.js"></script>
     <script defer src="src/etc/tabs.js"></script>
+    <script defer src="src/etc/settings.js"></script>
 
+    <script defer src="src/collapse/omega.js"></script>
     <script defer src="src/collapse/baseless.js"></script>
     <script defer src="src/collapse/singularity.js"></script>
     <script defer src="src/collapse/darkness.js"></script>
@@ -73,8 +76,8 @@
     </div>
 </div>
 <div class="layer" id="gameLayer">
-    <h1 id="ordinalContainer">
-        <span id="ordinal" style="font-family: DosisSemiBold; padding: 10px; background-image: linear-gradient(90deg, red, blue); -webkit-background-clip: text; background-clip: text; color: transparent;">H<sub>0</sub> (10)=10</span>
+    <h1 id="ordinalContainer" style="height: 6rem">
+        <span id="ordinal" style="font-family: DosisSemiBold; background-image: linear-gradient(90deg, red, blue); -webkit-background-clip: text; background-clip: text; color: transparent;">H<sub>0</sub> (10)=10</span>
     </h1>
     <div class="centeredTexts" id="chalIn" style="margin-bottom: 0.5rem; color: orangered">Decrementy my beloved</div>
     <div class="flexBox" id="tabs" style="margin-bottom: 0.5rem">
@@ -197,6 +200,7 @@
             <p class="centeredTexts" id="dynamicText2" style="color: goldenrod; margin-bottom: 0.5rem">Hello Dog</p>
             <div class="centeredTexts" id="incrementyText2" style="color: #8080FF; margin-top: 0.5rem; margin-bottom: 0.5rem">The first row of upgrades are re-buyable.</div>
             <div class="flexBox" id="iupRow0" style="flex-direction: row"></div>
+            <div class="flexBox" id="iupRow3" style="flex-direction: row"></div>
             <div class="flexBox" id="iupRow1" style="flex-direction: row"></div>
             <div class="flexBox" id="iupRow2" style="flex-direction: row"></div>
             <button id="chargeButton" onclick="sacrificeIncrementy()">Jonas was here</button>
@@ -260,6 +264,14 @@
                 <t class="generalTexts" id="oc2Description">Dividing Darkness Upgrade cost exponents by </t>
                 <t class="overflowText" id="bp5Effect" style="color: goldenrod">1</t>
             </div>
+            <div class="flexBox, bpEffectContainer" id="bp6Container" style="display:none">
+                <t class="generalTexts" id="oc2Description">Multiplying the effect of the first ℵ<sub>&omega;</sub> Upgrade by </t>
+                <t class="overflowText" id="bp6Effect" style="color: goldenrod">1</t>
+            </div>
+            <div class="flexBox, bpEffectContainer" id="bp7Container" style="display:none">
+                <t class="generalTexts" id="oc2Description">Multiplying the effect of the third bottom-row Booster Upgrade by </t>
+                <t class="overflowText" id="bp7Effect" style="color: goldenrod">1</t>
+            </div>
             <div class="centeredTexts" id="overflowInfo" style="margin-top:1rem">"Excess Boosters" means all Boosters above 435<br>"Excess Charge" means all Charge above 12</div>
         </div>
     </div>
@@ -267,13 +279,14 @@
         <div class="flexBox" style="margin-top: 1rem">
             <button class="collapseTabButton" id="cardinalsTab" onclick="switchSubtab('cardinals', 'collapse')">Alephs</button>
             <button class="collapseTabButton" id="cupsTab" onclick="switchSubtab('cUpgrades', 'collapse')">Cardinal Upgrades</button>
-            <button class="collapseTabButton" id="smTab" onclick="switchSubtab('sluggish', 'collapse')">Sluggish</button>
-            <button class="collapseTabButton" id="darkTab" onclick="switchSubtab('darkness', 'collapse')">???</button>
+            <button class="collapseTabButton" id="smTab" onclick="switchSubtab('sluggish', 'collapse')">Sluggishness</button>
+            <button class="collapseTabButton" id="darkTab" onclick="switchSubtab('darkness', 'collapse')" style="border-color: rgba(128,0,255,0.5); color: rgba(159,159,204,0.92)">???</button>
             <button class="collapseTabButton" id="autoPrestigeTab" onclick="switchSubtab('autoPrestige', 'collapse')">???</button>
             <button class="collapseTabButton" id="singTab" onclick="switchSubtab('sing', 'collapse')">???</button>
             <button class="collapseTabButton" id="baselessTab" onclick="switchSubtab('baseless', 'collapse')">???</button>
+            <button class="collapseTabButton" id="omegaTab" onclick="switchSubtab('omega', 'collapse')" style="border-color:darkred; color:#ce0b0b">???</button>
         </div>
-        <div class="flexBox" style="margin-top: 0.1rem; flex-direction: column">
+        <div class="flexBox" id="collapseInfoContainer" style="margin-top: 0.1rem; flex-direction: column">
             <h3 class="centeredTexts" id="cardinalsText" style="color: #20da45;">You have Collapsed Chips. In your house.</h3>
             <button id="collapseButton" onclick="collapseConfirm()" style="color: #20da45;; min-width: 20rem; height: 2rem; background-color: black; border: 2px solid #2da000">Collapse</button>
         </div>
@@ -330,6 +343,7 @@
                 <button class="singControl" onclick="singControl(1)">Shrink the Singularity to Zero</button>
             </div>
             <div class="flexBox" id="singFunctionContainer" style="flex-direction: column; margin-top: 1rem"></div>
+            <t class="centeredTexts" style="color: darkgray; margin-top: 2rem"><span style="color: #00ceb6">Blue</span> Functions are permanently active!</t>
         </div>
         <div class="flexBox" id="baselessSubPage" style="display: none; flex-direction: column;">
             <t class="centeredTexts" id="alephNull" style="color: darkorange; margin-top: 1rem">Based</t>
@@ -342,8 +356,15 @@
                 Realm
                 <span style="font-size: 1rem"></span>
             </button>
+            <div class="flexBox" id="anRebuyableContainer" style="flex-direction: column; margin-top: 0.5rem"></div>
             <t class="centeredTexts" style="color: #9e5803; margin-top: 2rem">Click the red Realm text to change the Realm you enter</t>
             <t class="centeredTexts" style="color: #9e5803;">You cannot enter Darkness while in any of the Baseless Realms</t>
+        </div>
+        <div class="flexBox" id="omegaSubPage" style="display: none; flex-direction: column;">
+            <t class="centeredTexts" id="alephOmega" style="color: darkred; margin-top: 1rem">Omegel</t>
+            <div class="flexBox" id="purificationContainer" style="margin-top: 1rem"></div>
+            <div class="flexBox" id="aoRebuyableContainer" style="flex-direction: column; margin-top: 0.5rem"></div>
+            <div class="flexBox" id="aoMilestoneContainer" style="flex-direction: column;"></div>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;"></div>
@@ -351,12 +372,15 @@
         <p class="centeredTexts">Consider joining <a href="https://discord.com/invite/dauxGZwc9u" target="_blank">the Discord</a> :)</p>
         <div class="flexBox" style="margin-top: 0.5rem; margin-bottom: 1rem">
             <button class="settingsButton" id="gameTab" onclick="switchSubtab('gameSettings', 'settings')">Game</button>
-            <button class="settingsButton" id="togglesTab" onclick="switchSubtab('toggles', 'settings')" style="margin-left: 0.5rem">Toggles</button>
+            <button class="settingsButton" id="togglesTab" onclick="switchSubtab('toggles', 'settings')" style="margin-left: 0.5rem">Confirmations</button>
+            <button class="settingsButton" id="uiTab" onclick="switchSubtab('ui', 'settings')" style="margin-left: 0.5rem">UI</button>
             <button class="settingsButton" id="savingTab" onclick="switchSubtab('saving', 'settings')" style="margin-left: 0.5rem">Saving</button>
         </div>
         <div class="flexBox" id="gameSettingsSubPage" style="flex-direction: column;">
-            <button class="settingsButton" onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 15rem">Change Max Ordinal Display Length</button>
-            <button class="settingsButton" id="offlineProgressToggle" onclick="settingsToggle(-1)" style="width: 15rem">Toggle Offline Progress</button>
+            <button class="settingsButton" id="offlineProgressToggle" onclick="settingsToggle(-1)" style="width: 20rem">Toggle Offline Progress</button>
+            <button class="settingsButton" id="settingsToggle6" onclick="settingsToggle(6)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle7" onclick="settingsToggle(7)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle10" onclick="settingsToggle(10)" style="width: 20rem">aaa</button>
         </div>
         <div class="flexBox" id="togglesSubPage" style="display: none; flex-direction: column">
             <button class="settingsButton" id="settingsToggle3" onclick="settingsToggle(3)" style="width: 20rem">aaa</button>
@@ -365,13 +389,15 @@
             <button class="settingsButton" id="settingsToggle5" onclick="settingsToggle(5)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle1" onclick="settingsToggle(1)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle2" onclick="settingsToggle(2)" style="width: 20rem">aaa</button>
-            <button class="settingsButton" id="settingsToggle6" onclick="settingsToggle(6)" style="width: 20rem">aaa</button>
-            <button class="settingsButton" id="settingsToggle7" onclick="settingsToggle(7)" style="width: 20rem">aaa</button>
-            <button class="settingsButton" id="settingsToggle10" onclick="settingsToggle(10)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle9" onclick="settingsToggle(9)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle11" onclick="settingsToggle(11)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle12" onclick="settingsToggle(12)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle8" onclick="settingsToggle(8)" style="width: 20rem">aaa</button>
+        </div>
+        <div class="flexBox" id="uiSubPage" style="display: none; flex-direction: column">
+            <button class="settingsButton" id='changeOrdLength' onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 20rem">Change Max Ordinal Display Length <span style="color: #8080FF">[0]</span></button>
+            <button class="settingsButton" id="changeOrdColor" onclick="toggleOrdColor()" style="width: 20rem">Change the Ordinal Color Mode <span style="color: #2da000">[Normal]</span></button>
+            <t class="centeredTexts" style="margin-top: 1rem;">Changing any of these from their default may cause lag!</t>
         </div>
         <div class="flexBox" id="savingSubPage" style="display: none; flex-direction: column">
             <button class="settingsButton" onclick="save()">Manual Save</button>

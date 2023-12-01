@@ -1,11 +1,5 @@
 //Important Constants for Loading
 const TABS = ["markup", "boost", "collapse", "ach", "settings"]
-const SETTINGS_DESCS = [
-    "Booster Refund Confirmation", "Challenge Confirmation", "Challenge Completion Popup", "Factor Shift confirmation",
-    "Factor Boost confirmation", "Charge Refund Confirmation", "Boost Progress Bar", "ability to Bulk Boost",
-    "Baselessness Confirmation", "Collapse Confirmation", "Booster Refund in C5 and C7", "Darkness Confirmation",
-    "Charge Sacrifice Confirmation"
-]
 
 const uHTML = {
     update(){
@@ -42,10 +36,7 @@ const uHTML = {
         updateDynamicShiftHTML()
 
         //Load Settings
-        for (let i = 0; i < data.sToggles.length; i++) {
-            DOM(`settingsToggle${i}`).innerText = `Toggle the ${SETTINGS_DESCS[i]} [${boolToReadable(data.sToggles[i])}]`
-        }
-        DOM(`offlineProgressToggle`).innerText = `Toggle Offline Progress [${boolToReadable(data.offline)}]`
+        loadSettings()
         DOM(`versionText`).innerText = `You're playing Ordinal Pringles v${VERSION}: ${VERSION_NAME}\n Last Update: ${VERSION_DATE}`
 
         //Initialize all Tabs
@@ -58,5 +49,7 @@ const uHTML = {
         initCUPS()
         initSluggish()
         initSingularityFunctions()
+        initANRebuyables()
+        initPurification()
     }
 }

@@ -1,12 +1,15 @@
 let timesToLoop = [0,0, 0,0]
 
-let t1Auto = () => D(factorBoost()).mul(bup5Effect()).mul(alephEffect(0)).pow(cupEffect(1)).mul(cupEffect(3)).mul(singBoostToBaseless())
+let t1Auto = () => D(factorBoost()).mul(bup5Effect()).mul(alephEffect(0)).pow(cupEffect(1)).mul(cupEffect(3))
+    .mul(singBoostToBaseless()).mul(data.baseless.baseless ? getANREffect(0) : 1)
 
 let t2AutoPure = () => D(1).times(chalEffectTotal()).times(bup5Effect()).times(incrementyMult()).times(iup6Effect())
     .times(bup48Effect()).times(hupData[5].effect()).times(alephEffect(1)).times(cupEffect(0)).times(cupEffect(3))
-    .times(dupEffect(0))
+    .times(dupEffect(0)).times(getAOEffect(0)).times(inPurification(2) || inPurification(3) ? getAOREffect(4) : 1)
 
-let t2Auto = () => t2AutoPure().pow(singEffects[2].effect())
+let t2Auto = () => inPurification(2)
+    ? D(hierarchyData[0].gain()*data.incrementy.totalCharge)
+    :  t2AutoPure().div(purificationData[1].special()).pow(singEffects[2].effect())
 
 
 function tick(diff){
@@ -97,11 +100,11 @@ function tick(diff){
     // Automation Tier 3
     let inSluggish = false
     if (data.boost.times === 2 && !data.collapse.hasSluggish[4]) inSluggish = true
-    if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[0] && data.ord.base > 3 && data.markup.shifts < 7) factorShift(true)
-    if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[1] && data.boost.times < boostTimesLimit && !inSluggish) boost(false, true)
+    if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[0] && data.ord.base > 3) factorShift(true)
+    if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[1] && data.boost.times < boostLimit() && !inSluggish) boost(false, true)
 
     // Increase Hierarchies
-    if(data.boost.unlocks[2]) increaseHierarchies(diff)
+    if(data.boost.unlocks[2] && !inPurification(2) && !inPurification(3)) increaseHierarchies(diff)
 
     // TODO: Check for "Base is Always 5/4 in Challenges", probably doesn't need to be on tick()
     if(data.chal.active.includes(true) && data.boost.hasBUP[2]) data.ord.base = bup2Effect()

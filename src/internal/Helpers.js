@@ -12,13 +12,14 @@ function getRandom(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min
 }
 
-function boolToReadable (bool, mode='OF'){
+function formatBool (bool, mode='OF'){
     if(mode==='OF') return bool?'ON':'OFF'
     if(mode==='OFL') return bool?'On':'Off'
     if(mode==='ED') return bool?'ENABLED':'DISABLED'
     if(mode==='EDL') return bool?'Enabled':'Disabled'
     if(mode==='EDT') return bool?'Enable':'Disable'
     if(mode==='UL') return bool?'Unlocked':'Locked'
+    if(mode==='AU') return bool?'Active':'Inactive'
 }
 
 function numToRoman(num) {
@@ -39,22 +40,10 @@ function checkAllIndexes(array, value) {
     return indexes
 }
 
-function settingsToggle(i){
-    if (i == -1){
-        data.offline = !data.offline
-        DOM(`offlineProgressToggle`).innerText = `Toggle Offline Progress [${boolToReadable(data.offline)}]`
-        return save()
-    }
-
-    data.sToggles[i] = !data.sToggles[i]
-    if (i === 6) DOM(`progressBarContainer`).style.display = data.sToggles[i] ? `flex` : `none`
-
-    DOM(`settingsToggle${i}`).innerText = `Toggle the ${SETTINGS_DESCS[i]} [${boolToReadable(data.sToggles[i])}]`
-    save()
-}
-
 function allEqual(arr, i){
     return arr.every( v => v === i )
 }
 
 let boostersAtGivenFB = (i = data.boost.times) => i > 0 ? (i*(i+1))/2 : 0
+
+let logn = (num, logBase) => num === 0 ? 0 : Math.log10(num) / Math.log10(logBase);

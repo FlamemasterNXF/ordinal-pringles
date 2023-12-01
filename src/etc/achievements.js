@@ -329,6 +329,54 @@ const achievements = [
         description: "Dynamic Shift Twice in the Forgotten Realm",
         req: () => data.baseless.shifts > 1 && data.baseless.mode === 2
     },
+    {
+        id: 107,
+        name: "The Gator's Prodigy",
+        description: "Dynamic Shift Seven Times in the Forgotten Realm",
+        req: () => data.baseless.shifts > 6  && data.baseless.mode === 2
+    },
+    {
+        id: 111,
+        name: "Blue, like this 99% PURE WATER!",
+        description: "Complete the first Purification Milestone",
+        req: () => hasAOMilestone(0)
+    },
+    {
+        id: 112,
+        name: "We afforded, purchased, and used nine",
+        description: "Complete the second Purification Milestone",
+        req: () => hasAOMilestone(1)
+    },
+    {
+        id: 113,
+        name: "The Unholy Electrical Outlet",
+        description: "Complete the third Purification Milestone",
+        req: () => hasAOMilestone(2)
+    },
+    {
+        id: 114,
+        name: "Incrementy isn't even a word",
+        description: "Complete the fourth Purification Milestone",
+        req: () => hasAOMilestone(3)
+    },
+    {
+        id: 115,
+        name: "Purely Baseless Accusations",
+        description: "Complete the fifth Purification Milestone",
+        req: () => hasAOMilestone(4)
+    },
+    {
+        id: 116,
+        name: "Obesity",
+        description: "Reach Singularity Density ω²",
+        req: () => data.sing.level > 99
+    },
+    {
+        id: 117,
+        name: "The Only Hierarchy Achievement",
+        description: "Reach Level 3333 of Any Hierarchy Rebuyable",
+        req: () => checkAllIndexes(data.hierarchies.rebuyableAmt, 3333) > 0
+    },
 ]
 
 function initAchs(){
