@@ -14,6 +14,7 @@ function updateHBBuyableHTML(i){
     const cost = i < 3 ? 'FGH' : 'SGH'
     const ord = i < 3 ? 0 : 1
 
+    if(data.hierarchies.rebuyableAmt[i] >= 3333) return el.innerHTML = `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>Maxed!<br>Currently: ${format(hbData[i].effect())}x`
     el.innerHTML = i === 2 || i===5 ? `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>${format(hbData[i].cost())} Incrementy<br>Currently: ${format(hbData[i].effect())}x`
     : `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>${displayHierarchyOrd(hbData[i].cost(), 0, 10, 1, /*false*/)} ${cost}<br>Currently: ${format(hbData[i].effect())}x`
 }
@@ -150,6 +151,8 @@ function getHBBuyableCost(i){
 
 function buyHBuyable(i){
     const cost = hbData[i].cost()
+
+    if(data.hierarchies.rebuyableAmt[i] >= 3333) return
 
     if(data.incrementy.amt.gt(cost) && (i === 2 || i === 5)){
         data.incrementy.amt = data.incrementy.amt.sub(cost)

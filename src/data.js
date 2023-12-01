@@ -7,9 +7,9 @@ const GRAHAMS_VALUE = 109
 const BHO_VALUE = 4*3**40
 
 //Version Flags
-const VERSION = "0.3b6"
+const VERSION = "0.3b7"
 const VERSION_NAME = "The World's Purest Pringle"
-const VERSION_DATE = "November 27th, 2023"
+const VERSION_DATE = "November 30th, 2023"
 const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -86,6 +86,14 @@ function fixOldSaves(){
     if(Number.isNaN(data.ord.ordinal.toNumber())) data.ord.ordinal = D(0)
     data.incrementy.amt = D(data.incrementy.amt)
     data.ord.ordinal = D(data.ord.ordinal)
+
+    //v0.2.3 and v0.3b2 => v0.3
+    if(data.loadedVersion === "0.2.3" || data.loadedVersion === "0.3b2"){
+        for (let i = 0; i < data.hierarchies.rebuyableAmt.length; i++) {
+            if(data.hierarchies.rebuyableAmt[i] > 3333) data.hierarchies.rebuyableAmt[i] = 3333
+        }
+        data.loadedVersion = "0.3"
+    }
 
     //v0.2.3 => v0.3b2 (b1 was skipped)
     if(data.loadedVersion === "0.2.3"){
