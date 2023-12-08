@@ -1,3 +1,4 @@
+// Used for Ordinals up to W_2
 const ordMarks = [
     "&psi;(Ωx)",
     "&psi;(Ω<sup>2</sup>x)",
@@ -41,8 +42,10 @@ const ordMarks = [
     "&psi;(Ω<sup>Ω<sup>y</sup></sup>)",
     "&psi;(Ω<sub>2</sub>x)",
 ]
+// Misc. Ordinals used for various purposes
 const extraOrdMarks = ["","ω","ω<sup>ω</sup>","ω<sup>ω<sup>2</sup></sup>"]
 
+// Adds OrdMarks up to BHO*3^616 to the ordMarks Array
 function makeExcessOrdMarks(){
     const length = ordMarks.length-1
 
@@ -140,6 +143,7 @@ function makeExcessOrdMarks(){
 
 // CREDIT TO https://ordinal-pringles-dark-mode.glitch.me/
 
+// An extension of OrdMarks, goes up to FB156,765,267,918,903
 const ordMarksX = [
     "&psi;(Ω<sub>2</sub>x)",
     "&psi;(Ω<sub>2</sub><sup>2</sup>x)",
@@ -184,6 +188,7 @@ const ordMarksX = [
     "&psi;(Ω<sub>2</sub><sup>Ω<sup>Ω</sup></sup>)",
 ];
 
+// Denotes when each index of ordMarksX begins
 const ordMarksXStart = [
     40, // Ω₂
     163, // Ω₂²
@@ -228,6 +233,7 @@ const ordMarksXStart = [
     156765267918909, // Ω₂^(Ω^Ω)
 ];
 
+// Denotes how long each index of ordMarksX lasts
 const ordMarksXLength = [
     41, // Ω₂
     123, // Ω₂²
@@ -272,11 +278,7 @@ const ordMarksXLength = [
     104510178612625, // Ω₂^(Ω^Ω)
 ];
 
-/*
-    Generates Ordinals up to Factor Boost FB156,765,267,918,903
-    That's an Ordinal Value of 3.3982083289425593e74796041325934
-/   If you ever need to expand this you're insane
- */
+// Generates OrdMarks up to the ordMarksX limit (FB156,765,267,918,903) ON DEMAND
 function infiniteOrdMarks(magnitude, layer = 0) {
     if (D(magnitude).gte(ordMarksXStart[ordMarksXStart.length - 1])) return ordMarksX[ordMarksX.length - 1];
     if (D(magnitude).floor().lt(ordMarks.length - 1) && !layer) return ordMarks[D(magnitude).floor().toNumber()];
@@ -299,219 +301,3 @@ function infiniteOrdMarks(magnitude, layer = 0) {
 }
 
 // End Credit
-
-function displayOrd(ord,over,base,trim = data.ord.trim) {
-    if(data.ord.isPsi) return displayPsiOrd(ord, trim)
-    if(ord === data.ord.ordinal && ord.gt(Number.MAX_VALUE)) return displayInfiniteOrd(ord, over, base, trim)
-    if(ord === data.ord.ordinal) ord = Number(ord)
-
-    ord = Math.floor(ord)
-    over = Math.floor(over)
-    if(trim <= 0) return `...`
-    if(ord < base) return ord+over
-    const magnitude = Math.floor(Math.log(ord)/Math.log(base)+1e-14)
-    const magnitudeAmount = base**magnitude
-    const amount = Math.floor(ord/magnitudeAmount)
-    let finalOutput = "&omega;"
-    if (magnitude > 1) finalOutput += "<sup>"+displayOrd(magnitude, 0, base)+"</sup>"
-    if (amount > 1) finalOutput += amount
-    const firstAmount = amount*magnitudeAmount
-    if(ord-firstAmount > 0) finalOutput += "+" + displayOrd(ord-firstAmount, over, base, trim - 1)
-    if(data.gword) finalOutput = finalOutput.replaceAll("&omega;","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
-    return finalOutput
-}
-
-function displayInfiniteOrd(ord, over, base, trim = data.ord.trim){
-    ord = Decimal.floor(ord)
-    over = Decimal.floor(over)
-    if(trim <= 0) return `...`
-    if(ord.lt(base)) return ord.plus(over)
-    const magnitude = Decimal.floor(Decimal.ln(ord).div(Decimal.ln(base)).plus(D(1e-14)))
-    const magnitudeAmount = D(base).pow(magnitude)
-    const amount = Decimal.floor(ord.div(magnitudeAmount))
-    let finalOutput = "&omega;"
-    if (magnitude.gt(1)) finalOutput += "<sup>"+displayInfiniteOrd(magnitude, 0, base)+"</sup>"
-    if (amount.gt(1)) finalOutput += amount
-    const firstAmount = amount.times(magnitudeAmount)
-    if(ord.sub(firstAmount).gt(0)) finalOutput += "+" + displayInfiniteOrd(ord.sub(firstAmount), over, base, trim - 1)
-    if(data.gword) finalOutput = finalOutput.replaceAll("&omega;","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
-    return finalOutput
-}
-
-function numberFromOrdinal(string, base) {
-    const ungwa = string.replaceAll("<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>", "&omega;")
-
-    const initial = ungwa.replaceAll("&omega;", `${base}`).replaceAll('<sup>', ').pow(')
-        .replaceAll('</sup>', ').mul(').replaceAll('...', '').replaceAll('+', ').add(')
-    const secondary = "D(" + initial.replaceAll('+...', '').replaceAll('*...', '')
-        //.replaceAll('.mul().add(', '')
-
-    if(secondary.charAt(secondary.length-5) === '.'){
-        const noTrailing = secondary.substring(0, secondary.length-5)
-
-        if(noTrailing.charAt(noTrailing.length-6) === '.'){ // Rare Edge Case
-            const noTrailing2 = noTrailing.substring(0, noTrailing.length-6)
-            return eval(noTrailing2)
-        }
-
-        return eval(noTrailing)
-    }
-
-    if(secondary.charAt(secondary.length-6) === '.'){ // Rare Edge Case
-        const noTrailing = secondary.substring(0, secondary.length-6)
-        return eval(noTrailing)
-    }
-}
-
-function displayHierarchyOrd(ord,over,base,trim = data.ord.trim) {
-    ord = Decimal.floor(ord)
-    over = Decimal.floor(over)
-    if(trim <= 0) return `...`
-    if(ord < base) return ord.plus(over)
-    const magnitude = Decimal.floor(Decimal.ln(ord).div(Decimal.ln(base)).plus(D(1e-14)))
-    const magnitudeAmount = D(base).pow(magnitude)
-    const amount = Decimal.floor(ord.div(magnitudeAmount))
-    let finalOutput = "&omega;"
-    if (magnitude.gt(1)) finalOutput += "<sup>"+displayHierarchyOrd(magnitude, 0, base)+"</sup>"
-    if (amount.gt(1)) finalOutput += amount
-    const firstAmount = amount.times(magnitudeAmount)
-    if(ord.sub(firstAmount).gt(0)) finalOutput += "+" + displayHierarchyOrd(ord.sub(firstAmount), over, base, trim - 1)
-    if(data.gword) finalOutput = finalOutput.replaceAll("&omega;","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
-                                            .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
-    return finalOutput
-}
-
-/*function displayPsiOrd(ord, trim) {
-    if(ord === 0) return ""
-    if(trim <= 0) return "..."
-    if(ord < 4) return extraOrdMarks[ord]
-    ord = Math.floor(ord)
-    const main = Math.floor(ord/4)
-    const magnitude = Math.floor(Math.log(ord/4)/Math.log(3))
-    const magnitudeAmount = 4*3**magnitude
-    const finalOutput = ordMarks[magnitude]
-        .replace(/x/, displayPsiOrd(ord-magnitudeAmount, trim-1))
-        .replace(/y/, displayPsiOrd(ord-magnitudeAmount+1, trim-1))
-    return `${finalOutput}`
-}
-*/
-
-function displayPsiOrd(ord, trim = data.ord.trim, base = data.ord.base) {
-    if (D(ord).mag === Infinity || isNaN(D(ord).mag)) return data.gword ? "<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>" : "Ω"
-    if(D(ord).gt(Number.MAX_VALUE)) return displayInfinitePsiOrd(ord, trim, base)
-    ord = Math.floor(ord)
-    if(ord == BHO_VALUE) {
-        let finalOutput = "&psi;(Ω<sub>2</sub>)"
-        if(data.gword) finalOutput=finalOutput
-            .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
-            .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
-        return `${finalOutput.replaceAll('undefined', '')}`
-    }
-    let maxOrdMarks = (3**(ordMarks.length-1))*4
-    if(maxOrdMarks < Infinity && new Decimal(ord).gt(new Decimal(maxOrdMarks.toString()))) {
-        return displayPsiOrd(maxOrdMarks) + "x" + format(ord/Number(maxOrdMarks),2)
-    }
-    if(ord === 0) return ""
-    if(trim <= 0) return "..."
-    if(ord < 4) return extraOrdMarks[ord]
-    const magnitude = Math.floor(Math.log(ord/4)/Math.log(3))
-    const magnitudeAmount = 4*3**magnitude
-    let finalOutput = ordMarks[Math.min(magnitude,ordMarks.length-1)]
-    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiOrd(ord-magnitudeAmount, trim-1))
-    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiOrd(ord-magnitudeAmount+1, trim-1))
-    if(data.gword) finalOutput=finalOutput
-        .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
-        .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
-    return `${finalOutput.replaceAll('undefined', '')}`
-}
-
-function displayInfinitePsiOrd(ord, trim = data.ord.trim, base = data.ord.base) {
-    if (D(ord).mag === Infinity || isNaN(D(ord).mag) || base < 1) return data.gword ? "<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>" : "Ω"
-    ord = D(Decimal.floor(D(ord).add(0.000000000001)))
-    if(ord.eq(BHO_VALUE)) {
-        let finalOutput = "&psi;(Ω<sub>2</sub>)"
-        if(data.gword) finalOutput=finalOutput
-            .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
-        return `${finalOutput}`
-    }
-    let maxOrdMarks = (D(3).pow(ordMarksXStart[ordMarksXStart.length-1])).times(4) //(D(3).pow(ordMarks.length-1)).times(4)
-    if(D(ord).gt(maxOrdMarks)) {
-        return displayInfinitePsiOrd(maxOrdMarks) + "x" + format(ord.div(maxOrdMarks),2)
-    }
-    if(ord.eq(0)) return ""
-    if(trim <= 0) return "..."
-    if(ord.lt(4)) return extraOrdMarks[ord]
-    const magnitude = Decimal.floor(Decimal.ln(ord.div(4)).div(Decimal.ln(3)))
-    const magnitudeAmount = D(4).times(Decimal.pow(3, magnitude))
-    let finalOutput = infiniteOrdMarks(Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])) //ordMarks[Decimal.min(magnitude,ordMarks.length-1)]
-    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayInfinitePsiOrd(ord.sub(magnitudeAmount), trim-1))
-    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayInfinitePsiOrd(ord.sub(magnitudeAmount).plus(1), trim-1))
-    if(data.gword) finalOutput=finalOutput
-        .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
-        .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
-    return `${finalOutput.replaceAll('undefined', '')}`
-}
-
-function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.base) {
-    ord = Number(ord)
-    if (ord >= base**3) return Infinity
-    let f2 = Math.floor(ord/base**2)
-    const f1 = Math.floor((ord-(f2*base**2))/base)
-    const f0 = Math.floor((ord-(f2*base**2)-(f1*base)))+over
-    let value = base+f0
-    value = D(value).times(Decimal.pow(2,f1))
-    while(f2 > 0) {
-        value = Decimal.pow(2, value).times(value)
-        f2--
-    }
-    if(isNaN(value)) value = Infinity
-    return value
-}
-
-function ordinalDisplay(type, ord=data.ord.ordinal, over=data.ord.over, base=data.ord.base, trim=data.ord.trim, d=true) {
-    return (
-        d ? `${type}<sub>${displayOrd(ord, Math.floor(over), base, trim)}</sub>`
-        : `${type}<sub>${displayHierarchyOrd(ord, Math.floor(over), base, trim)}</sub>`
-    )
-}
-
-function successor(n = 1, m=false) {
-    if(data.chal.active[6] && data.successorClicks >= 1000 && m) return
-    if(data.ord.isPsi) return
-    if(m)++data.successorClicks
-    if (data.ord.ordinal.mod(data.ord.base) >= data.ord.base - 1 && data.ord.ordinal.lt(Number.MAX_SAFE_INTEGER) && isFinite(D(data.ord.over).plus(n))) data.ord.over+=D(n).toNumber()
-    else data.ord.ordinal = data.ord.ordinal.plus(n)
-}
-
-function maximize() {
-    if(data.ord.isPsi) return
-    if (data.ord.ordinal.mod(data.ord.base) >= data.ord.base - 1 && data.ord.over >= 1) {
-        while(data.ord.over + data.ord.base >= data.ord.base * 2 && data.ord.ordinal.mod(data.ord.base ** 2) !== 0){
-            data.ord.over -= Math.ceil((data.ord.over + data.ord.base) / 2 - 0.1)
-            data.ord.ordinal = data.ord.ordinal.plus(data.ord.base)
-        }
-        if (data.ord.ordinal.mod(data.ord.base ** 2) !== 0 && data.ord.over > 0) data.ord.ordinal = data.ord.ordinal.plus(data.ord.over)
-        data.ord.over = 0
-    }
-}
-
-function changeTrim(x){
-    if (isNaN(Math.floor(x))) return createAlert('Failure', 'Invalid Input.', `Oops.`)
-    data.ord.trim = Math.floor(x)
-    DOM(`changeOrdLength`).children[0].innerHTML = `[${data.ord.trim}]`
-}
-
-function updateOrdHTML(){
-    if(data.ord.isPsi || calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base) > 1.79e308 || isNaN(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base))){
-        if(data.ord.color){
-            let date = Date.now()/100
-            return DOM("ordinal").innerHTML = `${colorWrap(ordinalDisplay("H"), HSL(date))} ${colorWrap(`(${data.ord.base})`, HSL(date))}`
-        }
-        return DOM("ordinal").innerHTML = `${ordinalDisplay("H")} (${data.ord.base})`
-    }
-    if(data.ord.color){
-        let date = Date.now()/100
-        return DOM(`ordinal`).innerHTML = `${colorWrap(`${ordinalDisplay("H")} (${data.ord.base})=${format(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base))}`, HSL(date))}`
-    }
-    DOM("ordinal").innerHTML = `${ordinalDisplay("H")} (${data.ord.base})=${format(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base))}`
-}
