@@ -15,7 +15,7 @@ const achievements = [
         id: 13,
         name: "Infinity...?",
         description: "Reach a value of 1.79e308",
-        req: () => calculateHardy() >= 1.78e308
+        req: () => calculateSimpleHardy() >= 1.78e308
     },
     {
         id: 14,

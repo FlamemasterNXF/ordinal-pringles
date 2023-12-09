@@ -1,22 +1,3 @@
-/*
-// Calculates the Hardy Value up to 1.79e308
-function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.base) {
-    ord = Number(ord)
-    if (ord >= base**3) return Infinity
-    let f2 = Math.floor(ord/base**2)
-    const f1 = Math.floor((ord-(f2*base**2))/base)
-    const f0 = Math.floor((ord-(f2*base**2)-(f1*base)))+over
-    let value = base+f0
-    value = D(value).times(Decimal.pow(2,f1))
-    while(f2 > 0) {
-        value = Decimal.pow(2, value).times(value)
-        f2--
-    }
-    if(isNaN(value)) value = Infinity
-    return value
-}
- */
-
 // Increases the Ordinal Successor
 function successor(n = 1, m=false) {
     if(data.chal.active[6] && data.successorClicks >= 1000 && m) return

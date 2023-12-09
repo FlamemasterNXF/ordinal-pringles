@@ -17,7 +17,7 @@ function mainLoop() {
     }
 
     if(data.collapse.hasCUP[7]) data.collapse.cardinals += (data.collapse.bestCardinalsGained/100)*cupEffect(7)*uDiff
-    if(data.collapse.hasSluggish[0] && calculateHardy()>10240 && !data.ord.isPsi && data.markup.powers < 4e256) data.markup.powers += (totalOPGain()/100)*uDiff
+    if(data.collapse.hasSluggish[0] && calculateSimpleHardy()>10240 && !data.ord.isPsi && data.markup.powers < 4e256) data.markup.powers += (totalOPGain()/100)*uDiff
 
     if(remnantAmt() > 0 && data.omega.alephOmega < remnantAmt()) data.omega.alephOmega += aoGain()*uDiff
     if(data.omega.alephOmega > remnantAmt()) data.omega.alephOmega = remnantAmt()

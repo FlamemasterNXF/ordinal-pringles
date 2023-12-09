@@ -81,6 +81,9 @@ function fixSave(main=getDefaultObject(), data) {
 function fixOldSaves(){
     let extra = false
 
+    //Settings fix
+    if(typeof data.sToggles === "number") data.sToggles = settingsDefaults
+
     //Decimal Fix
     if(Number.isNaN(data.incrementy.amt.toNumber())) data.incrementy.amt = D(0)
     if(Number.isNaN(data.ord.ordinal.toNumber())) data.ord.ordinal = D(0)

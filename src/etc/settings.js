@@ -4,7 +4,7 @@ const SETTINGS_DESCS = [
     "Baselessness Confirmation", "Collapse Confirmation", "Booster Refund in C5 and C7", "Darkness Confirmation",
     "Charge Sacrifice Confirmation", "Use Veblen Notation for Ordinals <= BHO", "Expanded Hardy Value Display"
 ]
-const settingsDefaults = Array(12).fill(true).push(Array(2).fill(false))
+const settingsDefaults = [true, true, true, true, true, true, true, true, true, true, true, true, false, false]
 function settingsToggle(i){
     if (i === -1){
         data.offline = !data.offline
