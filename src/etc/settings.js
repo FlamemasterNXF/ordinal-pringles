@@ -26,15 +26,15 @@ function settingsColor(bool){
 
 function toggleOrdColor(){
     data.ord.color = !data.ord.color
-    DOM(`changeOrdColor`).children[0].innerHTML = data.ord.color ? `[Advanced]` : `[Normal]`
-    DOM(`changeOrdColor`).children[0].style.color = data.ord.color ? '#ce0b0b' : '#2da000'
+    DOM(`changeOrdColor`).children[0].innerHTML = data.ord.color ? `[Shifting]` : `[Normal]`
+    DOM(`changeOrdColor`).children[0].style.color = data.ord.color ? 'goldenrod' : '#2da000'
 }
 
 function loadSettings(){
     DOM(`offlineProgressToggle`).innerHTML = `Toggle Offline Progress ${settingsColor(data.offline)}`
     DOM(`changeOrdLength`).children[0].innerHTML = `[${data.ord.trim}]`
-    DOM(`changeOrdColor`).children[0].innerHTML = data.ord.color ? `[Advanced]` : `[Normal]`
-    DOM(`changeOrdColor`).children[0].style.color = data.ord.color ? '#ce0b0b' : '#2da000'
+    DOM(`changeOrdColor`).children[0].innerHTML = data.ord.color ? `[Shifting]` : `[Normal]`
+    DOM(`changeOrdColor`).children[0].style.color = data.ord.color ? 'goldenrod' : '#2da000'
     for (let i = 0; i < SETTINGS_DESCS.length; i++) {
         DOM(`settingsToggle${i}`).innerHTML = `${i === 13 ? '' : 'Toggle the'} ${SETTINGS_DESCS[i]} ${settingsColor(data.sToggles[i])}`
     }
