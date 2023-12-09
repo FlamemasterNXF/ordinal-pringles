@@ -1,5 +1,6 @@
 // Displays // Displays Ordinals when the value of ord is less than NUMBER.MAX_VALUE
 function displayOrd(ord,over,base,trim = data.ord.trim) {
+    if(data.sToggles[13]) return displayVeblenOrd(ord,over,base,trim)
     if(data.ord.isPsi) return displayPsiOrd(ord, trim)
     if(ord === data.ord.ordinal && ord.gt(Number.MAX_VALUE)) return displayInfiniteOrd(ord, over, base, trim)
     if(ord === data.ord.ordinal) ord = Number(ord)
@@ -22,6 +23,7 @@ function displayOrd(ord,over,base,trim = data.ord.trim) {
 
 // Displays Ordinals using Psi when the value of ord is less than NUMBER.MAX_VALUE
 function displayPsiOrd(ord, trim = data.ord.trim, base = data.ord.base) {
+    if (D(ord).lte(BHO_VALUE)) return displayVeblenOrd(ord, trim, base)
     if (D(ord).mag === Infinity || isNaN(D(ord).mag)) return data.gword ? "<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>" : "Ω"
     if(D(ord).gt(Number.MAX_VALUE)) return displayInfinitePsiOrd(ord, trim, base)
     ord = Math.floor(ord)

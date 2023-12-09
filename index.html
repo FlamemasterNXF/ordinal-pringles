@@ -19,6 +19,8 @@
     <script defer src="src/ordinal/ordMarks.js"></script>
     <script defer src="src/ordinal/displayOrd.js"></script>
     <script defer src="src/ordinal/displayInfiniteOrd.js"></script>
+    <script defer src="src/ordinal/displayVeblenOrd.js"></script>
+    <script defer src="src/ordinal/veblenOrdMarks.js"></script>
 
     <script defer src="src/etc/modal.js"></script>
     <script defer src="src/etc/progressBar.js"></script>
@@ -401,6 +403,7 @@
         </div>
         <div class="flexBox" id="uiSubPage" style="display: none; flex-direction: column">
             <button class="settingsButton" id='changeOrdLength' onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 20rem">Change Max Ordinal Display Length <span style="color: #8080FF">[0]</span></button>
+            <button class="settingsButton" id="settingsToggle13" onclick="settingsToggle(13)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="changeOrdColor" onclick="toggleOrdColor()" style="width: 20rem">Change the Ordinal Color Mode <span style="color: #2da000">[Normal]</span></button>
             <t class="centeredTexts" style="margin-top: 1rem;">Changing any of these from their default may cause lag!</t>
         </div>

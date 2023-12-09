@@ -33,7 +33,7 @@ function getDefaultObject() {
         baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), anRebuyables: Array(anRebuyableData.length).fill(0), tutorial: false},
         omega:{bestRemnants: 0, alephOmega:1, bestFBInPurification: Array(4).fill(0), purificationIsActive: Array(4).fill(false), whichPurification: -1, aoRebuyables:Array(8).fill(0), tutorial: false},
         autoStatus: {enabled: Array(7).fill(false)},
-        sToggles: Array(SETTINGS_DESCS.length).fill(true),
+        sToggles: settingsDefaults,
         successorClicks: 0,
         lastTick: 0,
         achs: Array(achievements.length).fill(false),
