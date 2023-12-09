@@ -1,3 +1,4 @@
+/*
 // Calculates the Hardy Value up to 1.79e308
 function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.base) {
     ord = Number(ord)
@@ -14,6 +15,7 @@ function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = dat
     if(isNaN(value)) value = Infinity
     return value
 }
+ */
 
 // Increases the Ordinal Successor
 function successor(n = 1, m=false) {
