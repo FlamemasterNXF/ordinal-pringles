@@ -602,7 +602,7 @@ function calculateSimpleHardy(ord = data.ord.ordinal, over = data.ord.over, base
         value = Decimal.pow(2, value).times(value)
         f2--
     }
-    if(isNaN(value)) value = Infinity
+    if(isNaN(value)) value = D(Infinity)
     return value
 }
 
