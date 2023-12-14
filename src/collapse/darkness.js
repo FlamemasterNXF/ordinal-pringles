@@ -40,7 +40,7 @@ function updateDrainHTML(i){
     DOM(`drain${i}`).innerText = `Drain this Cardinal Upgrade (${data.darkness.drains[i]})\n${format(drainCost(i))} Negative Charge`
 }
 
-let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5) : 0
+let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)*(iup10Effect()) : 0
 let negativeChargeCap = () => Math.min(Decimal.pow(data.incrementy.amt, 1/3).toNumber()*(iup10Effect()), Number.MAX_VALUE)
 
 function negativeChargeEffect(eff){
