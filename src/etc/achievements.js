@@ -328,8 +328,8 @@ const achievements = [
     {
         id: 106,
         name: "Forgotten Horrors",
-        description: "Dynamic Shift Twice in the Forgotten Realm",
-        req: () => data.baseless.shifts > 1 && data.baseless.mode === 2
+        description: "Dynamic Shift Three Times in the Forgotten Realm",
+        req: () => data.baseless.shifts > 2 && data.baseless.mode === 2
     },
     /*
     {
