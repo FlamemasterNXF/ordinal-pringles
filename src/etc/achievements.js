@@ -311,12 +311,14 @@ const achievements = [
         description: "Dynamic Shift Four Times in Any Baseless Realm",
         req: () => data.baseless.shifts > 3
     },
+    /*
     {
         id: 104,
         name: "The Gator is Proud",
         description: "Dynamic Shift Seven Times in Any Baseless Realm",
         req: () => data.baseless.shifts > 6
     },
+     */
     {
         id: 105,
         name: "Unknowable Horrors",
@@ -329,12 +331,14 @@ const achievements = [
         description: "Dynamic Shift Twice in the Forgotten Realm",
         req: () => data.baseless.shifts > 1 && data.baseless.mode === 2
     },
+    /*
     {
         id: 107,
         name: "The Gator's Prodigy",
         description: "Dynamic Shift Seven Times in the Forgotten Realm",
         req: () => data.baseless.shifts > 6  && data.baseless.mode === 2
     },
+     */
     {
         id: 111,
         name: "Blue, like this 99% PURE WATER!",
@@ -376,6 +380,18 @@ const achievements = [
         name: "The Only Hierarchy Achievement",
         description: "Reach Level 3333 of Any Hierarchy Rebuyable",
         req: () => checkAllIndexes(data.hierarchies.rebuyableAmt, 3333) > 0
+    },
+    {
+        id: 118,
+        name: "One Megabooster!",
+        description: "Reach 1,000,000 Total Boosters",
+        req: () => data.boost.total >= 1e6
+    },
+    {
+        id: 119,
+        name: "What Comes Next",
+        description: "Reach 1e750 Incrementy. This is where the next Prestige Layer will start!",
+        req: () => data.incrementy.amt.gte("1e750")
     },
 ]
 
