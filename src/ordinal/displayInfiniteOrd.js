@@ -21,9 +21,9 @@ function displayInfinitePsiOrd(ord, trim = data.ord.trim, base = data.ord.base) 
     if (D(ord).mag === Infinity || isNaN(D(ord).mag) || base < 1) return data.gword.enabled ? "<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>" : "Ω"
     ord = D(Decimal.floor(D(ord).add(0.000000000001)))
     if(ord.eq(BHO_VALUE)) {
-        let finalOutput = "&psi;(Ω<sub>2</sub>)"
-        if(data.gword.enabled) finalOutput=finalOutput
-            .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
+        let finalOutput = data.gword.enabled
+            ? "<img src='https://cdn.discordapp.com/emojis/854483367600193566.webp?size=24'>"
+            : "&psi;(Ω<sub>2</sub>)"
         return `${finalOutput}`
     }
     let maxOrdMarks = (D(3).pow(ordMarksXStart[ordMarksXStart.length-1])).times(4) //(D(3).pow(ordMarks.length-1)).times(4)
@@ -39,6 +39,7 @@ function displayInfinitePsiOrd(ord, trim = data.ord.trim, base = data.ord.base) 
     if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayInfinitePsiOrd(ord.sub(magnitudeAmount), trim-1))
     if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayInfinitePsiOrd(ord.sub(magnitudeAmount).plus(1), trim-1))
     if(data.gword.enabled) finalOutput=finalOutput
+        .replaceAll("&psi;", "<img src='https://cdn.discordapp.com/emojis/929933686353297479.webp?size=32'>")
         .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
         .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
     return `${finalOutput.replaceAll('undefined', '')}`
