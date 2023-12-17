@@ -16,6 +16,7 @@
     <script defer src="src/internal/Helpers.js"></script>
 
     <script defer src="src/ordinal/ordinalDisplay.js"></script>
+    <script defer src="src/ordinal/gwaifyOrdinal.js"></script>
     <script defer src="src/ordinal/ordColor.js"></script>
     <script defer src="src/ordinal/ordinal.js"></script>
     <script defer src="src/ordinal/ordMarks.js"></script>
@@ -409,7 +410,10 @@
             <button class="settingsButton" id="settingsToggle13" onclick="settingsToggle(13)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle14" onclick="settingsToggle(14)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="changeOrdColor" onclick="toggleOrdColor()" style="width: 20rem">Change the Ordinal Color Mode <span style="color: #2da000">[Normal]</span></button>
-            <button class="settingsButton" id="settingsToggle15" onclick="settingsToggle(15)" style="width: 20rem; height: 2rem">aaa</button>
+            <div class="flexBox" id="gwaifySettingContainer" style="flex-direction: row">
+                <button class="settingsButton" id="settingsToggle15" onclick="settingsToggle(15)" style="width: 20rem; height: 2rem">aaa</button>
+                <button class="settingsButton" style="height: 2rem; width: 2rem; margin-left: 0.5rem" onclick="gwaifyExplain()">I</button>
+            </div>
             <t class="centeredTexts" style="margin-top: 1rem;">Changing any of these from their default may cause lag!</t>
         </div>
         <div class="flexBox" id="savingSubPage" style="display: none; flex-direction: column">

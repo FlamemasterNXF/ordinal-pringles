@@ -101,7 +101,7 @@ function switchSubtab(t, mode){
         settingsTab = t
 
         if(t === 'ui'){
-            DOM(`settingsToggle15`).style.display = data.gword.unl ? 'block' : 'none'
+            DOM(`gwaifySettingContainer`).style.display = data.gword.unl ? 'block' : 'none'
             DOM(`settingsToggle15`).innerHTML = `${SETTINGS_DESCS[15]} ${settingsColor(data.gword.enabled)}`
         }
     }

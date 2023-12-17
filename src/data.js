@@ -227,7 +227,7 @@ async function downloadSave() {
 }
 function importSave(x) {
     if(x === "gwa"){
-        if(!data.gword.unl) createAlert('Secret!', 'You have unlocked the secret <img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'> Ordinal Display! You can now enable or disable it in Settings :)', '<img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'>!')
+        if(!data.gword.unl) createAlert('Secret!', 'You have unlocked the secret <img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'> Ordinal Display! You can now enable or disable it in Settings :) If you\'re curious what those gwas mean check out the Info Box next to the <img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'> Display Setting!', '<img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'>!')
         data.gword.unl = true
         data.gword.enabled = true
         return closeModal('prompt')
