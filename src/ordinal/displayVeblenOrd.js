@@ -16,7 +16,6 @@ function displayVeblenOrd(ord,over,base,trim = data.ord.trim) {
     if (amount > 1) finalOutput += amount
     const firstAmount = amount*magnitudeAmount
     if(ord-firstAmount > 0) finalOutput += "+" + displayVeblenOrd(ord-firstAmount, over, base, trim - 1)
-    if(data.gword.enabled) finalOutput = finalOutput.replaceAll("&phi;","<img src='https://cdn.discordapp.com/emojis/916425545770745856.webp?size=24'>")
     return finalOutput
 }
 
@@ -34,7 +33,6 @@ function displayInfiniteVeblenOrd(ord, over, base, trim = data.ord.trim){
     if (amount.gt(1)) finalOutput += amount
     const firstAmount = amount.times(magnitudeAmount)
     if(ord.sub(firstAmount).gt(0)) finalOutput += "+" + displayInfiniteVeblenOrd(ord.sub(firstAmount), over, base, trim - 1)
-    if(data.gword.enabled) finalOutput = finalOutput.replaceAll("&phi;","<img src='https://cdn.discordapp.com/emojis/916425545770745856.webp?size=24'>")
     return finalOutput
 }
 
@@ -44,9 +42,6 @@ function displayPsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.base) {
     ord = Math.floor(ord)
     if(ord === BHO_VALUE) {
         let finalOutput = "&psi;(&phi;(1,Ω+1))"
-        if(data.gword.enabled) finalOutput=finalOutput
-            .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
-            .replaceAll("&phi;","<img src='https://cdn.discordapp.com/emojis/916425545770745856.webp?size=24'>")
         return `${finalOutput.replaceAll('undefined', '')}`
     }
     let maxOrdMarks = (3**(ordMarksVeblen.length-1))*4
@@ -61,9 +56,6 @@ function displayPsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.base) {
     let finalOutput = ordMarksVeblen[Math.min(magnitude,ordMarksVeblen.length-1)]
     if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiVeblenOrd(ord-magnitudeAmount, trim-1))
     if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiVeblenOrd(ord-magnitudeAmount+1, trim-1))
-    if(data.gword.enabled) finalOutput=finalOutput
-        .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
-        .replaceAll("&phi;","<img src='https://cdn.discordapp.com/emojis/916425545770745856.webp?size=24'>")
     return `${finalOutput.replaceAll('undefined', '')}`
 }
 
