@@ -40,7 +40,7 @@ function getDefaultObject() {
         loadedVersion: VERSION,
         isBeta: IS_BETA,
         offline: true,
-        gword: false,
+        gword: {unl: false, enabled: false},
     }
 }
 let data = getDefaultObject()
@@ -83,6 +83,7 @@ function fixOldSaves(){
 
     //Settings fix
     if(typeof data.sToggles === "number") data.sToggles = settingsDefaults
+    if(typeof data.gword === 'boolean') data.gword = {unl: data.gword, enabled: data.gword}
 
     //Decimal Fix
     if(Number.isNaN(data.incrementy.amt.toNumber())) data.incrementy.amt = D(0)
@@ -225,8 +226,12 @@ async function downloadSave() {
     }
 }
 function importSave(x) {
-    if(x === "gwa") return data.gword = true
-    if(x === "ungwa") return data.gword = false
+    if(x === "gwa"){
+        if(!data.gword.unl) createAlert('Secret!', 'You have unlocked the secret <img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'> Ordinal Display! You can now enable or disable it in Settings :)', '<img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'>!')
+        data.gword.unl = true
+        data.gword.enabled = true
+        return closeModal('prompt')
+    }
     try {
         if(x.length <= 0) {
             DOM('promptContainer').style.display = 'none'
@@ -239,6 +244,7 @@ function importSave(x) {
         location.reload()
     }
     catch (e){
+        closeModal('prompt')
         createAlert('Error', `Save import failed.\n${e}`, 'Dang.');
         console.error(e);
     }

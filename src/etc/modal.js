@@ -1,8 +1,8 @@
 function createAlert(name,desc,close) {
     DOM('alertContainer').style.border = `4px solid gray`
-    DOM('alertTitle').innerText = name
+    DOM('alertTitle').innerHTML = name
     DOM('alertContent').innerHTML = desc
-    DOM('closeAlert').innerText = close
+    DOM('closeAlert').innerHTML = close
     DOM('alert').style.display = 'block'
     DOM('alertContainer').style.display = 'block'
 }

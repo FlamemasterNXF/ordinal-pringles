@@ -12,17 +12,17 @@ function displayInfiniteOrd(ord, over, base, trim = data.ord.trim){
     if (amount.gt(1)) finalOutput += amount
     const firstAmount = amount.times(magnitudeAmount)
     if(ord.sub(firstAmount).gt(0)) finalOutput += "+" + displayInfiniteOrd(ord.sub(firstAmount), over, base, trim - 1)
-    if(data.gword) finalOutput = finalOutput.replaceAll("&omega;","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
+    if(data.gword.enabled) finalOutput = finalOutput.replaceAll("&omega;","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
     return finalOutput
 }
 
 // Displays Ordinals using Psi when the value of ord is greater than NUMBER.MAX_VALUE
 function displayInfinitePsiOrd(ord, trim = data.ord.trim, base = data.ord.base) {
-    if (D(ord).mag === Infinity || isNaN(D(ord).mag) || base < 1) return data.gword ? "<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>" : "Ω"
+    if (D(ord).mag === Infinity || isNaN(D(ord).mag) || base < 1) return data.gword.enabled ? "<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>" : "Ω"
     ord = D(Decimal.floor(D(ord).add(0.000000000001)))
     if(ord.eq(BHO_VALUE)) {
         let finalOutput = "&psi;(Ω<sub>2</sub>)"
-        if(data.gword) finalOutput=finalOutput
+        if(data.gword.enabled) finalOutput=finalOutput
             .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
         return `${finalOutput}`
     }
@@ -38,7 +38,7 @@ function displayInfinitePsiOrd(ord, trim = data.ord.trim, base = data.ord.base) 
     let finalOutput = infiniteOrdMarks(Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])) //ordMarks[Decimal.min(magnitude,ordMarks.length-1)]
     if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayInfinitePsiOrd(ord.sub(magnitudeAmount), trim-1))
     if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayInfinitePsiOrd(ord.sub(magnitudeAmount).plus(1), trim-1))
-    if(data.gword) finalOutput=finalOutput
+    if(data.gword.enabled) finalOutput=finalOutput
         .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
         .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
     return `${finalOutput.replaceAll('undefined', '')}`

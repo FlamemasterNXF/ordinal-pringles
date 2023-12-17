@@ -99,6 +99,11 @@ function switchSubtab(t, mode){
         DOM(`${settingsTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
         settingsTab = t
+
+        if(t === 'ui'){
+            DOM(`settingsToggle15`).style.display = data.gword.unl ? 'block' : 'none'
+            DOM(`settingsToggle15`).innerHTML = `${SETTINGS_DESCS[15]} ${settingsColor(data.gword.enabled)}`
+        }
     }
 }
 
