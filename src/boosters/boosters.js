@@ -115,7 +115,7 @@ let sBUP2Effect = () => data.boost.hasBUP[14] ? data.boost.isCharged[14] ? aleph
     : alephTotalEffect()*getOverflowEffect(7)
     : 1
 
-const autoNames = ['Max All', 'Markup', 'Sacrifice for Charge', 'three RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge']
+const autoNames = ['Max All', 'Markup', 'Sacrifice for Charge', 'RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge']
 const autoDisplayNames = ['Max All', 'Markup', 'Charge', 'RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge']
 const autoRequirements = [', but only if you can\'t Factor Shift', ', but only if you\'re past Ψ(Ω)', '', ', but only if you can\'t afford a Charge', '', '', ', but only if you already have the required Booster Upgrade']
 const autoUps = [5, 10]

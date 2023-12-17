@@ -79,6 +79,11 @@ function tick(diff){
         for (let i = 0; i < 3; i++) {
             buyRUP(i)
         }
+        if(hasAOMilestone(3)){
+            for (let i = 9; i < 12; i++) {
+                buyRUP(i)
+            }
+        }
     }
     if(data.collapse.hasSluggish[3] && data.autoStatus.enabled[4]){ // Repeatable HUP Autobuyer
         for (let i = 0; i < data.hierarchies.rebuyableAmt.length; i++) {
