@@ -120,7 +120,7 @@ function isTabUnlocked(t){
         case 'autoPrestige': return data.collapse.hasSluggish[3]
         case 'sing': return data.boost.unlocks[4]
         case 'baseless': return data.boost.unlocks[4]
-        case 'omega': return data.incrementy.totalCharge > 71
+        case 'omega': return data.incrementy.totalCharge > 71 || hasSingFunction(6)
 
         default: return true
     }

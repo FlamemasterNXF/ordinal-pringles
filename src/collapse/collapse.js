@@ -149,7 +149,7 @@ function checkCollapseUnlockHTML(){
     DOM('autoPrestigeTab').innerText = data.collapse.hasSluggish[3] ? 'AutoPrestigers' : '???'
     DOM('singTab').innerText = data.boost.unlocks[4] ? 'Singularity' : '???'
     DOM('baselessTab').innerText = data.boost.unlocks[4] ? 'Baselessness' : '???'
-    DOM('omegaTab').innerText = data.incrementy.totalCharge > 71 ? 'Purification' : '???'
+    DOM('omegaTab').innerText = isTabUnlocked('omega') ? 'Purification' : '???'
 }
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34)

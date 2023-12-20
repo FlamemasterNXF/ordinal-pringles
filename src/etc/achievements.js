@@ -329,7 +329,7 @@ const achievements = [
         id: 106,
         name: "Forgotten Horrors",
         description: "Dynamic Shift Three Times in the Forgotten Realm",
-        req: () => data.baseless.shifts > 2 && data.baseless.mode === 2
+        req: () => data.baseless.shifts > 2  && data.baseless.mode === 2
     },
     /*
     {
@@ -390,7 +390,7 @@ const achievements = [
     {
         id: 119,
         name: "What Comes Next",
-        description: "Reach 1e750 Incrementy. This is where the next Prestige Layer will start!",
+        description: "Reach 1e700 Incrementy. This is where the next Prestige Layer will start!",
         req: () => data.incrementy.amt.gte("1e750")
     },
 ]
