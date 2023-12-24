@@ -7,6 +7,7 @@ function gwaifyOrdinal(ord){
         .replaceAll("Ω<sub>2</sub>","<img src='https://cdn.discordapp.com/emojis/854483367600193566.webp?size=24'>")
         .replaceAll("Ω","<img src='https://cdn.discordapp.com/emojis/967188082434662470.webp?size=24'>")
         .replaceAll("ω","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
+        .replaceAll("&omega","<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>")
         .replaceAll("&phi;","<img src='https://cdn.discordapp.com/emojis/916425545770745856.webp?size=24'>")
         .replaceAll('+2', "+<img src='https://cdn.discordapp.com/emojis/970019428391591976.webp?size=24'>")
         .replaceAll('2+', "<img src='https://cdn.discordapp.com/emojis/970019428391591976.webp?size=24'>+")

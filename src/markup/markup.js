@@ -92,6 +92,12 @@ function getFSReq(){
     return req > 1e256 ? 1e256 : req
 }
 
+function factorShiftConfirm(){
+    if(data.baseless.baseless || data.markup.powers < getFSReq())  return
+
+    createConfirmation('Are you sure?', 'Performing a Factor Shift will reduce your Base by 1 and unlock a new Factor, but it will reset your Ordinal, Ordinal Powers, Factors, and Automation!', 'No Way!', 'Yes, lets do this.', factorShift)
+}
+
 function factorShift(isAuto = false){
     if(data.baseless.baseless) return
     if(data.markup.shifts === 7 && !isAuto){
