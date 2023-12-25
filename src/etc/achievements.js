@@ -389,9 +389,15 @@ const achievements = [
     },
     {
         id: 119,
-        name: "What Comes Next",
-        description: "Reach 1e700 Incrementy. This is where the next Prestige Layer will start!",
-        req: () => data.incrementy.amt.gte("1e750")
+        name: "The Incrementy Incremented",
+        description: "Reach 1e700 Incrementy",
+        req: () => data.incrementy.amt.gte("1e700")
+    },
+    {
+        id: 999,
+        name: "Best Feature In The Whole Game",
+        description: "Discover the Secret! Don't worry, it has no effect on gameplay :)",
+        req: () => data.gword.unl
     },
 ]
 
