@@ -1,5 +1,6 @@
 html{
     background-color: black;
+    touch-action: pan-x pan-y;
 }
 body{
 }

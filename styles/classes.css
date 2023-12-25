@@ -1,7 +1,8 @@
 .flexBox {
     display: flex;
     align-items: center;
-    place-content:center
+    place-content:center;
+    flex-wrap: wrap;
 }
 .generalTexts{
     color: white;
@@ -124,6 +125,7 @@
     margin-top: 1rem;
     text-align: center;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .hierarchies{
     font-family: DosisLight;
@@ -161,6 +163,7 @@
     margin-top: 0.3rem;
     text-align: center;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .overflowText{
     color: white;
@@ -191,12 +194,14 @@
     align-items: center;
     place-content:center;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .cupContainer{
     display: flex;
     align-items: center;
     place-content: center;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 .cup{
     width: 15rem;
@@ -312,7 +317,8 @@
     display: flex;
     align-items: center;
     place-content:center;
-    margin-top: 1rem
+    margin-top: 1rem;
+    flex-wrap: wrap;
 }
 .aoRebuyable{
     width: 21rem;
