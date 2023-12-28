@@ -20,26 +20,19 @@ function displayOrd(ord,over,base,trim = data.ord.trim) {
     return finalOutput
 }
 
-// Displays Ordinals using Psi when the value of ord is less than NUMBER.MAX_VALUE
-function displayPsiOrd(ord, trim = data.ord.trim, base = data.ord.base) {
-    if (D(ord).mag === Infinity || isNaN(D(ord).mag)) return "Ω"
-    if(D(ord).gt(Number.MAX_VALUE)) return displayInfinitePsiOrd(ord, trim, base)
-    ord = Math.floor(ord)
-    if(ord === BHO_VALUE) {
-        let finalOutput = "&psi;(Ω<sub>2</sub>)"
-        return `${finalOutput.replaceAll('undefined', '')}`
-    }
-    let maxOrdMarks = (3**(ordMarks.length-1))*4
-    if(maxOrdMarks < Infinity && new Decimal(ord).gt(new Decimal(maxOrdMarks.toString()))) {
-        return displayPsiOrd(maxOrdMarks) + "x" + format(ord/Number(maxOrdMarks),2)
-    }
-    if(ord === 0) return ""
-    if(trim <= 0) return "..."
-    if(ord < 4) return extraOrdMarks[ord]
-    const magnitude = Math.floor(Math.log(ord/4)/Math.log(3))
-    const magnitudeAmount = 4*3**magnitude
-    let finalOutput = ordMarks[Math.min(magnitude,ordMarks.length-1)]
-    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiOrd(ord-magnitudeAmount, trim-1))
-    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiOrd(ord-magnitudeAmount+1, trim-1))
-    return `${finalOutput.replaceAll('undefined', '')}`
+// Displays Ordinals when the value of ord is greater than NUMBER.MAX_VALUE
+function displayInfiniteOrd(ord, over, base, trim = data.ord.trim){
+    ord = Decimal.floor(ord)
+    over = Decimal.floor(over)
+    if(trim <= 0) return `...`
+    if(ord.lt(base)) return ord.plus(over)
+    const magnitude = Decimal.floor(Decimal.ln(ord).div(Decimal.ln(base)).plus(D(1e-14)))
+    const magnitudeAmount = D(base).pow(magnitude)
+    const amount = Decimal.floor(ord.div(magnitudeAmount))
+    let finalOutput = "&omega;"
+    if (magnitude.gt(1)) finalOutput += "<sup>"+displayInfiniteOrd(magnitude, 0, base)+"</sup>"
+    if (amount.gt(1)) finalOutput += amount
+    const firstAmount = amount.times(magnitudeAmount)
+    if(ord.sub(firstAmount).gt(0)) finalOutput += "+" + displayInfiniteOrd(ord.sub(firstAmount), over, base, trim - 1)
+    return finalOutput
 }
