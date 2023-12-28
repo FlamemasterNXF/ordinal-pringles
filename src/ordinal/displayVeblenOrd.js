@@ -38,10 +38,10 @@ function displayInfiniteVeblenOrd(ord, over, base, trim = data.ord.trim){
 
 // Displays Ordinals using Veblen and Psi when the value of ord is less than NUMBER.MAX_VALUE
 function displayPsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.base) {
-    if (D(ord).gt(BHO_VALUE)) return displayPsiOrd(ord, trim, base) // not yet supported
+    if(D(ord).gt(Number.MAX_VALUE)) return displayInfinitePsiVeblenOrd(ord, trim, base)
     ord = Math.floor(ord)
     if(ord === BHO_VALUE) {
-        let finalOutput = "&psi;(&phi;(1,Ω+1))"
+        let finalOutput = "&phi;(1{1:0}0)"
         return `${finalOutput.replaceAll('undefined', '')}`
     }
     let maxOrdMarks = (3**(ordMarksVeblen.length-1))*4
@@ -61,8 +61,25 @@ function displayPsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.base) {
 
 /*
     Displays Ordinals using Veblen and Psi when the value of ord is greater than NUMBER.MAX_VALUE
-    CURRENTLY UNSUPPORTED: BHO_VALUE is less than NUMBER.MAX_VALUE, and Veblen is not defined based BHO_VALUE
 */
 function displayInfinitePsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.base) {
-    throw('Unsupported Method! (How did you get here?)')
+    if (D(ord).mag === Infinity || isNaN(D(ord).mag) || base < 1) return "Î©"
+    ord = D(Decimal.floor(D(ord).add(0.000000000001)))
+    if(ord.eq(BHO_VALUE)) {
+        let finalOutput = "&phi;(1{1:0}0)"
+        return `${finalOutput}`
+    }
+    let maxOrdMarks = (D(3).pow(ordMarksXStart[ordMarksXStart.length-1])).times(4) //(D(3).pow(ordMarks.length-1)).times(4)
+    if(D(ord).gt(maxOrdMarks)) {
+        return displayInfinitePsiVeblenOrd(maxOrdMarks) + "x" + format(ord.div(maxOrdMarks),2)
+    }
+    if(ord.eq(0)) return ""
+    if(trim <= 0) return "..."
+    if(ord.lt(4)) return extraOrdMarksVeblen[ord]
+    const magnitude = Decimal.floor(Decimal.ln(ord.div(4)).div(Decimal.ln(3)))
+    const magnitudeAmount = D(4).times(Decimal.pow(3, magnitude))
+    let finalOutput = infiniteOrdMarksVeblen(Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])) //ordMarks[Decimal.min(magnitude,ordMarks.length-1)]
+    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayInfinitePsiVeblenOrd(ord.sub(magnitudeAmount), trim-1))
+    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayInfinitePsiVeblenOrd(ord.sub(magnitudeAmount).plus(1), trim-1))
+    return `${finalOutput.replaceAll('undefined', '')}`
 }

@@ -139,6 +139,8 @@ function makeExcessOrdMarks(){
         ordMarks.push(ordMarks[i].slice(0,6)+"Ω<sub>2</sub><sup>Ω</sup>&psi;<sub>1</sub>(Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>"+ordMarks[i].slice(6)+"))")
     }
     ordMarks.push("&psi;(Ω<sub>2</sub><sup>Ω</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>))")
+
+    makeExcessOrdMarksVeblen() // Called from veblenOrdMarks.js
 }
 
 // CREDIT TO https://ordinal-pringles-dark-mode.glitch.me/

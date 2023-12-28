@@ -1,8 +1,18 @@
 // The entry point for Ordinal Display
 function ordinalDisplay(type, ord=data.ord.ordinal, over=data.ord.over, base=data.ord.base, trim=data.ord.trim, d=true) {
-    let ordinal =
-        d ? `${type}<sub>${displayOrd(ord, Math.floor(over), base, trim)}</sub>`
-        : `${type}<sub>${displayInfiniteOrd(ord, Math.floor(over), base, trim)}</sub>`
+    let ordinal = "Oops! You shouldn't see this!"
+
+    if(data.ord.displayType === "Buchholz"){
+        ordinal = d
+            ? `${type}<sub>${displayOrd(ord, Math.floor(over), base, trim)}</sub>`
+            : `${type}<sub>${displayInfiniteOrd(ord, Math.floor(over), base, trim)}</sub>`
+    }
+
+    if(data.ord.displayType === "Veblen"){
+        ordinal = d
+            ? `${type}<sub>${displayVeblenOrd(ord, Math.floor(over), base, trim)}</sub>`
+            : `${type}<sub>${displayInfiniteVeblenOrd(ord, Math.floor(over), base, trim)}</sub>`
+    }
 
     return gwaifyOrdinal(ordinal)
 }
@@ -16,7 +26,7 @@ function changeTrim(x){
 
 // Updates the Ordinal's HTML
 function updateOrdHTML(){
-    if((!data.sToggles[14] || (data.sToggles[14] && !data.ord.isPsi)) && calculateSimpleHardy().gte(Number.MAX_VALUE)){
+    if((!data.sToggles[13] || (data.sToggles[13] && !data.ord.isPsi)) && calculateSimpleHardy().gte(Number.MAX_VALUE)){
         if(data.ord.color){
             let date = Date.now()/100
             return DOM("ordinal").innerHTML = `${colorWrap(ordinalDisplay("H"), HSL(date))} ${colorWrap(`(${data.ord.base})`, HSL(date))}`

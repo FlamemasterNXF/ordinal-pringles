@@ -7,9 +7,9 @@ const GRAHAMS_VALUE = 109
 const BHO_VALUE = 4*3**40
 
 //Version Flags
-const VERSION = "0.3.2"
+const VERSION = "0.3.3"
 const VERSION_NAME = "The World's Purest Pringle"
-const VERSION_DATE = "December 17th, 2023"
+const VERSION_DATE = "December 28th, 2023"
 const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -17,7 +17,7 @@ const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsa
 function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
-        ord: {ordinal:D(1), over:0, base:10, trim: 5, isPsi: false, color:false},
+        ord: {ordinal:D(1), over:0, base:10, trim: 5, isPsi: false, color:false, displayType: 'Buchholz' /*Possibilities: 'Buchholz', 'Veblen', 'BMS'*/ },
         markup: {powers:0, shifts:0},
         factors: Array(7).fill(0),
         dy: {level:1, gain:0, cap:40},
