@@ -82,6 +82,14 @@ function changeSingLevel(single = false){
     if(!single && data.sing.level < change) data.incrementy.charge -= cost
     data.sing.level = change
 
+    updateSingFunctionUnlocks()
+
+    if(data.sing.level > data.sing.highestLevel) data.sing.highestLevel = data.sing.level
+
+    updateSingLevelHTML()
+}
+
+function updateSingFunctionUnlocks(){
     if(data.sing.level > singFunctions[lastSingFunctionUnlockedIndex].requiredLevel || lastSingFunctionUnlockedIndex === 0){
         for (let i = lastSingFunctionUnlockedIndex; i < singFunctions.length; i++) {
             if(data.sing.level >= singFunctions[i].requiredLevel){
@@ -90,10 +98,6 @@ function changeSingLevel(single = false){
             }
         }
     }
-
-    if(data.sing.level > data.sing.highestLevel) data.sing.highestLevel = data.sing.level
-
-    updateSingLevelHTML()
 }
 
 function singControl(i){
@@ -102,6 +106,7 @@ function singControl(i){
         data.sing.level = data.sing.level+maxSingLevel()
         data.incrementy.charge -= maxSingLevel()
         if(data.sing.level > data.sing.highestLevel) data.sing.highestLevel = data.sing.level
+        updateSingFunctionUnlocks()
     }
     if(i === 1){
         data.incrementy.charge += data.sing.level
