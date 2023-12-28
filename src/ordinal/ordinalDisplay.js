@@ -14,6 +14,12 @@ function ordinalDisplay(type, ord=data.ord.ordinal, over=data.ord.over, base=dat
             : `${type}<sub>${displayInfiniteVeblenOrd(ord, Math.floor(over), base, trim)}</sub>`
     }
 
+    if(data.ord.displayType === "BMS"){
+        ordinal = d
+            ? `${type}<sub>${displayBMSOrd(ord, Math.floor(over), base, trim)}</sub>`
+            : `${type}<sub>${displayInfiniteBMSOrd(ord, Math.floor(over), base, trim)}</sub>`
+    }
+
     return gwaifyOrdinal(ordinal)
 }
 

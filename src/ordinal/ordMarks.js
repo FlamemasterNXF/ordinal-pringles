@@ -141,6 +141,7 @@ function makeExcessOrdMarks(){
     ordMarks.push("&psi;(Ω<sub>2</sub><sup>Ω</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>))")
 
     makeExcessOrdMarksVeblen() // Called from veblenOrdMarks.js
+    makeExcessOrdMarksBMS() // Called from bmsOrdMarks.js
 }
 
 // CREDIT TO https://ordinal-pringles-dark-mode.glitch.me/
