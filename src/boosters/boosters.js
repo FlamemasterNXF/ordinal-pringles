@@ -162,6 +162,7 @@ function updateAllBUPHTML(){
 }
 
 function revealChargeEffect(i, showCharge) {
+    if(data.incrementy.totalCharge === 0 && data.darkness.sacrificedCharge === 0) return
     DOM(`bup${i}`).style.color = showCharge || data.boost.isCharged[i] && data.boost.unlocks[1] ? 'goldenrod' : '#8080FF'
     DOM(`bup${i}`).innerText = showCharge || data.boost.isCharged[i] ? chargedBUPDesc[i] : `${bupDesc[i]}\n${getBUPCosts(i)} Boosters`
     //DOM('bupBottomText').innerText = `This Upgrade's Supercharged effect is \'${chargedBUPDesc[i]}\'\nThe Unlockables Column does not consume Boosters`
