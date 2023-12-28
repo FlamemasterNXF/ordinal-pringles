@@ -36,7 +36,7 @@ function mainLoop() {
     if (controls["i"].pressed) markup();
     if (controls["f"].pressed) { buyMaxFactor(); buyMaxAuto(); }
     if (controls["h"].pressed) factorShift();
-    if (controls["b"].pressed) boost(false, true);
+    if (controls["b"].pressed) boost(false, false);
     if (controls["c"].pressed) collapseConfirm(true);
 
     // Update Achievements
