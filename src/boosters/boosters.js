@@ -189,9 +189,9 @@ function boosterReset(){
 }
 
 const boosterGain = () => inPurification(0) ? (getAOREffect(3)) * getBulkBoostAmt() : ((data.boost.times * getBulkBoostAmt()) + (getBulkBoostAmt() * (getBulkBoostAmt() + 1) / 2));
-function boost(f=false, auto=false){
+function boost(f=false, auto=false, hotkey=false){
     if(data.boost.times === 33 && data.collapse.times === 0) return createConfirmation("Are you certain?", "This will perform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
-    if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && auto) return
+    if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && (auto || hotkey)) return
     if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
 
     if(data.boost.times === boostLimit()) return createAlert("The End... for now!", "You've reached the current Endgame!", "Thanks!")
