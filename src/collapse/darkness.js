@@ -167,7 +167,10 @@ function resetDarkness(force = false){
     if(!data.collapse.hasSluggish[3]) data.darkness.levels = Array(3).fill(0)
     data.darkness.negativeCharge = 0
     if(!hasSingFunction(1)) data.darkness.drains = Array(7).fill(0)
-    if(!data.boost.unlocks[4]) data.darkness.sacrificedCharge = 0
+    if(!data.boost.unlocks[4]){
+        data.darkness.sacrificedCharge = 0
+        updateDarknessControlHTML(2)
+    }
     if(!hasSingFunction(1)) data.darkness.totalDrains = 0
     //data.darkness.negativeChargeEnabled = false
     updateDarknessHTML()
