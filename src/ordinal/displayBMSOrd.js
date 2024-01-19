@@ -1,3 +1,12 @@
+function trimBMSFinalOutput(output, trim = data.ord.trim) {
+    let trimmed = false
+    let outputList = output.replace("...", "").split(")(")
+    let n = outputList.length
+    if (output.includes("...") || n > trim) trimmed = true
+    if (n > trim) outputList.length = trim
+    return outputList.join(")(") + (n > trim ? ")" : "") + (trimmed ? "..." : "")
+}
+
 // Displays Ordinals using BMS when the value of ord is less than NUMBER.MAX_VALUE
 function displayBMSOrd(ord, over, base, trim = data.ord.trim, depth = 0, final = true) {
     if(data.ord.isPsi) return displayPsiBMSOrd(ord, trim)
@@ -10,12 +19,12 @@ function displayBMSOrd(ord, over, base, trim = data.ord.trim, depth = 0, final =
     if (trim <= 0) return `...`
     if (ord < base) {
         let n = ord+over
-        if (over>trim) n = ord+trim // preventing the ordinal display to extend without limit
+        if (over>trim) n = ord+trim // preventing the ordinal display from extend without limit
         let curBMS = "("+depth+")"
         let finalOutput = ""
         for (let i = 0; i < n; i++) finalOutput += curBMS
         if (over>trim) finalOutput += "..."
-        return finalOutput
+        return final ? trimBMSFinalOutput(finalOutput, trim) : finalOutput
     }
     const magnitude = Math.floor(Math.log(ord)/Math.log(base)+1e-14)
     const magnitudeAmount = base**magnitude
@@ -26,7 +35,7 @@ function displayBMSOrd(ord, over, base, trim = data.ord.trim, depth = 0, final =
     for (let i = 0; i < amount; i++) finalOutput += curBMS
     const firstAmount = amount*magnitudeAmount
     if(ord-firstAmount > 0) finalOutput += displayBMSOrd(ord-firstAmount, over, base, trim - 1, depth, false)
-    return finalOutput
+    return final ? trimBMSFinalOutput(finalOutput, trim) : finalOutput
 }
 
 // Displays Ordinals using BMS when the value of ord is greater than NUMBER.MAX_VALUE
@@ -38,12 +47,12 @@ function displayInfiniteBMSOrd(ord, over, base, trim = data.ord.trim, depth = 0,
     if(trim <= 0 || recursionDepth >= maxRecursionDepth) return `...`
     if(ord.lt(base)) {
         let n = ord.plus(over)
-        if (over>trim) n = ord.plus(trim) // preventing the ordinal display to extend without limit
+        if (over>trim) n = ord.plus(trim) // preventing the ordinal display from extend without limit
         let curBMS = "("+depth+")"
         let finalOutput = ""
         for (let i = 0; i < n.toNumber(); i++) finalOutput += curBMS
         if (over>trim) finalOutput += "..."
-        return finalOutput
+        return final ? trimBMSFinalOutput(finalOutput, trim) : finalOutput
     }
     const magnitude = Decimal.floor(Decimal.ln(ord).div(Decimal.ln(base)).plus(D(1e-14)))
     const magnitudeAmount = D(base).pow(magnitude)
@@ -54,7 +63,7 @@ function displayInfiniteBMSOrd(ord, over, base, trim = data.ord.trim, depth = 0,
     for (let i = 0; i < amount.toNumber(); i++) finalOutput += curBMS
     const firstAmount = amount.times(magnitudeAmount)
     if(ord.sub(firstAmount).gt(0)) finalOutput += displayInfiniteBMSOrd(ord-firstAmount, over, base, trim - 1, depth, false, recursionDepth)
-    return finalOutput
+    return final ? trimBMSFinalOutput(finalOutput, trim) : finalOutput
 }
 
 function renderBMS(ordMarks, depth = 0, skip = 0) {
@@ -74,24 +83,25 @@ function renderBMS(ordMarks, depth = 0, skip = 0) {
 }
 
 function removeLastBMSEntry(output) {
-    let outputList = output.split(")(")
+    let outputList = output.replace("...", "(...)").split(")(")
     outputList.length -= 1
-    return outputList.join(")(") + ")"
+    return (outputList.join(")(") + (outputList.length > 0 ? ")" : "")).replace("(...)", "...")
 }
 
 // Displays Ordinals using BMS and Psi when the value of ord is less than NUMBER.MAX_VALUE
-function displayPsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.base, depth = 0) {
+function displayPsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.base, depth = 0, final = true) {
     if(ord < 0) return ""
     if (D(ord).mag === Infinity || isNaN(D(ord).mag)) return "Ω"
     if(D(ord).gt(Number.MAX_VALUE)) return displayInfinitePsiBMSOrd(ord, trim, base)
     ord = Math.floor(ord)
     if(ord === BHO_VALUE) {
         let finalOutput = renderBMS("(0,0)(1,1)(2,2)", depth)
+        if (final) finalOutput = trimBMSFinalOutput(finalOutput, trim)
         return `${finalOutput.replaceAll('undefined', '')}`
     }
     let maxOrdMarks = (3**(ordMarksBMS.length-1))*4
     if(maxOrdMarks < Infinity && new Decimal(ord).gt(new Decimal(maxOrdMarks.toString()))) {
-        return displayPsiBMSOrd(maxOrdMarks) + "x" + format(ord/Number(maxOrdMarks),2)
+        return displayPsiBMSOrd(maxOrdMarks, trim, base, depth, true) + "x" + format(ord/Number(maxOrdMarks),2)
     }
     if(ord === 0) return (depth === 0 ? "(0,0)" : "")
     if(trim <= 0) return "..."
@@ -101,25 +111,25 @@ function displayPsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.base, depth
     let buchholzOutput = ordMarks[Math.min(magnitude,ordMarks.length-1)]
     let finalOutput = renderBMS(ordMarksBMS[Math.min(magnitude,ordMarksBMS.length-1)], depth)
     let add = (ord >= BHO_VALUE) ? 3 : 2;
-    if(buchholzOutput.includes("x"))finalOutput = finalOutput + displayPsiBMSOrd(ord-magnitudeAmount, trim-1, base, depth+add)
-    if(buchholzOutput.includes("y"))finalOutput = removeLastBMSEntry(finalOutput) + displayPsiBMSOrd(ord-magnitudeAmount+1, trim-1, base, depth+add+1)
+    if(buchholzOutput.includes("x"))finalOutput = finalOutput + displayPsiBMSOrd(ord-magnitudeAmount, trim-1, base, depth+add, false)
+    if(buchholzOutput.includes("y"))finalOutput = removeLastBMSEntry(finalOutput) + displayPsiBMSOrd(ord-magnitudeAmount+1, trim-1, base, depth+add+1, false)
+    if (final) finalOutput = trimBMSFinalOutput(finalOutput, trim)
     return `${finalOutput.replaceAll('undefined', '')}`
 }
 
-/*
-    Displays Ordinals using BMS and Psi when the value of ord is greater than NUMBER.MAX_VALUE
-*/
-function displayInfinitePsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.base, depth = 0) {
+//Displays Ordinals using BMS and Psi when the value of ord is greater than NUMBER.MAX_VALUE
+function displayInfinitePsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.base, depth = 0, final = true) {
     if(ord.lt(0)) return ""
     if (D(ord).mag === Infinity || isNaN(D(ord).mag) || base < 1) return "Ω"
     ord = D(Decimal.floor(D(ord).add(0.000000000001)))
     if(ord.eq(BHO_VALUE)) {
         let finalOutput = renderBMS("(0,0)(1,1)(2,2)", depth)
+        if (final) finalOutput = trimBMSFinalOutput(finalOutput, trim)
         return `${finalOutput}`
     }
     let maxOrdMarks = (D(3).pow(ordMarksXStart[ordMarksXStart.length-1])).times(4) //(D(3).pow(ordMarks.length-1)).times(4)
     if(D(ord).gt(maxOrdMarks)) {
-        return displayInfinitePsiBMSOrd(maxOrdMarks) + "x" + format(ord.div(maxOrdMarks),2)
+        return displayInfinitePsiBMSOrd(maxOrdMarks, trim, base, depth, true) + "x" + format(ord.div(maxOrdMarks),2)
     }
     if(ord.eq(0)) return (depth === 0 ? "(0,0)" : "")
     if(trim <= 0) return "..."
@@ -131,5 +141,6 @@ function displayInfinitePsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.bas
     let add = (ord >= BHO_VALUE) ? 3 : 2;
     if(buchholzOutput.includes("x"))finalOutput = finalOutput + displayInfinitePsiBMSOrd(ord.sub(magnitudeAmount), trim-1, base, depth+add)
     if(buchholzOutput.includes("y"))finalOutput = removeLastBMSEntry(finalOutput) + displayInfinitePsiBMSOrd(ord.sub(magnitudeAmount).plus(1), trim-1, base, depth+add+1)
+    if (final) finalOutput = trimBMSFinalOutput(finalOutput, trim)
     return `${finalOutput.replaceAll('undefined', '')}`
 }

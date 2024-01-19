@@ -20,6 +20,12 @@ function ordinalDisplay(type, ord=data.ord.ordinal, over=data.ord.over, base=dat
             : `${type}<sub>${displayInfiniteBMSOrd(ord, Math.floor(over), base, trim)}</sub>`
     }
 
+    if(data.ord.displayType === "Y-Sequence"){
+        ordinal = d
+            ? `${type}<sub>${displayYSeqOrd(ord, Math.floor(over), base, trim)}</sub>`
+            : `${type}<sub>${displayInfiniteYSeqOrd(ord, Math.floor(over), base, trim)}</sub>`
+    }
+
     return gwaifyOrdinal(ordinal)
 }
 

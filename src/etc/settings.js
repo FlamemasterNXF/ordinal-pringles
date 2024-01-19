@@ -32,14 +32,22 @@ function toggleOrdColor(){
     DOM(`changeOrdColor`).children[0].style.color = data.ord.color ? 'goldenrod' : '#2da000'
 }
 
+function changeOrdDisplayHTML(){
+    DOM(`changeOrdDisplay`).children[0].innerHTML = `[${data.ord.displayType}]`
+    DOM(`changeOrdDisplay`).children[0].style.color =
+        data.ord.displayType === "Buchholz" ? '#2da000' :
+        data.ord.displayType === "Veblen" ? '#02b9b4' :
+        data.ord.displayType === "BMS" ? '#c203bf' : '#d76205'
+}
+
 function toggleOrdDisplay(){
-    let nextType = data.ord.displayType === "Buchholz" ? "Veblen" :
-        data.ord.displayType === "Veblen" ? "BMS" : "Buchholz"
+    let nextType =
+        data.ord.displayType === "Buchholz" ? "Veblen" :
+        data.ord.displayType === "Veblen" ? "BMS" :
+        data.ord.displayType === "BMS" ? "Y-Sequence" : "Buchholz"
 
     data.ord.displayType = nextType
-    DOM(`changeOrdDisplay`).children[0].innerHTML = `[${data.ord.displayType}]`
-    DOM(`changeOrdDisplay`).children[0].style.color = data.ord.displayType === "Buchholz" ? '#2da000' :
-        data.ord.displayType === "Veblen" ? '#00a09b' : '#a0009d'
+    changeOrdDisplayHTML()
 }
 
 function loadSettings(){
@@ -49,9 +57,7 @@ function loadSettings(){
     DOM(`changeOrdColor`).children[0].innerHTML = data.ord.color ? `[Shifting]` : `[Normal]`
     DOM(`changeOrdColor`).children[0].style.color = data.ord.color ? 'goldenrod' : '#2da000'
 
-    DOM(`changeOrdDisplay`).children[0].innerHTML = `[${data.ord.displayType}]`
-    DOM(`changeOrdDisplay`).children[0].style.color = data.ord.displayType === "Buchholz" ? '#2da000' :
-        data.ord.displayType === "Veblen" ? '#0075a0' : '#a0009d'
+    changeOrdDisplayHTML()
 
     for (let i = 0; i < SETTINGS_DESCS.length; i++) {
         DOM(`settingsToggle${i}`).innerHTML = `${i > 12 ? '' : 'Toggle the'} ${SETTINGS_DESCS[i]} ${settingsColor(data.sToggles[i])}`
