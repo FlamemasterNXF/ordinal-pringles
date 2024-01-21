@@ -170,7 +170,7 @@
     font-family: DosisSemiBold;
 }
 .tabButton{
-    width: 5rem;
+    width: 7rem;
     height: 1.5rem;
     margin-left: 0.3rem;
     background: black;
@@ -337,6 +337,14 @@
     border: 2px solid #4b001a;
     color: #940525;
     background: black;
+}
+.obliterateTabButton{
+    width: 7rem;
+    height: 1.5rem;
+    margin-left: 0.3rem;
+    background: black;
+    border: 2px solid #6b00a0;
+    color: #b06cdc;
 }
 .settingsButton{
     width: 10rem;

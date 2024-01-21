@@ -37,6 +37,8 @@
     <script defer src="src/etc/tabs.js"></script>
     <script defer src="src/etc/settings.js"></script>
 
+    <script defer src="src/obliterate/obliterate.js"></script>
+
     <script defer src="src/collapse/omega.js"></script>
     <script defer src="src/collapse/baseless.js"></script>
     <script defer src="src/collapse/singularity.js"></script>
@@ -99,7 +101,8 @@
         <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchSubtab(markupTab, 'markup')" style="color: goldenrod; border-color: #785c13 ">Markup</button>
         <button class="tabButton" id="boostNav" onclick="switchTab('boost'); switchSubtab(boostTab, 'boosters')" style="display: none; color: #8080FF; border-color: #0000ff">Boosters</button>
         <button class="tabButton" id="collapseNav" onclick="switchTab('collapse'); switchSubtab(collapseTab, 'collapse')" style="display: none; color: #80ff82; border-color: #2da000">Collapse</button>
-        <button class="tabButton" id="achNav" onclick="switchTab('ach')" style="color: #20da45; border-color: #307813; width: 6.5rem ">Achievements</button>
+        <button class="tabButton" id="obliterateNav" onclick="switchTab('obliterate'); switchSubtab(obliterateTab, 'obliterate')" style="display: none; color: #d080ff; border-color: #6b00a0">Obliteration</button>
+        <button class="tabButton" id="achNav" onclick="switchTab('ach')" style="color: #bd9309; border-color: #9b7c2b; width: 6.5rem ">Achievements</button>
         <button class="tabButton" id="settingsNav" onclick="switchTab('settings')" style="color: gray; border-color: #4a4a4a">Settings</button>
     </div>
     <div class="flexBox" id="ordPage" style="flex-direction: column">
@@ -109,7 +112,7 @@
     <div class="flexBox" id="markupPage" style="flex-direction: column">
         <div class="flexBox" style="margin-top: 1rem">
             <button class="tabButton" id="factorTab" onclick="switchSubtab('factor', 'markup')" style="color: goldenrod; border-color: #785c13">Factors</button>
-            <button class="tabButton" id="autoTab" onclick="switchSubtab('auto', 'markup')" style="color: goldenrod; border-color: #785c13; width:5.5rem">AutoClickers</button>
+            <button class="tabButton" id="autoTab" onclick="switchSubtab('auto', 'markup')" style="color: goldenrod; border-color: #785c13;">AutoClickers</button>
             <button class="tabButton" id="dynamicTab" onclick="switchSubtab('dynamic', 'markup')" style="color: goldenrod; border-color: #785c13">Dynamic</button>
         </div>
         <h3 class="centeredTexts" id="powersText" style="margin-top: 1rem; color: goldenrod;">You have Chips. In your house.</h3>
@@ -150,10 +153,10 @@
         <div class="flexBox" style="margin-top: 1rem">
             <button class="tabButton" id="upgradeTab" onclick="switchSubtab('upgrades', 'boosters')" style="color: #8080FF; border-color: #0000ff">Upgrades</button>
             <button class="tabButton" id="auto2Tab" onclick="switchSubtab('auto2', 'boosters')" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">AutoBuyers</button>
-            <button class="tabButton" id="chalTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem" onclick="if(chalTabUnlocked()) {switchSubtab('chal', 'boosters');}">Challenges</button>
-            <button class="tabButton" id="incrementyTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem" onclick="if(incrementyTabUnlocked()) {switchSubtab('incrementy', 'boosters');}">Incrementy</button>
-            <button class="tabButton" id="hierarchiesTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem" onclick="if(hierarchiesTabUnlocked()) {switchSubtab('hierarchies', 'boosters');}">Hierarchies</button>
-            <button class="tabButton" id="overflowTab" style="color: #8080FF; border-color: #0000ff; width: 5.5rem" onclick="if(overflowTabUnlocked()) {switchSubtab('overflow', 'boosters');}">Overflow</button>
+            <button class="tabButton" id="chalTab" style="color: #8080FF; border-color: #0000ff;" onclick="if(chalTabUnlocked()) {switchSubtab('chal', 'boosters');}">Challenges</button>
+            <button class="tabButton" id="incrementyTab" style="color: #8080FF; border-color: #0000ff;" onclick="if(incrementyTabUnlocked()) {switchSubtab('incrementy', 'boosters');}">Incrementy</button>
+            <button class="tabButton" id="hierarchiesTab" style="color: #8080FF; border-color: #0000ff;" onclick="if(hierarchiesTabUnlocked()) {switchSubtab('hierarchies', 'boosters');}">Hierarchies</button>
+            <button class="tabButton" id="overflowTab" style="color: #8080FF; border-color: #0000ff;" onclick="if(overflowTabUnlocked()) {switchSubtab('overflow', 'boosters');}">Overflow</button>
         </div>
         <div class="flexBox" id="upgradesSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="centeredTexts" id="boosterText">boosteeeeeeeee</div>
@@ -380,6 +383,17 @@
             <div class="flexBox" id="aoRebuyableContainer" style="flex-direction: column; margin-top: 0.5rem"></div>
             <div class="flexBox" id="aoMilestoneContainer" style="flex-direction: column;"></div>
         </div>
+    </div>
+    <div class="flexBox" id="obliteratePage" style="flex-direction: column">
+        <div class="flexBox" style="margin-top: 1rem">
+            <button class="obliterateTabButton" id="pringlesTab" onclick="switchSubtab('pringles', 'obliterate')">Pringles</button>
+            <button class="obliterateTabButton" id="energyTab" onclick="switchSubtab('pringles', 'energy')">Energy</button>
+        </div>
+        <div class="flexBox" id="obliterateInfoContainer" style="margin-top: 0.1rem; flex-direction: column">
+            <h3 class="centeredTexts" id="energyText" style="color: #d56cdc;">You have no Chips. In your house. You are broke.</h3>
+            <button id="obliterateButton" onclick="collapseConfirm()" style="color: #b06cdc;; min-width: 20rem; height: 2rem; background-color: black; border: 2px solid #6b00a0">SODA!!!</button>
+        </div>
+        <div class="flexBox" id="pringlesSubPage" style="flex-direction: column;"></div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;"></div>
     <div class="flexBox" id="settingsPage" style="flex-direction: column">

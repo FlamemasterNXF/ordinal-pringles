@@ -11,6 +11,7 @@ function switchTab(tab){
 let markupTab = "factor"
 let boostTab = "upgrades"
 let collapseTab = "cardinals"
+let obliterateTab = "pringles"
 let settingsTab = "gameSettings"
 
 function switchSubtab(t, mode){
@@ -92,6 +93,13 @@ function switchSubtab(t, mode){
         DOM(`${t}SubPage`).style.display = `flex`
 
         collapseTab = t
+    }
+
+    // Special Obliteration Rules
+    if(mode === "obliterate"){
+        DOM(`${obliterateTab}SubPage`).style.display = `none`
+        DOM(`${t}SubPage`).style.display = `flex`
+        obliterateTab = t
     }
 
     // Special Settings Rules
