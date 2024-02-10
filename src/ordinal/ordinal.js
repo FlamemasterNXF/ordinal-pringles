@@ -42,6 +42,6 @@ function numberFromOrdinal(string, base) {
 
     if(secondary.charAt(secondary.length-6) === '.'){ // Rare Edge Case
         const noTrailing = secondary.substring(0, secondary.length-6)
-        return eval(noTrailing)
+        return eval?.(noTrailing)
     }
 }
