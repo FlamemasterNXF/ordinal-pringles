@@ -110,7 +110,21 @@ function displayPsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.base, depth
     const magnitudeAmount = 4*3**magnitude
     let buchholzOutput = ordMarks[Math.min(magnitude,ordMarks.length-1)]
     let finalOutput = renderBMS(ordMarksBMS[Math.min(magnitude,ordMarksBMS.length-1)], depth)
+    let finalOutput1 = ordMarksBMS[Math.min(magnitude,ordMarksBMS.length-1)].split(")(")
+    let finalOutputX = parseInt(finalOutput1[finalOutput1.length-1].split(")")[0].split(",")[0])
+    let finalOutputY = parseInt(finalOutput1[finalOutput1.length-1].split(")")[0].split(",")[1])
     let add = (ord >= BHO_VALUE) ? 3 : 2;
+    switch (finalOutputY) {
+        case 0:
+            add = finalOutputX - 1;
+            break;
+        case 1:
+            while (add <= finalOutputX - 2) add += 2;
+            break;
+        case 2:
+            while (finalOutputX > add) add += 2;
+            break;
+    }
     if(buchholzOutput.includes("x"))finalOutput = finalOutput + displayPsiBMSOrd(ord-magnitudeAmount, trim-1, base, depth+add, false)
     if(buchholzOutput.includes("y"))finalOutput = removeLastBMSEntry(finalOutput) + displayPsiBMSOrd(ord-magnitudeAmount+1, trim-1, base, depth+add+1, false)
     if (final) finalOutput = trimBMSFinalOutput(finalOutput, trim)
@@ -138,7 +152,21 @@ function displayInfinitePsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.bas
     const magnitudeAmount = D(4).times(Decimal.pow(3, magnitude))
     let buchholzOutput = infiniteOrdMarks(Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])) //ordMarks[Decimal.min(magnitude,ordMarks.length-1)]
     let finalOutput = renderBMS(infiniteOrdMarksBMS(Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])), depth)
+    let finalOutput1 = infiniteOrdMarksBMS(Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])).split(")(")
+    let finalOutputX = parseInt(finalOutput1[finalOutput1.length-1].split(")")[0].split(",")[0])
+    let finalOutputY = parseInt(finalOutput1[finalOutput1.length-1].split(")")[0].split(",")[1])
     let add = (ord >= BHO_VALUE) ? 3 : 2;
+    switch (finalOutputY) {
+        case 0:
+            add = finalOutputX - 1;
+            break;
+        case 1:
+            while (add <= finalOutputX - 2) add += 2;
+            break;
+        case 2:
+            while (finalOutputX > add) add += 2;
+            break;
+    }
     if(buchholzOutput.includes("x"))finalOutput = finalOutput + displayInfinitePsiBMSOrd(ord.sub(magnitudeAmount), trim-1, base, depth+add)
     if(buchholzOutput.includes("y"))finalOutput = removeLastBMSEntry(finalOutput) + displayInfinitePsiBMSOrd(ord.sub(magnitudeAmount).plus(1), trim-1, base, depth+add+1)
     if (final) finalOutput = trimBMSFinalOutput(finalOutput, trim)
