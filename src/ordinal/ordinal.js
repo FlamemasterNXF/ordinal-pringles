@@ -34,14 +34,14 @@ function numberFromOrdinal(string, base) {
 
         if(noTrailing.charAt(noTrailing.length-6) === '.'){ // Rare Edge Case
             const noTrailing2 = noTrailing.substring(0, noTrailing.length-6)
-            return eval(noTrailing2)
+            return eval?.(noTrailing2)
         }
 
-        return eval(noTrailing)
+        return eval?.(noTrailing)
     }
 
     if(secondary.charAt(secondary.length-6) === '.'){ // Rare Edge Case
         const noTrailing = secondary.substring(0, secondary.length-6)
-        return eval(noTrailing)
+        return eval?.(noTrailing)
     }
 }
