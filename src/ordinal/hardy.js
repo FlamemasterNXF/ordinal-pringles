@@ -140,18 +140,18 @@ function hardy(ord, base, over=0)
 function rep(mult, restOrd, base, over=0)
 {
     if (EN(mult).eq(1)) {
-        if (hardy(EN(base ** (base + 1)).add(restOrd), base, over) !== Infinity) {
+        if (EN_format(hardy(EN(base ** (base + 1)).add(restOrd), base, over)) !== "Infinity") {
             return parseInt(beautifyEN(hardy(EN(base ** (base + 1)).add(restOrd), base, over)).split("}}")[1])
         }
         return 3;
     }
-    return beautifyEN(hardy(EN(base ** base).times(2).add(restOrd), base, over)).split("{{").length + mult.toNumber() + 1;
+    return beautifyEN(hardy(EN(base ** base).times(2).add(restOrd), base, over)).split("{{").length + mult.toNumber();
 }
 
 function isHugeRep(mult, restOrd, base, over=0)
 {
     if (EN(mult).eq(1)) {
-        if (hardy(EN(base ** (base + 1)).add(restOrd), base, over) !== Infinity) {
+        if (EN_format(hardy(EN(base ** (base + 1)).add(restOrd), base, over)) !== "Infinity") {
             return false;
         }
     }
@@ -175,10 +175,9 @@ function bigHardy(ord, base, over=0)
     // w+1 level (includes handling above EN limit, simplified into 10{{2}}n)
     if (highestPower.eq(base + 1))
     {
-        if (hardy(ord1, base, over) !== Infinity) {
+        if (EN_format(hardy(ord1, base, over)) !== "Infinity") {
             return EN_format(hardy(ord1, base, over));
         }
-
         return base + "{{2}}" + rep(highestPowerMult, restOrd, base, over);
     }
 
@@ -603,8 +602,7 @@ function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = dat
 
     let highestPower = ord.log10().div(Decimal.log10(base)).floor();
     let restOrd = ord.sub(Decimal.pow(base, highestPower));
-
-    return fgh(highestPower, calculateHardy(restOrd, over, base));
+    return fgh(highestPower.toNumber(), calculateHardy(restOrd, over, base));
 }
 
 // Calculates the Hardy Value up to 1.79e308
@@ -626,17 +624,14 @@ function calculateSimpleHardy(ord = data.ord.ordinal, over = data.ord.over, base
 
 // Get the Hardy Value for Display
 function getHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.base, isPsi = data.ord.isPsi) {
+    if (isPsi) return psiHardy(ord, base);
     if(calculateSimpleHardy().lt(Number.MAX_VALUE)) return format(Decimal.floor(calculateSimpleHardy()))
     ord = Decimal.floor(ord);
     let hardyValue = "Infinity";
-    if (isPsi) return psiHardy(ord, base);
-    return
-    /*
     hardyValue = format(calculateHardy(ord, over, base));
     if (hardyValue === "Infinity") {
         hardyValue = EN_format(hardy(ord, base, over));
         if (hardyValue === "Infinity") hardyValue = bigHardy(ord, base, over);
     }
     return hardyValue;
-     */
 }

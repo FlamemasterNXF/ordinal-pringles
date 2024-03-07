@@ -1,5 +1,3 @@
-// This code is hell. Ignore the errors, DO NOT TOUCH!!!!!!!!!!
-
 //Code snippets and templates from Decimal.js
 
 ;(function (globalScope) {
@@ -15,17 +13,17 @@
       // 1000 means there are at maximum of 1000 elements in array.
       // It is not recommended to make this number too big.
       // `ExpantaNum.maxOps = 1000;`
-      maxOps: 1e3,
+      maxOps: 100,
 
       // Specify what format is used when serializing for JSON.stringify
-      // 
+      //
       // JSON   0 JSON object
       // STRING 1 String
       serializeMode: 0,
-      
+
       // Deprecated
       // Level of debug information printed in console
-      // 
+      //
       // NONE   0 Show no information.
       // NORMAL 1 Show operations.
       // ALL    2 Show everything.
@@ -226,6 +224,96 @@
   Q.lessThanOrEqualTo=Q.lte=function (x,y){
     return new ExpantaNum(x).lte(y);
   };
+  P.omegalog=function(bbase) {
+    let dis = this.clone()
+    let base = ExpantaNum(bbase).clone()
+    if (dis.layer >= 1) {
+      dis.layer -= 1
+      return dis
+    } else if (dis.array[dis.array.length-1][0] >= 98) {
+      let zero=ExpantaNum(dis.array[dis.array.length-1][0])
+      return zero
+    } else if (base.pow(2).gte(dis)) {
+      return ExpantaNum(0)
+    } else {
+      let addTest = 8
+      let target = 0
+      while (addTest >= 10**-10) {
+        if (ExpantaNum.arrFrac(base,target+addTest).lte(dis)) {
+          target += addTest
+        }
+        addTest /= 2
+      }
+      return ExpantaNum(target)
+    }
+  }
+  P.hyperlog=function (order) {
+    let thingy = this.clone()
+    if (order >= 2.5) {
+      if (thingy.array[0][0]==0) thingy.array[0][1] += 1
+      thingy = thingy.normalize()
+    }
+    let l = thingy.array.length-1
+    if (order==1) {
+      return thingy.log10()
+    } else if (order==2) {
+      return thingy.slog()
+    } else if (thingy.array[l][0] >= order+1.5) {
+      return thingy
+    } else if (thingy.array[l][0] == order+1 && thingy.array[l][1]>1.5) {
+      return thingy
+    } else if (thingy.array[l][0] == order+1 && thingy.array[l][1]==1) {
+      return ExpantaNum.arrow(ExpantaNum(10),ExpantaNum(order+1),thingy.hyperlog(order+1).minus(1))
+    } else if (thingy.array[l][0] == order && thingy.array[l][1]>1.5) {
+      thingy.array[l][1] -= 1
+      return thingy
+    } else if (thingy.array[l][0] == order && thingy.array[l][1]==1) {
+      thingy.array.pop()
+      return thingy
+    } else if (thingy.array[l][0] == order-1) {
+      return ExpantaNum(thingy.array[l][1]+1)
+    } else {
+      return ExpantaNum((thingy.gte("10")?1:0))
+    }
+  }
+  Q.hyperlog=function (x,y) {
+    return new ExpantaNum(x).hyperlog(y)
+  }
+  P.simplify=function() {
+    let thingy = this.clone()
+    while (thingy.array.length >= 3) {
+      thingy.array.splice(1,1)
+    }
+    return thingy
+  }
+  P.normalize = function () {
+    let thing = this.clone()
+    thing.array[0][1] = Math.round(thing.array[0][1])
+    if (thing.array[0][1] >= 10**10-1) {
+      thing.array[0][1] = 10
+      if (thing.array.length == 1) {
+        thing.array.push([1,0])
+      }
+      thing.array[1][1] += 1
+    }
+      let lastarrow = 0
+      let counter=1
+      while (counter < thing.array.length) {
+        if (thing.array[counter][1] >= 9) {
+          lastarrow = thing.array[counter][0]
+          thing.array[0][1] = thing.array[counter][1]+1
+          for (let i=0;i<counter;i++) thing.array.splice(1,1)
+          if (thing.array.length == 1) {
+            thing.array.push([lastarrow+1,0])
+          }
+          if (thing.array[1][0] == lastarrow +1) thing.array[1][1] += 1
+          counter -= 1
+          }
+        counter++
+      }
+      if ((!typeof thing.array[1] == "undefined") && thing.array[1][1]==0) thing.array.splice(1,1)
+      return thing
+  }
   P.equalsTo=P.equal=P.eq=function (other){
     return this.cmp(other)===0;
   };
@@ -250,6 +338,11 @@
   Q.maximum=Q.max=function (x,y){
     return new ExpantaNum(x).max(y);
   };
+  Q.arrFrac=function (bb,hh) {
+    let b = ExpantaNum(bb).clone()
+    let h = ExpantaNum(hh).clone()
+    return ExpantaNum.arrow(b,h.floor().add(1),b.divide(2).pow(h.minus(h.floor())).times(2))
+  }
   P.isPositive=P.ispos=function (){
     return this.gt(ExpantaNum.ZERO);
   };
@@ -1721,21 +1814,21 @@
 
     ExpantaNum.JSON = 0;
     ExpantaNum.STRING = 1;
-    
+
     ExpantaNum.NONE = 0;
     ExpantaNum.NORMAL = 1;
     ExpantaNum.ALL = 2;
 
     ExpantaNum.clone=clone;
     ExpantaNum.config=ExpantaNum.set=config;
-    
+
     //ExpantaNum=Object.assign(ExpantaNum,Q);
     for (var prop in Q){
       if (Q.hasOwnProperty(prop)){
         ExpantaNum[prop]=Q[prop];
       }
     }
-    
+
     if (obj === void 0) obj = {};
     if (obj) {
       ps = ['maxOps', 'serializeMode', 'debug'];
@@ -1743,7 +1836,7 @@
     }
 
     ExpantaNum.config(obj);
-    
+
     return ExpantaNum;
   }
 
