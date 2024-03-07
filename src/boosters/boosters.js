@@ -224,6 +224,12 @@ function boostReq(n = data.boost.times){
     let scaling = n < 30 ? 1 : Math.floor(100*(n/15))
     return n < 33 ? D(3 ** (n+1) * 4 * 10 * scaling) : D(BHO_VALUE)
 }
+function displayBoostReq(n = data.boost.times){
+    if (n < 33) return displayPsiOrd(boostReq(n), 3)
+    if (n < ordMarks.length - 7) return ordMarks[n+7].replace(/x/, '').replace(/y/, 'ω')
+    if (n <= ordMarksXStart[ordMarksXStart.length-1] - 7) return infiniteOrdMarks(n+7).replace(/x/, '').replace(/y/, 'ω')
+    return infiniteOrdMarks(ordMarksXStart[ordMarksXStart.length-1])+'x'+format(Decimal.pow(3,n-ordMarksXStart[ordMarksXStart.length-1]+7))
+}
 //Credit to ryanleonels
 let boostLimit = () => (data.collapse.times === 0) ? 33 : Infinity;
 function getBulkBoostAmt(){
