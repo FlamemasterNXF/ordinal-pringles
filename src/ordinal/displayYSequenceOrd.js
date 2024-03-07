@@ -45,27 +45,12 @@ function BMS2RowToYSeq(output, trim = data.ord.trim) {
 // Displays Ordinals using Y-Sequence when the value of ord is less than NUMBER.MAX_VALUE
 function displayYSeqOrd(ord, over, base, trim = data.ord.trim, depth = 0, final = true) {
     let BMSOutput = trimBMSFinalOutput(displayBMSOrd(ord, over, base, trim, depth, final), trim)
-    return (D(ord).toNumber() >= 1) ? (data.ord.isPsi ? BMS2RowToYSeq(BMSOutput, trim) : BMS1RowToYSeq(BMSOutput, trim)) : "()"
+    if (data.ord.isPsi && D(ord).toNumber() >= 0 && D(ord).toNumber() < 4) return ["(1)","(1,2)","(1,2,3)","(1,2,3,3)"][Math.floor(D(ord).toNumber())]
+    return (D(ord).toNumber() >= 1) ? (data.ord.isPsi ? BMS2RowToYSeq(BMSOutput, trim - 1) : BMS1RowToYSeq(BMSOutput, trim)) : "()"
 }
 
 // Displays Ordinals using Y-Sequence when the value of ord is greater than NUMBER.MAX_VALUE
 function displayInfiniteYSeqOrd(ord, over, base, trim = data.ord.trim, depth = 0, final = true, recursionDepth = 0){
     let BMSOutput = trimBMSFinalOutput(displayInfiniteBMSOrd(ord, over, base, trim, depth, final, recursionDepth), trim)
     return D(ord).gte(1) ? BMS1RowToYSeq(BMSOutput, trim) : "()"
-}
-
-// Displays Ordinals using Y-Sequence and Psi when the value of ord is less than NUMBER.MAX_VALUE
-function displayPsiYSeqOrd(ord, trim = data.ord.trim, base = data.ord.base, depth = 0, final = true) {
-    let BMSOutput = trimBMSFinalOutput(displayPsiBMSOrd(ord, trim, base, depth, final), trim)
-    if (D(ord).toNumber() < 0) return "()"
-    if (D(ord).toNumber() < 4) return ["(1)","(1,2)","(1,2,3)","(1,2,3,3)"][Math.floor(D(ord).toNumber())]
-    return BMS2RowToYSeq(BMSOutput, trim)
-}
-
-//Displays Ordinals using Y-Sequence and Psi when the value of ord is greater than NUMBER.MAX_VALUE
-function displayInfinitePsiYSeqOrd(ord, trim = data.ord.trim, base = data.ord.base, depth = 0, final = true) {
-    let BMSOutput = trimBMSFinalOutput(displayInfinitePsiBMSOrd(ord, trim, base, depth, final), trim)
-    if (D(ord).lt(0)) return "()"
-    if (D(ord).lt(4)) return ["(1)","(1,2)","(1,2,3)","(1,2,3,3)"][Math.floor(D(ord).toNumber())]
-    return BMS2RowToYSeq(BMSOutput, trim)
 }
