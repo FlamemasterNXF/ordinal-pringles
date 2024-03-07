@@ -8,7 +8,7 @@ function gwaifyOrdinal(ord){
         .replaceAll("Ω<sub>2</sub>","<img src='res/gwaify/voidgwa.webp'>")
         .replaceAll("Ω","<img src='res/gwaify/tetris.webp'>")
         .replaceAll("ω", "<img src='res/gwaify/gwa.webp'>")
-        .replaceAll("&omega","<img src='res/gwaify/gwa.webp'>")
+        .replaceAll("&omega;","<img src='res/gwaify/gwa.webp'>")
         .replaceAll("&phi;","<img src='res/gwaify/gwarnament.webp'>")
         .replaceAll('9', "<img src='res/gwaify/gwaold.webp'>")
         .replaceAll('8', "<img src='res/gwaify/gwatrollfront.webp'>")
