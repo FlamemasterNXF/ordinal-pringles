@@ -59,43 +59,45 @@ function updateOrdHTML(){
 function displayOrdMarks(x){
     let ordMark = "Oops! You shouldn't see this!"
 
+    x = D(Decimal.floor(D(x).add(0.000000000001)))
+
     if(data.ord.displayType === "Buchholz"){
-        ordMark = x < ordMarks.length
-            ? ordMarks[x].replace(/x/, '').replace(/y/, 'ω')
-            : (x <= ordMarksXStart[ordMarksXStart.length-1]
+        ordMark = x.lt(ordMarks.length)
+            ? ordMarks[x.toNumber()].replace(/x/, '').replace(/y/, 'ω')
+            : (x.lte(ordMarksXStart[ordMarksXStart.length-1])
                 ? infiniteOrdMarks(x).replace(/x/, '').replace(/y/, 'ω')
-                : infiniteOrdMarks(ordMarksXStart[ordMarksXStart.length-1])+'x'+format(Decimal.pow(3,x-ordMarksXStart[ordMarksXStart.length-1]))
+                : infiniteOrdMarks(ordMarksXStart[ordMarksXStart.length-1])+'x'+format(Decimal.pow(3,x.sub(ordMarksXStart[ordMarksXStart.length-1])))
               )
     }
 
     if(data.ord.displayType === "Veblen"){
-        ordMark = x < ordMarks.length
-            ? ordMarksVeblen[x].replace(/x/, '0').replace(/y/, 'φ(1)')
-            : (x <= ordMarksXStart[ordMarksXStart.length-1]
+        ordMark = x.lt(ordMarks.length)
+            ? ordMarksVeblen[x.toNumber()].replace(/x/, '0').replace(/y/, 'φ(1)')
+            : (x.lte(ordMarksXStart[ordMarksXStart.length-1])
                 ? infiniteOrdMarksVeblen(x).replace(/x/, '0').replace(/y/, 'φ(1)')
-                : infiniteOrdMarksVeblen(ordMarksXStart[ordMarksXStart.length-1])+'x'+format(Decimal.pow(3,x-ordMarksXStart[ordMarksXStart.length-1]))
+                : infiniteOrdMarksVeblen(ordMarksXStart[ordMarksXStart.length-1])+'x'+format(Decimal.pow(3,x.sub(ordMarksXStart[ordMarksXStart.length-1])))
               )
     }
 
     if(data.ord.displayType === "BMS"){
-        ordMark = x < ordMarks.length
-            ? ordMarksBMS[x]
-            : (x <= ordMarksXStart[ordMarksXStart.length-1]
+        ordMark = x.lt(ordMarks.length)
+            ? ordMarksBMS[x.toNumber()]
+            : (x.lte(ordMarksXStart[ordMarksXStart.length-1])
                 ? infiniteOrdMarksBMS(x)
-                : infiniteOrdMarksBMS(ordMarksXStart[ordMarksXStart.length-1])+'x'+format(Decimal.pow(3,x-ordMarksXStart[ordMarksXStart.length-1]))
+                : infiniteOrdMarksBMS(ordMarksXStart[ordMarksXStart.length-1])+'x'+format(Decimal.pow(3,x.sub(ordMarksXStart[ordMarksXStart.length-1])))
               )
     }
 
     if(data.ord.displayType === "Y-Sequence"){
-        ordMark = x < ordMarks.length
-            ? ordMarksBMS[x]
-            : (x <= ordMarksXStart[ordMarksXStart.length-1]
+        ordMark = x.lt(ordMarks.length)
+            ? ordMarksBMS[x.toNumber()]
+            : (x.lte(ordMarksXStart[ordMarksXStart.length-1])
                 ? infiniteOrdMarksBMS(x)
                 : infiniteOrdMarksBMS(ordMarksXStart[ordMarksXStart.length-1])
               )
         let n = ordMark.split(')(').length
         ordMark = BMS2RowToYSeq(ordMark, n)
-        if (x > ordMarksXStart[ordMarksXStart.length-1]) ordMark = ordMark+'x'+format(Decimal.pow(3,x-ordMarksXStart[ordMarksXStart.length-1]))
+        if (x.gt(ordMarksXStart[ordMarksXStart.length-1])) ordMark = ordMark+'x'+format(Decimal.pow(3,x.sub(ordMarksXStart[ordMarksXStart.length-1])))
     }
 
     return gwaifyOrdinal(ordMark)
