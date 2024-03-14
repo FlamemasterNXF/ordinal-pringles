@@ -215,6 +215,9 @@ function boost(f=false, auto=false, hotkey=false){
 
         if(data.boost.times === 30 && data.collapse.times === 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
     }*/
+    data.boost.amt = Math.min(data.boost.amt, Number.MAX_VALUE)
+    data.boost.total = Math.min(data.boost.total, Number.MAX_VALUE)
+    data.boost.times = Math.min(data.boost.times, Number.MAX_VALUE)
     boosterUnlock()
     boosterReset()
 }
@@ -227,7 +230,7 @@ function boostReq(n = data.boost.times){
 //Credit to ryanleonels
 let boostLimit = () => (data.collapse.times === 0) ? 33 : Infinity;
 function getBulkBoostAmt(){
-    if (!data.sToggles[7] || !data.ord.isPsi || data.ord.ordinal.lte(boostReq())) return 1
+    if (!data.sToggles[7] || !data.ord.isPsi || data.ord.ordinal.lte(boostReq()) || data.boost.times >= Number.MAX_VALUE) return 1
     let maxBoost = data.boost.times
     while (data.ord.ordinal.gte(boostReq(maxBoost)) && maxBoost < boostLimit()) {
         maxBoost++
@@ -236,7 +239,7 @@ function getBulkBoostAmt(){
             break
         }
     }
-    return Math.max(maxBoost - data.boost.times, 1)
+    return Math.min(Math.max(maxBoost - data.boost.times, 1), Number.MAX_VALUE)
     //return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
 }
 //End credit

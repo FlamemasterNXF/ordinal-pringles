@@ -8,8 +8,8 @@ function trimBMSFinalOutput(output, trim = data.ord.trim) {
 }
 
 // Displays Ordinals using BMS when the value of ord is less than NUMBER.MAX_VALUE
-function displayBMSOrd(ord, over, base, trim = data.ord.trim, depth = 0, final = true) {
-    if(data.ord.isPsi) return displayPsiBMSOrd(ord, trim)
+function displayBMSOrd(ord, over, base, trim = data.ord.trim, depth = 0, final = true, forcePsi = false) {
+    if(data.ord.isPsi || forcePsi) return displayPsiBMSOrd(ord, trim)
     if(ord === data.ord.ordinal && ord.gt(Number.MAX_VALUE)) return displayInfiniteBMSOrd(ord, over, base, trim)
     if(ord === data.ord.ordinal) ord = Number(ord)
 
