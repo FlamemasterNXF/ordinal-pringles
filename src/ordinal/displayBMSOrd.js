@@ -126,7 +126,7 @@ function displayPsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.base, depth
             break;
     }
     if(buchholzOutput.includes("x"))finalOutput = finalOutput + displayPsiBMSOrd(ord-magnitudeAmount, trim-1, base, depth+add, false)
-    if(buchholzOutput.includes("y"))finalOutput = removeLastBMSEntry(finalOutput) + displayPsiBMSOrd(ord-magnitudeAmount+1, trim-1, base, depth+add+1, false)
+    if(buchholzOutput.includes("y"))finalOutput = removeLastBMSEntry(finalOutput) + displayPsiBMSOrd(Math.max(ord-magnitudeAmount+1, 1), trim-1, base, depth+add+1, false)
     if (final) finalOutput = trimBMSFinalOutput(finalOutput, trim)
     return `${finalOutput.replaceAll('undefined', '')}`
 }
@@ -168,7 +168,7 @@ function displayInfinitePsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.bas
             break;
     }
     if(buchholzOutput.includes("x"))finalOutput = finalOutput + displayInfinitePsiBMSOrd(ord.sub(magnitudeAmount), trim-1, base, depth+add)
-    if(buchholzOutput.includes("y"))finalOutput = removeLastBMSEntry(finalOutput) + displayInfinitePsiBMSOrd(ord.sub(magnitudeAmount).plus(1), trim-1, base, depth+add+1)
+    if(buchholzOutput.includes("y"))finalOutput = removeLastBMSEntry(finalOutput) + displayInfinitePsiBMSOrd(Decimal.max(ord.sub(magnitudeAmount).plus(1), D(1)), trim-1, base, depth+add+1)
     if (final) finalOutput = trimBMSFinalOutput(finalOutput, trim)
     return `${finalOutput.replaceAll('undefined', '')}`
 }
