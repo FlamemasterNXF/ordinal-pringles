@@ -41,6 +41,6 @@ function displayInfinitePsiOrd(ord, trim = data.ord.trim, base = data.ord.base) 
     const magnitudeAmount = D(4).times(Decimal.pow(3, magnitude))
     let finalOutput = infiniteOrdMarks(magnitude) //Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])
     if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayInfinitePsiOrd(ord.sub(magnitudeAmount), trim-1))
-    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayInfinitePsiOrd(Decimal.max(ord.sub(magnitudeAmount).plus(1), 1), trim-1))
+    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayInfinitePsiOrd(Decimal.max(ord.sub(magnitudeAmount).plus(1), D(1)), trim-1))
     return `${finalOutput.replaceAll('undefined', '')}`
 }
