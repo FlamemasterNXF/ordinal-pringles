@@ -43,10 +43,10 @@ function BMS2RowToYSeq(output, trim = data.ord.trim) {
 }
 
 // Displays Ordinals using Y-Sequence when the value of ord is less than NUMBER.MAX_VALUE
-function displayYSeqOrd(ord, over, base, trim = data.ord.trim, depth = 0, final = true) {
+function displayYSeqOrd(ord, over, base, trim = data.ord.trim, depth = 0, final = true, forcePsi = false) {
     let BMSOutput = trimBMSFinalOutput(displayBMSOrd(ord, over, base, trim, depth, final), trim)
     if (data.ord.isPsi && D(ord).toNumber() >= 0 && D(ord).toNumber() < 4) return ["(1)","(1,2)","(1,2,3)","(1,2,3,3)"][Math.floor(D(ord).toNumber())]
-    return (D(ord).toNumber() >= 1) ? (data.ord.isPsi ? BMS2RowToYSeq(BMSOutput, trim - 1) : BMS1RowToYSeq(BMSOutput, trim)) : "()"
+    return (D(ord).toNumber() >= 1) ? ((data.ord.isPsi || forcePsi) ? BMS2RowToYSeq(BMSOutput, trim - 1) : BMS1RowToYSeq(BMSOutput, trim)) : "()"
 }
 
 // Displays Ordinals using Y-Sequence when the value of ord is greater than NUMBER.MAX_VALUE

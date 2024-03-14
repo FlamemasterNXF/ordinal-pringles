@@ -1,28 +1,28 @@
 // The entry point for Ordinal Display
-function ordinalDisplay(type='', ord=data.ord.ordinal, over=data.ord.over, base=data.ord.base, trim=data.ord.trim, d=true) {
+function ordinalDisplay(type='', ord=data.ord.ordinal, over=data.ord.over, base=data.ord.base, trim=data.ord.trim, d=true, forcePsi=false) {
     let ordinal = "Oops! You shouldn't see this!"
 
     if(data.ord.displayType === "Buchholz"){
         ordinal = d
-            ? displayOrd(ord, Math.floor(over), base, trim)
+            ? displayOrd(ord, Math.floor(over), base, trim, forcePsi)
             : displayInfiniteOrd(ord, Math.floor(over), base, trim)
     }
 
     if(data.ord.displayType === "Veblen"){
         ordinal = d
-            ? displayVeblenOrd(ord, Math.floor(over), base, trim)
+            ? displayVeblenOrd(ord, Math.floor(over), base, trim, forcePsi)
             : displayInfiniteVeblenOrd(ord, Math.floor(over), base, trim)
     }
 
     if(data.ord.displayType === "BMS"){
         ordinal = d
-            ? displayBMSOrd(ord, Math.floor(over), base, trim)
+            ? displayBMSOrd(ord, Math.floor(over), base, trim, 0, true, forcePsi)
             : displayInfiniteBMSOrd(ord, Math.floor(over), base, trim)
     }
 
     if(data.ord.displayType === "Y-Sequence"){
         ordinal = d
-            ? displayYSeqOrd(ord, Math.floor(over), base, trim)
+            ? displayYSeqOrd(ord, Math.floor(over), base, trim, 0, true, forcePsi)
             : displayInfiniteYSeqOrd(ord, Math.floor(over), base, trim)
     }
 
@@ -104,7 +104,7 @@ function displayOrdMarks(x){
 }
 
 function displayBoostReq(n = data.boost.times){
-    if (n < 33) return ordinalDisplay('', boostReq(n), data.ord.over, data.ord.base, ((data.ord.displayType === "BMS") || (data.ord.displayType === "Y-Sequence")) ? Math.max(data.ord.trim, 3) : 3)
+    if (n < 33) return ordinalDisplay('', boostReq(n), data.ord.over, data.ord.base, ((data.ord.displayType === "BMS") || (data.ord.displayType === "Y-Sequence")) ? Math.max(data.ord.trim, 3) : 3, true, true)
     return displayOrdMarks(n + 7)
     if (n < ordMarks.length - 7) return ordMarks[n+7].replace(/x/, '').replace(/y/, 'ω')
     if (n <= ordMarksXStart[ordMarksXStart.length-1] - 7) return infiniteOrdMarks(n+7).replace(/x/, '').replace(/y/, 'ω')
