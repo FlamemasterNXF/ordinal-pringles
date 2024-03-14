@@ -30,16 +30,16 @@ function displayInfinitePsiOrd(ord, trim = data.ord.trim, base = data.ord.base) 
         let finalOutput = "&psi;(Ω<sub>2</sub>)"
         return `${finalOutput}`
     }
-    let maxOrdMarks = (D(3).pow(ordMarksXStart[ordMarksXStart.length-1])).times(4) //(D(3).pow(ordMarks.length-1)).times(4)
+    /*let maxOrdMarks = (D(3).pow(ordMarksXStart[ordMarksXStart.length-1])).times(4) //(D(3).pow(ordMarks.length-1)).times(4)
     if(D(ord).gt(maxOrdMarks)) {
         return displayInfinitePsiOrd(maxOrdMarks) + "x" + format(ord.div(maxOrdMarks),2)
-    }
+    }*/
     if(ord.eq(0)) return ""
     if(trim <= 0) return "..."
     if(ord.lt(4)) return extraOrdMarks[ord]
-    const magnitude = Decimal.floor(Decimal.ln(ord.div(4)).div(Decimal.ln(3)))
+    const magnitude = D(ord.layer).gte(Number.MAX_VALUE) ? ord : Decimal.floor(Decimal.ln(ord.div(4)).div(Decimal.ln(3)))
     const magnitudeAmount = D(4).times(Decimal.pow(3, magnitude))
-    let finalOutput = infiniteOrdMarks(Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])) //ordMarks[Decimal.min(magnitude,ordMarks.length-1)]
+    let finalOutput = infiniteOrdMarks(magnitude) //Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])
     if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayInfinitePsiOrd(ord.sub(magnitudeAmount), trim-1))
     if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayInfinitePsiOrd(ord.sub(magnitudeAmount).plus(1), trim-1))
     return `${finalOutput.replaceAll('undefined', '')}`
