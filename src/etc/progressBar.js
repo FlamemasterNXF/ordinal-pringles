@@ -66,7 +66,14 @@ function getTimeEstimate(){
     if (data.ord.isPsi && inNonPsiChallenge()) return "0s"
 
     if(getTargetOrdinal().lt(data.ord.ordinal))return "0s"
-    let autoSpeed = Decimal.max(1, (data.ord.isPsi ? t2Auto() : D(data.autoLevels[0]+extraT1()*t1Auto()*(data.chal.active[4] ? (1/data.dy.level) : data.dy.level)).div(data.chal.decrementy)))
+    //let autoSpeed = Decimal.max(1, (data.ord.isPsi ? t2Auto() : D(data.autoLevels[0]+extraT1()*t1Auto()*(data.chal.active[4] ? (1/data.dy.level) : data.dy.level)).div(data.chal.decrementy)))
+    let succSpeed = !data.chal.active[4]
+        ? D(data.autoLevels[0]).add(extraT1()).mul(t1Auto()).mul(data.dy.level).div(data.chal.decrementy)
+        : D(data.autoLevels[0]).add(extraT1()).mul(t1Auto()).div(data.dy.level).div(data.chal.decrementy)
+    let maxSpeed = !data.chal.active[4]
+        ? D(data.autoLevels[1]).add(extraT1()).mul(t1Auto()).mul(data.dy.level).div(data.chal.decrementy)
+        : D(data.autoLevels[1]).add(extraT1()).mul(t1Auto()).div(data.dy.level).div(data.chal.decrementy)
+    let autoSpeed = Decimal.max(1, Decimal.min(succSpeed, maxSpeed.mul(data.ord.base)))
     return formatTime(Decimal.max((getTargetOrdinal().sub(data.ord.ordinal)).div(autoSpeed), D(0)))
 }
 function updateProgressBar(){
