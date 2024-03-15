@@ -94,6 +94,7 @@ function displayPsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.base, depth
     if (D(ord).mag === Infinity || isNaN(D(ord).mag)) return "Ω"
     if(D(ord).gt(Number.MAX_VALUE)) return displayInfinitePsiBMSOrd(ord, trim, base)
     ord = Math.floor(ord)
+    if(trim <= 0) return "..."
     if(ord === BHO_VALUE) {
         let finalOutput = renderBMS("(0,0)(1,1)(2,2)", depth)
         if (final) finalOutput = trimBMSFinalOutput(finalOutput, trim)
@@ -104,7 +105,6 @@ function displayPsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.base, depth
         return displayPsiBMSOrd(maxOrdMarks, trim, base, depth, true) + "x" + format(ord/Number(maxOrdMarks),2)
     }
     if(ord === 0) return (depth === 0 ? "(0,0)" : "")
-    if(trim <= 0) return "..."
     if(ord < 4) return (depth === 0 ? "(0,0)" + renderBMS(extraOrdMarksBMS[ord], depth+1) : renderBMS(extraOrdMarksBMS[ord], depth))
     const magnitude = Math.floor(Math.log(ord/4)/Math.log(3))
     const magnitudeAmount = 4*3**magnitude
@@ -136,6 +136,7 @@ function displayInfinitePsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.bas
     if(ord.lt(0)) return ""
     if (D(ord).mag === Infinity || isNaN(D(ord).mag) || base < 1) return "Ω"
     ord = D(Decimal.floor(D(ord).add(0.000000000001)))
+    if(trim <= 0) return "..."
     if(ord.eq(BHO_VALUE)) {
         let finalOutput = renderBMS("(0,0)(1,1)(2,2)", depth)
         if (final) finalOutput = trimBMSFinalOutput(finalOutput, trim)
@@ -146,7 +147,6 @@ function displayInfinitePsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.bas
         return displayInfinitePsiBMSOrd(maxOrdMarks, trim, base, depth, true) + "x" + format(ord.div(maxOrdMarks),2)
     }*/
     if(ord.eq(0)) return (depth === 0 ? "(0,0)" : "")
-    if(trim <= 0) return "..."
     if(ord.lt(4)) return (depth === 0 ? "(0,0)" + renderBMS(extraOrdMarksBMS[ord], depth+1) : renderBMS(extraOrdMarksBMS[ord], depth))
     if (D(ord.layer).gte(Number.MAX_VALUE)) return trimBMSFinalOutput(infiniteOrdMarksBMS(ord), trim) // return 3-row BMS for ordinals above F1.80e308 as is
     const magnitude = Decimal.floor(Decimal.ln(ord.div(4)).div(Decimal.ln(3)))

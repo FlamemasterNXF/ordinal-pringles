@@ -85,7 +85,6 @@ function displayOrdMarks(x){
             : infiniteOrdMarksBMS(x)
         let n = ordMark.split(')(').length
         ordMark = BMS2RowToYSeq(ordMark, n)
-        if (x.gt(ordMarksXStart[ordMarksXStart.length-1])) ordMark = ordMark+'x'+format(Decimal.pow(3,x.sub(ordMarksXStart[ordMarksXStart.length-1])))
     }
 
     return gwaifyOrdinal(ordMark)
