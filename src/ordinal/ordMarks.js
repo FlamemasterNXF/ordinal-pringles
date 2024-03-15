@@ -638,7 +638,7 @@ function infiniteOrdMarks2(magnitude, layer = 0) {
     if (layer >= data.ord.trim) return ""
     magnitude = D(magnitude).add(0.000000000001).floor()
     if (magnitude.lt(ordMarksXStart2)) return infiniteOrdMarks1(magnitude, layer)
-    if (magnitude.gte(ordMarksBO) || D(magnitude.layer).gt(ordMarksBO.layer)) return infiniteOrdMarksBO(magnitude)
+    if (magnitude.gte(ordMarksBO) || D(magnitude.layer).gt(ordMarksBO.layer)) return infiniteOrdMarksBO(magnitude, layer)
     let i1 = magnitude.div(ordMarksXStart2).mul(2).plus(1).div(3)
     let i = Decimal.floor(Decimal.ln(i1).div(Decimal.ln(3))).add(ordMarksXIndex2)
     let finalOutput = "gwa";

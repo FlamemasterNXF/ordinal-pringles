@@ -141,18 +141,20 @@ function displayInfinitePsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.bas
         if (final) finalOutput = trimBMSFinalOutput(finalOutput, trim)
         return `${finalOutput}`
     }
-    let maxOrdMarks = (D(3).pow(ordMarksXStart[ordMarksXStart.length-1])).times(4) //(D(3).pow(ordMarks.length-1)).times(4)
+    /*let maxOrdMarks = (D(3).pow(ordMarksXStart[ordMarksXStart.length-1])).times(4) //(D(3).pow(ordMarks.length-1)).times(4)
     if(D(ord).gt(maxOrdMarks)) {
         return displayInfinitePsiBMSOrd(maxOrdMarks, trim, base, depth, true) + "x" + format(ord.div(maxOrdMarks),2)
-    }
+    }*/
     if(ord.eq(0)) return (depth === 0 ? "(0,0)" : "")
     if(trim <= 0) return "..."
     if(ord.lt(4)) return (depth === 0 ? "(0,0)" + renderBMS(extraOrdMarksBMS[ord], depth+1) : renderBMS(extraOrdMarksBMS[ord], depth))
+    if (D(ord.layer).gte(Number.MAX_VALUE)) return trimBMSFinalOutput(infiniteOrdMarksBMS(ord), trim) // return 3-row BMS for ordinals above F1.80e308 as is
     const magnitude = Decimal.floor(Decimal.ln(ord.div(4)).div(Decimal.ln(3)))
+    if (magnitude.gte(ordMarksBO)) return trimBMSFinalOutput(infiniteOrdMarksBMS(magnitude), trim) // return 3-row BMS for ordinals above ψ(Ω_ω) as is
     const magnitudeAmount = D(4).times(Decimal.pow(3, magnitude))
-    let buchholzOutput = infiniteOrdMarks(Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])) //ordMarks[Decimal.min(magnitude,ordMarks.length-1)]
-    let finalOutput = renderBMS(infiniteOrdMarksBMS(Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])), depth)
-    let finalOutput1 = infiniteOrdMarksBMS(Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])).split(")(")
+    let buchholzOutput = infiniteOrdMarks(magnitude) //Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])
+    let finalOutput = renderBMS(infiniteOrdMarksBMS(magnitude), depth) //Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])
+    let finalOutput1 = infiniteOrdMarksBMS(magnitude).split(")(") //Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])
     let finalOutputX = parseInt(finalOutput1[finalOutput1.length-1].split(")")[0].split(",")[0])
     let finalOutputY = parseInt(finalOutput1[finalOutput1.length-1].split(")")[0].split(",")[1])
     let add = (ord >= BHO_VALUE) ? 3 : 2;
