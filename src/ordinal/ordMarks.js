@@ -655,8 +655,8 @@ function infiniteOrdMarks2(magnitude, layer = 0) {
 function powerOfOmega2(index, layer = 0) {
     if (layer >= data.ord.trim) return ""
     index = D(index).add(0.000000000001).floor()
-    if (index.lt(PSI_VALUE)) return powerOfOmega(index.toNumber(), data.ord.trim - layer)
     if (layer && index.lte(0)) return ""
+    if (index.lt(PSI_VALUE)) return (layer ? "+" : "") + powerOfOmega(index.toNumber(), data.ord.trim - layer)
     let indexPow = Decimal.floor(Decimal.ln(index).div(Decimal.ln(PSI_VALUE)))
     let indexPow1 = D(PSI_VALUE).pow(indexPow)
     let indexMul = index.div(indexPow1).floor()
@@ -673,8 +673,10 @@ function powerOfOmega2(index, layer = 0) {
     return `${finalOutput.replaceAll('undefined', '')}`
 }
 
+let capOrdinalAtBO = false
+
 // Generates OrdMarks at (or above) ψ(Ω_ω) ON DEMAND
-function infiniteOrdMarksBO(magnitude, layer = 0, capOrdinalAtBO = false)
+function infiniteOrdMarksBO(magnitude, layer = 0)
 {
     if (layer >= data.ord.trim) return ""
     magnitude = D(magnitude).add(0.000000000001).floor()

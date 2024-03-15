@@ -340,7 +340,10 @@ function psiHardy(ord, base) {
     if (ord.toString() === "NaNeInfinity") return "Ω"; // Absolute Infinity
 
     // psi base 3+ - ultra-simplified (1 value per ordinal level), in reverse order (value represents the highest ordinal level at or below current ordinal)
-    if (ord.gte(D(BHO_VALUE).mul("eee98235035280650.45"))) return "{3,3[1[2/<sub>1,2</sub>2]2]2}"; // θ(Ω_ω) = Ω_ω (LIMIT for base 3)
+    if (!capOrdinalAtBO && ord.layer.gte(Decimal.tetrate(PSI_VALUE,2).mul(3).sub(6).add(ord.mag.gte(BO_VALUE.mag)?0:1))) return "s(10,10{1,,1,,2}2)"; // I (SAN)
+    if (!capOrdinalAtBO && ord.layer.gte((PSI_VALUE*3)-6+(ord.mag.gte(BO_VALUE.mag)?0:1))) return "s(10,10{1,,1``2}2)"; // Ω_Ω₂ (SAN)
+    if (!capOrdinalAtBO && ord.gt(BO_VALUE)) return "s(10,10{1,,1`2}2)"; // Ω_Ω (SAN)
+    if (ord.gte(D(BHO_VALUE).mul("eee98235035280650.45"))) return "{3,3[1[2/<sub>1,2</sub>2]2]2}"; // θ(Ω_ω) = Ω_ω (LIMIT for base 3 and BAN)
     if (ord.gte(D(BHO_VALUE).mul("eee38.32545039616217"))) return "{3,3[1[1[1~1/2/<sub>3</sub>2]2]2]2}"; // θ(Ω₂^Ω) = Ω₂^(Ω₂^Ω)
     if (ord.gte(D(BHO_VALUE).mul("eee25.44317651873129"))) return "{3,3[1[1[1~3/<sub>3</sub>2]2]2]2}"; // θ(Ω₂²) = Ω₂^(Ω₂²)
     if (ord.gte(D(BHO_VALUE).mul("ee98235035280664.72"))) return "{3,3[1[1[1/1/2~2/<sub>3</sub>2]1~2]2]2}"; // θ(Ω₂(Ω^Ω)) = Ω₂^(Ω₂(Ω^Ω))
