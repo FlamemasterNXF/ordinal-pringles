@@ -69,16 +69,16 @@ function displayInfinitePsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.
         let finalOutput = "&phi;(1{1:0}0)"
         return `${finalOutput}`
     }
-    let maxOrdMarks = (D(3).pow(ordMarksXStart[ordMarksXStart.length-1])).times(4) //(D(3).pow(ordMarks.length-1)).times(4)
+    /*let maxOrdMarks = (D(3).pow(ordMarksXStart[ordMarksXStart.length-1])).times(4) //(D(3).pow(ordMarks.length-1)).times(4)
     if(D(ord).gt(maxOrdMarks)) {
         return displayInfinitePsiVeblenOrd(maxOrdMarks) + "x" + format(ord.div(maxOrdMarks),2)
-    }
+    }*/
     if(ord.eq(0)) return ""
     if(trim <= 0) return "..."
     if(ord.lt(4)) return extraOrdMarksVeblen[ord]
     const magnitude = Decimal.floor(Decimal.ln(ord.div(4)).div(Decimal.ln(3)))
     const magnitudeAmount = D(4).times(Decimal.pow(3, magnitude))
-    let finalOutput = infiniteOrdMarksVeblen(Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])) //ordMarks[Decimal.min(magnitude,ordMarks.length-1)]
+    let finalOutput = infiniteOrdMarksVeblen(magnitude) //Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])
     if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayInfinitePsiVeblenOrd(ord.sub(magnitudeAmount), trim-1))
     if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayInfinitePsiVeblenOrd(Decimal.max(ord.sub(magnitudeAmount).plus(1), D(1)), trim-1))
     return `${finalOutput.replaceAll('undefined', '')}`
