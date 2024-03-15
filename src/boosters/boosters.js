@@ -144,7 +144,7 @@ function updateBoostersHTML(){
     DOM("hierarchiesTab").innerText = data.boost.unlocks[2]?'Hierarchies':'???'
     DOM("overflowTab").innerText = data.boost.unlocks[3]?'Overflow':'???'
 
-    if(data.chal.active[7]) updateHeaderHTML()
+    if(data.chal.active[6] || data.chal.active[7]) updateHeaderHTML()
 }
 
 function updateHeaderHTML(){
@@ -152,7 +152,7 @@ function updateHeaderHTML(){
     el.style.display = data.chal.active.includes(true) || data.baseless.baseless || inAnyPurification() ? 'block' : 'none'
     el.innerText = inAnyPurification() ? `The ${purificationData[data.omega.whichPurification].alt} will be Purified`
         : data.baseless.baseless ? `You are in the ${baselessNames[data.baseless.mode]} Realm`
-        : data.chal.active[7] ? `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy` : `You are in Challenge ${data.chal.html+1}`
+        : data.chal.active[7] ? `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy and ${Math.max(1000-data.successorClicks,0)} clicks left` : `You are in Challenge ${data.chal.html+1}` + (data.chal.active[6] ? ` and there is ${Math.max(1000-data.successorClicks,0)} clicks left` : "")
 }
 
 function updateAllBUPHTML(){
