@@ -588,7 +588,7 @@ let ordMarksXStart2 = ordMarksXStart1.mul(new Decimal(3).pow(new Decimal(3**27).
 let ordMarksXLength2 = ordMarksXStart2 // essentially the same with start as the "base" is insignificant compared with the numbers involved
 let ordMarksXIndex2 = new Decimal(3**27).plus(1)
 
-// Generates OrdMarks above the ordMarksX limit (Ω₂^(Ω^(Ω+1))) up to ψ(Ω₂^Ω₂) ON DEMAND
+// Generates OrdMarks above the ordMarksX limit ψ(Ω₂^(Ω^(Ω+1))) up to ψ(Ω₂^Ω₂) ON DEMAND
 function infiniteOrdMarks1(magnitude, layer = 0) {
     if (layer >= data.ord.trim) return ""
     magnitude = D(magnitude).add(0.000000000001).floor()

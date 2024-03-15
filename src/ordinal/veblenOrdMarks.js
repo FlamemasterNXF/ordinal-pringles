@@ -366,7 +366,7 @@ function ordMarksX1Veblen(index) {
     return "x{"+pow1+"}0}0";
 }
 
-// Generates OrdMarksVeblen above the ordMarksXVeblen limit (Ω₂^(Ω^(Ω+1))) up to ψ(Ω₂^Ω₂) ON DEMAND
+// Generates OrdMarksVeblen above the ordMarksXVeblen limit ψ(Ω₂^(Ω^(Ω+1))) up to ψ(Ω₂^Ω₂) ON DEMAND
 function infiniteOrdMarks1Veblen(magnitude, layer = 0) {
     if (layer >= data.ord.trim) return ""
     magnitude = D(magnitude).add(0.000000000001).floor()

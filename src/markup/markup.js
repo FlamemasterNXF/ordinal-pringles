@@ -43,7 +43,11 @@ function boostName(){
 function markup(n=D(1)){
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal.eq(GRAHAMS_VALUE) && !data.collapse.hasSluggish[0]) return
     if(data.ord.ordinal.lt(data.ord.base**2) && !data.ord.isPsi) return
-    if(data.ord.isPsi){ data.ord.ordinal = data.ord.ordinal.plus(n); return data.markup.powers = 4e256}
+    if(data.ord.isPsi){
+        data.ord.ordinal = data.ord.ordinal.plus(n);
+        if (capOrdinalAtBO && data.ord.base===3 && data.ord.ordinal.gt(BO_VALUE)) data.ord.ordinal = D(BO_VALUE)
+        return data.markup.powers = 4e256
+    }
 
     if(data.chal.active[7]){
         data.markup.powers = 0
