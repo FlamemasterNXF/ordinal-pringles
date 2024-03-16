@@ -64,40 +64,27 @@ function displayOrdMarks(x){
     if(data.ord.displayType === "Buchholz"){
         ordMark = x.lt(ordMarks.length)
             ? ordMarks[x.toNumber()].replace(/x/, '').replace(/y/, 'ω')
-            : (x.lte(ordMarksXStart[ordMarksXStart.length-1])
-                ? infiniteOrdMarks(x).replace(/x/, '').replace(/y/, 'ω')
-                : infiniteOrdMarks(ordMarksXStart[ordMarksXStart.length-1])+'x'+format(Decimal.pow(3,x.sub(ordMarksXStart[ordMarksXStart.length-1])))
-              )
+            : infiniteOrdMarks(x).replace(/x/, '').replace(/y/, 'ω')
     }
 
     if(data.ord.displayType === "Veblen"){
         ordMark = x.lt(ordMarks.length)
             ? ordMarksVeblen[x.toNumber()].replace(/x/, '0').replace(/y/, 'φ(1)')
-            : (x.lte(ordMarksXStart[ordMarksXStart.length-1])
-                ? infiniteOrdMarksVeblen(x).replace(/x/, '0').replace(/y/, 'φ(1)')
-                : infiniteOrdMarksVeblen(ordMarksXStart[ordMarksXStart.length-1])+'x'+format(Decimal.pow(3,x.sub(ordMarksXStart[ordMarksXStart.length-1])))
-              )
+            : infiniteOrdMarksVeblen(x).replace(/x/, '0').replace(/y/, 'φ(1)')
     }
 
     if(data.ord.displayType === "BMS"){
         ordMark = x.lt(ordMarks.length)
             ? ordMarksBMS[x.toNumber()]
-            : (x.lte(ordMarksXStart[ordMarksXStart.length-1])
-                ? infiniteOrdMarksBMS(x)
-                : infiniteOrdMarksBMS(ordMarksXStart[ordMarksXStart.length-1])+'x'+format(Decimal.pow(3,x.sub(ordMarksXStart[ordMarksXStart.length-1])))
-              )
+            : infiniteOrdMarksBMS(x)
     }
 
     if(data.ord.displayType === "Y-Sequence"){
         ordMark = x.lt(ordMarks.length)
             ? ordMarksBMS[x.toNumber()]
-            : (x.lte(ordMarksXStart[ordMarksXStart.length-1])
-                ? infiniteOrdMarksBMS(x)
-                : infiniteOrdMarksBMS(ordMarksXStart[ordMarksXStart.length-1])
-              )
+            : infiniteOrdMarksBMS(x)
         let n = ordMark.split(')(').length
         ordMark = BMS2RowToYSeq(ordMark, n)
-        if (x.gt(ordMarksXStart[ordMarksXStart.length-1])) ordMark = ordMark+'x'+format(Decimal.pow(3,x.sub(ordMarksXStart[ordMarksXStart.length-1])))
     }
 
     return gwaifyOrdinal(ordMark)
@@ -106,7 +93,4 @@ function displayOrdMarks(x){
 function displayBoostReq(n = data.boost.times){
     if (n < 33) return ordinalDisplay('', boostReq(n), data.ord.over, data.ord.base, ((data.ord.displayType === "BMS") || (data.ord.displayType === "Y-Sequence")) ? Math.max(data.ord.trim, 3) : 3, true, true)
     return displayOrdMarks(n + 7)
-    if (n < ordMarks.length - 7) return ordMarks[n+7].replace(/x/, '').replace(/y/, 'ω')
-    if (n <= ordMarksXStart[ordMarksXStart.length-1] - 7) return infiniteOrdMarks(n+7).replace(/x/, '').replace(/y/, 'ω')
-    return infiniteOrdMarks(ordMarksXStart[ordMarksXStart.length-1])+'x'+format(Decimal.pow(3,n-ordMarksXStart[ordMarksXStart.length-1]+7))
 }
