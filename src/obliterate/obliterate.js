@@ -1,5 +1,5 @@
 function updateObliterateHTML(){
-    DOM(`energyText`).innerHTML = `You have ${format(data.obliterate.energy)} <span style="color: #d56cdc">Fractal Energy</span><br><span style="font-size: 0.9rem">You have ${format(data.obliterate.pringles)} <span style="color: #d56cdc">Pringles</span> [+${format(getPringleGain())}/s]</span>`
+    DOM(`energyText`).innerHTML = `You have ${format(data.obliterate.energy)} <span style="color: #d56cdc">Fractal Energy</span><br><span style="font-size: 0.9rem">You have ${format(data.obliterate.pringles)} <span style="color: #d56cdc">Pringles</span> [${displayPringlesGain()}]</span>`
     DOM(`obliterateButton`).innerHTML = `Obliterate your Ordinal for 1 Energy<br><span style="font-size: 0.7rem">Requires ${format(getObliterateReq())} Incrementy</span>`
     DOM(`obliterateButton`).style.color = data.incrementy.amt.gte(getObliterateReq()) ? '#ff80b9' : '#b06cdc'
 }

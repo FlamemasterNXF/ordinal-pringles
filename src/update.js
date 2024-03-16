@@ -53,5 +53,6 @@ const uHTML = {
         initSingularityFunctions()
         initANRebuyables()
         initPurification()
+        loadPringleContainers()
     }
 }
