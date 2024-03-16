@@ -140,18 +140,18 @@ function hardy(ord, base, over=0)
 function rep(mult, restOrd, base, over=0)
 {
     if (EN(mult).eq(1)) {
-        if (hardy(EN(base ** (base + 1)).add(restOrd), base, over) !== Infinity) {
+        if (EN_format(hardy(EN(base ** (base + 1)).add(restOrd), base, over)) !== "Infinity") {
             return parseInt(beautifyEN(hardy(EN(base ** (base + 1)).add(restOrd), base, over)).split("}}")[1])
         }
         return 3;
     }
-    return beautifyEN(hardy(EN(base ** base).times(2).add(restOrd), base, over)).split("{{").length + mult.toNumber() + 1;
+    return beautifyEN(hardy(EN(base ** base).times(2).add(restOrd), base, over)).split("{{").length + mult.toNumber();
 }
 
 function isHugeRep(mult, restOrd, base, over=0)
 {
     if (EN(mult).eq(1)) {
-        if (hardy(EN(base ** (base + 1)).add(restOrd), base, over) !== Infinity) {
+        if (EN_format(hardy(EN(base ** (base + 1)).add(restOrd), base, over)) !== "Infinity") {
             return false;
         }
     }
@@ -175,10 +175,9 @@ function bigHardy(ord, base, over=0)
     // w+1 level (includes handling above EN limit, simplified into 10{{2}}n)
     if (highestPower.eq(base + 1))
     {
-        if (hardy(ord1, base, over) !== Infinity) {
+        if (EN_format(hardy(ord1, base, over)) !== "Infinity") {
             return EN_format(hardy(ord1, base, over));
         }
-
         return base + "{{2}}" + rep(highestPowerMult, restOrd, base, over);
     }
 
@@ -341,7 +340,32 @@ function psiHardy(ord, base) {
     if (ord.toString() === "NaNeInfinity") return "Ω"; // Absolute Infinity
 
     // psi base 3+ - ultra-simplified (1 value per ordinal level), in reverse order (value represents the highest ordinal level at or below current ordinal)
-    if (ord.gte(BHO_VALUE * (3**616))) return "{3,3[1[1[1/2/<sub>3</sub>2]3]2]2}"; // θ(θ1(Ω,1)) = θ(φ(Ω,2)) = Ω₂^Ωψ1(Ω₂²) (current ordMarks limit, not reachable as it's above Number.MAX_VALUE)
+    if (!capOrdinalAtBO && D(ord.layer).gte(Decimal.tetrate(PSI_VALUE,2).mul(3).sub(6).add(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1,,2}2)"; // OFP = I (SAN)
+    if (!capOrdinalAtBO && D(ord.layer).gte((PSI_VALUE*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1``2}2)"; // Ω_Ω₂ (SAN)
+    if (!capOrdinalAtBO && D(ord.layer).gte((27*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1{1`2`}2}2)"; // Ω_{Ω^Ω} (SAN)
+    if (!capOrdinalAtBO && D(ord.layer).gte((9*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1`1`2}2)"; // Ω_{Ω²} (SAN)
+    if (!capOrdinalAtBO && D(ord.layer).gte((6*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1`3}2)"; // Ω_{Ω2} (SAN)
+    if (!capOrdinalAtBO && D(ord.layer).gte((4*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,2`2}2)"; // Ω_{Ω+1} (SAN)
+    if (!capOrdinalAtBO && D(ord.layer).gte((3*3)-6+(D(ord.mag).gt(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1`2}2)"; // Ω_Ω (SAN)
+    if (ord.gte(D(BHO_VALUE).mul("eee98235035280650.45"))) return "{3,3[1[2/<sub>1,2</sub>2]2]2}"; // θ(Ω_ω) = Ω_ω (LIMIT for base 3 and BAN)
+    if (ord.gte(D(BHO_VALUE).mul("eee38.32545039616217"))) return "{3,3[1[1[1~1/2/<sub>3</sub>2]2]2]2}"; // θ(Ω₂^Ω) = Ω₂^(Ω₂^Ω)
+    if (ord.gte(D(BHO_VALUE).mul("eee25.44317651873129"))) return "{3,3[1[1[1~3/<sub>3</sub>2]2]2]2}"; // θ(Ω₂²) = Ω₂^(Ω₂²)
+    if (ord.gte(D(BHO_VALUE).mul("ee98235035280664.72"))) return "{3,3[1[1[1/1/2~2/<sub>3</sub>2]1~2]2]2}"; // θ(Ω₂(Ω^Ω)) = Ω₂^(Ω₂(Ω^Ω))
+    if (ord.gte(D(BHO_VALUE).mul("ee10915003920074.89"))) return "{3,3[1[1[1/2~2/<sub>3</sub>2]1~2]2]2}"; // θ(Ω₂Ω) = Ω₂^(Ω₂Ω)
+    if (ord.gte(D(BHO_VALUE).mul("ee7276669280050.317"))) return "{3,3[1[1[1~2/<sub>3</sub>2]1~2]2]2}"; // θ(Ω₂2) = Ω₂^(Ω₂2)
+    if (ord.gte(D(BHO_VALUE).mul("ee3638334640026.1675"))) return "{3,3[1[1[1~2/<sub>3</sub>2]1~2]2]2}"; // θ(Ω₂+1) = Ω₂^(Ω₂+1)
+    if (ord.gte(D(BHO_VALUE).mul("ee3638334640025.5654"))) return "{3,3[1[1[1~2/<sub>3</sub>2]2]2]2}"; // θ(Ω₂) = Ω₂^Ω₂
+    if (ord.gte(D(BHO_VALUE).mul("ee3638334640025.3896"))) return "{3,3[1[1[1[1[1[1~3]2/<sub>3</sub>2]2]2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(θ₁(θ₁(1)))) = Ω₂^ψ₁(Ω₂^ψ₁(Ω₂))
+    if (ord.gte(D(BHO_VALUE).mul("ee3638334640025.0884"))) return "{3,3[1[1[1[1~3]2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(θ₁(1))) = Ω₂^ψ₁(Ω₂)
+    if (ord.gte(D(BHO_VALUE).mul("ee9392.169261382569"))) return "{3,3[1[1[1/1/1/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ω^Ω²)) = Ω₂^(Ω^Ω²)
+    if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 156765267918869)))) return "{3,3[1[1[1/1/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ω^Ω)) = Ω₂^(Ω^Ω) (current "Pringles limit")
+    if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 404575)))) return "{3,3[1[1[1/3/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ω²)) = Ω₂^(Ω²)
+    if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 404574)).mul(2))) return "{3,3[1[1[1[1[1[1/2/<sub>3</sub>2]2]2]2/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ωθ(θ₁(Ω)))) = Ω₂^(Ωψ₁(Ω₂^Ωω))
+    if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 404574)))) return "{3,3[1[1[2/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ωω)) = Ω₂^(Ωω)
+    if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 14924)))) return "{3,3[1[1[1/2/<sub>3</sub>2]1[1/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ω2)) = Ω₂^(Ω2)
+    if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 1603)))) return "{3,3[1[1[1/2/<sub>3</sub>2]1~2]2]2}"; // θ(θ₁(Ω+1)) = Ω₂^(Ω+1)
+    if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 863)))) return "{3,3[1[1[1/2/<sub>3</sub>2]1[1[1/2/<sub>3</sub>2]2]2]2]2}"; // θ(θ₁(Ω, θ₁(Ω))) = Ω₂^Ωψ₁(Ω₂^Ω)
+    if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 616)))) return "{3,3[1[1[1/2/<sub>3</sub>2]3]2]2}"; // θ(θ₁(Ω,1)) = θ(φ(Ω,2)) = Ω₂^Ωψ₁(Ω₂²) (current non-infinite ordMarks limit)
     if (ord.gte(BHO_VALUE * (3**493))) return "{3,3[1[1[1/2/<sub>3</sub>2]2]2]2}"; // θ(θ1(Ω)) = θ(φ(Ω,1)) = Ω₂^Ω (highest level reachable below Number.MAX_VALUE)
     if (ord.gte(BHO_VALUE * (3**492))) return "{3,3[1[1[2/<sub>3</sub>2]2]2]2}"; // φ(ω,Ω+1) = Ω₂^ω
     if (ord.gte(BHO_VALUE * (3**369))) return "{3,3[1[1~1~1[1~1~1[1~1~2]2]2]2]2}"; // ζ(ζ(ζ(Ω+1))) = Ω₂²ψ1(Ω₂²ψ1(Ω₂²))
@@ -585,8 +609,7 @@ function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = dat
 
     let highestPower = ord.log10().div(Decimal.log10(base)).floor();
     let restOrd = ord.sub(Decimal.pow(base, highestPower));
-
-    return fgh(highestPower, calculateHardy(restOrd, over, base));
+    return fgh(highestPower.toNumber(), calculateHardy(restOrd, over, base));
 }
 
 // Calculates the Hardy Value up to 1.79e308
@@ -608,17 +631,14 @@ function calculateSimpleHardy(ord = data.ord.ordinal, over = data.ord.over, base
 
 // Get the Hardy Value for Display
 function getHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.base, isPsi = data.ord.isPsi) {
+    if (isPsi) return psiHardy(ord, base);
     if(calculateSimpleHardy().lt(Number.MAX_VALUE)) return format(Decimal.floor(calculateSimpleHardy()))
     ord = Decimal.floor(ord);
     let hardyValue = "Infinity";
-    if (isPsi) return psiHardy(ord, base);
-    return
-    /*
     hardyValue = format(calculateHardy(ord, over, base));
     if (hardyValue === "Infinity") {
         hardyValue = EN_format(hardy(ord, base, over));
         if (hardyValue === "Infinity") hardyValue = bigHardy(ord, base, over);
     }
     return hardyValue;
-     */
 }

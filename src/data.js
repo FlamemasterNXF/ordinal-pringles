@@ -5,11 +5,12 @@ const D = x => new Decimal(x)
 const PSI_VALUE = 7625597484987
 const GRAHAMS_VALUE = 109
 const BHO_VALUE = 4*3**40
+const BO_VALUE = D('eee98235035280650.45') //Decimal.pow(3, ordMarksBO).mul(4)
 
 //Version Flags
 const VERSION = "0.3.3"
 const VERSION_NAME = "The World's Purest Pringle"
-const VERSION_DATE = "January 19th, 2024"
+const VERSION_DATE = "March 16th, 2024"
 const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
