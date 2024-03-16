@@ -346,7 +346,7 @@ function psiHardy(ord, base) {
     if (!capOrdinalAtBO && D(ord.layer).gte((9*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1`1`2}2)"; // Ω_{Ω²} (SAN)
     if (!capOrdinalAtBO && D(ord.layer).gte((6*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1`3}2)"; // Ω_{Ω2} (SAN)
     if (!capOrdinalAtBO && D(ord.layer).gte((4*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,2`2}2)"; // Ω_{Ω+1} (SAN)
-    if (!capOrdinalAtBO && D(ord.layer).gte((3*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1`2}2)"; // Ω_Ω (SAN)
+    if (!capOrdinalAtBO && D(ord.layer).gte((3*3)-6+(D(ord.mag).gt(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1`2}2)"; // Ω_Ω (SAN)
     if (ord.gte(D(BHO_VALUE).mul("eee98235035280650.45"))) return "{3,3[1[2/<sub>1,2</sub>2]2]2}"; // θ(Ω_ω) = Ω_ω (LIMIT for base 3 and BAN)
     if (ord.gte(D(BHO_VALUE).mul("eee38.32545039616217"))) return "{3,3[1[1[1~1/2/<sub>3</sub>2]2]2]2}"; // θ(Ω₂^Ω) = Ω₂^(Ω₂^Ω)
     if (ord.gte(D(BHO_VALUE).mul("eee25.44317651873129"))) return "{3,3[1[1[1~3/<sub>3</sub>2]2]2]2}"; // θ(Ω₂²) = Ω₂^(Ω₂²)
