@@ -42,7 +42,7 @@ function changeTrim(x){
 
 // Updates the Ordinal's HTML
 function updateOrdHTML(){
-    if(!data.sToggles[13] && (data.ord.isPsi || calculateSimpleHardy().gte(Number.MAX_VALUE))) {
+    if(!data.sToggles[13] && (data.ord.isPsi || calculateSimpleHardy().gte(Number.MAX_VALUE) || data.baseless.baseless)) {
         if(data.ord.color){
             let date = Date.now()/100
             return DOM("ordinal").innerHTML = `${colorWrap(ordinalDisplay("H"), HSL(date))} ${colorWrap(`(${data.ord.base})`, HSL(date))}`
