@@ -42,7 +42,11 @@ function changeTrim(x){
 
 // Updates the Ordinal's HTML
 function updateOrdHTML(){
-    if(!data.sToggles[13] && (data.ord.isPsi || calculateSimpleHardy().gte(Number.MAX_VALUE) || data.baseless.baseless)) {
+    let baselessCutoff = false;
+    if (data.baseless.baseless) {
+        if (format(calculateHardy(data.ord.ordinal, data.ord.over, data.ord.base)) === "Infinity") baselessCutoff = true; // disable Hardy value for baselessness once entering ExpantaNum range (due to library performance issues that will eventually freeze/crash the game)
+    }
+    if((!data.sToggles[13] && (data.ord.isPsi || calculateSimpleHardy().gte(Number.MAX_VALUE))) || baselessCutoff) {
         if(data.ord.color){
             let date = Date.now()/100
             return DOM("ordinal").innerHTML = `${colorWrap(ordinalDisplay("H"), HSL(date))} ${colorWrap(`(${data.ord.base})`, HSL(date))}`

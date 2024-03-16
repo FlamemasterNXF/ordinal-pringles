@@ -636,7 +636,7 @@ function getHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.
     ord = Decimal.floor(ord);
     let hardyValue = "Infinity";
     hardyValue = format(calculateHardy(ord, over, base));
-    if (hardyValue === "Infinity") {
+    if (hardyValue === "Infinity" && !data.baseless.baseless) {
         hardyValue = EN_format(hardy(ord, base, over));
         if (hardyValue === "Infinity") hardyValue = bigHardy(ord, base, over);
     }
