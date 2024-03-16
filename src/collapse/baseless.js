@@ -103,8 +103,6 @@ const anRebuyableData = [
 ]
 
 function baselessControl(){
-    data.sToggles[13] = false    
-
     if(!data.baseless.tutorial) createAlert('Welcome!', 'This popup will not be shown again!\nYou cannot respec Booster Upgrades while in this Realm. However, Dynamic Factor is unlocked immediately and the Max All AutoBuyer works all the time! I\'d recommend checking the Dynamic Factor tab, there are some things there that only exist in this realm.', 'Thanks?')
     const gain = data.baseless.baseless ? alephNullGain() : 0
 
