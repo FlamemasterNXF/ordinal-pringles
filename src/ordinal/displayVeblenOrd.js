@@ -1,6 +1,6 @@
 // Displays Ordinals using Veblen when the value of ord is less than NUMBER.MAX_VALUE
-function displayVeblenOrd(ord,over,base,trim = data.ord.trim) {
-    if(data.ord.isPsi) return displayPsiVeblenOrd(ord, trim)
+function displayVeblenOrd(ord,over,base,trim = data.ord.trim,forcePsi = false) {
+    if(data.ord.isPsi || forcePsi) return displayPsiVeblenOrd(ord, trim)
     if(ord === data.ord.ordinal && ord.gt(Number.MAX_VALUE)) return displayInfiniteVeblenOrd(ord, over, base, trim)
     if(ord === data.ord.ordinal) ord = Number(ord)
 
@@ -55,7 +55,7 @@ function displayPsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.base) {
     const magnitudeAmount = 4*3**magnitude
     let finalOutput = ordMarksVeblen[Math.min(magnitude,ordMarksVeblen.length-1)]
     if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiVeblenOrd(ord-magnitudeAmount, trim-1))
-    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiVeblenOrd(ord-magnitudeAmount+1, trim-1))
+    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiVeblenOrd(Math.max(ord-magnitudeAmount+1, 1), trim-1))
     return `${finalOutput.replaceAll('undefined', '')}`
 }
 
@@ -80,6 +80,6 @@ function displayInfinitePsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.
     const magnitudeAmount = D(4).times(Decimal.pow(3, magnitude))
     let finalOutput = infiniteOrdMarksVeblen(Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])) //ordMarks[Decimal.min(magnitude,ordMarks.length-1)]
     if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayInfinitePsiVeblenOrd(ord.sub(magnitudeAmount), trim-1))
-    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayInfinitePsiVeblenOrd(ord.sub(magnitudeAmount).plus(1), trim-1))
+    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayInfinitePsiVeblenOrd(Decimal.max(ord.sub(magnitudeAmount).plus(1), D(1)), trim-1))
     return `${finalOutput.replaceAll('undefined', '')}`
 }

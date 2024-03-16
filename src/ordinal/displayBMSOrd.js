@@ -8,8 +8,8 @@ function trimBMSFinalOutput(output, trim = data.ord.trim) {
 }
 
 // Displays Ordinals using BMS when the value of ord is less than NUMBER.MAX_VALUE
-function displayBMSOrd(ord, over, base, trim = data.ord.trim, depth = 0, final = true) {
-    if(data.ord.isPsi) return displayPsiBMSOrd(ord, trim)
+function displayBMSOrd(ord, over, base, trim = data.ord.trim, depth = 0, final = true, forcePsi = false) {
+    if(data.ord.isPsi || forcePsi) return displayPsiBMSOrd(ord, trim)
     if(ord === data.ord.ordinal && ord.gt(Number.MAX_VALUE)) return displayInfiniteBMSOrd(ord, over, base, trim)
     if(ord === data.ord.ordinal) ord = Number(ord)
 
@@ -126,7 +126,7 @@ function displayPsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.base, depth
             break;
     }
     if(buchholzOutput.includes("x"))finalOutput = finalOutput + displayPsiBMSOrd(ord-magnitudeAmount, trim-1, base, depth+add, false)
-    if(buchholzOutput.includes("y"))finalOutput = removeLastBMSEntry(finalOutput) + displayPsiBMSOrd(ord-magnitudeAmount+1, trim-1, base, depth+add+1, false)
+    if(buchholzOutput.includes("y"))finalOutput = removeLastBMSEntry(finalOutput) + displayPsiBMSOrd(Math.max(ord-magnitudeAmount+1, 1), trim-1, base, depth+add+1, false)
     if (final) finalOutput = trimBMSFinalOutput(finalOutput, trim)
     return `${finalOutput.replaceAll('undefined', '')}`
 }
@@ -168,7 +168,7 @@ function displayInfinitePsiBMSOrd(ord, trim = data.ord.trim, base = data.ord.bas
             break;
     }
     if(buchholzOutput.includes("x"))finalOutput = finalOutput + displayInfinitePsiBMSOrd(ord.sub(magnitudeAmount), trim-1, base, depth+add)
-    if(buchholzOutput.includes("y"))finalOutput = removeLastBMSEntry(finalOutput) + displayInfinitePsiBMSOrd(ord.sub(magnitudeAmount).plus(1), trim-1, base, depth+add+1)
+    if(buchholzOutput.includes("y"))finalOutput = removeLastBMSEntry(finalOutput) + displayInfinitePsiBMSOrd(Decimal.max(ord.sub(magnitudeAmount).plus(1), D(1)), trim-1, base, depth+add+1)
     if (final) finalOutput = trimBMSFinalOutput(finalOutput, trim)
     return `${finalOutput.replaceAll('undefined', '')}`
 }
