@@ -9,7 +9,7 @@ const BHO_VALUE = 4*3**40
 //Version Flags
 const VERSION = "0.3.3"
 const VERSION_NAME = "The World's Purest Pringle"
-const VERSION_DATE = "January 19th, 2024"
+const VERSION_DATE = "March 16th, 2024"
 const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
