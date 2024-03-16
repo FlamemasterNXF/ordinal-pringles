@@ -17,10 +17,10 @@ const uHTML = {
         switchTab('ord')
 
         //Show and Hide things, based on data
-        DOM('boostNav').style.display = data.boost.times>0 || data.collapse.times>0?'block':'none'
-        DOM('collapseNav').style.display = data.collapse.times>0?'block':'none'
+        DOM('boostNav').style.display = data.boost.times>0 || data.collapse.times>0 || data.obliterate.times>0?'block':'none'
+        DOM('collapseNav').style.display = data.collapse.times>0 || data.obliterate.times>0?'block':'none'
         DOM('obliterateNav').style.display = data.obliterate.times>-1?'block':'none' // Temporarily -1 for Testing
-        DOM('factorBoostButton').style.display = data.boost.times>0 || data.collapse.times>0?'inline-block':'none'
+        DOM('factorBoostButton').style.display = data.boost.times>0 || data.collapse.times>0 || data.obliterate.times>0?'inline-block':'none'
 
         if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchSubtab('dynamic', 'markup'))
 
