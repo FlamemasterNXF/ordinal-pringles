@@ -37,6 +37,7 @@
     <script defer src="src/etc/tabs.js"></script>
     <script defer src="src/etc/settings.js"></script>
 
+    <script defer src="src/obliterate/pringles.js"></script>
     <script defer src="src/obliterate/obliterate.js"></script>
 
     <script defer src="src/collapse/omega.js"></script>
@@ -387,13 +388,14 @@
     <div class="flexBox" id="obliteratePage" style="flex-direction: column">
         <div class="flexBox" style="margin-top: 1rem">
             <button class="obliterateTabButton" id="pringlesTab" onclick="switchSubtab('pringles', 'obliterate')">Pringles</button>
-            <button class="obliterateTabButton" id="energyTab" onclick="switchSubtab('pringles', 'energy')">Energy</button>
+            <button class="obliterateTabButton" id="energyTab" onclick="switchSubtab('energy', 'obliterate')">Energy</button>
         </div>
         <div class="flexBox" id="obliterateInfoContainer" style="margin-top: 0.1rem; flex-direction: column">
-            <h3 class="centeredTexts" id="energyText" style="color: #d56cdc;">You have no Chips. In your house. You are broke.</h3>
+            <h3 class="centeredTexts" id="energyText" style="color: #ae50b4;">You have no Chips. In your house. You are broke.</h3>
             <button id="obliterateButton" onclick="obliterateConfirm()" style="color: #b06cdc;; min-width: 20rem; height: 5rem; background-color: black; border: 2px solid #6b00a0">SODA!!!</button>
         </div>
         <div class="flexBox" id="pringlesSubPage" style="flex-direction: column;"></div>
+        <div class="flexBox" id="energySubPage" style="display: none; flex-direction: column;"></div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;"></div>
     <div class="flexBox" id="settingsPage" style="flex-direction: column">

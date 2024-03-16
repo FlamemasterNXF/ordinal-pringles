@@ -3,9 +3,9 @@ function updateCollapseHTML(){
     DOM(`collapseButton`).innerText = `Collapse for ${format(cardinalGain())} Cardinals (C)`
 
     for (let i = 0; i < data.collapse.hasCUP.length-1; i++) {
-        if(data.collapse.hasCUP[i]) DOM(`cup${i}`).innerText = `${cupData[i].text}\n\nCurrently: ${i===1?'^':''}${format(cupEffect(i))}${i!==1?'x':''}`
+        if(data.collapse.hasCUP[i]) updateCUPTextHTML(i)
     }
-    if(data.collapse.hasCUP[7]) DOM(`cup7`).innerText = `${cupData[7].text}\n\nCurrently: ${format(cupEffect(7))}%`
+    if(data.collapse.hasCUP[7]) DOM(`cup7`).innerText = `${cupData[7].text}\n\nCurrently: ${format(cupData[7].effect())}%`
 
     DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) ? '#fff480' : '#20da45'
 
@@ -20,6 +20,17 @@ function updateAutoPrestigeHTML(){
     for (let i = 0; i < data.collapse.apEnabled.length; i++) {
         DOM(`t3AutoText${i}`).innerHTML = `Your <span style='color: #20da45'>${apData[i].name} AutoPrestiger</span> is clicking the ${apData[i].button} button${apData[i].plural ? 's' : ''} <span style='color: #2da000'>20 times/second</span> ${apData[i].hasReq ? `, but only if ${apData[i].requirement}` : ''}`
         DOM(`t3AutoToggle${i}`).innerText = `${apData[i].name} AutoPrestiger: ${formatBool(data.collapse.apEnabled[i], 'EDL')}`
+    }
+}
+function updateCUPTextHTML(i){
+    DOM(`cup${i}`).innerText = data.collapse.hasCUP[i]
+        ? `${cupData[i].text}\n\nCurrently: ${i===1?'^':''}${i===1 ? format(cupData[i].effect()+drainEffect(i)) : format(cupData[i].effect()*drainEffect(i))}${i!==1?'x':''}`
+        : `${cupData[i].text}\n\n${format(cupData[i].cost)} Cardinals`
+
+}
+function updateAllCUPTextHTML(){
+    for (let i = 0; i < data.collapse.hasCUP.length; i++) {
+        updateCUPTextHTML(i)
     }
 }
 function initAlephs(){
