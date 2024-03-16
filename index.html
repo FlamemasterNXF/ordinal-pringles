@@ -91,7 +91,7 @@
 </div>
 <div class="layer" id="gameLayer">
     <h1 id="ordinalContainer" style="height: 6rem">
-        <span id="ordinal" style="font-family: DosisSemiBold; background-image: linear-gradient(90deg, red, blue); -webkit-background-clip: text; background-clip: text; color: transparent;">H<sub>0</sub> (10)=10</span>
+        <span id="ordinal" style="font-family: DosisSemiBold; background-image: linear-gradient(90deg, red, blue); background-clip: text; -webkit-background-clip: text; -moz-background-clip: text; color: transparent;">H<sub>0</sub> (10)=10</span>
     </h1>
     <div class="centeredTexts" id="chalIn" style="margin-bottom: 0.5rem; color: orangered">Decrementy my beloved</div>
     <div class="flexBox" id="tabs" style="margin-bottom: 0.5rem">
@@ -409,12 +409,12 @@
             <button class="settingsButton" id="settingsToggle8" onclick="settingsToggle(8)" style="width: 20rem">aaa</button>
         </div>
         <div class="flexBox" id="uiSubPage" style="display: none; flex-direction: column">
-            <button class="settingsButton" id='changeOrdLength' onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 20rem">Change Max Ordinal Display Length <span style="color: #8080FF">[0]</span></button>
-            <button class="settingsButton" id="settingsToggle13" onclick="settingsToggle(13)" style="width: 20rem">aaa</button>
-            <button class="settingsButton" id="changeOrdDisplay" onclick="toggleOrdDisplay()" style="width: 20rem">Change the Ordinal Display Mode <span style="color: #2da000">[Buchholz]</span></button>
-            <button class="settingsButton" id="changeOrdColor" onclick="toggleOrdColor()" style="width: 20rem">Change the Ordinal Color Mode <span style="color: #2da000">[Normal]</span></button>
+            <button class="settingsButton" id='changeOrdLength' onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 22rem">Change Max Ordinal Display Length <span style="color: #8080FF">[0]</span></button>
+            <button class="settingsButton" id="settingsToggle13" onclick="settingsToggle(13)" style="width: 22rem">aaa</button>
+            <button class="settingsButton" id="changeOrdDisplay" onclick="toggleOrdDisplay()" style="width: 22rem">Change the Ordinal Display Mode <span style="color: #2da000">[Buchholz]</span></button>
+            <button class="settingsButton" id="changeOrdColor" onclick="toggleOrdColor()" style="width: 22rem">Change the Ordinal Color Mode <span style="color: #2da000">[Normal]</span></button>
             <div class="flexBox" id="gwaifySettingContainer" style="flex-direction: row">
-                <button class="settingsButton" id="settingsToggle14" onclick="settingsToggle(14)" style="width: 20rem; height: 2rem">aaa</button>
+                <button class="settingsButton" id="settingsToggle14" onclick="settingsToggle(14)" style="width: 22rem; height: 2rem">aaa</button>
                 <button class="settingsButton" style="height: 2rem; width: 2rem; margin-left: 0.5rem" onclick="gwaifyExplain()">I</button>
             </div>
             <t class="centeredTexts" style="margin-top: 1rem;">Changing any of these from their default may cause lag!</t>
