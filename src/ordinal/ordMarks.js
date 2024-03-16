@@ -631,7 +631,6 @@ function ordMarksX2(index, layer = 0) {
 
 let ordMarksXBO = new Decimal(3**27+1).mul(new Decimal(3**27).pow(3**27-1)).add(1)
 let ordMarksBO = ordMarksXStart2.mul(Decimal.pow(3,ordMarksXBO.sub(ordMarksXIndex2).add(1)).div(2).sub(0.5)).add(369) // ψ(Ω_ω) = ψ(Ω₃) = ψ(Ω₂^Ω₂^Ω₂) = ψ(Ω₂^(Ω₂^ψ₁(Ω₂^(Ω₂^ψ₁(Ω₂^(Ω₂^ψ₁(Ω₂^ω))))))
-let BO_VALUE = Decimal.pow(3, ordMarksBO).mul(4)
 
 // Generates OrdMarks above ψ(Ω₂^Ω₂) up to ψ(Ω_ω) ON DEMAND
 function infiniteOrdMarks2(magnitude, layer = 0) {
@@ -673,7 +672,7 @@ function powerOfOmega2(index, layer = 0) {
     return `${finalOutput.replaceAll('undefined', '')}`
 }
 
-let capOrdinalAtBO = false
+let capOrdinalAtBO = true
 
 // Generates OrdMarks at (or above) ψ(Ω_ω) ON DEMAND
 function infiniteOrdMarksBO(magnitude, layer = 0)
