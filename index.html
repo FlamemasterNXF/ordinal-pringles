@@ -39,6 +39,7 @@
     <script defer src="src/etc/tabs.js"></script>
     <script defer src="src/etc/settings.js"></script>
 
+    <script defer src="src/obliterate/energyUpgrades.js"></script>
     <script defer src="src/obliterate/energyTree.js"></script>
     <script defer src="src/obliterate/pringles.js"></script>
     <script defer src="src/obliterate/obliterate.js"></script>
@@ -407,7 +408,10 @@
             <t class="centeredTexts">Clicking a Tube which is filling before it is full will cause it to stop filling. Clicking a Tube which is full will cause it to open, activating its effect until it is once again empty.</t>
         </div>
         <div class="flexBox" id="energySubPage" style="display: none; flex-direction: column;">
-            <div id="energyTree" style="width: 60rem; height: 30rem; border: 1px solid #272727;"></div>
+            <div class="flexBox" style="flex-direction: column; border: 1px solid #272727;">
+                <t class="centeredTexts" id="energyTreeText" style="margin-top: 1rem;">Hi chat!</t>
+                <div id="energyTree" style="width: 60rem; height: 30rem;"></div>
+            </div>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;"></div>
