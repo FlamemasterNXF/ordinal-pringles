@@ -97,6 +97,10 @@ function switchSubtab(t, mode){
 
     // Special Obliteration Rules
     if(mode === "obliterate"){
+        if(t === 'energy' && !hasDrawnTree) drawTree()
+
+        DOM(`obliterateButton`).style.display = t === 'pringles' ? 'block' : 'none'
+
         DOM(`${obliterateTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
         obliterateTab = t
