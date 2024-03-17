@@ -24,6 +24,7 @@ function mainLoop() {
 
     if(data.obliterate.times > 0 && !isDrainingPringles()) data.obliterate.pringles += getPringleGain()*uDiff
     if(data.obliterate.times > 0 && isDrainingPringles()) drainPringles(uDiff)
+    if(data.obliterate.times > 0) openPringleContainerTimeCheck(diff)
 
     data.darkness.negativeCharge = Math.min(negativeChargeCap(), data.darkness.negativeCharge+negativeChargeGain()*uDiff)
 

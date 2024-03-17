@@ -69,7 +69,7 @@ function initCUPS(){
                 let drain = document.createElement('button')
                 drain.className = 'drain'
                 drain.id = `drain${id}`
-                drain.innerText = `Drain this Cardinal Upgrade (${data.darkness.drains[id]})\n${format(drainCost(id))} Negative Charge`
+                drain.innerText = `Drain this Cardinal Upgrade (${getDrainLevel(id)})\n${format(drainCost(id))} Negative Charge`
                 drain.addEventListener("click", ()=>buyDrain(id))
                 innerContainer.append(drain)
             }
@@ -175,12 +175,12 @@ let cupEffect = (i) => data.collapse.hasCUP[i] ?
     : 1
 
 let drain1Effect = () =>
-    data.darkness.drains[1] > 50 ? ((data.darkness.drains[1]-50)/128)+2.5+(1.25*2)+0.625+0.3125+0.15625
-    : data.darkness.drains[1] > 40 ? ((data.darkness.drains[1]-40)/64)+2.5+(1.25*2)+0.625+0.3125
-    : data.darkness.drains[1] > 30 ? ((data.darkness.drains[1]-30)/32)+2.5+(1.25*2)+0.625
-    : data.darkness.drains[1] > 20 ? ((data.darkness.drains[1]-20)/16)+2.5+(1.25*2)
-    : data.darkness.drains[1] > 10 ? ((data.darkness.drains[1]-10)/8)+2.5+1.25
-    : data.darkness.drains[1] > 5 ? ((data.darkness.drains[1]-5)/4)+2.5 : data.darkness.drains[1]/2
+    getDrainLevel(1) > 50 ? ((getDrainLevel(1)-50)/128)+2.5+(1.25*2)+0.625+0.3125+0.15625
+    : getDrainLevel(1) > 40 ? ((getDrainLevel(1)-40)/64)+2.5+(1.25*2)+0.625+0.3125
+    : getDrainLevel(1) > 30 ? ((getDrainLevel(1)-30)/32)+2.5+(1.25*2)+0.625
+    : getDrainLevel(1) > 20 ? ((getDrainLevel(1)-20)/16)+2.5+(1.25*2)
+    : getDrainLevel(1) > 10 ? ((getDrainLevel(1)-10)/8)+2.5+1.25
+    : getDrainLevel(1) > 5 ? ((getDrainLevel(1)-5)/4)+2.5 : getDrainLevel(1)/2
 
 function getTotalAlephs(){
     let total = 0

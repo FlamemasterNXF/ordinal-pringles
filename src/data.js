@@ -34,9 +34,9 @@ function getDefaultObject() {
         baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), anRebuyables: Array(anRebuyableData.length).fill(0), tutorial: false},
         omega:{bestRemnants: 0, alephOmega:1, bestFBInPurification: Array(4).fill(0), purificationIsActive: Array(4).fill(false), whichPurification: -1, aoRebuyables:Array(8).fill(0), tutorial: false},
         obliterate:{times:0, energy:0, pringles:0, pringlesBeforeDrain: 0, currentDrain:-1, containers: [
-                {percentFilled: 0, length: 180, draining: false, active: false},
-                {percentFilled: 0, length: 120, draining: false, active: false},
-                {percentFilled: 0, length: 300, draining: false, active: false},
+                {percentFilled: 0, length: 300, timeActive: 0, draining: false, active: false},
+                {percentFilled: 0, length: 180, timeActive: 0, draining: false, active: false},
+                {percentFilled: 0, length: 120, timeActive: 0, draining: false, active: false},
             ]},
         autoStatus: {enabled: Array(7).fill(false)},
         sToggles: settingsDefaults,

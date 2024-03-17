@@ -37,7 +37,7 @@ function updateAllDUPHTML(){
 }
 
 function updateDrainHTML(i){
-    DOM(`drain${i}`).innerText = `Drain this Cardinal Upgrade (${data.darkness.drains[i]})\n${format(drainCost(i))} Negative Charge`
+    DOM(`drain${i}`).innerText = `Drain this Cardinal Upgrade (${getDrainLevel(i)})\n${format(drainCost(i))} Negative Charge`
 }
 
 let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)*(iup10Effect()) : 0
@@ -50,18 +50,19 @@ function negativeChargeEffect(eff){
 
 let sacrificedChargeEffect = () => data.darkness.sacrificedCharge > 0 ? (data.darkness.sacrificedCharge+1)*2 : 1
 
-let drainEffect = (i) => data.darkness.drains[i] > 0 ? i===1 ? Math.max(0, drain1Effect())
+let drainEffect = (i) => getDrainLevel(i) > 0 ? i===1 ? Math.max(0, drain1Effect())
     : Math.max(drainData[i].effect(), 1)
     : i===1 ? 0 : 1
-let drainCost = (i) => (10**(1+(data.darkness.totalDrains/2)))*(data.darkness.drains[i]+1)
+let drainCost = (i) => (10**(1+(data.darkness.totalDrains/2)))*(getDrainLevel(i)+1)
+let getDrainLevel = (i) => isPringleContainerActive(2) ? Math.max(...data.darkness.drains) : data.darkness.drains[i]
 let drainData = [
-    { effect: () => 2*data.darkness.drains[0] },
+    { effect: () => 2*getDrainLevel(0) },
     { effect: () => drain1Effect() },
-    { effect: () => 1.5*data.darkness.drains[2] },
-    { effect: () => 2*data.darkness.drains[3] },
-    { effect: () => 5*data.darkness.drains[4] },
-    { effect: () => 1.2*data.darkness.drains[5] },
-    { effect: () => 2*data.darkness.drains[6] },
+    { effect: () => 1.5*getDrainLevel(2) },
+    { effect: () => 2*getDrainLevel(3) },
+    { effect: () => 5*getDrainLevel(4) },
+    { effect: () => 1.2*getDrainLevel(5) },
+    { effect: () => 2*getDrainLevel(6) },
 ]
 
 let dupEffect = (i) => inPurification(0) ? 1 : Math.max(1, dupData[i].effect())
@@ -76,7 +77,7 @@ let dupData = [
     { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> 1.1**(data.darkness.levels[2]+getExtraDUPLevels(2)) }
 ]
 let extraDUPLevels = [
-    () => 0,
+    () => getPringleContainerEffect(0),
     () => iup11Effect(),
     () => alephNullEffects[1]()
 ]
