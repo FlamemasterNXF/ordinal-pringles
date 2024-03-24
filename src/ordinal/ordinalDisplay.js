@@ -1,3 +1,5 @@
+let ordinalDisplayTrim = (n=1) => (data.ord.displayType === "BMS" || data.ord.displayType === "Y-Sequence") ? data.ord.trim : n
+
 // The entry point for Ordinal Display
 function ordinalDisplay(type='', ord=data.ord.ordinal, over=data.ord.over, base=data.ord.base, trim=data.ord.trim, d=true, forcePsi=false) {
     let ordinal = "Oops! You shouldn't see this!"

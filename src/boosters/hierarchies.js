@@ -1,8 +1,6 @@
-let hierarchiesTrim = (n=1) => (data.ord.displayType === "BMS" || data.ord.displayType === "Y-Sequence") ? data.ord.trim : n
-
 function updateHierarchiesHTML(){
     for (let i = 0; i < data.hierarchies.ords.length; i++) {
-        DOM(`h${i}Text`).innerHTML =  `${ordinalDisplay(data.hierarchies.ords[i].type, data.hierarchies.ords[i].ord, data.hierarchies.ords[i].over, hierarchyData[i].base(), hierarchiesTrim(3), false)} (${hierarchyData[i].base()})`
+        DOM(`h${i}Text`).innerHTML =  `${ordinalDisplay(data.hierarchies.ords[i].type, data.hierarchies.ords[i].ord, data.hierarchies.ords[i].over, hierarchyData[i].base(), ordinalDisplayTrim(3), false)} (${hierarchyData[i].base()})`
         DOM(`h${i}Info`).innerText = `(+${format(hierarchyData[i].gain())}/s), ${hierarchyData[i].text}`
         DOM(`h${i}Effect`).innerText = `${format(getHierarchyEffect(i))}`
     }
@@ -19,14 +17,14 @@ function updateHBBuyableHTML(i){
 
     if(data.hierarchies.rebuyableAmt[i] >= 3333) return el.innerHTML = `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>Maxed!<br>Currently: ${format(hbData[i].effect())}x`
     el.innerHTML = i === 2 || i===5 ? `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>${format(hbData[i].cost())} Incrementy<br>Currently: ${format(hbData[i].effect())}x`
-    : `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>${ordinalDisplay('', hbData[i].cost(), 0, 10, hierarchiesTrim(), false)} ${cost}<br>Currently: ${format(hbData[i].effect())}x`
+    : `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>${ordinalDisplay('', hbData[i].cost(), 0, 10, ordinalDisplayTrim(), false)} ${cost}<br>Currently: ${format(hbData[i].effect())}x`
 }
 function updateHUPHTML(i){
     const el = DOM(`hup${i}`)
     const cost = i < 5 ? 'FGH' : 'SGH'
     const ord = i < 5 ? 0 : 1
 
-    el.innerHTML = `${hupData[i].text}<br>${ordinalDisplay('', hupData[i].cost, 0, 10, hierarchiesTrim(), false)} ${cost}<br>`
+    el.innerHTML = `${hupData[i].text}<br>${ordinalDisplay('', hupData[i].cost, 0, 10, ordinalDisplayTrim(), false)} ${cost}<br>`
     if (data.hierarchies.hasUpgrade[i]) {
         el.innerHTML += `<span style="color='#424242'"><b>Bought!</b></span>`
     }
@@ -43,7 +41,7 @@ function initHierarchies(){
             hb.className = `hb${i}`
             hb.id = `hb${total}`
 
-            hb.innerHTML = n < 2 ? `${hbData[total].text} (${formatWhole(data.hierarchies.rebuyableAmt[total])})<br>${ordinalDisplay('', hbData[total].cost(), 0, 10/*hierarchyData[i].base()*/, hierarchiesTrim(), false)} ${cost}<br>Currently: ${format(hbData[total].effect())}x`
+            hb.innerHTML = n < 2 ? `${hbData[total].text} (${formatWhole(data.hierarchies.rebuyableAmt[total])})<br>${ordinalDisplay('', hbData[total].cost(), 0, 10/*hierarchyData[i].base()*/, ordinalDisplayTrim(), false)} ${cost}<br>Currently: ${format(hbData[total].effect())}x`
             : `${hbData[total].text} (${formatWhole(data.hierarchies.rebuyableAmt[total])})<br>${format(hbData[total].cost())} Incrementy<br>Currently: ${format(hbData[total].effect())}x`
 
             columns[i].append(hb)
@@ -61,8 +59,8 @@ function initHierarchies(){
             hup.className = ' hup'
             hup.id = `hup${total2}`
 
-            data.hierarchies.hasUpgrade[total2] ? hup.innerHTML = `${hupData[total2].text}<br>${ordinalDisplay('', hupData[total2].cost, 0, 10/*hierarchyData[i].base()*/, hierarchiesTrim(), false)} ${cost}<br><span style="color='#424242'"><b>Bought!</b></span>`
-            : hup.innerHTML = `${hupData[total2].text}<br>${ordinalDisplay('', hupData[total2].cost, 0, 10/*hierarchyData[i].base()*/, hierarchiesTrim(), false)} ${cost}`
+            data.hierarchies.hasUpgrade[total2] ? hup.innerHTML = `${hupData[total2].text}<br>${ordinalDisplay('', hupData[total2].cost, 0, 10/*hierarchyData[i].base()*/, ordinalDisplayTrim(), false)} ${cost}<br><span style="color='#424242'"><b>Bought!</b></span>`
+            : hup.innerHTML = `${hupData[total2].text}<br>${ordinalDisplay('', hupData[total2].cost, 0, 10/*hierarchyData[i].base()*/, ordinalDisplayTrim(), false)} ${cost}`
 
             columns2[i].append(hup)
             ++total2
