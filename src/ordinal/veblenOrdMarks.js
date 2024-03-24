@@ -460,11 +460,11 @@ function infiniteOrdMarks2Veblen(magnitude, layer = 0) {
     let finalOutput = "gwa";
     if (!layer) {
         let nextMagnitude = magnitude.sub(ordMarksXStart2.mul(D(3).pow(i.sub(ordMarksXIndex2))))
-        finalOutput = ordMarksX2Veblen(i).replaceAll("x", (nextMagnitude.eq(magnitude) ? "" : infiniteOrdMarks2Veblen(nextMagnitude, layer+1)))
+        finalOutput = ordMarksX2Veblen(i).replaceAll("x", (nextMagnitude.eq(magnitude) ? "0" : infiniteOrdMarks2Veblen(nextMagnitude, layer+1)))
         return `&phi;(${finalOutput.replaceAll('undefined', '')})`
     } else {
         let nextMagnitude = magnitude.sub(ordMarksXLength2.mul(D(3).pow(i.sub(ordMarksXIndex2))))
-        finalOutput = ordMarksX2Veblen(i).replaceAll("x", (nextMagnitude.eq(magnitude) ? "" : infiniteOrdMarks2Veblen(nextMagnitude, layer+1)))
+        finalOutput = ordMarksX2Veblen(i).replaceAll("x", (nextMagnitude.eq(magnitude) ? "0" : infiniteOrdMarks2Veblen(nextMagnitude, layer+1)))
         return `1{${finalOutput.replaceAll('undefined', '')}`
     }
     return "gwa"; // you've been gwa-ed
