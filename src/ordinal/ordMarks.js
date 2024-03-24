@@ -615,8 +615,7 @@ function ordMarksX2(index, layer = 0) {
     if (indexPow.gt(0)) indexPow1 = D(PSI_VALUE+1).mul(Decimal.pow(PSI_VALUE,indexPow.sub(1)))
     let indexMul = index.div(indexPow1).floor()
     let indexRem = index.sub(indexPow1.mul(indexMul))
-    let finalOutput = "gwa";
-    finalOutput = ""
+    let finalOutput = "";
     if (indexMul.gt(0) && layer) finalOutput = "+"
     if (indexPow.gt(0)) finalOutput += "Ω<sub>2</sub>"
     if (indexPow.gt(1)) finalOutput += ("<sup>" + powerOfOmega(indexPow) + "</sup>")
@@ -663,7 +662,7 @@ function powerOfOmega2(index, layer = 0) {
     let finalOutput = "";
     if (indexMul.gt(0) && layer) finalOutput = "+"
     if (indexPow.gt(0)) finalOutput += "Ω<sub>2</sub>"
-    if (indexPow.gt(1)) finalOutput += ("<sup>" + powerOfOmega(indexPow) + "</sup>")
+    if (indexPow.gt(1)) finalOutput += ("<sup>" + powerOfOmega2(indexPow) + "</sup>")
     if (powerOfOmega(indexMul).toString().includes("+") && indexPow.gt(0)) finalOutput += ("(" + powerOfOmega(indexMul) + ")")
     if (powerOfOmega(indexMul).toString().includes("+") && indexPow.eq(0)) finalOutput += powerOfOmega(indexMul)
     if (!powerOfOmega(indexMul).toString().includes("+") && (indexMul.gt(1) || indexPow.eq(0))) finalOutput += powerOfOmega(indexMul)
@@ -683,7 +682,7 @@ function infiniteOrdMarksBO(magnitude, layer = 0)
     if ((magnitude.gt(ordMarksBO) || D(magnitude.layer).gt(ordMarksBO.layer)) && !capOrdinalAtBO) {
         let magnitudeLayer = D(magnitude.layer).plus(D(magnitude.mag).gte(ordMarksBO.mag) ? 1 : 0)
         let omegaSubscript = magnitudeLayer.div(3).add(2).floor()
-        if (omegaSubscript.gte(Decimal.tetrate(PSI_VALUE,2))) return "&psi;(I)";
+        if (omegaSubscript.gte(Decimal.tetrate(PSI_VALUE,3))) return "&psi;(I)";
         return "&psi;(Ω<sub>"+powerOfOmega2(omegaSubscript)+"</sub>)";
     }
     return "&psi;(Ω<sub>ω</sub>)";

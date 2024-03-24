@@ -64,7 +64,7 @@ function displayHugeYSeqOrd(ord, over, base, trim = data.ord.trim) {
         if (omegaSubscript.gte(9)) YSeq = "(1,2,4,8,12,14,14)"; // ψ(Ω_{Ω²})
         if (omegaSubscript.gte(27)) YSeq = "(1,2,4,8,12,14,16)"; // ψ(Ω_{Ω^Ω})
         if (omegaSubscript.gte(PSI_VALUE)) YSeq = "(1,2,4,8,12,15)"; // ψ(Ω_Ω₂)
-        if (omegaSubscript.gte(Decimal.tetrate(PSI_VALUE,2))) YSeq = "(1,2,4,8,12,15,9)"; // ψ(I) = OFP
+        if (omegaSubscript.gte(Decimal.tetrate(PSI_VALUE,3))) YSeq = "(1,2,4,8,12,15,9)"; // ψ(I) = OFP
     }
     let trimmed = false
     let outputList = YSeq.slice(1,-1).split(",")

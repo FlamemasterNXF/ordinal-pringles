@@ -340,7 +340,7 @@ function psiHardy(ord, base) {
     if (ord.toString() === "NaNeInfinity") return "Ω"; // Absolute Infinity
 
     // psi base 3+ - ultra-simplified (1 value per ordinal level), in reverse order (value represents the highest ordinal level at or below current ordinal)
-    if (!capOrdinalAtBO && D(ord.layer).gte(Decimal.tetrate(PSI_VALUE,2).mul(3).sub(6).add(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1,,2}2)"; // OFP = I (SAN)
+    if (!capOrdinalAtBO && D(ord.layer).gte(Decimal.tetrate(PSI_VALUE,3).mul(3).sub(6).add(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1,,2}2)"; // OFP = I (SAN)
     if (!capOrdinalAtBO && D(ord.layer).gte((PSI_VALUE*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1``2}2)"; // Ω_Ω₂ (SAN)
     if (!capOrdinalAtBO && D(ord.layer).gte((27*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1{1`2`}2}2)"; // Ω_{Ω^Ω} (SAN)
     if (!capOrdinalAtBO && D(ord.layer).gte((9*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1`1`2}2)"; // Ω_{Ω²} (SAN)

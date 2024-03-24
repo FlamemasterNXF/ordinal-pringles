@@ -42,7 +42,7 @@ function displayPsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.base) {
     ord = Math.floor(ord)
     if(trim <= 0) return "..."
     if(ord === BHO_VALUE) {
-        let finalOutput = "&phi;(1{1:0}0)"
+        let finalOutput = "&phi;(1@[1,0])"
         return `${finalOutput.replaceAll('undefined', '')}`
     }
     let maxOrdMarks = (3**(ordMarksVeblen.length-1))*4
@@ -67,7 +67,7 @@ function displayInfinitePsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.
     ord = D(Decimal.floor(D(ord).add(0.000000000001)))
     if(trim <= 0) return "..."
     if(ord.eq(BHO_VALUE)) {
-        let finalOutput = "&phi;(1{1:0}0)"
+        let finalOutput = "&phi;(1@[1,0])"
         return `${finalOutput}`
     }
     /*let maxOrdMarks = (D(3).pow(ordMarksXStart[ordMarksXStart.length-1])).times(4) //(D(3).pow(ordMarks.length-1)).times(4)
