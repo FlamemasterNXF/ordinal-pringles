@@ -635,19 +635,26 @@ function baselessHardy(ord = data.ord.ordinal, base = data.ord.base) {
     let magnitudeAmount = D(base).pow(magnitude)
     let amount = D(ord).div(magnitudeAmount).add(0.000000000001).floor()
     if (magnitude.lt(base)) return D(base).toString() + "{" + D(magnitude).toString() + "}" + D(amount).add(2.000000000001).floor().toString();
-    if (magnitude.lt(base*2)) return D(base).toString() + "{{" + D(magnitude).sub(base).add(1.000000000001).floor().toString() + "}}" + D(amount).add(2.000000000001).floor().toString();
-    if (magnitude.gte(Decimal.pow(base, base))) {
+    if (magnitude.lt(D(base).mul(2))) return D(base).toString() + "{{" + D(magnitude).sub(base).add(1.000000000001).floor().toString() + "}}" + D(amount).add(2.000000000001).floor().toString();
+    if (magnitude.lt(Decimal.pow(base, base))) {
+        let finalOutput = "{" + D(base).toString() + "," + D(amount).add(2.000000000001).floor().toString() + "," + D(magnitude).mod(base).add(1.000000000001).floor().toString();
+        let magnitude1 = magnitude.div(base).add(0.000000000001).floor();
+        while (magnitude1.gt(0)) {
+            finalOutput += ("," + D(magnitude1).mod(base).add(1.000000000001).floor().toString());
+            magnitude1 = magnitude1.div(base).add(0.000000000001).floor();
+        }
+        finalOutput += "}";
+        return finalOutput;
+    }
+    if (magnitude.lt(Decimal.tetrate(base, 3))) {
         let logMagnitude = Decimal.floor(Decimal.ln(magnitude).add(0.000000000001).div(Decimal.ln(base)))
-        return "{" + D(base).toString() + "," + D(logMagnitude).add(2.000000000001).floor().toString() + "[2]2}";
+        let logMagnitude2 = Decimal.floor(Decimal.ln(logMagnitude).add(0.000000000001).div(Decimal.ln(base)))
+        return "{" + D(base).toString() + "," + D(base).toString() + "[" + D(logMagnitude2).add(1.000000000001).floor().toString() + "]2}";
     }
-    let finalOutput = "{" + D(base).toString() + "," + D(amount).add(2.000000000001).floor().toString() + "," + D(magnitude).mod(base).add(1.000000000001).floor().toString();
-    let magnitude1 = magnitude.div(base).add(0.000000000001).floor();
-    while (magnitude1.gt(0)) {
-        finalOutput += ("," + D(magnitude1).mod(base).add(1.000000000001).floor().toString());
-        magnitude1 = magnitude1.div(base).add(0.000000000001).floor();
+    if (magnitude.lt(Decimal.pentate(base, 2))) {
+        return "{" + D(base).toString() + "," + D(base).toString() + "[1,2]2}";
     }
-    finalOutput += "}";
-    return finalOutput;
+    return "{" + D(base).toString() + "," + D(base).toString() + "[1\\2]2}";
 }
 
 // Get the Hardy Value for Display
