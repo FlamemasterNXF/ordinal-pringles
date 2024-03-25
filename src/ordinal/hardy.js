@@ -139,19 +139,19 @@ function hardy(ord, base, over=0)
 
 function rep(mult, restOrd, base, over=0)
 {
-    if (EN(mult).eq(1)) {
-        if (EN_format(hardy(EN(base ** (base + 1)).add(restOrd), base, over)) !== "Infinity") {
-            return parseInt(beautifyEN(hardy(EN(base ** (base + 1)).add(restOrd), base, over)).split("}}")[1])
+    if (D(mult).eq(1)) {
+        if (calculateSimpleHardy(restOrd, over, base).lt(Number.MAX_SAFE_INTEGER)) {
+            return calculateSimpleHardy(restOrd, over, base).add(1.000000000001).floor().toNumber();
         }
         return 3;
     }
-    return beautifyEN(hardy(EN(base ** base).times(2).add(restOrd), base, over)).split("{{").length + mult.toNumber();
+    return (calculateSimpleHardy(restOrd, over, base).lt(Number.MAX_SAFE_INTEGER)) ? mult.toNumber()+1 : mult.toNumber()+2;
 }
 
 function isHugeRep(mult, restOrd, base, over=0)
 {
-    if (EN(mult).eq(1)) {
-        if (EN_format(hardy(EN(base ** (base + 1)).add(restOrd), base, over)) !== "Infinity") {
+    if (D(mult).eq(1)) {
+        if (calculateSimpleHardy(restOrd, over, base).lt(Number.MAX_SAFE_INTEGER)) {
             return false;
         }
     }
@@ -160,25 +160,27 @@ function isHugeRep(mult, restOrd, base, over=0)
 
 function bigHardy(ord, base, over=0)
 {
-    let ord1 = EN(ord.toString());
-    let highestPower = ord1.logBase(base).floor();
-    let highestPowerMult = ord1.div(EN.pow(base, highestPower)).floor();
-    let restOrd = ord1.sub(EN.pow(base, highestPower).times(highestPowerMult));
-    if (restOrd.gte(EN(base ** base))) restOrd = EN(base ** base).sub(1);
-
-    // w level and below
-    if (highestPower.lte(base))
-    {
-        return EN_format(hardy(ord1, base, over));
+    let ord1 = D(ord.toString());
+    let highestPower = ord1.log(base).floor();
+    let highestPowerMult = ord1.div(Decimal.pow(base, highestPower)).floor();
+    let restOrd = ord1.sub(Decimal.pow(base, highestPower).times(highestPowerMult));
+    if (restOrd.gte(Decimal.pow(base, base))) restOrd = Decimal.pow(base, base).sub(1);
+    if (highestPowerMult.eq(0)) {
+        highestPowerMult = D(1);
+        restOrd = D(0);
     }
 
-    // w+1 level (includes handling above EN limit, simplified into 10{{2}}n)
-    if (highestPower.eq(base + 1))
+    // below w level
+    if (highestPower.lt(base))
     {
-        if (EN_format(hardy(ord1, base, over)) !== "Infinity") {
-            return EN_format(hardy(ord1, base, over));
-        }
-        return base + "{{2}}" + rep(highestPowerMult, restOrd, base, over);
+        return base + "{" + (highestPower.toNumber() + isHugeRep(highestPowerMult, restOrd, base, over) - 1) + "}" + rep(highestPowerMult, restOrd, base, over);
+    }
+
+    // w level
+    if (highestPower.eq(base))
+    {
+        if (!isHugeRep(highestPowerMult, restOrd, base, over)) return base + "{{" + (rep(highestPowerMult, restOrd, base, over)-2) + "}}" + rep(highestPowerMult, restOrd, base, over);
+        return base + "{{1}}" + rep(highestPowerMult, restOrd, base, over);
     }
 
     // w+n level
@@ -665,8 +667,8 @@ function getHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.
     let hardyValue = "Infinity";
     hardyValue = format(calculateHardy(ord, over, base));
     if (hardyValue === "Infinity") {
-        if (data.baseless.baseless) return baselessHardy(ord, base);
-        hardyValue = EN_format(hardy(ord, base, over));
+        //if (data.baseless.baseless) return baselessHardy(ord, base);
+        if (!data.baseless.baseless) hardyValue = EN_format(hardy(ord, base, over));
         if (hardyValue === "Infinity") hardyValue = bigHardy(ord, base, over);
     }
     return hardyValue;
