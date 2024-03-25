@@ -56,7 +56,7 @@ function displayHugeYSeqOrd(ord, over, base, trim = data.ord.trim) {
     let YSeq = "(1,2,4,8)"; // ψ(Ω_ω)
     if ((ord.gt(BO_VALUE) || D(ord.layer).gt(D(BO_VALUE).layer)) && !capOrdinalAtBO) {
         let ordLayer = D(ord.layer).plus(D(ord.mag).gte(D(BO_VALUE).mag) ? 0 : -1)
-        let omegaSubscript = ordLayer.div(3).add(2).floor()
+        let omegaSubscript = ordLayer.div(2).add(1.5).floor()
         // Y-sequence from 3-row BMS is too complicated, simply return 1 value per ordinal level (much like Hardy)
         if (omegaSubscript.gte(3)) YSeq = "(1,2,4,8,12,14)"; // ψ(Ω_Ω)
         if (omegaSubscript.gte(4)) YSeq = "(1,2,4,8,12,14,11,15)"; // ψ(Ω_{Ω+1})

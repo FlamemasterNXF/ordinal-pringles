@@ -497,7 +497,7 @@ function infiniteOrdMarksBOVeblen(magnitude, layer = 0)
     if (magnitude.lt(ordMarksBO) && D(magnitude.layer).lte(ordMarksBO.layer)) return infiniteOrdMarks2Veblen(magnitude, layer)
     if ((magnitude.gt(ordMarksBO) || D(magnitude.layer).gt(ordMarksBO.layer)) && !capOrdinalAtBO) {
         let magnitudeLayer = D(magnitude.layer).plus(D(magnitude.mag).gte(ordMarksBO.mag) ? 1 : 0)
-        let omegaSubscript = magnitudeLayer.div(3).add(2).floor()
+        let omegaSubscript = magnitudeLayer.div(2).add(1.5).floor()
         if (omegaSubscript.gte(Decimal.tetrate(PSI_VALUE,3))) return "&phi;(1@(1,0)<sub>I</sub>)";;
         return "&phi;(1@(1,0)<sub>"+powerOfOmega2Veblen(omegaSubscript)+"</sub>)";
     }

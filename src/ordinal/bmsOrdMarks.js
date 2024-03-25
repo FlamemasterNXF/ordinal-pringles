@@ -413,7 +413,7 @@ function infiniteOrdMarksBOBMS(magnitude, layer = 0)
     if (magnitude.lt(ordMarksBO) && D(magnitude.layer).lte(ordMarksBO.layer)) return infiniteOrdMarks2BMS(magnitude, layer)
     if ((magnitude.gt(ordMarksBO) || D(magnitude.layer).gt(ordMarksBO.layer)) && !capOrdinalAtBO) {
         let magnitudeLayer = D(magnitude.layer).plus(D(magnitude.mag).gte(ordMarksBO.mag) ? 1 : 0)
-        let omegaSubscript = magnitudeLayer.div(3).add(2).floor()
+        let omegaSubscript = magnitudeLayer.div(2).add(1.5).floor()
         // 3-row BMS is too complicated, simply return 1 value per ordinal level (much like Hardy)
         if (omegaSubscript.gte(Decimal.tetrate(PSI_VALUE,3))) return "(0,0,0)(1,1,1)(2,1,1)(3,1,0)(2,0,0)"; // ψ(I) = OFP
         if (omegaSubscript.gte(PSI_VALUE)) return "(0,0,0)(1,1,1)(2,1,1)(3,1,0)(1,1,0)(2,2,1)(3,2,1)(4,2,0)"; // ψ(Ω_Ω₂)
