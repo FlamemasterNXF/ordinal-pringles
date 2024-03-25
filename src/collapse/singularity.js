@@ -12,6 +12,7 @@ function updateSingularityHTML(){
     checkPermanentFunction(6)
     updateSingFunctionHTML(7)
     updateSingFunctionHTML(8)
+    updateSingLevelHTML()
 }
 function updateSingLevelHTML(){
     DOM(`singLevel`).innerHTML = `Your Singularity has a density of <b>${data.sing.level >= 0 ? ordinalDisplay('H', data.sing.level, 0, 10, ordinalDisplayTrim(3), false) : `H<sub>0</sub>`}</b> (10)`
