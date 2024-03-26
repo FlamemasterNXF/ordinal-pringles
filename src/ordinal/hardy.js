@@ -342,14 +342,14 @@ function psiHardy(ord, base) {
     if (ord.toString() === "NaNeInfinity") return "Ω"; // Absolute Infinity
 
     // psi base 3+ - ultra-simplified (1 value per ordinal level), in reverse order (value represents the highest ordinal level at or below current ordinal)
-    if (!capOrdinalAtBO && D(ord.layer).gte(Decimal.tetrate(PSI_VALUE,3).mul(2).sub(3).add(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(3,3{1,,1,,2}2)"; // OFP = I (SAN)
-    if (!capOrdinalAtBO && D(ord.layer).gte((PSI_VALUE*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(3,3{1,,1``2}2)"; // Ω_Ω₂ (SAN)
-    if (!capOrdinalAtBO && D(ord.layer).gte((27*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(3,3{1,,1{1`2`}2}2)"; // Ω_{Ω^Ω} (SAN)
-    if (!capOrdinalAtBO && D(ord.layer).gte((9*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(3,3{1,,1`1`2}2)"; // Ω_{Ω²} (SAN)
-    if (!capOrdinalAtBO && D(ord.layer).gte((6*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(3,3{1,,1`3}2)"; // Ω_{Ω2} (SAN)
-    if (!capOrdinalAtBO && D(ord.layer).gte((4*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(3,3{1,,2`2}2)"; // Ω_{Ω+1} (SAN)
-    if (!capOrdinalAtBO && D(ord.layer).gte((3*2)-3+(D(ord.mag).gt(D(BO_VALUE).mag)?0:1))) return "s(3,3{1,,1`2}2)"; // Ω_Ω (SAN)
-    if (ord.gte(D(BHO_VALUE).mul("eee98235035280650.45"))) return "{3,3[1[2/<sub>1,2</sub>2]2]2}"; // θ(Ω_ω) = Ω_ω (LIMIT for base 3 and BAN)
+    if (!capOrdinalAtBO && D(ord.layer).gte(Decimal.tetrate(PSI_VALUE,3).mul(2).sub(3).add(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "{3,3[1[2/<sub>1//2</sub>2]2]2}"; // OFP = I
+    if (!capOrdinalAtBO && D(ord.layer).gte((PSI_VALUE*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "{3,3[1[2/<sub>1~2</sub>2]2]2}"; // Ω_Ω₂
+    if (!capOrdinalAtBO && D(ord.layer).gte((27*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "{3,3[1[2/<sub>1[1/2~2]2</sub>2]2]2}"; // Ω_{Ω^Ω}
+    if (!capOrdinalAtBO && D(ord.layer).gte((9*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "{3,3[1[2/<sub>1/1/2</sub>2]2]2}"; // Ω_{Ω²}
+    if (!capOrdinalAtBO && D(ord.layer).gte((6*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "{3,3[1[1[2/<sub>1/3</sub>2]2]2]2}"; // Ω_{Ω2}
+    if (!capOrdinalAtBO && D(ord.layer).gte((4*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "{3,3[1[1[1/<sub>2/2</sub>3]2]2]2}"; // Ω_{Ω+1}
+    if (!capOrdinalAtBO && D(ord.layer).gte((3*2)-3+(D(ord.mag).gt(D(BO_VALUE).mag)?0:1))) return "{3,3[1[2/<sub>1/2</sub>2]2]2}"; // Ω_Ω
+    if (ord.gte(D(BHO_VALUE).mul("eee98235035280650.45"))) return "{3,3[1●2]2}"; // θ(Ω_ω) = Ω_ω (current ordinal cap for base 3 and previous versions of BAN)
     if (ord.gte(D(BHO_VALUE).mul("eee38.32545039616217"))) return "{3,3[1[1[1~1/2/<sub>3</sub>2]2]2]2}"; // θ(Ω₂^Ω) = Ω₂^(Ω₂^Ω)
     if (ord.gte(D(BHO_VALUE).mul("eee25.44317651873129"))) return "{3,3[1[1[1~3/<sub>3</sub>2]2]2]2}"; // θ(Ω₂²) = Ω₂^(Ω₂²)
     if (ord.gte(D(BHO_VALUE).mul("ee98235035280664.72"))) return "{3,3[1[1[1/1/2~2/<sub>3</sub>2]1~2]2]2}"; // θ(Ω₂(Ω^Ω)) = Ω₂^(Ω₂(Ω^Ω))
@@ -360,7 +360,7 @@ function psiHardy(ord, base) {
     if (ord.gte(D(BHO_VALUE).mul("ee3638334640025.3896"))) return "{3,3[1[1[1[1[1[1~3]2/<sub>3</sub>2]2]2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(θ₁(θ₁(1)))) = Ω₂^ψ₁(Ω₂^ψ₁(Ω₂))
     if (ord.gte(D(BHO_VALUE).mul("ee3638334640025.0884"))) return "{3,3[1[1[1[1~3]2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(θ₁(1))) = Ω₂^ψ₁(Ω₂)
     if (ord.gte(D(BHO_VALUE).mul("ee9392.169261382569"))) return "{3,3[1[1[1/1/1/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ω^Ω²)) = Ω₂^(Ω^Ω²)
-    if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 156765267918869)))) return "{3,3[1[1[1/1/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ω^Ω)) = Ω₂^(Ω^Ω) (current "Pringles limit")
+    if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 156765267918869)))) return "{3,3[1[1[1/1/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ω^Ω)) = Ω₂^(Ω^Ω) (former "Pringles limit")
     if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 404575)))) return "{3,3[1[1[1/3/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ω²)) = Ω₂^(Ω²)
     if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 404574)).mul(2))) return "{3,3[1[1[1[1[1[1/2/<sub>3</sub>2]2]2]2/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ωθ(θ₁(Ω)))) = Ω₂^(Ωψ₁(Ω₂^Ωω))
     if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 404574)))) return "{3,3[1[1[2/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ωω)) = Ω₂^(Ωω)
