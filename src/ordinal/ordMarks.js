@@ -138,7 +138,7 @@ function makeExcessOrdMarks(){
     for (let i = 0; i < length; i++) {
         ordMarks.push(ordMarks[i].slice(0,6)+"Ω<sub>2</sub><sup>Ω</sup>&psi;<sub>1</sub>(Ω<sub>2</sub>&psi;<sub>1</sub>(Ω<sub>2</sub>"+ordMarks[i].slice(6)+"))")
     }
-    ordMarks.push("&psi;(Ω<sub>2</sub><sup>Ω</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>))")
+    ordMarks.push("&psi;(Ω<sub>2</sub><sup>Ω</sup>&psi;<sub>1</sub>(Ω<sub>2</sub><sup>2</sup>x))")
 
     makeExcessOrdMarksVeblen() // Called from veblenOrdMarks.js
     makeExcessOrdMarksBMS() // Called from bmsOrdMarks.js
