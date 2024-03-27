@@ -3,9 +3,9 @@ function updateCollapseHTML(){
     DOM(`collapseButton`).innerText = `Collapse for ${format(cardinalGain())} Cardinals (C)`
 
     for (let i = 0; i < data.collapse.hasCUP.length-1; i++) {
-        if(data.collapse.hasCUP[i]) updateCUPTextHTML(i)
+        if(hasCUP(i)) updateCUPTextHTML(i)
     }
-    if(data.collapse.hasCUP[7]) DOM(`cup7`).innerText = `${cupData[7].text}\n\nCurrently: ${format(cupData[7].effect())}%`
+    if(hasCUP(7)) DOM(`cup7`).innerText = `${cupData[7].text}\n\nCurrently: ${format(cupData[7].effect())}%`
 
     DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) ? '#fff480' : '#20da45'
 
@@ -23,7 +23,7 @@ function updateAutoPrestigeHTML(){
     }
 }
 function updateCUPTextHTML(i){
-    DOM(`cup${i}`).innerText = data.collapse.hasCUP[i]
+    DOM(`cup${i}`).innerText = hasCUP(i)
         ? `${cupData[i].text}\n\nCurrently: ${i===1?'^':''}${i===1 ? format(cupData[i].effect()+drainEffect(i)) : format(cupData[i].effect()*drainEffect(i))}${i!==1?'x':''}`
         : `${cupData[i].text}\n\n${format(cupData[i].cost)} Cardinals`
 
@@ -113,17 +113,29 @@ function updateTotalAlephHTML(){
 function updateUnlockHTML(mode, i){
     switch (mode) {
         case 0:
-            DOM(`cup${i}`).style.background = data.collapse.hasCUP[i] ? "#0e3000" : "black"
-            if(i === 5) DOM(`bp5Container`).style.display = data.collapse.hasCUP[5] ? 'block' : 'none'
+            DOM(`cup${i}`).style.background = hasCUP(i) ? "#0e3000" : "black"
+            if(i === 5) DOM(`bp5Container`).style.display = hasCUP(5) ? 'block' : 'none'
             break;
         case 1:
-            DOM(`sluggish${i}`).style.background = data.collapse.hasSluggish[i] ? "#0e3000" : "black"
-            if(i === 1) DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
+            DOM(`sluggish${i}`).style.background = hasSluggishMilestone(i) ? "#0e3000" : "black"
+            if(i === 1) DOM('darkTab').innerText = hasSluggishMilestone(2) ? 'Darkness' : '???'
             break;
         default:
             console.error("Invalid \"mode\" at \"updateUnlockHTML\"");
     }
 }
+
+function hasCUP(i){
+    if(data.collapse.hasCUP[i]) return true
+
+    if(i < 2) return hasPassiveUpgrade(5)
+    if(i < 4) return hasPassiveUpgrade(6)
+    if(i < 6) return hasPassiveUpgrade(7)
+    if(i === 6) return hasPassiveUpgrade(8)
+    if(i === 7) return hasPassiveUpgrade(9)
+}
+let hasSluggishMilestone = (i) => data.collapse.hasSluggish[i] || hasPassiveUpgrade(i)
+
 function checkUnlocks(mode, i, preview = false){
     if (preview) return updateUnlockHTML(mode, i)
     switch (mode) {
@@ -132,7 +144,7 @@ function checkUnlocks(mode, i, preview = false){
             updateUnlockHTML(0, i)
             break;
         case 1:
-            if(data.boost.times <= sluggishData[i].req && !data.collapse.hasSluggish[i]){
+            if(data.boost.times <= sluggishData[i].req && !hasSluggishMilestone(i)){
                 data.collapse.hasSluggish[i] = true
                 data.collapse.cardinals += 3*i
                 createAlert("Congratulations!", `You have completed a Sluggish Milestone!\nYour completion has been rewarded with ${3*i} free Cardinals!`, 'Great!')
@@ -156,8 +168,8 @@ function checkAllUnlocks(mode, prev = false){
     }
 }
 function checkCollapseUnlockHTML(){
-    DOM('darkTab').innerText = data.collapse.hasSluggish[2] ? 'Darkness' : '???'
-    DOM('autoPrestigeTab').innerText = data.collapse.hasSluggish[3] ? 'AutoPrestigers' : '???'
+    DOM('darkTab').innerText = hasSluggishMilestone(2) ? 'Darkness' : '???'
+    DOM('autoPrestigeTab').innerText = hasSluggishMilestone(3) ? 'AutoPrestigers' : '???'
     DOM('singTab').innerText = data.boost.unlocks[4] ? 'Singularity' : '???'
     DOM('baselessTab').innerText = data.boost.unlocks[4] ? 'Baselessness' : '???'
     DOM('omegaTab').innerText = isTabUnlocked('omega') ? 'Purification' : '???'
@@ -169,7 +181,7 @@ let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.ti
 let alephEffect = (i) => data.collapse.alephs[i] > 0 && (!inPurification(1) || i === 0) && alephData[i].unl()
     ? alephData[i].effect()*(i !== 8 ? cupEffect(6) : 1)
     : 1
-let cupEffect = (i) => data.collapse.hasCUP[i] ?
+let cupEffect = (i) => hasCUP(i) ?
     i===1 ? Math.min(Math.max(cupData[i].effect()+drain1Effect(), 1), Number.MAX_VALUE)
     : Math.min(Math.max(cupData[i].effect()*drainEffect(i), 1), Number.MAX_VALUE)
     : 1
@@ -273,13 +285,13 @@ function collapseReset(){
 
     data.chal.decrementy = D(1)
     data.chal.html = -1
-    if(!data.collapse.hasSluggish[4]) data.chal.completions = Array(8).fill(0)
+    if(!hasSluggishMilestone(4)) data.chal.completions = Array(8).fill(0)
     data.chal.active = Array(8).fill(false)
-    if(!data.collapse.hasSluggish[4]) data.chal.totalCompletions = 0
+    if(!hasSluggishMilestone(4)) data.chal.totalCompletions = 0
     updateAllChalHTML()
 
     data.incrementy.amt = D(0)
-    if(data.collapse.hasSluggish[3]){
+    if(hasSluggishMilestone(3)){
         data.incrementy.hasIUP[0] = false
         data.incrementy.hasIUP[1] = false
         data.incrementy.hasIUP[2] = false
@@ -289,7 +301,7 @@ function collapseReset(){
     data.incrementy.charge = data.boost.unlocks[4] ? data.incrementy.totalCharge-data.sing.level : 0
     data.incrementy.totalCharge = data.boost.unlocks[4] ? data.incrementy.totalCharge : 0
     updateIncrementyHTML()
-    if(!data.collapse.hasSluggish[3]){
+    if(!hasSluggishMilestone(3)){
         for (let i = 0; i < data.incrementy.hasIUP.length; i++) {
             DOM(`iup${i}`).style.color = '#8080FF'
         }
@@ -345,7 +357,7 @@ function collapseCardinals(){
 }
 
 function buyCardinalUpgrade(i){
-    if(data.collapse.cardinals >= cupData[i].cost && !data.collapse.hasCUP[i]){
+    if(data.collapse.cardinals >= cupData[i].cost && !hasCUP(i)){
         data.collapse.cardinals -= cupData[i].cost
         checkUnlocks(0, i)
     }

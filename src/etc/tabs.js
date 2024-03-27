@@ -39,7 +39,7 @@ function switchSubtab(t, mode){
         }
 
         if (t==="upgrades" && data.boost.unlocks[1]){
-            DOM('bupBottomText').innerText = data.collapse.hasSluggish[3]
+            DOM('bupBottomText').innerText = hasSluggishMilestone(3)
                 ? `Click a purchased Upgrade to Supercharge it! The cost to Supercharge a bottom-row Upgrade is currently ${getBottomRowChargeCost()} Charge.\nThe Unlockables Column does not consume Boosters`
                 : 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
             DOM('chargeRefund').style.display = 'block'
@@ -62,6 +62,7 @@ function switchSubtab(t, mode){
         if(t==='cardinals'){
             DOM(`aleph8`).style.display = hasAOMilestone(1) ? `block` : `none`
         }
+        if(t==='cUpgrades' && data.obliterate.times > 0) checkAllUnlocks(0, true)
         if(t==='darkness'){
             updateDUPHTML(1)
             updateDUPHTML(2)
@@ -87,6 +88,7 @@ function switchSubtab(t, mode){
                 createAlert('Tutorial Time!', 'In order to gain ℶ<sub>&omega;</sub> you must enter a Purification and reach a never-before-reached Factor Boost within that Purification! This means ℶ<sub>&omega;</sub> is NOT farmable! Have fun!', 'Thanks for the tips!')
                 data.omega.tutorial = true
             }
+            if(data.obliterate.times > 0) updateAllAOMHTML()
         }
 
         DOM(`${collapseTab}SubPage`).style.display = `none`
@@ -98,8 +100,10 @@ function switchSubtab(t, mode){
     // Special Obliteration Rules
     if(mode === "obliterate"){
         if(t === 'energy' && !hasDrawnTree) drawTree()
+        if(t === 'passive') updatePassiveEnergyText()
 
         DOM(`obliterateButton`).style.display = t === 'pringles' ? 'block' : 'none'
+        DOM(`obliterateInfoContainer`).style.display = t === 'passive' ? 'none' : 'flex'
 
         DOM(`${obliterateTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
@@ -128,11 +132,11 @@ function isTabUnlocked(t){
         case 'hierarchies': return data.boost.unlocks[2]
         case 'overflow': return data.boost.unlocks[3]
 
-        case 'darkness': return data.collapse.hasSluggish[2]
-        case 'autoPrestige': return data.collapse.hasSluggish[3]
-        case 'sing': return data.boost.unlocks[4]
-        case 'baseless': return data.boost.unlocks[4]
-        case 'omega': return data.incrementy.totalCharge > 71 || hasSingFunction(6)
+        case 'darkness': return hasSluggishMilestone(2)
+        case 'autoPrestige': return hasSluggishMilestone(3)
+        case 'sing': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
+        case 'baseless': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
+        case 'omega': return hasSingFunction(6) || hasPassiveUpgrade(20)
 
         default: return true
     }

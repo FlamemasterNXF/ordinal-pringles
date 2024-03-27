@@ -41,7 +41,7 @@ function getOverflowEffect(i, depth=0){
         case 4:
             return data.overflow.oc > 1 ? Math.max(1, Math.log10(data.overflow.oc+1))*getSingFunctionEffect(3) : 1
         case 5:
-            return data.overflow.oc > 1 && data.collapse.hasCUP[5] ? Math.max(1, Math.pow(data.overflow.oc, 1/16)) : 1
+            return data.overflow.oc > 1 && hasCUP(5) ? Math.max(1, Math.pow(data.overflow.oc, 1/16)) : 1
 
         case 6:
             return data.overflow.oc > 1 && data.omega.bestRemnants >= 750 ? Math.max(1, 1+(Math.log2(2+data.overflow.oc)/100)) : 1

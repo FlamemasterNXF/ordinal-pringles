@@ -153,7 +153,7 @@ function respecCharge(c=false){
     }
     data.incrementy.charge = data.incrementy.totalCharge-data.sing.level
     data.boost.bottomRowCharges = 0
-    if(data.collapse.hasSluggish[3]) DOM('bupBottomText').innerText = `Click a purchased Upgrade to Supercharge it! The cost to Supercharge a bottom-row Upgrade is currently ${getBottomRowChargeCost()} Charge.\nThe Unlockables Column does not consume Boosters`
+    if(hasSluggishMilestone(3)) DOM('bupBottomText').innerText = `Click a purchased Upgrade to Supercharge it! The cost to Supercharge a bottom-row Upgrade is currently ${getBottomRowChargeCost()} Charge.\nThe Unlockables Column does not consume Boosters`
     if(!c) chalExit()
 }
 

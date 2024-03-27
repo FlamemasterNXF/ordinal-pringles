@@ -76,10 +76,10 @@ function initHierarchies(){
 }
 
 function checkSpecialHUPs(){
-    DOM(`hup3`).style.display = data.collapse.hasSluggish[4] ? `block` : `none`
-    DOM(`hup4`).style.display = data.collapse.hasSluggish[4] ? `block` : `none`
-    DOM(`hup8`).style.display = data.collapse.hasSluggish[4] ? `block` : `none`
-    DOM(`hup9`).style.display = data.collapse.hasSluggish[4] ? `block` : `none`
+    DOM(`hup3`).style.display = hasSluggishMilestone(4) ? `block` : `none`
+    DOM(`hup4`).style.display = hasSluggishMilestone(4) ? `block` : `none`
+    DOM(`hup8`).style.display = hasSluggishMilestone(4) ? `block` : `none`
+    DOM(`hup9`).style.display = hasSluggishMilestone(4) ? `block` : `none`
 }
 
 let effectiveFGH = () => calcOrdPoints(data.hierarchies.ords[0].ord, hierarchyData[0].base(), data.hierarchies.ords[0].over);

@@ -1,13 +1,13 @@
-let extraT1 = () => data.collapse.hasSluggish[0] ? 1 : 0
+let extraT1 = () => hasSluggishMilestone(0) ? 1 : 0
 function updateMarkupHTML(){
     DOM("powersText").innerText = `You have ${formatWhole(data.markup.powers)} Ordinal Powers`
 
     DOM("markupButton").innerHTML =
-        data.ord.isPsi&&data.ord.ordinal.eq(GRAHAMS_VALUE)&&data.boost.times===0&&!data.collapse.hasSluggish[0]?`Base 2 is required to go further...`:
+        data.ord.isPsi&&data.ord.ordinal.eq(GRAHAMS_VALUE)&&data.boost.times===0&&!hasSluggishMilestone(0)?`Base 2 is required to go further...`:
         data.ord.isPsi?`Markup and gain ${ordinalDisplay('', data.ord.ordinal.plus(1), data.ord.over, data.ord.base, ((data.ord.displayType === "BMS") || (data.ord.displayType === "Y-Sequence")) ? Math.max(data.ord.trim, 4) : 4)} (I)`:
         data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${formatWhole(opGain()*opMult())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
 
-    DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0||data.collapse.hasSluggish[0]?`Perform a Factor Shift<br>Requires: ?????`:`Perform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
+    DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0||hasSluggishMilestone(0)?`Perform a Factor Shift<br>Requires: ?????`:`Perform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
         `Perform a Factor Shift (H)<br>Requires: ${format(getFSReq())} Ordinal Powers`
     DOM("auto0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
     DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
@@ -24,8 +24,8 @@ function updateMarkupHTML(){
     }
     DOM("factorText").innerText = `Your Factors are multiplying AutoClicker speed by a total of ${formatWhole(factorBoost())}x`
 
-    DOM("factorShiftButton").style.borderColor = data.ord.base===3&&data.boost.times===0&&!data.collapse.hasSluggish[0]?`#0000ff`:`#785c13`
-    DOM("factorShiftButton").style.color = data.ord.base===3&&data.boost.times===0&&!data.collapse.hasSluggish[0]?`#8080FF`:`goldenrod`
+    DOM("factorShiftButton").style.borderColor = data.ord.base===3&&data.boost.times===0&&!hasSluggishMilestone(0)?`#0000ff`:`#785c13`
+    DOM("factorShiftButton").style.color = data.ord.base===3&&data.boost.times===0&&!hasSluggishMilestone(0)?`#8080FF`:`goldenrod`
 
     DOM("dynamicTab").innerText = data.markup.shifts===7||data.chal.active[4]||data.baseless.baseless?'Dynamic':'???'
     DOM("dynamicText").innerText = `Your Dynamic Factor is ${data.chal.active[4]?'dividing':'multiplying'} AutoClickers by ${format(data.dy.level, 3)}\nIt increases by ${format(dyGain())}/s, and caps at ${format(data.dy.cap)}`
@@ -41,7 +41,7 @@ function boostName(){
     return purificationData[data.omega.whichPurification].alt
 }
 function markup(n=D(1)){
-    if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal.eq(GRAHAMS_VALUE) && !data.collapse.hasSluggish[0]) return
+    if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal.eq(GRAHAMS_VALUE) && !hasSluggishMilestone(0)) return
     if(data.ord.ordinal.lt(data.ord.base**2) && !data.ord.isPsi) return
     if(data.ord.isPsi){
         data.ord.ordinal = data.ord.ordinal.plus(n);

@@ -72,9 +72,9 @@ function dupScaling (i){
     if(i===2) return D(10).pow(D(3).pow(data.darkness.levels[i]+1)).pow(3)
 }
 let dupData = [
-    { text: "Multiply AutoBuyer speed by 1.5x", cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)), effect: ()=> (1.5*purificationEffect(0))**(data.darkness.levels[0]+getExtraDUPLevels(0)) },
-    { text: 'Double Dynamic Cap', cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> hasSingFunction(6) ? 4**(data.darkness.levels[1]+getExtraDUPLevels(1)) : 2**data.darkness.levels[1]},
-    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> 1.1**(data.darkness.levels[2]+getExtraDUPLevels(2)) }
+    { text: "Multiply AutoBuyer speed by 1.5x", cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)), effect: ()=> isTabUnlocked('darkness') ? (1.5*purificationEffect(0))**(data.darkness.levels[0]+getExtraDUPLevels(0)) : 1 },
+    { text: 'Double Dynamic Cap', cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> isTabUnlocked('darkness') ? hasSingFunction(6) ? 4**(data.darkness.levels[1]+getExtraDUPLevels(1)) : 2**data.darkness.levels[1] : 1},
+    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> isTabUnlocked('darkness') ? 1.1**(data.darkness.levels[2]+getExtraDUPLevels(2)) : 1 }
 ]
 let extraDUPLevels = [
     () => getPringleContainerEffect(0),
@@ -83,7 +83,7 @@ let extraDUPLevels = [
 ]
 
 function buyDrain(i) {
-    if (!data.collapse.hasCUP[i]) return createAlert("Failure.", "The Cardinal Upgrade must be purchased before being drained!", "Oops.")
+    if (!hasCUP(i)) return createAlert("Failure.", "The Cardinal Upgrade must be purchased before being drained!", "Oops.")
     if (data.darkness.negativeCharge < drainCost(i)) return createAlert("Failure.", "Insufficient Negative Charge", "Dang.")
 
     data.darkness.chargeSpent += drainCost(i)
@@ -165,7 +165,7 @@ function respecDrains(){
 
 function resetDarkness(force = false){
     data.darkness.darkened = false
-    if(!data.collapse.hasSluggish[3]) data.darkness.levels = Array(3).fill(0)
+    if(!hasSluggishMilestone(3)) data.darkness.levels = Array(3).fill(0)
     data.darkness.negativeCharge = 0
     if(!hasSingFunction(1)) data.darkness.drains = Array(7).fill(0)
     if(!data.boost.unlocks[4]){

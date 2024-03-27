@@ -339,12 +339,22 @@
     background: black;
 }
 .obliterateTabButton{
-    width: 7rem;
+    width: 8rem;
     height: 1.5rem;
     margin-left: 0.3rem;
     background: black;
     border: 2px solid #6b00a0;
     color: #b06cdc;
+}
+.passiveUpgrade{
+    color: gray;
+    border: 2px solid #6b3a9f;
+    background: black;
+    margin-top: 0.5rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    width: 15rem;
+    height: 6rem;
 }
 .progressBar{
     width: 7rem;

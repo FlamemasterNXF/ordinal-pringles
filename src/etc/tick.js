@@ -69,13 +69,13 @@ function tick(diff){
 
     // Markup Autobuyer
     let collapseCheck = data.ord.ordinal.lt(BHO_VALUE) || data.collapse.times > 0
-    let boostCheck = data.boost.times > 0 || data.collapse.hasSluggish[0]
+    let boostCheck = data.boost.times > 0 || hasSluggishMilestone(0)
     if(timesToLoop[3].gte(1) && data.ord.isPsi && data.autoStatus.enabled[1] && !boostCheck && data.ord.isPsi) data.ord.ordinal = D(GRAHAMS_VALUE)
     if(timesToLoop[3].gte(1) && data.ord.isPsi && data.autoStatus.enabled[1] && collapseCheck && boostCheck) markup(timesToLoop[3].times(diff/1000))
 
     // Automation Tier 2: Post-Collapse
-    if(data.collapse.hasSluggish[2] && data.autoStatus.enabled[2]) sacrificeIncrementy() //Charge Autobuyer
-    if(data.collapse.hasSluggish[2] && data.autoStatus.enabled[3]){ // Repeatable IUP Autobuyer
+    if(hasSluggishMilestone(2) && data.autoStatus.enabled[2]) sacrificeIncrementy() //Charge Autobuyer
+    if(hasSluggishMilestone(2) && data.autoStatus.enabled[3]){ // Repeatable IUP Autobuyer
         for (let i = 0; i < 3; i++) {
             buyRUP(i)
         }
@@ -85,7 +85,7 @@ function tick(diff){
             }
         }
     }
-    if(data.collapse.hasSluggish[3] && data.autoStatus.enabled[4]){ // Repeatable HUP Autobuyer
+    if(hasSluggishMilestone(3) && data.autoStatus.enabled[4]){ // Repeatable HUP Autobuyer
         for (let i = 0; i < data.hierarchies.rebuyableAmt.length; i++) {
             buyHBuyable(i)
         }
@@ -101,12 +101,22 @@ function tick(diff){
             }
         }
     }
+    if(hasPassiveUpgrade(21) && data.autoStatus.enabled[7] && isTabUnlocked('baseless')){
+        for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
+            buyANR(i)
+        }
+    }
+    if(hasPassiveUpgrade(22) && data.autoStatus.enabled[8] && isTabUnlocked('purification')){
+        for (let i = 0; i < data.omega.aoRebuyables.length; i++) {
+            buyAOR(i)
+        }
+    }
 
     // Automation Tier 3
     let inSluggish = false
-    if (data.boost.times === 2 && !data.collapse.hasSluggish[4]) inSluggish = true
-    if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[0] && data.ord.base > 3 && data.markup.shifts < 7) factorShift(true)
-    if(data.collapse.hasSluggish[3] && data.collapse.apEnabled[1] && data.boost.times < boostLimit() && !inSluggish) boost(false, true)
+    if (data.boost.times === 2 && hasSluggishMilestone(4)) inSluggish = true
+    if(hasSluggishMilestone(3) && data.collapse.apEnabled[0] && data.ord.base > 3 && data.markup.shifts < 7) factorShift(true)
+    if(hasSluggishMilestone(3) && data.collapse.apEnabled[1] && data.boost.times < boostLimit() && !inSluggish) boost(false, true)
 
     // Increase Hierarchies
     if(data.boost.unlocks[2] && !inPurification(2) && !inPurification(3)) increaseHierarchies(diff)

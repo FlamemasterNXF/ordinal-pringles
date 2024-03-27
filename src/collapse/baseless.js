@@ -166,6 +166,8 @@ let singBoostToBaseless = (display = false) => data.baseless.baseless || display
     : 1
 let getANRCost = (i) => ((anRebuyableData[i].costBase/100+1)**data.baseless.anRebuyables[i])*anRebuyableData[i].costBase
 let getANREffect = (i) => {
-    if(i === 2) return data.baseless.anRebuyables[2] > 0 ? anRebuyableData[i].eff() : 0
+    if(i === 2) return data.baseless.anRebuyables[2] > 0 && isTabUnlocked('baseless') ? anRebuyableData[i].eff() : 0
+
+    if(!isTabUnlocked('baseless')) return 1
     return Math.max(1, anRebuyableData[i].eff());
 }

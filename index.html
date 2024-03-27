@@ -39,6 +39,7 @@
     <script defer src="src/etc/tabs.js"></script>
     <script defer src="src/etc/settings.js"></script>
 
+    <script defer src="src/obliterate/passiveEnergy.js"></script>
     <script defer src="src/obliterate/energyUpgrades.js"></script>
     <script defer src="src/obliterate/energyTree.js"></script>
     <script defer src="src/obliterate/pringles.js"></script>
@@ -200,6 +201,8 @@
             <div class="centeredTexts" id="t2AutoText4" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
             <div class="centeredTexts" id="t2AutoText5" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
             <div class="centeredTexts" id="t2AutoText6" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
+            <div class="centeredTexts" id="t2AutoText7" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
+            <div class="centeredTexts" id="t2AutoText8" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
             <div class="flexBox" style="flex-direction: column">
                 <div class="flexBox" style="flex-direction: row;">
                     <button class="automation2" id="auto4" onclick="toggleAuto(2)" style="display:none">fish Auto</button>
@@ -207,6 +210,9 @@
                     <button class="automation2" id="auto6" onclick="toggleAuto(4)" style="display:none">salmon't Auto</button>
                     <button class="automation2" id="auto7" onclick="toggleAuto(5)" style="display:none">salmon't Auto</button>
                     <button class="automation2" id="auto8" onclick="toggleAuto(6)" style="display:none">salmon't Auto</button>
+
+                    <button class="automation2" id="auto9" onclick="toggleAuto(7)" style="display:none">salmon't Auto</button>
+                    <button class="automation2" id="auto10" onclick="toggleAuto(8)" style="display:none">salmon't Auto</button>
                 </div>
             </div>
         </div>
@@ -393,6 +399,7 @@
         <div class="flexBox" style="margin-top: 1rem">
             <button class="obliterateTabButton" id="pringlesTab" onclick="switchSubtab('pringles', 'obliterate')">Pringles</button>
             <button class="obliterateTabButton" id="energyTab" onclick="switchSubtab('energy', 'obliterate')">Energy</button>
+            <button class="obliterateTabButton" id="passiveTab" onclick="switchSubtab('passive', 'obliterate')">Passive Energy</button>
         </div>
         <div class="flexBox" id="obliterateInfoContainer" style="margin-top: 0.1rem; flex-direction: column">
             <h3 class="centeredTexts" id="energyText" style="color: #ae50b4;">You have no Chips. In your house. You are broke.</h3>
@@ -412,6 +419,12 @@
                 <t class="centeredTexts" id="energyTreeText" style="margin-top: 1rem;">Hover over an Upgrade to view more information!</t>
                 <div id="energyTree" style="width: 60rem; height: 30rem;"></div>
             </div>
+        </div>
+        <div class="flexBox" id="passiveSubPage" style="display: none; flex-direction: column;">
+            <t class="centeredTexts" id="passiveEnergyText" style="margin-top: 1rem"></t>
+            <div class="flexBox" id="passiveUpgradeContainer" style="margin-top: 0.5rem; flex-direction: column"></div>
+            <t class="centeredTexts" style="margin-top: 1rem">Whenever <span style="color: #d56cdc">Fractal Energy</span> is spent <span style="color: #bd80ff">Passive Energy</span> is gained.</t>
+            <t class="centeredTexts" style="margin-top: 0.25rem">Every <span style="color: #bd80ff">Passive Upgrade</span> costs one <span style="color: #bd80ff">Passive Energy</span>, but you must buy the previous Upgrade in the row first<br>Each row of Passive Upgrades bought causes a Purification Milestone to become Permanent.</t>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;"></div>

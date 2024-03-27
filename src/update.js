@@ -54,5 +54,6 @@ const uHTML = {
         initANRebuyables()
         initPurification()
         loadPringleContainers()
+        initPassiveEnergyUpgrades()
     }
 }

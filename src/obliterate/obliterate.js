@@ -36,7 +36,9 @@ function obliterateReset(){
     data.darkness.sacrificedCharge = 0
     data.darkness.chargeSpent = 0
     data.darkness.totalDrains = 0
-    data.darkness.levels = Array(3).fill(0)
+    for (let i = 0; i < 3; i++) {
+        data.darkness.levels = hasPassiveUpgrade(10+i) ? data.darkness.levels : 0
+    }
     data.darkness.drains = Array(7).fill(0)
     data.darkness.negativeChargeEnabled = false
     data.darkness.darkened = false
@@ -50,11 +52,18 @@ function obliterateReset(){
     data.baseless.baseless = false
     data.baseless.shifts = 0
     data.baseless.bestOrdinalInMode = Array(3).fill(0)
-    data.baseless.anRebuyables = Array(anRebuyableData.length).fill(0)
+    for (let i = 0; i < 3; i++) {
+        data.baseless.anRebuyables[i] = hasPassiveUpgrade(13) ? data.baseless.anRebuyables[i] : 0
+    }
+    for (let i = 3; i < 5; i++) {
+        data.baseless.anRebuyables[i] = hasPassiveUpgrade(14) ? data.baseless.anRebuyables[i] : 0
+    }
 
     data.omega.bestRemnants = 0
     data.omega.alephOmega = 1
-    data.omega.bestFBInPurification = Array(4).fill(0)
+    for (let i = 0; i < data.omega.bestFBInPurification.length; i++) {
+        data.omega.bestFBInPurification[i] = hasPassiveUpgrade(15+i) ? data.omega.bestFBInPurification[i] : 0
+    }
     data.omega.purificationIsActive = Array(4).fill(false)
     data.omega.whichPurification = -1
     data.omega.aoRebuyables = Array(8).fill(0)

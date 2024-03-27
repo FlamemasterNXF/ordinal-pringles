@@ -85,7 +85,6 @@ let treeEdges = new vis.DataSet([
     { from: 507, to: 508 },
 ])
 
-// create a network
 let treeContainer = DOM("energyTree")
 let treeData = {
     nodes: treeNodes,
@@ -162,5 +161,6 @@ function updateEnergyTreeText(id){
 
 function purchaseTreeUpgrade(id, node){
     data.obliterate.energy -= node.cost
+    data.obliterate.passiveEnergy += node.cost
     data.obliterate.energyUpgrades.push(id)
 }

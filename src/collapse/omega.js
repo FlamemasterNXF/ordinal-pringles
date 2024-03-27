@@ -258,7 +258,7 @@ let aoEffects = [
 let remnantAmt = () => (data.omega.bestFBInPurification[0]+data.omega.bestFBInPurification[1]+data.omega.bestFBInPurification[2]+data.omega.bestFBInPurification[3])*getAOREffect(0)
 let pureBoostGain = () => Math.max(0, (data.boost.times-data.omega.bestFBInPurification[data.omega.whichPurification]))
 let getAOEffect = (i) => Math.max(aoEffects[i](), 1)
-let hasAOMilestone = (i) => data.omega.bestRemnants >= aoMilestoneData[i].req
+let hasAOMilestone = (i) => data.omega.bestRemnants >= aoMilestoneData[i].req || isAOMilestonePermanent(i)
 let inAnyPurification = () => data.omega.purificationIsActive.includes(true)
 let inPurification = (i) => data.omega.purificationIsActive[i]
 let purificationEffect = (i) => Math.max(purificationData[i].eff(), 1)

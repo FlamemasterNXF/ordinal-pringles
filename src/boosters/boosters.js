@@ -1,15 +1,19 @@
 function checkAutobuyerDisplay(){
     //TODO: I REALLY need to optimize this garbage :(
-    DOM('t2AutoText2').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
-    DOM('t2AutoText3').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
-    DOM('t2AutoText4').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
+    DOM('t2AutoText2').style.display = hasSluggishMilestone(2) ? 'block' : 'none'
+    DOM('t2AutoText3').style.display = hasSluggishMilestone(2) ? 'block' : 'none'
+    DOM('t2AutoText4').style.display = hasSluggishMilestone(3) ? 'block' : 'none'
     DOM('t2AutoText5').style.display = data.sing.hasEverHadFunction[1] ? 'block' : 'none'
     DOM('t2AutoText6').style.display = data.sing.hasEverHadFunction[3] ? 'block' : 'none'
-    DOM('auto4').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
-    DOM('auto5').style.display = data.collapse.hasSluggish[2] ? 'block' : 'none'
-    DOM('auto6').style.display = data.collapse.hasSluggish[3] ? 'block' : 'none'
+    DOM('t2AutoText7').style.display = hasPassiveUpgrade(21) ? 'block' : 'none'
+    DOM('t2AutoText8').style.display = hasPassiveUpgrade(22) ? 'block' : 'none'
+    DOM('auto4').style.display = hasSluggishMilestone(2) ? 'block' : 'none'
+    DOM('auto5').style.display = hasSluggishMilestone(2) ? 'block' : 'none'
+    DOM('auto6').style.display = hasSluggishMilestone(3) ? 'block' : 'none'
     DOM('auto7').style.display = data.sing.hasEverHadFunction[0] ? 'block' : 'none'
     DOM('auto8').style.display = data.sing.hasEverHadFunction[3] ? 'block' : 'none'
+    DOM('auto9').style.display = hasPassiveUpgrade(21) ? 'block' : 'none'
+    DOM('auto10').style.display = hasPassiveUpgrade(22) ? 'block' : 'none'
 }
 
 const bupDesc = ['Each Factor\'s effect is doubled', 'Boost OP gain by 5x', 'The Ordinal Base is always 5 in Challenges', 'Dynamic Gain is multiplied by your C5 completions in C1-C4', 'Every 10 Darkness Upgrades purchased reduces Hierarchy Bases by 1',
@@ -63,10 +67,10 @@ function initBUPHover(){
     }
 }
 function checkSpecialBUPs(){
-    DOM(`bup4`).style.display = data.collapse.hasSluggish[3] ? `block` : `none`
-    DOM(`bup9`).style.display = data.collapse.hasSluggish[3] ? `block` : `none`
-    DOM(`bup14`).style.display = data.collapse.hasSluggish[3] ? `block` : `none`
-    DOM(`bu4`).style.display = data.collapse.hasSluggish[3] ? `block` : `none`
+    DOM(`bup4`).style.display = hasSluggishMilestone(3) ? `block` : `none`
+    DOM(`bup9`).style.display = hasSluggishMilestone(3) ? `block` : `none`
+    DOM(`bup14`).style.display = hasSluggishMilestone(3) ? `block` : `none`
+    DOM(`bu4`).style.display = hasSluggishMilestone(3) ? `block` : `none`
 }
 
 const chargedBUPDesc = ['Each Factor\'s effect is Quadrupled', 'Boost OP gain by 500x', 'The Ordinal Base is always 4 in Challenges', 'Dynamic Gain is multiplied by your C5 completions', 'Every 10 Darkness Upgrades or Drains purchased reduces Hierarchy Bases by 1',
@@ -115,9 +119,9 @@ let sBUP2Effect = () => data.boost.hasBUP[14] ? data.boost.isCharged[14] ? aleph
     : alephTotalEffect()*getOverflowEffect(7)
     : 1
 
-const autoNames = ['Max All', 'Markup', 'Sacrifice for Charge', 'RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge']
-const autoDisplayNames = ['Max All', 'Markup', 'Charge', 'RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge']
-const autoRequirements = [', but only if you can\'t Factor Shift', ', but only if you\'re past Ψ(Ω)', '', ', but only if you can\'t afford a Charge', '', '', ', but only if you already have the required Booster Upgrade']
+const autoNames = ['Max All', 'Markup', 'Sacrifice for Charge', 'RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge', 'ℵ<sub>0</sub> Upgrade', 'ℵ<sub>&omega;</sub> Upgrades']
+const autoDisplayNames = ['Max All', 'Markup', 'Charge', 'RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge', 'ℵ<sub>0</sub> Upgrades', 'ℵ<sub>&omega;</sub> Upgrades']
+const autoRequirements = [', but only if you can\'t Factor Shift', ', but only if you\'re past Ψ(Ω)', '', ', but only if you can\'t afford a Charge', '', '', ', but only if you already have the required Booster Upgrade', '', '']
 const autoUps = [5, 10]
 function updateBoostersHTML(){
     DOM('boosterText').innerHTML = data.boost.unlocks[1] > 0 ?
@@ -130,7 +134,7 @@ function updateBoostersHTML(){
     //DOM('bup11').innerText = `${data.boost.isCharged[11]?chargedBUPDesc[11]:bupDesc[11]}\n[${format(bup11Effect())}x]\n${data.boost.isCharged[11]?'':bupCosts[11]} Boosters`
     for (let i = 0; i < data.autoStatus.enabled.length; i++) {
         DOM(`t2AutoText${i}`).innerHTML = `Your <span style="color: #80ceff">${autoDisplayNames[i]} AutoBuyer</span> is clicking the ${autoNames[i]} button${i > 2 ? 's' : ''} <span style="color: #8080FF">${i < 2 ? format(t2Auto()) : 20} times/second</span>${autoRequirements[i]}`
-        DOM(`auto${i+2}`).innerText = data.boost.hasBUP[autoUps[i]] || i > 1 ?`${autoDisplayNames[i]} AutoBuyer: ${formatBool(data.autoStatus.enabled[i], 'EDL')}`:`${autoDisplayNames[i]} AutoBuyer: LOCKED`
+        DOM(`auto${i+2}`).innerHTML = data.boost.hasBUP[autoUps[i]] || i > 1 ?`${autoDisplayNames[i]} AutoBuyer: ${formatBool(data.autoStatus.enabled[i], 'EDL')}`:`${autoDisplayNames[i]} AutoBuyer: LOCKED`
 
     }
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
@@ -202,7 +206,7 @@ function boost(f=false, auto=false, hotkey=false){
     }
 
     let bulkBoostAmt = getBulkBoostAmt();
-    if (auto && data.boost.times < 2 && !data.collapse.hasSluggish[4]) bulkBoostAmt = Math.min(2 - data.boost.times, bulkBoostAmt) // do not automatically boost past SM2
+    if (auto && data.boost.times < 2 && !hasSluggishMilestone(4)) bulkBoostAmt = Math.min(2 - data.boost.times, bulkBoostAmt) // do not automatically boost past SM2
 
     data.boost.amt += boosterGain()
     data.boost.total += boosterGain()
@@ -222,7 +226,7 @@ function boost(f=false, auto=false, hotkey=false){
     boosterReset()
 }
 function boostReq(n = data.boost.times){
-    if(data.boost.times === 0 && !data.collapse.hasSluggish[0]) return D(GRAHAMS_VALUE)
+    if(data.boost.times === 0 && !hasSluggishMilestone(0)) return D(GRAHAMS_VALUE)
     if(n >= 34) return D(BHO_VALUE).times(D(3).pow(n-33))
     let scaling = n < 30 ? 1 : Math.floor(100*(n/15))
     return n < 33 ? D(3 ** (n+1) * 4 * 10 * scaling) : D(BHO_VALUE)
@@ -282,20 +286,20 @@ function boosterUnlock(){
     else {DOM(`bu2`).style.backgroundColor = 'black';}
     if(overflowTabUnlocked()){ data.boost.unlocks[3] = true; DOM(`bu3`).style.backgroundColor = '#002480'; }
     else {DOM(`bu3`).style.backgroundColor = 'black';}
-    if((data.boost.total >= 12246 && data.collapse.hasSluggish[3]) || data.boost.unlocks[4]){ data.boost.unlocks[4] = true; DOM(`bu4`).style.backgroundColor = '#002480'; }
+    if((data.boost.total >= 12246 && hasSluggishMilestone(3)) || hasPassiveUpgrade(19) || data.boost.unlocks[4]){ data.boost.unlocks[4] = true; DOM(`bu4`).style.backgroundColor = '#002480'; }
     else {DOM(`bu4`).style.backgroundColor = 'black';}
 }
 
 function chalTabUnlocked(){
-    return data.boost.total>=6 || data.collapse.hasSluggish[1];
+    return data.boost.total>=6 || hasSluggishMilestone(1);
 }
 
 function incrementyTabUnlocked(){
-    return data.boost.total>=91 || data.collapse.hasSluggish[1];
+    return data.boost.total>=91 || hasSluggishMilestone(1);
 }
 
 function hierarchiesTabUnlocked(){
-    return data.boost.total>=325 || data.collapse.hasSluggish[4];
+    return data.boost.total>=325 || hasSluggishMilestone(4);
 }
 
 function overflowTabUnlocked(){
