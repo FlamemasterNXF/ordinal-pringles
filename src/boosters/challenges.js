@@ -31,7 +31,7 @@ function initChals(){
     }
     for (let i = 0; i < data.chal.completions.length; i++) {
         DOM(`chal${i}`).addEventListener('click', ()=>data.sToggles[1]?
-            createConfirmation("Are you sure?", "Entering a Challenge will preform a Booster Reset!", "No chance.", "Of course!", chalEnter, i)
+            createConfirmation("Are you sure?", "Entering a Challenge will perform a Booster Reset!", "No chance.", "Of course!", chalEnter, i)
         :chalEnter(i))
         updateChalHTML(i)
     }
