@@ -111,7 +111,7 @@ const energyUpgradeData = [
     ],
     [
         {
-            desc: 'Fractal Energy provides free levels of the first ℵ<sub>0</sub> Upgrade',
+            desc: 'Total Fractal Energy provides free levels of the first ℵ<sub>0</sub> Upgrade',
             cost: 1,
             effect: () => 1,
             hasExtraReq: false,
@@ -119,7 +119,7 @@ const energyUpgradeData = [
             extraReqText: '',
         },
         {
-            desc: 'Fractal Energy boosts the Singularity boost to Baselessness and the 2nd Singularity Effect is now positive',
+            desc: 'Total Fractal Energy boosts the Singularity boost to Baselessness and the 2nd Singularity Effect is now positive',
             cost: 1,
             effect: () => 1,
             hasExtraReq: false,
@@ -143,7 +143,7 @@ const energyUpgradeData = [
             extraReqText: '',
         },
         {
-            desc: 'Unlock a new Baseless Upgrade',
+            desc: 'Unlock Baseless Charge and Baseless Upgrades',
             cost: 1,
             effect: () => 1,
             hasExtraReq: false,
@@ -151,7 +151,7 @@ const energyUpgradeData = [
             extraReqText: '',
         },
         {
-            desc: 'Fractal Energy reduces the third Singularity Effect',
+            desc: 'Total Fractal Energy reduces the third Singularity Effect',
             cost: 2,
             effect: () => 1,
             hasExtraReq: false,
@@ -177,7 +177,7 @@ const energyUpgradeData = [
             extraReqText: '',
         },
         {
-            desc: 'Fractal Energy boosts the ℵ<sub>ω</sub> cap',
+            desc: 'Total Fractal Energy boosts the ℵ<sub>ω</sub> cap',
             cost: 1,
             effect: () => 1,
             hasExtraReq: false,
@@ -217,7 +217,7 @@ const energyUpgradeData = [
             extraReqText: '',
         },
         {
-            desc: 'While the Eternal are being Purified, Fractal Energy provides free levels of the fourth ℵ<sub>ω</sub> Upgrade',
+            desc: 'While the Eternal are being Purified, total Fractal Energy provides free levels of the fourth ℵ<sub>ω</sub> Upgrade',
             cost: 2,
             effect: () => 1,
             hasExtraReq: false,
@@ -225,7 +225,7 @@ const energyUpgradeData = [
             extraReqText: '',
         },
         {
-            desc: 'While the Inferior are being Purified, Fractal Energy greatly boosts the fifth ℵ<sub>ω</sub> Upgrade',
+            desc: 'While the Inferior are being Purified, total Fractal Energy greatly boosts the fifth ℵ<sub>ω</sub> Upgrade',
             cost: 2,
             effect: () => 1,
             hasExtraReq: false,
