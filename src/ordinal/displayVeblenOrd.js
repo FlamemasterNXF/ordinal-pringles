@@ -37,10 +37,11 @@ function displayInfiniteVeblenOrd(ord, over, base, trim = data.ord.trim){
 }
 
 // Displays Ordinals using Veblen and Psi when the value of ord is less than NUMBER.MAX_VALUE
-function displayPsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.base) {
+function displayPsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.base, aboveBHO = false) {
     if(D(ord).gt(Number.MAX_VALUE)) return displayInfinitePsiVeblenOrd(ord, trim, base)
     ord = Math.floor(ord)
     if(trim <= 0) return "..."
+    if(ord >= BHO_VALUE) aboveBHO = true
     if(ord === BHO_VALUE) {
         let finalOutput = "&phi;(1@[1,0])"
         return `${finalOutput.replaceAll('undefined', '')}`
@@ -49,23 +50,24 @@ function displayPsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.base) {
     if(maxOrdMarks < Infinity && new Decimal(ord).gt(new Decimal(maxOrdMarks.toString()))) {
         return displayPsiVeblenOrd(maxOrdMarks) + "x" + format(ord/Number(maxOrdMarks),2)
     }
-    if(ord === 0) return "0"
+    if(ord <= 0) return (aboveBHO ? "1" : "0")
     if(ord < 4) return extraOrdMarksVeblen[ord]
     const magnitude = Math.floor(Math.log(ord/4)/Math.log(3))
     const magnitudeAmount = 4*3**magnitude
     let finalOutput = ordMarksVeblen[Math.min(magnitude,ordMarksVeblen.length-1)]
-    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiVeblenOrd(ord-magnitudeAmount, trim-1))
-    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiVeblenOrd(Math.max(ord-magnitudeAmount+1, 1), trim-1))
+    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayPsiVeblenOrd(ord-magnitudeAmount, trim-1, base, aboveBHO))
+    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayPsiVeblenOrd(Math.max(ord-magnitudeAmount+1, 1), trim-1, base, aboveBHO))
     return `${finalOutput.replaceAll('undefined', '')}`
 }
 
 /*
     Displays Ordinals using Veblen and Psi when the value of ord is greater than NUMBER.MAX_VALUE
 */
-function displayInfinitePsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.base) {
+function displayInfinitePsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.base, aboveBHO = false) {
     if (D(ord).mag === Infinity || isNaN(D(ord).mag) || base < 1) return "Ω"
     ord = D(Decimal.floor(D(ord).add(0.000000000001)))
     if(trim <= 0) return "..."
+    if(ord.gte(BHO_VALUE)) aboveBHO = true
     if(ord.eq(BHO_VALUE)) {
         let finalOutput = "&phi;(1@[1,0])"
         return `${finalOutput}`
@@ -74,12 +76,12 @@ function displayInfinitePsiVeblenOrd(ord, trim = data.ord.trim, base = data.ord.
     if(D(ord).gt(maxOrdMarks)) {
         return displayInfinitePsiVeblenOrd(maxOrdMarks) + "x" + format(ord.div(maxOrdMarks),2)
     }*/
-    if(ord.eq(0)) return ""
+    if(ord.lte(0)) return (aboveBHO ? "1" : "0")
     if(ord.lt(4)) return extraOrdMarksVeblen[ord]
     const magnitude = Decimal.floor(Decimal.ln(ord.div(4)).div(Decimal.ln(3)))
     const magnitudeAmount = D(4).times(Decimal.pow(3, magnitude))
     let finalOutput = infiniteOrdMarksVeblen(magnitude) //Decimal.min(magnitude,ordMarksXStart[ordMarksXStart.length-1])
-    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayInfinitePsiVeblenOrd(ord.sub(magnitudeAmount), trim-1))
-    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayInfinitePsiVeblenOrd(Decimal.max(ord.sub(magnitudeAmount).plus(1), D(1)), trim-1))
+    if(finalOutput.includes("x"))finalOutput = finalOutput.replace(/x/, displayInfinitePsiVeblenOrd(ord.sub(magnitudeAmount), trim-1, base, aboveBHO))
+    if(finalOutput.includes("y"))finalOutput = finalOutput.replace(/y/, displayInfinitePsiVeblenOrd(Decimal.max(ord.sub(magnitudeAmount).plus(1), D(1)), trim-1, base, aboveBHO))
     return `${finalOutput.replaceAll('undefined', '')}`
 }
