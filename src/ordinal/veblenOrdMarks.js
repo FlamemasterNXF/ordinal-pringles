@@ -525,11 +525,20 @@ function powerOfOmega2Veblen(index, layer = 0) {
     let indexPow1 = D(PSI_VALUE).pow(indexPow)
     let indexMul = index.div(indexPow1).floor()
     let indexRem = index.sub(indexPow1.mul(indexMul))
-    let finalOutput = "";
+    let finalOutput = (layer ? "," : "");
+    if (indexRem.eq(index) && indexMul.eq(0)) {
+        indexMul = D(1);
+        indexRem = D(0);
+    }
+    if (indexRem.eq(0) && indexMul.gte(PSI_VALUE)) {
+        indexRem = D(indexMul)
+        indexMul = D(1);
+    }
     if (indexPow.gt(0) && indexPow.lt(3)) finalOutput += powerOfOmegaVeblen(indexMul, indexPow.sub(1))
-    if (indexPow.gte(3) && indexPow.lt(PSI_VALUE*Infinity)) finalOutput += powerOfOmegaVeblen(indexMul, indexPow)
-    if (indexRem.eq(index) && indexMul.eq(0)) indexMul = D(1)
-    if (indexPow.gte(PSI_VALUE)) finalOutput += powerOfOmegaVeblen(indexMul, 2).replaceAll("3", powerOfOmega2Veblen(indexPow))
+    if (indexPow.gte(3) && indexPow.lt(PSI_VALUE)) finalOutput += powerOfOmegaVeblen(indexMul, indexPow)
+    if (indexPow.gte(PSI_VALUE)) {
+        finalOutput += "1@["+powerOfOmega2Veblen(indexPow)+",0]"
+    }
     if (!indexRem.eq(index) && !finalOutput.includes("...")) finalOutput += powerOfOmega2Veblen(indexRem, layer+1)
     //console.log("pow="+indexPow.toString()+" pow1="+indexPow1.toString()+" mul="+indexMul.toString()+" rem="+indexRem.toString()+" index="+index.toString()+" layer="+layer.toString())
     return `${finalOutput.replaceAll('undefined', '')}`
