@@ -31,7 +31,7 @@ function initChals(){
     }
     for (let i = 0; i < data.chal.completions.length; i++) {
         DOM(`chal${i}`).addEventListener('click', ()=>data.sToggles[1]?
-            createConfirmation("Are you sure?", "Entering a Challenge will preform a Booster Reset!", "No chance.", "Of course!", chalEnter, i)
+            createConfirmation("Are you sure?", "Entering a Challenge will perform a Booster Reset!", "No chance.", "Of course!", chalEnter, i)
         :chalEnter(i))
         updateChalHTML(i)
     }
@@ -46,7 +46,7 @@ function updateChalHTML(i){
     DOM(`chal${i}`).style.backgroundColor = data.chal.active[i]?'#002480':data.chal.completions[i]===3?'rgba(0,175,35,0.7)':'black'
     DOM(`chal${i}`).style.color = (!(data.chal.completions[i]===3)||data.chal.active[i])?'#8080FF':'black'
     DOM(`chal${i}`).innerText = `Challenge ${i+1}\n${chalDesc[i]}\n\nGoal: ${format(chalGoals[i][data.chal.completions[i]])} OP\nReward: Factor ${i+1} slightly boosts Tier 2 Automation\nCompletions: ${data.chal.completions[i]}/3`
-    DOM(`chal1`).innerHTML = `Challenge 2<br>${chalDesc[1]}<br><br>Goal: ${data.chal.completions[1] === 3 ? 'Infinity' : displayPsiOrd(chalGoals[1][data.chal.completions[1]])}<br>Reward: Factor 2 slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[1]}/3`
+    DOM(`chal1`).innerHTML = `Challenge 2<br>${chalDesc[1]}<br><br>Goal: ${data.chal.completions[1] === 3 ? 'Infinity' : ordinalDisplay('', chalGoals[1][data.chal.completions[1]], 0, 3, data.ord.trim, true, true)}<br>Reward: Factor 2 slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[1]}/3`
     DOM(`chal7`).innerHTML = `Challenge 8<br>${chalDesc[7]}<br><br>Goal: ${format(chalGoals[7][data.chal.completions[7]])} OP<br>Reward: Dynamic Factor slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[7]}/3`
 }
 function chalEnter(i, force=false){

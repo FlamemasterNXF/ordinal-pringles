@@ -6,14 +6,17 @@ function updateSingularityHTML(){
         if(!hasSingFunction(i)) DOM(`singFunction${i}`).style.color = 'darkgray'
         if(data.sing.hasEverHadFunction[i] && singFunctions[i].hasEffect){
             hasPermanentFunction(i) ? DOM(`singFunction${i}`).innerHTML = `<span style="color: #0bce8a">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
-                : DOM(`singFunction${i}`).innerHTML = `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
+                : DOM(`singFunction${i}`).innerHTML = `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, ordinalDisplayTrim(3), false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
         }
     }
     checkPermanentFunction(6)
+    updateSingFunctionHTML(7)
+    updateSingFunctionHTML(8)
+    updateSingLevelHTML()
 }
 function updateSingLevelHTML(){
-    DOM(`singLevel`).innerHTML = `Your Singularity has a density of <b>${data.sing.level > 0 ? ordinalDisplay('H', data.sing.level, 0, 10, 3, false) : `H<sub>0</sub>`}</b> (10)`
-    DOM(`singLevel2`).innerHTML = `Your Singularity's highest ever density was <b>${data.sing.highestLevel > 0 ? ordinalDisplay('H', data.sing.highestLevel, 0, 10, 3, false) : `H<sub>0</sub>`}</b> (10)`
+    DOM(`singLevel`).innerHTML = `Your Singularity has a density of <b>${data.sing.level >= 0 ? ordinalDisplay('H', data.sing.level, 0, 10, ordinalDisplayTrim(3), false) : `H<sub>0</sub>`}</b> (10)`
+    DOM(`singLevel2`).innerHTML = `Your Singularity's highest ever density was <b>${data.sing.highestLevel > 0 ? ordinalDisplay('H', data.sing.highestLevel, 0, 10, ordinalDisplayTrim(3), false) : `H<sub>0</sub>`}</b> (10)`
 
     for (let i = 0; i < singEffects.length; i++) {
         DOM(`singEffect${i}`).innerHTML = `Your Singularity is ${singEffects[i].desc} <b>${format(singEffects[i].effect(), 3)}</b>`
@@ -23,14 +26,14 @@ function updateSingFunctionHTML(i){
     if(i >= data.sing.hasEverHadFunction.length) return
     if(data.sing.hasEverHadFunction[i]){
         DOM(`singFunction${i}`).innerHTML =
-            `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
-        if(!data.sing.hasEverHadFunction[i+1] && !i+1 >= data.sing.level)
-            DOM(`singFunction${i+1}`).innerHTML = `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i+1].requiredLevel, 0, 10, 3, false)}:</span> ?????????????????????????`
+            `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, ordinalDisplayTrim(3), false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
+        if((i+1 < data.sing.hasEverHadFunction.length) && !data.sing.hasEverHadFunction[i+1] && !i+1 >= data.sing.level)
+            DOM(`singFunction${i+1}`).innerHTML = `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i+1].requiredLevel, 0, 10, ordinalDisplayTrim(3), false)}:</span> ?????????????????????????`
     }
 }
 function checkPermanentFunction(i){
     if(hasPermanentFunction(i))
-        DOM(`singFunction${i}`).innerHTML = `<span style="color: #0bce8a">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
+        DOM(`singFunction${i}`).innerHTML = `<span style="color: #0bce8a">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, ordinalDisplayTrim(3), false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
 }
 function checkPermanentFunctions(){
     for (let i = 0; i < singFunctions.length; i++) {
@@ -52,10 +55,10 @@ function initSingularityFunctions(){
         el.id = `singFunction${i}`
 
         el.innerHTML = hasPermanentFunction(i) ?
-            `<span style="color: #0bce9a">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
+            `<span style="color: #0bce9a">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, ordinalDisplayTrim(3), false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
             : data.sing.hasEverHadFunction[i]
-            ? `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
-            : data.sing.hasEverHadFunction[i-1] || i===0 ? `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, 3, false)}:</span> ?????????????????????????` : `?????????????????????????`
+            ? `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, ordinalDisplayTrim(3), false)}:</span> ${singFunctions[i].hasUnlock ? `${singFunctions[i].unlockDescription} ${singFunctions[i].hasEffect ? 'and' : ''}` : ''} ${singFunctions[i].hasEffect ? `${singFunctions[i].effectDescription} ${format(singFunctions[i].effect())}` : ``}`
+            : data.sing.hasEverHadFunction[i-1] || i===0 ? `<span style="color: #80ce0b">Singularity Density ${ordinalDisplay('H', singFunctions[i].requiredLevel, 0, 10, ordinalDisplayTrim(3), false)}:</span> ?????????????????????????` : `?????????????????????????`
         DOM(`singFunctionContainer`).append(el)
     }
 }

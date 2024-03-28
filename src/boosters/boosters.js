@@ -135,6 +135,7 @@ function updateBoostersHTML(){
     }
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
 
+    if(boostTab === 'chal') updateAllChalHTML()
     if(boostTab === 'incrementy') updateIncrementyHTML()
     if(boostTab === 'hierarchies') updateHierarchiesHTML()
     if(boostTab === 'overflow') updateOverflowHTML()
