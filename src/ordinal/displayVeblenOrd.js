@@ -1,8 +1,8 @@
 // Displays Ordinals using Veblen when the value of ord is less than NUMBER.MAX_VALUE
 function displayVeblenOrd(ord,over,base,trim = data.ord.trim,forcePsi = false) {
     if(data.ord.isPsi || forcePsi) return displayPsiVeblenOrd(ord, trim)
-    if(ord === data.ord.ordinal && ord.gt(Number.MAX_VALUE)) return displayInfiniteVeblenOrd(ord, over, base, trim)
-    if(ord === data.ord.ordinal) ord = Number(ord)
+    if(D(ord).eq(data.ord.ordinal) && D(ord).gt(Number.MAX_VALUE)) return displayInfiniteVeblenOrd(ord, over, base, trim)
+    if(D(ord).eq(data.ord.ordinal)) ord = Number(ord)
 
     ord = Math.floor(ord)
     over = Math.floor(over)

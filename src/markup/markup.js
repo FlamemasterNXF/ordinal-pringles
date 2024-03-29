@@ -68,8 +68,8 @@ function opMult(){
     return mult*alephEffect(2)
 }
 function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over) {
-    if(ord===data.ord.ordinal && ord.gte(Number.MAX_VALUE)) return 4e256
-    if(ord===data.ord.ordinal) ord = Number(ord)
+    if(D(ord).eq(data.ord.ordinal) && D(ord).gte(Number.MAX_VALUE)) return 4e256
+    if(D(ord).eq(data.ord.ordinal)) ord = Number(ord)
     //if(data.ord.isPsi && base === 3){
     //    return Math.round(ord / 1e270 + 1) * 1e270
     //}
