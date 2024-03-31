@@ -96,6 +96,7 @@ function calcOrdPoints(ord = data.ord.ordinal, base = data.ord.base, over = data
 }
 const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 5e100, Infinity, Infinity]
 function getFSReq(){
+    if (data.markup.shifts >= 7) return Infinity // avoid phantom 1e256 on FS7
     const reqScale = data.chal.active[6] ? (totalBUPs()/2)+1.5 : 1
     const req = fsReqs[data.markup.shifts]**reqScale
 
