@@ -264,7 +264,7 @@ function bigHardy(ord, base, over=0)
     }
 
     if (highestPower.lt((base ** base) * 2)) {
-        let n = highestPower.sub(base ** base).logBase(base).floor().toNumber();
+        let n = highestPower.sub(base ** base).log(base).floor().toNumber();
         let arr = "{" + base + "," + base;
         for (let i = 0; i < n; i++) arr += ("," + base);
         arr += "[2]2}";
@@ -278,7 +278,7 @@ function bigHardy(ord, base, over=0)
     // w^(w+n) level - greatly simplified beyond this point as it's normally unreachable (ord already exceeds 1.79e308 for any base >= 4 where it's valid)
     if (highestPower.lt(EN(base).pow(base * 2))) {
         let arr = "{" + base + "," + base + "[2]";
-        let n = highestPower.logBase(base).sub(base).floor().toNumber();
+        let n = highestPower.log(base).sub(base).floor().toNumber();
         for (let i = 0; i < n; i++) arr += "1,"
         arr += "2}";
         return arr;
@@ -286,12 +286,12 @@ function bigHardy(ord, base, over=0)
 
     // w^(wn) level
     if (highestPower.lt(EN(base).pow(base ** 2))) {
-        return "{" + base + "," + highestPower.logBase(base).div(base).floor().toNumber() + "[3]2}";
+        return "{" + base + "," + highestPower.log(base).div(base).floor().toNumber() + "[3]2}";
     }
 
     // w^(w^n) level
     if (highestPower.lt(EN(base).pow(base ** base))) {
-        return "{" + base + "," + base + "[" + highestPower.logBase(base).logBase(base).add(1).floor().toNumber() + "]2}";
+        return "{" + base + "," + base + "[" + highestPower.log(base).log(base).add(1).floor().toNumber() + "]2}";
     }
 
     // w^(w^w) level and above (w^^n level) - extremely simplified as it's highly unreachable (ord > 4^^4)
