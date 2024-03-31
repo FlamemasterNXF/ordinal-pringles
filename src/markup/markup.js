@@ -5,7 +5,7 @@ function updateMarkupHTML(){
     DOM("markupButton").innerHTML =
         data.ord.isPsi&&data.ord.ordinal.eq(GRAHAMS_VALUE)&&data.boost.times===0&&!data.collapse.hasSluggish[0]?`Base 2 is required to go further...`:
         data.ord.isPsi?`Markup and gain ${ordinalDisplay('', data.ord.ordinal.plus(1), data.ord.over, data.ord.base, ((data.ord.displayType === "BMS") || (data.ord.displayType === "Y-Sequence")) ? Math.max(data.ord.trim, 4) : 4)} (I)`:
-        data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${formatWhole(opGain()*opMult())} Ordinal Powers (I)`:`${ordinalDisplay("H", data.ord.base**2, 0, data.ord.base, ordinalDisplayTrim(), false)}(${data.ord.base}) is required to Markup...`
+        data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${formatWhole(Math.min(opGain()*opMult(),4e256))} Ordinal Powers (I)`:`${ordinalDisplay("H", data.ord.base**2, 0, data.ord.base, ordinalDisplayTrim(), false)}(${data.ord.base}) is required to Markup...`
 
     DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0||data.collapse.hasSluggish[0]?`Perform a Factor Shift<br>Requires: ?????`:`Perform a Factor Shift<br>Requires: Graham's Number (${ordinalDisplay("H", 109, 0, 3, data.ord.trim, true, true)}(3))`:
         `Perform a Factor Shift (H)<br>Requires: ${format(getFSReq())} Ordinal Powers`
