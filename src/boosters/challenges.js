@@ -49,7 +49,7 @@ function updateChalHTML(i){
     DOM(`chal1`).innerHTML = `Challenge 2<br>${chalDesc[1]}<br><br>Goal: ${data.chal.completions[1] === 3 ? 'Infinity' : ordinalDisplay('', chalGoals[1][data.chal.completions[1]], 0, 3, data.ord.trim, true, true)}<br>Reward: Factor 2 slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[1]}/3`
     DOM(`chal7`).innerHTML = `Challenge 8<br>${chalDesc[7]}<br><br>Goal: ${format(chalGoals[7][data.chal.completions[7]])} OP<br>Reward: Dynamic Factor slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[7]}/3`
 }
-function chalEnter(i, force=false){
+function chalEnter(i, force=true){
     if((data.chal.completions[i] === 3 || data.chal.active.includes(true)) && !force) return
 
     if(i === 5) for (let j = 0; j < data.chal.active.length-4; j++) data.chal.active[j] = true
