@@ -10,12 +10,12 @@ function displayVeblenOrd(ord,over,base,trim = data.ord.trim,forcePsi = false) {
     if(ord < base) return ord+over
     const magnitude = Math.floor(Math.log(ord)/Math.log(base)+1e-14)
     const magnitudeAmount = base**magnitude
-    const amount = Math.floor(ord/magnitudeAmount)
+    const amount = Math.floor((ord/magnitudeAmount)+1e-14)
     let finalOutput = "&phi;(1)"
     if (magnitude > 1) finalOutput = "&phi;("+displayVeblenOrd(magnitude, 0, base)+")"
     if (amount > 1) finalOutput += amount
     const firstAmount = amount*magnitudeAmount
-    if(ord-firstAmount > 0) finalOutput += "+" + displayVeblenOrd(ord-firstAmount, over, base, trim - 1)
+    if(ord-firstAmount > 0.1) finalOutput += "+" + displayVeblenOrd(ord-firstAmount, over, base, trim - 1)
     return finalOutput
 }
 
@@ -27,12 +27,12 @@ function displayInfiniteVeblenOrd(ord, over, base, trim = data.ord.trim){
     if(ord.lt(base)) return ord.plus(over)
     const magnitude = Decimal.floor(Decimal.ln(ord).div(Decimal.ln(base)).plus(D(1e-14)))
     const magnitudeAmount = D(base).pow(magnitude)
-    const amount = Decimal.floor(ord.div(magnitudeAmount))
+    const amount = Decimal.floor(ord.div(magnitudeAmount).plus(D(1e-14)))
     let finalOutput = "&phi;(1)"
     if (magnitude.gt(1)) finalOutput = "&phi;("+displayInfiniteVeblenOrd(magnitude, 0, base)+")"
     if (amount.gt(1)) finalOutput += amount
     const firstAmount = amount.times(magnitudeAmount)
-    if(ord.sub(firstAmount).gt(0)) finalOutput += "+" + displayInfiniteVeblenOrd(ord.sub(firstAmount), over, base, trim - 1)
+    if(ord.sub(firstAmount).gt(0.1)) finalOutput += "+" + displayInfiniteVeblenOrd(ord.sub(firstAmount), over, base, trim - 1)
     return finalOutput
 }
 

@@ -28,13 +28,13 @@ function displayBMSOrd(ord, over, base, trim = data.ord.trim, depth = 0, final =
     }
     const magnitude = Math.floor(Math.log(ord)/Math.log(base)+1e-14)
     const magnitudeAmount = base**magnitude
-    const amount = Math.floor(ord/magnitudeAmount)
+    const amount = Math.floor((ord/magnitudeAmount)+1e-14)
     let curBMS = "("+depth+")"
     if (magnitude >= 1) curBMS += displayBMSOrd(magnitude, 0, base, trim, depth + 1, false)
     let finalOutput = ""
     for (let i = 0; i < amount; i++) finalOutput += curBMS
     const firstAmount = amount*magnitudeAmount
-    if(ord-firstAmount > 0) finalOutput += displayBMSOrd(ord-firstAmount, over, base, trim - 1, depth, false)
+    if(ord-firstAmount > 0.1) finalOutput += displayBMSOrd(ord-firstAmount, over, base, trim - 1, depth, false)
     return final ? trimBMSFinalOutput(finalOutput, trim) : finalOutput
 }
 
@@ -56,13 +56,13 @@ function displayInfiniteBMSOrd(ord, over, base, trim = data.ord.trim, depth = 0,
     }
     const magnitude = Decimal.floor(Decimal.ln(ord).div(Decimal.ln(base)).plus(D(1e-14)))
     const magnitudeAmount = D(base).pow(magnitude)
-    const amount = Decimal.floor(ord.div(magnitudeAmount))
+    const amount = Decimal.floor(ord.div(magnitudeAmount).plus(D(1e-14)))
     let curBMS = "("+depth+")"
     if (magnitude.gte(1)) curBMS += displayInfiniteBMSOrd(magnitude, 0, base, trim, depth + 1, false, recursionDepth + 1)
     let finalOutput = ""
     for (let i = 0; i < amount.toNumber(); i++) finalOutput += curBMS
     const firstAmount = amount.times(magnitudeAmount)
-    if(ord.sub(firstAmount).gt(0)) finalOutput += displayInfiniteBMSOrd(ord-firstAmount, over, base, trim - 1, depth, false, recursionDepth)
+    if(ord.sub(firstAmount).gt(0.1)) finalOutput += displayInfiniteBMSOrd(ord-firstAmount, over, base, trim - 1, depth, false, recursionDepth)
     return final ? trimBMSFinalOutput(finalOutput, trim) : finalOutput
 }
 
