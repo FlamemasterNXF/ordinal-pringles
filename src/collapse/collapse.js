@@ -326,8 +326,12 @@ function collapseCardinals(){
         }
     }
     else{
+        let nUnlock = 0
         for (let i = 0; i < data.collapse.alephs.length; i++) {
-            data.collapse.alephs[i] += Math.floor(usedCardinals/8)
+            if (alephData[i].unl()) nUnlock++
+        }
+        for (let i = 0; i < data.collapse.alephs.length; i++) {
+            if (alephData[i].unl()) data.collapse.alephs[i] += Math.floor(usedCardinals/nUnlock)
             updateAlephHTML(i)
         }
     }
