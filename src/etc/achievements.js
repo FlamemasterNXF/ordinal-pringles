@@ -33,7 +33,7 @@ const achievements = [
         id: 16,
         name: "The Ultimate Infinity",
         description: "Reach Ψ(Ω₂)",
-        req: () => data.ord.ordinal.gte(BHO_VALUE)
+        req: () => data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE)
     },
     {
         id: 21,
