@@ -98,6 +98,7 @@ function updateAllAlephHTML(){
 }
 function updateTotalAlephHTML(){
     DOM(`alephTotal`).innerHTML = `You have <span style='color: #20da45'><b>${format(getTotalAlephs())} Total ℵ</b></span>, multiplying Cardinal gain by <span style='color: #20da45'><b>${format(alephTotalEffect())}x</b></span>`
+    DOM(`omega2Text`).innerHTML = ordinalDisplay("", BHO_VALUE, 0, 3, data.ord.trim, true, true)
 }
 function updateUnlockHTML(mode, i){
     switch (mode) {
