@@ -5,7 +5,7 @@ function updateMarkupHTML(){
     DOM("markupButton").innerHTML =
         data.ord.isPsi&&data.ord.ordinal.eq(GRAHAMS_VALUE)&&data.boost.times===0&&!hasSluggishMilestone(0)?`Base 2 is required to go further...`:
         data.ord.isPsi?`Markup and gain ${ordinalDisplay('', data.ord.ordinal.plus(1), data.ord.over, data.ord.base, ((data.ord.displayType === "BMS") || (data.ord.displayType === "Y-Sequence")) ? Math.max(data.ord.trim, 4) : 4)} (I)`:
-        data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${formatWhole(opGain()*opMult())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
+        data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${formatWhole(totalOPGain())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
 
     DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0||hasSluggishMilestone(0)?`Perform a Factor Shift<br>Requires: ?????`:`Perform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
         `Perform a Factor Shift (H)<br>Requires: ${format(getFSReq())} Ordinal Powers`
@@ -46,15 +46,16 @@ function markup(n=D(1)){
     if(data.ord.isPsi){
         data.ord.ordinal = data.ord.ordinal.plus(n);
         if (capOrdinalAtBO && data.ord.base===3 && data.ord.ordinal.gt(BO_VALUE)) data.ord.ordinal = D(BO_VALUE)
-        return data.markup.powers = 4e256
+        if(data.markup.powers.lt("e1e10")) data.markup.powers = D(4e256)
+        return
     }
 
     if(data.chal.active[7]){
-        data.markup.powers = 0
+        data.markup.powers = D(0)
         data.chal.decrementy = D(1)
     }
     data.ord.isPsi = false
-    data.markup.powers += totalOPGain()
+    data.markup.powers = data.markup.powers.plus(totalOPGain())
     data.ord.ordinal = D(0)
     data.ord.over = 0
     data.successorClicks = 0
@@ -67,19 +68,22 @@ function opMult(){
 
     return mult*alephEffect(2)
 }
+let opGainBase = 10
 function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over) {
-    if(ord===data.ord.ordinal && ord.gte(Number.MAX_VALUE)) return 4e256
-    if(ord===data.ord.ordinal) ord = Number(ord)
+    if(ord===data.ord.ordinal && ord.gte(Number.MAX_VALUE) && !inOmegaMode()) return 4e256
+    if(ord===data.ord.ordinal && !inOmegaMode()) ord = Number(ord)
     //if(data.ord.isPsi && base === 3){
     //    return Math.round(ord / 1e270 + 1) * 1e270
     //}
-    if (ord < base) return ord + over
-    let pow = Math.floor(Math.log(ord + 0.1) / Math.log(base))
-    let divisor = Math.pow(base, pow)
-    let mult = Math.floor((ord + 0.1) / divisor)
+    if (ord.lt(base)) return ord.plus(over)
+    let pow = Decimal.floor(Decimal.ln(ord.plus(0.1)).div(Math.log(base)))
+    let divisor = Decimal.pow(base, pow)
+    let mult = Decimal.floor((ord.plus(0.1)).div(divisor))
+
+    if(inOmegaMode()) return D(opGainBase).pow(opGain(pow, base, 0)).times(mult).plus(opGain(ord.sub(divisor.times(mult)), base, over))
     return Math.min(4e256, 10 ** Math.min(4e256, opGain(pow, base, 0)) * mult + Math.min(4e256, opGain(ord - divisor * mult, base, over)))
 }
-let totalOPGain = () => Math.min(4e256, opGain()*opMult())
+let totalOPGain = () => inOmegaMode() ? opGain().times(opMult()) : Decimal.min(4e256, opGain()*opMult())
 function calcOrdPoints(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over, trim=0) {
     let opBase = new Decimal(10)
     if (trim >= 10) return new Decimal(0)
@@ -103,7 +107,7 @@ function getFSReq(){
 }
 
 function factorShiftConfirm(){
-    if(data.baseless.baseless || data.markup.powers < getFSReq())  return
+    if(data.baseless.baseless || data.markup.powers.lt(getFSReq()))  return
 
     createConfirmation('Are you sure?', 'Performing a Factor Shift will reduce your Base by 1 and unlock a new Factor, but it will reset your Ordinal, Ordinal Powers, Factors, and Automation!', 'No Way!', 'Yes, lets do this.', factorShift)
 }
@@ -117,7 +121,7 @@ function factorShift(isAuto = false){
 
     const req = getFSReq()
 
-    if(data.markup.powers < req) return //createAlert("Failure", "Insufficient Ordinal Powers", "Dang.")
+    if(data.markup.powers.lt(req)) return //createAlert("Failure", "Insufficient Ordinal Powers", "Dang.")
     if(!data.chal.active[3] && !(data.boost.hasBUP[2] && checkAllIndexes(data.chal.active, true))) --data.ord.base
     if(data.markup.shifts < 7) ++data.markup.shifts
 
@@ -134,7 +138,7 @@ function factorShift(isAuto = false){
 function fsReset(){
     data.ord.ordinal = D(0)
     data.ord.over = 0
-    data.markup.powers = 0
+    data.markup.powers = D(0)
     for (let i = 0; i < data.autoLevels.length; i++) {
         data.autoLevels[i] = 0
     }

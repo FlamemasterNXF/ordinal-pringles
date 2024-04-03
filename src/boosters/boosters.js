@@ -177,7 +177,7 @@ function boosterReset(){
     data.ord.over = 0
     data.ord.base = data.chal.active[2]?15:10
     data.ord.isPsi = false
-    data.markup.powers = 0
+    data.markup.powers = D(0)
     data.markup.shifts = 0
     data.dy.level = 1
     data.dy.gain = 0

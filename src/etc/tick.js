@@ -14,7 +14,7 @@ let t2Auto = () => inPurification(2)
 
 function tick(diff){
     // TODO: PSI Check, probably doesn't need to be on tick()
-    if(!data.ord.isPsi && data.ord.ordinal.gte(PSI_VALUE) && data.ord.base === 3) {
+    if(!data.ord.isPsi && data.ord.ordinal.gte(PSI_VALUE) && data.ord.base === 3 && !inOmegaMode()) {
         data.ord.isPsi = true
         data.ord.ordinal = D(4)
     }
@@ -63,7 +63,7 @@ function tick(diff){
 
     // Automation Tier 2
     // BuyMax Autobuyer
-    if(timesToLoop[2].gte(1) && (data.markup.powers < fsReqs[data.markup.shifts] || data.ord.base === 3 || data.baseless.baseless) && data.autoStatus.enabled[0]){
+    if(timesToLoop[2].gte(1) && (data.markup.powers.lt(fsReqs[data.markup.shifts]) || data.ord.base === 3 || data.baseless.baseless) && data.autoStatus.enabled[0]){
         buyMaxT1()
     }
 

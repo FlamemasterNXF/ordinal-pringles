@@ -6,7 +6,7 @@ function mainLoop() {
     let uDiff = diff/1000
 
     if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level = Math.min(data.dy.cap, data.dy.level+uDiff*dyGain())
-    if(data.boost.hasBUP[11]) data.markup.powers += bup9Effect()*uDiff
+    if(data.boost.hasBUP[11]) data.markup.powers = data.markup.powers.plus(bup9Effect()*uDiff)
 
     if(data.chal.active[7]) data.chal.decrementy = Decimal.max(1, data.chal.decrementy.mul(decrementyGain().pow(uDiff)))
 
@@ -17,7 +17,8 @@ function mainLoop() {
     }
 
     if(hasCUP(7)) data.collapse.cardinals += (data.collapse.bestCardinalsGained/100)*cupEffect(7)*uDiff
-    if(hasSluggishMilestone(0) && calculateSimpleHardy().gte(10240) && !data.ord.isPsi && data.markup.powers < 4e256) data.markup.powers += (totalOPGain()/100)*uDiff
+
+    if(hasSluggishMilestone(0) && calculateSimpleHardy().gte(10240) && !data.ord.isPsi && data.markup.powers.lt(4e256)) data.markup.powers = data.markup.powers.plus((totalOPGain().div(100)).times(uDiff))
 
     if(remnantAmt() > 0 && data.omega.alephOmega < remnantAmt()) data.omega.alephOmega += aoGain()*uDiff
     if(data.omega.alephOmega > remnantAmt()) data.omega.alephOmega = remnantAmt()

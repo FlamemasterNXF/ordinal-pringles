@@ -19,7 +19,7 @@ function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
         ord: {ordinal:D(1), over:0, base:10, trim: 5, isPsi: false, color:false, displayType: 'Buchholz'},
-        markup: {powers:0, shifts:0},
+        markup: {powers:D(0), shifts:0},
         factors: Array(7).fill(0),
         dy: {level:1, gain:0, cap:40},
         autoLevels: Array(2).fill(0),
@@ -33,7 +33,7 @@ function getDefaultObject() {
         sing: {highestLevel:0, level:0, tutorial:false, hasEverHadFunction: Array(singFunctions.length).fill(false)},
         baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), anRebuyables: Array(anRebuyableData.length).fill(0), tutorial: false},
         omega:{bestRemnants: 0, alephOmega:1, bestFBInPurification: Array(4).fill(0), purificationIsActive: Array(4).fill(false), whichPurification: -1, aoRebuyables:Array(8).fill(0), tutorial: false},
-        obliterate:{times:0, energy:0, pringles:0, passiveEnergy:0, energyUpgrades: [], pringlesBeforeDrain: 0, currentDrain:-1, hasPassiveUpgrade: Array(passiveEnergyDescriptions.length).fill(false), containers: [
+        obliterate:{times:0, energy:0, pringles:0, passiveEnergy:0, energyUpgrades: [], pringlesBeforeDrain: 0, currentDrain:-1, hasPassiveUpgrade: Array(passiveEnergyDescriptions.length).fill(false), inOmegaMode: false, containers: [
                 {percentFilled: 0, length: 300, timeActive: 0, draining: false, active: false},
                 {percentFilled: 0, length: 180, timeActive: 0, draining: false, active: false},
                 {percentFilled: 0, length: 120, timeActive: 0, draining: false, active: false},
@@ -94,8 +94,10 @@ function fixOldSaves(){
     //Decimal Fix
     if(Number.isNaN(data.incrementy.amt.toNumber())) data.incrementy.amt = D(0)
     if(Number.isNaN(data.ord.ordinal.toNumber())) data.ord.ordinal = D(0)
+    if(Number.isNaN(data.markup.powers.toNumber())) data.markup.powers = D(0)
     data.incrementy.amt = D(data.incrementy.amt)
     data.ord.ordinal = D(data.ord.ordinal)
+    data.markup.powers = D(data.markup.powers)
 
     //AutoShift Fix
     if(data.markup.shifts > 7) data.markup.shifts = 7

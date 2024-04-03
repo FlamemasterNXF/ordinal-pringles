@@ -39,13 +39,14 @@
     <script defer src="src/etc/tabs.js"></script>
     <script defer src="src/etc/settings.js"></script>
 
+    <script defer src="src/obliterate/omega.js"></script>
     <script defer src="src/obliterate/passiveEnergy.js"></script>
     <script defer src="src/obliterate/energyUpgrades.js"></script>
     <script defer src="src/obliterate/energyTree.js"></script>
     <script defer src="src/obliterate/pringles.js"></script>
     <script defer src="src/obliterate/obliterate.js"></script>
 
-    <script defer src="src/collapse/omega.js"></script>
+    <script defer src="src/collapse/purification.js"></script>
     <script defer src="src/collapse/baseless.js"></script>
     <script defer src="src/collapse/singularity.js"></script>
     <script defer src="src/collapse/darkness.js"></script>
@@ -312,7 +313,7 @@
             <button class="collapseTabButton" id="autoPrestigeTab" onclick="switchSubtab('autoPrestige', 'collapse')">???</button>
             <button class="collapseTabButton" id="singTab" onclick="switchSubtab('sing', 'collapse')">???</button>
             <button class="collapseTabButton" id="baselessTab" onclick="switchSubtab('baseless', 'collapse')">???</button>
-            <button class="collapseTabButton" id="omegaTab" onclick="switchSubtab('omega', 'collapse')" style="border-color:darkred; color:#ce0b0b">???</button>
+            <button class="collapseTabButton" id="purificationTab" onclick="switchSubtab('purification', 'collapse')" style="border-color:darkred; color:#ce0b0b">???</button>
         </div>
         <div class="flexBox" id="collapseInfoContainer" style="margin-top: 0.1rem; flex-direction: column">
             <h3 class="centeredTexts" id="cardinalsText" style="color: #20da45;">You have Collapsed Chips. In your house.</h3>
@@ -388,7 +389,7 @@
             <t class="centeredTexts" style="color: #9e5803; margin-top: 2rem">Click the red Realm text to change the Realm you enter</t>
             <t class="centeredTexts" style="color: #9e5803;">You cannot enter Darkness while in any of the Baseless Realms</t>
         </div>
-        <div class="flexBox" id="omegaSubPage" style="display: none; flex-direction: column;">
+        <div class="flexBox" id="purificationSubPage" style="display: none; flex-direction: column;">
             <t class="centeredTexts" id="alephOmega" style="color: darkred; margin-top: 1rem">Omegel</t>
             <div class="flexBox" id="purificationContainer" style="margin-top: 1rem"></div>
             <div class="flexBox" id="aoRebuyableContainer" style="flex-direction: column; margin-top: 0.5rem"></div>
@@ -400,6 +401,7 @@
             <button class="obliterateTabButton" id="pringlesTab" onclick="switchSubtab('pringles', 'obliterate')">Pringles</button>
             <button class="obliterateTabButton" id="energyTab" onclick="switchSubtab('energy', 'obliterate')">Energy</button>
             <button class="obliterateTabButton" id="passiveTab" onclick="switchSubtab('passive', 'obliterate')">Passive Energy</button>
+            <button class="obliterateTabButton" id="omegaTab" onclick="switchSubtab('omega', 'obliterate')" style="border-color:#784013; color:#da8320">Omega Mode</button>
         </div>
         <div class="flexBox" id="obliterateInfoContainer" style="margin-top: 0.1rem; flex-direction: column">
             <h3 class="centeredTexts" id="energyText" style="color: #ae50b4;">You have no Chips. In your house. You are broke.</h3>
@@ -425,6 +427,9 @@
             <div class="flexBox" id="passiveUpgradeContainer" style="margin-top: 0.5rem; flex-direction: column"></div>
             <t class="centeredTexts" style="margin-top: 1rem">Whenever <span style="color: #d56cdc">Fractal Energy</span> is spent <span style="color: #bd80ff">Passive Energy</span> is gained.</t>
             <t class="centeredTexts" style="margin-top: 0.25rem">Every <span style="color: #bd80ff">Passive Upgrade</span> costs one <span style="color: #bd80ff">Passive Energy</span>, but you must buy the previous Upgrade in the row first<br>Each row of Passive Upgrades bought causes a Purification Milestone to become Permanent.</t>
+        </div>
+        <div class="flexBox" id="omegaSubPage" style="display: none; flex-direction: column;">
+            <button id="omegaModeButton" onclick="toggleOmegaMode()" style="margin-top: 2rem; width: 35rem; height: 15rem; border: 3px solid #781f13; background-color: black; border-radius: 50px">Hi Downvoid</button>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;"></div>

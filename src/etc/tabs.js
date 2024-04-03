@@ -83,7 +83,7 @@ function switchSubtab(t, mode){
             updateBaselessEnterHTML(data.baseless.mode, true)
         }
         if(t === "autoPrestige") updateAutoPrestigeHTML()
-        if(t === "omega") {
+        if(t === "purification") {
             if(!data.omega.tutorial){
                 createAlert('Tutorial Time!', 'In order to gain ℶ<sub>&omega;</sub> you must enter a Purification and reach a never-before-reached Factor Boost within that Purification! This means ℶ<sub>&omega;</sub> is NOT farmable! Have fun!', 'Thanks for the tips!')
                 data.omega.tutorial = true
@@ -101,6 +101,7 @@ function switchSubtab(t, mode){
     if(mode === "obliterate"){
         if(t === 'energy' && !hasDrawnTree) drawTree()
         if(t === 'passive') updatePassiveEnergyText()
+        if(t === 'omega') updateOmegaModeText()
 
         DOM(`obliterateButton`).style.display = t === 'pringles' ? 'block' : 'none'
         DOM(`obliterateInfoContainer`).style.display = t === 'passive' ? 'none' : 'flex'

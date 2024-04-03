@@ -115,7 +115,7 @@ function chalEffectTotal(){
 }
 function decrementyGain() {
     const exponent = 1+hupData[4].effect()+getANREffect(2)-singEffects[1].effect()
-    const base = D(0.000666).times((D(data.markup.powers+1)).pow(0.2).times(2).pow(exponent))
+    const base = D(0.000666).times((data.markup.powers.plus(1)).pow(0.2).times(2).pow(exponent))
     const overflow = data.overflow.thirdEffect ? base.div(getOverflowEffect(2)) : base.times(getOverflowEffect(2))
     return (overflow).pow(20) // 20 times per second
 }

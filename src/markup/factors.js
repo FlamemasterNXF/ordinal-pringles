@@ -1,11 +1,11 @@
 function autoCost(n) {
-    return 100*2**data.autoLevels[n]
+    return D(100).times(D(2).pow(data.autoLevels[n]))
 }
 
 function buyAuto(n) {
     if(data.chal.active[0] && data.autoLevels[n] >= 1) return
-    if (data.markup.powers < autoCost(n)) return
-    data.markup.powers -= autoCost(n)
+    if (data.markup.powers.lt(autoCost(n))) return
+    data.markup.powers = data.markup.powers.sub(autoCost(n))
     ++data.autoLevels[n]
 }
 function buyMaxAuto() {
@@ -14,18 +14,18 @@ function buyMaxAuto() {
 
     if (data.chal.active[0]) return
 
-    let bulkSucc = Math.floor(Math.log2(1 + (data.markup.powers / (100 * (2 ** data.autoLevels[0])))))
-    data.markup.powers -= (((2 ** bulkSucc) - 1) * 100 * (2 ** data.autoLevels[0]))
-    data.autoLevels[0] += bulkSucc
+    let bulkSucc = Decimal.floor(Decimal.log2(D(1).plus(data.markup.powers.div(D(100).times(D(2).pow(data.autoLevels[0]))))))
+    if(data.markup.powers.lt("ee10")) data.markup.powers = data.markup.powers.sub(((D(2).pow(bulkSucc)).sub(1)).times(100).times(D(2).pow(data.autoLevels[0])))
+    data.autoLevels[0] += bulkSucc.toNumber()
 
-    let bulkMax = Math.floor(Math.log2(1 + (data.markup.powers / (100 * (2 ** data.autoLevels[1])))))
-    data.markup.powers -= (((2 ** bulkMax) - 1) * 100 * (2 ** data.autoLevels[1]))
-    data.autoLevels[1] += bulkMax
+    let bulkMax = Decimal.floor(Decimal.log2(D(1).plus(data.markup.powers.div(D(100).times(D(2).pow(data.autoLevels[1]))))))
+    data.markup.powers = data.markup.powers.sub(((D(2).pow(bulkMax)).sub(1)).times(100).times(D(2).pow(data.autoLevels[1])))
+    data.autoLevels[1] += bulkMax.toNumber()
 }
 
 
 function factorCost(n){
-    return (10**(n+1))**(2**data.factors[n])
+    return (D(10).pow(n+1)).pow(D(2).pow(data.factors[n]))
 }
 function hasFactor(n){
     return data.markup.shifts >= n+1 || data.baseless.shifts >= n+1
@@ -44,23 +44,23 @@ function factorBoost(){
     return mult
 }
 function buyFactor(n){
-    if(data.markup.powers < factorCost(n) || data.chal.active[1] || !hasFactor(n)) return
-    data.markup.powers -= factorCost(n)
+    if(data.markup.powers.lt(factorCost(n)) || data.chal.active[1] || !hasFactor(n)) return
+    data.markup.powers = data.markup.powers.sub(factorCost(n))
     ++data.factors[n]
 }
 function buyMaxFactor(){
     if(data.chal.active[1]) return
-    if(data.ord.isPsi) return data.factors = [9,8,7,7,6,6,6]
+    if(data.ord.isPsi && data.markup.powers.lt("e1e10")) return data.factors = [9,8,7,7,6,6,6]
     if(data.baseless.baseless){
         for (let i = data.baseless.shifts-1; i >= 0; i--){
             if(!hasFactor(i)) break
-            while (data.markup.powers >= Math.pow(10 ** (i + 1), Math.pow(2, data.factors[i]))) buyFactor(i);
+            while (data.markup.powers.gte(Decimal.pow(10 ** (i + 1), Decimal.pow(2, data.factors[i])))) buyFactor(i);
         }
         return
     }
     for (let i = data.markup.shifts-1; i >= 0; i--){
         if(!hasFactor(i)) break
-        while (data.markup.powers >= Math.pow(10 ** (i + 1), Math.pow(2, data.factors[i]))) buyFactor(i);
+        while (data.markup.powers.gte(Decimal.pow(10 ** (i + 1), Decimal.pow(2, data.factors[i])))) buyFactor(i);
     }
 }
 function buyMaxT1(){
