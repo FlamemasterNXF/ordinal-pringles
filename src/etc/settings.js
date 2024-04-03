@@ -1,11 +1,15 @@
+// I'll refactor this eventually I swear
+
 const SETTINGS_DESCS = [
     "Booster Refund Confirmation", "Challenge Confirmation", "Challenge Completion Popup", "Factor Shift confirmation",
     "Factor Boost confirmation", "Charge Refund Confirmation", "Boost Progress Bar", "ability to Bulk Boost",
     "Baselessness Confirmation", "Collapse Confirmation", "Booster Refund in C5 and C7", "Darkness Confirmation",
     "Charge Sacrifice Confirmation", "Hardy Value Display for Ordinals >= 1.8e308",
-    "<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'> Display"
+    "Use ExpantaNum in Extended Hardy Displays",
 ]
-const settingsDefaults = [true, true, true, true, true, true, true, true, true, true, true, true, false, false]
+const settingsDefaults = [
+    true, true, true, true, true, true, true, true, true, true, true, true, false, false, true
+]
 function settingsToggle(i){
     if (i === -1){
         data.offline = !data.offline
@@ -13,11 +17,15 @@ function settingsToggle(i){
         return save()
     }
 
-    i === 14 ? data.gword.enabled = !data.gword.enabled : data.sToggles[i] = !data.sToggles[i]
+    if(i === -2){
+        data.gword.enabled = !data.gword.enabled
+        return DOM(`gwaifyToggle`).innerHTML = `<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'> Display ${settingsColor(data.gword.enabled)}`
+    }
+
+    data.sToggles[i] = !data.sToggles[i]
     if (i === 6) DOM(`progressBarContainer`).style.display = data.sToggles[i] ? `flex` : `none`
 
-    let display = i === 14 ? data.gword.enabled : data.sToggles[i]
-    DOM(`settingsToggle${i}`).innerHTML = `${i > 12 ? '' : 'Toggle the'} ${SETTINGS_DESCS[i]} ${settingsColor(display)}`
+    DOM(`settingsToggle${i}`).innerHTML = `${i > 12 ? '' : 'Toggle the'} ${SETTINGS_DESCS[i]} ${settingsColor(data.sToggles[i])}`
     save()
 }
 function settingsColor(bool){
@@ -52,6 +60,7 @@ function toggleOrdDisplay(){
 
 function loadSettings(){
     DOM(`offlineProgressToggle`).innerHTML = `Toggle Offline Progress ${settingsColor(data.offline)}`
+    DOM(`gwaifyToggle`).innerHTML = `<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'> Display ${settingsColor(data.gword.enabled)}`
     DOM(`changeOrdLength`).children[0].innerHTML = `[${data.ord.trim}]`
 
     DOM(`changeOrdColor`).children[0].innerHTML = data.ord.color ? `[Shifting]` : `[Normal]`

@@ -389,6 +389,7 @@
             <button class="settingsButton" id="togglesTab" onclick="switchSubtab('toggles', 'settings')" style="margin-left: 0.5rem">Confirmations</button>
             <button class="settingsButton" id="uiTab" onclick="switchSubtab('ui', 'settings')" style="margin-left: 0.5rem">UI</button>
             <button class="settingsButton" id="savingTab" onclick="switchSubtab('saving', 'settings')" style="margin-left: 0.5rem">Saving</button>
+            <button class="settingsButton" id="technicalTab" onclick="switchSubtab('tech', 'settings')" style="margin-left: 0.5rem; color: #c93e00">Advanced</button>
         </div>
         <div class="flexBox" id="gameSettingsSubPage" style="flex-direction: column;">
             <button class="settingsButton" id="offlineProgressToggle" onclick="settingsToggle(-1)" style="width: 20rem">Toggle Offline Progress</button>
@@ -414,10 +415,15 @@
             <button class="settingsButton" id="changeOrdDisplay" onclick="toggleOrdDisplay()" style="width: 22rem">Change the Ordinal Display Mode <span style="color: #2da000">[Buchholz]</span></button>
             <button class="settingsButton" id="changeOrdColor" onclick="toggleOrdColor()" style="width: 22rem">Change the Ordinal Color Mode <span style="color: #2da000">[Normal]</span></button>
             <div class="flexBox" id="gwaifySettingContainer" style="flex-direction: row">
-                <button class="settingsButton" id="settingsToggle14" onclick="settingsToggle(14)" style="width: 22rem; height: 2rem">aaa</button>
+                <button class="settingsButton" id="gwaifyToggle" onclick="settingsToggle(-2)" style="width: 22rem; height: 2rem"><img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'> Display</button>
                 <button class="settingsButton" style="height: 2rem; width: 2rem; margin-left: 0.5rem" onclick="gwaifyExplain()">I</button>
             </div>
             <t class="centeredTexts" style="margin-top: 1rem;">Changing any of these from their default may cause lag!</t>
+        </div>
+        <div class="flexBox" id="techSubPage" style="display: none; flex-direction: column">
+            <button class="settingsButton" id="settingsToggle14" onclick="settingsToggle(14)" style="width: 24rem"></button>
+            <t class="centeredTexts" style="margin-top: 1rem; font-family: DosisBold; color: darkred">Changing these could have unintended consequences!!!</t>
+            <t class="centeredTexts" style="color: #a60000">Currently, there is only one of these: it gives a performance boost in SOME cases, at the cost of proper Hardy Display functionality; it's a niche optimization for a niche feature :)</t>
         </div>
         <div class="flexBox" id="savingSubPage" style="display: none; flex-direction: column">
             <button class="settingsButton" onclick="save()">Manual Save</button>

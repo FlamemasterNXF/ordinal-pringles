@@ -85,6 +85,7 @@ function fixOldSaves(){
     //Settings fix
     if(typeof data.sToggles === "number") data.sToggles = settingsDefaults
     if(typeof data.gword === 'boolean') data.gword = {unl: data.gword, enabled: data.gword}
+    if(data.sToggles[14] === false) data.sToggles[14] = true
 
     //Decimal Fix
     if(Number.isNaN(data.incrementy.amt.toNumber())) data.incrementy.amt = D(0)
