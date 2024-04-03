@@ -10,13 +10,20 @@ function successor(n = 1, m=false, alsoMaximize=false) {
 // Maximizes the Ordinal
 function maximize() {
     if(data.ord.isPsi) return
-    if (data.ord.ordinal.mod(data.ord.base) >= data.ord.base - 1 && data.ord.over >= 1) {
-        while(data.ord.over + data.ord.base >= data.ord.base * 2 && data.ord.ordinal.mod(data.ord.base ** 2) !== 0){
-            data.ord.over -= Math.ceil((data.ord.over + data.ord.base) / 2 - 0.1)
-            data.ord.ordinal = data.ord.ordinal.plus(data.ord.base)
+    if (data.ord.ordinal.mod(data.ord.base).eq(data.ord.base - 1) && data.ord.over >= 1) {
+        data.ord.ordinal = data.ord.ordinal.sub(data.ord.base - 1);
+        data.ord.over += (data.ord.base - 1);
+        do {
+          data.ord.over -= Math.ceil((data.ord.over + data.ord.base) / 2 - 0.1);
+          data.ord.ordinal = data.ord.ordinal.add(data.ord.base);
+        } while (
+          data.ord.over + data.ord.base >= data.ord.base * 2 &&
+          Math.min(data.ord.ordinal, Number.MAX_VALUE) % data.ord.base ** 2 !== 0
+        );
+        if (Math.min(data.ord.ordinal, Number.MAX_VALUE) % data.ord.base ** 2 !== 0) {
+          data.ord.ordinal = data.ord.ordinal.add(data.ord.over);
         }
-        if (data.ord.ordinal.mod(data.ord.base ** 2) !== 0 && data.ord.over > 0) data.ord.ordinal = data.ord.ordinal.plus(data.ord.over)
-        data.ord.over = 0
+        data.ord.over = 0;
     }
 }
 

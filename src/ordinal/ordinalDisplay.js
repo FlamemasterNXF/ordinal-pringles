@@ -1,3 +1,5 @@
+let ordinalDisplayTrim = (n=1) => (data.ord.displayType === "BMS" || data.ord.displayType === "Y-Sequence") ? data.ord.trim : n
+
 // The entry point for Ordinal Display
 function ordinalDisplay(type='', ord=data.ord.ordinal, over=data.ord.over, base=data.ord.base, trim=data.ord.trim, d=true, forcePsi=false) {
     let ordinal = "Oops! You shouldn't see this!"
@@ -42,7 +44,7 @@ function changeTrim(x){
 
 // Updates the Ordinal's HTML
 function updateOrdHTML(){
-    if(!data.sToggles[13] && (data.ord.isPsi || calculateSimpleHardy().gte(Number.MAX_VALUE) || data.baseless.baseless)) {
+    if(!data.sToggles[13] && (data.ord.isPsi || calculateSimpleHardy().gte(Number.MAX_VALUE))) {
         if(data.ord.color){
             let date = Date.now()/100
             return DOM("ordinal").innerHTML = `${colorWrap(ordinalDisplay("H"), HSL(date))} ${colorWrap(`(${data.ord.base})`, HSL(date))}`
