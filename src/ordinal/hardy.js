@@ -139,19 +139,19 @@ function hardy(ord, base, over=0)
 
 function rep(mult, restOrd, base, over=0)
 {
-    if (EN(mult).eq(1)) {
-        if (EN_format(hardy(EN(base ** (base + 1)).add(restOrd), base, over)) !== "Infinity") {
-            return parseInt(beautifyEN(hardy(EN(base ** (base + 1)).add(restOrd), base, over)).split("}}")[1])
+    if (D(mult).eq(1)) {
+        if (calculateSimpleHardy(restOrd, over, base).lt(Number.MAX_SAFE_INTEGER)) {
+            return calculateSimpleHardy(restOrd, over, base).add(1.000000000001).floor().toNumber();
         }
         return 3;
     }
-    return beautifyEN(hardy(EN(base ** base).times(2).add(restOrd), base, over)).split("{{").length + mult.toNumber();
+    return (calculateSimpleHardy(restOrd, over, base).lt(Number.MAX_SAFE_INTEGER)) ? mult.toNumber()+1 : mult.toNumber()+2;
 }
 
 function isHugeRep(mult, restOrd, base, over=0)
 {
-    if (EN(mult).eq(1)) {
-        if (EN_format(hardy(EN(base ** (base + 1)).add(restOrd), base, over)) !== "Infinity") {
+    if (D(mult).eq(1)) {
+        if (calculateSimpleHardy(restOrd, over, base).lt(Number.MAX_SAFE_INTEGER)) {
             return false;
         }
     }
@@ -160,25 +160,27 @@ function isHugeRep(mult, restOrd, base, over=0)
 
 function bigHardy(ord, base, over=0)
 {
-    let ord1 = EN(ord.toString());
-    let highestPower = ord1.logBase(base).floor();
-    let highestPowerMult = ord1.div(EN.pow(base, highestPower)).floor();
-    let restOrd = ord1.sub(EN.pow(base, highestPower).times(highestPowerMult));
-    if (restOrd.gte(EN(base ** base))) restOrd = EN(base ** base).sub(1);
-
-    // w level and below
-    if (highestPower.lte(base))
-    {
-        return EN_format(hardy(ord1, base, over));
+    let ord1 = D(ord.toString());
+    let highestPower = ord1.log(base).floor();
+    let highestPowerMult = ord1.div(Decimal.pow(base, highestPower)).floor();
+    let restOrd = ord1.sub(Decimal.pow(base, highestPower).times(highestPowerMult));
+    if (restOrd.gte(Decimal.pow(base, base))) restOrd = Decimal.pow(base, base).sub(1);
+    if (highestPowerMult.eq(0)) {
+        highestPowerMult = D(1);
+        restOrd = D(0);
     }
 
-    // w+1 level (includes handling above EN limit, simplified into 10{{2}}n)
-    if (highestPower.eq(base + 1))
+    // below w level
+    if (highestPower.lt(base))
     {
-        if (EN_format(hardy(ord1, base, over)) !== "Infinity") {
-            return EN_format(hardy(ord1, base, over));
-        }
-        return base + "{{2}}" + rep(highestPowerMult, restOrd, base, over);
+        return base + "{" + (highestPower.toNumber() + isHugeRep(highestPowerMult, restOrd, base, over) - 1) + "}" + rep(highestPowerMult, restOrd, base, over);
+    }
+
+    // w level
+    if (highestPower.eq(base))
+    {
+        if (!isHugeRep(highestPowerMult, restOrd, base, over)) return base + "{{" + (rep(highestPowerMult, restOrd, base, over)-2) + "}}" + rep(highestPowerMult, restOrd, base, over);
+        return base + "{{1}}" + rep(highestPowerMult, restOrd, base, over);
     }
 
     // w+n level
@@ -262,7 +264,7 @@ function bigHardy(ord, base, over=0)
     }
 
     if (highestPower.lt((base ** base) * 2)) {
-        let n = highestPower.sub(base ** base).logBase(base).floor().toNumber();
+        let n = highestPower.sub(base ** base).log(base).floor().toNumber();
         let arr = "{" + base + "," + base;
         for (let i = 0; i < n; i++) arr += ("," + base);
         arr += "[2]2}";
@@ -276,7 +278,7 @@ function bigHardy(ord, base, over=0)
     // w^(w+n) level - greatly simplified beyond this point as it's normally unreachable (ord already exceeds 1.79e308 for any base >= 4 where it's valid)
     if (highestPower.lt(EN(base).pow(base * 2))) {
         let arr = "{" + base + "," + base + "[2]";
-        let n = highestPower.logBase(base).sub(base).floor().toNumber();
+        let n = highestPower.log(base).sub(base).floor().toNumber();
         for (let i = 0; i < n; i++) arr += "1,"
         arr += "2}";
         return arr;
@@ -284,12 +286,12 @@ function bigHardy(ord, base, over=0)
 
     // w^(wn) level
     if (highestPower.lt(EN(base).pow(base ** 2))) {
-        return "{" + base + "," + highestPower.logBase(base).div(base).floor().toNumber() + "[3]2}";
+        return "{" + base + "," + highestPower.log(base).div(base).floor().toNumber() + "[3]2}";
     }
 
     // w^(w^n) level
     if (highestPower.lt(EN(base).pow(base ** base))) {
-        return "{" + base + "," + base + "[" + highestPower.logBase(base).logBase(base).add(1).floor().toNumber() + "]2}";
+        return "{" + base + "," + base + "[" + highestPower.log(base).log(base).add(1).floor().toNumber() + "]2}";
     }
 
     // w^(w^w) level and above (w^^n level) - extremely simplified as it's highly unreachable (ord > 4^^4)
@@ -340,14 +342,14 @@ function psiHardy(ord, base) {
     if (ord.toString() === "NaNeInfinity") return "Ω"; // Absolute Infinity
 
     // psi base 3+ - ultra-simplified (1 value per ordinal level), in reverse order (value represents the highest ordinal level at or below current ordinal)
-    if (!capOrdinalAtBO && D(ord.layer).gte(Decimal.tetrate(PSI_VALUE,2).mul(3).sub(6).add(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1,,2}2)"; // OFP = I (SAN)
-    if (!capOrdinalAtBO && D(ord.layer).gte((PSI_VALUE*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1``2}2)"; // Ω_Ω₂ (SAN)
-    if (!capOrdinalAtBO && D(ord.layer).gte((27*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1{1`2`}2}2)"; // Ω_{Ω^Ω} (SAN)
-    if (!capOrdinalAtBO && D(ord.layer).gte((9*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1`1`2}2)"; // Ω_{Ω²} (SAN)
-    if (!capOrdinalAtBO && D(ord.layer).gte((6*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1`3}2)"; // Ω_{Ω2} (SAN)
-    if (!capOrdinalAtBO && D(ord.layer).gte((4*3)-6+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,2`2}2)"; // Ω_{Ω+1} (SAN)
-    if (!capOrdinalAtBO && D(ord.layer).gte((3*3)-6+(D(ord.mag).gt(D(BO_VALUE).mag)?0:1))) return "s(10,10{1,,1`2}2)"; // Ω_Ω (SAN)
-    if (ord.gte(D(BHO_VALUE).mul("eee98235035280650.45"))) return "{3,3[1[2/<sub>1,2</sub>2]2]2}"; // θ(Ω_ω) = Ω_ω (LIMIT for base 3 and BAN)
+    if (!capOrdinalAtBO && D(ord.layer).gte(Decimal.tetrate(PSI_VALUE,3).mul(2).sub(3).add(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "{3,3[1[2/<sub>1//2</sub>2]2]2}"; // OFP = I
+    if (!capOrdinalAtBO && D(ord.layer).gte((PSI_VALUE*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "{3,3[1[2/<sub>1~2</sub>2]2]2}"; // Ω_Ω₂
+    if (!capOrdinalAtBO && D(ord.layer).gte((27*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "{3,3[1[2/<sub>1[1/2~2]2</sub>2]2]2}"; // Ω_{Ω^Ω}
+    if (!capOrdinalAtBO && D(ord.layer).gte((9*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "{3,3[1[2/<sub>1/1/2</sub>2]2]2}"; // Ω_{Ω²}
+    if (!capOrdinalAtBO && D(ord.layer).gte((6*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "{3,3[1[1[2/<sub>1/3</sub>2]2]2]2}"; // Ω_{Ω2}
+    if (!capOrdinalAtBO && D(ord.layer).gte((4*2)-3+(D(ord.mag).gte(D(BO_VALUE).mag)?0:1))) return "{3,3[1[1[1/<sub>2/2</sub>3]2]2]2}"; // Ω_{Ω+1}
+    if (!capOrdinalAtBO && D(ord.layer).gte((3*2)-3+(D(ord.mag).gt(D(BO_VALUE).mag)?0:1))) return "{3,3[1[2/<sub>1/2</sub>2]2]2}"; // Ω_Ω
+    if (ord.gte(D(BHO_VALUE).mul("eee98235035280650.45"))) return "{3,3[1●2]2}"; // θ(Ω_ω) = Ω_ω (current ordinal cap for base 3 and previous versions of BAN)
     if (ord.gte(D(BHO_VALUE).mul("eee38.32545039616217"))) return "{3,3[1[1[1~1/2/<sub>3</sub>2]2]2]2}"; // θ(Ω₂^Ω) = Ω₂^(Ω₂^Ω)
     if (ord.gte(D(BHO_VALUE).mul("eee25.44317651873129"))) return "{3,3[1[1[1~3/<sub>3</sub>2]2]2]2}"; // θ(Ω₂²) = Ω₂^(Ω₂²)
     if (ord.gte(D(BHO_VALUE).mul("ee98235035280664.72"))) return "{3,3[1[1[1/1/2~2/<sub>3</sub>2]1~2]2]2}"; // θ(Ω₂(Ω^Ω)) = Ω₂^(Ω₂(Ω^Ω))
@@ -358,7 +360,7 @@ function psiHardy(ord, base) {
     if (ord.gte(D(BHO_VALUE).mul("ee3638334640025.3896"))) return "{3,3[1[1[1[1[1[1~3]2/<sub>3</sub>2]2]2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(θ₁(θ₁(1)))) = Ω₂^ψ₁(Ω₂^ψ₁(Ω₂))
     if (ord.gte(D(BHO_VALUE).mul("ee3638334640025.0884"))) return "{3,3[1[1[1[1~3]2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(θ₁(1))) = Ω₂^ψ₁(Ω₂)
     if (ord.gte(D(BHO_VALUE).mul("ee9392.169261382569"))) return "{3,3[1[1[1/1/1/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ω^Ω²)) = Ω₂^(Ω^Ω²)
-    if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 156765267918869)))) return "{3,3[1[1[1/1/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ω^Ω)) = Ω₂^(Ω^Ω) (current "Pringles limit")
+    if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 156765267918869)))) return "{3,3[1[1[1/1/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ω^Ω)) = Ω₂^(Ω^Ω) (former "Pringles limit")
     if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 404575)))) return "{3,3[1[1[1/3/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ω²)) = Ω₂^(Ω²)
     if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 404574)).mul(2))) return "{3,3[1[1[1[1[1[1/2/<sub>3</sub>2]2]2]2/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ωθ(θ₁(Ω)))) = Ω₂^(Ωψ₁(Ω₂^Ωω))
     if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 404574)))) return "{3,3[1[1[2/2/<sub>3</sub>2]2]2]2}"; // θ(θ₁(Ωω)) = Ω₂^(Ωω)
@@ -368,88 +370,95 @@ function psiHardy(ord, base) {
     if (ord.gte(D(BHO_VALUE).mul(Decimal.pow(3, 616)))) return "{3,3[1[1[1/2/<sub>3</sub>2]3]2]2}"; // θ(θ₁(Ω,1)) = θ(φ(Ω,2)) = Ω₂^Ωψ₁(Ω₂²) (current non-infinite ordMarks limit)
     if (ord.gte(BHO_VALUE * (3**493))) return "{3,3[1[1[1/2/<sub>3</sub>2]2]2]2}"; // θ(θ1(Ω)) = θ(φ(Ω,1)) = Ω₂^Ω (highest level reachable below Number.MAX_VALUE)
     if (ord.gte(BHO_VALUE * (3**492))) return "{3,3[1[1[2/<sub>3</sub>2]2]2]2}"; // φ(ω,Ω+1) = Ω₂^ω
-    if (ord.gte(BHO_VALUE * (3**369))) return "{3,3[1[1~1~1[1~1~1[1~1~2]2]2]2]2}"; // ζ(ζ(ζ(Ω+1))) = Ω₂²ψ1(Ω₂²ψ1(Ω₂²))
-    if (ord.gte(BHO_VALUE * (3**246))) return "{3,3[1[1~1~1[1~1~2]2]2]2}"; // ζ(ζ(Ω+1)) = Ω₂²ψ1(Ω₂²)
-    if (ord.gte(BHO_VALUE * (3**205))) return "{3,3[1[1~1~1[1~1[1~3]2]2]2}"; // ζ(ε(ε(Ω+1))) = Ω₂²ψ1(Ω₂ψ1(Ω₂))
-    if (ord.gte(BHO_VALUE * (3**168))) return "{3,3[1[1~1~1[1~1[1/2~2]2]2]2]2}"; // ζ(ε(Ω^Ω)) = Ω₂²ψ1(Ω₂Ω^Ω)
-    if (ord.gte(BHO_VALUE * (3**166))) return "{3,3[1[1~1~1[1~1/1/2]2]2]2}"; // ζ(ε(Ω²)) = Ω₂²ψ1(Ω₂Ω²)
-    if (ord.gte(BHO_VALUE * (3**165))) return "{3,3[1[1~1~1[1~1/2]2]2]2}"; // ζ(ε(Ω2)) = Ω₂²ψ1(Ω₂Ω)
-    if (ord.gte(BHO_VALUE * (3**164))) return "{3,3[1[1~1~1[1~3]2]2]2}"; // ζ(ε(Ω+1)) = Ω₂²ψ1(Ω₂)
+    if (ord.gte(BHO_VALUE * (3**369))) return "{3,3[1[1~1~1[1~1~1[1~1~2]2]2]2]2}"; // ζ(ζ(ζ(Ω+1))) = Ω₂²ψ₁(Ω₂²ψ₁(Ω₂²))
+    if (ord.gte(BHO_VALUE * (3**246))) return "{3,3[1[1~1~1[1~1~2]2]2]2}"; // ζ(ζ(Ω+1)) = Ω₂²ψ₁(Ω₂²)
+    if (ord.gte(BHO_VALUE * (3**205))) return "{3,3[1[1~1~1[1~1[1~3]2]2]2}"; // ζ(ε(ε(Ω+1))) = Ω₂²ψ₁(Ω₂ψ₁(Ω₂))
+    if (ord.gte(BHO_VALUE * (3**168))) return "{3,3[1[1~1~1[1~1[1/2~2]2]2]2]2}"; // ζ(ε(Ω^Ω)) = Ω₂²ψ₁(Ω₂Ω^Ω)
+    if (ord.gte(BHO_VALUE * (3**167))) return "{3,3[1[1~1~1[1~1[2~2]2]2]2]2}"; // ζ(ε(Ω^ω)) = Ω₂²ψ₁(Ω₂Ω^ω)
+    if (ord.gte(BHO_VALUE * (3**166))) return "{3,3[1[1~1~1[1~1/1/2]2]2]2}"; // ζ(ε(Ω²)) = Ω₂²ψ₁(Ω₂Ω²)
+    if (ord.gte(BHO_VALUE * (3**165))) return "{3,3[1[1~1~1[1~1/2]2]2]2}"; // ζ(ε(Ω2)) = Ω₂²ψ₁(Ω₂Ω)
+    if (ord.gte(BHO_VALUE * (3**164))) return "{3,3[1[1~1~1[1~3]2]2]2}"; // ζ(ε(Ω+1)) = Ω₂²ψ₁(Ω₂)
     if (ord.gte(BHO_VALUE * (3**127))) return "{3,3[1[1~1~1[1/2~2]2]2]2}"; // ζ(Ω^Ω) = Ω₂²Ω^Ω
     if (ord.gte(BHO_VALUE * (3**126))) return "{3,3[1[1~1~1[2~2]2]2]2}"; // ζ(Ω^ω) = Ω₂²Ω^ω
     if (ord.gte(BHO_VALUE * (3**125))) return "{3,3[1[1~1~1/1/2]2]2}"; // ζ(Ω²) = Ω₂²Ω²
     if (ord.gte(BHO_VALUE * (3**124))) return "{3,3[1[1~1~1/2]2]2}"; // ζ(Ω2) = Ω₂²Ω
     if (ord.gte(BHO_VALUE * (3**123))) return "{3,3[1[1~1~2]2]2}"; // ζ(Ω+1) = Ω₂² (former ordMarks limit)
-    if (ord.gte(BHO_VALUE * (3**86))) return "{3,3[1[1~1[1~1[1~1[1/2~2]2]2]2]2]2}"; // ε(ε(ε(Ω^Ω))) = Ω₂ψ1(Ω₂ψ1(Ω₂Ω^Ω))
-    if (ord.gte(BHO_VALUE * (3**84))) return "{3,3[1[1~1[1~1[1~1/1/2]2]2]2]2}"; // ε(ε(ε(Ω²))) = Ω₂ψ1(Ω₂ψ1(Ω₂Ω²))
-    if (ord.gte(BHO_VALUE * (3**83))) return "{3,3[1[1~1[1~1[1~1/2]2]2]2]2}"; // ε(ε(ε(Ω2))) = Ω₂ψ1(Ω₂ψ1(Ω₂Ω))
-    if (ord.gte(BHO_VALUE * (3**82))) return "{3,3[1[1~1[1~1[1~3]2]2]2]2}"; // ε(ε(ε(Ω+1))) = Ω₂ψ1(Ω₂ψ1(Ω₂))
-    if (ord.gte(BHO_VALUE * (3**45))) return "{3,3[1[1~1[1~1[1/2~2]2]2]2]2}"; // ε(ε(Ω^Ω)) = Ω₂ψ1(Ω₂Ω^Ω)
-    if (ord.gte(BHO_VALUE * (3**44))) return "{3,3[1[1~1[1~1[2~2]2]2]2]2}"; // ε(ε(Ω^ω)) = Ω₂ψ1(Ω₂Ω^ω)
-    if (ord.gte(BHO_VALUE * (3**43))) return "{3,3[1[1~1[1~1/1/2]2]2]2}"; // ε(ε(Ω²)) = Ω₂ψ1(Ω₂Ω²)
-    if (ord.gte(BHO_VALUE * (3**42))) return "{3,3[1[1~1[1~1/2]2]2]2}"; // ε(ε(Ω2)) = Ω₂ψ1(Ω₂Ω)
-    if (ord.gte(BHO_VALUE * (3**41))) return "{3,3[1[1~1[1~3]2]2]2}"; // ε(ε(Ω+1)) = Ω₂ψ1(Ω₂)
+    if (ord.gte(BHO_VALUE * (3**86))) return "{3,3[1[1~1[1~1[1~1[1/2~2]2]2]2]2]2}"; // ε(ε(ε(Ω^Ω))) = Ω₂ψ₁(Ω₂ψ₁(Ω₂Ω^Ω))
+    if (ord.gte(BHO_VALUE * (3**85))) return "{3,3[1[1~1[1~1[1~1[2~2]2]2]2]2]2}"; // ε(ε(ε(Ω^ω))) = Ω₂ψ₁(Ω₂ψ₁(Ω₂Ω^ω))
+    if (ord.gte(BHO_VALUE * (3**84))) return "{3,3[1[1~1[1~1[1~1/1/2]2]2]2]2}"; // ε(ε(ε(Ω²))) = Ω₂ψ₁(Ω₂ψ₁(Ω₂Ω²))
+    if (ord.gte(BHO_VALUE * (3**83))) return "{3,3[1[1~1[1~1[1~1/2]2]2]2]2}"; // ε(ε(ε(Ω2))) = Ω₂ψ₁(Ω₂ψ₁(Ω₂Ω))
+    if (ord.gte(BHO_VALUE * (3**82))) return "{3,3[1[1~1[1~1[1~3]2]2]2]2}"; // ε(ε(ε(Ω+1))) = Ω₂ψ₁(Ω₂ψ₁(Ω₂))
+    if (ord.gte(BHO_VALUE * (3**45))) return "{3,3[1[1~1[1~1[1/2~2]2]2]2]2}"; // ε(ε(Ω^Ω)) = Ω₂ψ₁(Ω₂Ω^Ω)
+    if (ord.gte(BHO_VALUE * (3**44))) return "{3,3[1[1~1[1~1[2~2]2]2]2]2}"; // ε(ε(Ω^ω)) = Ω₂ψ₁(Ω₂Ω^ω)
+    if (ord.gte(BHO_VALUE * (3**43))) return "{3,3[1[1~1[1~1/1/2]2]2]2}"; // ε(ε(Ω²)) = Ω₂ψ₁(Ω₂Ω²)
+    if (ord.gte(BHO_VALUE * (3**42))) return "{3,3[1[1~1[1~1/2]2]2]2}"; // ε(ε(Ω2)) = Ω₂ψ₁(Ω₂Ω)
+    if (ord.gte(BHO_VALUE * (3**41))) return "{3,3[1[1~1[1~3]2]2]2}"; // ε(ε(Ω+1)) = Ω₂ψ₁(Ω₂)
     if (ord.gte(BHO_VALUE * 1594323)) return "{3,3[1[1~1[1/3~2]2]2]2}"; // ε(Ω^(Ω²)) = Ω₂(Ω^(Ω²))
     if (ord.gte(BHO_VALUE * 531441)) return "{3,3[1[1~1[2/2~2]2]2]2}"; // ε(Ω^(Ωω)) = Ω₂(Ω^(Ωω))
+    if (ord.gte(BHO_VALUE * 177147)) return "{3,3[1[1~1[1/2~2]1[1/2~2]1[2~2]2]2]2}"; // ε(Ω^(Ω2+ω)) = Ω₂(Ω^(Ω2+ω))
+    if (ord.gte(BHO_VALUE * 59049)) return "{3,3[1[1~1[1/2~2]1[1/2~2]1/1/2]2]2}"; // ε(Ω^(Ω2+2)) = Ω₂(Ω^(Ω2+2))
+    if (ord.gte(BHO_VALUE * 19683)) return "{3,3[1[1~1[1/2~2]1[1/2~2]1/2]2]2}"; // ε(Ω^(Ω2+1)) = Ω₂(Ω^(Ω2+1))
     if (ord.gte(BHO_VALUE * 6561)) return "{3,3[1[1~1[1/2~2]1[1/2~2]2]2]2}"; // ε(Ω^(Ω2)) = Ω₂(Ω^(Ω2))
+    if (ord.gte(BHO_VALUE * 2187)) return "{3,3[1[1~1[1/2~2]1[2~2]2]2]2}"; // ε(Ω^(Ω+ω)) = Ω₂(Ω^(Ω+ω))
+    if (ord.gte(BHO_VALUE * 729)) return "{3,3[1[1~1[1/2~2]1/1/2]2]2}"; // ε(Ω^(Ω+2)) = Ω₂(Ω^(Ω+2))
     if (ord.gte(BHO_VALUE * 243)) return "{3,3[1[1~1[1/2~2]1/2]2]2}"; // ε(Ω^(Ω+1)) = Ω₂(Ω^(Ω+1))
     if (ord.gte(BHO_VALUE * 81)) return "{3,3[1[1~1[1/2~2]2]2]2}"; // ε(Ω^Ω) = Ω₂(Ω^Ω)
     if (ord.gte(BHO_VALUE * 27)) return "{3,3[1[1~1[2~2]2]2]2}"; // ε(Ω^ω) = Ω₂(Ω^ω)
     if (ord.gte(BHO_VALUE * 9)) return "{3,3[1[1~1/1/2]2]2}"; // ε(Ω²) = Ω₂Ω²
     if (ord.gte(BHO_VALUE * 3)) return "{3,3[1[1~1/2]2]2}"; // ε(Ω2) = Ω₂Ω
     if (ord.gt(BHO_VALUE)) return "{3,3[1[1~3]2]2}"; // ε(Ω+1) = BHO = Ω₂
-    if (ord.eq(BHO_VALUE)) return "{3,3[1[1¬1¬2]2]2}"; // Large Veblen Ordinal / Ω^(Ω^Ω) = BHO base 3
-    if (ord.gte(16210220612075905068)) return "{3,3[1[1¬1,2]2]2}"; // Small Veblen Ordinal / Ω^(Ω^ω)
-    if (ord.gte(5403406870691968356)) return "{3,3[1[2¬4]2]2}"; // Ω^(Ω²ω)
-    if (ord.gte(1801135623563989452)) return "{3,3[1[1¬4]1[1¬4]1[2¬3]2]2}"; // Ω^(Ω²2+Ωω)
-    if (ord.gte(600378541187996484)) return "{3,3[1[1¬4]1[1¬4]1[1¬3]1[1¬3]1[2¬2]2]2}"; // Ω^(Ω²2+Ω2+ω)
-    if (ord.gte(200126180395998828)) return "{3,3[1[1¬4]1[1¬4]1[1¬3]1[1¬3]1\\1\\2]2}"; // Ω^(Ω²2+Ω2+2)
-    if (ord.gte(66708726798666276)) return "{3,3[1[1¬4]1[1¬4]1[1¬3]1[1¬3]1\\2]2}"; // Ω^(Ω²2+Ω2+1)
-    if (ord.gte(22236242266222092)) return "{3,3[1[1¬4]1[1¬4]1[1¬3]1[1¬3]2]2}"; // Ω^(Ω²2+Ω2)
-    if (ord.gte(7412080755407364)) return "{3,3[1[1¬4]1[1¬4]1[1¬3]1[2¬2]2]2}"; // Ω^(Ω²2+Ω+ω)
-    if (ord.gte(2470693585135788)) return "{3,3[1[1¬4]1[1¬4]1[1¬3]1\\1\\2]2}"; // Ω^(Ω²2+Ω+2)
-    if (ord.gte(823564528378596)) return "{3,3[1[1¬4]1[1¬4]1[1¬3]1\\2]2}"; // Ω^(Ω²2+Ω+1)
-    if (ord.gte(274521509459532)) return "{3,3[1[1¬4]1[1¬4]1[1¬3]2]2}"; // Ω^(Ω²2+Ω)
-    if (ord.gte(91507169819844)) return "{3,3[1[1¬4]1[1¬4]1[2¬2]2]2}"; // Ω^(Ω²2+ω)
-    if (ord.gte(30502389939948)) return "{3,3[1[1¬4]1[1¬4]1\\1\\2]2}"; // Ω^(Ω²2+2)
-    if (ord.gte(10167463313316)) return "{3,3[1[1¬4]1[1¬4]1\\2]2}"; // Ω^(Ω²2+1)
-    if (ord.gte(3389154437772)) return "{3,3[1[1¬4]1[1¬4]2]2}"; // Double Ackermann's Ordinal / Ω^(Ω²2)
-    if (ord.gte(1129718145924)) return "{3,3[1[1¬4]1[2¬3]2]2}"; // Ω^(Ω²+Ωω)
-    if (ord.gte(376572715308)) return "{3,3[1[1¬4]1[1¬3]1[1¬3]1[2¬2]2]2}"; // Ω^(Ω²+Ω2+ω)
-    if (ord.gte(125524238436)) return "{3,3[1[1¬4]1[1¬3]1[1¬3]1\\1\\2]2}"; // Ω^(Ω²+Ω2+2)
-    if (ord.gte(41841412812)) return "{3,3[1[1¬4]1[1¬3]1[1¬3]1\\2]2}"; // Ω^(Ω²+Ω2+1)
-    if (ord.gte(13947137604)) return "{3,3[1[1¬4]1[1¬3]1[1¬3]2]2}"; // Ω^(Ω²+Ω2)
-    if (ord.gte(4649045868)) return "{3,3[1[1¬4]1[1¬3]1[2¬2]2]2}"; // Ω^(Ω²+Ω+ω)
-    if (ord.gte(1549681956)) return "{3,3[1[1¬4]1[1¬3]1\\1\\2]2}"; // Ω^(Ω²+Ω+2)
-    if (ord.gte(516560652)) return "{3,3[1[1¬4]1[1¬3]1\\2]2}"; // Ω^(Ω²+Ω+1)
-    if (ord.gte(172186884)) return "{3,3[1[1¬4]1[1¬3]2]2}"; // Ω^(Ω²+Ω)
-    if (ord.gte(57395628)) return "{3,3[1[1¬4]1[2¬2]2]2}"; // Ω^(Ω²+ω)
-    if (ord.gte(19131876)) return "{3,3[1[1¬4]1\\1\\2]2}"; // Ω^(Ω²+2)
-    if (ord.gte(6377292)) return "{3,3[1[1¬4]1\\2]2}"; // Ω^(Ω²+1)
-    if (ord.gte(2125764)) return "{3,3[1[1¬4]2]2}"; // Ackermann's Ordinal / Ω^(Ω²)
-    if (ord.gte(708588)) return "{3,3[1[2¬3]2]2}"; // Ω^(Ωω)
-    if (ord.gte(236196)) return "{3,3[1[1¬3]1[1¬3]1[2¬2]2]2}"; // Ω^(Ω2+ω)
-    if (ord.gte(78732)) return "{3,3[1[1¬3]1[1¬3]1\\1\\2]2}"; // Ω^(Ω2+2)
-    if (ord.gte(26244)) return "{3,3[1[1¬3]1[1¬3]1\\2]2}"; // Ω^(Ω2+1)
-    if (ord.gte(8748)) return "{3,3[1[1¬3]1[1¬3]2]2}"; // Ω^(Ω2)
-    if (ord.gte(2916)) return "{3,3[1[1¬3]1[2¬2]2]2}"; // Ω^(Ω+ω)
-    if (ord.gte(972)) return "{3,3[1[1¬3]1\\1\\2]2}"; // Ω^(Ω+2)
-    if (ord.gte(324)) return "{3,3[1[1¬3]1\\2]2}"; // Ω^(Ω+1)
-    if (ord.gte(216)) return "{3,3[1[1¬3]2]3}"; // (Ω^Ω)2
-    if (ord.gte(109)) return "{3,64[1[1¬3]2]2}"; // SGH Graham's Number Ordinal
-    if (ord.gte(108)) return "{3,3[1[1¬3]2]2}"; // Γ0 (Ω^Ω)
-    if (ord.gte(76)) return "{3,3[1[1[1\\2¬2]2¬2]2]2}"; // φ(φ(ε0, 0), 0)
-    if (ord.gte(72)) return "{3,3[1[1[2¬2]2¬2]2]2}"; // φ(φ(ω, 0), 0)
-    if (ord.gte(40)) return "{3,3[1[1\\2¬2]2]2}"; // φ(ε0, 0)
-    if (ord.gte(38)) return "{3,3[1[1,2¬2]2]2}"; // φ(ω^ω, 0)
-    if (ord.gte(37)) return "{3,3[1[3¬2]2]2}"; // φ(ω², 0)
-    if (ord.gte(36)) return "{3,3[1[2¬2]2]2}"; // φ(ω, 0)
-    if (ord.gte(24)) return "{3,3[1\\1\\1[1\\1\\2]2]2"; // ζζ0
-    if (ord.gte(13)) return "{3,3[1\\1\\1,2]2}"; // ζω
-    if (ord.gte(12)) return "{3,3[1\\1\\2]2}"; // ζ0
-    if (ord.gte(8)) return "{3,3[1\\1[1\\2]2]2)"; // εε0
-    if (ord.gte(5)) return "{3,3[1\\1,2]2}"; // εω
-    if (ord.gte(4)) return "{3,3[1\\2]2}"; // ε0
+    if (ord.eq(BHO_VALUE)) return "{3,3[1[1/1/2~2]2]2}"; // Large Veblen Ordinal / Ω^(Ω^Ω) = BHO base 3
+    if (ord.gte(16210220612075905068)) return "{3,3[1[1/1,2~2]2]2}"; // Small Veblen Ordinal / Ω^(Ω^ω)
+    if (ord.gte(5403406870691968356)) return "{3,3[1[2/3~2]2]2}"; // Ω^(Ω²ω)
+    if (ord.gte(1801135623563989452)) return "{3,3[1[1/3~2]1[1/3~2]1[2/2~2]2]2}"; // Ω^(Ω²2+Ωω)
+    if (ord.gte(600378541187996484)) return "{3,3[1[1/3~2]1[1/3~2]1[1/2~2]1[1/2~2]1[2~2]2]2}"; // Ω^(Ω²2+Ω2+ω)
+    if (ord.gte(200126180395998828)) return "{3,3[1[1/3~2]1[1/3~2]1[1/2~2]1[1/2~2]1/1/2]2}"; // Ω^(Ω²2+Ω2+2)
+    if (ord.gte(66708726798666276)) return "{3,3[1[1/3~2]1[1/3~2]1[1/2~2]1[1/2~2]1/2]2}"; // Ω^(Ω²2+Ω2+1)
+    if (ord.gte(22236242266222092)) return "{3,3[1[1/3~2]1[1/3~2]1[1/2~2]1[1/2~2]2]2}"; // Ω^(Ω²2+Ω2)
+    if (ord.gte(7412080755407364)) return "{3,3[1[1/3~2]1[1/3~2]1[1/2~2]1[2~2]2]2}"; // Ω^(Ω²2+Ω+ω)
+    if (ord.gte(2470693585135788)) return "{3,3[1[1/3~2]1[1/3~2]1[1/2~2]1/1/2]2}"; // Ω^(Ω²2+Ω+2)
+    if (ord.gte(823564528378596)) return "{3,3[1[1/3~2]1[1/3~2]1[1/2~2]1/2]2}"; // Ω^(Ω²2+Ω+1)
+    if (ord.gte(274521509459532)) return "{3,3[1[1/3~2]1[1/3~2]1[1/2~2]2]2}"; // Ω^(Ω²2+Ω)
+    if (ord.gte(91507169819844)) return "{3,3[1[1/3~2]1[1/3~2]1[2~2]2]2}"; // Ω^(Ω²2+ω)
+    if (ord.gte(30502389939948)) return "{3,3[1[1/3~2]1[1/3~2]1/1/2]2}"; // Ω^(Ω²2+2)
+    if (ord.gte(10167463313316)) return "{3,3[1[1/3~2]1[1/3~2]1/2]2}"; // Ω^(Ω²2+1)
+    if (ord.gte(3389154437772)) return "{3,3[1[1/3~2]1[1/3~2]2]2}"; // Double Ackermann's Ordinal / Ω^(Ω²2)
+    if (ord.gte(1129718145924)) return "{3,3[1[1/3~2]1[2/2~2]2]2}"; // Ω^(Ω²+Ωω)
+    if (ord.gte(376572715308)) return "{3,3[1[1/3~2]1[1/2~2]1[1/2~2]1[2~2]2]2}"; // Ω^(Ω²+Ω2+ω)
+    if (ord.gte(125524238436)) return "{3,3[1[1/3~2]1[1/2~2]1[1/2~2]1/1/2]2}"; // Ω^(Ω²+Ω2+2)
+    if (ord.gte(41841412812)) return "{3,3[1[1/3~2]1[1/2~2]1[1/2~2]1/2]2}"; // Ω^(Ω²+Ω2+1)
+    if (ord.gte(13947137604)) return "{3,3[1[1/3~2]1[1/2~2]1[1/2~2]2]2}"; // Ω^(Ω²+Ω2)
+    if (ord.gte(4649045868)) return "{3,3[1[1/3~2]1[1/2~2]1[2~2]2]2}"; // Ω^(Ω²+Ω+ω)
+    if (ord.gte(1549681956)) return "{3,3[1[1/3~2]1[1/2~2]1/1/2]2}"; // Ω^(Ω²+Ω+2)
+    if (ord.gte(516560652)) return "{3,3[1[1/3~2]1[1/2~2]1/2]2}"; // Ω^(Ω²+Ω+1)
+    if (ord.gte(172186884)) return "{3,3[1[1/3~2]1[1/2~2]2]2}"; // Ω^(Ω²+Ω)
+    if (ord.gte(57395628)) return "{3,3[1[1/3~2]1[2~2]2]2}"; // Ω^(Ω²+ω)
+    if (ord.gte(19131876)) return "{3,3[1[1/3~2]1/1/2]2}"; // Ω^(Ω²+2)
+    if (ord.gte(6377292)) return "{3,3[1[1/3~2]1/2]2}"; // Ω^(Ω²+1)
+    if (ord.gte(2125764)) return "{3,3[1[1/3~2]2]2}"; // Ackermann's Ordinal / Ω^(Ω²)
+    if (ord.gte(708588)) return "{3,3[1[2/2~2]2]2}"; // Ω^(Ωω)
+    if (ord.gte(236196)) return "{3,3[1[1/2~2]1[1/2~2]1[2~2]2]2}"; // Ω^(Ω2+ω)
+    if (ord.gte(78732)) return "{3,3[1[1/2~2]1[1/2~2]1/1/2]2}"; // Ω^(Ω2+2)
+    if (ord.gte(26244)) return "{3,3[1[1/2~2]1[1/2~2]1/2]2}"; // Ω^(Ω2+1)
+    if (ord.gte(8748)) return "{3,3[1[1/2~2]1[1/2~2]2]2}"; // Ω^(Ω2)
+    if (ord.gte(2916)) return "{3,3[1[1/2~2]1[2~2]2]2}"; // Ω^(Ω+ω)
+    if (ord.gte(972)) return "{3,3[1[1/2~2]1/1/2]2}"; // Ω^(Ω+2)
+    if (ord.gte(324)) return "{3,3[1[1/2~2]1/2]2}"; // Ω^(Ω+1)
+    if (ord.gte(216)) return "{3,3[1[1/2~2]2]3}"; // (Ω^Ω)2
+    if (ord.gte(109)) return "{3,64[1[1/2~2]2]2}"; // SGH Graham's Number Ordinal
+    if (ord.gte(108)) return "{3,3[1[1/2~2]2]2}"; // Γ0 (Ω^Ω)
+    if (ord.gte(76)) return "{3,3[1[1[1/2~2]2~2]2]2}"; // φ(φ(ε0, 0), 0)
+    if (ord.gte(72)) return "{3,3[1[1[2~2]2~2]2]2}"; // φ(φ(ω, 0), 0)
+    if (ord.gte(40)) return "{3,3[1[1/2~2]2]2}"; // φ(ε0, 0)
+    if (ord.gte(38)) return "{3,3[1[1,2~2]2]2}"; // φ(ω^ω, 0)
+    if (ord.gte(37)) return "{3,3[1[3~2]2]2}"; // φ(ω², 0)
+    if (ord.gte(36)) return "{3,3[1[2~2]2]2}"; // φ(ω, 0)
+    if (ord.gte(24)) return "{3,3[1/1/1[1/1/2]2]2"; // ζζ0
+    if (ord.gte(13)) return "{3,3[1/1/1,2]2}"; // ζω
+    if (ord.gte(12)) return "{3,3[1/1/2]2}"; // ζ0
+    if (ord.gte(8)) return "{3,3[1/1[1/2]2]2)"; // εε0
+    if (ord.gte(5)) return "{3,3[1/1,2]2}"; // εω
+    if (ord.gte(4)) return "{3,3[1/2]2}"; // ε0
     if (ord.gte(3)) return getHardy(base ** (base ** 2), 0, base, false); // ω^ω²
     if (ord.gte(2)) return getHardy(base ** base, 0, base, false); // ω^ω
     if (ord.gte(1)) return getHardy(base, 0, base, false); // ω
@@ -629,6 +638,8 @@ function calculateSimpleHardy(ord = data.ord.ordinal, over = data.ord.over, base
     return value
 }
 
+let useExpantaNum = true
+
 // Get the Hardy Value for Display
 function getHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.base, isPsi = data.ord.isPsi) {
     if (isPsi) return psiHardy(ord, base);
@@ -636,8 +647,8 @@ function getHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.
     ord = Decimal.floor(ord);
     let hardyValue = "Infinity";
     hardyValue = format(calculateHardy(ord, over, base));
-    if (hardyValue === "Infinity" && !data.baseless.baseless) {
-        hardyValue = EN_format(hardy(ord, base, over));
+    if (hardyValue === "Infinity") {
+        if (!data.baseless.baseless && useExpantaNum) hardyValue = EN_format(hardy(ord, base, over));
         if (hardyValue === "Infinity") hardyValue = bigHardy(ord, base, over);
     }
     return hardyValue;

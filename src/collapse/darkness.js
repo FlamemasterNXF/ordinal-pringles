@@ -138,7 +138,7 @@ function darkenConfirm(){
     if(!data.sToggles[11]) return darken()
     data.darkness.darkened
         ? createConfirmation('Are you certain?', 'Exiting the Darkness will stop the generation of Negative Charge and Decrementy and force a Booster Reset.', 'No thanks.', 'For sure!', darken)
-        : createConfirmation('Are you certain?', 'Darkening will preform a Booster Reset and trap you in Challenge 8. However, you will also gain the ability to generate Negative Charge.', 'No thanks.', 'For sure!', darken)
+        : createConfirmation('Are you certain?', 'Darkening will perform a Booster Reset and trap you in Challenge 8. However, you will also gain the ability to generate Negative Charge.', 'No thanks.', 'For sure!', darken)
 }
 function chargeSacConfirm(){
     if(!data.sToggles[12]) return darknessControl(2)

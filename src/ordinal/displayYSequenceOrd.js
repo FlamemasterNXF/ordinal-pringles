@@ -56,7 +56,7 @@ function displayHugeYSeqOrd(ord, over, base, trim = data.ord.trim) {
     let YSeq = "(1,2,4,8)"; // ψ(Ω_ω)
     if ((ord.gt(BO_VALUE) || D(ord.layer).gt(D(BO_VALUE).layer)) && !capOrdinalAtBO) {
         let ordLayer = D(ord.layer).plus(D(ord.mag).gte(D(BO_VALUE).mag) ? 0 : -1)
-        let omegaSubscript = ordLayer.div(3).add(2).floor()
+        let omegaSubscript = ordLayer.div(2).add(1.5).floor()
         // Y-sequence from 3-row BMS is too complicated, simply return 1 value per ordinal level (much like Hardy)
         if (omegaSubscript.gte(3)) YSeq = "(1,2,4,8,12,14)"; // ψ(Ω_Ω)
         if (omegaSubscript.gte(4)) YSeq = "(1,2,4,8,12,14,11,15)"; // ψ(Ω_{Ω+1})
@@ -64,7 +64,7 @@ function displayHugeYSeqOrd(ord, over, base, trim = data.ord.trim) {
         if (omegaSubscript.gte(9)) YSeq = "(1,2,4,8,12,14,14)"; // ψ(Ω_{Ω²})
         if (omegaSubscript.gte(27)) YSeq = "(1,2,4,8,12,14,16)"; // ψ(Ω_{Ω^Ω})
         if (omegaSubscript.gte(PSI_VALUE)) YSeq = "(1,2,4,8,12,15)"; // ψ(Ω_Ω₂)
-        if (omegaSubscript.gte(Decimal.tetrate(PSI_VALUE,2))) YSeq = "(1,2,4,8,12,15,9)"; // ψ(I) = OFP
+        if (omegaSubscript.gte(Decimal.tetrate(PSI_VALUE,3))) YSeq = "(1,2,4,8,12,15,9)"; // ψ(I) = OFP
     }
     let trimmed = false
     let outputList = YSeq.slice(1,-1).split(",")
@@ -78,9 +78,9 @@ function displayHugeYSeqOrd(ord, over, base, trim = data.ord.trim) {
 
 // Displays Ordinals using Y-Sequence when the value of ord is less than NUMBER.MAX_VALUE
 function displayYSeqOrd(ord, over, base, trim = data.ord.trim, depth = 0, final = true, forcePsi = false) {
-    if (data.ord.isPsi && D(ord).gte(BO_VALUE)) return displayHugeYSeqOrd(ord, over, base, trim)
-    let BMSOutput = trimBMSFinalOutput(displayBMSOrd(ord, over, base, trim, depth, final), trim)
-    if (data.ord.isPsi && D(ord).toNumber() >= 0 && D(ord).toNumber() < 4) return ["(1)","(1,2)","(1,2,3)","(1,2,3,3)"][Math.floor(D(ord).toNumber())]
+    if ((data.ord.isPsi || forcePsi) && D(ord).gte(BO_VALUE)) return displayHugeYSeqOrd(ord, over, base, trim)
+    let BMSOutput = trimBMSFinalOutput(displayBMSOrd(ord, over, base, trim, depth, final, forcePsi), trim)
+    if ((data.ord.isPsi || forcePsi) && D(ord).toNumber() >= 0 && D(ord).toNumber() < 4) return ["(1)","(1,2)","(1,2,3)","(1,2,3,3)"][Math.floor(D(ord).toNumber())]
     return (D(ord).toNumber() >= 1) ? ((data.ord.isPsi || forcePsi) ? BMS2RowToYSeq(BMSOutput, trim - 1) : BMS1RowToYSeq(BMSOutput, trim)) : "()"
 }
 
