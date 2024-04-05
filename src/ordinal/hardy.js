@@ -638,7 +638,7 @@ function calculateSimpleHardy(ord = data.ord.ordinal, over = data.ord.over, base
     return value
 }
 
-let useExpantaNum = true
+let useExpantaNum = () => data.sToggles[14]
 
 // Get the Hardy Value for Display
 function getHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.base, isPsi = data.ord.isPsi) {
@@ -648,7 +648,7 @@ function getHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.
     let hardyValue = "Infinity";
     hardyValue = format(calculateHardy(ord, over, base));
     if (hardyValue === "Infinity") {
-        if (!data.baseless.baseless && useExpantaNum) hardyValue = EN_format(hardy(ord, base, over));
+        if (!data.baseless.baseless && useExpantaNum()) hardyValue = EN_format(hardy(ord, base, over));
         if (hardyValue === "Infinity") hardyValue = bigHardy(ord, base, over);
     }
     return hardyValue;

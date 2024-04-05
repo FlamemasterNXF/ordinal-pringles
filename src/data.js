@@ -10,7 +10,7 @@ const BO_VALUE = D('eee98235035280650.45') //Decimal.pow(3, ordMarksBO).mul(4)
 //Version Flags
 const VERSION = "0.3.3"
 const VERSION_NAME = "The World's Purest Pringle"
-const VERSION_DATE = "March 16th, 2024"
+const VERSION_DATE = "April 2nd, 2024"
 const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -90,6 +90,7 @@ function fixOldSaves(){
     //Settings fix
     if(typeof data.sToggles === "number") data.sToggles = settingsDefaults
     if(typeof data.gword === 'boolean') data.gword = {unl: data.gword, enabled: data.gword}
+    if(data.sToggles[14] === false) data.sToggles[14] = true
 
     //Decimal Fix
     if(Number.isNaN(data.incrementy.amt.toNumber())) data.incrementy.amt = D(0)
