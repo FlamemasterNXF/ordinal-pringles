@@ -92,7 +92,7 @@ let bup1Effect = () => data.boost.hasBUP[1] ? data.boost.isCharged[1] ? 500 : 5 
 let bup2Effect = () => data.chal.active[6] ? 10 - data.markup.shifts : data.boost.isCharged[2] ? 4 : 5
 let bup3Effect = () => data.boost.hasBUP[3] ? Math.max(Math.pow(2, data.chal.completions[4]), 1) : 1
 function bup48Effect(){
-    if(data.boost.isCharged[5] && data.boost.isCharged[10] && data.hierarchies.hasUpgrade[4]) return Math.sqrt(factorEffect(6))**2
+    if(data.boost.isCharged[5] && data.boost.isCharged[10] && data.hierarchies.hasUpgrade[3]) return Math.sqrt(factorEffect(6))**2
     if(data.boost.isCharged[5] || data.boost.isCharged[10]) return Math.sqrt(factorEffect(6))
     return 1
 }
