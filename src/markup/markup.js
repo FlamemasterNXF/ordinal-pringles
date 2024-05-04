@@ -5,7 +5,7 @@ function updateMarkupHTML(){
     DOM("markupButton").innerHTML =
         data.ord.isPsi&&data.ord.ordinal.eq(GRAHAMS_VALUE)&&data.boost.times===0&&!hasSluggishMilestone(0)?`Base 2 is required to go further...`:
         data.ord.isPsi?`Markup and gain ${ordinalDisplay('', data.ord.ordinal.plus(1), data.ord.over, data.ord.base, ((data.ord.displayType === "BMS") || (data.ord.displayType === "Y-Sequence")) ? Math.max(data.ord.trim, 4) : 4)} (I)`:
-        data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${formatWhole(totalOPGain())} Ordinal Powers (I)`:`H<sub>ω<sup>2</sup></sub>(${data.ord.base}) is required to Markup...`
+        data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${formatWhole(totalOPGain())} Ordinal Powers (I)`:`${ordinalDisplay("H", data.ord.base**2, 0, data.ord.base, ordinalDisplayTrim(), false)}(${data.ord.base}) is required to Markup...`
 
     DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0||hasSluggishMilestone(0)?`Perform a Factor Shift<br>Requires: ?????`:`Perform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
         `Perform a Factor Shift (H)<br>Requires: ${format(getFSReq())} Ordinal Powers`
@@ -20,7 +20,7 @@ function updateMarkupHTML(){
     DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0]+extraT1())} Successor Autoclickers click the Successor button ${formatWhole(succSpeed)} times/second\nYour ${formatWhole(data.autoLevels[1]+extraT1())} Maximize Autoclickers click the Maximize button ${formatWhole(maxSpeed)} times/second`
 
     for (let i = 0; i < data.factors.length; i++) {
-        DOM(`factor${i}`).innerText = hasFactor(i)?`Factor ${i+1} [${data.boost.hasBUP[11]?formatWhole(data.factors[i]+3):formatWhole(data.factors[i])}] ${formatWhole(factorEffect(i))}x\nCost: ${formatWhole(factorCost(i))} Ordinal Powers`:`Factor ${i+1}\nLOCKED`
+        DOM(`factor${i}`).innerText = hasFactor(i)?`Factor ${i+1} [${data.boost.hasBUP[11]?formatWhole(data.factors[i]+bup10Effect()):formatWhole(data.factors[i])}] ${formatWhole(factorEffect(i))}x\nCost: ${formatWhole(factorCost(i))} Ordinal Powers`:`Factor ${i+1}\nLOCKED`
     }
     DOM("factorText").innerText = `Your Factors are multiplying AutoClicker speed by a total of ${formatWhole(factorBoost())}x`
 
@@ -46,8 +46,7 @@ function markup(n=D(1)){
     if(data.ord.isPsi){
         data.ord.ordinal = data.ord.ordinal.plus(n);
         if (capOrdinalAtBO && data.ord.base===3 && data.ord.ordinal.gt(BO_VALUE)) data.ord.ordinal = D(BO_VALUE)
-        if(data.markup.powers.lt("e1e10")) data.markup.powers = D(4e256)
-        return
+        return data.markup.powers = D(4e256)
     }
 
     if(data.chal.active[7]){
@@ -68,22 +67,19 @@ function opMult(){
 
     return mult*alephEffect(2)
 }
-let opGainBase = 10
 function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over) {
-    if(ord===data.ord.ordinal && ord.gte(Number.MAX_VALUE) && !inOmegaMode()) return 4e256
-    if(ord===data.ord.ordinal && !inOmegaMode()) ord = Number(ord)
+    if(D(ord).eq(data.ord.ordinal) && D(ord).gte(Number.MAX_VALUE)) return 4e256
+    if(D(ord).eq(data.ord.ordinal)) ord = Number(ord)
     //if(data.ord.isPsi && base === 3){
     //    return Math.round(ord / 1e270 + 1) * 1e270
     //}
-    if (ord.lt(base)) return ord.plus(over)
-    let pow = Decimal.floor(Decimal.ln(ord.plus(0.1)).div(Math.log(base)))
-    let divisor = Decimal.pow(base, pow)
-    let mult = Decimal.floor((ord.plus(0.1)).div(divisor))
-
-    if(inOmegaMode()) return D(opGainBase).pow(opGain(pow, base, 0)).times(mult).plus(opGain(ord.sub(divisor.times(mult)), base, over))
+    if (ord < base) return ord + over
+    let pow = Math.floor(Math.log(ord + 0.1) / Math.log(base))
+    let divisor = Math.pow(base, pow)
+    let mult = Math.floor((ord + 0.1) / divisor)
     return Math.min(4e256, 10 ** Math.min(4e256, opGain(pow, base, 0)) * mult + Math.min(4e256, opGain(ord - divisor * mult, base, over)))
 }
-let totalOPGain = () => inOmegaMode() ? opGain().times(opMult()) : Decimal.min(4e256, opGain()*opMult())
+let totalOPGain = () => Decimal.min(4e256, opGain()*opMult())
 function calcOrdPoints(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over, trim=0) {
     let opBase = new Decimal(10)
     if (trim >= 10) return new Decimal(0)
@@ -100,6 +96,8 @@ function calcOrdPoints(ord = data.ord.ordinal, base = data.ord.base, over = data
 }
 const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 5e100, Infinity, Infinity]
 function getFSReq(){
+    if (data.markup.shifts >= 7 && data.ord.base > 3) return Infinity // avoid phantom 1e256 on FS7
+    if (data.ord.isPsi && data.ord.ordinal.gte(GRAHAMS_VALUE) && data.boost.times === 0 && !data.collapse.hasSluggish[0]) return D(0) // avoid being stuck on Graham's Number
     const reqScale = data.chal.active[6] ? (totalBUPs()/2)+1.5 : 1
     const req = fsReqs[data.markup.shifts]**reqScale
 

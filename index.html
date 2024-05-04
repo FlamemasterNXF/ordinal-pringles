@@ -39,7 +39,6 @@
     <script defer src="src/etc/tabs.js"></script>
     <script defer src="src/etc/settings.js"></script>
 
-    <script defer src="src/obliterate/omega.js"></script>
     <script defer src="src/obliterate/passiveEnergy.js"></script>
     <script defer src="src/obliterate/energyUpgrades.js"></script>
     <script defer src="src/obliterate/energyTree.js"></script>
@@ -401,7 +400,6 @@
             <button class="obliterateTabButton" id="pringlesTab" onclick="switchSubtab('pringles', 'obliterate')">Pringles</button>
             <button class="obliterateTabButton" id="energyTab" onclick="switchSubtab('energy', 'obliterate')">Energy</button>
             <button class="obliterateTabButton" id="passiveTab" onclick="switchSubtab('passive', 'obliterate')">Passive Energy</button>
-            <button class="obliterateTabButton" id="omegaTab" onclick="switchSubtab('omega', 'obliterate')" style="border-color:#784013; color:#da8320">Omega Mode</button>
         </div>
         <div class="flexBox" id="obliterateInfoContainer" style="margin-top: 0.1rem; flex-direction: column">
             <h3 class="centeredTexts" id="energyText" style="color: #ae50b4;">You have no Chips. In your house. You are broke.</h3>
@@ -427,9 +425,6 @@
             <div class="flexBox" id="passiveUpgradeContainer" style="margin-top: 0.5rem; flex-direction: column"></div>
             <t class="centeredTexts" style="margin-top: 1rem">Whenever <span style="color: #d56cdc">Fractal Energy</span> is spent <span style="color: #bd80ff">Passive Energy</span> is gained.</t>
             <t class="centeredTexts" style="margin-top: 0.25rem">Every <span style="color: #bd80ff">Passive Upgrade</span> costs one <span style="color: #bd80ff">Passive Energy</span>, but you must buy the previous Upgrade in the row first<br>Each row of Passive Upgrades bought causes a Purification Milestone to become Permanent.</t>
-        </div>
-        <div class="flexBox" id="omegaSubPage" style="display: none; flex-direction: column;">
-            <button id="omegaModeButton" onclick="toggleOmegaMode()" style="margin-top: 2rem; width: 35rem; height: 15rem; border: 3px solid #781f13; background-color: black; border-radius: 50px">Hi Downvoid</button>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;"></div>
@@ -473,8 +468,8 @@
         </div>
         <div class="flexBox" id="techSubPage" style="display: none; flex-direction: column">
             <button class="settingsButton" id="settingsToggle14" onclick="settingsToggle(14)" style="width: 24rem"></button>
+            <button class="settingsButton" id='changeMsInterval' onclick="createPrompt('Input New Millisecond Interval (20≤x≤1000)', changeMs, true)" style="width: 24rem">Change Millisecond Interval <span style="color: #8080FF">[50ms]</span></button>
             <t class="centeredTexts" style="margin-top: 1rem; font-family: DosisBold; color: darkred">Changing these could have unintended consequences!!!</t>
-            <t class="centeredTexts" style="color: #a60000">Currently, there is only one of these: it gives a performance boost in SOME cases, at the cost of proper Hardy Display functionality; it's a niche optimization for a niche feature :)</t>
         </div>
         <div class="flexBox" id="savingSubPage" style="display: none; flex-direction: column">
             <button class="settingsButton" onclick="save()">Manual Save</button>

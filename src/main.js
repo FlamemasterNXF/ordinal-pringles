@@ -1,7 +1,7 @@
 function mainLoop() {
     // Calculate diff and usableDiff
     if(data.lastTick === 0) data.lastTick = Date.now()
-    let diff = data.offline ? Math.max((Date.now() - data.lastTick), 0) : 50
+    let diff = data.offline ? Math.max((Date.now() - data.lastTick), 0) : data.ms
     // Used for Offline Progress
     let uDiff = diff/1000
 
@@ -62,8 +62,8 @@ window.onload = function () {
     if(extra) fixOldSavesP2()
 
     if(data.collapse.times > 0) makeExcessOrdMarks()
-}
 
-window.setInterval(function () {
-    mainLoop()
-}, 50);
+    window.setInterval(function () {
+        mainLoop()
+    }, data.ms);
+}
