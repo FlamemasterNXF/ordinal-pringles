@@ -55,5 +55,6 @@ const uHTML = {
         initPurification()
         loadPringleContainers()
         initPassiveEnergyUpgrades()
+        initPurityPlane()
     }
 }

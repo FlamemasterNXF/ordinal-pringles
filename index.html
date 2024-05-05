@@ -39,6 +39,7 @@
     <script defer src="src/etc/tabs.js"></script>
     <script defer src="src/etc/settings.js"></script>
 
+    <script defer src="src/obliterate/purity.js"></script>
     <script defer src="src/obliterate/passiveEnergy.js"></script>
     <script defer src="src/obliterate/energyUpgrades.js"></script>
     <script defer src="src/obliterate/energyTree.js"></script>
@@ -398,6 +399,7 @@
     <div class="flexBox" id="obliteratePage" style="flex-direction: column">
         <div class="flexBox" style="margin-top: 1rem">
             <button class="obliterateTabButton" id="pringlesTab" onclick="switchSubtab('pringles', 'obliterate')">Pringles</button>
+            <button class="obliterateTabButton" id="fieldTab" onclick="switchSubtab('purity', 'obliterate')">Purity</button>
             <button class="obliterateTabButton" id="energyTab" onclick="switchSubtab('energy', 'obliterate')">Energy</button>
             <button class="obliterateTabButton" id="passiveTab" onclick="switchSubtab('passive', 'obliterate')">Passive Energy</button>
         </div>
@@ -413,6 +415,16 @@
             </div>
             <t class="centeredTexts" style="margin-top: 0.5rem">Click any Tube to begin filling it with Pringles. This will Drain all of your Pringles over time.</t>
             <t class="centeredTexts">Clicking a Tube which is filling before it is full will cause it to stop filling. Clicking a Tube which is full will cause it to open, activating its effect until it is once again empty.</t>
+        </div>
+        <div class="flexBox" id="puritySubPage" style="display: none; flex-direction: column">
+            <div class="layer" style="z-index: -1; top: 18rem">
+                <canvas class="flexBox" id="purityCanvas" width="550" height="550"></canvas>
+            </div>
+            <div class="flexBox" id="ppContainer">
+                <div class="flexBox" id="ppXContainer0" style="flex-direction: row; margin-right: 2.45rem"></div>
+                <div class="flexBox" id="ppYContainer" style="flex-direction: column; margin-right: 2.4rem"></div>
+                <div class="flexBox" id="ppXContainer1" style="flex-direction: row"></div>
+            </div>
         </div>
         <div class="flexBox" id="energySubPage" style="display: none; flex-direction: column;">
             <div class="flexBox" style="flex-direction: column; border: 1px solid #272727;">

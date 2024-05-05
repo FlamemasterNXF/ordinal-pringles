@@ -356,6 +356,13 @@
     width: 15rem;
     height: 6rem;
 }
+.purityPoint{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 2px solid white;
+    background: black;
+}
 .progressBar{
     width: 7rem;
     height: 20rem;
