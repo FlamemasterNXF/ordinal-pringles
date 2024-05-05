@@ -103,6 +103,9 @@
         <span id="ordinal" style="font-family: DosisSemiBold; background-image: linear-gradient(90deg, red, blue); background-clip: text; -webkit-background-clip: text; -moz-background-clip: text; color: transparent;">H<sub>0</sub> (10)=10</span>
     </h1>
     <div class="centeredTexts" id="chalIn" style="margin-bottom: 0.5rem; color: orangered">Decrementy my beloved</div>
+    <div class="flexBox" style="margin-bottom: 1rem">
+        <button id="obliterateButton" onclick="obliterateConfirm()" style="color: #b06cdc; min-width: 30rem; height: 3rem; background-color: black; border: 2px solid rgb(54 0 81)">SODA!!!</button>
+    </div>
     <div class="flexBox" id="tabs" style="margin-bottom: 0.5rem">
         <button class="tabButton" id="ordNav" onclick="switchTab('ord')" style="color: indianred; border-color: #610000">Ordinals</button>
         <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchSubtab(markupTab, 'markup')" style="color: goldenrod; border-color: #785c13 ">Markup</button>
@@ -406,18 +409,60 @@
         <div class="flexBox" id="obliterateInfoContainer" style="margin-top: 0.1rem; flex-direction: column">
             <h3 class="centeredTexts" id="energyText" style="color: #ae50b4;">You have no Chips. In your house. You are broke.</h3>
         </div>
-        <button id="obliterateButton" onclick="obliterateConfirm()" style="color: #b06cdc;; min-width: 20rem; height: 5rem; background-color: black; border: 2px solid #6b00a0">SODA!!!</button>
         <div class="flexBox" id="pringlesSubPage" style="flex-direction: column;">
-            <div class="flexBox" style="flex-direction: row">
-                <div class="progressBar" id="pringlesContainer0" onclick="fillPringlesContainer(0)" tooltip="Gain free DUP1 levels equivalent to half of your DUP1 levels." style="border: 5px solid #49120c"><div class="progress" id="pringlesProgress0" style="background-color: #da3020"></div></div>
-                <div class="progressBar" id="pringlesContainer1" onclick="fillPringlesContainer(1)" tooltip="All Drains are set to your highest Drain." style="border: 5px solid #883d14"><div class="progress" id="pringlesProgress1" style="background-color: #da6120"></div></div>
-                <div class="progressBar" id="pringlesContainer2" onclick="fillPringlesContainer(2)" tooltip="All Singularity functions are activated." style="border: 5px solid #947717"><div class="progress" id="pringlesProgress2" style="background-color: #daaf20"></div></div>
+            <div class="layer" style="z-index: -1; top: 18em">
+                <canvas class="flexBox" id="pringleCanvas" width="1000" height="600"></canvas>
             </div>
-            <t class="centeredTexts" style="margin-top: 0.5rem">Click any Tube to begin filling it with Pringles. This will Drain all of your Pringles over time.</t>
-            <t class="centeredTexts">Clicking a Tube which is filling before it is full will cause it to stop filling. Clicking a Tube which is full will cause it to open, activating its effect until it is once again empty.</t>
+            <div class="flexBox">
+                <button class="pringle" style="margin-right: 42rem"></button>
+                <button class="pringle" style=""></button>
+            </div>
+            <div class="flexBox" style="margin-top: 2rem">
+                <button class="pringle" style="margin-right: 12rem"></button>
+                <button class="pringle" style="margin-right: 28rem"></button>
+                <button class="pringle" style="margin-right: 12rem"></button>
+                <button class="pringle" style="margin-right: 0rem"></button>
+            </div>
+            <div class="flexBox" style="margin-top: 2rem">
+                <button class="pringle" style="margin-right: 42rem"></button>
+                <button class="pringle" style=""></button>
+            </div>
+            <div class="flexBox" style="margin-top: 2rem">
+                <button class="pringle" style="margin-right: 25rem"></button>
+                <button class="pringle" style=""></button>
+            </div>
+            <div class="flexBox" style="margin-top: 2rem">
+                <button class="pringle" style="margin-right: 52rem"></button>
+                <button class="pringle" style=""></button>
+            </div>
+            <div class="flexBox" style="">
+                <button class="pringle" style=""></button>
+            </div>
+            <div class="flexBox" style="margin-top: 1rem">
+                <button class="pringle" style="margin-right: 52rem"></button>
+                <button class="pringle" style=""></button>
+            </div>
+            <div class="flexBox" style="margin-top: 2rem">
+                <button class="pringle" style="margin-right: 25rem"></button>
+                <button class="pringle" style=""></button>
+            </div>
+            <div class="flexBox" style="margin-top: 2rem">
+                <button class="pringle" style="margin-right: 42rem"></button>
+                <button class="pringle" style=""></button>
+            </div>
+            <div class="flexBox" style="margin-top: 2rem">
+                <button class="pringle" style="margin-right: 12rem"></button>
+                <button class="pringle" style="margin-right: 28rem"></button>
+                <button class="pringle" style="margin-right: 12rem"></button>
+                <button class="pringle" style="margin-right: 0rem"></button>
+            </div>
+            <div class="flexBox" style="margin-top: 2rem">
+                <button class="pringle" style="margin-right: 42rem"></button>
+                <button class="pringle" style=""></button>
+            </div>
         </div>
         <div class="flexBox" id="puritySubPage" style="display: none; flex-direction: column">
-            <div class="layer" style="z-index: -1; top: 18rem">
+            <div class="layer" style="z-index: -1; top: 22em">
                 <canvas class="flexBox" id="purityCanvas" width="550" height="550"></canvas>
             </div>
             <div class="flexBox" id="ppContainer">

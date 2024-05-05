@@ -1,65 +1,49 @@
 let getPringleGain = () => data.obliterate.times > 0 ? Math.sqrt(data.obliterate.energy) : 0
-let isDrainingPringles = () => data.obliterate.currentDrain > -1
-let getPringleDrain = () => data.obliterate.pringlesBeforeDrain / 300
-let isPringleContainerActive = (i) => data.obliterate.containers[i].active
-let getPringleContainerEffect = (i) => isPringleContainerActive(i) ? pringleContainerEffects[i]() : 1
-
-let pringleContainerEffects = [
-    () => data.darkness.levels[0]/2,
-    () => 1,
-    () => 1
-]
-
 function displayPringlesGain(){
-    if(isDrainingPringles()) return `-${format(data.obliterate.pringles / (5 * 60 * 1000 / 50))}/s`
     return `+${format(getPringleGain())}/s`
 }
 
-function loadPringleContainers(){
-    for (let i = 0; i < data.obliterate.containers.length; i++) {
-        DOM(`pringlesProgress${i}`).style.height = `${data.obliterate.containers[i].percentFilled}%`
-    }
+function initPringleAlchemy(){
+    let canvas = DOM('pringleCanvas')
+    let context = canvas.getContext('2d')
+
+    // Draw the Top Left Circle
+    context.moveTo(0, 0)
+    context.line
+    context.strokeStyle = `#ffffff`
+    context.beginPath();
+    context.arc(150, 145, 140, 0, 2 * Math.PI);
+    context.stroke();
+
+    // Draw the Bottom Left Circle
+    context.moveTo(0, 600)
+    context.line
+    context.strokeStyle = `#ffffff`
+    context.beginPath();
+    context.arc(150, 455, 140, 0, 2 * Math.PI);
+    context.stroke();
+
+    // Draw the Top Right Circle
+    context.moveTo(1000, 0)
+    context.line
+    context.strokeStyle = `#ffffff`
+    context.beginPath();
+    context.arc(850, 145, 140, 0, 2 * Math.PI);
+    context.stroke();
+
+    // Draw the Bottom Left Circle
+    context.moveTo(1000, 600)
+    context.line
+    context.strokeStyle = `#ffffff`
+    context.beginPath();
+    context.arc(850, 455, 140, 0, 2 * Math.PI);
+    context.stroke();
+
+    // Draw the Center Circle
+    context.moveTo(500, 300)
+    context.line
+    context.strokeStyle = `#ffffff`
+    context.beginPath();
+    context.arc(500, 300, 240, 0, 2 * Math.PI);
+    context.stroke();
 }
-
-function drainPringles(diff){
-    if(data.obliterate.pringles <= 0){
-        data.obliterate.pringles = 0
-        data.obliterate.containers[data.obliterate.currentDrain].percentFilled = 100
-        DOM(`pringlesProgress${data.obliterate.currentDrain}`).style.height = `${data.obliterate.containers[data.obliterate.currentDrain].percentFilled}%`
-        return data.obliterate.currentDrain = -1
-    }
-
-    data.obliterate.pringles -= getPringleDrain()*diff
-
-    let percentGain = 100 - ((data.obliterate.pringles/data.obliterate.pringlesBeforeDrain)*100)
-
-    if(data.obliterate.containers[data.obliterate.currentDrain].percentFilled < percentGain){
-        data.obliterate.containers[data.obliterate.currentDrain].percentFilled = percentGain
-        DOM(`pringlesProgress${data.obliterate.currentDrain}`).style.height = `${data.obliterate.containers[data.obliterate.currentDrain].percentFilled}%`
-    }
-}
-
-function fillPringlesContainer(i){
-    if(data.obliterate.containers[i].percentFilled === 100) return openPringlesContainer(i)
-    if(data.obliterate.containers[i].percentFilled !== 100 && data.obliterate.currentDrain === i) return data.obliterate.currentDrain = -1
-    data.obliterate.pringlesBeforeDrain = data.obliterate.pringles
-    data.obliterate.currentDrain = i
-}
-
-function openPringleContainerTimeCheck(diff){
-    for (let i = 0; i < data.obliterate.containers.length; i++) {
-        if(isPringleContainerActive(i)){
-            data.obliterate.containers[i].timeActive += diff
-            if(data.obliterate.containers[i].timeActive >= data.obliterate.containers[i].length*1000){
-                data.obliterate.containers[i].active = false
-                data.obliterate.containers[i].timeActive = 0
-                data.obliterate.containers[i].percentFilled = 0
-            }
-            DOM(`pringlesProgress${i}`).style.height = isPringleContainerActive(i)
-                ? `${100 - ((data.obliterate.containers[i].timeActive / (data.obliterate.containers[i].length*1000))*100)}%`
-                : `0%`
-        }
-    }
-}
-
-let openPringlesContainer = (i) => data.obliterate.containers[i].active = true

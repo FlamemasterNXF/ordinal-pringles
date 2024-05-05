@@ -23,9 +23,7 @@ function mainLoop() {
     if(remnantAmt() > 0 && data.omega.alephOmega < remnantAmt()) data.omega.alephOmega += aoGain()*uDiff
     if(data.omega.alephOmega > remnantAmt()) data.omega.alephOmega = remnantAmt()
 
-    if(data.obliterate.times > 0 && !isDrainingPringles()) data.obliterate.pringles += getPringleGain()*uDiff
-    if(data.obliterate.times > 0 && isDrainingPringles()) drainPringles(uDiff)
-    if(data.obliterate.times > 0) openPringleContainerTimeCheck(diff)
+    if(data.obliterate.times > 0) data.obliterate.pringles += getPringleGain()*uDiff
 
     data.darkness.negativeCharge = Math.min(negativeChargeCap(), data.darkness.negativeCharge+negativeChargeGain()*uDiff)
 

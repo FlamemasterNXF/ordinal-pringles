@@ -133,5 +133,5 @@ let singFunctions = [
 ]
 
 let hasPermanentFunction = (i) => singFunctions[i].permReq()
-let hasSingFunction = (i) => data.sing.level >= singFunctions[i].requiredLevel || hasPermanentFunction(i) || (isPringleContainerActive(1) && isTabUnlocked('sing'))
+let hasSingFunction = (i) => data.sing.level >= singFunctions[i].requiredLevel || hasPermanentFunction(i)
 let getSingFunctionEffect = (i) => hasSingFunction(i) ? singFunctions[i].effect() : 1

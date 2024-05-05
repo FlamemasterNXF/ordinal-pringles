@@ -54,7 +54,7 @@ let drainEffect = (i) => getDrainLevel(i) > 0 ? i===1 ? Math.max(0, drain1Effect
     : Math.max(drainData[i].effect(), 1)
     : i===1 ? 0 : 1
 let drainCost = (i) => (10**(1+(data.darkness.totalDrains/2)))*(getDrainLevel(i)+1)
-let getDrainLevel = (i) => isPringleContainerActive(2) ? Math.max(...data.darkness.drains) : data.darkness.drains[i]
+let getDrainLevel = (i) => data.darkness.drains[i]
 let drainData = [
     { effect: () => 2*getDrainLevel(0) },
     { effect: () => drain1Effect() },
@@ -77,7 +77,7 @@ let dupData = [
     { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> isTabUnlocked('darkness') ? 1.1**(data.darkness.levels[2]+getExtraDUPLevels(2)) : 1 }
 ]
 let extraDUPLevels = [
-    () => getPringleContainerEffect(0),
+    () => 0,
     () => iup11Effect(),
     () => alephNullEffects[1]()
 ]

@@ -53,8 +53,8 @@ const uHTML = {
         initSingularityFunctions()
         initANRebuyables()
         initPurification()
-        loadPringleContainers()
         initPassiveEnergyUpgrades()
+        initPringleAlchemy()
         initPurityPlane()
     }
 }
