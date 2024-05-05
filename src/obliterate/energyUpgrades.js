@@ -1,7 +1,7 @@
 const energyUpgradeData = [
     [
         {
-            desc: 'Pringles boost AutoBuyers',
+            desc: 'Total Fractal Energy boost AutoBuyers',
             cost: 0,
             effect: () => 1,
             hasExtraReq: false,
@@ -9,6 +9,7 @@ const energyUpgradeData = [
             extraReqText: '',
         }
     ],
+    /*
     [
         {
             desc: 'Activating any Color of Pringles boosts Upgrade 0',
@@ -109,6 +110,7 @@ const energyUpgradeData = [
             extraReqText: '',
         },
     ],
+     */
     [
         {
             desc: 'Total Fractal Energy provides free levels of the first ℵ<sub>0</sub> Upgrade',
@@ -169,7 +171,7 @@ const energyUpgradeData = [
     ],
     [
         {
-            desc: 'Pringles boost the first ℵ<sub>ω</sub> effect',
+            desc: 'Toal Fractal Energy boosts the first ℵ<sub>ω</sub> effect',
             cost: 1,
             effect: () => 1,
             hasExtraReq: false,
@@ -185,7 +187,7 @@ const energyUpgradeData = [
             extraReqText: '',
         },
         {
-            desc: 'Pringles boost the first ℵ<sub>ω</sub> Upgrade',
+            desc: 'Total Fractal Energy boosts the first ℵ<sub>ω</sub> Upgrade',
             cost: 1,
             effect: () => 1,
             hasExtraReq: false,
@@ -201,7 +203,7 @@ const energyUpgradeData = [
             extraReqText: '',
         },
         {
-            desc: 'While the Obscure are being Purified, Pringles boost the FGH Successor',
+            desc: 'While the Obscure are being Purified, Total Fractal Energy boost the FGH Successor',
             cost: 1,
             effect: () => 1,
             hasExtraReq: false,
@@ -209,7 +211,7 @@ const energyUpgradeData = [
             extraReqText: '',
         },
         {
-            desc: 'While the Infinite are being Purified, Pringles divide the Dynamic Factor',
+            desc: 'While the Infinite are being Purified, Total Fractal Energy divide the Dynamic Factor',
             cost: 1,
             effect: () => 1,
             hasExtraReq: false,

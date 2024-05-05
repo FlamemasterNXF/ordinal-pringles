@@ -1,5 +1,7 @@
 let treeNodes = new vis.DataSet([
     { id: 0, label: "" },
+
+    /*
     { id: 101, label: "101" },
     { id: 102, label: "102" },
     { id: 103, label: "103" },
@@ -13,6 +15,25 @@ let treeNodes = new vis.DataSet([
     { id: 203, label: "203" },
     { id: 204, label: "204" },
     { id: 205, label: "205" },
+     */
+
+    { id: 101, label: "101" },
+    { id: 102, label: "102" },
+    { id: 103, label: "103" },
+    { id: 104, label: "104" },
+    { id: 105, label: "105" },
+    { id: 106, label: "106" },
+    { id: 107, label: "107" },
+
+    { id: 201, label: "201" },
+    { id: 202, label: "202" },
+    { id: 203, label: "203" },
+    { id: 204, label: "204" },
+    { id: 205, label: "205" },
+    { id: 206, label: "206" },
+    { id: 207, label: "207" },
+    { id: 208, label: "208" },
+    { id: 209, label: "209" },
 
     { id: 301, label: "301" },
     { id: 302, label: "302" },
@@ -21,28 +42,11 @@ let treeNodes = new vis.DataSet([
     { id: 305, label: "305" },
     { id: 306, label: "306" },
     { id: 307, label: "307" },
-
-    { id: 401, label: "401" },
-    { id: 402, label: "402" },
-    { id: 403, label: "403" },
-    { id: 404, label: "404" },
-    { id: 405, label: "405" },
-    { id: 406, label: "406" },
-    { id: 407, label: "407" },
-    { id: 408, label: "408" },
-    { id: 409, label: "409" },
-
-    { id: 501, label: "501" },
-    { id: 502, label: "502" },
-    { id: 503, label: "503" },
-    { id: 504, label: "504" },
-    { id: 505, label: "505" },
-    { id: 506, label: "506" },
-    { id: 507, label: "507" },
-    { id: 508, label: "508" },
+    { id: 308, label: "308" },
 ])
 
 let treeEdges = new vis.DataSet([
+    /*
     { from: 0, to: 101 },
     { from: 101, to: 102 },
     { from: 102, to: 103 },
@@ -56,7 +60,29 @@ let treeEdges = new vis.DataSet([
     { from: 202, to: 203 },
     { from: 203, to: 204 },
     { from: 204, to: 205 },
+     */
 
+    { from: 0, to: 101 },
+    { from: 0, to: 101 },
+    { from: 101, to: 102 },
+    { from: 102, to: 103 },
+    { from: 103, to: 104 },
+    { from: 104, to: 105 },
+    { from: 105, to: 106 },
+    { from: 106, to: 107 },
+
+    { from: 0, to: 201 },
+    { from: 0, to: 201 },
+    { from: 201, to: 202 },
+    { from: 202, to: 203 },
+    { from: 203, to: 204 },
+    { from: 204, to: 205 },
+    { from: 205, to: 206 },
+    { from: 206, to: 207 },
+    { from: 207, to: 208 },
+    { from: 208, to: 209 },
+
+    { from: 0, to: 301 },
     { from: 0, to: 301 },
     { from: 301, to: 302 },
     { from: 302, to: 303 },
@@ -64,25 +90,7 @@ let treeEdges = new vis.DataSet([
     { from: 304, to: 305 },
     { from: 305, to: 306 },
     { from: 306, to: 307 },
-
-    { from: 0, to: 401 },
-    { from: 401, to: 402 },
-    { from: 402, to: 403 },
-    { from: 403, to: 404 },
-    { from: 404, to: 405 },
-    { from: 405, to: 406 },
-    { from: 406, to: 407 },
-    { from: 407, to: 408 },
-    { from: 408, to: 409 },
-
-    { from: 0, to: 501 },
-    { from: 501, to: 502 },
-    { from: 502, to: 503 },
-    { from: 503, to: 504 },
-    { from: 504, to: 505 },
-    { from: 505, to: 506 },
-    { from: 506, to: 507 },
-    { from: 507, to: 508 },
+    { from: 307, to: 308 },
 ])
 
 let treeContainer = DOM("energyTree")

@@ -23,8 +23,6 @@ function mainLoop() {
     if(remnantAmt() > 0 && data.omega.alephOmega < remnantAmt()) data.omega.alephOmega += aoGain()*uDiff
     if(data.omega.alephOmega > remnantAmt()) data.omega.alephOmega = remnantAmt()
 
-    if(data.obliterate.times > 0) data.obliterate.pringles += getPringleGain()*uDiff
-
     data.darkness.negativeCharge = Math.min(negativeChargeCap(), data.darkness.negativeCharge+negativeChargeGain()*uDiff)
 
     // Run the tick() function to calculate things that rely on normal diff

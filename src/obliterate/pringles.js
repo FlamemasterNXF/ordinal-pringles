@@ -1,7 +1,8 @@
-let getPringleGain = () => data.obliterate.times > 0 ? Math.sqrt(data.obliterate.energy) : 0
-function displayPringlesGain(){
-    return `+${format(getPringleGain())}/s`
-}
+let pringleData = [
+    {
+        desc: ''
+    }
+]
 
 function initPringleAlchemy(){
     let canvas = DOM('pringleCanvas')
