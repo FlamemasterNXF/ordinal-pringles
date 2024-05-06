@@ -5,7 +5,7 @@ function initPurityPlane(){
     // Draw the Initial Plane
     context.moveTo(0, 0)
     context.line
-    context.strokeStyle = `#ffffff`
+    context.strokeStyle = `#5b5b5b`
     context.strokeRect(0, 275, 550, 0);
     context.strokeRect(275, 0, 0, 550);
 
