@@ -101,6 +101,10 @@ function switchSubtab(t, mode){
     if(mode === "obliterate"){
         if(t === 'energy' && !hasDrawnTree) drawTree()
         if(t === 'passive') updatePassiveEnergyText()
+        if(t === 'purity' && !data.purity.tutorial){
+            createAlert('Tutorial Time!', "Here you can assign Pringles to certain Points on a plane. Each Point provides a certain amount of 'Purity' (Purity is the same thing as 'effect strength'), with Points further from the center having reduced Purity.", 'Thanks for the tips!')
+            data.purity.tutorial = true
+        }
 
         DOM(`obliterateInfoContainer`).style.display = t === 'passive' || t === 'pringles' ? 'none' : 'flex'
 

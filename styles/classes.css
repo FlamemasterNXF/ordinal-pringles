@@ -363,12 +363,26 @@
     background: black;
     border: 2px solid white;
 }
+.purityPringle{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 75%;
+    background: black;
+    border: 2px solid white;
+    margin-top: 1rem;
+}
 .purityPoint{
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
     border: 2px solid #5b5b5b;
     background: black;
+}
+.purityBar{
+    width: 16rem;
+    height: 30rem;
+    border: 2px solid #5b5b5b;
+    color: white;
 }
 .progressBar{
     width: 7rem;

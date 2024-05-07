@@ -4,7 +4,7 @@ let pringleData = [
         colorDesc: 'Green',
         name: 'Flavorful',
         desc: 'Boosts the First Cardinal Upgrade',
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'Incrementy',
         resLocation: [['incrementy', 'amt']],
         cost: () => D(1e10).pow((data.obliterate.pringleAmount[0]+1)*Math.sqrt(data.obliterate.pringleAmount[0]+1))
@@ -14,7 +14,7 @@ let pringleData = [
         colorDesc: 'Green',
         name: 'Crispy',
         desc: 'Boosts the Second Cardinal Upgrade',
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'Incrementy',
         resLocation: [['incrementy', 'amt']],
         cost: () => D(1e30).pow((data.obliterate.pringleAmount[1]+1)*Math.sqrt(data.obliterate.pringleAmount[1]+1))
@@ -24,7 +24,7 @@ let pringleData = [
         colorDesc: 'Green',
         name: 'Popular',
         desc: 'Boosts the Fifth Cardinal Upgrade',
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'Incrementy',
         resLocation: [['incrementy', 'amt']],
         cost: () => D(1e40).pow((data.obliterate.pringleAmount[2]+1)*Math.sqrt(data.obliterate.pringleAmount[2]+1))
@@ -34,7 +34,7 @@ let pringleData = [
         colorDesc: 'Green',
         name: 'Beloved',
         desc: 'Boosts the Sixth Cardinal Upgrade',
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'Incrementy',
         resLocation: [['incrementy', 'amt']],
         cost: () => D(1e6).pow((data.obliterate.pringleAmount[3]+1)*Math.sqrt(data.obliterate.pringleAmount[3]+1))
@@ -44,7 +44,7 @@ let pringleData = [
         colorDesc: 'Green',
         name: 'Perfected',
         desc: 'Boosts the Seventh Cardinal Upgrade',
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'of all the Green Pringles',
         resLocation: [['obliterate', 'pringleAmount', '0'], ['obliterate', 'pringleAmount', '1'], ['obliterate', 'pringleAmount', '2'], ['obliterate', 'pringleAmount', '3']],
         cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[4]))
@@ -55,7 +55,7 @@ let pringleData = [
         colorDesc: 'Orange',
         name: 'Flavorful',
         desc: 'Boosts AutoClicker Speeds',
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
         cost: () => D(1e10).times(Math.pow(2, data.obliterate.pringleAmount[5]))
@@ -65,7 +65,7 @@ let pringleData = [
         colorDesc: 'Orange',
         name: 'Crispy',
         desc: 'Boosts ℵ<sub>0</sub> Gain',
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
         cost: () => D(1e10).times(Math.pow(12, data.obliterate.pringleAmount[10]))
@@ -75,7 +75,7 @@ let pringleData = [
         colorDesc: 'Orange',
         name: 'Popular',
         desc: 'Boosts the Third ℵ<sub>0</sub> Rebuyable',
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
         cost: () => D(1e10).times(Math.pow(6, data.obliterate.pringleAmount[10]))
@@ -85,7 +85,7 @@ let pringleData = [
         colorDesc: 'Orange',
         name: 'Beloved',
         desc: 'Boosts the Second ℵ<sub>0</sub> Rebuyable',
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
         cost: () => D(1e10).times(Math.pow(3, data.obliterate.pringleAmount[10]))
@@ -95,7 +95,7 @@ let pringleData = [
         colorDesc: 'Orange',
         name: 'Perfected',
         desc: 'Boosts the First ℵ<sub>0</sub> Effect',
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'of all the Orange Pringles',
         resLocation: [['obliterate', 'pringleAmount', '5'], ['obliterate', 'pringleAmount', '6'], ['obliterate', 'pringleAmount', '7'], ['obliterate', 'pringleAmount', '8']],
         cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[9]))
@@ -106,7 +106,7 @@ let pringleData = [
         colorDesc: 'Pink-Purple',
         name: 'Flavorful',
         desc: "Reduces the Second Incrementy Rebuyable's Cost",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'ℵ<sub>0</sub>',
         resLocation: [['baseless', 'alephNull']],
         cost: () => D(1e6).times(Math.pow(2, data.obliterate.pringleAmount[10]))
@@ -116,7 +116,7 @@ let pringleData = [
         colorDesc: 'Pink-Purple',
         name: 'Crispy',
         desc: "Reduces the Third Incrementy Rebuyable's Cost",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'ℵ<sub>0</sub>',
         resLocation: [['baseless', 'alephNull']],
         cost: () => D(1e6).times(Math.pow(20, data.obliterate.pringleAmount[10]))
@@ -126,7 +126,7 @@ let pringleData = [
         colorDesc: 'Pink-Purple',
         name: 'Popular',
         desc: "Reduces the Fourth Incrementy Rebuyable's Cost",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'ℵ<sub>0</sub>',
         resLocation: [['baseless', 'alephNull']],
         cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[10]))
@@ -136,7 +136,7 @@ let pringleData = [
         colorDesc: 'Pink-Purple',
         name: 'Beloved',
         desc: "Reduces the Sixth Incrementy Rebuyable's Cost",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'ℵ<sub>0</sub>',
         resLocation: [['baseless', 'alephNull']],
         cost: () => D(1e6).times(Math.pow(5, data.obliterate.pringleAmount[10]))
@@ -146,7 +146,7 @@ let pringleData = [
         colorDesc: 'Pink-Purple',
         name: 'Perfected',
         desc: "Reduces the Fifth Incrementy Rebuyable's Cost",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'of all the Pink-Purple Pringles',
         resLocation: [['obliterate', 'pringleAmount', '10'], ['obliterate', 'pringleAmount', '11'], ['obliterate', 'pringleAmount', '12'], ['obliterate', 'pringleAmount', '13']],
         cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[14]))
@@ -157,7 +157,7 @@ let pringleData = [
         colorDesc: 'Blue',
         name: 'Flavorful',
         desc: "Boosts the FGH Effect",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'Cardinals',
         resLocation: [['collapse', 'cardinals']],
         cost: () => D(1e30).pow(Math.sqrt(data.obliterate.pringleAmount[15]+1))
@@ -167,7 +167,7 @@ let pringleData = [
         colorDesc: 'Blue',
         name: 'Crispy',
         desc: "Boosts FGH Gain",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'Cardinals',
         resLocation: [['collapse', 'cardinals']],
         cost: () => D(1e10).pow(Math.sqrt(data.obliterate.pringleAmount[15]+1))
@@ -177,27 +177,27 @@ let pringleData = [
         colorDesc: 'Blue',
         name: 'Popular',
         desc: "Boosts the SGH Effect",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'Cardinals',
         resLocation: [['collapse', 'cardinals']],
         cost: () => D(1e20).pow(Math.sqrt(data.obliterate.pringleAmount[15]+1))
     },
     {
-        color: '#384cd2',
+        color: '#2b3cab',
         colorDesc: 'Blue',
         name: 'Beloved',
         desc: "Boosts SGH Gain",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'Cardinals',
         resLocation: [['collapse', 'cardinals']],
         cost: () => D(1e40).pow(Math.sqrt(data.obliterate.pringleAmount[15]+1))
     },
     {
-        color: '#4000ff',
+        color: '#3d40fd',
         colorDesc: 'Blue',
         name: 'Perfected',
         desc: "Boosts the Hierarchy Rebuyable Caps",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'of all the Blue Pringles',
         resLocation: [['obliterate', 'pringleAmount', '15'], ['obliterate', 'pringleAmount', '16'], ['obliterate', 'pringleAmount', '17'], ['obliterate', 'pringleAmount', '18']],
         cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[19]))
@@ -209,7 +209,7 @@ let pringleData = [
         colorDesc: 'Green',
         name: 'Limited Edition',
         desc: "Boosts Cardinal Gain",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'of all the Green Pringles',
         resLocation: [['obliterate', 'pringleAmount', '0'], ['obliterate', 'pringleAmount', '1'], ['obliterate', 'pringleAmount', '2'], ['obliterate', 'pringleAmount', '3']],
         cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[20]))
@@ -219,7 +219,7 @@ let pringleData = [
         colorDesc: 'Orange',
         name: 'Limited Edition',
         desc: "Boosts Dynamic Cap",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'of all the Orange Pringles',
         resLocation: [['obliterate', 'pringleAmount', '5'], ['obliterate', 'pringleAmount', '6'], ['obliterate', 'pringleAmount', '7'], ['obliterate', 'pringleAmount', '8']],
         cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[21]))
@@ -229,7 +229,7 @@ let pringleData = [
         colorDesc: 'Pink-Purple',
         name: 'Limited Edition',
         desc: "Reduces Charge Cost",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'of all the Pink-Purple Pringles',
         resLocation: [['obliterate', 'pringleAmount', '10'], ['obliterate', 'pringleAmount', '11'], ['obliterate', 'pringleAmount', '12'], ['obliterate', 'pringleAmount', '13']],
         cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[22]))
@@ -239,7 +239,7 @@ let pringleData = [
         colorDesc: 'Blue',
         name: 'Limited Edition',
         desc: "Boosts Incrementy Gain",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'of all the Blue Pringles',
         resLocation: [['obliterate', 'pringleAmount', '15'], ['obliterate', 'pringleAmount', '16'], ['obliterate', 'pringleAmount', '17'], ['obliterate', 'pringleAmount', '18']],
         cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[23]))
@@ -249,7 +249,7 @@ let pringleData = [
         colorDesc: 'Red',
         name: 'Barbecue',
         desc: "Boosts AutoBuyer Speed",
-        eff: () => 1,
+        eff: () => D(1),
         resNames: 'of all the Inner-Circle Pringles',
         resLocation: [['obliterate', 'pringleAmount', '20'], ['obliterate', 'pringleAmount', '21'], ['obliterate', 'pringleAmount', '2'], ['obliterate', 'pringleAmount', '23']],
         cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[24]))
@@ -306,18 +306,46 @@ function initPringles(){
     }
 }
 
-function displayPringleButton(event, pringleData, i){
-    let button = DOM(`pringleButton`)
+function displayPringleButton(event, pringleData, i, type = 'pringleButton'){
+    let button = DOM(type)
 
     button.style.display = `block`
     button.style.left = `${event.pageX}px`
     button.style.top = `${event.pageY}px`
 
     button.style.color = pringleData.color
-    updatePringleButtonText(pringleData, i)
+    if(type === 'pringleButton') updatePringleButtonText(pringleData, i)
+    if(type === 'purityButton') updatePurityButtonText(pringleData, i)
 }
 function updatePringleButtonText(pringleData, i){
-    DOM('pringleButton').innerHTML = `The ${pringleData.name}${i !== 24 ? ` ${pringleData.colorDesc}` : ''} Pringle [${data.obliterate.pringleAmount[i]}]<br><b>${pringleData.desc}</b><br>It costs <b>${format(pringleData.cost())} ${pringleData.resNames}</b> to craft<br>It is currently UNASSIGNED<br><i style="font-size: 0.85rem; color: gray">Click this Pringle to Craft it!</i>`
+    DOM('pringleButton').innerHTML = `The ${pringleData.name}${i !== 24 ? ` ${pringleData.colorDesc}` : ''} Pringle [${data.obliterate.pringleAmount[i]}]<br><b>${pringleData.desc} [${getPringleEffectText(pringleData, i)}]</b><br>It costs <b>${format(pringleData.cost())} ${pringleData.resNames}</b> to craft<br>${getPringleAssignmentText(i)}<br><i style="font-size: 0.85rem; color: gray">Click this Pringle to Craft it!</i>`
+}
+
+let getPringleEffectText = (pringleData, i) =>
+    `${pringleData.colorDesc === 'Pink-Purple' ? '/' : ''}${format(getPringleEffect(i))}${pringleData.colorDesc !== 'Pink-Purple' ? 'x' : ''}`
+function getPringleAssignmentText(i){
+    if(i === 24) return `It requires no Assignment`
+
+    let isAssigned = isPringleAssigned(i)
+    return isAssigned ? `It is currently ASSIGNED!` : `It is currently UNASSIGNED`
+}
+
+function isPringleAssigned(i){
+    let isAssigned = false
+    for (let j = 0; j < data.purity.assignment.length; j++) {
+        if(!isPurityPointUnlocked(j)) continue;
+        if(data.purity.assignment[j] === i) isAssigned = true
+    }
+    return isAssigned
+}
+function getPringleAssignment(i){
+    if(!isPringleAssigned(i)) return -1
+    let assignment = 0
+    for (let j = 0; j < data.purity.assignment.length; j++) {
+        if(!isPurityPointUnlocked(j)) continue;
+        if(data.purity.assignment[j] === i) assignment = j
+    }
+    return assignment
 }
 
 function buyPringle(pringleData, index){
@@ -339,3 +367,5 @@ function buyPringle(pringleData, index){
     ++data.obliterate.pringleAmount[index]
     updatePringleButtonText(pringleData, index)
 }
+
+let getPringleEffect = (i) => isPringleAssigned(i) || i === 24 ? Decimal.max(1, (pringleData[i].eff()).times(getPurityStrength(getPringleAssignment(i)))): 1

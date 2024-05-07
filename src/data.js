@@ -34,6 +34,7 @@ function getDefaultObject() {
         baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), anRebuyables: Array(anRebuyableData.length).fill(0), tutorial: false},
         omega:{bestRemnants: 0, alephOmega:1, bestFBInPurification: Array(4).fill(0), purificationIsActive: Array(4).fill(false), whichPurification: -1, aoRebuyables:Array(8).fill(0), tutorial: false},
         obliterate:{times:0, energy:0, passiveEnergy:0, energyUpgrades: [], pringleAmount: Array(25).fill(0), hasPassiveUpgrade: Array(passiveEnergyDescriptions.length).fill(false)},
+        purity:{isAssigned: Array(17).fill(false), isUnlocked: Array(3).fill(false).concat(Array(3).fill(true)).concat(Array(6).fill(false)).concat(Array(2).fill(true)).concat(Array(3).fill(false)), assignment:Array(17).fill(false), pringleQueued: -1, tutorial: false},
         autoStatus: {enabled: Array(9).fill(false)},
         sToggles: settingsDefaults,
         successorClicks: 0,
