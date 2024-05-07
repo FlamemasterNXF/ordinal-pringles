@@ -72,14 +72,14 @@ const anRebuyableData = [
     },
     {
         desc: "Boost the Singularity boost to AutoClickers while in Baseless Realms",
-        eff: () => 2*data.baseless.anRebuyables[1],
+        eff: () => (2*data.baseless.anRebuyables[1])*getPringleEffect(8, true),
         costBase: 1e6,
         symbol: 'x',
         unl: () => true
     },
     {
         desc: "Increase the Decrementy gain exponent",
-        eff: () => 0.1*data.baseless.anRebuyables[2],
+        eff: () => (0.1*data.baseless.anRebuyables[2])+(getPringleEffect(7, true)-1),
         costBase: 1e4,
         symbol: '+',
         unl: () => true
@@ -153,9 +153,9 @@ let dynamicShiftMultipliers = [
     (i = data.baseless.shifts) => Math.max(1, 1000**(i+data.baseless.mode))
 ]
 
-let alephNullGain = () =>  Math.max(1, Decimal.log10(Decimal.max(data.ord.ordinal,1)).toNumber()*dynamicShiftMultipliers[0]()*getAOEffect(1))
+let alephNullGain = () =>  Math.max(1, Decimal.log10(Decimal.max(data.ord.ordinal,1)).toNumber()*dynamicShiftMultipliers[0]()*getAOEffect(1)*getPringleEffect(6, true))
 let alephNullEffects = [
-    () => Math.max(0, Math.log10(data.baseless.alephNull)/10),
+    () => Math.max(0, Math.log10(data.baseless.alephNull)/10)*(getPringleEffect(9, true)-1),
     () => Math.max(0, Math.floor(Math.log10(data.baseless.alephNull)))
 ]
 let getBaselessMult = (i) => baselessMultipliers[i]

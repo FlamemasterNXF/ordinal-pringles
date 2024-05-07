@@ -86,10 +86,10 @@ function checkSpecialHUPs(){
 let effectiveFGH = () => calcOrdPoints(data.hierarchies.ords[0].ord, hierarchyData[0].base(), data.hierarchies.ords[0].over);
 let effectiveSGH = () => calcOrdPoints(data.hierarchies.ords[1].ord, hierarchyData[1].base(), data.hierarchies.ords[1].over);
 let hierarchyData = [
-    { text:"Multiplying Incrementy Gain by", effect: ()=> Decimal.max((Decimal.log10(effectiveFGH().add(1)).times(hbData[1].effect())).pow(dupEffect(2)), 1),
-        gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults(), base: ()=> 10-sBUP0Effect() },
-    { text:"Dividing Charge Requirement by", effect: ()=> Decimal.max((Decimal.log10(effectiveSGH().add(1)).times(hbData[4].effect()).times(alephEffect(5))).pow((dupEffect(2))+sBUP1Effect()), 1),
-        gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults(), base: ()=> 10-sBUP0Effect() }
+    { text:"Multiplying Incrementy Gain by", effect: ()=> Decimal.max((Decimal.log10(effectiveFGH().add(1)).times(hbData[1].effect())).times(getPringleEffect(15)).pow(dupEffect(2)), 1),
+        gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults()*getPringleEffect(16, true), base: ()=> 10-sBUP0Effect() },
+    { text:"Dividing Charge Requirement by", effect: ()=> Decimal.max((Decimal.log10(effectiveSGH().add(1)).times(hbData[4].effect()).times(alephEffect(5))).times(getPringleEffect(17)).pow((dupEffect(2))+sBUP1Effect()), 1),
+        gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults()*getPringleEffect(18, true), base: ()=> 10-sBUP0Effect() }
 ]
 let hierarchyGainBases = [
     () => Decimal.min(Decimal.max(Decimal.floor(Decimal.pow(data.incrementy.amt, 1/3)), 1), Number.MAX_VALUE).toNumber(),
@@ -150,10 +150,11 @@ function getHBBuyableCost(i){
     return D(data.hierarchies.rebuyableAmt[i]).add(D(10).pow(1 + data.hierarchies.rebuyableAmt[i]))
 }
 
+let getHBuyableCap = () => 3332 + getPringleEffect(19, true)
 function buyHBuyable(i){
     const cost = hbData[i].cost()
 
-    if(data.hierarchies.rebuyableAmt[i] >= 3333) return
+    if(data.hierarchies.rebuyableAmt[i] >= getHBuyableCap()) return
 
     if(data.incrementy.amt.gt(cost) && (i === 2 || i === 5)){
         data.incrementy.amt = data.incrementy.amt.sub(cost)

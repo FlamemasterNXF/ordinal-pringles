@@ -88,7 +88,7 @@ function dyGain(){
         return data.dy.gain*((5**m)*m2)
     }
 
-    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(bup3Effect()).toNumber(), Number.MAX_VALUE)
+    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(bup3Effect()).mul(getPringleEffect(21)).toNumber(), Number.MAX_VALUE)
 
     return calcDyGain()
 }
@@ -100,5 +100,5 @@ function calcDyGain(){
     let chargeBoost = data.boost.isCharged[3] ? bup3Effect() : 1
     let ao2 = inPurification(1) ? getAOREffect(2) : 1
     let boost = (data.ord.base < 6 || data.boost.isCharged[11]) ? bup11Effect() : 1
-    return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).mul(chargeBoost).div(ao2).toNumber(), Number.MAX_VALUE)
+    return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).mul(chargeBoost).mul(getPringleEffect(21)).div(ao2).toNumber(), Number.MAX_VALUE)
 }
