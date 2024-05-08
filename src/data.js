@@ -8,10 +8,10 @@ const BHO_VALUE = 4*3**40
 const BO_VALUE = D('eee98235035280650.45') //Decimal.pow(3, ordMarksBO).mul(4)
 
 //Version Flags
-const VERSION = "0.3.3"
-const VERSION_NAME = "The World's Purest Pringle"
-const VERSION_DATE = "April 2nd, 2024"
-const IS_BETA = false
+const VERSION = "0.4b1"
+const VERSION_NAME = "The Pringle Update"
+const VERSION_DATE = "May 8th, 2024"
+const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
 //create all the variables in a data object for saving
