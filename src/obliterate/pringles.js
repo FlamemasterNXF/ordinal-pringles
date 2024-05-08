@@ -251,7 +251,7 @@ let pringleData = [
         desc: "Boosts AutoBuyer Speed",
         eff: () => D(10).pow(data.obliterate.pringleAmount[24]*10).times(getEUPEffect(3, 6)),
         resNames: 'of all the Inner-Circle Pringles',
-        resLocation: [['obliterate', 'pringleAmount', '20'], ['obliterate', 'pringleAmount', '21'], ['obliterate', 'pringleAmount', '2'], ['obliterate', 'pringleAmount', '23']],
+        resLocation: [['obliterate', 'pringleAmount', '20'], ['obliterate', 'pringleAmount', '21'], ['obliterate', 'pringleAmount', '22'], ['obliterate', 'pringleAmount', '23']],
         cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[24]))
     },
 ]
