@@ -19,7 +19,7 @@ function updateSingLevelHTML(){
     DOM(`singLevel2`).innerHTML = `Your Singularity's highest ever density was <b>${data.sing.highestLevel > 0 ? ordinalDisplay('H', data.sing.highestLevel, 0, 10, ordinalDisplayTrim(3), false) : `H<sub>0</sub>`}</b> (10)`
 
     for (let i = 0; i < singEffects.length; i++) {
-        DOM(`singEffect${i}`).innerHTML = `Your Singularity is ${singEffects[i].desc} <b>${format(singEffects[i].effect(), 3)}</b>`
+        DOM(`singEffect${i}`).innerHTML = `Your Singularity is ${singEffects[i].desc()} <b>${format(singEffects[i].effect(), 3)}</b>`
     }
 }
 function updateSingFunctionHTML(i){
@@ -65,9 +65,9 @@ function initSingularityFunctions(){
 
 let lastSingFunctionUnlockedIndex = 0
 let singEffects = [
-    {desc: "raising Cardinal gain to the", effect: () => (1 + Math.sqrt(data.sing.level)/100)*alephEffect(8)},
-    {desc: "reducing the Decrementy gain exponent by", effect: () => Math.sqrt(data.sing.level)/50},
-    {desc: "raising AutoBuyer speed to the", effect: () => 1-Math.pow(data.sing.level, 1/2)/100},
+    {desc: () => "raising Cardinal gain to the", effect: () => (1 + (Math.sqrt(data.sing.level)/100)+(getEUPEffect(1, 3, true))-1)*alephEffect(8)},
+    {desc: () => `${hasTreeUpgrade(102) ? 'Increasing' : 'Decreasing'} the Decrementy gain exponent by`, effect: () => Math.sqrt(data.sing.level)/50},
+    {desc: () => "raising AutoBuyer speed to the", effect: () => (1-Math.pow(data.sing.level, 1/2)/100)+(getEUPEffect(1, 4, true)+1)},
 ]
 let maxSingLevel = () => data.incrementy.charge
 

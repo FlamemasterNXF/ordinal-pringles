@@ -60,11 +60,11 @@ const aoRebuyableData = [
         costBase: 150,
         symbol: 'x',
         req: () => inPurification(0),
-        extraLevels: () => anRebuyableData[4].eff()
+        extraLevels: () => anRebuyableData[4].eff()+getEUPEffect(2, 6, true)
     },
     {
         desc: "ℵ<sub>&omega;</sub> multiplies AutoBuyer speed while Purification of Obscurity or Inferiority are active",
-        eff: () => Math.sqrt(getAOEffect(0))*Math.sqrt(getAORLevel(4)+1),
+        eff: () => Math.sqrt(getAOEffect(0))*Math.sqrt(getAORLevel(4)+1)*getEUPEffect(2, 7, true),
         costBase: 200,
         symbol: 'x',
         req: () => inPurification(2) || inPurification(3),
@@ -176,8 +176,8 @@ function initAOMilestones(){
 }
 
 function updatePurificationTabHTML(){
-    if(remnantAmt() > data.omega.bestRemnants) data.omega.bestRemnants = remnantAmt()
-    DOM(`alephOmega`).innerHTML = `<span style="font-size: 1.1rem">You have <span style="color: #ce0b0b">${format(data.omega.alephOmega)} ℵ<sub>&omega;</sub></span>, multiplying <span style="color: #ce0b0b">AutoBuyer Speed by ${format(getAOEffect(0))}x</span> and <span style="color: #ce0b0b">ℵ<sub>0</sub> gain by ${format(getAOEffect(1))}x</span></span><br>You have <span style="color: #ce0b0b">${format(remnantAmt())} ℶ<sub>&omega;</sub></span>, producing <span style="color: #ce0b0b">${format(aoGain())} ℵ<sub>&omega;</sub>/s</span> until ℵ<sub>&omega;</sub> reaches ℶ<sub>&omega;</sub>`
+    if(alephOmegaCap() > data.omega.bestRemnants) data.omega.bestRemnants = alephOmegaCap()
+    DOM(`alephOmega`).innerHTML = `<span style="font-size: 1.1rem">You have <span style="color: #ce0b0b">${format(data.omega.alephOmega)} ℵ<sub>&omega;</sub></span>, multiplying <span style="color: #ce0b0b">AutoBuyer Speed by ${format(getAOEffect(0))}x</span> and <span style="color: #ce0b0b">ℵ<sub>0</sub> gain by ${format(getAOEffect(1))}x</span></span><br>You have <span style="color: #ce0b0b">${format(alephOmegaCap())} ℶ<sub>&omega;</sub></span>, producing <span style="color: #ce0b0b">${format(aoGain())} ℵ<sub>&omega;</sub>/s</span> until ℵ<sub>&omega;</sub> reaches ℶ<sub>&omega;</sub>`
     if(inAnyPurification()) DOM(`purification${data.omega.whichPurification}`).innerHTML = `<span style="color: #ce0b0b">Purification of ${purificationData[data.omega.whichPurification].name}</span><br><span style="color: #ce390b">You will gain ${formatWhole(pureBoostGain())} more Boosts if you exit now (Highest Boost: ${data.omega.bestFBInPurification[data.omega.whichPurification]})</span><br><span style="color: darkred">${purificationData[data.omega.whichPurification].desc}</brspan><br><span style="color: #ce460b">${purificationData[data.omega.whichPurification].boostDesc} ${format(purificationData[data.omega.whichPurification].eff())}x</span>\``
     updateAllAORHTML()
 }
@@ -249,13 +249,13 @@ function buyAOR(i){
     updateAllAOMHTML()
 }
 
-let aoGain = () => (remnantAmt()/1000)*getAOREffect(1)
+let aoGain = () => (alephOmegaCap()/1000)*getAOREffect(1)
 let aoEffects = [
-    () => data.omega.alephOmega,
-    () => Math.sqrt(data.omega.alephOmega),
+    () => data.omega.alephOmega*getEUPEffect(2, 0, true),
+    () => Math.sqrt(data.omega.alephOmega)*getEUPEffect(2, 2, true),
 ]
 
-let remnantAmt = () => (data.omega.bestFBInPurification[0]+data.omega.bestFBInPurification[1]+data.omega.bestFBInPurification[2]+data.omega.bestFBInPurification[3])*getAOREffect(0)
+let alephOmegaCap = () => (data.omega.bestFBInPurification[0]+data.omega.bestFBInPurification[1]+data.omega.bestFBInPurification[2]+data.omega.bestFBInPurification[3]+getEUPEffect(2, 8, true))*getAOREffect(0)*getEUPEffect(2, 1, true)
 let pureBoostGain = () => Math.max(0, (data.boost.times-data.omega.bestFBInPurification[data.omega.whichPurification]))
 let getAOEffect = (i) => Math.max(aoEffects[i](), 1)
 let hasAOMilestone = (i) => data.omega.bestRemnants >= aoMilestoneData[i].req || isAOMilestonePermanent(i)

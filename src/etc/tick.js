@@ -5,11 +5,11 @@ let t1Auto = () => D(factorBoost()).mul(bup5Effect()).mul(alephEffect(0)).pow(cu
 
 let t2AutoPure = () => D(1).times(chalEffectTotal()).times(bup5Effect()).times(incrementyMult()).times(iup6Effect())
     .times(bup48Effect()).times(hupData[5].effect()).times(alephEffect(1)).times(cupEffect(0)).times(cupEffect(3))
-    .times(dupEffect(0)).times(getAOEffect(0)).times(getPringleEffect(24))
+    .times(dupEffect(0)).times(getAOEffect(0)).times(getPringleEffect(24)).times(getEUPEffect(2, 3))
     .times(inPurification(2) || inPurification(3) ? getAOREffect(4) : 1)
 
 let t2Auto = () => inPurification(2)
-    ? D(hierarchyData[0].gain()*data.incrementy.totalCharge)
+    ? D(hierarchyData[0].gain()*data.incrementy.totalCharge).times(getEUPEffect(2, 4))
     :  t2AutoPure().div(purificationData[1].special()).pow(singEffects[2].effect())
 
 

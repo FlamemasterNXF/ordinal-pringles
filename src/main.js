@@ -20,8 +20,8 @@ function mainLoop() {
 
     if(hasSluggishMilestone(0) && calculateSimpleHardy().gte(10240) && !data.ord.isPsi && data.markup.powers.lt(4e256)) data.markup.powers = data.markup.powers.plus((totalOPGain().div(100)).times(uDiff))
 
-    if(remnantAmt() > 0 && data.omega.alephOmega < remnantAmt()) data.omega.alephOmega += aoGain()*uDiff
-    if(data.omega.alephOmega > remnantAmt()) data.omega.alephOmega = remnantAmt()
+    if(alephOmegaCap() > 0 && data.omega.alephOmega < alephOmegaCap()) data.omega.alephOmega += aoGain()*uDiff
+    if(data.omega.alephOmega > alephOmegaCap()) data.omega.alephOmega = alephOmegaCap()
 
     data.darkness.negativeCharge = Math.min(negativeChargeCap(), data.darkness.negativeCharge+negativeChargeGain()*uDiff)
 

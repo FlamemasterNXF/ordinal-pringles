@@ -23,7 +23,6 @@ let treeNodes = new vis.DataSet([
     { id: 104, label: "104" },
     { id: 105, label: "105" },
     { id: 106, label: "106" },
-    { id: 107, label: "107" },
 
     { id: 201, label: "201" },
     { id: 202, label: "202" },
@@ -69,7 +68,6 @@ let treeEdges = new vis.DataSet([
     { from: 103, to: 104 },
     { from: 104, to: 105 },
     { from: 105, to: 106 },
-    { from: 106, to: 107 },
 
     { from: 0, to: 201 },
     { from: 0, to: 201 },
