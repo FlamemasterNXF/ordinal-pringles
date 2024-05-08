@@ -5,7 +5,7 @@ function updateObliterateHTML(){
 }
 
 function getObliterateReq(){
-    return D("1e750")
+    return D("1e750").pow(1+data.obliterate.times/10)
 }
 
 function obliterateConfirm(){
