@@ -139,7 +139,7 @@ function isTabUnlocked(t){
         case 'autoPrestige': return hasSluggishMilestone(3)
         case 'sing': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
         case 'baseless': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
-        case 'omega': return hasSingFunction(6) || hasPassiveUpgrade(20)
+        case 'purification': return hasSingFunction(6) || hasPassiveUpgrade(20)
 
         default: return true
     }
