@@ -50,6 +50,7 @@ function updateChalHTML(i){
     DOM(`chal7`).innerHTML = `Challenge 8<br>${chalDesc[7]}<br><br>Goal: ${format(chalGoals[7][data.chal.completions[7]])} OP<br>Reward: Dynamic Factor slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[7]}/3`
 }
 function chalEnter(i, force=false){
+    if(data.baseless.baseless) return;
     if((data.chal.completions[i] === 3 || data.chal.active.includes(true)) && !force) return
 
     if(i === 5) for (let j = 0; j < data.chal.active.length-4; j++) data.chal.active[j] = true
