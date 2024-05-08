@@ -3,7 +3,7 @@ const energyUpgradeData = [
         {
             desc: 'Total Fractal Energy boost AutoBuyers',
             cost: 0,
-            eff: () => D(1),
+            eff: () => D(10).pow(data.obliterate.times),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
@@ -341,4 +341,4 @@ const energyUpgradeData = [
 
 let getEUPEffect = (i, j, number = false) => number
     ? getEUPEffect(i, j).toNumber()
-    : hasTreeUpgrade(energyUpgradeData[i][j].node) ? Decimal.max(1, energyUpgradeData[i].eff()) : D(1)
+    : hasTreeUpgrade(energyUpgradeData[i][j].node) ? Decimal.max(1, energyUpgradeData[i][j].eff()) : D(1)

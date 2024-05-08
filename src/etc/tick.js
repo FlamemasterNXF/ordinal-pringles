@@ -7,6 +7,7 @@ let t2AutoPure = () => D(1).times(chalEffectTotal()).times(bup5Effect()).times(i
     .times(bup48Effect()).times(hupData[5].effect()).times(alephEffect(1)).times(cupEffect(0)).times(cupEffect(3))
     .times(dupEffect(0)).times(getAOEffect(0)).times(getPringleEffect(24)).times(getEUPEffect(2, 3))
     .times(inPurification(2) || inPurification(3) ? getAOREffect(4) : 1)
+    .times(getEUPEffect(0, 0))
 
 let t2Auto = () => inPurification(2)
     ? D(hierarchyData[0].gain()*data.incrementy.totalCharge).times(getEUPEffect(2, 4))
