@@ -267,7 +267,7 @@ const energyUpgradeData = [
         {
             desc: "Total Fractal Energy boosts all <span style='color: #ae6610'>Orange</span> Pringles",
             cost: 1,
-            eff: () => D(data.obliterate.times),
+            eff: () => D(data.obliterate.times+1),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
@@ -276,7 +276,7 @@ const energyUpgradeData = [
         {
             desc: "Total Fractal Energy boosts all <span style='color: #3d40fd'>Blue</span> Pringles",
             cost: 1,
-            eff: () => D(data.obliterate.times),
+            eff: () => D(data.obliterate.times+1),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
@@ -285,7 +285,7 @@ const energyUpgradeData = [
         {
             desc: "Total Fractal Energy boosts all <span style='color: #f542a4'>Pink-Purple</span> Pringles",
             cost: 1,
-            eff: () => D(data.obliterate.times),
+            eff: () => D(data.obliterate.times+1),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
@@ -294,7 +294,7 @@ const energyUpgradeData = [
         {
             desc: "Total Fractal Energy boosts all <span style='color: #2da000'>Green</span> Pringles",
             cost: 1,
-            eff: () => D(data.obliterate.times),
+            eff: () => D(data.obliterate.times+1),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
@@ -321,7 +321,7 @@ const energyUpgradeData = [
         {
             desc: "Total Fractal Energy boosts the <span style='color: #ce0b0b'>Barbecue</span> Pringle",
             cost: 2,
-            eff: () => D(data.obliterate.times),
+            eff: () => D(data.obliterate.times+1),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
