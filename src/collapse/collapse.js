@@ -330,7 +330,7 @@ function collapseCardinals(){
             data.collapse.alephs[i] = 1
             updateAlephHTML(i)
         }
-        data.collapse.cardinals = 0
+        data.collapse.cardinals -= 3
         updateTotalAlephHTML()
         return createAlert("A little help!", "Since this your first Collapse, you have been given exactly one of the first three Alephs because they are the most helpful! From now on Aleph gain will be random.", "Thanks!")
     }
