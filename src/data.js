@@ -18,7 +18,7 @@ const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsa
 function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
-        ord: {ordinal:D(1), over:0, base:10, trim: 5, isPsi: false, color:false, displayType: 'Buchholz'},
+        ord: {ordinal:D(1), over:D(0), base:10, trim: 5, isPsi: false, color:false, displayType: 'Buchholz'},
         markup: {powers:D(0), shifts:0},
         factors: Array(7).fill(0),
         dy: {level:D(1), gain:D(0), cap:D(40)},
@@ -96,7 +96,11 @@ function fixOldSaves(){
     if(Number.isNaN(data.markup.powers.toNumber())) data.markup.powers = D(0)
     data.incrementy.amt = D(data.incrementy.amt)
     data.ord.ordinal = D(data.ord.ordinal)
+    data.ord.over = D(data.ord.over)
     data.markup.powers = D(data.markup.powers)
+    data.dy.level = D(data.dy.level)
+    data.dy.gain = D(data.dy.gain)
+    data.dy.cap = D(data.dy.cap)
 
     //AutoShift Fix
     if(data.markup.shifts > 7) data.markup.shifts = 7

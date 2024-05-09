@@ -175,7 +175,7 @@ function revealChargeEffect(i, showCharge) {
 
 function boosterReset(){
     data.ord.ordinal = D(0)
-    data.ord.over = 0
+    data.ord.over = D(0)
     data.ord.base = data.chal.active[2]?15:10
     data.ord.isPsi = false
     data.markup.powers = D(0)
