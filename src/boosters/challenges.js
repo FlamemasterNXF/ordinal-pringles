@@ -61,7 +61,7 @@ function chalEnter(i, force=false){
     if(i === 2 || i === 5) data.ord.base = 15
     if(data.boost.hasBUP[2]) data.ord.base = 5
     if(i === 4){
-        data.dy.gain = 0.002
+        data.dy.gain = D(0.002)
         //DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     }
     if((i === 4 || i === 6 || i === 7) && data.sToggles[10]){
@@ -104,15 +104,15 @@ function chalComplete(){
 
 let chalEffect = i => 0.25*data.chal.completions[i]
 function chalEffectTotal(){
-    let mult = 0
+    let mult = D(0)
     for (let i = 0; i < data.chal.completions.length-1; i++) {
-        mult += (factorEffect(i)*chalEffect(i))
+        mult = mult.add(D(factorEffect(i)).mul(chalEffect(i)))
     }
-    mult += data.dy.level * chalEffect(7)
+    mult = mult.add(D(data.dy.level).mul(chalEffect(7)))
 
-    let base = (mult)*hupData[0].effect()*getOverflowEffect(0)
-    let cup = hasCUP(2) ? cupEffect(2) : 0
-    return Math.min(Math.max(base**2+cup, 1), Number.MAX_VALUE)
+    let base = D(mult).mul(hupData[0].effect()).mul(getOverflowEffect(0))
+    let cup = data.collapse.hasCUP[2] ? D(cupEffect(2)) : D(0)
+    return Decimal.max(Decimal.pow(base,2).add(cup), 1)
 }
 function decrementyGain() {
     const exponent = hasTreeUpgrade(102)

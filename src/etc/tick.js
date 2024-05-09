@@ -46,14 +46,14 @@ function tick(diff){
     if (!data.ord.isPsi) { // the rest of successor / maximize if they can be used (non-psi)
         if (Decimal.floor(D(timesToLoop[0]).div(1000)).gte(1)) { // if there are more successors
             if (Decimal.floor(D(timesToLoop[1]).div(1000)).gte(1)) { // if there are also matching # of maximizes, do both
-                data.ord.over = 0
+                data.ord.over = D(0)
                 successor(Decimal.max(Decimal.min(Decimal.floor(D(timesToLoop[0]).div(1000)), D(data.ord.base).mul(Decimal.floor(D(timesToLoop[1]).div(1000))))),0,true)
             } else {
                 if (Decimal.floor(D(timesToLoop[0]).div(1000)).gte(D(data.ord.base).sub(D(data.ord.ordinal).mod(data.ord.base)))) { // stop at ordinal % (base - 1) and spill the rest to over
                     let ord1 = D(data.ord.base).sub(data.ord.ordinal.mod(data.ord.base)).sub(1) //(data.ord.base - (data.ord.ordinal % data.ord.base)) - 1
                     successor(ord1)
                     let ordOver = (Decimal.floor(D(timesToLoop[0]).div(1000)).sub(ord1).toNumber())
-                    if (isFinite(ordOver)) data.ord.over += D(ordOver).toNumber()
+                    if (isFinite(ordOver)) data.ord.over = D(data.ord.over).add(ordOver)
                 } else { // add the rest
                     successor(Decimal.floor(D(timesToLoop[0]).div(1000)))
                 }
