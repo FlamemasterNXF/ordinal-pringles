@@ -180,9 +180,9 @@ function boosterReset(){
     data.ord.isPsi = false
     data.markup.powers = D(0)
     data.markup.shifts = 0
-    data.dy.level = 1
-    data.dy.gain = 0
-    data.dy.cap = 40
+    data.dy.level = D(1)
+    data.dy.gain = D(0)
+    data.dy.cap = D(40)
     for (let i = 0; i < data.factors.length; i++) {
         data.factors[i] = 0
     }

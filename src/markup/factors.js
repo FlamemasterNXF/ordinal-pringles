@@ -74,7 +74,7 @@ function dyGain(){
     if(data.chal.active[6]) return 0
 
     //Could move this to a separate function if needed
-    data.dy.cap = Math.min(D(40).mul(iup5Effect()).mul(alephEffect(4)).mul(dupEffect(1)).mul(getSingFunctionEffect(4)).toNumber(), Number.MAX_VALUE)
+    data.dy.cap = D(40).mul(iup5Effect()).mul(alephEffect(4)).mul(dupEffect(1)).mul(getSingFunctionEffect(4));
 
     let boost = 1
     if(data.ord.base < 6 || data.boost.isCharged[11]) boost = bup11Effect()
@@ -84,11 +84,11 @@ function dyGain(){
         let m2 = data.chal.active[5]?1:(5**data.chal.completions[4])
         for (let i = 0; i < data.boost.hasBUP.length; i++) if(data.boost.hasBUP[i]) ++m
         m = Math.max(m, 1)
-        data.dy.cap = 40*(5**m)*(5**data.chal.completions[4])
-        return data.dy.gain*((5**m)*m2)
+        data.dy.cap = D(40*(5**m)*(5**data.chal.completions[4]))
+        return data.dy.gain.mul((5**m)*m2)
     }
 
-    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(bup3Effect()).mul(getPringleEffect(21)).toNumber(), Number.MAX_VALUE)
+    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(bup3Effect()).mul(getPringleEffect(21)).toNumber()
 
     return calcDyGain()
 }
@@ -100,5 +100,5 @@ function calcDyGain(){
     let chargeBoost = data.boost.isCharged[3] ? bup3Effect() : 1
     let ao2 = inPurification(1) ? getAOREffect(2)+getEUPEffect(2, 5) : 1
     let boost = (data.ord.base < 6 || data.boost.isCharged[11]) ? bup11Effect() : 1
-    return Math.min(D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).mul(chargeBoost).mul(getPringleEffect(21)).div(ao2).toNumber(), Number.MAX_VALUE)
+    return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).mul(chargeBoost).mul(getPringleEffect(21)).div(ao2)
 }

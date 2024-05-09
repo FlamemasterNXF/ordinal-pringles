@@ -124,7 +124,7 @@ function baselessControl(){
 
     if(data.baseless.baseless){
         data.ord.base = baselessLocks[data.baseless.mode]()
-        data.dy.gain = 0.002
+        data.dy.gain = D(0.002)
     }
     else{
         data.baseless.shifts = 0

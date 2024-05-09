@@ -61,7 +61,7 @@ function chalEnter(i, force=false){
     if(i === 2 || i === 5) data.ord.base = 15
     if(data.boost.hasBUP[2]) data.ord.base = 5
     if(i === 4){
-        data.dy.gain = 0.002
+        data.dy.gain = D(0.002)
         //DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     }
     if((i === 4 || i === 6 || i === 7) && data.sToggles[10]){

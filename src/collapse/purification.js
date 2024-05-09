@@ -12,7 +12,7 @@ const purificationData = [
         desc: "Alephs except ℵ<sub>1</sub> are useless, Dynamic Factor divides AutoBuyer speed, and RUP2, RUP3, and IUP3 are disabled",
         boostDesc: "Boosting ℵ<sub>1</sub>, ℵ<sub>2</sub>, and ℵ<sub>8</sub> by",
         eff: () => Math.sqrt(data.omega.bestFBInPurification[1]),
-        special: () => inPurification(1) ? data.dy.level : 1
+        special: () => inPurification(1) ? data.dy.level : D(1)
     },
     {
         name: "Obscurity",
