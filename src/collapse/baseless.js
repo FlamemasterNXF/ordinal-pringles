@@ -160,7 +160,7 @@ let dynamicShiftMultipliers = [
 
 let alephNullGain = () =>  Math.max(1, Decimal.log10(Decimal.max(data.ord.ordinal,1)).toNumber()*dynamicShiftMultipliers[0]()*getAOEffect(1)*getPringleEffect(6, true))
 let alephNullEffects = [
-    () => Math.max(0, Math.log10(data.baseless.alephNull)/10)*getPringleEffect(9, true),
+    () => Math.max(0, Math.log10(data.baseless.alephNull)/10)+(getPringleEffect(9, true)-1),
     () => Math.max(0, Math.floor(Math.log10(data.baseless.alephNull)))
 ]
 let getBaselessMult = (i) => baselessMultipliers[i]
