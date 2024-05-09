@@ -182,7 +182,7 @@ const energyUpgradeData = [
     ],
     [
         {
-            desc: 'Toal Fractal Energy boosts the first ℵ<sub>ω</sub> effect',
+            desc: 'Total Fractal Energy boosts the first ℵ<sub>ω</sub> effect',
             cost: 1,
             eff: () => D(data.obliterate.times),
             hasExtraReq: false,
