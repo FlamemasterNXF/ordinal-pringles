@@ -170,3 +170,18 @@ function purchaseTreeUpgrade(id, node){
     data.obliterate.passiveEnergy += node.cost
     data.obliterate.energyUpgrades.push(id)
 }
+
+function energyRespecConfirm(){
+    createConfirmation('Are you certain?', 'This will force an Obliteration reset!', 'Nope!', 'Yeah', respecEnergyTree)
+}
+function respecEnergyTree(){
+    let total = 0
+    for (let i = 0; i < data.obliterate.energyUpgrades.length; i++) {
+        let ids = getFixedTreeNode(data.obliterate.energyUpgrades[i])
+        total += energyUpgradeData[ids[0]][ids[1]].cost
+    }
+    data.obliterate.energyUpgrades = []
+    data.obliterate.energy = total
+
+    obliterateReset()
+}
