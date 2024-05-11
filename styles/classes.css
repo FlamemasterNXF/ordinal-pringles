@@ -362,6 +362,8 @@
     border-radius: 75%;
     background: black;
     border: 2px solid white;
+    color: white;
+    text-align: center;
 }
 .purityPringle{
     width: 2rem;
@@ -370,6 +372,9 @@
     background: black;
     border: 2px solid white;
     margin-top: 1rem;
+    text-align: center;
+    color: white;
+    place-content: center;
 }
 .purityPoint{
     width: 1.5rem;
@@ -377,6 +382,8 @@
     border-radius: 50%;
     border: 2px solid #5b5b5b;
     background: black;
+    text-align: center;
+    color: white;
 }
 .purityBar{
     width: 16rem;
