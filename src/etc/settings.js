@@ -5,10 +5,11 @@ const SETTINGS_DESCS = [
     "Factor Boost confirmation", "Charge Refund Confirmation", "Boost Progress Bar", "ability to Bulk Boost",
     "Baselessness Confirmation", "Collapse Confirmation", "Booster Refund in C5 and C7", "Darkness Confirmation",
     "Charge Sacrifice Confirmation", "Hardy Value Display for Ordinals >= 1.8e308",
-    "Use ExpantaNum in Extended Hardy Displays",
+    "Use ExpantaNum in Extended Hardy Displays", "Obliterate Confirmation", "Energy Upgrades Respec Confirmation",
+    "Passive Energy Respec Confirmation"
 ]
 const settingsDefaults = [
-    true, true, true, true, true, true, true, true, true, true, true, true, false, false, true
+    true, true, true, true, true, true, true, true, true, true, true, true, false, false, true, true, true, true
 ]
 function settingsToggle(i){
     if (i === -1){

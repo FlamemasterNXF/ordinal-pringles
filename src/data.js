@@ -102,6 +102,11 @@ function fixOldSaves(){
     data.dy.gain = D(data.dy.gain)
     data.dy.cap = D(data.dy.cap)
 
+    // Exploit Fix
+    if(data.obliterate.passiveEnergy > getTotalEnergyInvested() || getTotalPassiveEnergyInvested() > getTotalEnergyInvested() || getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy > getTotalEnergyInvested()){
+        extra = true
+    }
+
     //AutoShift Fix
     if(data.markup.shifts > 7) data.markup.shifts = 7
 
@@ -176,6 +181,12 @@ function fixOldSaves(){
     return extra
 }
 function fixOldSavesP2(){
+    // Exploit Fix
+    if(data.obliterate.passiveEnergy > getTotalEnergyInvested() || getTotalPassiveEnergyInvested() > getTotalEnergyInvested() || getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy > getTotalEnergyInvested()){
+        respecPassiveUpgrades()
+        data.obliterate.passiveEnergy = getTotalEnergyInvested()
+    }
+
     //v0.2.2 => v0.2.3
     if(data.loadedVersion === "0.2.2"){
         data.loadedVersion = "0.2.3"

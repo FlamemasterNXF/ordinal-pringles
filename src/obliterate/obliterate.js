@@ -9,6 +9,7 @@ function getObliterateReq(){
 }
 
 function obliterateConfirm(){
+    if(!data.sToggles[15]) return obliterate()
     createConfirmation('Are you absolutely certain?', `Obliterating will reset EVERYTHING prior. There is no going back.`, 'No Way!', 'Onward!', obliterate)
 }
 function obliterate(){
