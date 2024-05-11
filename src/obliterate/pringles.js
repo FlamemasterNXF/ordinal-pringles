@@ -4,7 +4,7 @@ let pringleData = [
         colorDesc: 'Green',
         name: 'Flavorful',
         desc: 'Boosts the First Cardinal Upgrade',
-        eff: () => D(data.obliterate.pringleAmount[0]).times(getEUPEffect(3, 3)),
+        eff: () => D(data.obliterate.pringleAmount[0]+1).times(getEUPEffect(3, 3)),
         resNames: 'Incrementy',
         resLocation: [['incrementy', 'amt']],
         cost: () => D(1e10).pow((data.obliterate.pringleAmount[0]+1)*Math.sqrt(data.obliterate.pringleAmount[0]+1))
@@ -14,7 +14,7 @@ let pringleData = [
         colorDesc: 'Green',
         name: 'Crispy',
         desc: 'Boosts the Second Cardinal Upgrade',
-        eff: () => D(data.obliterate.pringleAmount[1]/100).times(getEUPEffect(3, 3)),
+        eff: () => D((data.obliterate.pringleAmount[1])/100).times(getEUPEffect(3, 3)),
         resNames: 'Incrementy',
         resLocation: [['incrementy', 'amt']],
         cost: () => D(1e30).pow((data.obliterate.pringleAmount[1]+1)*Math.sqrt(data.obliterate.pringleAmount[1]+1))
@@ -24,7 +24,7 @@ let pringleData = [
         colorDesc: 'Green',
         name: 'Popular',
         desc: 'Boosts the Fifth Cardinal Upgrade',
-        eff: () => D(data.obliterate.pringleAmount[2]).times(getEUPEffect(3, 3)),
+        eff: () => D(data.obliterate.pringleAmount[2]+1).times(getEUPEffect(3, 3)),
         resNames: 'Incrementy',
         resLocation: [['incrementy', 'amt']],
         cost: () => D(1e40).pow((data.obliterate.pringleAmount[2]+1)*Math.sqrt(data.obliterate.pringleAmount[2]+1))
@@ -55,7 +55,7 @@ let pringleData = [
         colorDesc: 'Orange',
         name: 'Flavorful',
         desc: 'Boosts AutoClicker Speeds',
-        eff: () => D(10).pow(data.obliterate.pringleAmount[5]).times(getEUPEffect(3, 0)),
+        eff: () => D(10).pow(data.obliterate.pringleAmount[5]+1).times(getEUPEffect(3, 0)),
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
         cost: () => D(1e10).times(Math.pow(2, data.obliterate.pringleAmount[5]))
@@ -85,7 +85,7 @@ let pringleData = [
         colorDesc: 'Orange',
         name: 'Beloved',
         desc: 'Boosts the Second ℵ<sub>0</sub> Rebuyable',
-        eff: () => D(data.obliterate.pringleAmount[8]).times(getEUPEffect(3, 0)),
+        eff: () => D(data.obliterate.pringleAmount[8]+1).times(getEUPEffect(3, 0)),
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
         cost: () => D(1e10).times(Math.pow(3, data.obliterate.pringleAmount[8]))

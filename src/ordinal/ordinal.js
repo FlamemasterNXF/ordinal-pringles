@@ -17,7 +17,7 @@ function maximize() {
           data.ord.over = D(data.ord.over).sub(Decimal.ceil(D(data.ord.over).plus(data.ord.base).div(2).sub(0.1)));
           data.ord.ordinal = data.ord.ordinal.add(data.ord.base);
         } while (
-          dD(data.ord.over).add(data.ord.base).gte(data.ord.base * 2) &&
+          D(data.ord.over).add(data.ord.base).gte(data.ord.base * 2) &&
           Math.min(data.ord.ordinal, Number.MAX_VALUE) % data.ord.base ** 2 !== 0
         );
         if (Math.min(data.ord.ordinal, Number.MAX_VALUE) % data.ord.base ** 2 !== 0) {
