@@ -244,7 +244,7 @@ let collapseConfirm = (auto = false) =>
 
 function collapse(first = false, auto = false){
     if(data.baseless.baseless) return
-    if (first && data.obliterate.times === 0){
+    if (first){
         data.collapse.cardinals = 3
         data.collapse.bestCardinalsGained = 3
         ++data.collapse.times
