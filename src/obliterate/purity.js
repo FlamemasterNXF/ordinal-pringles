@@ -86,7 +86,7 @@ function updatePurityText(i) {
 
     for (let j = 0; j < 2; j++) {
         DOM(`purityBarBox${j}`).innerHTML = isPurityPointUnlocked(i) ?
-            isPurityPointAssigned(i) ? `This Point provides ${format(getPurityStrength(i)*100)}% Pringle Purity<br>The <b style='color: ${pringle.color}'>${pringle.name} ${pringle.colorDesc} Pringle</b> is currently <b>ASSIGNED</b> here!<br><span style="font-size: 0.85rem">${pringle.desc.replaceAll('Boosts', 'Boosting').replaceAll('Reduces', 'Reducing')} [${getPringleEffectText(pringle, i)}]</span>`
+            isPurityPointAssigned(i) ? `This Point provides ${format(getPurityStrength(i)*100)}% Pringle Purity<br>The <b style='color: ${pringle.color}'>${pringle.name} ${pringle.colorDesc} Pringle</b> is currently <b>ASSIGNED</b> here!<br><span style="font-size: 0.85rem">${pringle.desc.replaceAll('Boosts', 'Boosting').replaceAll('Reduces', 'Reducing')} [${getPringleEffectText(pringle, data.purity.assignment[i])}]</span>`
                 : 'This Point is currently <b>UNUSED</b><br><span style="font-size: 0.85rem">Click a Pringle in the box and then this Point to Assign it here!</span>'
             : 'This Point is currently <b>LOCKED</b><br><span style="font-size: 0.85rem">Click this Point to unlock it for 1 Fractal Energy!</span>'
     }

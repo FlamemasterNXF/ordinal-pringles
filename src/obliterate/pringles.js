@@ -4,7 +4,7 @@ let pringleData = [
         colorDesc: 'Green',
         name: 'Flavorful',
         desc: 'Boosts the First Cardinal Upgrade',
-        eff: () => D(data.obliterate.pringleAmount[0]+1).times(getEUPEffect(3, 3)),
+        eff: () => D(data.obliterate.pringleAmount[0]+2).times(getEUPEffect(3, 3)),
         resNames: 'Incrementy',
         resLocation: [['incrementy', 'amt']],
         cost: () => D(1e10).pow((data.obliterate.pringleAmount[0]+1)*Math.sqrt(data.obliterate.pringleAmount[0]+1))
@@ -322,7 +322,7 @@ function updatePringleButtonText(pringleData, i){
 }
 
 let getPringleEffectText = (pringleData, i) =>
-    `${pringleData.colorDesc === 'Pink-Purple' ? '-' : ''}${format(getPringleEffect(i))}${pringleData.colorDesc !== 'Pink-Purple' ? 'x' : ''}`
+    `${pringleData.colorDesc === 'Pink-Purple' ? '-' : ''}${format(getPringleEffectBaseline(i))}${pringleData.colorDesc !== 'Pink-Purple' ? 'x' : ''}`
 function getPringleAssignmentText(i){
     if(i === 24) return `It requires no Assignment`
 
@@ -368,6 +368,8 @@ function buyPringle(pringleData, index){
     updatePringleButtonText(pringleData, index)
 }
 
+let getPringleEffectBaseline = (i) => Decimal.max(1, (pringleData[i].eff()))
+
 let getPringleEffect = (i, number = false) => number
     ? getPringleEffect(i).toNumber()
-    : isPringleAssigned(i) || i === 24 ? Decimal.max(1, (pringleData[i].eff()).times(getPurityStrength(getPringleAssignment(i)))): D(1)
+    : isPringleAssigned(i) || i === 24 ? Decimal.max(1, getPringleEffectBaseline(i).times(getPurityStrength(getPringleAssignment(i)))): D(1)
