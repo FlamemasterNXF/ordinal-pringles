@@ -26,7 +26,7 @@ function updateHUPHTML(i){
 
     el.innerHTML = `${hupData[i].text}<br>${ordinalDisplay('', hupData[i].cost, 0, 10, ordinalDisplayTrim(), false)} ${cost}<br>`
     if (data.hierarchies.hasUpgrade[i]) {
-        el.innerHTML += `<span style="color='#424242'"><b>Bought!</b></span>`
+        el.innerHTML += `<span style="color='#424242'"><b>Reached!</b></span>`
     }
 }
 
@@ -58,8 +58,10 @@ function initHierarchies(){
             let hup = document.createElement('button')
             hup.className = ' hup'
             hup.id = `hup${total2}`
+            if(n > 0) hup.style.borderTop = '1px solid #631d89'
+            if(n < 4) hup.style.borderBottom = '1px solid #631d89'
 
-            data.hierarchies.hasUpgrade[total2] ? hup.innerHTML = `${hupData[total2].text}<br>${ordinalDisplay('', hupData[total2].cost, 0, 10/*hierarchyData[i].base()*/, ordinalDisplayTrim(), false)} ${cost}<br><span style="color='#424242'"><b>Bought!</b></span>`
+            data.hierarchies.hasUpgrade[total2] ? hup.innerHTML = `${hupData[total2].text}<br>${ordinalDisplay('', hupData[total2].cost, 0, 10/*hierarchyData[i].base()*/, ordinalDisplayTrim(), false)} ${cost}<br><span style="color='#424242'"><b>Reached!</b></span>`
             : hup.innerHTML = `${hupData[total2].text}<br>${ordinalDisplay('', hupData[total2].cost, 0, 10/*hierarchyData[i].base()*/, ordinalDisplayTrim(), false)} ${cost}`
 
             columns2[i].append(hup)
@@ -69,10 +71,6 @@ function initHierarchies(){
 
     for (let i = 0; i < hbData.length; i++) {
         DOM(`hb${i}`).addEventListener('click', ()=>buyHBuyable(i))
-    }
-
-    for (let i = 0; i < hupData.length; i++) {
-        DOM(`hup${i}`).addEventListener('click', ()=>buyHUP(i))
     }
 }
 
@@ -182,7 +180,7 @@ function getTotalHBuyables(sgh){
     return total
 }
 
-function buyHUP(i){
+function unlockHierarchyMilestones(i){
     if(data.hierarchies.hasUpgrade[i]) return
     const cost = hupData[i].cost
 
@@ -195,5 +193,11 @@ function buyHUP(i){
         data.hierarchies.ords[1].ord -= OPtoOrd(cost, hierarchyData[1].base())
         data.hierarchies.hasUpgrade[i] = true
         updateHUPHTML(i)
+    }
+}
+
+function checkHierarchyMilestones(){
+    for (let i = 0; i < data.hierarchies.hasUpgrade.length; i++) {
+        unlockHierarchyMilestones(i)
     }
 }

@@ -313,7 +313,7 @@ function collapseReset(){
     data.hierarchies.ords[1].ord = 1
     data.hierarchies.ords[1].over = 0
     data.hierarchies.rebuyableAmt = Array(6).fill(0)
-    if(!hasSingFunction(2)) data.hierarchies.hasUpgrade = Array(10).fill(false)
+    data.hierarchies.hasUpgrade = Array(10).fill(false)
     updateHierarchiesHTML()
     updateHierarchyPurchaseHTML()
 
