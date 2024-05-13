@@ -239,7 +239,7 @@ let pringleData = [
         colorDesc: 'Blue',
         name: 'Limited Edition',
         desc: "Boosts Incrementy Gain",
-        eff: () => D(10).pow(data.obliterate.pringleAmount[23]*10).times(getEUPEffect(3, 1)).times(getEUPEffect(3, 5)),
+        eff: () => D(data.obliterate.pringleAmount[23]*10).times(getEUPEffect(3, 1)).times(getEUPEffect(3, 5)),
         resNames: 'of all the Blue Pringles',
         resLocation: [['obliterate', 'pringleAmount', '15'], ['obliterate', 'pringleAmount', '16'], ['obliterate', 'pringleAmount', '17'], ['obliterate', 'pringleAmount', '18']],
         cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[23]))
