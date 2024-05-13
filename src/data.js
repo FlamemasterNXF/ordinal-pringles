@@ -21,7 +21,7 @@ function getDefaultObject() {
         ord: {ordinal:D(1), over:D(0), base:10, trim: 5, isPsi: false, color:false, displayType: 'Buchholz'},
         markup: {powers:D(0), shifts:0},
         factors: Array(7).fill(0),
-        dy: {level:D(1), gain:D(0), cap:D(40)},
+        dy: {level:D(1), gain:D(0)},
         autoLevels: Array(2).fill(0),
         boost: {amt:0, total:0, times:0, bottomRowCharges:0, hasBUP:Array(15).fill(false), isCharged:Array(15).fill(false), unlocks: Array(5).fill(false)},
         chal: {decrementy: D(1), html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
@@ -100,7 +100,6 @@ function fixOldSaves(){
     data.markup.powers = D(data.markup.powers)
     data.dy.level = D(data.dy.level)
     data.dy.gain = D(data.dy.gain)
-    data.dy.cap = D(data.dy.cap)
 
     // Exploit Fix
     if(data.obliterate.passiveEnergy > getTotalEnergyInvested() || getTotalPassiveEnergyInvested() > getTotalEnergyInvested() || getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy > getTotalEnergyInvested()){
@@ -175,7 +174,7 @@ function fixOldSaves(){
         data.dy.level = D(4)
         data.dy.gain = D(0.002)
     }
-    if(data.dy.level.gt(data.dy.cap)) data.dy.level = data.dy.cap
+    if(data.dy.level.gt(getDyCap())) data.dy.level = getDyCap()
     if(data.ord.isPsi && data.ord.ordinal.gt(GRAHAMS_VALUE) && data.boost.times === 0 && !data.collapse.hasSluggish[0]) data.ord.ordinal = D(GRAHAMS_VALUE)
 
     return extra

@@ -5,7 +5,7 @@ function mainLoop() {
     // Used for Offline Progress
     let uDiff = diff/1000
 
-    if(data.dy.gain.gt(0) && data.dy.level.lt(data.dy.cap)) data.dy.level = Decimal.min(data.dy.cap, data.dy.level.add(D(uDiff).mul(dyGain())))
+    if(data.dy.gain.gt(0) && data.dy.level.lt(getDyCap())) data.dy.level = Decimal.min(getDyCap(), data.dy.level.add(D(uDiff).mul(dyGain())))
     if(data.boost.hasBUP[11]) data.markup.powers = data.markup.powers.plus(bup9Effect()*uDiff)
 
     if(data.chal.active[7]) data.chal.decrementy = Decimal.max(1, data.chal.decrementy.mul(decrementyGain().pow(uDiff)))

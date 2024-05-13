@@ -157,7 +157,7 @@ let pringleData = [
         colorDesc: 'Blue',
         name: 'Flavorful',
         desc: "Boosts the FGH Effect",
-        eff: () => D(2*data.obliterate.pringleAmount[15]).times(getEUPEffect(3, 1)),
+        eff: () => D(data.obliterate.pringleAmount[15]+1).times(getEUPEffect(3, 1)),
         resNames: 'Cardinals',
         resLocation: [['collapse', 'cardinals']],
         cost: () => D(1e30).pow(Math.sqrt(data.obliterate.pringleAmount[15]+1))
@@ -177,7 +177,7 @@ let pringleData = [
         colorDesc: 'Blue',
         name: 'Popular',
         desc: "Boosts the SGH Effect",
-        eff: () => D(10*data.obliterate.pringleAmount[17]).times(getEUPEffect(3, 1)),
+        eff: () => D(data.obliterate.pringleAmount[17]+1).times(getEUPEffect(3, 1)),
         resNames: 'Cardinals',
         resLocation: [['collapse', 'cardinals']],
         cost: () => D(1e20).pow(Math.sqrt(data.obliterate.pringleAmount[17]+1))
@@ -209,7 +209,7 @@ let pringleData = [
         colorDesc: 'Green',
         name: 'Limited Edition',
         desc: "Boosts Cardinal Gain",
-        eff: () => D(10).pow(data.obliterate.pringleAmount[20]).times(getEUPEffect(3, 3)).times(getEUPEffect(3, 5)),
+        eff: () => D(data.obliterate.pringleAmount[20]*20).times(getEUPEffect(3, 3)).times(getEUPEffect(3, 5)),
         resNames: 'of all the Green Pringles',
         resLocation: [['obliterate', 'pringleAmount', '0'], ['obliterate', 'pringleAmount', '1'], ['obliterate', 'pringleAmount', '2'], ['obliterate', 'pringleAmount', '3']],
         cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[20]))
@@ -219,7 +219,7 @@ let pringleData = [
         colorDesc: 'Orange',
         name: 'Limited Edition',
         desc: "Boosts Dynamic Cap",
-        eff: () => D(10).pow(data.obliterate.pringleAmount[21]*10).times(getEUPEffect(3, 0)).times(getEUPEffect(3, 5)),
+        eff: () => D(data.obliterate.pringleAmount[21]*100).times(getEUPEffect(3, 0)).times(getEUPEffect(3, 5)),
         resNames: 'of all the Orange Pringles',
         resLocation: [['obliterate', 'pringleAmount', '5'], ['obliterate', 'pringleAmount', '6'], ['obliterate', 'pringleAmount', '7'], ['obliterate', 'pringleAmount', '8']],
         cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[21]))

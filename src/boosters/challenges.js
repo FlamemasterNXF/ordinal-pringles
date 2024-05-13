@@ -122,3 +122,9 @@ function decrementyGain() {
     const overflow = data.overflow.thirdEffect ? base.div(getOverflowEffect(2)) : base.times(getOverflowEffect(2))
     return (overflow).pow(20) // 20 times per second
 }
+
+function getC5Effect(){
+    let m = 0
+    for (let i = 0; i < data.boost.hasBUP.length; i++) if(data.boost.hasBUP[i]) ++m
+    return Math.max(m, 1)
+}
