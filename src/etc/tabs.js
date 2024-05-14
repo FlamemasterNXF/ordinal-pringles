@@ -63,6 +63,7 @@ function switchSubtab(t, mode){
             DOM(`aleph8`).style.display = hasAOMilestone(1) ? `block` : `none`
         }
         if(t==='cUpgrades' && data.obliterate.times > 0) checkAllUnlocks(0, true)
+        if(t==='sluggish' && data.obliterate.times > 0) checkAllUnlocks(1, true)
         if(t==='darkness'){
             updateDUPHTML(1)
             updateDUPHTML(2)

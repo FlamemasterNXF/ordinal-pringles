@@ -194,7 +194,7 @@ function boosterReset(){
 
 const boosterGain = () => inPurification(0) ? (getAOREffect(3)) * getBulkBoostAmt() : ((data.boost.times * getBulkBoostAmt()) + (getBulkBoostAmt() * (getBulkBoostAmt() + 1) / 2));
 function boost(f=false, auto=false, hotkey=false){
-    if(data.boost.times === 33 && data.collapse.times === 0) return createConfirmation("Are you certain?", "This will perform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
+    if(data.boost.times === 33 && data.collapse.times === 0 && data.obliterate.times === 0) return createConfirmation("Are you certain?", "This will perform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
     if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && (auto || hotkey)) return
     if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
 
@@ -232,7 +232,7 @@ function boostReq(n = data.boost.times){
     return n < 33 ? D(3 ** (n+1) * 4 * 10 * scaling) : D(BHO_VALUE)
 }
 //Credit to ryanleonels
-let boostLimit = () => (data.collapse.times === 0) ? 33 : Infinity;
+let boostLimit = () => (data.collapse.times === 0 && data.obliterate.times === 0) ? 33 : Infinity;
 function getBulkBoostAmt(){
     if (!data.sToggles[7] || !data.ord.isPsi || data.ord.ordinal.lte(boostReq()) || data.boost.times >= Number.MAX_VALUE) return 1
     let maxBoost = data.boost.times
