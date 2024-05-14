@@ -47,6 +47,7 @@ function obliterateReset(){
     data.sing.highestLevel = 0
     data.sing.level = 0
     data.sing.hasEverHadFunction = Array(singFunctions.length).fill(false)
+    lastSingFunctionUnlockedIndex = 0
 
     data.baseless.alephNull = 0
     data.baseless.mode = 0

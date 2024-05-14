@@ -109,6 +109,7 @@ function assignPringle(i, type){
 
     if(type === 0) data.purity.pringleQueued = i
     if(type === 1){
+        if(isPringleAssigned(data.purity.pringleQueued)) return
         if(!isPurityPointUnlocked(i)) buyPurityPoint(i)
         if(data.purity.isAssigned[i] === true) assignPringle(i, 2)
 
