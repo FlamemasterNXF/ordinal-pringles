@@ -32,7 +32,7 @@ function initPurityPlane(){
         let point = document.createElement('div')
         point.className = 'purityPoint'
         point.id = `purityPoint${i}`
-        point.style.marginTop = i > 0 ? `2.35rem` : `-0.5rem`
+        point.style.marginTop = i > 0 ? `2rem` : `-0.5rem`
         setupPurityPoint(i, point)
         containers[0].append(point)
     }
