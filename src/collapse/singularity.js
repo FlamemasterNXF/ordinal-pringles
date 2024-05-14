@@ -65,9 +65,9 @@ function initSingularityFunctions(){
 
 let lastSingFunctionUnlockedIndex = 0
 let singEffects = [
-    {desc: () => "raising Cardinal gain to the", effect: () => (1 + (Math.sqrt(data.sing.level)/100)+(getEUPEffect(1, 3, true))-1)*alephEffect(8)},
+    {desc: () => "raising Cardinal gain to the", effect: () => (1 + (Math.sqrt(data.sing.level)/100)+(getEUPEffect(1, 3, true)))*alephEffect(8)},
     {desc: () => `${hasTreeUpgrade(102) ? 'Increasing' : 'Decreasing'} the Decrementy gain exponent by`, effect: () => Math.sqrt(data.sing.level)/50},
-    {desc: () => "raising AutoBuyer speed to the", effect: () => (1-Math.pow(data.sing.level, 1/2)/100)+(getEUPEffect(1, 4, true)-1)},
+    {desc: () => "raising AutoBuyer speed to the", effect: () => (1-Math.pow(data.sing.level, 1/2)/100)+(getEUPEffect(1, 4, true))},
 ]
 let maxSingLevel = () => data.incrementy.charge
 
