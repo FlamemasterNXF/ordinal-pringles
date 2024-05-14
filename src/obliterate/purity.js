@@ -151,3 +151,11 @@ function getPurityStrength(i){
 let isPurityPointUnlocked = (i) => data.purity.isUnlocked[i]
 let isPurityPointAssigned = (i) => data.purity.isAssigned[i]
 let getPurityPringleData = (i) => pringleData[data.purity.assignment[i]]
+
+function getAssignedPurityPoints(){
+    let total = 0
+    for (let i = 0; i < data.purity.isAssigned.length; i++) {
+        if(data.purity.isAssigned[i]) ++total
+    }
+    return total
+}
