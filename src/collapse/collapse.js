@@ -217,7 +217,7 @@ let alephData = [
 ]
 let cupData = [
     {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max((data.incrementy.totalCharge/2)*purificationEffect(3)*getPringleEffect(0, true), 1)},
-    {text: "Square AutoClicker speeds", cost: 27, effect: ()=> 1+getPringleEffect(1, true)},
+    {text: "Square AutoClicker speeds", cost: 27, effect: ()=> 2+getPringleEffect(1, true)},
     {text: "Challenges 1-7 provide greatly reduced boosts when at zero completions", cost: 81, effect: ()=> 0.2*8},
     {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 243, effect: ()=> Math.max(1, Decimal.log10(data.markup.powers.plus(1)).div(10).toNumber())},
     {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.min(Decimal.max(1, Decimal.log10(data.incrementy.amt.plus(1))).mul(purificationEffect(3)).mul(getPringleEffect(2)).toNumber(), Number.MAX_VALUE)}, //TODO: Add a safety function
