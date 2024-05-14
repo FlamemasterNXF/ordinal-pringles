@@ -24,7 +24,7 @@ function mainLoop() {
     if(alephOmegaCap() > 0 && data.omega.alephOmega < alephOmegaCap()) data.omega.alephOmega += aoGain()*uDiff
     if(data.omega.alephOmega > alephOmegaCap()) data.omega.alephOmega = alephOmegaCap()
 
-    data.darkness.negativeCharge = Math.min(negativeChargeCap(), data.darkness.negativeCharge+negativeChargeGain()*uDiff)
+    data.darkness.negativeCharge = Math.min(Number.MAX_VALUE, data.darkness.negativeCharge+negativeChargeGain()*uDiff)
 
     // Run the tick() function to calculate things that rely on normal diff
     tick(diff)
