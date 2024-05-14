@@ -162,7 +162,7 @@ function getLowerTreeNodeString(id){
 function updateEnergyTreeText(id){
     let identifiers = getFixedTreeNode(id)
     let node = energyUpgradeData[identifiers[0]][identifiers[1]]
-    DOM(`energyTreeText`).innerHTML = `<span style="color: #4a4a4a">Upgrade ${id}:</span> <span style="color: #b06cdc">${node.desc}</span><br>${hasTreeUpgrade(id) ? `<span style="color: #dc6cc6"> Activated!` : canPurchaseTreeUpgrade(id, node) ? `<span style="color: #6c6c6c">Can be Activated for</span> <span style="color: #d56cdc">${node.cost} Fractal Energy</span>` : `<span style="color: #ab003d">You must first Activate Upgrade ${getLowerTreeNodeString(id)}${node.hasExtraReq ? node.extraReqText : ''}</span>`}`
+    DOM(`energyTreeText`).innerHTML = `<span style="color: #4a4a4a">Upgrade ${id}:</span> <span style="color: #b06cdc">${node.desc}</span><br>${hasTreeUpgrade(id) ? `<span style="color: #dc6cc6"> Currently: ${node.sign !== 'x' ? `${node.sign}${format(getEUPEffect(identifiers[0], identifiers[1]))}` : `${format(getEUPEffect(identifiers[0], identifiers[1]))}${node.sign}`}` : canPurchaseTreeUpgrade(id, node) ? `<span style="color: #6c6c6c">Can be Activated for</span> <span style="color: #d56cdc">${node.cost} Fractal Energy</span>` : `<span style="color: #ab003d">You must first Activate Upgrade ${getLowerTreeNodeString(id)}${node.hasExtraReq ? node.extraReqText : ''}</span>`}`
 }
 
 function purchaseTreeUpgrade(id, node){

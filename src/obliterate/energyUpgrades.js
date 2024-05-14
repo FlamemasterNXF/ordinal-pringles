@@ -2,343 +2,277 @@ const energyUpgradeData = [
     [
         {
             desc: 'Total Fractal Energy boost AutoBuyers',
+            sign: 'x',
             cost: 0,
             eff: () => D(10).pow(data.obliterate.times),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 0
+            node: 0,
+            baseValue: 1,
         }
     ],
-    /*
-    [
-        {
-            desc: 'Activating any Color of Pringles boosts Upgrade 0',
-            cost: 1,
-            eff: (
- => D(1 ,           hasExtraReq: false,
-            extraReq: true,
-            extraReqText: '',
-            node: 0
-        },
-        {
-            desc: 'Activating Orange Pringles provides extra Drains for Cardinal Upgrade 2',
-            cost: 1,
-            eff: (
- => D(1 ,           hasExtraReq: false,
-            extraReq: true,
-            extraReqText: '',
-            node: 0
-        },
-        {
-            desc: 'Activating Yellow Pringles makes the ω6+5 Singularity Function based on Negative Charge Cap',
-            cost: 1,
-            eff: (
- => D(1 ,           hasExtraReq: false,
-            extraReq: true,
-            extraReqText: '',
-            node: 0
-        },
-        {
-            desc: "Activating any Color of Pringles below the BHO instantly sets your Ordinal to the BHO without emptying that Color",
-            cost: 1,
-            eff: (
- => D(1 ,           hasExtraReq: false,
-            extraReq: true,
-            extraReqText: '',
-            node: 0
-        },
-        {
-            desc: "Activating Yellow Pringles makes the ω8 Singularity Function Quintuple the Dynamic Cap",
-            cost: 2,
-            eff: (
- => D(1 ,           hasExtraReq: false,
-            extraReq: true,
-            extraReqText: '',
-            node: 0
-        },
-        {
-            desc: "Activating Red Pringles now provides free levels of the Third Darkness Upgrade equal to the level of the last Purification Upgrade",
-            cost: 2,
-            eff: (
- => D(1 ,           hasExtraReq: false,
-            extraReq: true,
-            extraReqText: '',
-            node: 0
-        },
-        {
-            desc: "Activating any Color of Pringles now fills all other Colors to 50%",
-            cost: 2,
-            eff: (
- => D(1 ,           hasExtraReq: false,
-            extraReq: true,
-            extraReqText: '',
-            node: 0
-        },
-    ],
-    [
-        {
-            desc: 'Pringles boost AutoClickers',
-            cost: 1,
-            eff: (
- => D(1 ,           hasExtraReq: false,
-            extraReq: true,
-            extraReqText: '',
-            node: 0
-        },
-        {
-            desc: "Pringles boost Dynamic Gain if it's lower than the Cap, and Dynamic Cap if it's at the Cap",
-            cost: 1,
-            eff: (
- => D(1 ,           hasExtraReq: false,
-            extraReq: true,
-            extraReqText: '',
-            node: 0
-        },
-        {
-            desc: 'Pringles boost Incrementy Gain',
-            cost: 1,
-            eff: (
- => D(1 ,           hasExtraReq: false,
-            extraReq: true,
-            extraReqText: '',
-            node: 0
-        },
-        {
-            desc: 'Pringles boost Negative Charge Gain',
-            cost: 1,
-            eff: (
- => D(1 ,           hasExtraReq: false,
-            extraReq: true,
-            extraReqText: '',
-            node: 0
-        },
-        {
-            desc: 'Pringles boost Cardinal Gain',
-            cost: 1,
-            eff: (
- => D(1 ,           hasExtraReq: false,
-            extraReq: true,
-            extraReqText: '',
-            node: 0
-        },
-    ],
-     */
     [
         {
             desc: 'Total Fractal Energy provides free levels of the first ℵ<sub>0</sub> Upgrade',
+            sign: '+',
             cost: 1,
             eff: () => D(data.obliterate.times),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 101
+            node: 101,
+            baseValue: 0,
         },
         {
             desc: 'Total Fractal Energy boosts the Singularity boost to Baselessness and the 2nd Singularity Effect is now positive',
+            sign: 'x',
             cost: 1,
             eff: () => D(data.obliterate.times).times(10),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 102
+            node: 102,
+            baseValue: 1,
         },
         {
             desc: 'ℵ<sub>0</sub> boosts the third ℵ<sub>0</sub> Upgrade',
+            sign: '+',
             cost: 1,
             eff: () => D(Math.log10(data.baseless.alephNull)/50),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 103
+            node: 103,
+            baseValue: 0,
         },
         {
             desc: 'Total Charge boosts the first Singularity Effect',
+            sign: '+',
             cost: 1,
             eff: () => D(data.incrementy.totalCharge/1000),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 104
+            node: 104,
+            baseValue: 0,
         },
         {
             desc: 'Total Fractal Energy reduces the third Singularity Effect',
+            sign: '-',
             cost: 2,
             eff: () => D(data.obliterate.times/100),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 105
+            node: 105,
+            baseValue: 0,
         },
         {
             desc: '??? (Coming Soon)', // Unlock a new Singularity Effect
+            sign: 'x',
             cost: Infinity,
             eff: () => D(1),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 106
+            node: 106,
+            baseValue: 0,
         },
     ],
     [
         {
             desc: 'Total Fractal Energy boosts the first ℵ<sub>ω</sub> effect',
+            sign: 'x',
             cost: 1,
             eff: () => D(data.obliterate.times),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 201
+            node: 201,
+            baseValue: 1,
         },
         {
             desc: 'Total Fractal Energy boosts the ℵ<sub>ω</sub> cap',
+            sign: 'x',
             cost: 1,
             eff: () => D(1).plus(data.obliterate.times/4),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 202
+            node: 202,
+            baseValue: 1,
         },
         {
             desc: 'Total Fractal Energy boosts the second ℵ<sub>ω</sub> Effect',
+            sign: 'x',
             cost: 1,
             eff: () => D(1).plus(data.obliterate.times/4),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 203
+            node: 203,
+            baseValue: 1,
         },
         {
             desc: "While nothing is being Purified, ℵ<sub>ω</sub> Upgrades three to five provide a combined boost to AutoBuyers",
+            sign: 'x',
             cost: 1,
             eff: () => D(getAOREffect(2)).plus(getAOREffect(3)).plus(getAOREffect(4)),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 204
+            node: 204,
+            baseValue: 1,
         },
         {
             desc: 'While the Obscure are being Purified, Total Fractal Energy boost the FGH Successor',
+            sign: 'x',
             cost: 1,
             eff: () => D(data.obliterate.times).times(3),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 205
+            node: 205,
+            baseValue: 1,
         },
         {
             desc: 'While the Infinite are being Purified, Total Fractal Energy divide the Dynamic Factor',
+            sign: '/',
             cost: 1,
             eff: () => D(data.obliterate.times).div(2),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 206
+            node: 206,
+            baseValue: 1,
         },
         {
             desc: 'While the Eternal are being Purified, total Fractal Energy provides free levels of the fourth ℵ<sub>ω</sub> Upgrade',
+            sign: '+',
             cost: 2,
-            eff: () => D(data.obliterate.times).div(2),
+            eff: () => Decimal.floor(D(data.obliterate.times).div(2)),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 207
+            node: 207,
+            baseValue: 0,
         },
         {
             desc: 'While the Inferior are being Purified, total Fractal Energy greatly boosts the fifth ℵ<sub>ω</sub> Upgrade',
+            sign: 'x',
             cost: 2,
             eff: () => D(data.obliterate.times),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 208
+            node: 208,
+            baseValue: 1,
         },
         {
             desc: 'Cardinals provide free ℶ<sub>ω</sub>',
+            sign: '+',
             cost: 3,
             eff: () => Decimal.log10(data.collapse.cardinals),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 209
+            node: 209,
+            baseValue: 0,
         },
     ],
     [
         {
             desc: "Total Fractal Energy boosts all <span style='color: #ae6610'>Orange</span> Pringles",
+            sign: 'x',
             cost: 1,
             eff: () => D(data.obliterate.times+1),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 301
+            node: 301,
+            baseValue: 1,
         },
         {
             desc: "Total Fractal Energy boosts all <span style='color: #3d40fd'>Blue</span> Pringles",
+            sign: 'x',
             cost: 1,
             eff: () => D(data.obliterate.times+1),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 302
+            node: 302,
+            baseValue: 1,
         },
         {
             desc: "Total Fractal Energy boosts all <span style='color: #f542a4'>Pink-Purple</span> Pringles",
+            sign: 'x',
             cost: 1,
             eff: () => D(data.obliterate.times+1),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 303
+            node: 303,
+            baseValue: 1,
         },
         {
             desc: "Total Fractal Energy boosts all <span style='color: #2da000'>Green</span> Pringles",
+            sign: 'x',
             cost: 1,
             eff: () => D(data.obliterate.times+1),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 304
+            node: 304,
+            baseValue: 1,
         },
         {
             desc: "Cardinals boost all Perfected Pringles",
+            sign: 'x',
             cost: 2,
             eff: () => Decimal.log10(data.collapse.cardinals+1).div(10),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 305
+            node: 305,
+            baseValue: 1,
         },
         {
             desc: "Cardinals boost all Limited Edition Pringles",
+            sign: 'x',
             cost: 2,
             eff: () => Decimal.log10(data.collapse.cardinals+1).div(10),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 306
+            node: 306,
+            baseValue: 1,
         },
         {
             desc: "Total Fractal Energy boosts the <span style='color: #ce0b0b'>Barbecue</span> Pringle",
+            sign: 'x',
             cost: 2,
             eff: () => D(data.obliterate.times+1),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 307
+            node: 307,
+            baseValue: 1,
         },
         {
             desc: "??? (Coming Soon!)",
+            sign: 'x',
             cost: Infinity,
             eff: () => D(1),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 0
+            node: 0,
+            baseValue: 1,
         },
     ],
 ]
 
 let getEUPEffect = (i, j, number = false) => number
     ? getEUPEffect(i, j).toNumber()
-    : hasTreeUpgrade(energyUpgradeData[i][j].node) ? Decimal.max(1, energyUpgradeData[i][j].eff()) : D(1)
+    : hasTreeUpgrade(energyUpgradeData[i][j].node) ? Decimal.max(energyUpgradeData[i][j].baseValue, energyUpgradeData[i][j].eff()) : D(energyUpgradeData[i][j].baseValue)
