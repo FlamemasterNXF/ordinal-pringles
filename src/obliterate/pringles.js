@@ -298,7 +298,7 @@ let pringleData = [
         name: 'Barbecue',
         desc: "Boosts AutoBuyer Speed",
         sign: 'x',
-        eff: () => D(10).pow(data.obliterate.pringleAmount[24]*2).times(getEUPEffect(3, 6)),
+        eff: () => D(10).pow(data.obliterate.pringleAmount[24]).times(getEUPEffect(3, 6)),
         baseValue: 1,
         resNames: 'of all the Inner-Circle Pringles',
         resLocation: [['obliterate', 'pringleAmount', '20'], ['obliterate', 'pringleAmount', '21'], ['obliterate', 'pringleAmount', '22'], ['obliterate', 'pringleAmount', '23']],
@@ -390,6 +390,7 @@ function isPringleAssigned(i){
     return isAssigned
 }
 function getPringleAssignment(i){
+    if(i === 24) return 4
     if(!isPringleAssigned(i)) return -1
     let assignment = 0
     for (let j = 0; j < data.purity.assignment.length; j++) {
