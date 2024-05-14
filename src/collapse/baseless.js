@@ -35,6 +35,12 @@ function updateDynamicShiftHTML(){
 function updateANRHTML(i){
     DOM(`anR${i}`).innerHTML = `<span style="color: #ce5c0b">${anRebuyableData[i].desc} (${formatWhole(getANRLevels(i))})</span><br>Requires: ${format(getANRCost(i))} ℵ<sub>0</sub><br>Currently: ${anRebuyableData[i].symbol !== 'x' ? anRebuyableData[i].symbol : ''}${format(getANREffect(i))}${anRebuyableData[i].symbol === 'x' ? anRebuyableData[i].symbol : ''}`
 }
+function updateAllANRHTML(){
+    for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
+        updateANRHTML(i)
+    }
+    checkANRUnlockHTML()
+}
 function checkANRUnlockHTML(){
     for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
         DOM(`anR${i}`).style.display = anRebuyableData[i].unl() ? `block` : `none`

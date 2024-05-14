@@ -75,4 +75,5 @@ function obliterateReset(){
     updateAllCUPTextHTML()
     checkAllUnlocks(0, true)
     checkAllUnlocks(1, true)
+    updateAllANRHTML()
 }
