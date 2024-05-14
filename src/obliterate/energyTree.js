@@ -176,7 +176,7 @@ function energyRespecConfirm(){
     createConfirmation('Are you certain?', 'This will force an Obliteration reset!', 'Nope!', 'Yeah', respecEnergyTree)
 }
 function respecEnergyTree(){
-    let total = getTotalEnergyInvested()
+    let total = getTotalEnergyInvested() > data.obliterate.energy ? getTotalEnergyInvested() : data.obliterate.energy
     data.obliterate.energyUpgrades = []
     data.obliterate.energy = total
 
