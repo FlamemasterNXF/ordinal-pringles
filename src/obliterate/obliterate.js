@@ -4,8 +4,11 @@ function updateObliterateHTML(){
     DOM(`obliterateButton`).style.color = data.incrementy.amt.gte(getObliterateReq()) ? '#ff80b9' : '#b06cdc'
 }
 
-function getObliterateReq(){
-    return D("1e750").pow(1+data.obliterate.times/10)
+function getObliterateReq(n = data.obliterate.times, m = true){
+    let mult = n > 0 && m
+        ? Math.pow(2, n)
+        : 1
+    return D("1e750").pow(1+n/10).times(mult)
 }
 
 function obliterateConfirm(){

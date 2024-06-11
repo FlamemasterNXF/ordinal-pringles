@@ -1,5 +1,5 @@
 function updateCollapseHTML(){
-    DOM(`cardinalsText`).innerText = `You have ${format(data.collapse.cardinals)} Cardinals`
+    DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals<br><span style="font-size: 0.8rem; color: #565656">Your best Collapse yieleded <span style="color: #20da45">${format(data.collapse.bestCardinalsGained)}</span> Cardinals</span>`
     DOM(`collapseButton`).innerText = `Collapse for ${format(cardinalGain())} Cardinals (C)`
 
     for (let i = 0; i < data.collapse.hasCUP.length-1; i++) {
@@ -223,7 +223,7 @@ let cupData = [
     {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.min(Decimal.max(1, Decimal.log10(data.incrementy.amt.plus(1))).mul(purificationEffect(3)).mul(getPringleEffect(2)).toNumber(), Number.MAX_VALUE)}, //TODO: Add a safety function
     {text: "Unlock a 3rd Overcharge Effect and boost Overcharge's 1st Effect", cost: 196608, effect: ()=> 3*getPringleEffect(3, true)},
     {text: "Unspent Cardinals boost Alephs", cost: 3e9, effect: ()=> Math.max(1, Math.log2(data.collapse.cardinals)*getAOMEffect(3)*getPringleEffect(4, true))},
-    {text: "Gain a percent of best Cardinals gained on Collapse every second", cost: 4e13, effect: ()=> getAOREffect(7)},
+    {text: "Gain a percent of best Cardinals gained on Collapse every second", cost: 1e13, effect: ()=> getAOREffect(7)},
 ]
 let sluggishData = [
     {text: "Uncap the Ordinal, you can pass Graham's Number without Boosting, gain 1% of Ordinal Powers gained on Markup every second, and you always have one free Maximize and Successor AutoClicker", req: 34},

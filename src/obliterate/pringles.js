@@ -70,7 +70,7 @@ let pringleData = [
         baseValue: 1,
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
-        cost: () => D(1e10).times(Math.pow(2, data.obliterate.pringleAmount[5]))
+        cost: () => D(1e10).times(Math.pow(5, data.obliterate.pringleAmount[5]))
     },
     {
         color: '#ae8910',
@@ -82,7 +82,7 @@ let pringleData = [
         baseValue: 1,
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
-        cost: () => D(1e10).times(Math.pow(12, data.obliterate.pringleAmount[6]))
+        cost: () => D(1e10).times(Math.pow(16, data.obliterate.pringleAmount[6]))
     },
     {
         color: '#b07a37',
@@ -94,7 +94,7 @@ let pringleData = [
         baseValue: 0,
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
-        cost: () => D(1e10).times(Math.pow(6, data.obliterate.pringleAmount[7]))
+        cost: () => D(1e10).times(Math.pow(10, data.obliterate.pringleAmount[7]))
     },
     {
         color: '#b6924f',
@@ -106,7 +106,7 @@ let pringleData = [
         baseValue: 1,
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
-        cost: () => D(1e10).times(Math.pow(3, data.obliterate.pringleAmount[8]))
+        cost: () => D(1e10).times(Math.pow(6, data.obliterate.pringleAmount[8]))
     },
     {
         color: '#ae6610',
