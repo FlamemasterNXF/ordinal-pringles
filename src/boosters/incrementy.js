@@ -29,14 +29,14 @@ function incrementyGain() {
 const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Factor boosts Incrementy gain',
     'Total Factor Boosts boost Incrementy Gain', 'Incrementy Multiplies the Dynamic Cap at a reduced rate (does not affect C5)', 'Dynamic boosts AutoBuyers at a reduced rate',
     'Challenge Completions provide free levels of Repeatable Upgrade 1', 'Repeatable Upgrade 2 is boosted by Challenge Completions', 'Total Repeatable Upgrade 3 levels boosts Upgrade 3',
-    'Double Negative Charge gain and Cap', 'Gain a level of the second Darkness Upgrade', 'Boost Cardinal gain'
+    'Double Negative Charge gain', 'Gain a level of the second Darkness Upgrade', 'Boost Cardinal gain'
 ]
 const iupCosts = [1, 1, 1, 2e6, 2e5, 1e10, 3e4, 1e8, 1e12, 1e100, 1e150, 1e200]
 let rebuyableCostBases = [20, 1000, 100, 1e150, 1e150, 1e150]
 let rebuyableCostScalings = [
+    () => Math.max(1, 2),
     () => Math.max(1, 2 - (getPringleEffect(10))),
     () => Math.max(1, 2 - (getPringleEffect(11))),
-    () => Math.max(1, 2),
     () => Math.max(1, 30 - (getPringleEffect(12))),
     () => Math.max(1, 40 - (getPringleEffect(14))),
     () => Math.max(1, 10 - (getPringleEffect(13)))

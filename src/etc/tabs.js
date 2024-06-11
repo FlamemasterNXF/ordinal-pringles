@@ -26,6 +26,7 @@ function switchSubtab(t, mode){
 
     // Special Boosters Rules
     if(mode === "boosters"){
+        if(!isTabUnlocked(boostTab)) switchTab('upgrades', 'boosters')
         DOM(`${boostTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
 
@@ -57,6 +58,7 @@ function switchSubtab(t, mode){
 
     // Special Collapse Rules
     if(mode === "collapse"){
+        if(!isTabUnlocked(collapseTab)) switchTab('cardinals', 'collapse')
         DOM(`collapseInfoContainer`).style.display = t==='omega' ? 'none' : 'flex'
 
         if(t==='cardinals'){

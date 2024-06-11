@@ -31,7 +31,7 @@ function obliterateReset(){
     data.collapse.alephs = Array(alephData.length).fill(0)
     data.collapse.hasCUP = Array(8).fill(false)
     data.collapse.hasSluggish = Array(5).fill(false)
-    data.collapse.apEnabled = Array(2).fill(false)
+    if(!hasSluggishMilestone(3)) data.collapse.apEnabled = Array(2).fill(false)
 
     data.darkness.negativeCharge = 0
     data.darkness.sacrificedCharge = 0

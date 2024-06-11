@@ -73,7 +73,7 @@ function passiveRespecConfirm(){
     createConfirmation('Are you certain?', 'This will force an Obliteration reset!', 'Nope!', 'Yeah', respecPassiveUpgrades)
 }
 function respecPassiveUpgrades(){
-    data.obliterate.passiveEnergy = getTotalPassiveEnergyInvested() > data.obliterate.passiveEnergy ? getTotalPassiveEnergyInvested() : data.obliterate.passiveEnergy
+    data.obliterate.passiveEnergy = getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy > data.obliterate.passiveEnergy ? getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy : data.obliterate.passiveEnergy
     for (let i = 0; i < data.obliterate.hasPassiveUpgrade.length; i++) {
         DOM(`peup${i}`).style.color = 'gray'
         data.obliterate.hasPassiveUpgrade[i] = false

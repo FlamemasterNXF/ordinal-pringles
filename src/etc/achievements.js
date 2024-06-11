@@ -349,12 +349,12 @@ let achievements = [
     {
         name: "Are you Passive yet?",
         description: "Unlock all Passive Upgrades",
-        req: () => completedPassiveUpgradeRows() > 5
+        req: () => completedPassiveUpgradeRows() >= 5
     },
     {
         name: "Pringle Eater Reference",
         description: "Assign a Pringle to every Purity Point",
-        req: () => getAssignedPurityPoints() > data.purity.isAssigned.length
+        req: () => getAssignedPurityPoints() >= data.purity.isAssigned.length
     },
     {
         name: "The Omega Pringle?",
