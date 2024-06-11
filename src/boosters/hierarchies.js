@@ -168,7 +168,7 @@ function getHBBuyableCost(i){
     return D(data.hierarchies.rebuyableAmt[i]).add(D(10).pow(1 + data.hierarchies.rebuyableAmt[i]))
 }
 
-let getHBuyableCap = () => 3332 + getPringleEffect(19, true)
+let getHBuyableCap = () => 3333 + getPringleEffect(19, true)
 function buyHBuyable(i){
     const cost = hbData[i].cost()
 
