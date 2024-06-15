@@ -16,7 +16,7 @@ function mainLoop() {
         data.overflow.oc += getOverflowGain(1)*uDiff
     }
 
-    if(hasCUP(7)) data.collapse.cardinals += (data.collapse.bestCardinalsGained/100)*cupEffect(7)*uDiff
+    if(hasCUP(7)) data.collapse.cardinals += (data.collapse.bestCardinalsGained/100)*getCUPEffect(7)*uDiff
 
     if(hasSluggishMilestone(0) && calculateSimpleHardy().gte(10240) && !data.ord.isPsi && data.markup.powers.lt(4e256)) data.markup.powers = data.markup.powers.plus((totalOPGain().div(100)).times(uDiff))
     if(isTabUnlocked('hierarchies')) checkHierarchyMilestones()

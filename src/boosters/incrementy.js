@@ -21,7 +21,7 @@ function incrementyGain() {
 
     let base = Decimal.log10(ord.plus(1)).div(10)
     let iupMults = base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect())
-    let otherMults = iupMults.times(getHierarchyEffect(0)).times(alephEffect(3)).times(cupEffect(4)).times(sBUP2Effect())
+    let otherMults = iupMults.times(getHierarchyEffect(0)).times(alephEffect(3)).times(getCUPEffect(4)).times(sBUP2Effect())
         .times(getPringleEffect(23))
     return otherMults.div(negativeChargeEffect(false))
 }

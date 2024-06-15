@@ -111,7 +111,7 @@ function chalEffectTotal(){
     mult = mult.add(D(data.dy.level).mul(chalEffect(7)))
 
     let base = D(mult).mul(hupData[0].effect()).mul(getOverflowEffect(0))
-    let cup = data.collapse.hasCUP[2] ? D(cupEffect(2)) : D(0)
+    let cup = data.collapse.hasCUP[2] ? D(getCUPEffect(2)) : D(0)
     return Decimal.max(Decimal.pow(base,2).add(cup), 1)
 }
 function decrementyGain() {

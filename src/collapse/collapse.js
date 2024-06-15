@@ -180,9 +180,9 @@ let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.ti
     * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect()*iup12Effect()
         *getAOMEffect(4)*getPringleEffect(20, true))**singEffects[0].effect()
 let alephEffect = (i) => data.collapse.alephs[i] > 0 && (!inPurification(1) || i === 0) && alephData[i].unl()
-    ? alephData[i].effect()*(i !== 8 ? cupEffect(6) : 1)
+    ? alephData[i].effect()*(i !== 8 ? getCUPEffect(6) : 1)
     : 1
-let cupEffect = (i) => hasCUP(i) ?
+let getCUPEffect = (i) => hasCUP(i) ?
     i===1 ? Math.min(Math.max(cupData[i].effect()+drain1Effect(), 1), Number.MAX_VALUE)
     : Math.min(Math.max(cupData[i].effect()*drainEffect(i), 1), Number.MAX_VALUE)
     : 1
@@ -202,7 +202,7 @@ function getTotalAlephs(){
     }
     return total
 }
-let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs())*getSingFunctionEffect(5))*(hasSingFunction(1) ? cupEffect(6) : 1)
+let alephTotalEffect = () => Math.max(1, Math.sqrt(getTotalAlephs())*getSingFunctionEffect(5))*(hasSingFunction(1) ? getCUPEffect(6) : 1)
 
 let alephData = [
     {text: "multiplying Autoclickers by", effect: ()=> Math.sqrt(data.collapse.alephs[0]+1)*3*purificationEffect(1), unl: () => true},

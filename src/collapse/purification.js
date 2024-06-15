@@ -219,6 +219,10 @@ function enterPurification(i){
 
     data.omega.whichPurification = i
     data.omega.purificationIsActive[i] = true
+
+    // Emulate Cardinal Gain
+    if(cardinalGain() > data.collapse.bestCardinalsGained) data.collapse.bestCardinalsGained = cardinalGain()
+    data.collapse.cardinals += cardinalGain()
     collapseReset()
 
     updatePossiblePurificationHTML()
@@ -228,7 +232,11 @@ function enterPurification(i){
 function exitPurification(i, swap = false) {
     updateAllAOMHTML()
     if (data.boost.times > data.omega.bestFBInPurification[data.omega.whichPurification]) data.omega.bestFBInPurification[data.omega.whichPurification] = data.boost.times
-    if (!swap) collapseReset()
+    if (!swap) {
+        if (cardinalGain() > data.collapse.bestCardinalsGained) data.collapse.bestCardinalsGained = cardinalGain()
+        data.collapse.cardinals += cardinalGain()
+        collapseReset()
+    }
 
     data.omega.purificationIsActive = Array(data.omega.purificationIsActive.length).fill(false)
 
