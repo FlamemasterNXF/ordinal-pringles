@@ -144,7 +144,7 @@ function chargeBUP(i, bottomRow){
 
     if(bottomRow){
         ++data.boost.bottomRowCharges
-        DOM('bupBottomText').innerText = `Click a purchased Upgrade to Supercharge it! The cost to Supercharge a bottom-row Upgrade is currently ${getBottomRowChargeCost()} Charge.\nThe Unlockables Column does not consume Boosters`
+        updateBUPInfoText()
     }
 
     DOM(`bup${i}`).className = 'chargedBUP'
@@ -165,7 +165,7 @@ function respecCharge(c=false){
     }
     data.incrementy.charge = data.incrementy.totalCharge-data.sing.level
     data.boost.bottomRowCharges = 0
-    if(hasSluggishMilestone(3)) DOM('bupBottomText').innerText = `Click a purchased Upgrade to Supercharge it! The cost to Supercharge a bottom-row Upgrade is currently ${getBottomRowChargeCost()} Charge.\nThe Unlockables Column does not consume Boosters`
+    if(hasSluggishMilestone(3)) updateBUPInfoText()
     if(!c) chalExit()
 }
 

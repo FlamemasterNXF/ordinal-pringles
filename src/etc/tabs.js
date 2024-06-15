@@ -39,15 +39,9 @@ function switchSubtab(t, mode){
             DOM(`bp7Container`).style.display = hasAOMilestone(2) ? 'block' : 'none'
         }
 
-        if (t==="upgrades" && data.boost.unlocks[1]){
-            DOM('bupBottomText').innerText = hasSluggishMilestone(3)
-                ? `Click a purchased Upgrade to Supercharge it! The cost to Supercharge a bottom-row Upgrade is currently ${getBottomRowChargeCost()} Charge.\nThe Unlockables Column does not consume Boosters`
-                : 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
-            DOM('chargeRefund').style.display = 'block'
-        }
-        else{
-            DOM('bupBottomText').innerText = 'The Unlockables Column does not consume Boosters'
-            DOM('chargeRefund').style.display = 'none'
+        if (t==="upgrades" && data.boost.unlocks[1]) {
+            updateBUPInfoText()
+            DOM('chargeRefund').style.display = data.boost.unlocks[1] ? 'block' : 'none'
         }
 
         if(t==="incrementy"){

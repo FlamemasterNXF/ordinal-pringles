@@ -173,6 +173,13 @@ function revealChargeEffect(i, showCharge) {
     //DOM('bupBottomText').innerText = `This Upgrade's Supercharged effect is \'${chargedBUPDesc[i]}\'\nThe Unlockables Column does not consume Boosters`
 }
 
+function updateBUPInfoText(){
+    let bottomAddon = hasSluggishMilestone(3) ? `Bottom-Row <span style="color: #8080FF">Upgrades</span> are unique and currently cost <span style="color: goldenrod">${getBottomRowChargeCost()} Charge</span> to <span style="color: goldenrod">Supercharge.</span><br>` : ``
+    let superchargeAddon = data.boost.unlocks[1] ? `Purchased <span style="color: #8080FF">Upgrades</span> can be <span style="color: goldenrod">Supercharged</span> for <span style="color: goldenrod">1 Charge!</span><br>` : ``
+    let text = `${superchargeAddon}${bottomAddon}<span style="color: #8080FF">Upgrades</span> must be bought in <span style="color: #8080FF">descending order</span>. Attempting to buy an <span style="color: #8080FF">Upgrade</span> will also attempt to buy all <span style="color: #8080FF">Upgrades</span> above it.`
+    return DOM('bupBottomText').innerHTML = text
+}
+
 function boosterReset(){
     data.ord.ordinal = D(0)
     data.ord.over = D(0)
@@ -247,16 +254,26 @@ function getBulkBoostAmt(){
     //return Math.round(Math.log(data.ord.ordinal/40)/Math.log(3)) - data.boost.times
 }
 //End credit
-function buyBUP(i, bottomRow, useCharge){
+function buyBUP(n, bottomRow, useCharge){
     updateHierarchyPurchaseHTML()
-    if(data.boost.hasBUP[i] && useCharge) return chargeBUP(i, bottomRow)
-    if(data.boost.amt < getBUPCosts(i)) return
-    if(i % 5 !== 0 && !data.boost.hasBUP[i-1]) return // Force you to buy them in order, but only in columns
+    if(data.boost.hasBUP[n]) return useCharge ? chargeBUP(n, bottomRow) : null
 
-    data.boost.amt -= getBUPCosts(i)
-    data.boost.hasBUP[i] = true
+    /*
+        Force purchasing of BUPs in order, but only in columns
+        Attempts to purchase lower BUPs if they aren't available
+    */
+    if(n % 5 !== 0 && !data.boost.hasBUP[n-1]){
+        for (let i = 0; i < n % 5; i++) {
+            let index = (i % 5) + (5 * Math.floor(n / 5))
+            buyBUP(index, bottomRow, useCharge)
+        }
+    }
 
-    DOM(`bup${i}`).style.backgroundColor = '#002480'
+    if (data.boost.amt < getBUPCosts(n)) return
+    data.boost.amt -= getBUPCosts(n)
+    data.boost.hasBUP[n] = true
+
+    DOM(`bup${n}`).style.backgroundColor = '#002480'
     if(inPurification(2)) updateAllBUPHTML()
 }
 
@@ -277,6 +294,7 @@ function boosterRefund(c=false){
     c?boosterReset():chalExit()
 }
 
+// TODO: Refactor / Cleanup
 function boosterUnlock(){
     if(chalTabUnlocked()){ data.boost.unlocks[0] = true; DOM(`bu0`).style.backgroundColor = '#002480'; }
     else {DOM(`bu0`).style.backgroundColor = 'black';}
@@ -311,14 +329,14 @@ function toggleAuto(i){
     data.autoStatus.enabled[i] = !data.autoStatus.enabled[i]
 }
 
-function totalBUPs(){
+function getTotalBUPs(){
     let total = 0
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
         if (data.boost.hasBUP[i]) ++total
     }
     return total
 }
-function totalCharges(){
+function getTotalSupercharges(){
     let total = 0
     for (let i = 0; i < data.boost.isCharged.length; i++) {
         if (data.boost.isCharged[i]) ++total

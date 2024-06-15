@@ -24,7 +24,6 @@ const uHTML = {
 
         if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchSubtab('dynamic', 'markup'))
 
-        if(data.boost.unlocks[1])('bupBottomText').innerText = 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
         DOM('bp2Description').innerText = data.overflow.thirdEffect ? 'Dividing Decrementy Gain by ' : 'Multiplying Decrementy Gain by '
         DOM('progressBarContainer').style.display = data.sToggles[6] ? 'flex' : 'none'
         DOM('darken').innerText = data.darkness.darkened ? 'Escape' : 'Enter the Darkness'
