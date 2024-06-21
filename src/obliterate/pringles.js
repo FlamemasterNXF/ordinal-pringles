@@ -421,8 +421,9 @@ function buyPringle(pringleData, index){
     updatePringleButtonText(pringleData, index)
 }
 
-let getPringleEffectBaseline = (i) => Decimal.max(pringleData[i].baseValue, (pringleData[i].eff()))
+let getPringleData = (i) => pringleData[i]
 
+let getPringleEffectBaseline = (i) => Decimal.max(pringleData[i].baseValue, (pringleData[i].eff()))
 let getPringleEffect = (i, number = false) => number
     ? getPringleEffect(i).toNumber()
     : isPringleAssigned(i) || i === 24 ? Decimal.max(pringleData[i].baseValue, getPringleEffectBaseline(i).times(getPurityStrength(getPringleAssignment(i)))): D(pringleData[i].baseValue)

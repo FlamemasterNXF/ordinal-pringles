@@ -65,7 +65,7 @@ function initPringleBox(){
             let index = j+(i*6)
             pringle.className = 'purityPringle'
             pringle.id = `purityPringle${index}`
-            pringle.style.borderColor = isPringleAssigned(index) ? '#5b5b5b' : pringleData[index].color
+            //pringle.style.borderColor = isPringleAssigned(index) ? '#5b5b5b' : pringleData[index].color
             pringle.addEventListener('mouseenter', (e) => displayPringleButton(e,pringleData[index], index, 'purityButton'))
             pringle.addEventListener('click', () => assignPringle(index, 0))
             if(data.sToggles[18]) pringle.innerText = `${index}`
@@ -83,6 +83,12 @@ function setupPurityPoint(i, point){
 
     point.addEventListener('mouseover', () => updatePurityText(i))
     point.addEventListener('click', () => assignPringle(i, 1))
+}
+
+function updateAllMiscPringleColors(mode){
+    for (let i = 0; i < 24; i++) {
+        DOM(`${mode}Pringle${i}`).style.borderColor = isPringleAssigned(i) ? '#5b5b5b' : isPringleDarkened(i) ? '#232323' : getPringleData(i).color
+    }
 }
 
 function updatePurityText(i) {
@@ -109,7 +115,7 @@ function assignPringle(i, type){
 
     if(type === 0) data.purity.pringleQueued = i
     if(type === 1){
-        if(isPringleAssigned(data.purity.pringleQueued)) return
+        if(isPringleAssigned(data.purity.pringleQueued) || isPringleDarkened(data.purity.pringleQueued)) return
         if(!isPurityPointUnlocked(i)) buyPurityPoint(i)
         if(data.purity.isAssigned[i] === true) assignPringle(i, 2)
 
@@ -128,7 +134,7 @@ function assignPringle(i, type){
         DOM(`purityPoint${i}`).style.borderColor = '#949494'
         if(data.sToggles[18]) DOM(`purityPoint${i}`).innerText = ''
         data.purity.isAssigned[i] = false
-        data.purity.assignment[i] = 0
+        data.purity.assignment[i] = -1
         updatePurityText(i)
     }
 }

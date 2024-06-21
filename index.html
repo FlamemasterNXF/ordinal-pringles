@@ -372,10 +372,12 @@
                         <div class="flexBox" style="flex-direction: row; width: 28rem; height: 4rem;" id="iPringleBox3"></div>
                     </div>
                 </div>
-                <button class="drain" id="unstableDrain" style="width: 20rem; height: 8rem; margin-left: 0.5rem;"></button>
+                <button class="drain" id="unstableDrain" style="width: 20rem; height: 8rem; margin-left: 0.5rem;" onclick="buyUnstableDrain()"></button>
             </div>
             <div class="flexBox" style="flex-direction: row">
                 <button class="dupControl" id="instabilityControl" onclick="instabilityControl()">H</button>
+                <button class="dupControl" id="darkPringleRespec" onclick="data.sToggles[19] ? createConfirmation('Are you sure?', 'Respecing Darkened Pringles will return all your Pringles, but will also respec Destabilized Upgrades and preform an Obliteration reset!', 'No way!', 'Go ahead.', respecDarkPringles) : respecDarkPringles()">Respec Darkened Pringles</button>
+                <button class="dupControl" id="unstableDrainRespec" onclick="data.sToggles[19] ? createConfirmation('Are you sure?', 'Respecing Darkened Pringles will return your Negative Charge, but will also respec Destabilized Upgrades!', 'No way!', 'Go ahead.', respecUnstableDrain) : respecUnstableDrain()">Respec the Unstable Drain</button>
                 <button class="dupControl" onclick="switchSubtab('darkness', 'collapse')">View Darkness</button>
             </div>
         </div>
@@ -563,6 +565,7 @@
             <button class="settingsButton" id="settingsToggle15" onclick="settingsToggle(15)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle16" onclick="settingsToggle(16)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle17" onclick="settingsToggle(17)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle19" onclick="settingsToggle(19)" style="width: 20rem">aaa</button>
         </div>
         <div class="flexBox" id="uiSubPage" style="display: none; flex-direction: column">
             <button class="settingsButton" id='changeOrdLength' onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 22rem">Change Max Ordinal Display Length <span style="color: #8080FF">[0]</span></button>

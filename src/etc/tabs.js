@@ -66,11 +66,13 @@ function switchSubtab(t, mode){
             updateDUPHTML(1)
             updateDUPHTML(2)
             DOM('dupC4').innerHTML = `Invert the third Booster Power effect<br><span style="font-size: 0.7rem">Currently: ${data.overflow.thirdEffect ? 'Dividing': 'Multiplying'}</span>`
+            DOM('instability').style.display = getEUPEffect(4, 0) ? 'block' : 'none'
         }
         if(t==='instability'){
             darknessSubtab = 'instability'
             updateInstabilityText()
             DOM(`instabilityControl`).innerText = `${formatBool(!data.instability.enabled, 'EDT')} Instability`
+            updateAllMiscPringleColors('instab')
         }
         if(t==='sing'){
             if(!data.sing.tutorial){
@@ -105,9 +107,12 @@ function switchSubtab(t, mode){
     if(mode === "obliterate"){
         if(t === 'energy' && !hasDrawnTree) drawTree()
         if(t === 'passive') updatePassiveEnergyText()
-        if(t === 'purity' && !data.purity.tutorial){
-            createAlert('Tutorial Time!', "Here you can assign Pringles to certain Points on a plane. Each Point provides a certain amount of 'Purity' (Purity is the same thing as 'effect strength'), with Points further from the center having reduced Purity.", 'Thanks for the tips!')
-            data.purity.tutorial = true
+        if(t === 'purity'){
+            if(!data.purity.tutorial){
+                createAlert('Tutorial Time!', "Here you can assign Pringles to certain Points on a plane. Each Point provides a certain amount of 'Purity' (Purity is the same thing as 'effect strength'), with Points further from the center having reduced Purity.", 'Thanks for the tips!')
+                data.purity.tutorial = true
+            }
+            updateAllMiscPringleColors('purity')
         }
 
         DOM(`obliterateInfoContainer`).style.display = t === 'passive' || t === 'pringles' ? 'none' : 'flex'

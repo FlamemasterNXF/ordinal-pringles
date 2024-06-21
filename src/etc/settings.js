@@ -7,10 +7,10 @@ const SETTINGS_DESCS = [
     "Charge Sacrifice Confirmation", "Hardy Value Display for Ordinals >= 1.8e308",
     "Use ExpantaNum in Extended Hardy Displays", "Toggle the Obliterate Confirmation",
     "Toggle the Energy Upgrades Respec Confirmation", "Toggle the Passive Energy Respec Confirmation",
-    "Differentiate Pringles without Color"
+    "Differentiate Pringles without Color", "Toggle both Instability Respec Confirmations"
 ]
 const settingsDefaults = [
-    true, true, true, true, true, true, true, true, true, true, true, true, false, false, true, true, true, true, false
+    true, true, true, true, true, true, true, true, true, true, true, true, false, false, true, true, true, true, false, true
 ]
 function settingsToggle(i){
     if (i === -1){
