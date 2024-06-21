@@ -55,5 +55,6 @@ const uHTML = {
         initPassiveEnergyUpgrades()
         initPringleAlchemy()
         initPurityPlane()
+        initInstabPringleBox()
     }
 }

@@ -297,7 +297,7 @@ const energyUpgradeData = [
     ],
     [
         {
-            desc: "Unlock Instability",
+            desc: "Unlock Dark Instability",
             sign: 'x',
             cost: 1,
             eff: () => D(1),
@@ -308,9 +308,29 @@ const energyUpgradeData = [
             baseValue: 1,
             isUnlock: true,
         },
+        {
+            desc: "??? (Coming Soon!)",
+            sign: 'x',
+            cost: Infinity,
+            eff: () => D(1),
+            hasExtraReq: false,
+            extraReq: true,
+            extraReqText: '',
+            node: 402,
+            baseValue: 1,
+            isUnlock: false,
+        },
     ]
 ]
 
-let getEUPEffect = (i, j, number = false) => number
-    ? getEUPEffect(i, j).toNumber()
-    : hasTreeUpgrade(energyUpgradeData[i][j].node) ? Decimal.max(energyUpgradeData[i][j].baseValue, energyUpgradeData[i][j].eff()) : D(energyUpgradeData[i][j].baseValue)
+function getEUPEffect (i, j, noDecimal = false) {
+    if(noDecimal) return getEUPEffect(i, j).toNumber()
+
+    let id = energyUpgradeData[i][j].node
+    let data = energyUpgradeData[i][j]
+
+    if(data.isUnlock) return hasTreeUpgrade(id)
+
+    if(hasTreeUpgrade(id)) return Decimal.max(energyUpgradeData[i][j].baseValue, energyUpgradeData[i][j].eff())
+    return D(energyUpgradeData[i][j].baseValue)
+}

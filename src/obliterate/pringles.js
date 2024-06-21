@@ -367,6 +367,7 @@ function displayPringleButton(event, pringleData, i, type = 'pringleButton'){
     button.style.color = pringleData.color
     if(type === 'pringleButton') updatePringleButtonText(pringleData, i)
     if(type === 'purityButton') updatePurityButtonText(pringleData, i)
+    if(type === 'instabButton') updateInstabButtonText(pringleData, i)
 }
 function updatePringleButtonText(pringleData, i){
     DOM('pringleButton').innerHTML = `The ${pringleData.name}${i !== 24 ? ` ${pringleData.colorDesc}` : ''} Pringle [${data.obliterate.pringleAmount[i]}]<br><b>${pringleData.desc} [${getPringleEffectText(pringleData, i)}]</b><br>It costs <b>${format(pringleData.cost())} ${pringleData.resNames}</b> to craft<br>${getPringleAssignmentText(i)}<br><i style="font-size: 0.85rem; color: gray">Click this Pringle to Craft it!</i>`

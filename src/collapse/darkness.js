@@ -2,6 +2,8 @@ function updateDarknessHTML(){
     DOM('nchargeText1').innerText = `You have ${format(data.darkness.negativeCharge)} Negative Charge [+${format(negativeChargeGain())}/s]`
     DOM('nchargeText2').innerText = `Your Negative Charge divides Incrementy gain by /${format(negativeChargeEffect(false))} and Incrementy effect by /${format(negativeChargeEffect(true))}`
     updateAllDUPHTML()
+
+    if(data.obliterate.times > 0) DOM(`instabNegativeChargeText`).innerText = `You have ${format(data.darkness.negativeCharge)} Negative Charge [+${format(negativeChargeGain())}/s]`
 }
 
 function updateDarknessControlHTML(mode){
@@ -44,11 +46,21 @@ function updateDrainHTML(i){
 let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)*(iup10Effect()) : 0
 //let negativeChargeCap = () => Math.min(Decimal.pow(data.incrementy.amt, 1/3).toNumber()*(iup10Effect()), Number.MAX_VALUE)
 
-function negativeChargeEffect(eff){
-    if(eff === false) return Decimal.max(1, Decimal.sqrt(data.darkness.negativeCharge+1).div(sacrificedChargeEffect()))
-    if(eff === true) return Decimal.max(1, Decimal.log10(data.darkness.negativeCharge+10).div(sacrificedChargeEffect()))
- }
+function negativeChargeEffect(eff) {
+    if (eff === false) return Decimal.max(1, Decimal.sqrt(data.darkness.negativeCharge + 1).div(sacrificedChargeEffect()))
+    if (eff === true) return Decimal.max(1, Decimal.log10(data.darkness.negativeCharge + 10).div(sacrificedChargeEffect()))
+}
 
+let sacrificedChargeEffects = [
+    {
+        desc: "Dividing the Negative Charge effects",
+        eff: () => (data.darkness.sacrificedCharge+1)*2
+    },
+    {
+        desc: "Increasing the D gain ",
+        eff: () => (data.darkness.sacrificedCharge+1)*2
+    },
+]
 let sacrificedChargeEffect = () => data.darkness.sacrificedCharge > 0 ? (data.darkness.sacrificedCharge+1)*2 : 1
 
 let drainEffect = (i) => getDrainLevel(i) > 0 ? i===1 ? Math.max(0, drain1Effect())

@@ -45,6 +45,7 @@
     <script defer src="src/obliterate/energyTree.js"></script>
     <script defer src="src/obliterate/obliterate.js"></script>
 
+    <script defer src="src/collapse/instability.js"></script>
     <script defer src="src/collapse/purification.js"></script>
     <script defer src="src/collapse/baseless.js"></script>
     <script defer src="src/collapse/singularity.js"></script>
@@ -313,7 +314,7 @@
             <button class="collapseTabButton" id="cardinalsTab" onclick="switchSubtab('cardinals', 'collapse')">Alephs</button>
             <button class="collapseTabButton" id="cupsTab" onclick="switchSubtab('cUpgrades', 'collapse')">Cardinal Upgrades</button>
             <button class="collapseTabButton" id="smTab" onclick="switchSubtab('sluggish', 'collapse')">Sluggishness</button>
-            <button class="collapseTabButton" id="darkTab" onclick="switchSubtab('darkness', 'collapse')" style="border-color: rgba(128,0,255,0.5); color: rgba(159,159,204,0.92)">???</button>
+            <button class="collapseTabButton" id="darkTab" onclick="switchSubtab(darknessSubtab, 'collapse')" style="border-color: rgba(128,0,255,0.5); color: rgba(159,159,204,0.92)">???</button>
             <button class="collapseTabButton" id="autoPrestigeTab" onclick="switchSubtab('autoPrestige', 'collapse')">???</button>
             <button class="collapseTabButton" id="singTab" onclick="switchSubtab('sing', 'collapse')">???</button>
             <button class="collapseTabButton" id="baselessTab" onclick="switchSubtab('baseless', 'collapse')">???</button>
@@ -338,7 +339,10 @@
             <t class="centeredTexts" style="color: #0e8626; margin-top: 1rem">Each Sluggish Milestone gives you (3*previously completed SMs) free Cardinals!<br>Collapse in the required Factor Boosts or less to complete Sluggish Milestones</t>
         </div>
         <div class="flexBox" id="darknessSubPage" style="display: none; flex-direction: column;">
-            <button id="darken" onclick="darkenConfirm()">Enter the Darkness</button>
+            <div class="flexBox" style="flex-direction: row">
+                <button id="darken" onclick="darkenConfirm()">Enter the Darkness</button>
+                <button id="instability" onclick="switchSubtab('instability', 'collapse')">View Instability</button>
+            </div>
             <t class="centeredTexts" id="nchargeText1" style="color: #9f9fcce1; margin-top: 1rem">You have zero Negative Charge [+x/s], capping at zero</t>
             <t class="centeredTexts" id="nchargeText2" style="color: #9f9fcce1;">Your Negative Charge divides Incrementy by the log700 of foxes</t>
             <div class="flexBox" id="dupContainer" style="flex-direction: row;">
@@ -352,7 +356,28 @@
                 <button class="dupControl" id="dupC3" onclick="darknessControl(3)">Reset Sacrifice Charge</button>
                 <button class="dupControl" id="dupC1" onclick="darknessControl(1)">Reset Negative Charge</button>
             </div>
-            <button id="dupC2" onclick="chargeSacConfirm()">Sacrifice Charge</button>
+            <button class="chargeSac" id="dupC2" onclick="chargeSacConfirm()">Sacrifice Charge</button>
+        </div>
+        <div class="flexBox" id="instabilitySubPage" style="display: none; flex-direction: column">
+            <div class="centeredTexts" id="instabilityText" style="color: #9f9fcce1; margin-top: 1rem;"></div>
+            <div class="centeredTexts" id="instabilityConstantText" style="color: rgba(140,140,164,0.88); margin-top: 0.5rem;"></div>
+            <t class="centeredTexts" id="instabNegativeChargeText" style="color: #9f9fcce1; margin-top: 1rem; font-size: 1rem"></t>
+            <div class="layer" id="instabButton" style="display: none; transition: 1s ease-out; z-index: 2; width: 15rem; height: 8rem; border-radius: 20%; border: 1px solid #5b5b5b; background: rgba(0,0,0,0.75); color: white; text-align: center; place-content:center; transform: translate(-100%, -50%); font-family: DosisLight; font-size: 0.95rem; pointer-events: none;">Pringling</div>
+            <div class="flexBox" style="flex-direction: row; margin-top: 0.5rem">
+                <div style="flex-direction: column; width: 28rem; height: 16rem; border: 2px solid #5858584d; color: white;">
+                    <div class="flexBox" style="flex-direction: row">
+                        <div class="flexBox" style="flex-direction: row; width: 28rem; height: 4rem;" id="iPringleBox0"></div>
+                        <div class="flexBox" style="flex-direction: row; width: 28rem; height: 4rem;" id="iPringleBox1"></div>
+                        <div class="flexBox" style="flex-direction: row; width: 28rem; height: 4rem;" id="iPringleBox2"></div>
+                        <div class="flexBox" style="flex-direction: row; width: 28rem; height: 4rem;" id="iPringleBox3"></div>
+                    </div>
+                </div>
+                <button class="drain" id="unstableDrain" style="width: 20rem; height: 8rem; margin-left: 0.5rem;"></button>
+            </div>
+            <div class="flexBox" style="flex-direction: row">
+                <button class="dupControl" id="instabilityControl" onclick="instabilityControl()">H</button>
+                <button class="dupControl" onclick="switchSubtab('darkness', 'collapse')">View Darkness</button>
+            </div>
         </div>
         <div class="flexBox" id="autoPrestigeSubPage" style="display: none; flex-direction: column;">
             <div class="centeredTexts" id="t3AutoText0" style="margin-top: 1rem">Your Max All AutoBuyer is clicking the Max All button 0 times/second, but only if you can't Factor Shift</div>

@@ -246,7 +246,16 @@
     margin-top: 1rem;
     margin-left: 0.5rem;
 }
-#dupC2{
+#instability{
+    width: 10rem;
+    height: 4rem;
+    border: 2px solid #8000ff4d;
+    color: #9f9fcce1;
+    background: rgb(18 1 26);
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+}
+.chargeSac{
     width: 25rem;
     height: 5rem;
     border: 2px solid #8000ff4d;
@@ -272,6 +281,19 @@
     background: black;
     margin-top: 0.5rem;
     margin-left: 0.5rem;
+}
+.instabilityPringle{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 75%;
+    background: black;
+    border: 2px solid white;
+    margin-top: 0.25rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    text-align: center;
+    color: white;
+    place-content: center;
 }
 .singControl{
     width: 12rem;

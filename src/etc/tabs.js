@@ -11,6 +11,7 @@ function switchTab(tab){
 let markupTab = "factor"
 let boostTab = "upgrades"
 let collapseTab = "cardinals"
+let darknessSubtab = "darkness"
 let obliterateTab = "pringles"
 let settingsTab = "gameSettings"
 
@@ -53,7 +54,7 @@ function switchSubtab(t, mode){
     // Special Collapse Rules
     if(mode === "collapse"){
         if(!isTabUnlocked(collapseTab)) switchTab('cardinals', 'collapse')
-        DOM(`collapseInfoContainer`).style.display = t==='omega' ? 'none' : 'flex'
+        DOM(`collapseInfoContainer`).style.display = t==='purification' || t==='instability' ? 'none' : 'flex'
 
         if(t==='cardinals'){
             DOM(`aleph8`).style.display = hasAOMilestone(1) ? `block` : `none`
@@ -61,9 +62,15 @@ function switchSubtab(t, mode){
         if(t==='cUpgrades' && data.obliterate.times > 0) checkAllUnlocks(0, true)
         if(t==='sluggish' && data.obliterate.times > 0) checkAllUnlocks(1, true)
         if(t==='darkness'){
+            darknessSubtab = 'darkness'
             updateDUPHTML(1)
             updateDUPHTML(2)
             DOM('dupC4').innerHTML = `Invert the third Booster Power effect<br><span style="font-size: 0.7rem">Currently: ${data.overflow.thirdEffect ? 'Dividing': 'Multiplying'}</span>`
+        }
+        if(t==='instability'){
+            darknessSubtab = 'instability'
+            updateInstabilityText()
+            DOM(`instabilityControl`).innerText = `${formatBool(!data.instability.enabled, 'EDT')} Instability`
         }
         if(t==='sing'){
             if(!data.sing.tutorial){
