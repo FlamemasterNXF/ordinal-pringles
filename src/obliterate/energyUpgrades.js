@@ -10,6 +10,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 0,
             baseValue: 1,
+            isUnlock: false,
         }
     ],
     [
@@ -23,6 +24,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 101,
             baseValue: 0,
+            isUnlock: false,
         },
         {
             desc: 'Total Fractal Energy boosts the Singularity boost to Baselessness and the 2nd Singularity Effect is now positive',
@@ -34,6 +36,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 102,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: 'ℵ<sub>0</sub> boosts the third ℵ<sub>0</sub> Upgrade',
@@ -45,6 +48,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 103,
             baseValue: 0,
+            isUnlock: false,
         },
         {
             desc: 'Total Charge boosts the first Singularity Effect',
@@ -56,6 +60,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 104,
             baseValue: 0,
+            isUnlock: false,
         },
         {
             desc: 'Total Fractal Energy reduces the third Singularity Effect',
@@ -67,6 +72,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 105,
             baseValue: 0,
+            isUnlock: false,
         },
         {
             desc: '??? (Coming Soon)', // Unlock a new Singularity Effect
@@ -78,6 +84,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 106,
             baseValue: 0,
+            isUnlock: false,
         },
     ],
     [
@@ -91,6 +98,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 201,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: 'Total Fractal Energy boosts the ℵ<sub>ω</sub> cap',
@@ -102,6 +110,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 202,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: 'Total Fractal Energy boosts the second ℵ<sub>ω</sub> Effect',
@@ -113,6 +122,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 203,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: "While nothing is being Purified, ℵ<sub>ω</sub> Upgrades three to five provide a combined boost to AutoBuyers",
@@ -124,6 +134,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 204,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: 'While the Obscure are being Purified, Total Fractal Energy boost the FGH Successor',
@@ -135,6 +146,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 205,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: 'While the Infinite are being Purified, Total Fractal Energy divide the Dynamic Factor',
@@ -146,6 +158,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 206,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: 'While the Eternal are being Purified, total Fractal Energy provides free levels of the fourth ℵ<sub>ω</sub> Upgrade',
@@ -157,6 +170,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 207,
             baseValue: 0,
+            isUnlock: false,
         },
         {
             desc: 'While the Inferior are being Purified, total Fractal Energy greatly boosts the fifth ℵ<sub>ω</sub> Upgrade',
@@ -168,6 +182,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 208,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: 'Cardinals provide free ℶ<sub>ω</sub>',
@@ -179,6 +194,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 209,
             baseValue: 0,
+            isUnlock: false,
         },
     ],
     [
@@ -192,6 +208,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 301,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: "Total Fractal Energy boosts all <span style='color: #3d40fd'>Blue</span> Pringles",
@@ -203,6 +220,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 302,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: "Total Fractal Energy boosts all <span style='color: #f542a4'>Pink-Purple</span> Pringles",
@@ -214,6 +232,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 303,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: "Total Fractal Energy boosts all <span style='color: #2da000'>Green</span> Pringles",
@@ -225,6 +244,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 304,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: "Cardinals boost all Perfected Pringles",
@@ -236,6 +256,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 305,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: "Cardinals boost all Limited Edition Pringles",
@@ -247,6 +268,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 306,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: "Total Fractal Energy boosts the <span style='color: #ce0b0b'>Barbecue</span> Pringle",
@@ -258,6 +280,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 307,
             baseValue: 1,
+            isUnlock: false,
         },
         {
             desc: "??? (Coming Soon!)",
@@ -267,10 +290,25 @@ const energyUpgradeData = [
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
-            node: 0,
+            node: 308,
             baseValue: 1,
+            isUnlock: false,
         },
     ],
+    [
+        {
+            desc: "Unlock Instability",
+            sign: 'x',
+            cost: 1,
+            eff: () => D(1),
+            hasExtraReq: false,
+            extraReq: true,
+            extraReqText: '',
+            node: 401,
+            baseValue: 1,
+            isUnlock: true,
+        },
+    ]
 ]
 
 let getEUPEffect = (i, j, number = false) => number

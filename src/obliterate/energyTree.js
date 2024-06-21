@@ -1,22 +1,6 @@
 let treeNodes = new vis.DataSet([
     { id: 0, label: "" },
 
-    /*
-    { id: 101, label: "101" },
-    { id: 102, label: "102" },
-    { id: 103, label: "103" },
-    { id: 104, label: "104" },
-    { id: 105, label: "105" },
-    { id: 106, label: "106" },
-    { id: 107, label: "107" },
-
-    { id: 201, label: "201" },
-    { id: 202, label: "202" },
-    { id: 203, label: "203" },
-    { id: 204, label: "204" },
-    { id: 205, label: "205" },
-     */
-
     { id: 101, label: "101" },
     { id: 102, label: "102" },
     { id: 103, label: "103" },
@@ -42,25 +26,11 @@ let treeNodes = new vis.DataSet([
     { id: 306, label: "306" },
     { id: 307, label: "307" },
     { id: 308, label: "308" },
+
+    { id: 401, label: "401" }
 ])
 
 let treeEdges = new vis.DataSet([
-    /*
-    { from: 0, to: 101 },
-    { from: 101, to: 102 },
-    { from: 102, to: 103 },
-    { from: 103, to: 104 },
-    { from: 104, to: 105 },
-    { from: 105, to: 106 },
-    { from: 106, to: 107 },
-
-    { from: 0, to: 201 },
-    { from: 201, to: 202 },
-    { from: 202, to: 203 },
-    { from: 203, to: 204 },
-    { from: 204, to: 205 },
-     */
-
     { from: 0, to: 101 },
     { from: 0, to: 101 },
     { from: 101, to: 102 },
@@ -89,6 +59,9 @@ let treeEdges = new vis.DataSet([
     { from: 305, to: 306 },
     { from: 306, to: 307 },
     { from: 307, to: 308 },
+
+    { from: 0, to: 401 },
+    { from: 0, to: 401 },
 ])
 
 let treeContainer = DOM("energyTree")
@@ -101,7 +74,7 @@ let treeOptions = {
         'font' : {
             'color' : 'black'
         },
-        'color' : '#996cdc',
+        'color' : '#615a6c',
         'shape' : 'circle',
         'size' : 30,
         'borderWidth' : 2,
@@ -134,6 +107,18 @@ function drawTree(){
         })
 
     hasDrawnTree = true
+    loadNodeColors()
+}
+
+function loadNodeColors(respec = false){
+    for (let i = 0; i < data.obliterate.energyUpgrades.length; i++) {
+        setNodeColor(data.obliterate.energyUpgrades[i], respec)
+    }
+}
+function setNodeColor(id, forceFalse = false){
+    let node = treeNodes.get(id)
+    node.color = hasTreeUpgrade(id) && !forceFalse ? '#996cdc' : '#615a6c'
+    treeNodes.update(node)
 }
 
 let hasTreeUpgrade = (id) => data.obliterate.energyUpgrades.includes(id)
@@ -162,13 +147,14 @@ function getLowerTreeNodeString(id){
 function updateEnergyTreeText(id){
     let identifiers = getFixedTreeNode(id)
     let node = energyUpgradeData[identifiers[0]][identifiers[1]]
-    DOM(`energyTreeText`).innerHTML = `<span style="color: #4a4a4a">Upgrade ${id}:</span> <span style="color: #b06cdc">${node.desc}</span><br>${hasTreeUpgrade(id) ? `<span style="color: #dc6cc6"> Currently: ${node.sign !== 'x' ? `${node.sign}${format(getEUPEffect(identifiers[0], identifiers[1]))}` : `${format(getEUPEffect(identifiers[0], identifiers[1]))}${node.sign}`}` : canPurchaseTreeUpgrade(id, node) ? `<span style="color: #6c6c6c">Can be Activated for</span> <span style="color: #d56cdc">${node.cost} Fractal Energy</span>` : `<span style="color: #ab003d">You must first Activate Upgrade ${getLowerTreeNodeString(id)}${node.hasExtraReq ? node.extraReqText : ''}</span>`}`
+    DOM(`energyTreeText`).innerHTML = `<span style="color: #4a4a4a">Upgrade ${id}:</span> <span style="color: #b06cdc">${node.desc}</span><br>${hasTreeUpgrade(id) ? energyUpgradeData[identifiers[0]][identifiers[1]].isUnlock ? `<span style="color: #dc6cc6"> Unlocked!` : `<span style="color: #dc6cc6"> Currently: ${node.sign !== 'x' ? `${node.sign}${format(getEUPEffect(identifiers[0], identifiers[1]))}` : `${format(getEUPEffect(identifiers[0], identifiers[1]))}${node.sign}`}` : canPurchaseTreeUpgrade(id, node) ? `<span style="color: #6c6c6c">Can be Activated for</span> <span style="color: #d56cdc">${node.cost} Fractal Energy</span>` : `<span style="color: #ab003d">You must first Activate Upgrade ${getLowerTreeNodeString(id)}${node.hasExtraReq ? node.extraReqText : ''}</span>`}`
 }
 
 function purchaseTreeUpgrade(id, node){
     data.obliterate.energy -= node.cost
     data.obliterate.energyUpgrades.push(id)
     if(data.obliterate.passiveEnergy + getTotalPassiveEnergyInvested() < getTotalEnergyInvested()) data.obliterate.passiveEnergy += node.cost
+    setNodeColor(id)
 }
 
 function energyRespecConfirm(){
@@ -176,6 +162,8 @@ function energyRespecConfirm(){
     createConfirmation('Are you certain?', 'This will force an Obliteration reset!', 'Nope!', 'Yeah', respecEnergyTree)
 }
 function respecEnergyTree(){
+    loadNodeColors(true)
+
     let total = getTotalEnergyInvested() + data.obliterate.energy > data.obliterate.energy ? getTotalEnergyInvested() + data.obliterate.energy : data.obliterate.energy
     data.obliterate.energyUpgrades = []
     data.obliterate.energy = total
