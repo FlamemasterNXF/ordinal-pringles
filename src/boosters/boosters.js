@@ -207,6 +207,86 @@ let chargedBUPData = [
     },
 ]
 
+let destabilizedBUPData = [
+    {
+        desc: "Each Factor's effect is applied to Incrementy gain",
+        eff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "Turn the OP hardcap into a softcap",
+        eff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "The Ordinal Base in the Forgotten Realm is reduced by your Instability<br>(Caps at -10)",
+        eff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "Dynamic Gain and Cap are multiplied by your ℵ<sub>&omega;</sub>",
+        eff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "???",
+        eff: () => 1,
+        bottomRow: true
+    },
+
+    {
+        desc: "The AutoBuyers are boosted by OP",
+        eff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "Boosters boost Tier 1 and 2 automation at an insanely high rate",
+        eff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "Gain more OP, Decrementy, and Cardinals based on your Instability",
+        eff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "Incrementy boosts Factors",
+        eff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "???",
+        eff: () => 1,
+        bottomRow: true
+    },
+
+    {
+        desc: "The AutoBuyers are boosted by Factor 1",
+        eff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "Gain 100% of OP gained on Markup/s and the second Booster Power effect is changed",
+        eff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "Gain free Factor Levels equal to your Instability",
+        eff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "Boosters and Cardinals boost Dynamic Gain",
+        eff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "???",
+        eff: () => 1,
+        bottomRow: true
+    },
+]
+
 /*
 let bup0Effect = () => data.boost.hasBUP[0] ? data.boost.isCharged[0] ? 4 : 2 : 1
 let bup1Effect = () => data.boost.hasBUP[1] ? data.boost.isCharged[1] ? 500 : 5 : 1
@@ -239,19 +319,23 @@ let sBUP2Effect = () => data.boost.hasBUP[14] ? data.boost.isCharged[14] ? aleph
 
 let getBUPCosts = (i) => bupData[i].cost
 function getBUPEffect(i) {
-    // Special Case for BUPs 5 and 10
-    if(i === 5 || i === 10){
+    // Special Case for BUPs 5 and 10 (if they're not Destabilized)
+    if((i === 5 && !data.boost.isDestab[5]) || (i === 10 && !data.boost.isDestab[10]) ){
         if(data.boost.isCharged[5] && data.boost.isCharged[10] && data.hierarchies.hasUpgrade[3]) return bupData[5].eff()**2
         if(data.boost.isCharged[5] || data.boost.isCharged[10]) return bupData[5].eff()
     }
 
+    if(data.boost.isDestab[i]) return destabilizedBUPData[i].eff()
     if(data.boost.isCharged[i]) return chargedBUPData[i].eff()
     if(data.boost.hasBUP[i]) return bupData[i].eff()
     return bupData[i].baseEff()
 }
+let getBaseBUPDesc = (i) => `${bupData[i].desc}<br>${getBUPCosts(i)} Boosters`
 function getBUPDesc(i, showNextLevel = false){
-    if(data.boost.isCharged) return showNextLevel ? destabBUPData[i].desc : chargedBUPData[i].desc
-    return bupData[i].desc
+    if(data.boost.isDestab[i]) return destabilizedBUPData[i].desc
+    if(data.boost.isCharged[i]) return showNextLevel ? destabilizedBUPData[i].desc : chargedBUPData[i].desc
+    if(data.boost.hasBUP[i]) return showNextLevel ? chargedBUPData[i].desc : getBaseBUPDesc(i)
+    return getBaseBUPDesc(i)
 }
 
 /*
@@ -273,7 +357,7 @@ function initBUPs(){
 
             bup.className = data.boost.isDestab[total] ? 'destabBUP' : data.boost.isCharged[total] ? 'chargedBUP' : 'bup'
             bup.id = `bup${total}`
-            bup.innerText = `${getBUPDesc(total)}${data.boost.isCharged[total] ? '' : `\n${getBUPCosts(total)} Boosters`}`
+            bup.innerHTML = `${getBUPDesc(total)}`
 
             /*
             if(data.boost.isCharged[total]){
@@ -333,10 +417,11 @@ function checkSpecialBUPs(){
 const chargedBUPDesc = ['Each Factor\'s effect is Quadrupled', 'Boost OP gain by 500x', 'The Ordinal Base is always 4 in Challenges', 'Dynamic Gain is multiplied by your C5 completions', 'Every 10 Darkness Upgrades or Drains purchased reduces Hierarchy Bases by 1',
     'The AutoBuyers are boosted by Factor 7 (does not stack with Upgrade 3x1)', 'Boosters Boost Tier 1 and 2 Automation at a much higher rate', 'Gain 100x OP at Ordinal Base 4 or higher', 'The Base boosts Factors but lower Base is better', 'Each SGH, FGH, and Incrementy Buyable Purchased boosts the SGH Effect Exponent',
     'The AutoBuyers are boosted by Factor 7 (does not stack with Upgrade 2x1)', 'Gain Free OP/s based on your Base', 'Gain 4 free levels of each Factor', 'Boosters boost Dynamic Gain', 'The Total ℵ effect is multiplied by Darkness Upgrade 1 and applied to Incrementy gain']
-*/
+
 let destabBUPDesc = ['Each Factor\'s effect is applied to Incrementy gain', 'OP is uncapped, but its gain is greatly reduced after 4e256', 'The Ordinal Base in the Forgotten Realm is reduced by 5', 'Dynamic Cap is multiplied by your Fractal Energy', 'Unknown...',
     'The AutoBuyers boost Factors', 'Cardinals Boost Tier 2 Automation', 'Increase the effect of Dynamic Shifts based on your Base', 'Incrementy boosts Factors', 'Unknown...',
     'Dynamic boosts Factors', '???', 'Gain free Factor levels equal to your Instability', '???', 'Unknown...']
+*/
 /*
     I hate this code. The only thing worse is the code for Hierarchies and Incrementy, which I wrote when I couldn't
     remember how half of JS worked after not programming in it for many months. There's no excuse for this.
@@ -394,14 +479,14 @@ function updateHeaderHTML(){
 
 function updateAllBUPHTML(){
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
-        DOM(`bup${i}`).innerText = `${getBUPDesc(i)}\n${getBUPCosts(i)} Boosters`
+        DOM(`bup${i}`).innerHTML = `${getBUPDesc(i)}`
     }
 }
 
 function showNextBUPLevelEffect(i, showNextLevel) {
     if(data.incrementy.totalCharge === 0 && data.darkness.sacrificedCharge === 0) return
-    DOM(`bup${i}`).style.color = data.boost.isDestab[i] ? 'rgba(228,105,255,0.88)' : showCharge || data.boost.isCharged[i] && data.boost.unlocks[1] ? 'goldenrod' : '#8080FF'
-    DOM(`bup${i}`).innerText = `${getBUPDesc(i, showNextLevel)}\n${getBUPCosts(i)} Boosters`
+    DOM(`bup${i}`).style.color = data.boost.isDestab[i] || (data.boost.isCharged[i] && showNextLevel) ? 'rgba(228,105,255,0.88)' : showNextLevel || data.boost.isCharged[i] && data.boost.unlocks[1] ? 'goldenrod' : '#8080FF'
+    DOM(`bup${i}`).innerHTML = `${getBUPDesc(i, showNextLevel)}`
     //DOM('bupBottomText').innerText = `This Upgrade's Supercharged effect is \'${chargedBUPDesc[i]}\'\nThe Unlockables Column does not consume Boosters`
 }
 

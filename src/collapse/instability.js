@@ -97,7 +97,7 @@ function destabBUP(i){
     data.instability.instability -= 1
 
     DOM(`bup${i}`).className = 'destabBUP'
-    DOM(`bup${i}`).innerText = `${destabBUPDesc[i]}`
+    DOM(`bup${i}`).innerText = `${getBUPDesc(i)}`
 }
 
 let isPringleDarkened = (i) => data.instability.isDarkened[i]
