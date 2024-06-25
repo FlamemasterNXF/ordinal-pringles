@@ -31,10 +31,10 @@ function hasFactor(n){
     return data.markup.shifts >= n+1 || data.baseless.shifts >= n+1
 }
 function factorEffect(n){
-    const mult = bup0Effect()
-    const add = hasFactor(n)?bup10Effect():0
+    const mult = getBUPEffect(0)
+    const add = hasFactor(n) ? getBUPEffect(12) : 0
     if(data.chal.active[1] || data.factors[n] < 1) return 1+add*mult
-    return ((data.factors[n]+(1+add))*mult*bup7Effect())*(Math.max(1+(data.markup.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.markup.shifts])
+    return ((data.factors[n]+(1+add))*mult*getBUPEffect(8))*(Math.max(1+(data.markup.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.markup.shifts])
 }
 function factorBoost(){
     let mult = 1
@@ -82,7 +82,7 @@ function dyGain(){
     if(data.chal.active[6]) return 0
 
     let boost = 1
-    if(data.ord.base < 6 || data.boost.isCharged[11]) boost = bup11Effect()
+    if(data.ord.base < 6 || data.boost.isCharged[13]) boost = getBUPEffect(13)
 
     if(data.chal.active[4]) {
         let c5 = getC5Effect()
@@ -90,7 +90,7 @@ function dyGain(){
         return data.dy.gain.mul((5**c5)*c6)
     }
 
-    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(bup3Effect()).mul(getPringleEffect(21)).toNumber()
+    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(getBUPEffect(3)).mul(getPringleEffect(21)).toNumber()
 
     return calcDyGain()
 }
@@ -99,8 +99,8 @@ function dyGain(){
  NOTE: The above function contains special logic for challenge cases, as this function was not added until v0.3
 */
 function calcDyGain(){
-    let chargeBoost = data.boost.isCharged[3] ? bup3Effect() : 1
+    let chargeBoost = data.boost.isCharged[3] ? getBUPEffect(3) : 1
     let ao2 = inPurification(1) ? getAOREffect(2)+getEUPEffect(2, 5) : 1
-    let boost = (data.ord.base < 6 || data.boost.isCharged[11]) ? bup11Effect() : 1
+    let boost = (data.ord.base < 6 || data.boost.isCharged[13]) ? getBUPEffect(13) : 1
     return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).mul(chargeBoost).div(ao2)
 }

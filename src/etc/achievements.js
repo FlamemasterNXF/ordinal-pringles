@@ -172,12 +172,12 @@ let achievements = [
     {
         name: "Haha Base 4 in 30 Years",
         description: "Reach Hierarchy Base 5",
-        req: () => sBUP0Effect() > 4
+        req: () => getBUPEffect(4) > 4
     },
     {
         name: "Oh",
         description: "Reach Hierarchy Base 4",
-        req: () => sBUP0Effect() > 5
+        req: () => getBUPEffect(4) > 5
     },
     {
         name: "My cup runneth over",

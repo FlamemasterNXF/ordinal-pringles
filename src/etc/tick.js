@@ -1,10 +1,10 @@
 let timesToLoop = [0,0, 0,0]
 
-let t1Auto = () => D(factorBoost()).mul(bup5Effect()).mul(alephEffect(0)).pow(getCUPEffect(1)).mul(getCUPEffect(3))
+let t1Auto = () => D(factorBoost()).mul(getBUPEffect(6)).mul(alephEffect(0)).pow(getCUPEffect(1)).mul(getCUPEffect(3))
     .mul(singBoostToBaseless()).mul(data.baseless.baseless ? getANREffect(0) : 1).mul(getPringleEffect(5))
 
-let t2AutoPure = () => D(1).times(chalEffectTotal()).times(bup5Effect()).times(incrementyMult()).times(iup6Effect())
-    .times(bup48Effect()).times(hupData[5].effect()).times(alephEffect(1)).times(getCUPEffect(0)).times(getCUPEffect(3))
+let t2AutoPure = () => D(1).times(chalEffectTotal()).times(getBUPEffect(6)).times(incrementyMult()).times(iup6Effect())
+    .times(getBUPEffect(5)).times(hupData[5].effect()).times(alephEffect(1)).times(getCUPEffect(0)).times(getCUPEffect(3))
     .times(dupEffect(0)).times(getAOEffect(0)).times(getPringleEffect(24)).times(getEUPEffect(2, 3))
     .times(inPurification(2) || inPurification(3) ? getAOREffect(4) : 1)
     .times(getEUPEffect(0, 0))
@@ -124,7 +124,7 @@ function tick(diff){
     if(data.boost.unlocks[2] && !inPurification(2) && !inPurification(3)) increaseHierarchies(diff)
 
     // TODO: Check for "Base is Always 5/4 in Challenges", probably doesn't need to be on tick()
-    if(data.chal.active.includes(true) && data.boost.hasBUP[2]) data.ord.base = bup2Effect()
+    if(data.chal.active.includes(true)) data.ord.base = getBUPEffect(2)
 
     // Unlock Booster Features
     boosterUnlock()

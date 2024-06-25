@@ -21,7 +21,7 @@ function incrementyGain() {
 
     let base = Decimal.log10(ord.plus(1)).div(10)
     let iupMults = base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect())
-    let otherMults = iupMults.times(getHierarchyEffect(0)).times(alephEffect(3)).times(getCUPEffect(4)).times(sBUP2Effect())
+    let otherMults = iupMults.times(getHierarchyEffect(0)).times(alephEffect(3)).times(getCUPEffect(4)).times(getBUPEffect(14))
         .times(getPringleEffect(23))
     return otherMults.div(negativeChargeEffect(false))
 }
@@ -148,7 +148,7 @@ function chargeBUP(i, bottomRow){
     }
 
     DOM(`bup${i}`).className = 'chargedBUP'
-    DOM(`bup${i}`).innerText = `${chargedBUPDesc[i]}`
+    DOM(`bup${i}`).innerText = `${getBUPDesc(i)}`
     DOM(`bup${i}`).style.color = 'goldenrod'
 }
 let getBottomRowChargeCost = () => 13+(12*data.boost.bottomRowCharges)
@@ -160,7 +160,7 @@ function respecCharge(c=false){
         if (data.boost.isCharged[i]) indexes.push(i)
         data.boost.isCharged[i] = false
         DOM(`bup${i}`).className = 'bup'
-        DOM(`bup${i}`).innerText = `${bupDesc[i]}\n${getBUPCosts(i)} Boosters`
+        DOM(`bup${i}`).innerText = `${getBUPDesc(i)}\n${getBUPCosts(i)} Boosters`
         DOM(`bup${i}`).style.color = `#8080FF`
     }
     data.incrementy.charge = data.incrementy.totalCharge-data.sing.level
@@ -171,9 +171,7 @@ function respecCharge(c=false){
 
 function sacrificeIncrementy(){
     if(data.incrementy.amt.gte(chargeReq())){
-
-        if(data.incrementy.totalCharge < 1) initBUPHover()
-
+        // if(data.incrementy.totalCharge < 1) initBUPHover()
         data.incrementy.amt = data.incrementy.amt.sub(chargeReq())
         ++data.incrementy.totalCharge
         ++data.incrementy.charge

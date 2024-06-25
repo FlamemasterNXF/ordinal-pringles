@@ -20,7 +20,7 @@ function updateMarkupHTML(){
     DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0]+extraT1())} Successor Autoclickers click the Successor button ${formatWhole(succSpeed)} times/second\nYour ${formatWhole(data.autoLevels[1]+extraT1())} Maximize Autoclickers click the Maximize button ${formatWhole(maxSpeed)} times/second`
 
     for (let i = 0; i < data.factors.length; i++) {
-        DOM(`factor${i}`).innerText = hasFactor(i)?`Factor ${i+1} [${data.boost.hasBUP[11]?formatWhole(data.factors[i]+bup10Effect()):formatWhole(data.factors[i])}] ${formatWhole(factorEffect(i))}x\nCost: ${formatWhole(factorCost(i))} Ordinal Powers`:`Factor ${i+1}\nLOCKED`
+        DOM(`factor${i}`).innerText = hasFactor(i)?`Factor ${i+1} [${data.boost.hasBUP[11]?formatWhole(data.factors[i]+getBUPEffect(12)):formatWhole(data.factors[i])}] ${formatWhole(factorEffect(i))}x\nCost: ${formatWhole(factorCost(i))} Ordinal Powers`:`Factor ${i+1}\nLOCKED`
     }
     DOM("factorText").innerText = `Your Factors are multiplying AutoClicker speed by a total of ${formatWhole(factorBoost())}x`
 
@@ -60,10 +60,10 @@ function markup(n=D(1)){
     data.successorClicks = 0
 }
 function opMult(){
-    let mult = bup1Effect()
+    let mult = getBUPEffect(1)
 
     let baseReq = data.boost.isCharged[6] ? 4 : 5
-    mult += data.ord.base >= baseReq ? bup6Effect() : 0
+    mult += data.ord.base >= baseReq ? getBUPEffect(7) : 0
 
     return mult*alephEffect(2)
 }

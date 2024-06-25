@@ -85,9 +85,9 @@ let effectiveFGH = () => calcOrdPoints(data.hierarchies.ords[0].ord, hierarchyDa
 let effectiveSGH = () => calcOrdPoints(data.hierarchies.ords[1].ord, hierarchyData[1].base(), data.hierarchies.ords[1].over);
 let hierarchyData = [
     { text:"Multiplying Incrementy Gain by", effect: ()=> Decimal.max((Decimal.log10(effectiveFGH().add(1)).times(hbData[1].effect())).times(getPringleEffect(15)).pow(dupEffect(2)), 1),
-        gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults()*getPringleEffect(16, true), base: ()=> 10-sBUP0Effect() },
-    { text:"Dividing Charge Requirement by", effect: ()=> Decimal.max((Decimal.log10(effectiveSGH().add(1)).times(hbData[4].effect()).times(alephEffect(5))).times(getPringleEffect(17)).pow((dupEffect(2))+sBUP1Effect()), 1),
-        gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults()*getPringleEffect(18, true), base: ()=> 10-sBUP0Effect() }
+        gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults()*getPringleEffect(16, true), base: ()=> 10-getBUPEffect(4) },
+    { text:"Dividing Charge Requirement by", effect: ()=> Decimal.max((Decimal.log10(effectiveSGH().add(1)).times(hbData[4].effect()).times(alephEffect(5))).times(getPringleEffect(17)).pow((dupEffect(2))+getBUPEffect(9)), 1),
+        gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults()*getPringleEffect(18, true), base: ()=> 10-getBUPEffect(4) }
 ]
 let hierarchyGainBases = [
     () => Decimal.min(Decimal.max(Decimal.floor(Decimal.pow(data.incrementy.amt, 1/3)), 1), Number.MAX_VALUE).toNumber(),
@@ -131,12 +131,12 @@ let hupData = [
     // Effcects of 1 mean that it is a true/false effect.
     { text:"The Challenge Boost is Improved", cost: 1e10, effect: ()=> data.hierarchies.hasUpgrade[0] ? 2*hupData[8].effect() : 1 },
     { text:"Incrementy Upgrade 6 is Improved", cost: 1e20, effect: ()=> 1 },
-    { text:"Booster Upgrade 1x4 boosts Hierarchy Successors", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[2] ? bup3Effect()**2 : 1 },
+    { text:"Booster Upgrade 1x4 boosts Hierarchy Successors", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[2] ? getBUPEffect(3)**2 : 1 },
     { text:"If Booster Upgrades 2x1 and 3x1 are Supercharged their effects multiply each other", cost: 1e40, effect: ()=> 1},
-    { text:"The BUP 2x1 and 3x1 effect slightly adds to the Decrementy gain exponent", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[4] ? bup48Effect()/100 : 0 },
+    { text:"The BUP 2x1 and 3x1 effect slightly adds to the Decrementy gain exponent", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[4] ? getBUPEffect(5)/100 : 0 },
     { text:"Total Charge Boosts AutoBuyers", cost: 1e10, effect: ()=> data.hierarchies.hasUpgrade[5] ? Math.max(1, data.incrementy.totalCharge/2)*hupData[8].effect() : 1 },
     { text:"Incrementy Upgrade 2 is Improved", cost: 1e20, effect: ()=> 1 },
-    { text:"Booster Upgrade 2x4 boosts Hierarchy Successors", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[7] ? bup7Effect()**3 : 1 },
+    { text:"Booster Upgrade 2x4 boosts Hierarchy Successors", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[7] ? getBUPEffect(8)**3 : 1 },
     { text:"Each Drain boosts the effects of the first Hierarchy Upgrade of each column", cost: 1e40, effect: ()=> data.hierarchies.hasUpgrade[8] ?  Math.max(1, Math.sqrt(data.darkness.totalDrains)) : 1 },
     { text:"The final Hierarchy Buyable of each column's effect adds to the ℵ<sub>5</sub> and ℵ<sub>8</sub> effects", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[9] ? hbData[2].effect()+hbData[5].effect() : 1 },
 ]
