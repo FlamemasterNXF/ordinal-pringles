@@ -58,6 +58,15 @@
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }
+.destabBUP{
+    width: 13rem;
+    height: 6rem;
+    border-image: linear-gradient(45deg, #ad7cf9e1, #f769ffe1) 1;
+    color: #f769ffe1;
+    background: black;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
 .iup{
     width: 15rem;
     height: 5.5rem;

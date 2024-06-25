@@ -32,9 +32,16 @@ function initBUPs(){
             let bup = document.createElement('button')
 
             if(data.boost.isCharged[total]){
-                bup.className = 'chargedBUP'
-                bup.id = `bup${total}`
-                bup.innerText = `${chargedBUPDesc[total]}`
+                if(data.boost.isDestab[total]) {
+                    bup.className = 'destabBUP'
+                    bup.id = `bup${total}`
+                    bup.innerText = `${destabBUPDesc[total]}`
+                }
+                else{
+                    bup.className = 'chargedBUP'
+                    bup.id = `bup${total}`
+                    bup.innerText = `${chargedBUPDesc[total]}`
+                }
             }
             else{
                 bup.className = 'bup'
@@ -50,7 +57,7 @@ function initBUPs(){
         DOM(`bup${i}`).addEventListener('click', ()=>buyBUP(i, bottomRow, true))
         DOM(`bup${i}`).addEventListener('mouseenter', ()=>revealChargeEffect(i, true))
         DOM(`bup${i}`).addEventListener('mouseleave', ()=>revealChargeEffect(i, false))
-        DOM(`bup${i}`).style.backgroundColor = data.boost.hasBUP[i]?'#002480':'black'
+        DOM(`bup${i}`).style.backgroundColor = data.boost.hasBUP[i] && !data.boost.isDestab[i] ?'#002480':'black'
     }
     for (let i = 0; i < data.boost.unlocks.length; i++) {
         DOM(`bu${i}`).style.backgroundColor = data.boost.unlocks[i]?'#002480':'black'
@@ -58,14 +65,17 @@ function initBUPs(){
 
     checkSpecialBUPs()
 
-    if(data.incrementy.totalCharge > 0) initBUPHover()
+    //if(data.incrementy.totalCharge > 0) initBUPHover()
 }
+
+/*
 function initBUPHover(){
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
         const index = i
         DOM(`bup${i}`).addEventListener('mouseover', () => revealChargeEffect(index));
     }
 }
+ */
 function checkSpecialBUPs(){
     DOM(`bup4`).style.display = hasSluggishMilestone(3) ? `block` : `none`
     DOM(`bup9`).style.display = hasSluggishMilestone(3) ? `block` : `none`
@@ -77,6 +87,9 @@ const chargedBUPDesc = ['Each Factor\'s effect is Quadrupled', 'Boost OP gain by
     'The AutoBuyers are boosted by Factor 7 (does not stack with Upgrade 3x1)', 'Boosters Boost Tier 1 and 2 Automation at a much higher rate', 'Gain 100x OP at Ordinal Base 4 or higher', 'The Base boosts Factors but lower Base is better', 'Each SGH, FGH, and Incrementy Buyable Purchased boosts the SGH Effect Exponent',
     'The AutoBuyers are boosted by Factor 7 (does not stack with Upgrade 2x1)', 'Gain Free OP/s based on your Base', 'Gain 4 free levels of each Factor', 'Boosters boost Dynamic Gain', 'The Total ℵ effect is multiplied by Darkness Upgrade 1 and applied to Incrementy gain']
 
+let destabBUPDesc = ['Each Factor\'s effect is applied to Incrementy gain', 'OP is uncapped, but its gain is greatly reduced after 4e256', 'The Ordinal Base in the Forgotten Realm is reduced by 5', 'Dynamic Cap is multiplied by your Fractal Energy', 'Unknown...',
+    'The AutoBuyers boost Factors', 'Cardinals Boost Tier 2 Automation', 'Increase the effect of Dynamic Shifts based on your Base', 'Incrementy boosts Factors', 'Unknown...',
+    'Dynamic boosts Factors', '???', 'Gain free Factor levels equal to your Instability', '???', 'Unknown...']
 /*
     I hate this code. The only thing worse is the code for Hierarchies and Incrementy, which I wrote when I couldn't
     remember how half of JS worked after not programming in it for many months. There's no excuse for this.
@@ -168,8 +181,8 @@ function updateAllBUPHTML(){
 
 function revealChargeEffect(i, showCharge) {
     if(data.incrementy.totalCharge === 0 && data.darkness.sacrificedCharge === 0) return
-    DOM(`bup${i}`).style.color = showCharge || data.boost.isCharged[i] && data.boost.unlocks[1] ? 'goldenrod' : '#8080FF'
-    DOM(`bup${i}`).innerText = showCharge || data.boost.isCharged[i] ? chargedBUPDesc[i] : `${bupDesc[i]}\n${getBUPCosts(i)} Boosters`
+    DOM(`bup${i}`).style.color = data.boost.isDestab[i] ? 'rgba(228,105,255,0.88)' : showCharge || data.boost.isCharged[i] && data.boost.unlocks[1] ? 'goldenrod' : '#8080FF'
+    DOM(`bup${i}`).innerText = data.boost.isDestab[i] ? destabBUPDesc[i] : showCharge || data.boost.isCharged[i] ? chargedBUPDesc[i] : `${bupDesc[i]}\n${getBUPCosts(i)} Boosters`
     //DOM('bupBottomText').innerText = `This Upgrade's Supercharged effect is \'${chargedBUPDesc[i]}\'\nThe Unlockables Column does not consume Boosters`
 }
 
@@ -256,6 +269,7 @@ function getBulkBoostAmt(){
 //End credit
 function buyBUP(n, bottomRow, useCharge){
     updateHierarchyPurchaseHTML()
+    if(data.boost.isCharged[n] && !bottomRow) return destabBUP(n)
     if(data.boost.hasBUP[n]) return useCharge ? chargeBUP(n, bottomRow) : null
 
     /*

@@ -89,6 +89,17 @@ function respecUnstableDrain(){
     updateInstabilityText()
 }
 
+function destabBUP(i){
+    if(data.boost.isDestab[i]) return
+    if(!data.instability.instability > 0) return
+
+    data.boost.isDestab[i] = true
+    data.instability.instability -= 1
+
+    DOM(`bup${i}`).className = 'destabBUP'
+    DOM(`bup${i}`).innerText = `${destabBUPDesc[i]}`
+}
+
 let isPringleDarkened = (i) => data.instability.isDarkened[i]
 let getInstabilityConstant = () => data.instability.total
 let getInstabilityEffect = (i) => data.instability.enabled ? instabilityEffectData[i]() : 0
