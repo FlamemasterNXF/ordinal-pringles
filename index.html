@@ -178,6 +178,8 @@
                 :boosterRefund()">Refund your Booster Upgrades</button>
                 <button class="boostTopButton" id="chargeRefund" style="display: none" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Charged Booster Upgrades and return spent Charge, but it will force you to exit your Challenge!', 'Go back!', 'Go ahead.', respecCharge)
                 :respecCharge()">Refund your Charged Booster Upgrades</button>
+                <button class="boostTopButton" id="destabRefund" style="display: none" onclick="data.sToggles[19]?createConfirmation('Are you sure?', 'This will reset your Destabilized Booster Upgrades and return spent Instability, but it will force a Collapse reset!', 'Go back!', 'Go ahead.', respecDestabilizedBUPs)
+                :respecDestabilizedBUPs()">Refund your Destabilized Booster Upgrades</button>
             </div>
             <div class="flexBox">
                 <div class="flexBox" id="bupColumn0" style="flex-direction: column"></div>

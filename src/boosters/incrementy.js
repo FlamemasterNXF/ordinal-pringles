@@ -155,12 +155,10 @@ let getBottomRowChargeCost = () => 13+(12*data.boost.bottomRowCharges)
 
 function respecCharge(c=false){
     if(data.baseless.baseless) return
-    let indexes = []
     for (let i = 0; i < data.boost.isCharged.length; i++) {
-        if (data.boost.isCharged[i]) indexes.push(i)
         data.boost.isCharged[i] = false
         DOM(`bup${i}`).className = 'bup'
-        DOM(`bup${i}`).innerText = `${getBUPDesc(i)}`
+        DOM(`bup${i}`).innerHTML = `${getBUPDesc(i)}`
         DOM(`bup${i}`).style.color = `#8080FF`
     }
     data.incrementy.charge = data.incrementy.totalCharge-data.sing.level

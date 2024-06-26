@@ -51,6 +51,7 @@ function respecDarkPringles(){
     data.instability.total = data.instability.unstableDrains
     data.instability.instability = data.instability.unstableDrains
     data.instability.isDarkened = Array(data.instability.isDarkened.length).fill(false)
+    respecDestabilizedBUPs(true)
     obliterateReset()
     updateAllMiscPringleColors('instab')
     updateInstabilityText()
@@ -86,6 +87,8 @@ function respecUnstableDrain(){
         updateDrainHTML(i)
     }
 
+    respecDestabilizedBUPs(true)
+
     updateInstabilityText()
 }
 
@@ -98,6 +101,21 @@ function destabBUP(i){
 
     DOM(`bup${i}`).className = 'destabBUP'
     DOM(`bup${i}`).innerText = `${getBUPDesc(i)}`
+    DOM(`bup${i}`).style.background = `black`
+    DOM(`bup${i}`).style.color = `rgba(228,105,255,0.88)`
+}
+
+function respecDestabilizedBUPs(forceObliteration = false){
+    if(data.baseless.baseless) return
+    for (let i = 0; i < data.boost.isDestab.length; i++) {
+        data.boost.isDestab[i] = false
+        DOM(`bup${i}`).className = 'chargedBUP'
+        DOM(`bup${i}`).innerHTML = `${getBUPDesc(i)}`
+        DOM(`bup${i}`).style.color = `#8080FF`
+    }
+    data.instability.instability = data.instability.total
+
+    if(!forceObliteration) collapseReset()
 }
 
 let isPringleDarkened = (i) => data.instability.isDarkened[i]
