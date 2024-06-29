@@ -64,7 +64,7 @@ const baselessMultipliers = [2, 100, 10000]
 const baselessLocks = [
     () => 10,
     () => 20,
-    () => 100-(hasSingFunction(8) ? getSingFunctionEffect(8) : 0)
+    () => 100-(hasSingFunction(8) ? getSingFunctionEffect(8) : 0)-getDestabilizedBUPEffect(2)
 ]
 const baselessNames = ['Baseless', 'Obliterated', 'Forgotten']
 

@@ -209,23 +209,58 @@ let chargedBUPData = [
 
 let destabilizedBUPData = [
     {
-        desc: "Each Factor's effect is applied to Incrementy gain",
-        eff: () => 1,
+        desc: "Each Factor's effect is Quadrupled and applied to Incrementy gain",
+        eff: () => totalFactorEffect(),
+        baseEff: () => 1,
         bottomRow: false
     },
     {
-        desc: "Turn the OP hardcap into a softcap",
+        desc: "You can gain OP past 4e256 at an extremely reduced rate and it is gained automatically",
         eff: () => 1,
+        baseEff: () => 1,
         bottomRow: false
     },
     {
         desc: "The Ordinal Base in the Forgotten Realm is reduced by your Instability<br>(Caps at -10)",
-        eff: () => 1,
+        eff: () => data.instability.instability,
+        baseEff: () => 0,
         bottomRow: false
     },
     {
         desc: "Dynamic Gain and Cap are multiplied by your ℵ<sub>&omega;</sub>",
         eff: () => 1,
+        baseEff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "???",
+        eff: () => 1,
+        baseEff: () => 1,
+        bottomRow: true
+    },
+
+    {
+        desc: "The AutoBuyers are boosted by OP",
+        eff: () => Decimal.pow(data.markup.powers, 1/16),
+        baseEff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "Boosters boost Tier 1 and 2 automation at an insanely high rate",
+        eff: () => Math.max((data.boost.total)*getAOREffect(6), 1),
+        baseEff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "Instability increases the OP gain exponent",
+        eff: () => 1+(data.instability.instability/100),
+        baseEff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "Boosters boost Factors",
+        eff: () => Math.log2(data.boost.amt),
+        baseEff: () => 1,
         bottomRow: false
     },
     {
@@ -236,48 +271,26 @@ let destabilizedBUPData = [
 
     {
         desc: "The AutoBuyers are boosted by OP",
-        eff: () => 1,
+        eff: () => Decimal.pow(data.markup.powers, 1/16),
+        baseEff: () => 1,
         bottomRow: false
     },
     {
-        desc: "Boosters boost Tier 1 and 2 automation at an insanely high rate",
-        eff: () => 1,
+        desc: "The second Booster Power effect now boosts OP gain",
+        eff: () => getOverflowEffect(1),
+        baseEff: () => 1,
         bottomRow: false
     },
     {
-        desc: "Gain more OP, Decrementy, and Cardinals based on your Instability",
-        eff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "Incrementy boosts Factors",
-        eff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "???",
-        eff: () => 1,
-        bottomRow: true
-    },
-
-    {
-        desc: "The AutoBuyers are boosted by Factor 1",
-        eff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "Gain 100% of OP gained on Markup/s and the second Booster Power effect is changed",
-        eff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "Gain free Factor Levels equal to your Instability",
-        eff: () => 1,
+        desc: "Gain free level of each Factor equal to your Instability + 4",
+        eff: () => data.instability.instability+4,
+        baseEff: () => 0,
         bottomRow: false
     },
     {
         desc: "Boosters and Cardinals boost Dynamic Gain",
-        eff: () => 1,
+        eff: () => Math.max(Math.log2(data.boost.amt)+Math.log2(data.collapse.cardinals), 1),
+        baseEff: () => 1,
         bottomRow: false
     },
     {
@@ -289,8 +302,11 @@ let destabilizedBUPData = [
 
 let getBUPCosts = (i) => bupData[i].cost
 function getBUPEffect(i) {
-    // Special Case for BUPs 5 and 10 (if they're not Destabilized)
-    if((i === 5 && !data.boost.isDestab[5]) || (i === 10 && !data.boost.isDestab[10]) ){
+    // Special Case for BUPs 5 and 10
+    if((i === 5) || (i === 10) ){
+        if(data.boost.isDestab[5] && data.boost.isDestab[10] && data.hierarchies.hasUpgrade[3]) return destabilizedBUPData[5].eff()**2
+        if(data.boost.isDestab[5] || data.boost.isDestab[10]) return destabilizedBUPData[5].eff()
+
         if(data.boost.isCharged[5] && data.boost.isCharged[10] && data.hierarchies.hasUpgrade[3]) return bupData[5].eff()**2
         if(data.boost.isCharged[5] || data.boost.isCharged[10]) return bupData[5].eff()
     }
@@ -300,6 +316,7 @@ function getBUPEffect(i) {
     if(data.boost.hasBUP[i]) return bupData[i].eff()
     return bupData[i].baseEff()
 }
+let getDestabilizedBUPEffect = (i) => data.boost.isDestab[i] ? getBUPEffect(i) : destabilizedBUPData[i].baseEff()
 let getBaseBUPDesc = (i) => `${bupData[i].desc}<br>${getBUPCosts(i)} Boosters`
 function getBUPDesc(i, showNextLevel = false){
     if(data.boost.isDestab[i]) return destabilizedBUPData[i].desc
@@ -473,16 +490,16 @@ function getBulkBoostAmt(){
     return Math.min(Math.max(maxBoost - data.boost.times, 1), Number.MAX_VALUE)
 }
 //End credit
-function buyBUP(n, bottomRow, useCharge){
+function buyBUP(n, bottomRow, useCharge, isAuto = false){
     updateHierarchyPurchaseHTML()
-    if(data.boost.isCharged[n] && !bottomRow) return destabBUP(n)
+    if(data.boost.isCharged[n] && !bottomRow && !isAuto) return destabBUP(n)
     if(data.boost.hasBUP[n]) return useCharge ? chargeBUP(n, bottomRow) : null
 
     /*
         Force purchasing of BUPs in order, but only in columns
         Attempts to purchase lower BUPs if they aren't available
     */
-    if(n % 5 !== 0 && !data.boost.hasBUP[n-1]){
+    if((n % 5 !== 0 && !data.boost.hasBUP[n-1]) && !isAuto){
         for (let i = 0; i < n % 5; i++) {
             let index = (i % 5) + (5 * Math.floor(n / 5))
             buyBUP(index, bottomRow, useCharge)

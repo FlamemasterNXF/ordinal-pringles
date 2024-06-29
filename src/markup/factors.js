@@ -15,7 +15,7 @@ function buyMaxAuto() {
     if (data.chal.active[0]) return
 
     let bulkSucc = Decimal.floor(Decimal.log2(D(1).plus(data.markup.powers.div(D(100).times(D(2).pow(data.autoLevels[0]))))))
-    if(data.markup.powers.lt("ee10")) data.markup.powers = data.markup.powers.sub(((D(2).pow(bulkSucc)).sub(1)).times(100).times(D(2).pow(data.autoLevels[0])))
+    data.markup.powers = data.markup.powers.sub(((D(2).pow(bulkSucc)).sub(1)).times(100).times(D(2).pow(data.autoLevels[0])))
     data.autoLevels[0] += bulkSucc.toNumber()
 
     let bulkMax = Decimal.floor(Decimal.log2(D(1).plus(data.markup.powers.div(D(100).times(D(2).pow(data.autoLevels[1]))))))
@@ -31,12 +31,12 @@ function hasFactor(n){
     return data.markup.shifts >= n+1 || data.baseless.shifts >= n+1
 }
 function factorEffect(n){
-    const mult = getBUPEffect(0)
+    const mult = data.boost.isDestab[0] ? 4 : getBUPEffect(0)
     const add = hasFactor(n) ? getBUPEffect(12) : 0
     if(data.chal.active[1] || data.factors[n] < 1) return 1+add*mult
     return ((data.factors[n]+(1+add))*mult*getBUPEffect(8))*(Math.max(1+(data.markup.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.markup.shifts])
 }
-function factorBoost(){
+function totalFactorEffect(){
     let mult = 1
     for (let i = 0; i < data.factors.length; i++) {
         mult *= factorEffect(i)
@@ -50,7 +50,6 @@ function buyFactor(n){
 }
 function buyMaxFactor(){
     if(data.chal.active[1]) return
-    if(data.ord.isPsi && data.markup.powers.lt("e1e10")) return data.factors = [9,8,7,7,6,6,6]
     if(data.baseless.baseless){
         for (let i = data.baseless.shifts-1; i >= 0; i--){
             if(!hasFactor(i)) break
@@ -75,7 +74,8 @@ function getDyCap() {
         let c5 = getC5Effect()
         return D(40*(5**c5)*(5**data.chal.completions[4]))
     }
-    return D(40).mul(iup5Effect()).mul(alephEffect(4)).mul(dupEffect(1)).mul(getSingFunctionEffect(4)).mul(getPringleEffect(21))
+    return D(40).mul(iup5Effect()).mul(alephEffect(4)).mul(dupEffect(1)).mul(getSingFunctionEffect(4))
+        .mul(getPringleEffect(21)).mul(getDestabilizedBUPEffect(3))
 }
 
 function dyGain(){

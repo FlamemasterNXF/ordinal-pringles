@@ -1,6 +1,6 @@
 let timesToLoop = [0,0, 0,0]
 
-let t1Auto = () => D(factorBoost()).mul(getBUPEffect(6)).mul(alephEffect(0)).pow(getCUPEffect(1)).mul(getCUPEffect(3))
+let t1Auto = () => D(totalFactorEffect()).mul(getBUPEffect(6)).mul(alephEffect(0)).pow(getCUPEffect(1)).mul(getCUPEffect(3))
     .mul(singBoostToBaseless()).mul(data.baseless.baseless ? getANREffect(0) : 1).mul(getPringleEffect(5))
 
 let t2AutoPure = () => D(1).times(chalEffectTotal()).times(getBUPEffect(6)).times(incrementyMult()).times(iup6Effect())
@@ -93,13 +93,13 @@ function tick(diff){
         }
     }
     if(hasSingFunction(0) && data.autoStatus.enabled[5]){ // BUP + Supercharge AutoBuyer
-        if(!data.boost.hasBUP[5] || chargeAutoCheck(5)) buyBUP(5, false, data.autoStatus.enabled[6]&&hasSingFunction(3))
-        if(!data.boost.hasBUP[10] || chargeAutoCheck(10)) buyBUP(10, false, data.autoStatus.enabled[6]&&hasSingFunction(3))
-        if(!data.boost.hasBUP[0] || chargeAutoCheck(0)) buyBUP(0, false, data.autoStatus.enabled[6]&&hasSingFunction(3))
+        if(!data.boost.hasBUP[5] || chargeAutoCheck(5)) buyBUP(5, false, data.autoStatus.enabled[6]&&hasSingFunction(3), true)
+        if(!data.boost.hasBUP[10] || chargeAutoCheck(10)) buyBUP(10, false, data.autoStatus.enabled[6]&&hasSingFunction(3), true)
+        if(!data.boost.hasBUP[0] || chargeAutoCheck(0)) buyBUP(0, false, data.autoStatus.enabled[6]&&hasSingFunction(3), true)
         for (let i = 1; i < 5; i++) {
             let isBottom = i===4
             for (let j = 0; j < 3; j++) {
-                if(!data.boost.hasBUP[i+(5*j)] || chargeAutoCheck(i+(5*j))) buyBUP(i+(5*j), isBottom, data.autoStatus.enabled[6]&&hasSingFunction(3))
+                if(!data.boost.hasBUP[i+(5*j)] || chargeAutoCheck(i+(5*j))) buyBUP(i+(5*j), isBottom, data.autoStatus.enabled[6]&&hasSingFunction(3), true)
             }
         }
     }

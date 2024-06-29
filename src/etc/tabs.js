@@ -49,6 +49,11 @@ function switchSubtab(t, mode){
         if(t==="incrementy"){
             DOM(`iupRow3`).style.display = hasAOMilestone(3) ? `flex` : `none`
         }
+
+        if(t==="overflow"){
+            DOM(`bp1Description`).innerText = data.boost.isDestab[11] ? `Multiplying OP gain by` : `Multiplying Passive OP gain by`
+            DOM(`bp1Description2`).style.display = data.boost.isDestab[11] ? `none` : ''
+        }
         boostTab = t
     }
 

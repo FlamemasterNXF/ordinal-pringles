@@ -22,7 +22,7 @@ function updateMarkupHTML(){
     for (let i = 0; i < data.factors.length; i++) {
         DOM(`factor${i}`).innerText = hasFactor(i)?`Factor ${i+1} [${data.boost.hasBUP[11]?formatWhole(data.factors[i]+getBUPEffect(12)):formatWhole(data.factors[i])}] ${formatWhole(factorEffect(i))}x\nCost: ${formatWhole(factorCost(i))} Ordinal Powers`:`Factor ${i+1}\nLOCKED`
     }
-    DOM("factorText").innerText = `Your Factors are multiplying AutoClicker speed by a total of ${formatWhole(factorBoost())}x`
+    DOM("factorText").innerText = `Your Factors are multiplying AutoClicker speed by a total of ${formatWhole(totalFactorEffect())}x`
 
     DOM("factorShiftButton").style.borderColor = data.ord.base===3&&data.boost.times===0&&!hasSluggishMilestone(0)?`#0000ff`:`#785c13`
     DOM("factorShiftButton").style.color = data.ord.base===3&&data.boost.times===0&&!hasSluggishMilestone(0)?`#8080FF`:`goldenrod`
@@ -40,13 +40,16 @@ function boostName(){
     if(!inAnyPurification()) return `Factor`
     return purificationData[data.omega.whichPurification].alt
 }
+
+let uncappedOPGain = () => D(data.ord.ordinal).times(getDestabilizedBUPEffect(11))
+    .pow(getDestabilizedBUPEffect(7))
 function markup(n=D(1)){
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal.eq(GRAHAMS_VALUE) && !hasSluggishMilestone(0)) return
     if(data.ord.ordinal.lt(data.ord.base**2) && !data.ord.isPsi) return
     if(data.ord.isPsi){
         data.ord.ordinal = data.ord.ordinal.plus(n);
         if (capOrdinalAtBO && data.ord.base===3 && data.ord.ordinal.gt(BO_VALUE)) data.ord.ordinal = D(BO_VALUE)
-        return data.markup.powers = D(4e256)
+        return data.markup.powers = data.boost.isDestab[1] ? uncappedOPGain() : D(4e256)
     }
 
     if(data.chal.active[7]){
@@ -70,9 +73,6 @@ function opMult(){
 function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over) {
     if(D(ord).eq(data.ord.ordinal) && D(ord).gte(Number.MAX_VALUE)) return 4e256
     if(D(ord).eq(data.ord.ordinal)) ord = Number(ord)
-    //if(data.ord.isPsi && base === 3){
-    //    return Math.round(ord / 1e270 + 1) * 1e270
-    //}
     if (ord < base) return Decimal.add(ord, over).toNumber()
     let pow = Math.floor(Math.log(ord + 0.1) / Math.log(base))
     let divisor = Math.pow(base, pow)
