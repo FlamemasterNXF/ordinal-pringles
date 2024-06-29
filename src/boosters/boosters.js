@@ -499,6 +499,7 @@ function buyBUP(n, bottomRow, useCharge){
 
 function boosterRefund(c=false){
     if(data.baseless.baseless) return
+    if(getTotalDestabilizedBUPs() > 0) return respecDestabilizedBUPs()
     respecCharge(c)
     updateHierarchyPurchaseHTML()
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
@@ -555,6 +556,13 @@ function getTotalSupercharges(){
     let total = 0
     for (let i = 0; i < data.boost.isCharged.length; i++) {
         if (data.boost.isCharged[i]) ++total
+    }
+    return total
+}
+function getTotalDestabilizedBUPs(){
+    let total = 0
+    for (let i = 0; i < data.boost.isDestab.length; i++) {
+        if (data.boost.isDestab[i]) ++total
     }
     return total
 }
