@@ -79,6 +79,10 @@ function obliterateReset(){
 
     collapseReset()
 
+    for (let i = 0; i < data.autoStatus.enabled.length; i++) {
+        data.autoStatus.enabled[i] = false
+    }
+
     updateAllAlephHTML()
     updateAllCUPTextHTML()
     checkAllUnlocks(0, true)

@@ -134,7 +134,7 @@ function assignPringle(i, type){
         DOM(`purityPoint${i}`).style.borderColor = '#949494'
         if(data.sToggles[18]) DOM(`purityPoint${i}`).innerText = ''
         data.purity.isAssigned[i] = false
-        data.purity.assignment[i] = -1
+        data.purity.assignment[i] = 0
         updatePurityText(i)
     }
 }
