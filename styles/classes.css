@@ -40,6 +40,14 @@
     background: black;
     margin-top: 0.3rem;
 }
+.iFactor{
+    width: 15rem;
+    min-height: 2rem;
+    border: 2px solid #836838;
+    color: rgb(222, 182, 99);
+    background: black;
+    margin-top: 0.3rem;
+}
 .bup{
     width: 13rem;
     height: 6rem;

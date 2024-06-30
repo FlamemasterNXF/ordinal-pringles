@@ -309,6 +309,18 @@ const energyUpgradeData = [
             isUnlock: true,
         },
         {
+            desc: "Unlock Imaginary Shifts",
+            sign: 'x',
+            cost: Infinity,
+            eff: () => D(1),
+            hasExtraReq: false,
+            extraReq: true,
+            extraReqText: '',
+            node: 402,
+            baseValue: 1,
+            isUnlock: true,
+        },
+        {
             desc: "??? (Coming Soon!)",
             sign: 'x',
             cost: Infinity,

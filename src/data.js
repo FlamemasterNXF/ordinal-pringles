@@ -18,6 +18,7 @@ const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsa
 function getDefaultObject() {
     return {
         nav: {current:"ord", last:"ord"},
+
         ord: {ordinal:D(1), over:D(0), base:10, trim: 5, isPsi: false, color:false, displayType: 'Buchholz'},
         markup: {powers:D(0), shifts:0},
         factors: Array(7).fill(0),
@@ -36,6 +37,8 @@ function getDefaultObject() {
         obliterate:{times:0, energy:0, passiveEnergy:0, energyUpgrades: [], pringleAmount: Array(25).fill(0), hasPassiveUpgrade: Array(passiveEnergyDescriptions.length).fill(false)},
         purity:{isAssigned: Array(17).fill(false), isUnlocked: Array(3).fill(false).concat(Array(3).fill(true)).concat(Array(6).fill(false)).concat(Array(2).fill(true)).concat(Array(3).fill(false)), assignment:Array(17).fill(false), pringleQueued: -1, tutorial: false},
         instability:{total: 0, instability: 0, enabled: false, unstableDrains: 0, isDarkened: Array(24).fill(false), chargeSpent: 0,},
+        imaginary:{shifts:0, factors:Array(7).fill(0)},
+
         autoStatus: {enabled: Array(9).fill(false)},
         sToggles: settingsDefaults,
         successorClicks: 0,
