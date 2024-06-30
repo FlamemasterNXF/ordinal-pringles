@@ -27,7 +27,7 @@ const energyUpgradeData = [
             isUnlock: false,
         },
         {
-            desc: 'Total Fractal Energy boosts the Singularity boost to Baselessness and the 2nd Singularity Effect is now positive',
+            desc: 'Total Fractal Energy boosts the Singularity boost to Baselessness',
             sign: 'x',
             cost: 1,
             eff: () => D(data.obliterate.times).times(10),
@@ -51,15 +51,15 @@ const energyUpgradeData = [
             isUnlock: false,
         },
         {
-            desc: 'Total Charge boosts the first Singularity Effect',
+            desc: 'The 2nd Singularity Effect is now positive',
             sign: '+',
             cost: 1,
-            eff: () => D(data.incrementy.totalCharge/1000),
+            eff: () => 1,
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
             node: 104,
-            baseValue: 0,
+            baseValue: 1,
             isUnlock: false,
         },
         {

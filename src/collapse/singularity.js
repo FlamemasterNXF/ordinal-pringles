@@ -80,14 +80,14 @@ function initSingularityFunctions(){
 let lastSingFunctionUnlockedIndex = 0
 let singEffects = [
     {desc: () => "raising Cardinal gain to the", effect: () => (1 + (Math.sqrt(data.sing.level[0])/100)+(getEUPEffect(1, 3, true)))*alephEffect(8)},
-    {desc: () => `${hasTreeUpgrade(102) ? 'Increasing' : 'Decreasing'} the Decrementy gain exponent by`, effect: () => Math.sqrt(data.sing.level[0])/50},
+    {desc: () => `${hasTreeUpgrade(104) ? 'Increasing' : 'Decreasing'} the Decrementy gain exponent by`, effect: () => Math.sqrt(data.sing.level[0])/50},
     {desc: () => "raising AutoBuyer speed to the", effect: () => (1-Math.pow(data.sing.level[0], 1/2)/100)+(getEUPEffect(1, 4, true))},
 
-    {desc: () => "among", effect: () => 1},
-    {desc: () => `us`, effect: () => 1},
-    {desc: () => "is a randomtuba", effect: () => 1},
+    {desc: () => "???", effect: () => 1},
+    {desc: () => `???`, effect: () => 1},
+    {desc: () => "???", effect: () => 1},
 ]
-let maxSingLevel = (i) => data.sing.level[i] > 299 ? 300 : Math.min(300, data.incrementy.charge+data.sing.level[i])
+let maxSingLevel = (i) => data.sing.level[i] > 499 ? 500 : Math.min(500, data.incrementy.charge+data.sing.level[i])
 
 function changeSingLevel(i, single = false){
     if(inPurification(3)) return
@@ -150,8 +150,8 @@ let singFunctions = [
     {requiredLevel: 65, hasUnlock: false, unlockDescription: null, hasEffect: true, effectDescription: 'Negative Charge multiplies the Total ℵ effect by', effect: () => Math.max(1, Math.log2(data.darkness.negativeCharge)), canBePerm: false, permReq: () => false},
     {requiredLevel: 72, hasUnlock: true, unlockDescription: 'Unlock Purification', canBePerm: true, permReq: () => data.incrementy.totalCharge > 71},
     {requiredLevel: 80, hasUnlock: true, unlockDescription: 'The second Darkness Buyable now Quadruples the Dynamic Cap', canBePerm: false, permReq: () => false},
-    {requiredLevel: 100, hasUnlock: true, unlockDescription: 'Reduce the Base in the Forgotten Realm by 15 for every ℶ<sub>&omega;</sub> Milestone obtained', hasEffect: true, effect: () => 15*checkAllIndexes(aomArray(), true), canBePerm: false, permReq: () => false},
-    {requiredLevel: 300, hasUnlock: true, unlockDescription: 'Unlock a Ringularity, but cap the Singularity\'s Density at H<sub>&omega;<sup>2</sup>3</sub>', canBePerm: true, permReq: () => data.incrementy.totalCharge > 299},
+    {requiredLevel: 100, hasUnlock: true, unlockDescription: 'Reduce the Base in the Forgotten Realm by 15 for every ℶ<sub>&omega;</sub> Milestone obtained', effect: () => 15*checkAllIndexes(aomArray(), true), canBePerm: false, permReq: () => false},
+    {requiredLevel: 500, hasUnlock: true, unlockDescription: 'Unlock a Ringularity, but cap the Singularity\'s Density at H<sub>&omega;<sup>2</sup>5</sub>', canBePerm: true, permReq: () => data.incrementy.totalCharge > 499},
 ]
 
 let hasPermanentFunction = (i) => singFunctions[i].permReq()
