@@ -83,5 +83,10 @@ function obliterateReset(){
     updateAllCUPTextHTML()
     checkAllUnlocks(0, true)
     checkAllUnlocks(1, true)
+    loadSingularityHTML()
+    updateAllSingularityHTML()
+    checkPermanentFunctions()
     updateAllANRHTML()
+    updateAllAORHTML()
+    updateAllPurificationHTML()
 }

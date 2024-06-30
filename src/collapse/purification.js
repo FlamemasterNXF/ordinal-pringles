@@ -206,6 +206,11 @@ function updateAllAOMHTML(){
         updateAOMilestoneHTML(i)
     }
 }
+function updateAllPurificationHTML(){
+    for (let i = 0; i < data.omega.bestFBInPurification.length; i++) {
+        updatePurificationHTML(i)
+    }
+}
 
 
 function enterPurification(i){

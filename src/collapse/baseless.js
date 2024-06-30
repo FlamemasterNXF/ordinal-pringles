@@ -20,7 +20,7 @@ function initANRebuyables(){
 }
 
 function updateAlephNullHTML(){
-    DOM(`alephNull`).innerHTML = `You have <span style="color: red; font-family: DosisSemiBold">${format(data.baseless.alephNull)} ℵ<sub>0</sub></span>, increasing the RUP1 effect base by <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[0]())}</span> and providing <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[1]())}</span> free levels of the last Darkness Buyable</span><br>Your <span style="color: #80ce0b; font-family: DosisSemiBold">Singularity</span> is multiplying AutoClicker Speed in the Baseless Realms by <span style="color: #80ce0b; font-family: DosisSemiBold">${singBoostToBaseless(true)}x</span>`
+    DOM(`alephNull`).innerHTML = `You have <span style="color: red; font-family: DosisSemiBold">${format(data.baseless.alephNull)} ℵ<sub>0</sub></span>, increasing the RUP1 effect base by <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[0]())}</span> and providing <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[1]())}</span> free levels of the last Darkness Buyable</span><br>Your <span style="color: goldenrod; font-family: DosisSemiBold">Total Charge</span> is multiplying AutoClicker Speed in the Baseless Realms by <span style="color: goldenrod; font-family: DosisSemiBold">${format(chargeBoostToBaseless(true))}x</span>`
 }
 function updateDynamicShiftHTML(){
     DOM(`dynamicShift`).style.display = `${data.baseless.baseless ? 'block' : 'none'}`
@@ -71,17 +71,17 @@ const baselessNames = ['Baseless', 'Obliterated', 'Forgotten']
 const anRebuyableData = [
     {
         desc: "Cardinals boost AutoClickers while in a Baseless Realm",
-        eff: () => Math.log10(10+data.collapse.cardinals)*getANRLevels(0),
+        eff: () => (data.collapse.cardinals**2)*getANRLevels(0)*getPringleEffect(8, true),
         costBase: 1e3,
         symbol: 'x',
         unl: () => true,
         freeLevels: () => getEUPEffect(1, 0, true)
     },
     {
-        desc: "Boost the Singularity boost to AutoClickers while in Baseless Realms",
-        eff: () => (2*getANRLevels(1))*getPringleEffect(8, true),
+        desc: "Boost the Total Charge boost to Baseless Realms",
+        eff: () => Math.max(1, (getANRLevels(1))),
         costBase: 1e6,
-        symbol: 'x',
+        symbol: '^',
         unl: () => true,
         freeLevels: () => 0
     },
@@ -170,8 +170,8 @@ let alephNullEffects = [
     () => Math.max(0, Math.floor(Math.log10(data.baseless.alephNull)))
 ]
 let getBaselessMult = (i) => baselessMultipliers[i]
-let singBoostToBaseless = (display = false) => data.baseless.baseless || display
-    ? Math.max(1, data.sing.level[0]*getANREffect(1)*getEUPEffect(1, 1, true))
+let chargeBoostToBaseless = (display = false) => data.baseless.baseless || display
+    ? Math.max(1, ((data.incrementy.totalCharge**10)*getEUPEffect(1, 1, true))**getANREffect(1))
     : 1
 let getANRCost = (i) => ((anRebuyableData[i].costBase/100+1)**data.baseless.anRebuyables[i])*anRebuyableData[i].costBase
 let getANREffect = (i) => {

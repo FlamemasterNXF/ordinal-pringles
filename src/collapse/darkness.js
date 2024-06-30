@@ -178,7 +178,9 @@ function respecDrains(){
 
 function resetDarkness(force = false){
     data.darkness.darkened = false
-    if(!hasSluggishMilestone(3)) data.darkness.levels = Array(3).fill(0)
+    for (let i = 0; i < 3; i++) {
+        data.darkness.levels[i] = (hasPassiveUpgrade(10+i) || hasSluggishMilestone(3)) ? data.darkness.levels[i] : 0
+    }
     data.darkness.negativeCharge = 0
     if(!hasSingFunction(1)) data.darkness.drains = Array(7).fill(0)
     if(!data.boost.unlocks[4]){

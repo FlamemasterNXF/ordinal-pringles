@@ -1,7 +1,7 @@
 let timesToLoop = [0,0, 0,0]
 
 let t1Auto = () => D(totalFactorEffect()).mul(getBUPEffect(6)).mul(alephEffect(0)).pow(getCUPEffect(1)).mul(getCUPEffect(3))
-    .mul(singBoostToBaseless()).mul(data.baseless.baseless ? getANREffect(0) : 1).mul(getPringleEffect(5))
+    .mul(chargeBoostToBaseless()).mul(data.baseless.baseless ? getANREffect(0) : 1).mul(getPringleEffect(5))
 
 let t2AutoPure = () => D(1).times(chalEffectTotal()).times(getBUPEffect(6)).times(incrementyMult()).times(iup6Effect())
     .times(getBUPEffect(5)).times(hupData[5].effect()).times(alephEffect(1)).times(getCUPEffect(0)).times(getCUPEffect(3))
