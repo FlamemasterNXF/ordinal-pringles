@@ -363,13 +363,13 @@ let achievements = [
     },
     {
         name: "Enter the something something",
-        description: "Reach 1e1000 Incrementy",
-        req: () => data.incrementy.amt.gte("1e1000")
+        description: "Reach 1e1500 Incrementy",
+        req: () => data.incrementy.amt.gte("1e1500")
     },
     {
         name: "Accessible Cardinals",
-        description: "Reach 1e100 Cardinals",
-        req: () => data.collapse.cardinals >= 1e100
+        description: "Reach 1e200 Cardinals",
+        req: () => data.collapse.cardinals >= 1e200
     },
     {
         name: "Omega Mode",
@@ -380,6 +380,11 @@ let achievements = [
         name: "Base Megabooster!",
         description: "Reach 3,000,000 Boosters",
         req: () => data.boost.amt >= 3e6
+    },
+    {
+        name: "The Blugularity",
+        description: "Unlock the Ringularity",
+        req: () => hasSingFunction(9)
     },
 
 
