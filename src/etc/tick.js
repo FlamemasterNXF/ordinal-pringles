@@ -93,8 +93,8 @@ function tick(diff){
         }
     }
     if(hasSingFunction(0) && data.autoStatus.enabled[5]){ // BUP + Supercharge AutoBuyer
-        if(!data.boost.hasBUP[5] || chargeAutoCheck(5)) buyBUP(5, false, data.autoStatus.enabled[6]&&hasSingFunction(3), true)
         if(!data.boost.hasBUP[10] || chargeAutoCheck(10)) buyBUP(10, false, data.autoStatus.enabled[6]&&hasSingFunction(3), true)
+        if(!data.boost.hasBUP[5] || chargeAutoCheck(5)) buyBUP(5, false, data.autoStatus.enabled[6]&&hasSingFunction(3), true)
         if(!data.boost.hasBUP[0] || chargeAutoCheck(0)) buyBUP(0, false, data.autoStatus.enabled[6]&&hasSingFunction(3), true)
         for (let i = 1; i < 5; i++) {
             let isBottom = i===4
