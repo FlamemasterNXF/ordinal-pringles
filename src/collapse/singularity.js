@@ -87,7 +87,7 @@ let singEffects = [
     {desc: () => `???`, effect: () => 1},
     {desc: () => "???", effect: () => 1},
 ]
-let maxSingLevel = (i) => data.sing.level[i] > 499 ? 500 : Math.min(500, data.incrementy.charge+data.sing.level[i])
+let maxSingLevel = (i) => data.sing.level[i] > 499 ? 500 : Math.min(500, data.incrementy.charge)
 
 function changeSingLevel(i, single = false){
     if(inPurification(3)) return
