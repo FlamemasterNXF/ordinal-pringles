@@ -13,7 +13,7 @@ function updateCollapseHTML(){
 
     updateTotalAlephHTML()
     updateDarknessHTML()
-    updateSingularityHTML()
+    updateAllSingularityHTML()
     updatePurificationTabHTML()
 }
 function updateAutoPrestigeHTML(){
@@ -239,7 +239,7 @@ let apData = [
 
 let collapseConfirm = (auto = false) =>
     data.sToggles[9]
-    ? createConfirmation('Are you certain?', `Collapsing will reset everything prior and Darkness!\n${data.boost.unlocks[4] && data.sing.level === 0 && !hasAOMilestone(0) ? `WARNING: Your Singularity density is Zero!` : ''}`, 'No Way!', 'Go Ahead!', collapse)
+    ? createConfirmation('Are you certain?', `Collapsing will reset everything prior and Darkness!\n${data.boost.unlocks[4] && data.sing.level[0] === 0 && !hasAOMilestone(0) ? `WARNING: Your Singularity density is Zero!` : ''}`, 'No Way!', 'Go Ahead!', collapse)
     : collapse(false, auto)
 
 function collapse(first = false, auto = false){
@@ -299,7 +299,7 @@ function collapseReset(){
     }
     else { data.incrementy.hasIUP = Array(12).fill(false) }
     data.incrementy.rebuyableAmt = Array(6).fill(0)
-    data.incrementy.charge = data.boost.unlocks[4] ? data.incrementy.totalCharge-data.sing.level : 0
+    data.incrementy.charge = data.boost.unlocks[4] ? data.incrementy.totalCharge-data.sing.level[0] : 0
     data.incrementy.totalCharge = data.boost.unlocks[4] ? data.incrementy.totalCharge : 0
     updateIncrementyHTML()
     if(!hasSluggishMilestone(3)){

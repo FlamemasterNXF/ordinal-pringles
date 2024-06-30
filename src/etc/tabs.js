@@ -86,6 +86,7 @@ function switchSubtab(t, mode){
                 data.sing.tutorial = true
             }
             DOM(`singFunction8`).style.display = hasAOMilestone(0) ? `block` : `none`
+            DOM(`singularity1`).style.display = hasSingFunction(9) ? `flex` : `none`
             checkPermanentFunctions()
         }
         if(t==="baseless"){

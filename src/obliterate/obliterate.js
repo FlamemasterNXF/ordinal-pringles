@@ -47,8 +47,10 @@ function obliterateReset(){
     data.darkness.negativeChargeEnabled = false
     data.darkness.darkened = false
 
-    data.sing.highestLevel = 0
-    data.sing.level = 0
+    for (let i = 0; i < data.sing.highestLevel.length; i++) {
+        data.sing.highestLevels[i] = 0
+        data.sing.levels[i] = 0
+    }
     data.sing.hasEverHadFunction = Array(singFunctions.length).fill(false)
     lastSingFunctionUnlockedIndex = 0
 

@@ -163,7 +163,7 @@ function respecCharge(c=false){
         DOM(`bup${i}`).innerHTML = `${getBUPDesc(i)}`
         DOM(`bup${i}`).style.color = `#8080FF`
     }
-    data.incrementy.charge = data.incrementy.totalCharge-data.sing.level
+    data.incrementy.charge = data.incrementy.totalCharge-data.sing.level[0]
     data.boost.bottomRowCharges = 0
     if(hasSluggishMilestone(3)) updateBUPInfoText()
     if(!c) chalExit()

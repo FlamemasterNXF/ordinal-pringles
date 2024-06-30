@@ -30,7 +30,7 @@ function getDefaultObject() {
         overflow: {bp:1, oc:1, thirdEffect:true}, //for thirdEffect: true=normal, false=inverted
         collapse: {times:0, cardinals:0, bestCardinalsGained:0, alephs:Array(alephData.length).fill(0), hasCUP:Array(8).fill(false), hasSluggish:Array(5).fill(false), apEnabled:Array(2).fill(false)},
         darkness: {levels: Array(3).fill(0), negativeCharge:0, drains: Array(7).fill(0), sacrificedCharge:0, totalDrains: 0, chargeSpent:0, negativeChargeEnabled:false, darkened:false},
-        sing: {highestLevel:0, level:0, tutorial:false, hasEverHadFunction: Array(singFunctions.length).fill(false)},
+        sing: {highestLevel:[0, 0], level:[0, 0], tutorial:false, hasEverHadFunction: Array(singFunctions.length).fill(false)},
         baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), anRebuyables: Array(anRebuyableData.length).fill(0), tutorial: false},
         omega:{bestRemnants: 0, alephOmega:1, bestFBInPurification: Array(4).fill(0), purificationIsActive: Array(4).fill(false), whichPurification: -1, aoRebuyables:Array(8).fill(0), tutorial: false},
         obliterate:{times:0, energy:0, passiveEnergy:0, energyUpgrades: [], pringleAmount: Array(25).fill(0), hasPassiveUpgrade: Array(passiveEnergyDescriptions.length).fill(false)},

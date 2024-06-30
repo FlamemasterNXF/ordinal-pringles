@@ -171,7 +171,7 @@ let alephNullEffects = [
 ]
 let getBaselessMult = (i) => baselessMultipliers[i]
 let singBoostToBaseless = (display = false) => data.baseless.baseless || display
-    ? Math.max(1, data.sing.level*getANREffect(1)*getEUPEffect(1, 1, true))
+    ? Math.max(1, data.sing.level[0]*getANREffect(1)*getEUPEffect(1, 1, true))
     : 1
 let getANRCost = (i) => ((anRebuyableData[i].costBase/100+1)**data.baseless.anRebuyables[i])*anRebuyableData[i].costBase
 let getANREffect = (i) => {
