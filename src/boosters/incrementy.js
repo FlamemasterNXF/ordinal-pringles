@@ -22,7 +22,7 @@ function incrementyGain() {
     let base = Decimal.log10(ord.plus(1)).div(10)
     let iupMults = base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect())
     let otherMults = iupMults.times(getHierarchyEffect(0)).times(alephEffect(3)).times(getCUPEffect(4)).times(getBUPEffect(14))
-        .times(getPringleEffect(23)).times(getDestabilizedBUPEffect(0))
+        .times(getDestabilizedBUPEffect(0))
     return otherMults.div(negativeChargeEffect(false))
 }
 
@@ -35,11 +35,11 @@ const iupCosts = [1, 1, 1, 2e6, 2e5, 1e10, 3e4, 1e8, 1e12, 1e100, 1e150, 1e200]
 let rebuyableCostBases = [20, 1000, 100, 1e150, 1e150, 1e150]
 let rebuyableCostScalings = [
     () => Math.max(1, 2),
-    () => Math.max(1, 2 - (getPringleEffect(10))),
-    () => Math.max(1, 2 - (getPringleEffect(11))),
-    () => Math.max(1, 30 - (getPringleEffect(12))),
-    () => Math.max(1, 40 - (getPringleEffect(14))),
-    () => Math.max(1, 10 - (getPringleEffect(13)))
+    () => Math.max(1, 2),
+    () => Math.max(1, 2),
+    () => Math.max(1, 30),
+    () => Math.max(1, 40),
+    () => Math.max(1, 10),
 ]
 
 let getRebuyableCost = (i) => Decimal.sqrt(rebuyableCostScalings[i]()*(rebuyableCostScalings[i]()*data.incrementy.rebuyableAmt[i]+1)).mul(Decimal.pow((rebuyableCostScalings[i]()*data.incrementy.rebuyableAmt[i]+1)/Math.E, (rebuyableCostScalings[i]()*data.incrementy.rebuyableAmt[i]+1)/2)).ceil().times(rebuyableCostBases[i])
@@ -182,7 +182,7 @@ function sacrificeIncrementy(){
 }
 
 //let chargeReq = () => (10**(6+((data.incrementy.totalCharge+data.darkness.sacrificedCharge)*(2+Math.floor((data.incrementy.totalCharge+data.darkness.sacrificedCharge)/12)))))/hierarchyData[1].effect()
-let chargeCostBase = () => 10 - (getPringleEffect(22, true))
+let chargeCostBase = () => 10
 function chargeReq() {
     let chargeExp = 6+((data.incrementy.totalCharge+data.darkness.sacrificedCharge)*(2+Math.floor((data.incrementy.totalCharge+data.darkness.sacrificedCharge)/12)));
     chargeExp -= Decimal.log10(getHierarchyEffect(1));

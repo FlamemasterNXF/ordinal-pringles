@@ -71,7 +71,7 @@ const baselessNames = ['Baseless', 'Obliterated', 'Forgotten']
 const anRebuyableData = [
     {
         desc: "Cardinals boost AutoClickers while in a Baseless Realm",
-        eff: () => (data.collapse.cardinals**2)*getANRLevels(0)*getPringleEffect(8, true),
+        eff: () => (data.collapse.cardinals**2)*getANRLevels(0)*getPringleEffect(5, true),
         costBase: 1e3,
         symbol: 'x',
         unl: () => true,
@@ -87,7 +87,7 @@ const anRebuyableData = [
     },
     {
         desc: "Increase the Decrementy gain exponent",
-        eff: () => (0.1*getANRLevels(2))+(getPringleEffect(7, true))+(getEUPEffect(1, 2, true)),
+        eff: () => (0.1*getANRLevels(2))+(getPringleEffect(5, true))+(getEUPEffect(1, 2, true)),
         costBase: 1e4,
         symbol: '+',
         unl: () => true,
@@ -164,9 +164,9 @@ let dynamicShiftMultipliers = [
     (i = data.baseless.shifts) => Math.max(1, 1000**(i+data.baseless.mode))
 ]
 
-let alephNullGain = () =>  Math.max(1, Decimal.log10(Decimal.max(data.ord.ordinal,1)).toNumber()*dynamicShiftMultipliers[0]()*getAOEffect(1)*getPringleEffect(6, true))
+let alephNullGain = () =>  Math.max(1, Decimal.log10(Decimal.max(data.ord.ordinal,1)).toNumber()*dynamicShiftMultipliers[0]()*getAOEffect(1)*getPringleEffect(4, true))
 let alephNullEffects = [
-    () => Math.max(0, Math.log10(data.baseless.alephNull)/10)+(getPringleEffect(9, true)),
+    () => Math.max(0, Math.log10(data.baseless.alephNull)/10)/*+(getPringleEffect(9, true))*/,
     () => Math.max(0, Math.floor(Math.log10(data.baseless.alephNull)))
 ]
 let getBaselessMult = (i) => baselessMultipliers[i]

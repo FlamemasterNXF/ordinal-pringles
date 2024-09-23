@@ -178,7 +178,7 @@ function checkCollapseUnlockHTML(){
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34)
     * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect()*iup12Effect()
-        *getAOMEffect(4)*getPringleEffect(20, true))**singEffects[0].effect()
+        *getAOMEffect(4)*getPringleEffect(2, true))**singEffects[0].effect()
 let alephEffect = (i) => data.collapse.alephs[i] > 0 && (!inPurification(1) || i === 0) && alephData[i].unl()
     ? alephData[i].effect()*(i !== 8 ? getCUPEffect(6) : 1)
     : 1
@@ -220,9 +220,9 @@ let cupData = [
     {text: "Square AutoClicker speeds", cost: 27, effect: ()=> 2+getPringleEffect(1, true)},
     {text: "Challenges 1-7 provide greatly reduced boosts when at zero completions", cost: 81, effect: ()=> 0.2*8},
     {text: "Ordinal Powers boost AutoBuyers and AutoClickers", cost: 243, effect: ()=> Math.max(1, Decimal.log10(data.markup.powers.plus(1)).div(10).toNumber())},
-    {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.min(Decimal.max(1, Decimal.log10(data.incrementy.amt.plus(1))).mul(purificationEffect(3)).mul(getPringleEffect(2)).toNumber(), Number.MAX_VALUE)}, //TODO: Add a safety function
-    {text: "Unlock a 3rd Overcharge Effect and boost Overcharge's 1st Effect", cost: 196608, effect: ()=> 3*getPringleEffect(3, true)},
-    {text: "Unspent Cardinals boost Alephs", cost: 3e9, effect: ()=> Math.max(1, Math.log2(data.collapse.cardinals)*getAOMEffect(3)*getPringleEffect(4, true))},
+    {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.min(Decimal.max(1, Decimal.log10(data.incrementy.amt.plus(1))).mul(purificationEffect(3)).mul(getPringleEffect(0)).toNumber(), Number.MAX_VALUE)}, //TODO: Add a safety function
+    {text: "Unlock a 3rd Overcharge Effect and boost Overcharge's 1st Effect", cost: 196608, effect: ()=> 3*getPringleEffect(0, true)},
+    {text: "Unspent Cardinals boost Alephs", cost: 3e9, effect: ()=> Math.max(1, Math.log2(data.collapse.cardinals)*getAOMEffect(3)*getPringleEffect(2, true))},
     {text: "Gain a percent of best Cardinals gained on Collapse every second", cost: 1e13, effect: ()=> getAOREffect(7)},
 ]
 let sluggishData = [

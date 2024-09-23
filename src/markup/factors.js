@@ -91,7 +91,7 @@ function getDyCap() {
         return D(40*(5**c5)*(5**data.chal.completions[4]))
     }
     return D(40).mul(iup5Effect()).mul(alephEffect(4)).mul(dupEffect(1)).mul(getSingFunctionEffect(4))
-        .mul(getPringleEffect(21)).mul(getDestabilizedBUPEffect(3))
+        .mul(getPringleEffect(3)).mul(getDestabilizedBUPEffect(3))
 }
 
 function dyGain(){
@@ -106,7 +106,7 @@ function dyGain(){
         return data.dy.gain.mul((5**c5)*c6)
     }
 
-    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(getBUPEffect(3)).mul(getPringleEffect(21)).toNumber()
+    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(getBUPEffect(3)).mul(getPringleEffect(3)).toNumber()
 
     return calcDyGain()
 }

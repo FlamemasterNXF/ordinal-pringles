@@ -86,7 +86,7 @@ function setupPurityPoint(i, point){
 }
 
 function updateAllMiscPringleColors(mode){
-    for (let i = 0; i < 24; i++) {
+    for (let i = 0; i < 9; i++) {
         DOM(`${mode}Pringle${i}`).style.borderColor = isPringleAssigned(i) ? '#5b5b5b' : isPringleDarkened(i) ? '#232323' : getPringleData(i).color
     }
 }
