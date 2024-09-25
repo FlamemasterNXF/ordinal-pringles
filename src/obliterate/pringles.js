@@ -59,9 +59,9 @@ let pringleData = [
         sign: 'x',
         eff: () => D(data.obliterate.pringleAmount[2]*5).times(getEUPEffect(3, 3)).times(getEUPEffect(3, 4)),
         baseValue: 1,
-        resNames: 'of all the Green Pringles',
-        resLocation: [['incrementy', 'amt']], // TODO
-        cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[2]))
+        resNames: 'ℵ<sub>0</sub>',
+        resLocation: [['baseless', 'alephNull']],
+        cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[2]))
     },
     /*
     {
@@ -124,9 +124,9 @@ let pringleData = [
         sign: '+',
         eff: () => D((data.obliterate.pringleAmount[5]/100)*5).times(getEUPEffect(3, 0)).times(getEUPEffect(3, 4)),
         baseValue: 0,
-        resNames: 'of all the Orange Pringles',
-        resLocation: [['overflow', 'bp']], // TODO
-        cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[5]))
+        resNames: 'ℵ<sub>0</sub>',
+        resLocation: [['baseless', 'alephNull']],
+        cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[5]))
     },
     /*
     {
@@ -203,9 +203,9 @@ let pringleData = [
         sign: '+',
         eff: () => D(200).times(data.obliterate.pringleAmount[8]).times(getEUPEffect(3, 1)).times(getEUPEffect(3, 4)),
         baseValue: 0,
-        resNames: 'of all the Blue Pringles',
-        resLocation: [['collapse', 'cardinals']],
-        cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[8]))
+        resNames: 'ℵ<sub>0</sub>',
+        resLocation: [['baseless', 'alephNull']],
+        cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[8]))
     },
     /*
     {
@@ -230,9 +230,9 @@ let pringleData = [
         sign: 'x',
         eff: () => D(10).pow(data.obliterate.pringleAmount[9]).times(getEUPEffect(3, 6)),
         baseValue: 1,
-        resNames: 'of all the Inner-Circle Pringles',
-        resLocation: [['collapse', 'cardinals']],
-        cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[9]))
+        resNames: 'ℵ<sub>&omega;</sub>',
+        resLocation: [['omega', 'bestRemnants']],
+        cost: () => 2000+100*(data.obliterate.pringleAmount[9]+1)
     },
 ]
 
@@ -294,7 +294,7 @@ function updateCanBuyPringleHTML(){
     for (let i = 0; i < pringleData.length-1; i++) {
         if(canBuyPringle(pringleData[i])) DOM(`pringle${i}`).style.boxShadow = `0px 0px 15px ${pringleData[i].color}`
     }
-    DOM(`pringle9`).style.boxShadow = canBuyPringle(pringleData[9]) ? `0px 0px 15px rgba(255, 61, 61, 1)` : ` 0 5px 15px rgba(255,0,0,0.4)`
+    DOM(`pringle9`).style.boxShadow = canBuyPringle(pringleData[9]) ? `0px 0px 15px rgba(175, 31, 173, 1)` : ` 0 5px 15px rgba(255,0,0,0.4)`
 }
 
 function displayPringleButton(event, pringleData, i, type = 'pringleButton'){
@@ -316,8 +316,6 @@ function updatePringleButtonText(pringleData, i){
 let getPringleEffectText = (pringleData, i) =>
     pringleData.sign !== 'x' ? `${pringleData.sign}${format(getPringleEffectBaseline(i))}` : `${format(getPringleEffectBaseline(i))}${pringleData.sign}`
 function getPringleAssignmentText(i){
-    if(i === 9) return `It requires no Assignment`
-
     let isAssigned = isPringleAssigned(i)
     return isAssigned ? `It is currently ASSIGNED!` : `It is currently UNASSIGNED`
 }
@@ -331,7 +329,6 @@ function isPringleAssigned(i){
     return isAssigned
 }
 function getPringleAssignment(i){
-    if(i === 9) return 4
     if(!isPringleAssigned(i)) return -1
     let assignment = 0
     for (let j = 0; j < data.purity.assignment.length; j++) {
@@ -371,4 +368,4 @@ let getPringleData = (i) => pringleData[i]
 let getPringleEffectBaseline = (i) => Decimal.max(pringleData[i].baseValue, (pringleData[i].eff()))
 let getPringleEffect = (i, number = false) => number
     ? getPringleEffect(i).toNumber()
-    : (isPringleAssigned(i) && data.obliterate.pringleAmount[i] > 0) || i === 9 ? Decimal.max(pringleData[i].baseValue, getPringleEffectBaseline(i).times(getPurityStrength(getPringleAssignment(i)))): D(pringleData[i].baseValue)
+    : (isPringleAssigned(i) && data.obliterate.pringleAmount[i] > 0) ? Decimal.max(pringleData[i].baseValue, getPringleEffectBaseline(i).times(getPurityStrength(getPringleAssignment(i)))): D(pringleData[i].baseValue)
