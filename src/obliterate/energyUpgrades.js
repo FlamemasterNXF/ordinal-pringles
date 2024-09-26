@@ -297,7 +297,7 @@ const energyUpgradeData = [
     ],
     [
         {
-            desc: "Unlock Dark Instability",
+            desc: "Unlock two new Instability Constant effects and OP gain is uncapped, but gain after 4e256 is greatly reduced",
             sign: 'x',
             cost: 1,
             eff: () => D(1),

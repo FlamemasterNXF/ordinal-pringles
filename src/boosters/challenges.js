@@ -114,10 +114,12 @@ function chalEffectTotal(){
     let cup = data.collapse.hasCUP[2] ? D(getCUPEffect(2)) : D(0)
     return Decimal.max(Decimal.pow(base,2).add(cup), 1)
 }
+function getDecrementyExponent(){
+    let base = 1+1+hupData[4].effect()+getANREffect(2)+getUnstableFactorEffect(1)
+    return hasTreeUpgrade(102) ? base+singEffects[1].effect() : base-singEffects[1].effect()
+}
 function decrementyGain() {
-    const exponent = hasTreeUpgrade(102)
-        ? 1+hupData[4].effect()+getANREffect(2)+singEffects[1].effect()
-        : 1+hupData[4].effect()+getANREffect(2)-singEffects[1].effect()
+    const exponent = getDecrementyExponent()
     const base = D(0.000666).times((data.markup.powers.plus(1)).pow(0.2).times(2).pow(exponent))
     const overflow = data.overflow.thirdEffect ? base.div(getOverflowEffect(2)) : base.times(getOverflowEffect(2))
     return (overflow).pow(20) // 20 times per second

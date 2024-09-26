@@ -24,6 +24,7 @@ function obliterate(){
 
     ++data.obliterate.energy
     ++data.obliterate.times
+    ++data.obliterate.instability
     boosterUnlock()
 }
 
@@ -93,4 +94,5 @@ function obliterateReset(){
     updateAllANRHTML()
     updateAllAORHTML()
     updateAllPurificationHTML()
+    updateInstabilityText()
 }

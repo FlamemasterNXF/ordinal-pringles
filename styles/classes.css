@@ -432,15 +432,14 @@
     border: 2px solid #5b5b5b;
     color: white;
 }
-.pringleBuymax{
-    width: 9rem;
-    height: 3rem;
-    border: 1px solid #3a3a3a;
-    color: #7e6977;
+.unstableFactor{
+    width: 14rem;
+    height: 8rem;
+    border: 2px solid #2d2746;
+    color: #614cb9;
     background: black;
-    margin-left: 0.5rem;
     margin-right: 0.5rem;
-    margin-top: 0.75rem;
+    margin-left: 0.5rem;
 }
 .progressBar{
     width: 7rem;

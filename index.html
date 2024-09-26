@@ -39,13 +39,13 @@
     <script defer src="src/etc/tabs.js"></script>
     <script defer src="src/etc/settings.js"></script>
 
+    <script defer src="src/obliterate/instability.js"></script>
     <script defer src="src/obliterate/purity.js"></script>
     <script defer src="src/obliterate/passiveEnergy.js"></script>
     <script defer src="src/obliterate/energyUpgrades.js"></script>
     <script defer src="src/obliterate/energyTree.js"></script>
     <script defer src="src/obliterate/obliterate.js"></script>
 
-    <script defer src="src/collapse/instability.js"></script>
     <script defer src="src/collapse/purification.js"></script>
     <script defer src="src/collapse/baseless.js"></script>
     <script defer src="src/collapse/singularity.js"></script>
@@ -436,6 +436,7 @@
             <button class="obliterateTabButton" id="pringlesTab" onclick="switchSubtab('pringles', 'obliterate')">Pringles</button>
             <button class="obliterateTabButton" id="energyTab" onclick="switchSubtab('energy', 'obliterate')">Energy</button>
             <button class="obliterateTabButton" id="passiveTab" onclick="switchSubtab('passive', 'obliterate')">Passive Energy</button>
+            <button class="obliterateTabButton" id="instabTab" onclick="switchSubtab('instability', 'obliterate')">Instability</button>
         </div>
         <div class="flexBox" id="obliterateInfoContainer" style="margin-top: 0.1rem; flex-direction: column;">
             <h3 class="centeredTexts" id="energyText" style="color: #ae50b4;">You have no Chips. In your house. You are broke.</h3>
@@ -491,6 +492,12 @@
             <button class="passiveUpgrade" style="width: 12rem; height: 5rem;" onclick="passiveRespecConfirm()">Respec your Passive Energy</button>
             <t class="centeredTexts" style="margin-top: 1rem">Whenever <span style="color: #d56cdc">Fractal Energy</span> is spent <span style="color: #bd80ff">Passive Energy</span> is gained.</t>
             <t class="centeredTexts" style="margin-top: 0.25rem">Every <span style="color: #bd80ff">Passive Upgrade</span> costs one <span style="color: #bd80ff">Passive Energy</span>, but you must buy the previous Upgrade in the row first<br>Each row of Passive Upgrades bought causes a Purification Milestone to become Permanent.</t>
+        </div>
+        <div class="flexBox" id="instabilitySubPage" style="display: none; flex-direction: column;">
+            <t class="centeredTexts" id="instabilityText" style="margin-top: 1rem; font-size: 1.1rem; font-family: DosisRegular"></t>
+            <div class="flexBox" id="unstableFactorContainer" style="margin-top: 0.5rem"></div>
+            <button class="unstableFactor" style="height: 2rem; width: 20rem; margin-top: 0.5rem" onclick="data.sToggles[19] ? createConfirmation('Are you sure?', 'Respecing Unstable Factors will return your Instability, but it will preform a Collapse reset!', 'No way!', 'Go ahead.', respecUnstableFactors) : respecUnstableFactors()">Respec Unstable Factors</button>
+            <t class="centeredTexts" id="instabilityConstantText" style="margin-top: 1rem; font-family: DosisRegular; color: #6752c2"></t>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;"></div>
