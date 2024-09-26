@@ -218,7 +218,7 @@ function enterPurification(i){
     if(inAnyPurification()) exitPurification(i,true)
 
     if(i === 3){
-        singControl(1)
+        singControl(1, 0)
         darknessControl(3)
     }
 
