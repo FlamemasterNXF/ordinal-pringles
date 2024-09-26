@@ -6,73 +6,31 @@ function initPurityPlane(){
     context.moveTo(0, 0)
     context.line
     context.strokeStyle = `#5b5b5b`
-    context.strokeRect(10, 275, 530, 0);
-    context.strokeRect(275, 10, 0, 530);
-
-    // Draw the Circles
-    context.moveTo(0, 0)
-    context.line
-    context.beginPath();
-    context.arc(275, 275, 133, 0, 2 * Math.PI);
-    context.stroke();
-    context.moveTo(0, 0)
-    context.line
-    context.beginPath();
-    context.arc(275, 275, 266, 0, 2 * Math.PI);
-    context.stroke();
-
+    context.strokeRect(45, 275, 600, 0);
 
     // Draw the Points
     let containers = [
-        DOM('ppYContainer'),
         DOM('ppXContainer0'),
         DOM('ppXContainer1'),
     ]
-    for (let i = 0; i < 9; i++) {
+
+    for (let i = 0; i < 5; i++) {
         let point = document.createElement('div')
         point.className = 'purityPoint'
         point.id = `purityPoint${i}`
-        point.style.marginTop = i > 0 ? `2rem` : `1rem`
+        //point.style.marginBottom = '0.5rem'
+        point.style.marginLeft = i > 0 ? '2.35rem' : '0rem'
         setupPurityPoint(i, point)
         containers[0].append(point)
     }
-    /*
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 5; i++) {
         let point = document.createElement('div')
         point.className = 'purityPoint'
-        point.id = `purityPoint${9+i}`
-        point.style.marginBottom = '0.5rem'
+        point.id = `purityPoint${5+i}`
+        //point.style.marginBottom = '0.5rem'
         point.style.marginLeft = i > 0 ? '2.35rem' : '0rem'
-        setupPurityPoint(9+i, point)
+        setupPurityPoint(5+i, point)
         containers[1].append(point)
-    }
-    for (let i = 0; i < 4; i++) {
-        let point = document.createElement('div')
-        point.className = 'purityPoint'
-        point.id = `purityPoint${13+i}`
-        point.style.marginBottom = '0.5rem'
-        point.style.marginLeft = i > 0 ? '2.35rem' : '0rem'
-        setupPurityPoint(13+i, point)
-        containers[2].append(point)
-    }
-     */
-
-    // Initialize the Pringle Boxes
-    initPringleBox()
-}
-function initPringleBox(){
-    for (let i = 0; i < 2; i++) {
-        for (let j = 0; j < 5; j++) {
-            let pringle = document.createElement('div')
-            let index = j+(i*5)
-            pringle.className = 'purityPringle'
-            pringle.id = `purityPringle${index}`
-            //pringle.style.borderColor = isPringleAssigned(index) ? '#5b5b5b' : pringleData[index].color
-            pringle.addEventListener('mouseenter', (e) => displayPringleButton(e,pringleData[index], index, 'purityButton'))
-            pringle.addEventListener('click', () => assignPringle(index, 0))
-            if(data.sToggles[18]) pringle.innerText = `${index}`
-            DOM(`pringleBox${i}`).append(pringle)
-        }
     }
 }
 
@@ -83,7 +41,7 @@ function setupPurityPoint(i, point){
         if(data.sToggles[18]) point.innerText = `${data.purity.assignment[i]}`
     }
 
-    point.addEventListener('mouseover', () => updatePurityText(i))
+    point.addEventListener('mouseover', (e) => displayPringleButton(e, null, i, 'pringleButton'))
     point.addEventListener('click', () => assignPringle(i, 1))
 }
 
@@ -96,19 +54,13 @@ function updateAllMiscPringleColors(mode){
 function updatePurityText(i) {
     let pringle = getPurityPringleData(i)
 
-    for (let j = 0; j < 1; j++) {
-        DOM(`purityBarBox${j}`).innerHTML = isPurityPointUnlocked(i) ?
-            isPurityPointAssigned(i) ? `This Point provides ${format(getPurityStrength(i)*100)}% Pringle Purity<br>The <b style='color: ${pringle.color}'>${pringle.name} ${pringle.colorDesc} Pringle</b> is currently <b>ASSIGNED</b> here!<br><span style="font-size: 0.85rem">${pringle.desc.replaceAll('Boosts', 'Boosting').replaceAll('Reduces', 'Reducing')} [${getPringleEffectText(pringle, data.purity.assignment[i])}]</span>`
-                : `This Point provides ${format(getPurityStrength(i)*100)}% Pringle Purity<br>This Point is currently <b>UNUSED</b><br><span style="font-size: 0.85rem">Click a Pringle in the box and then this Point to Assign it here!</span>`
-            : `This Point will provide ${format(getPurityStrength(i)*100)}% Pringle Purity<br>This Point is currently <b>LOCKED</b><br><span style="font-size: 0.85rem">Click this Point to unlock it for 1 Fractal Energy!</span>`
-    }
+    DOM(`pringleButton`).innerHTML = isPurityPointUnlocked(i) ?
+        isPurityPointAssigned(i) ? `This Point provides ${format(getPurityStrength(i)*100)}% Pringle Purity<br>The <b style='color: ${pringle.color}'>${pringle.name} ${pringle.name === 'Barbecue' ? '' : pringle.colorDesc} Pringle</b> is currently <b>ASSIGNED</b> here!<br><span style="font-size: 0.85rem">${pringle.desc.replaceAll('Boosts', 'Boosting').replaceAll('Reduces', 'Reducing')} [${getPringleEffectText(pringle, data.purity.assignment[i])}]</span>`
+            : `This Point provides ${format(getPurityStrength(i)*100)}% Pringle Purity<br>This Point is currently <b>UNUSED</b><br><span style="font-size: 0.85rem">Click a Pringle in the box and then this Point to Assign it here!</span>`
+        : `This Point will provide ${format(getPurityStrength(i)*100)}% Pringle Purity<br>This Point is currently <b>LOCKED</b><br><span style="font-size: 0.85rem">Click this Point to unlock it for 1 Fractal Energy!</span>`
 }
 
-function updatePurityButtonText(pringle, i){
-    DOM(`purityButton`).innerHTML = `This is the <b style="color: ${pringle.color}">${pringle.name} ${i !== 9 ? ` ${pringle.colorDesc}` : ''} Pringle</b><br>It ${pringle.desc}`
-}
-
-function assignPringle(i, type){
+function assignPringle(i, type, skipUpdate = false){
     /*
         TYPE 0: 'Queue' Pringle for Assignment
         TYPE 1: Assign Pringle
@@ -126,18 +78,16 @@ function assignPringle(i, type){
             data.purity.assignment[i] = data.purity.pringleQueued
             DOM(`purityPoint${i}`).style.borderColor = pringleData[data.purity.pringleQueued].color
             if(data.sToggles[18]) DOM(`purityPoint${i}`).innerText = `${data.purity.assignment[i]}`
-            DOM(`purityPringle${data.purity.pringleQueued}`).style.borderColor = '#5b5b5b'
             data.purity.pringleQueued = -1
         }
         updatePurityText(i)
     }
     if(type === 2){
-        DOM(`purityPringle${data.purity.assignment[i]}`).style.borderColor = getPurityPringleData(i).color
         DOM(`purityPoint${i}`).style.borderColor = '#949494'
         if(data.sToggles[18]) DOM(`purityPoint${i}`).innerText = ''
         data.purity.isAssigned[i] = false
         data.purity.assignment[i] = false
-        updatePurityText(i)
+        if(!skipUpdate) updatePurityText(i)
     }
 }
 
@@ -153,10 +103,9 @@ function buyPurityPoint(i){
 }
 
 function getPurityStrength(i){
-    if(i <= 4) return 0.2*(i+1)
-    if(i > 4 && i <= 8) return 1-(0.2*(i-4))
-    if(i > 8 && i <= 12) return 0.2*(i-8)
-    if(i > 12 && i <= 16) return 1-(0.2*(i-12))
+    if(i < 5) return (i+1)*0.2
+    if(i >= 5) return 1-(i-5)*0.2
+    return 0.96
 }
 let isPurityPointUnlocked = (i) => data.purity.isUnlocked[i]
 let isPurityPointAssigned = (i) => data.purity.isAssigned[i]

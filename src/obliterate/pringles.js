@@ -11,34 +11,6 @@ let pringleData = [
         resLocation: [['incrementy', 'amt']],
         cost: () => D(1e10).pow((data.obliterate.pringleAmount[0]+1)*Math.pow(data.obliterate.pringleAmount[0]+1, 1/1.5))
     },
-    /*
-    {
-        color: '#2e8c76',
-        colorDesc: 'Green',
-        name: 'Popular',
-        desc: 'Boosts the Fifth Cardinal Upgrade',
-        sign: 'x',
-        eff: () => D(data.obliterate.pringleAmount[2]+1).times(getEUPEffect(3, 3)),
-        baseValue: 1,
-        resNames: 'Incrementy',
-        resLocation: [['incrementy', 'amt']],
-        cost: () => D(1e40).pow((data.obliterate.pringleAmount[2]+1)*Math.sqrt(data.obliterate.pringleAmount[2]+1))
-    },
-     */
-    /*
-    {
-        color: '#2d834f',
-        colorDesc: 'Green',
-        name: 'Beloved',
-        desc: 'Boosts the Sixth Cardinal Upgrade',
-        sign: 'x',
-        eff: () => D(Math.sqrt(data.obliterate.pringleAmount[3]+1)).times(getEUPEffect(3, 3)),
-        baseValue: 1,
-        resNames: 'Incrementy',
-        resLocation: [['incrementy', 'amt']],
-        cost: () => D(1e6).pow((data.obliterate.pringleAmount[3]+1)*Math.pow(data.obliterate.pringleAmount[3]+1, 1/1.5))
-    },
-     */
     {
         color: '#73af80',
         colorDesc: 'Green',
@@ -63,20 +35,6 @@ let pringleData = [
         resLocation: [['baseless', 'alephNull']],
         cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[2]))
     },
-    /*
-    {
-        color: '#a8ad0b',
-        colorDesc: 'Green',
-        name: 'Limited Edition',
-        desc: "Boosts Cardinal Gain",
-        sign: 'x',
-        eff: () => D(data.obliterate.pringleAmount[20]*15).times(getEUPEffect(3, 3)).times(getEUPEffect(3, 5)),
-        baseValue: 1,
-        resNames: 'of all the Green Pringles',
-        resLocation: [['obliterate', 'pringleAmount', '0'], ['obliterate', 'pringleAmount', '1'], ['obliterate', 'pringleAmount', '2'], ['obliterate', 'pringleAmount', '3']],
-        cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[20]))
-    },
-     */
 
     {
         color: '#ae3510',
@@ -102,20 +60,6 @@ let pringleData = [
         resLocation: [['overflow', 'bp']],
         cost: () => D(1e20).times(Math.pow(32, data.obliterate.pringleAmount[4]))
     },
-    /*
-    {
-        color: '#b07a37',
-        colorDesc: 'Orange',
-        name: 'Popular',
-        desc: 'Boosts the Third ℵ<sub>0</sub> Rebuyable',
-        sign: '+',
-        eff: () => D((data.obliterate.pringleAmount[7]/100)*5).times(getEUPEffect(3, 0)),
-        baseValue: 0,
-        resNames: 'Booster Power',
-        resLocation: [['overflow', 'bp']],
-        cost: () => D(1e20).times(Math.pow(20, data.obliterate.pringleAmount[7]))
-    },
-     */
     {
         color: '#ae6610',
         colorDesc: 'Orange',
@@ -128,20 +72,6 @@ let pringleData = [
         resLocation: [['baseless', 'alephNull']],
         cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[5]))
     },
-    /*
-    {
-        color: '#77361c',
-        colorDesc: 'Orange',
-        name: 'Limited Edition',
-        desc: "Boosts Dynamic Cap",
-        sign: 'x',
-        eff: () => D(data.obliterate.pringleAmount[21]*100).times(getEUPEffect(3, 0)).times(getEUPEffect(3, 5)),
-        baseValue: 1,
-        resNames: 'of all the Orange Pringles',
-        resLocation: [['obliterate', 'pringleAmount', '5'], ['obliterate', 'pringleAmount', '6'], ['obliterate', 'pringleAmount', '7'], ['obliterate', 'pringleAmount', '8']],
-        cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[21]))
-    },
-     */
 
     {
         color: '#0091a2',
@@ -155,20 +85,6 @@ let pringleData = [
         resLocation: [['collapse', 'cardinals']],
         cost: () => D(1e30).pow(Math.sqrt(data.obliterate.pringleAmount[6]+1))
     },
-    /*{
-        color: '#0073bb',
-        colorDesc: 'Blue',
-        name: 'Popular',
-        desc: "Boosts the SGH Effect",
-        sign: 'x',
-        eff: () => D(data.obliterate.pringleAmount[17]+(data.obliterate.pringleAmount[17]/10)).times(getEUPEffect(3, 1)),
-        baseValue: 1,
-        resNames: 'Cardinals',
-        resLocation: [['collapse', 'cardinals']],
-        cost: () => D(1e20).pow(Math.sqrt(data.obliterate.pringleAmount[17]+1))
-    },
-
-     */
     {
         color: '#3e7eab',
         colorDesc: 'Blue',
@@ -181,20 +97,6 @@ let pringleData = [
         resLocation: [['collapse', 'cardinals']],
         cost: () => D(1e30).pow(Math.sqrt(data.obliterate.pringleAmount[7]+1))
     },
-    /*
-    {
-        color: '#2b3cab',
-        colorDesc: 'Blue',
-        name: 'Beloved',
-        desc: "Boosts SGH Gain",
-        sign: 'x',
-        eff: () => D(data.obliterate.pringleAmount[18]**2).times(getEUPEffect(3, 1)),
-        baseValue: 1,
-        resNames: 'Cardinals',
-        resLocation: [['collapse', 'cardinals']],
-        cost: () => D(1e40).pow(Math.sqrt(data.obliterate.pringleAmount[18]+1))
-    },
-     */
     {
         color: '#3d40fd',
         colorDesc: 'Blue',
@@ -207,20 +109,6 @@ let pringleData = [
         resLocation: [['baseless', 'alephNull']],
         cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[8]))
     },
-    /*
-    {
-        color: '#0ea87a',
-        colorDesc: 'Blue',
-        name: 'Limited Edition',
-        desc: "Boosts Incrementy Gain",
-        sign: 'x',
-        eff: () => D(data.obliterate.pringleAmount[23]*10).times(getEUPEffect(3, 1)).times(getEUPEffect(3, 5)),
-        baseValue: 1,
-        resNames: 'of all the Blue Pringles',
-        resLocation: [['obliterate', 'pringleAmount', '15'], ['obliterate', 'pringleAmount', '16'], ['obliterate', 'pringleAmount', '17'], ['obliterate', 'pringleAmount', '18']],
-        cost: () => Decimal.max(1, D(1).times(data.obliterate.pringleAmount[23]))
-    },
-     */
 
     {
         color: '#af1fad',
@@ -232,7 +120,7 @@ let pringleData = [
         baseValue: 1,
         resNames: 'ℵ<sub>&omega;</sub>',
         resLocation: [['omega', 'bestRemnants']],
-        cost: () => 2000+100*(data.obliterate.pringleAmount[9]+1)
+        cost: () => D(2000+100*(data.obliterate.pringleAmount[9]+1))
     },
 ]
 
@@ -240,43 +128,12 @@ function initPringleAlchemy(){
     let canvas = DOM('pringleCanvas')
     let context = canvas.getContext('2d')
 
-    /*
-    // Draw the Top Left Circle
-    context.moveTo(0, 0)
-    context.line
-    context.strokeStyle = `#5b5b5b`
-    context.beginPath();
-    context.arc(150, 145, 140, 0, 2 * Math.PI);
-    context.stroke();
-
-    // Draw the Bottom Left Circle
-    context.moveTo(0, 600)
-    context.line
-    context.beginPath();
-    context.arc(150, 455, 140, 0, 2 * Math.PI);
-    context.stroke();
-
-    // Draw the Top Right Circle
-    context.moveTo(1000, 0)
-    context.line
-    context.beginPath();
-    context.arc(850, 145, 140, 0, 2 * Math.PI);
-    context.stroke();
-
-    // Draw the Bottom Left Circle
-    context.moveTo(1000, 600)
-    context.line
-    context.beginPath();
-    context.arc(850, 455, 140, 0, 2 * Math.PI);
-    context.stroke();
-     */
-
     // Draw the Center Circle
     context.moveTo(500, 300)
     context.line
     context.strokeStyle = `#5b5b5b`
     context.beginPath();
-    context.arc(500, 300, 240, 0, 2 * Math.PI);
+    context.arc(500, 300, 200, 0, 2 * Math.PI);
     context.stroke();
 
     initPringles()
@@ -291,10 +148,11 @@ function initPringles(){
 }
 
 function updateCanBuyPringleHTML(){
-    for (let i = 0; i < pringleData.length-1; i++) {
-        if(canBuyPringle(pringleData[i])) DOM(`pringle${i}`).style.boxShadow = `0px 0px 15px ${pringleData[i].color}`
+    for (let i = 0; i < pringleData.length; i++) {
+        DOM(`pringle${i}`).style.boxShadow = canBuyPringle(pringleData[i])
+            ? `0px 0px 15px ${pringleData[i].color}` : ` 0 5px 15px rgba(0,0,0,0)`
     }
-    DOM(`pringle9`).style.boxShadow = canBuyPringle(pringleData[9]) ? `0px 0px 15px rgba(175, 31, 173, 1)` : ` 0 5px 15px rgba(255,0,0,0.4)`
+    //DOM(`pringle9`).style.boxShadow = canBuyPringle(pringleData[9]) ? `0px 0px 15px rgba(175, 31, 173, 1)` : ` 0 5px 15px rgba(0,0,0,0.4)`
 }
 
 function displayPringleButton(event, pringleData, i, type = 'pringleButton'){
@@ -304,9 +162,9 @@ function displayPringleButton(event, pringleData, i, type = 'pringleButton'){
     button.style.left = `${event.pageX}px`
     button.style.top = `${event.pageY}px`
 
-    button.style.color = pringleData.color
-    if(type === 'pringleButton') updatePringleButtonText(pringleData, i)
-    if(type === 'purityButton') updatePurityButtonText(pringleData, i)
+    button.style.color = pringleData != null ? pringleData.color : '#ffffff'
+    if(type === 'pringleButton') pringleData != null ? updatePringleButtonText(pringleData, i) : updatePurityText(i)
+    //if(type === 'purityButton') updatePurityText(i)
     if(type === 'instabButton') updateInstabButtonText(pringleData, i)
 }
 function updatePringleButtonText(pringleData, i){
@@ -350,7 +208,8 @@ function canBuyPringle(localPringleData){
 }
 
 function buyPringle(localPringleData, index){
-    if(!canBuyPringle(localPringleData)) return
+    if(!canBuyPringle(localPringleData)) return isPringleAssigned(index)
+        ? assignPringle(getPringleAssignment(index), 2, true) : assignPringle(index, 0)
 
     for (let i = 0; i < localPringleData.resLocation.length; i++) {
         let location = 'data'
@@ -361,6 +220,7 @@ function buyPringle(localPringleData, index){
     }
     ++data.obliterate.pringleAmount[index]
     updatePringleButtonText(localPringleData, index)
+    updateCanBuyPringleHTML()
 }
 
 let getPringleData = (i) => pringleData[i]
