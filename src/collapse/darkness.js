@@ -2,8 +2,6 @@ function updateDarknessHTML(){
     DOM('nchargeText1').innerText = `You have ${format(data.darkness.negativeCharge)} Negative Charge [+${format(negativeChargeGain())}/s]`
     DOM('nchargeText2').innerText = `Your Negative Charge divides Incrementy gain by /${format(negativeChargeEffect(false))} and Incrementy effect by /${format(negativeChargeEffect(true))}`
     updateAllDUPHTML()
-
-    if(data.obliterate.times > 0) DOM(`instabNegativeChargeText`).innerText = `You have ${format(data.darkness.negativeCharge)} Negative Charge [+${format(negativeChargeGain())}/s]`
 }
 
 function updateDarknessControlHTML(mode){

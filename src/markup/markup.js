@@ -42,15 +42,14 @@ function boostName(){
     return purificationData[data.omega.whichPurification].alt
 }
 
-let uncappedOPGain = () => D(data.ord.ordinal).times(getDestabilizedBUPEffect(11))
-    .pow(getDestabilizedBUPEffect(7))
+let uncappedOPGain = () => D(data.ord.ordinal)
 function markup(n=D(1)){
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal.eq(GRAHAMS_VALUE) && !hasSluggishMilestone(0)) return
     if(data.ord.ordinal.lt(data.ord.base**2) && !data.ord.isPsi) return
     if(data.ord.isPsi){
         data.ord.ordinal = data.ord.ordinal.plus(n);
         if (capOrdinalAtBO && data.ord.base===3 && data.ord.ordinal.gt(BO_VALUE)) data.ord.ordinal = D(BO_VALUE)
-        return data.markup.powers = data.boost.isDestab[1] ? uncappedOPGain() : D(4e256)
+        return data.markup.powers = false ? uncappedOPGain() : D(4e256)
     }
 
     if(data.chal.active[7]){

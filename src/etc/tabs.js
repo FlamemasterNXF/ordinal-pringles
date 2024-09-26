@@ -11,7 +11,6 @@ function switchTab(tab){
 let markupTab = "factor"
 let boostTab = "upgrades"
 let collapseTab = "cardinals"
-let darknessSubtab = "darkness"
 let obliterateTab = "pringles"
 let settingsTab = "gameSettings"
 
@@ -56,8 +55,8 @@ function switchSubtab(t, mode){
         }
 
         if(t==="overflow"){
-            DOM(`bp1Description`).innerText = data.boost.isDestab[11] ? `Multiplying OP gain by` : `Multiplying Passive OP gain by`
-            DOM(`bp1Description2`).style.display = data.boost.isDestab[11] ? `none` : ''
+            DOM(`bp1Description`).innerText = `Multiplying Passive OP gain by`
+            DOM(`bp1Description2`).style.display = ''
         }
         boostTab = t
     }
@@ -65,7 +64,7 @@ function switchSubtab(t, mode){
     // Special Collapse Rules
     if(mode === "collapse"){
         if(!isTabUnlocked(collapseTab)) switchTab('cardinals', 'collapse')
-        DOM(`collapseInfoContainer`).style.display = t==='purification' || t==='instability' ? 'none' : 'flex'
+        DOM(`collapseInfoContainer`).style.display = t==='purification' ? 'none' : 'flex'
 
         if(t==='cardinals'){
             DOM(`aleph8`).style.display = hasAOMilestone(1) ? `block` : `none`
@@ -73,17 +72,9 @@ function switchSubtab(t, mode){
         if(t==='cUpgrades' && data.obliterate.times > 0) checkAllUnlocks(0, true)
         if(t==='sluggish' && data.obliterate.times > 0) checkAllUnlocks(1, true)
         if(t==='darkness'){
-            darknessSubtab = 'darkness'
             updateDUPHTML(1)
             updateDUPHTML(2)
             DOM('dupC4').innerHTML = `Invert the third Booster Power effect<br><span style="font-size: 0.7rem">Currently: ${data.overflow.thirdEffect ? 'Dividing': 'Multiplying'}</span>`
-            DOM('instability').style.display = getEUPEffect(4, 0) ? 'block' : 'none'
-        }
-        if(t==='instability'){
-            darknessSubtab = 'instability'
-            updateInstabilityText()
-            DOM(`instabilityControl`).innerText = `${formatBool(!data.instability.enabled, 'EDT')} Instability`
-            updateAllMiscPringleColors('instab')
         }
         if(t==='sing'){
             if(!data.sing.tutorial){

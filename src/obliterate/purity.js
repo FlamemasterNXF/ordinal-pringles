@@ -47,7 +47,7 @@ function setupPurityPoint(i, point){
 
 function updateAllMiscPringleColors(mode){
     for (let i = 0; i < 10; i++) {
-        DOM(`${mode}Pringle${i}`).style.borderColor = isPringleAssigned(i) ? '#5b5b5b' : isPringleDarkened(i) ? '#232323' : getPringleData(i).color
+        DOM(`${mode}Pringle${i}`).style.borderColor = isPringleAssigned(i) ? '#5b5b5b' : getPringleData(i).color
     }
 }
 
@@ -69,7 +69,7 @@ function assignPringle(i, type, skipUpdate = false){
 
     if(type === 0) data.purity.pringleQueued = i
     if(type === 1){
-        if(isPringleAssigned(data.purity.pringleQueued) || isPringleDarkened(data.purity.pringleQueued)) return
+        if(isPringleAssigned(data.purity.pringleQueued)) return
         if(!isPurityPointUnlocked(i)) buyPurityPoint(i)
         if(data.purity.isAssigned[i] === true) assignPringle(i, 2)
 

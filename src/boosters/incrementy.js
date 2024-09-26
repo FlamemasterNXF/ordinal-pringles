@@ -22,7 +22,6 @@ function incrementyGain() {
     let base = Decimal.log10(ord.plus(1)).div(10)
     let iupMults = base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect())
     let otherMults = iupMults.times(getHierarchyEffect(0)).times(alephEffect(3)).times(getCUPEffect(4)).times(getBUPEffect(14))
-        .times(getDestabilizedBUPEffect(0))
     return otherMults.div(negativeChargeEffect(false))
 }
 
@@ -155,7 +154,6 @@ let getBottomRowChargeCost = () => 13+(12*data.boost.bottomRowCharges)
 
 function respecCharge(c=false){
     if(data.baseless.baseless) return
-    if(getTotalDestabilizedBUPs() > 0) return respecDestabilizedBUPs()
 
     for (let i = 0; i < data.boost.isCharged.length; i++) {
         data.boost.isCharged[i] = false

@@ -24,7 +24,7 @@ function getDefaultObject() {
         factors: Array(7).fill(0),
         dy: {level:D(1), gain:D(0)},
         autoLevels: Array(2).fill(0),
-        boost: {amt:0, total:0, times:0, bottomRowCharges:0, hasBUP:Array(15).fill(false), isCharged:Array(15).fill(false), isDestab:Array(15).fill(false), unlocks: Array(5).fill(false)},
+        boost: {amt:0, total:0, times:0, bottomRowCharges:0, hasBUP:Array(15).fill(false), isCharged:Array(15).fill(false), unlocks: Array(5).fill(false)},
         chal: {decrementy: D(1), html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
         incrementy: {amt:D(0), hasIUP:Array(12).fill(false), rebuyableAmt: Array(6).fill(0), charge:0, totalCharge:0},
         hierarchies: { ords:[ {ord:1, over:0, type:"f"}, {ord:1, over:0, type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(10).fill(false)},
@@ -36,7 +36,6 @@ function getDefaultObject() {
         omega:{bestRemnants: 0, alephOmega:1, bestFBInPurification: Array(4).fill(0), purificationIsActive: Array(4).fill(false), whichPurification: -1, aoRebuyables:Array(8).fill(0), tutorial: false},
         obliterate:{times:0, energy:0, passiveEnergy:0, energyUpgrades: [], pringleAmount: Array(10).fill(0), hasPassiveUpgrade: Array(passiveEnergyDescriptions.length).fill(false)},
         purity:{isAssigned: Array(10).fill(false), isUnlocked: Array(3).fill(false).concat(Array(3).fill(true)).concat(Array(6).fill(false)).concat(Array(2).fill(true)).concat(Array(3).fill(false)), assignment:Array(10).fill(false), pringleQueued: -1, tutorial: false},
-        instability:{total: 0, instability: 0, enabled: false, unstableDrains: 0, isDarkened: Array(10).fill(false), chargeSpent: 0,},
         imaginary:{shifts:0, factors:Array(7).fill(0)},
 
         autoStatus: {enabled: Array(9).fill(false)},
@@ -117,10 +116,9 @@ function fixOldSaves(){
         data.obliterate.pringleAmount = Array(10).fill(0)
         data.purity.isAssigned = Array(10).fill(0)
         data.purity.assignment = Array(10).fill(false)
-        if(data.instability.isDarkened.includes(true)){
-            respecDarkPringles()
-            data.instability.isDarkened = Array(10).fill(false)
-        }
+
+        delete data.instability
+        delete data.boost.isDestab
         data.loadedVersion = "0.4b7"
     }
 

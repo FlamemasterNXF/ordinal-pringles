@@ -33,7 +33,7 @@ function hasFactor(n, imaginary = false){
     return data.markup.shifts >= n+1 || data.baseless.shifts >= n+1
 }
 function factorEffect(n, imaginary = false) {
-    const mult = data.boost.isDestab[0] ? 4 : getBUPEffect(0)
+    const mult = getBUPEffect(0)
     let add = hasFactor(n, imaginary) ? getBUPEffect(12) : 0
 
     if(imaginary && data.imaginary.factors[n] < 1) return 1+add*mult
@@ -91,7 +91,7 @@ function getDyCap() {
         return D(40*(5**c5)*(5**data.chal.completions[4]))
     }
     return D(40).mul(iup5Effect()).mul(alephEffect(4)).mul(dupEffect(1)).mul(getSingFunctionEffect(4))
-        .mul(getPringleEffect(3)).mul(getDestabilizedBUPEffect(3))
+        .mul(getPringleEffect(3))
 }
 
 function dyGain(){

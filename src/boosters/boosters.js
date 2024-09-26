@@ -126,7 +126,6 @@ let bupData = [
     },
 ]
 
-
 let chargedBUPData = [
     {
         desc: "Each Factor's effect is Quadrupled",
@@ -207,120 +206,21 @@ let chargedBUPData = [
     },
 ]
 
-let destabilizedBUPData = [
-    {
-        desc: "Each Factor's effect is Quadrupled and applied to Incrementy gain",
-        eff: () => totalFactorEffect(),
-        baseEff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "You can gain OP past 4e256 at an extremely reduced rate and it is gained automatically",
-        eff: () => 1,
-        baseEff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "The Ordinal Base in the Forgotten Realm is reduced by your Instability<br>(Caps at -10)",
-        eff: () => data.instability.instability,
-        baseEff: () => 0,
-        bottomRow: false
-    },
-    {
-        desc: "Dynamic Gain and Cap are multiplied by your ℵ<sub>&omega;</sub>",
-        eff: () => 1,
-        baseEff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "???",
-        eff: () => 1,
-        baseEff: () => 1,
-        bottomRow: true
-    },
-
-    {
-        desc: "The AutoBuyers are boosted by OP",
-        eff: () => Decimal.pow(data.markup.powers, 1/16),
-        baseEff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "Boosters boost Tier 1 and 2 automation at an insanely high rate",
-        eff: () => Math.max((data.boost.total)*getAOREffect(6), 1),
-        baseEff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "Instability increases the OP gain exponent",
-        eff: () => 1+(data.instability.instability/100),
-        baseEff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "Boosters boost Factors",
-        eff: () => Math.log2(data.boost.amt),
-        baseEff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "???",
-        eff: () => 1,
-        bottomRow: true
-    },
-
-    {
-        desc: "The AutoBuyers are boosted by OP",
-        eff: () => Decimal.pow(data.markup.powers, 1/16),
-        baseEff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "The second Booster Power effect now boosts OP gain",
-        eff: () => getOverflowEffect(1),
-        baseEff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "Gain free level of each Factor equal to your Instability + 4",
-        eff: () => data.instability.instability+4,
-        baseEff: () => 0,
-        bottomRow: false
-    },
-    {
-        desc: "Boosters and Cardinals boost Dynamic Gain",
-        eff: () => Math.max(Math.log2(data.boost.amt)+Math.log2(data.collapse.cardinals), 1),
-        baseEff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "???",
-        eff: () => 1,
-        bottomRow: true
-    },
-]
-
 let getBUPCosts = (i) => bupData[i].cost
 function getBUPEffect(i) {
     // Special Case for BUPs 5 and 10
     if((i === 5) || (i === 10) ){
-        if(data.boost.isDestab[5] && data.boost.isDestab[10] && data.hierarchies.hasUpgrade[3]) return destabilizedBUPData[5].eff()**2
-        if(data.boost.isDestab[5] || data.boost.isDestab[10]) return destabilizedBUPData[5].eff()
-
-        if(data.boost.isCharged[5] && data.boost.isCharged[10] && data.hierarchies.hasUpgrade[3]) return bupData[5].eff()**2
-        if(data.boost.isCharged[5] || data.boost.isCharged[10]) return bupData[5].eff()
+        if(data.boost.isCharged[5] && data.boost.isCharged[10] && data.hierarchies.hasUpgrade[3]) return chargedBUPData[5].eff()**2
+        if(data.boost.isCharged[5] || data.boost.isCharged[10]) return chargedBUPData[5].eff()
     }
 
-    if(data.boost.isDestab[i]) return destabilizedBUPData[i].eff()
     if(data.boost.isCharged[i]) return chargedBUPData[i].eff()
     if(data.boost.hasBUP[i]) return bupData[i].eff()
     return bupData[i].baseEff()
 }
-let getDestabilizedBUPEffect = (i) => data.boost.isDestab[i] ? getBUPEffect(i) : destabilizedBUPData[i].baseEff()
 let getBaseBUPDesc = (i) => `${bupData[i].desc}<br>${getBUPCosts(i)} Boosters`
 function getBUPDesc(i, showNextLevel = false){
-    if(data.boost.isDestab[i]) return destabilizedBUPData[i].desc
-    if(data.boost.isCharged[i]) return showNextLevel ? destabilizedBUPData[i].desc : chargedBUPData[i].desc
+    if(data.boost.isCharged[i]) return chargedBUPData[i].desc
     if(data.boost.hasBUP[i]) return showNextLevel ? chargedBUPData[i].desc : getBaseBUPDesc(i)
     return getBaseBUPDesc(i)
 }
@@ -331,7 +231,7 @@ function initBUPs(){
     for (let i = 0; i < rows.length; i++) {
         for (let n = 0; n < 5; n++) {
             let bup = document.createElement('button')
-            bup.className = data.boost.isDestab[total] ? 'destabBUP' : data.boost.isCharged[total] ? 'chargedBUP' : 'bup'
+            bup.className = data.boost.isCharged[total] ? 'chargedBUP' : 'bup'
             bup.id = `bup${total}`
             bup.innerHTML = `${getBUPDesc(total)}`
 
@@ -344,7 +244,7 @@ function initBUPs(){
         DOM(`bup${i}`).addEventListener('click', ()=>buyBUP(i, bottomRow, true))
         DOM(`bup${i}`).addEventListener('mouseenter', ()=>showNextBUPLevelEffect(i, true))
         DOM(`bup${i}`).addEventListener('mouseleave', ()=>showNextBUPLevelEffect(i, false))
-        DOM(`bup${i}`).style.backgroundColor = data.boost.hasBUP[i] && !data.boost.isDestab[i] ?'#002480':'black'
+        DOM(`bup${i}`).style.backgroundColor = data.boost.hasBUP[i] ? '#002480' : 'black'
     }
     for (let i = 0; i < data.boost.unlocks.length; i++) {
         DOM(`bu${i}`).style.backgroundColor = data.boost.unlocks[i]?'#002480':'black'
@@ -406,7 +306,7 @@ function updateAllBUPHTML(){
 function showNextBUPLevelEffect(i, showNextLevel) {
     if(data.incrementy.totalCharge === 0 && data.darkness.sacrificedCharge === 0) return
     if(!getEUPEffect(4, 0) && data.boost.isCharged[i]) return
-    DOM(`bup${i}`).style.color = data.boost.isDestab[i] || (data.boost.isCharged[i] && showNextLevel) ? 'rgba(228,105,255,0.88)' : showNextLevel || data.boost.isCharged[i] && data.boost.unlocks[1] ? 'goldenrod' : '#8080FF'
+    DOM(`bup${i}`).style.color = showNextLevel || data.boost.isCharged[i] && data.boost.unlocks[1] ? 'goldenrod' : '#8080FF'
     DOM(`bup${i}`).innerHTML = `${getBUPDesc(i, showNextLevel)}`
 }
 
@@ -492,7 +392,7 @@ function getBulkBoostAmt(){
 //End credit
 function buyBUP(n, bottomRow, useCharge, isAuto = false){
     updateHierarchyPurchaseHTML()
-    if(data.boost.isCharged[n] && !bottomRow && !isAuto) return destabBUP(n)
+    //if(data.boost.isCharged[n] && !bottomRow && !isAuto) return destabBUP(n)
     if(data.boost.hasBUP[n]) return useCharge ? chargeBUP(n, bottomRow) : null
 
     /*
@@ -516,7 +416,6 @@ function buyBUP(n, bottomRow, useCharge, isAuto = false){
 
 function boosterRefund(c=false){
     if(data.baseless.baseless) return
-    if(getTotalDestabilizedBUPs() > 0) return respecDestabilizedBUPs()
     respecCharge(c)
     updateHierarchyPurchaseHTML()
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
@@ -573,13 +472,6 @@ function getTotalSupercharges(){
     let total = 0
     for (let i = 0; i < data.boost.isCharged.length; i++) {
         if (data.boost.isCharged[i]) ++total
-    }
-    return total
-}
-function getTotalDestabilizedBUPs(){
-    let total = 0
-    for (let i = 0; i < data.boost.isDestab.length; i++) {
-        if (data.boost.isDestab[i]) ++total
     }
     return total
 }
