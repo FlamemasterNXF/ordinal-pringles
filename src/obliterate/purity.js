@@ -95,8 +95,7 @@ function buyPurityPoint(i){
     if(data.obliterate.energy < 1 || data.purity.isUnlocked[i]) return
 
     data.purity.isUnlocked[i] = true
-    --data.obliterate.energy
-    ++data.obliterate.passiveEnergy
+    spendFractalEnergy()
 
     DOM(`purityPoint${i}`).style.borderColor = '#949494'
     updatePassiveEnergyText(i)

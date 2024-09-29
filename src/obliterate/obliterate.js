@@ -96,3 +96,8 @@ function obliterateReset(){
     updateAllPurificationHTML()
     updateInstabilityText()
 }
+
+function spendFractalEnergy(n = 1){
+    data.obliterate.energy -= n
+    data.obliterate.passiveEnergy += n
+}
