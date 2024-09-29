@@ -1,21 +1,3 @@
-function checkAutobuyerDisplay(){
-    //TODO: I REALLY need to optimize this garbage :(
-    DOM('t2AutoText2').style.display = hasSluggishMilestone(2) ? 'block' : 'none'
-    DOM('t2AutoText3').style.display = hasSluggishMilestone(2) ? 'block' : 'none'
-    DOM('t2AutoText4').style.display = hasSluggishMilestone(3) ? 'block' : 'none'
-    DOM('t2AutoText5').style.display = data.sing.hasEverHadFunction[1] ? 'block' : 'none'
-    DOM('t2AutoText6').style.display = data.sing.hasEverHadFunction[3] ? 'block' : 'none'
-    DOM('t2AutoText7').style.display = hasPassiveUpgrade(21) ? 'block' : 'none'
-    DOM('t2AutoText8').style.display = hasPassiveUpgrade(22) ? 'block' : 'none'
-    DOM('auto4').style.display = hasSluggishMilestone(2) ? 'block' : 'none'
-    DOM('auto5').style.display = hasSluggishMilestone(2) ? 'block' : 'none'
-    DOM('auto6').style.display = hasSluggishMilestone(3) ? 'block' : 'none'
-    DOM('auto7').style.display = data.sing.hasEverHadFunction[0] ? 'block' : 'none'
-    DOM('auto8').style.display = data.sing.hasEverHadFunction[3] ? 'block' : 'none'
-    DOM('auto9').style.display = hasPassiveUpgrade(21) ? 'block' : 'none'
-    DOM('auto10').style.display = hasPassiveUpgrade(22) ? 'block' : 'none'
-}
-
 let bupData = [
     {
         desc: "Each Factor's effect is doubled",
@@ -260,22 +242,14 @@ function checkSpecialBUPs(){
     DOM(`bu4`).style.display = hasSluggishMilestone(3) ? `block` : `none`
 }
 
-const autoNames = ['Max All', 'Markup', 'Sacrifice for Charge', 'RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge', 'ℵ<sub>0</sub> Upgrade', 'ℵ<sub>&omega;</sub> Upgrades']
-const autoDisplayNames = ['Max All', 'Markup', 'Charge', 'RUP', 'Hierarchy Buyable', 'Booster Upgrade', 'Supercharge', 'ℵ<sub>0</sub> Upgrades', 'ℵ<sub>&omega;</sub> Upgrades']
-const autoRequirements = [', but only if you can\'t Factor Shift', ', but only if you\'re past Ψ(Ω)', '', ', but only if you can\'t afford a Charge', '', '', ', but only if you already have the required Booster Upgrade', '', '']
-const autoUps = [5, 10]
 function updateBoostersHTML(){
     DOM('boosterText').innerHTML = data.boost.unlocks[1] > 0 ?
         `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
         : `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total)`
     DOM('boosterTimesText').innerHTML = `You have <span style="color: #8080FF">Boosted</span> ${data.boost.times} times`
-    for (let i = 0; i < data.autoStatus.enabled.length; i++) {
-        DOM(`t2AutoText${i}`).innerHTML = `Your <span style="color: #80ceff">${autoDisplayNames[i]} AutoBuyer</span> is clicking the ${autoNames[i]} button${i > 2 ? 's' : ''} <span style="color: #8080FF">${i < 2 ? format(t2Auto()) : 20} times/second</span>${autoRequirements[i]}`
-        DOM(`auto${i+2}`).innerHTML = data.boost.hasBUP[autoUps[i]] || i > 1 ?`${autoDisplayNames[i]} AutoBuyer: ${formatBool(data.autoStatus.enabled[i], 'EDL')}`:`${autoDisplayNames[i]} AutoBuyer: LOCKED`
-
-    }
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
 
+    if(boostTab === 'auto2') updateAllAutomationHTML()
     if(boostTab === 'chal') updateAllChalHTML()
     if(boostTab === 'incrementy') updateIncrementyHTML()
     if(boostTab === 'hierarchies') updateHierarchiesHTML()
@@ -454,11 +428,6 @@ function hierarchiesTabUnlocked(){
 
 function overflowTabUnlocked(){
     return data.boost.total>=465 || data.boost.unlocks[4];
-}
-
-function toggleAuto(i){
-    if(!data.boost.hasBUP[autoUps[i]] && i < 2) return
-    data.autoStatus.enabled[i] = !data.autoStatus.enabled[i]
 }
 
 function getTotalBUPs(){

@@ -36,7 +36,6 @@ function switchSubtab(t, mode){
         DOM(`${t}SubPage`).style.display = `flex`
 
         if(t==="upgrades") checkSpecialBUPs()
-        if(t==="auto2") checkAutobuyerDisplay()
         if(t==="hierarchies") checkSpecialHUPs()
 
         if(t==="overflow"){

@@ -13,6 +13,12 @@
     font-family: DosisLight;
     text-align: center;
 }
+.column {
+    flex-direction: column;
+}
+.row {
+    flex-direction: row;
+}
 .layer{
     position: absolute;
 }
@@ -84,7 +90,11 @@
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }
-.automation2{
+.automationText{
+    color: white;
+    font-family: DosisLight;
+}
+.automation0{
     margin-top: 1rem;
     width: 10rem;
     min-height: 2rem;
@@ -93,7 +103,16 @@
     background: black;
     margin-left: 0.5rem;
 }
-.automation3{
+.automation1{
+    margin-top: 1rem;
+    width: 10rem;
+    min-height: 2rem;
+    border: 2px solid #0000ff;
+    color: #8080FF;
+    background: black;
+    margin-left: 0.5rem;
+}
+.automation2{
     margin-top: 1rem;
     width: 13rem;
     min-height: 2rem;

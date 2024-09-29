@@ -43,6 +43,7 @@ const uHTML = {
         //Initialize all Tabs
         initAchs()
         initBUPs()
+        initAutomation()
         initChals()
         initIUPs()
         initHierarchies()

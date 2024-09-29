@@ -29,8 +29,8 @@ function tick(diff){
         ? D(diff).mul(D(data.autoLevels[i]).add(extraT1())).mul(t1Auto()).mul(data.dy.level).div(data.chal.decrementy)
         : D(diff).mul(D(data.autoLevels[i]).add(extraT1())).mul(t1Auto()).div(data.dy.level).div(data.chal.decrementy))
 
-    timesToLoop[2] = data.boost.hasBUP[autoUps[0]] ? D(1) : D(0)
-    timesToLoop[3] = data.boost.hasBUP[autoUps[1]] ? t2Auto() : D(0)
+    timesToLoop[2] = isAutomationUnlocked(0, 0) ? D(1) : D(0)
+    timesToLoop[3] = isAutomationUnlocked(0, 1) ? t2Auto() : D(0)
 
     if(Decimal.floor(D(timesToLoop[0]).div(1000)).gte(1)) {
         successor()

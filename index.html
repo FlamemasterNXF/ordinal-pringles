@@ -55,6 +55,7 @@
     <script defer src="src/boosters/overflow.js"></script>
     <script defer src="src/boosters/hierarchies.js"></script>
     <script defer src="src/boosters/incrementy.js"></script>
+    <script defer src="src/boosters/automation.js"></script>
     <script defer src="src/boosters/challenges.js"></script>
 
     <script defer src="src/markup/factors.js"></script>
@@ -160,8 +161,8 @@
         <div class="flexBox" id="autoSubPage" style="margin-top:0.8rem; flex-direction: column; display: none">
             <p class="centeredTexts" id="factorText" style="color: orange">Factorial Cog</p>
             <div class="flexBox">
-                <button class="automation" id="auto0" onclick="buyAuto(0)">Succc Auto</button>
-                <button class="automation" id="auto1" onclick="buyAuto(1)">not Succc Auto</button>
+                <button class="automation" id="autoclicker0" onclick="buyAuto(0)">Succc Auto</button>
+                <button class="automation" id="autoclicker1" onclick="buyAuto(1)">not Succc Auto</button>
             </div>
             <button class="automation" id="autoBuyMax" onclick="buyMaxAuto()" style="margin-top: 0.5rem; width: 11rem">BuyMax AutoClickers [F]</button>
             <p class="centeredTexts" id="autoText" style="color: orangered"></p>
@@ -210,33 +211,7 @@
             <p class="centeredTexts" id="bupBottomText" style="color: #565656"></p>
         </div>
         <div class="flexBox" id="auto2SubPage" style="display: none; flex-direction: column">
-            <div class="centeredTexts" id="factorText2" style="color: orange; margin-top: 1rem; margin-bottom: 0.5rem">Factorial! Cog</div>
-            <div class="centeredTexts" id="t2AutoText0">Your Max All AutoBuyer is clicking the Max All button 0 times/second, but only if you can't Factor Shift</div>
-            <div class="centeredTexts" id="t2AutoText1">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
-            <div class="flexBox" style="flex-direction: row;">
-                <button class="automation2" id="auto2" onclick="toggleAuto(0)">mall Auto</button>
-                <button class="automation2" id="auto3" onclick="toggleAuto(1)">yes mall Auto</button>
-            </div>
-            <br>
-            <div class="centeredTexts" id="t2AutoText2" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
-            <div class="centeredTexts" id="t2AutoText3" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
-            <div class="centeredTexts" id="t2AutoText4" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
-            <div class="centeredTexts" id="t2AutoText5" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
-            <div class="centeredTexts" id="t2AutoText6" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
-            <div class="centeredTexts" id="t2AutoText7" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
-            <div class="centeredTexts" id="t2AutoText8" style="display:none">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
-            <div class="flexBox" style="flex-direction: column">
-                <div class="flexBox" style="flex-direction: row;">
-                    <button class="automation2" id="auto4" onclick="toggleAuto(2)" style="display:none">fish Auto</button>
-                    <button class="automation2" id="auto5" onclick="toggleAuto(3)" style="display:none">salmon'nt Auto</button>
-                    <button class="automation2" id="auto6" onclick="toggleAuto(4)" style="display:none">salmon't Auto</button>
-                    <button class="automation2" id="auto7" onclick="toggleAuto(5)" style="display:none">salmon't Auto</button>
-                    <button class="automation2" id="auto8" onclick="toggleAuto(6)" style="display:none">salmon't Auto</button>
-
-                    <button class="automation2" id="auto9" onclick="toggleAuto(7)" style="display:none">salmon't Auto</button>
-                    <button class="automation2" id="auto10" onclick="toggleAuto(8)" style="display:none">salmon't Auto</button>
-                </div>
-            </div>
+            <div class="centeredTexts" id="factorText2" style="color: orange; margin-top: 1rem;">Factorial! Cog</div>
         </div>
         <div class="flexBox" id="chalSubPage" style="display: none; flex-direction: column;">
             <button class="boostTopButton" id="chalExit" onclick="chalExitConfirm()">Escape the Challenge Early</button>

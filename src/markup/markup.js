@@ -9,8 +9,8 @@ function updateMarkupHTML(){
 
     DOM("factorShiftButton").innerHTML = data.ord.base===3?data.boost.times>0||hasSluggishMilestone(0)?`Perform a Factor Shift<br>Requires: ?????`:`Perform a Factor Shift<br>Requires: Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))`:
         `Perform a Factor Shift (H)<br>Requires: ${format(getFSReq())} Ordinal Powers`
-    DOM("auto0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
-    DOM("auto1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
+    DOM("autoclicker0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
+    DOM("autoclicker1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
     let succSpeed = !data.chal.active[4]
         ? D(data.autoLevels[0]).add(extraT1()).mul(t1Auto()).mul(data.dy.level).div(data.chal.decrementy)
         : D(data.autoLevels[0]).add(extraT1()).mul(t1Auto()).div(data.dy.level).div(data.chal.decrementy)
