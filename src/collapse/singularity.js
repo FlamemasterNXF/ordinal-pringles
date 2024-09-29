@@ -91,10 +91,10 @@ let maxSingLevel = (i) => data.sing.level[i] > 499 ? 500 : Math.min(500, data.in
 
 function changeSingLevel(i, single = false){
     if(inPurification(3)) return
-    DOM(`singSlider${i}`).max = Math.max(1, maxSingLevel(i))
+    DOM(`singSlider${i}`).max = Math.max(1, maxSingLevel(i)+data.sing.level[0]) //TODO: Allow for multiple Singularities here.
 
-    const change = single ? data.sing.level[i] + 1 : parseInt(DOM(`singSlider${i}`).value)
-    const cost = change-data.sing.level[i]
+    let change = single ? data.sing.level[i] + 1 : parseInt(DOM(`singSlider${i}`).value)
+    let cost = change-data.sing.level[i]
     if(single && data.incrementy.charge === 0) return createAlert('Failure', 'Insufficient Charge!', 'Oops')
     if(!single && data.incrementy.charge - cost < 0) return createAlert('Failure', 'Insufficient Charge!', 'Oops')
 

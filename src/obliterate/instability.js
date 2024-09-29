@@ -23,7 +23,7 @@ let instabilityConstantData = [
         desc: "Reducing the Base in the Forgotten Realm by",
         sign: "-",
         baseEff: () => 0,
-        eff: () => Math.max(10, getInstabilityConstant()),
+        eff: () => Math.min(10, getInstabilityConstant()),
         unl: () => true
     },
     {

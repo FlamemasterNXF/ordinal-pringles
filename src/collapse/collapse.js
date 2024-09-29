@@ -1,5 +1,5 @@
 function updateCollapseHTML(){
-    DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals<br><span style="font-size: 0.8rem; color: #565656">Your best Collapse yieleded <span style="color: #20da45">${format(data.collapse.bestCardinalsGained)}</span> Cardinals</span>`
+    DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals<br><span style="font-size: 0.8rem; color: #565656">Your best Collapse yielded <span style="color: #20da45">${format(data.collapse.bestCardinalsGained)}</span> Cardinals</span>`
     DOM(`collapseButton`).innerText = `Collapse for ${format(cardinalGain())} Cardinals (C)`
 
     for (let i = 0; i < data.collapse.hasCUP.length-1; i++) {
@@ -178,8 +178,7 @@ function checkCollapseUnlockHTML(){
 
 let cardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34)
     * Math.log2((data.boost.times-34)+2))*Math.sqrt(data.boost.times-34))+3)*alephTotalEffect()*iup12Effect()
-        *getAOMEffect(4)*getPringleEffect(2, true))*getUnstableFactorEffect(2)
-    **singEffects[0].effect()
+        *getAOMEffect(4)*getPringleEffect(2, true)*getUnstableFactorEffect(2))**singEffects[0].effect()
 let alephEffect = (i) => data.collapse.alephs[i] > 0 && (!inPurification(1) || i === 0) && alephData[i].unl()
     ? alephData[i].effect()*(i !== 8 ? getCUPEffect(6) : 1)
     : 1
