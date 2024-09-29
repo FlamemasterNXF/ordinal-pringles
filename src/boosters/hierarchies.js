@@ -85,19 +85,18 @@ let effectiveFGH = () => calcOrdPoints(data.hierarchies.ords[0].ord, hierarchyDa
 let effectiveSGH = () => calcOrdPoints(data.hierarchies.ords[1].ord, hierarchyData[1].base(), data.hierarchies.ords[1].over);
 let hierarchyData = [
     { text:"Multiplying Incrementy Gain by", effect: ()=> Decimal.max((Decimal.log10(effectiveFGH().add(1)).times(hbData[1].effect())).times(getPringleEffect(6)).pow(dupEffect(2)), 1),
-        gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults()*getPringleEffect(7, true), base: ()=> 10 - getBUPEffect(4) },
+        gain: ()=> hierarchyGainBases[0]().times(hierarchyGainGlobalMults()).times(getPringleEffect(7)), base: ()=> 10 - getBUPEffect(4) },
     { text:"Dividing Charge Requirement by", effect: ()=> Decimal.max((Decimal.log10(effectiveSGH().add(1)).times(hbData[4].effect()).times(alephEffect(5))).times(getPringleEffect(6)).pow((dupEffect(2))+getBUPEffect(9)), 1),
-        gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults()*getPringleEffect(7, true), base: ()=> 10 - getBUPEffect(4) }
+        gain: ()=> hierarchyGainBases[1]().times(hierarchyGainGlobalMults()).times(getPringleEffect(7)), base: ()=> 10 - getBUPEffect(4) }
 ]
 let hierarchyGainBases = [
-    () => Decimal.min(Decimal.max(Decimal.floor(Decimal.pow(data.incrementy.amt, 1/3)), 1), Number.MAX_VALUE).toNumber(),
-    () => Decimal.min(Decimal.max(Decimal.floor(Decimal.pow(t2Auto().plus(1), 1/4)), 1), Number.MAX_VALUE).toNumber()
+    () => Decimal.max(Decimal.floor(Decimal.pow(data.incrementy.amt, 1/3))),
+    () => Decimal.max(Decimal.floor(Decimal.pow(t2Auto().plus(1), 1/4)))
 ]
 let hierarchyGainGlobalMults = () =>
     hupData[2].effect()*hupData[7].effect()*hbData[0].effect()*hbData[5].effect()*getOverflowEffect(3)
     *purificationEffect(2)*getANREffect(3)
-let hierarchyCap = () => Infinity
-let getHierarchyEffect = (i) => Decimal.min(hierarchyData[i].effect(), hierarchyCap())
+let getHierarchyEffect = (i) => hierarchyData[i].effect()
 
 let hbData = [
     {
@@ -113,7 +112,7 @@ let hbData = [
     {
         text:"Boost Incrementy Upgrade 3\'s effect based on FGH",
         cost: ()=> getHBBuyableCost(2),
-        effect: ()=> Math.max(1, Math.pow(data.hierarchies.ords[0].ord+1, 1/16)*data.hierarchies.rebuyableAmt[2]) },
+        effect: ()=> Decimal.max(1, Decimal.pow(data.hierarchies.ords[0].ord.plus(1), 1/16).times(data.hierarchies.rebuyableAmt[2])) },
     {
         text:"Boost FGH and SGH gain based on Total Boosters",
         cost: ()=> getHBBuyableCost(3),
@@ -125,7 +124,7 @@ let hbData = [
     {
         text:"Boost Incrementy Upgrade 3\'s effect based on SGH",
         cost: ()=> getHBBuyableCost(5),
-        effect: ()=> Math.max(1, Math.pow(data.hierarchies.ords[1].ord+1, 1/16)*data.hierarchies.rebuyableAmt[5]) }
+        effect: ()=> Decimal.max(1, Decimal.pow(data.hierarchies.ords[1].ord.plus(1), 1/16).times(data.hierarchies.rebuyableAmt[5])) }
 ]
 let hupData = [
     // Effcects of 1 mean that it is a true/false effect.
@@ -138,28 +137,29 @@ let hupData = [
     { text:"Incrementy Upgrade 2 is Improved", cost: 1e20, effect: ()=> 1 },
     { text:"Booster Upgrade 2x4 boosts Hierarchy Successors", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[7] ? getBUPEffect(8)**3 : 1 },
     { text:"Each Drain boosts the effects of the first Hierarchy Upgrade of each column", cost: 1e40, effect: ()=> data.hierarchies.hasUpgrade[8] ?  Math.max(1, Math.sqrt(data.darkness.totalDrains)) : 1 },
-    { text:"The final Hierarchy Buyable of each column's effect adds to the ℵ<sub>5</sub> and ℵ<sub>8</sub> effects", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[9] ? hbData[2].effect()+hbData[5].effect() : 1 },
+    { text:"The final Hierarchy Buyable of each column's effect adds to the ℵ<sub>5</sub> and ℵ<sub>8</sub> effects", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[9] ? (hbData[2].effect().plus(hbData[5].effect())).toNumber() : 1 },
 ]
 
 function increaseHierarchies(diff){
     for (let i = 0; i < data.hierarchies.ords.length; i++) {
-        let n = hierarchyData[i].gain()*diff/1000
+        let n = hierarchyData[i].gain().times(diff/1000)
         // Successor
-        if (data.hierarchies.ords[i].ord % hierarchyData[i].base() === hierarchyData[i].base() - 1 && data.hierarchies.ords[i].ord < Number.MAX_SAFE_INTEGER) data.hierarchies.ords[i].over+=n
-        else data.hierarchies.ords[i].ord+=n
+        if (data.hierarchies.ords[i].ord.mod(hierarchyData[i].base()).eq(hierarchyData[i].base() - 1) && data.hierarchies.ords[i].ord.lt(Number.MAX_SAFE_INTEGER)) data.hierarchies.ords[i].over = data.hierarchies.ords[i].over.plus(n)
+        else data.hierarchies.ords[i].ord = data.hierarchies.ords[i].ord.plus(n)
 
         //Maximize
-        if (data.hierarchies.ords[i].ord % hierarchyData[i].base() === hierarchyData[i].base() - 1 && data.hierarchies.ords[i].over >= 1) {
-            while(data.hierarchies.ords[i].over + hierarchyData[i].base() >= hierarchyData[i].base() * 2 && data.hierarchies.ords[i].ord % hierarchyData[i].base() ** 2 !== 0){
-                data.hierarchies.ords[i].over -= Math.ceil((data.hierarchies.ords[i].over + hierarchyData[i].base()) / 2 - 0.1)
-                data.hierarchies.ords[i].ord += hierarchyData[i].base()
+        if (data.hierarchies.ords[i].ord.mod(hierarchyData[i].base()).eq(hierarchyData[i].base() - 1) && data.hierarchies.ords[i].over.gte(1)) {
+            while(data.hierarchies.ords[i].over.plus(hierarchyData[i].base()).gte(hierarchyData[i].base() * 2) && data.hierarchies.ords[i].ord.mod(hierarchyData[i].base() ** 2).neq(0)){
+                data.hierarchies.ords[i].over = data.hierarchies.ords[i].over - Decimal.ceil((data.hierarchies.ords[i].over.plus(hierarchyData[i].base())).div(2).sub(0.1))
+                data.hierarchies.ords[i].ord = data.hierarchies.ords[i].ord.plus(hierarchyData[i].base())
             }
 
-            if (data.hierarchies.ords[i].ord % hierarchyData[i].base() ** 2 !== 0) data.hierarchies.ords[i].ord += data.hierarchies.ords[i].over
-            data.hierarchies.ords[i].over = 0
+            if (data.hierarchies.ords[i].ord.mod(hierarchyData[i].base() ** 2).neq(0))
+                data.hierarchies.ords[i].ord = data.hierarchies.ords[i].ord.plus(data.hierarchies.ords[i].over)
+            data.hierarchies.ords[i].over = D(0)
         }
 
-        if (data.hierarchies.ords[i].ord === Infinity) data.hierarchies.ords[i].ord = Number.MAX_VALUE
+        if (data.hierarchies.ords[i].ord.eq(Infinity)) data.hierarchies.ords[i].ord = D(Number.MAX_VALUE)
     }
 }
 
@@ -179,13 +179,13 @@ function buyHBuyable(i){
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
     }
-    if(data.hierarchies.ords[0].ord > OPtoOrd(cost, hierarchyData[0].base()) && i < 2){
-        data.hierarchies.ords[0].ord -= OPtoOrd(cost, hierarchyData[0].base())
+    if(data.hierarchies.ords[0].ord.gt(OPtoOrd(cost, hierarchyData[0].base())) && i < 2){
+        data.hierarchies.ords[0].ord = data.hierarchies.ords[0].ord.sub(OPtoOrd(cost, hierarchyData[0].base()))
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
     }
-    if(data.hierarchies.ords[1].ord > OPtoOrd(cost, hierarchyData[1].base()) && i > 2 && i < 5){
-        data.hierarchies.ords[1].ord -= OPtoOrd(cost, hierarchyData[1].base())
+    if(data.hierarchies.ords[1].ord.gt(OPtoOrd(cost, hierarchyData[1].base())) && i > 2 && i < 5){
+        data.hierarchies.ords[1].ord = data.hierarchies.ords[1].ord.sub(OPtoOrd(cost, hierarchyData[1].base()))
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
     }
@@ -204,13 +204,13 @@ function unlockHierarchyMilestones(i){
     if(data.hierarchies.hasUpgrade[i]) return
     const cost = hupData[i].cost
 
-    if(data.hierarchies.ords[0].ord >= OPtoOrd(cost, hierarchyData[0].base()) && i <= 4){
-        data.hierarchies.ords[0].ord -= OPtoOrd(cost, hierarchyData[0].base())
+    if(data.hierarchies.ords[0].ord.gte(OPtoOrd(cost, hierarchyData[0].base())) && i <= 4){
+        //data.hierarchies.ords[0].ord -= OPtoOrd(cost, hierarchyData[0].base())
         data.hierarchies.hasUpgrade[i] = true
         updateHUPHTML(i)
     }
-    else if(data.hierarchies.ords[1].ord >= OPtoOrd(cost, hierarchyData[1].base()) && i > 4){
-        data.hierarchies.ords[1].ord -= OPtoOrd(cost, hierarchyData[1].base())
+    else if(data.hierarchies.ords[1].ord.gte(OPtoOrd(cost, hierarchyData[1].base())) && i > 4){
+        //data.hierarchies.ords[1].ord -= OPtoOrd(cost, hierarchyData[1].base())
         data.hierarchies.hasUpgrade[i] = true
         updateHUPHTML(i)
     }

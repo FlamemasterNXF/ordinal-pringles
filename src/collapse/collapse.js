@@ -308,10 +308,10 @@ function collapseReset(){
         }
     }
 
-    data.hierarchies.ords[0].ord = 1
-    data.hierarchies.ords[0].over = 0
-    data.hierarchies.ords[1].ord = 1
-    data.hierarchies.ords[1].over = 0
+    for (let i = 0; i < data.hierarchies.ords.length; i++) {
+        data.hierarchies.ords[i].ord = D(1)
+        data.hierarchies.ords[i].over = D(0)
+    }
     data.hierarchies.rebuyableAmt = Array(6).fill(0)
     data.hierarchies.hasUpgrade = Array(10).fill(false)
     updateHierarchiesHTML()

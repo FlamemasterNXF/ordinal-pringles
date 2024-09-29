@@ -10,7 +10,7 @@ let t2AutoPure = () => D(1).times(chalEffectTotal()).times(getBUPEffect(6)).time
     .times(getEUPEffect(0, 0)).times(getInstabilityConstantEffect(2))
 
 let t2Auto = () => inPurification(2)
-    ? D(hierarchyData[0].gain()*data.incrementy.totalCharge).times(getEUPEffect(2, 4))
+    ? hierarchyData[0].gain().times(data.incrementy.totalCharge).times(getEUPEffect(2, 4))
     :  t2AutoPure().div(purificationData[1].special()).pow(singEffects[2].effect())
 
 
