@@ -120,7 +120,7 @@ function factorShift(isAuto = false){
     const req = getFSReq()
 
     if(data.markup.powers.lt(req)) return //createAlert("Failure", "Insufficient Ordinal Powers", "Dang.")
-    if(!data.chal.active[3] && !(data.boost.hasBUP[2] && checkAllIndexes(data.chal.active, true))) --data.ord.base
+    if(!data.chal.active[3] && !(data.boost.hasBUP[2] && checkAllIndexes(data.chal.active, true) && !data.darkness.darkened)) --data.ord.base
     if(data.markup.shifts < 7) ++data.markup.shifts
 
     if(data.markup.shifts === 7 && !data.chal.active[4]){
