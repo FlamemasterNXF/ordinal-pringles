@@ -150,7 +150,7 @@ function increaseHierarchies(diff){
         //Maximize
         if (data.hierarchies.ords[i].ord.mod(hierarchyData[i].base()).eq(hierarchyData[i].base() - 1) && data.hierarchies.ords[i].over.gte(1)) {
             while(data.hierarchies.ords[i].over.plus(hierarchyData[i].base()).gte(hierarchyData[i].base() * 2) && data.hierarchies.ords[i].ord.mod(hierarchyData[i].base() ** 2).neq(0)){
-                data.hierarchies.ords[i].over = data.hierarchies.ords[i].over - Decimal.ceil((data.hierarchies.ords[i].over.plus(hierarchyData[i].base())).div(2).sub(0.1))
+                data.hierarchies.ords[i].over = data.hierarchies.ords[i].over.sub(Decimal.ceil((data.hierarchies.ords[i].over.plus(hierarchyData[i].base())).div(2).sub(0.1)))
                 data.hierarchies.ords[i].ord = data.hierarchies.ords[i].ord.plus(hierarchyData[i].base())
             }
 
