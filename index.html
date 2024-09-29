@@ -179,7 +179,7 @@
     <div class="flexBox" id="boostPage" style="flex-direction: column">
         <div class="flexBox" style="margin-top: 1rem">
             <button class="tabButton" id="upgradeTab" onclick="switchSubtab('upgrades', 'boosters')" style="color: #8080FF; border-color: #0000ff">Upgrades</button>
-            <button class="tabButton" id="auto2Tab" onclick="switchSubtab('auto2', 'boosters')" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">AutoBuyers</button>
+            <button class="tabButton" id="auto2Tab" onclick="switchSubtab('auto2', 'boosters')" style="color: #8080FF; border-color: #0000ff; width: 5.5rem">Automation</button>
             <button class="tabButton" id="chalTab" style="color: #8080FF; border-color: #0000ff;" onclick="if(chalTabUnlocked()) {switchSubtab('chal', 'boosters');}">Challenges</button>
             <button class="tabButton" id="incrementyTab" style="color: #8080FF; border-color: #0000ff;" onclick="if(incrementyTabUnlocked()) {switchSubtab('incrementy', 'boosters');}">Incrementy</button>
             <button class="tabButton" id="hierarchiesTab" style="color: #8080FF; border-color: #0000ff;" onclick="if(hierarchiesTabUnlocked()) {switchSubtab('hierarchies', 'boosters');}">Hierarchies</button>
@@ -306,7 +306,6 @@
             <button class="collapseTabButton" id="cupsTab" onclick="switchSubtab('cUpgrades', 'collapse')">Cardinal Upgrades</button>
             <button class="collapseTabButton" id="smTab" onclick="switchSubtab('sluggish', 'collapse')">Sluggishness</button>
             <button class="collapseTabButton" id="darkTab" onclick="switchSubtab('darkness', 'collapse')" style="border-color: rgba(128,0,255,0.5); color: rgba(159,159,204,0.92)">???</button>
-            <button class="collapseTabButton" id="autoPrestigeTab" onclick="switchSubtab('autoPrestige', 'collapse')">???</button>
             <button class="collapseTabButton" id="singTab" onclick="switchSubtab('sing', 'collapse')">???</button>
             <button class="collapseTabButton" id="baselessTab" onclick="switchSubtab('baseless', 'collapse')">???</button>
             <button class="collapseTabButton" id="purificationTab" onclick="switchSubtab('purification', 'collapse')" style="border-color:darkred; color:#ce0b0b">???</button>
@@ -347,14 +346,6 @@
                 <button class="dupControl" id="dupC1" onclick="darknessControl(1)">Reset Negative Charge</button>
             </div>
             <button class="chargeSac" id="dupC2" onclick="chargeSacConfirm()">Sacrifice Charge</button>
-        </div>
-        <div class="flexBox" id="autoPrestigeSubPage" style="display: none; flex-direction: column;">
-            <div class="centeredTexts" id="t3AutoText0" style="margin-top: 1rem">Your Max All AutoBuyer is clicking the Max All button 0 times/second, but only if you can't Factor Shift</div>
-            <div class="centeredTexts" id="t3AutoText1">Your Markup AutoBuyer is clicking the Markup button 0 times/second, but only if you're past Ψ(Ω)</div>
-            <div class="flexBox" style="flex-direction: row;">
-                <button class="automation3" id="t3AutoToggle0" onclick="toggleT3Auto(0)">prinlge mall Auto</button>
-                <button class="automation3" id="t3AutoToggle1" onclick="toggleT3Auto(1)">PRONGLE yes mall Auto</button>
-            </div>
         </div>
         <div class="flexBox" id="singSubPage" style="display: none; flex-direction: column">
             <t class="centeredTexts" id="singCostText" style="margin-top: 1rem">Singularitying</t>

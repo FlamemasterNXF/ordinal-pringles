@@ -141,7 +141,6 @@ function isTabUnlocked(t){
         case 'overflow': return data.boost.unlocks[3]
 
         case 'darkness': return hasSluggishMilestone(2)
-        case 'autoPrestige': return hasSluggishMilestone(3)
         case 'sing': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
         case 'baseless': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
         case 'purification': return hasSingFunction(6) || hasPassiveUpgrade(20)

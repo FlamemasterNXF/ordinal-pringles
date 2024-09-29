@@ -61,6 +61,20 @@ let automationData = [
             unlock: () => hasPassiveUpgrade(22)
         },
     ],
+    [
+        {
+            name: "Factor Shift AutoPrestiger",
+            desc: "Factor Shifting",
+            hasReq: false,
+            unlock: () => hasSluggishMilestone(3)
+        },
+        {
+            name: "Factor Boost AutoPrestiger",
+            desc: "Factor Boosting",
+            hasReq: false,
+            unlock: () => hasSluggishMilestone(3)
+        }
+    ]
 ]
 
 function initAutomation(){
@@ -97,7 +111,7 @@ function initAutomation(){
 }
 
 function updateAutomationText(i, j){
-    DOM(`autoText${i}${j}`).innerHTML = `Your <span style="color: #80ceff">${getAutomationName(i, j)}</span> ${getAutomationDesc(i, j)} <span style="color: #8080FF">${format(getAutomationSpeed(i, j))} times/second</span>${getAutomationReq(i, j)}`
+    DOM(`autoText${i}${j}`).innerHTML = `Your <span style="color: ${getAutomationTextColors(i)[0]}">${getAutomationName(i, j)}</span> is ${getAutomationDesc(i, j)} <span style="color: ${getAutomationTextColors(i)[1]}">${format(getAutomationSpeed(i, j))} times/second</span>${getAutomationReq(i, j)}`
 }
 function updateAutomationToggle(i, j){
     DOM(`autoToggle${i}${j}`).innerHTML = `${getAutomationName(i, j)}: ${formatBool(getAutomationEnabled(i, j), 'EDL')}`
@@ -139,4 +153,14 @@ let getAutomationDesc = (i, j) => automationData[i][j].desc
 let getAutomationReq = (i, j) => automationData[i][j].hasReq ? `, ${automationData[i][j].req}` : ''
 let isAutomationUnlocked = (i, j) => automationData[i][j].unlock()
 let getAutomationSpeed = (i) => i === 0 ? t2Auto() : 20
-let getAutomationEnabled = (i, j) => i === 2 ? data.collapse.apEnabled[j] : i === 1 ? data.autoStatus.enabled[j+2] : data.autoStatus.enabled[j]
+function getAutomationEnabled(i, j){
+    switch (i) {
+        case 0: return data.autoStatus.enabled[j]
+        case 1: return data.autoStatus.enabled[j+2]
+        case 2: return data.collapse.apEnabled[j]
+    }
+}
+function getAutomationTextColors(i) {
+    if(i < 2) return [ "#80ceff", "#8080FF" ]
+    if(i === 2) return [ "#20da45", "#2da000"]
+}

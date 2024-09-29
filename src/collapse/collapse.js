@@ -16,12 +16,7 @@ function updateCollapseHTML(){
     updateAllSingularityHTML()
     updatePurificationTabHTML()
 }
-function updateAutoPrestigeHTML(){
-    for (let i = 0; i < data.collapse.apEnabled.length; i++) {
-        DOM(`t3AutoText${i}`).innerHTML = `Your <span style='color: #20da45'>${apData[i].name} AutoPrestiger</span> is clicking the ${apData[i].button} button${apData[i].plural ? 's' : ''} <span style='color: #2da000'>20 times/second</span> ${apData[i].hasReq ? `, but only if ${apData[i].requirement}` : ''}`
-        DOM(`t3AutoToggle${i}`).innerText = `${apData[i].name} AutoPrestiger: ${formatBool(data.collapse.apEnabled[i], 'EDL')}`
-    }
-}
+
 function updateCUPTextHTML(i){
     DOM(`cup${i}`).innerText = hasCUP(i)
         ? `${cupData[i].text}\n\nCurrently: ${i===1?'^':''}${i===1 ? format(cupData[i].effect()+drainEffect(i)) : format(cupData[i].effect()*drainEffect(i))}${i!==1?'x':''}`
@@ -170,7 +165,6 @@ function checkAllUnlocks(mode, prev = false){
 }
 function checkCollapseUnlockHTML(){
     DOM('darkTab').innerText = hasSluggishMilestone(2) ? 'Darkness' : '???'
-    DOM('autoPrestigeTab').innerText = hasSluggishMilestone(3) ? 'AutoPrestigers' : '???'
     DOM('singTab').innerText = data.boost.unlocks[4] ? 'Singularity' : '???'
     DOM('baselessTab').innerText = data.boost.unlocks[4] ? 'Baselessness' : '???'
     DOM('purificationTab').innerText = isTabUnlocked('purification') ? 'Purification' : '???'
@@ -231,10 +225,6 @@ let sluggishData = [
     {text: "Unlock an AutoBuyer for Charge, an AutoBuyer for RUP1-3, and Unlock Darkness", req: 24},
     {text: "Unlock an AutoBuyer for Repeatable Hierarchy Upgrades, AutoPrestigers for Factor Shift and Factor Boost, keep UP1-6 and Darkness Upgrades on Collapse, and unlock a new row of Booster Upgrades", req: 12},
     {text: "Unlock 4 new Hierarchy Upgrades, keep Hierarchies unlocked through Collapse, and keep Challenge completions on Collapse", req: 2},
-]
-let apData = [
-    {name: "Factor Shift", button: "Shift", requirement: "", hasReq: false, plural: false},
-    {name: "Factor Boost", button: "Boost", requirement: "you can\'t get a Sluggish Milestone", hasReq: true, plural: false},
 ]
 
 let collapseConfirm = (auto = false) =>
@@ -366,10 +356,5 @@ function buyCardinalUpgrade(i){
         data.collapse.cardinals -= cupData[i].cost
         checkUnlocks(0, i)
     }
-}
-
-function toggleT3Auto(i){
-    data.collapse.apEnabled[i] = !data.collapse.apEnabled[i]
-    DOM(`t3AutoToggle${i}`).innerText = `${apData[i].name} AutoPrestiger: ${formatBool(data.collapse.apEnabled[i], 'EDL')}`
 }
 
