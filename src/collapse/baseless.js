@@ -71,7 +71,7 @@ const baselessNames = ['Baseless', 'Obliterated', 'Forgotten']
 const anRebuyableData = [
     {
         desc: "Cardinals boost AutoClickers while in a Baseless Realm",
-        eff: () => (data.collapse.cardinals**2)*getANRLevels(0)*getPringleEffect(5, true),
+        eff: () => (data.collapse.cardinals**2)*getANRLevels(0),
         costBase: 1e3,
         symbol: 'x',
         unl: () => true,
@@ -166,7 +166,7 @@ let dynamicShiftMultipliers = [
 
 let alephNullGain = () =>  Math.max(1, Decimal.log10(Decimal.max(data.ord.ordinal,1)).toNumber()*dynamicShiftMultipliers[0]()*getAOEffect(1)*getPringleEffect(4, true))
 let alephNullEffects = [
-    () => Math.max(0, Math.log10(data.baseless.alephNull)/10)/*+(getPringleEffect(9, true))*/,
+    () => Math.max(0, Math.log10(data.baseless.alephNull)/10)*(getPringleEffect(5, true)),
     () => Math.max(0, Math.floor(Math.log10(data.baseless.alephNull)))
 ]
 let getBaselessMult = (i) => baselessMultipliers[i]

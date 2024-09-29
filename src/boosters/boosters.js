@@ -31,7 +31,7 @@ let bupData = [
         desc: "Every 10 Darkness Upgrades purchased reduces Hierarchy Bases by 1",
         cost: 3522,
         eff: () => Math.min(6, Math.floor(getTotalDUPs()/10)),
-        baseEff: () => 1,
+        baseEff: () => 0,
         bottomRow: true
     },
 
