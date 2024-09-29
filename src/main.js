@@ -58,7 +58,7 @@ window.onload = function () {
 
     if(extra) fixOldSavesP2()
 
-    if(data.collapse.times > 0) makeExcessOrdMarks()
+    if(data.collapse.times > 0 || data.obliterate.times > 0) makeExcessOrdMarks()
 
     window.setInterval(function () {
         mainLoop()
