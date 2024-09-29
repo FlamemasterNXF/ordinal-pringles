@@ -4,12 +4,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 5px;
-    border-radius: 3px;
-    border: 4px solid;
+    padding: 1rem;
+    border-radius: 15px;
+    border: 4px solid #5d5d5d;
     text-align: center;
-    background-color: #b5b5b5;
+    background-color: #838383;
     font-family: DosisLight;
-    width: 200px;
+    width: 13rem;
     pointer-events: all;
 }

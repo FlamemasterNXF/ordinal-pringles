@@ -66,19 +66,10 @@
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }
-.destabBUP{
-    width: 13rem;
-    height: 6rem;
-    border-image: linear-gradient(45deg, #ad7cf9e1, #f769ffe1) 1;
-    color: #f769ffe1;
-    background: black;
-    margin-top: 0.5rem;
-    margin-left: 0.5rem;
-}
 .iup{
     width: 15rem;
     height: 5.5rem;
-    border: 2px solid #8000ff;
+    border: 2px solid #6e3c9f;
     color: #8080FF;
     background: black;
     margin-top: 0.5rem;
@@ -87,7 +78,7 @@
 #chargeButton{
     width: 15rem;
     height: 5.5rem;
-    border: 2px solid #8080FF;
+    border: 2px solid #5d5da1;
     color: goldenrod;
     background: black;
     margin-top: 0.5rem;
