@@ -85,9 +85,9 @@ let effectiveFGH = () => calcOrdPoints(data.hierarchies.ords[0].ord, hierarchyDa
 let effectiveSGH = () => calcOrdPoints(data.hierarchies.ords[1].ord, hierarchyData[1].base(), data.hierarchies.ords[1].over);
 let hierarchyData = [
     { text:"Multiplying Incrementy Gain by", effect: ()=> Decimal.max((Decimal.log10(effectiveFGH().add(1)).times(hbData[1].effect())).times(getPringleEffect(6)).pow(dupEffect(2)), 1),
-        gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults()*getPringleEffect(7, true), base: ()=> 10 - (data.boost.isCharged[4] ? getBUPEffect(4) : 0) },
+        gain: ()=> hierarchyGainBases[0]()*hierarchyGainGlobalMults()*getPringleEffect(7, true), base: ()=> 10 - getBUPEffect(4) },
     { text:"Dividing Charge Requirement by", effect: ()=> Decimal.max((Decimal.log10(effectiveSGH().add(1)).times(hbData[4].effect()).times(alephEffect(5))).times(getPringleEffect(6)).pow((dupEffect(2))+getBUPEffect(9)), 1),
-        gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults()*getPringleEffect(7, true), base: ()=> 10 - (data.boost.isCharged[4] ? getBUPEffect(4) : 0) }
+        gain: ()=> hierarchyGainBases[1]()*hierarchyGainGlobalMults()*getPringleEffect(7, true), base: ()=> 10 - getBUPEffect(4) }
 ]
 let hierarchyGainBases = [
     () => Decimal.min(Decimal.max(Decimal.floor(Decimal.pow(data.incrementy.amt, 1/3)), 1), Number.MAX_VALUE).toNumber(),
