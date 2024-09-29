@@ -124,11 +124,9 @@ function updateAutomationDisplay(i, j){
 function updateAllAutomationHTML(){
     for (let i = 0; i < automationData.length; i++) {
         for (let j = 0; j < automationData[i].length; j++) {
-            if(isAutomationUnlocked(i, j)){
-                updateAutomationDisplay(i, j)
-                updateAutomationText(i, j)
-                updateAutomationToggle(i, j)
-            }
+            updateAutomationDisplay(i, j)
+            updateAutomationText(i, j)
+            updateAutomationToggle(i, j)
         }
     }
 }
