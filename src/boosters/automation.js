@@ -71,7 +71,8 @@ let automationData = [
         {
             name: "Factor Boost AutoPrestiger",
             desc: "Factor Boosting",
-            hasReq: false,
+            hasReq: true,
+            req: "but only if you can't get a Sluggish Milestone",
             unlock: () => hasSluggishMilestone(3)
         }
     ]
