@@ -1,3 +1,20 @@
+// Makes a generic Ordinal String
+function makeGenericOrd(ord,over,base,trim = data.ord.trim) {
+    ord = Math.floor(ord)
+    over = Math.floor(over)
+    if(trim <= 0) return `...`
+    if(ord < base) return ord+over
+    const magnitude = Math.floor(Math.log(ord)/Math.log(base)+1e-14)
+    const magnitudeAmount = base**magnitude
+    const amount = Math.floor((ord/magnitudeAmount)+1e-14)
+    let finalOutput = "&omega;"
+    if (magnitude > 1) finalOutput += "<sup>"+makeGenericOrd(magnitude, 0, base)+"</sup>"
+    if (amount > 1) finalOutput += amount
+    const firstAmount = amount*magnitudeAmount
+    if(ord-firstAmount > 0.1) finalOutput += "+" + makeGenericOrd(ord-firstAmount, over, base, trim - 1)
+    return finalOutput
+}
+
 // Increases the Ordinal Successor
 function successor(n = 1, m=false, alsoMaximize=false) {
     if(data.chal.active[6] && data.successorClicks >= 1000 && m) return
@@ -29,6 +46,7 @@ function maximize() {
 
 // Converts an Ordinal to a Number
 function numberFromOrdinal(string, base) {
+    string = string.toString()
     const ungwa = string.replaceAll("<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'>", "&omega;")
 
     const initial = ungwa.replaceAll("&omega;", `${base}`).replaceAll('<sup>', ').pow(')

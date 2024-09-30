@@ -164,8 +164,22 @@ function increaseHierarchies(diff){
 }
 
 function getHBBuyableCost(i){
-    if(i === 2 || i===5) return D(1e12).times(D(data.hierarchies.rebuyableAmt[i]).plus((D(10).pow(1 + data.hierarchies.rebuyableAmt[i]))))
+    if(i === 2 || i===5) return D(1e12).times(D(data.hierarchies.rebuyableAmt[i]).plus((D(10).pow(D(1).plus(data.hierarchies.rebuyableAmt[i])))))
     return D(data.hierarchies.rebuyableAmt[i]).add(D(10).pow(1 + data.hierarchies.rebuyableAmt[i]))
+}
+function getMaxHBBuyableLevel(i){
+    if(i === 2 || i === 5) return Decimal.max(Decimal.floor(Decimal.log10(data.incrementy.amt.plus(1)).sub(12)), data.hierarchies.rebuyableAmt[i])
+    if(i < 2){
+        if(data.hierarchies.ords[0].ord.gte(4**4**4)) return getHBuyableCap()
+        let num = Decimal.max(Decimal.floor(Decimal.log(data.hierarchies.ords[0].ord.plus(1), hierarchyData[0].base())), 0)
+        return Decimal.min(getHBuyableCap(), Decimal.max(numberFromOrdinal(makeGenericOrd(num, 0, hierarchyData[0].base()), 10), data.hierarchies.rebuyableAmt[i]))
+    }
+    if(i > 2 && i < 5){
+        if(data.hierarchies.ords[1].ord.gte(4**4**4)) return getHBuyableCap()
+        let num = Decimal.max(Decimal.floor(Decimal.log(data.hierarchies.ords[1].ord.plus(1), hierarchyData[1].base())), 0)
+        return Decimal.min(getHBuyableCap(), Decimal.max(numberFromOrdinal(makeGenericOrd(num, 0, hierarchyData[1].base()), 10), data.hierarchies.rebuyableAmt[i]))
+    }
+    return D(10)
 }
 
 let getHBuyableCap = () => 3333 + getPringleEffect(8, true)
@@ -175,17 +189,17 @@ function buyHBuyable(i){
     if(data.hierarchies.rebuyableAmt[i] >= getHBuyableCap()) return
 
     if(data.incrementy.amt.gt(cost) && (i === 2 || i === 5)){
-        data.incrementy.amt = data.incrementy.amt.sub(cost)
+        if(!hasSingFunction(2)) data.incrementy.amt = data.incrementy.amt.sub(cost)
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
     }
     if(data.hierarchies.ords[0].ord.gt(OPtoOrd(cost, hierarchyData[0].base())) && i < 2){
-        data.hierarchies.ords[0].ord = data.hierarchies.ords[0].ord.sub(OPtoOrd(cost, hierarchyData[0].base()))
+        if(!hasSingFunction(2)) data.hierarchies.ords[0].ord = data.hierarchies.ords[0].ord.sub(OPtoOrd(cost, hierarchyData[0].base()))
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
     }
     if(data.hierarchies.ords[1].ord.gt(OPtoOrd(cost, hierarchyData[1].base())) && i > 2 && i < 5){
-        data.hierarchies.ords[1].ord = data.hierarchies.ords[1].ord.sub(OPtoOrd(cost, hierarchyData[1].base()))
+        if(!hasSingFunction(2)) data.hierarchies.ords[1].ord = data.hierarchies.ords[1].ord.sub(OPtoOrd(cost, hierarchyData[1].base()))
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
     }
