@@ -170,12 +170,12 @@ function getHBBuyableCost(i){
 function getMaxHBBuyableLevel(i){
     if(i === 2 || i === 5) return Decimal.max(Decimal.floor(Decimal.log10(data.incrementy.amt.plus(1)).sub(12)), data.hierarchies.rebuyableAmt[i])
     if(i < 2){
-        if(data.hierarchies.ords[0].ord.gte(4**4**4)) return getHBuyableCap()
+        if(data.hierarchies.ords[0].ord.gte(4**4**4)) return D(getHBuyableCap())
         let num = Decimal.max(Decimal.floor(Decimal.log(data.hierarchies.ords[0].ord.plus(1), hierarchyData[0].base())), 0)
         return Decimal.min(getHBuyableCap(), Decimal.max(numberFromOrdinal(makeGenericOrd(num, 0, hierarchyData[0].base()), 10), data.hierarchies.rebuyableAmt[i]))
     }
     if(i > 2 && i < 5){
-        if(data.hierarchies.ords[1].ord.gte(4**4**4)) return getHBuyableCap()
+        if(data.hierarchies.ords[1].ord.gte(4**4**4)) return D(getHBuyableCap())
         let num = Decimal.max(Decimal.floor(Decimal.log(data.hierarchies.ords[1].ord.plus(1), hierarchyData[1].base())), 0)
         return Decimal.min(getHBuyableCap(), Decimal.max(numberFromOrdinal(makeGenericOrd(num, 0, hierarchyData[1].base()), 10), data.hierarchies.rebuyableAmt[i]))
     }
