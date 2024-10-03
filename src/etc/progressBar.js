@@ -52,7 +52,7 @@ function getTargetOrdinal() {
         }
     }
 
-    if (data.boost.times >= 33 && data.collapse.times === 0) return D(BHO_VALUE)
+    if (data.boost.times >= 33 && data.collapse.times === 0 && data.obliterate.times === 0) return D(BHO_VALUE)
     return D(boostReq(getTargetBoost()))
 }
 function getBarPercent(){
