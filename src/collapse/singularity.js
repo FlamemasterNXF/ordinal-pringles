@@ -91,7 +91,7 @@ let maxSingLevel = (i) => data.sing.level[i] > 499 ? 500 : Math.min(500, data.in
 
 function changeSingLevel(i, single = false){
     if(inPurification(3)) return
-    DOM(`singSlider${i}`).max = Math.max(1, maxSingLevel(i)+data.sing.level[0]) //TODO: Allow for multiple Singularities here.
+    DOM(`singSlider${i}`).max = Math.max(1, Math.min(maxSingLevel(i)+data.sing.level[0], 500)) //TODO: Allow for multiple Singularities here.
 
     let change = single ? data.sing.level[i] + 1 : parseInt(DOM(`singSlider${i}`).value)
     let cost = change-data.sing.level[i]
@@ -127,6 +127,12 @@ function updateSingFunctionUnlocks(){
 function singControl(i, n){
     if(inPurification(3)) return
     if(i === 0){
+        if(data.incrementy.charge+data.sing.level[n] >= 500){
+            if(data.sing.level[n] !== 500) data.incrementy.charge -= 500-data.sing.level[n]
+            data.sing.level[n] = 500
+            updateSingLevelHTML(n)
+            return DOM(`singSlider${n}`).value = data.sing.level[n]
+        }
         data.sing.level[n] = data.sing.level[n]+maxSingLevel(n)
         data.incrementy.charge -= maxSingLevel(n)
         if(data.sing.level[n] > data.sing.highestLevel[n]) data.sing.highestLevel[n] = data.sing.level[n]
@@ -136,7 +142,10 @@ function singControl(i, n){
         data.incrementy.charge += data.sing.level[n]
         data.sing.level[n] = 0
     }
-    if(i === 2) changeSingLevel(n, true)
+    if(i === 2){
+        if(data.sing.level[n] === 500) return
+        changeSingLevel(n, true)
+    }
     updateSingLevelHTML(n)
     DOM(`singSlider${n}`).value = data.sing.level[n]
 }
