@@ -35,6 +35,9 @@ function switchSubtab(t, mode){
         DOM(`${boostTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
 
+        DOM(`auto2Tab`).style.color = isAutomationUnlocked(2, 0) ? getAutomationTextColors(2)[0] : getAutomationTextColors(0)[0]
+        DOM(`auto2Tab`).style.borderColor = isAutomationUnlocked(2, 0) ? getAutomationTextColors(2)[1] : getAutomationTextColors(0)[1]
+
         if(t==="upgrades") checkSpecialBUPs()
         if(t==="hierarchies") checkSpecialHUPs()
 

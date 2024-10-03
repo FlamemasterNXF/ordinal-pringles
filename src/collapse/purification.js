@@ -97,7 +97,7 @@ const aoRebuyableData = [
 ]
 const aoMilestoneData = [
     {
-        desc: "The first three Singularity Functions are now Persistent, and unlock a new Singularity Function",
+        desc: "The first three Singularity Functions are now Persistent, unlock a new Singularity Function, and unlock a Dynamic Shift AutoPrestiger",
         req: 200
     },{
         desc: "Purification of Infinity now boosts ℵ<sub>5</sub>, and unlock a new Aleph that is not effected by the seventh Cardinal Upgrade",
