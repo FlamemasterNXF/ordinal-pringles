@@ -8,7 +8,7 @@ const BHO_VALUE = 4*3**40
 const BO_VALUE = D('eee98235035280650.45') //Decimal.pow(3, ordMarksBO).mul(4)
 
 //Version Flags
-const VERSION = "0.4b9"
+const VERSION = "0.4b10"
 const VERSION_NAME = "The Pringle Update"
 const VERSION_DATE = "October 3rd, 2024"
 const IS_BETA = true
