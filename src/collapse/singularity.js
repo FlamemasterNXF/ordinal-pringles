@@ -83,7 +83,7 @@ let singEffects = [
     {desc: () => `${hasTreeUpgrade(104) ? 'Increasing' : 'Decreasing'} the Decrementy gain exponent by`, effect: () => Math.sqrt(data.sing.level[0])/50},
     {desc: () => "raising AutoBuyer speed to the", effect: () => (1-Math.pow(data.sing.level[0], 1/2)/100)+(getEUPEffect(1, 4, true))},
 
-    {desc: () => "???", effect: () => 1},
+    {desc: () => "Coming Soon!", effect: () => 1},
     {desc: () => `???`, effect: () => 1},
     {desc: () => "???", effect: () => 1},
 ]

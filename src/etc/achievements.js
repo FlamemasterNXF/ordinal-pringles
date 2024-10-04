@@ -337,11 +337,6 @@ let achievements = [
         req: () => data.obliterate.times > 0
     },
     {
-        name: "Not the Ordinal Pringle",
-        description: "Obtain a Barbecue Pringle",
-        req: () => data.obliterate.pringleAmount[24] > 0
-    },
-    {
         name: "Sleepy Charge",
         description: "Complete one Row of Passive Upgrades",
         req: () => completedPassiveUpgradeRows() > 0
