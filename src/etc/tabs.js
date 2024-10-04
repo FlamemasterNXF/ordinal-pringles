@@ -22,11 +22,6 @@ function switchSubtab(t, mode){
         DOM(`${markupTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
         markupTab = t
-
-        if(t === "factor"){
-            DOM(`imaginaryShiftButton`).style.display = getEUPEffect(4, 1) ? 'block' : 'none'
-            DOM(`iFactorContainer`).style.display = getEUPEffect(4, 1) ? 'flex' : 'none'
-        }
     }
 
     // Special Boosters Rules

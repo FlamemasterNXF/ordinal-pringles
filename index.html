@@ -133,7 +133,6 @@
         <div class="flexBox" id="factorSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="flexBox" style="flex-direction: row">
                 <button id="factorShiftButton" onclick="data.sToggles[3]?factorShiftConfirm():factorShift()" style="color: goldenrod; width: 20rem; height: 3rem; background-color: black; border: 2px solid #785c13">Perform a Factor Shift</button>
-                <button id="imaginaryShiftButton" onclick="" style="color: #ffd263; width: 20rem; height: 3rem; background-color: black; border: 2px solid #9b8035; display: none; margin-left: 0.25rem;">Perform Shift</button>
                 <button id="factorBoostButton" onclick="data.sToggles[4]&&(data.collapse.times > 0 || data.boost.times < 33)?createConfirmation('Are you sure?', 'Performing a Factor Boost will reset your Ordinal, Ordinal Powers, Factors, Automation, Base, and Dynamic Factor in exchange for some Boosters!', 'No Way!', 'Yes, lets do this.', boost):boost()" style="margin-left: 0.2rem; color: #8080FF; width: 20rem; min-height: 3rem; background-color: black; border: 2px solid #0000ff; display: none">Perform a Factor Boost</button>
             </div>
             <button class="factor" id="factorMax" onclick="buyMaxFactor()">Max All Factors [F]</button>
@@ -146,15 +145,6 @@
                     <button class="factor" id="factor4" onclick="buyFactor(4)">Factor 1</button>
                     <button class="factor" id="factor5" onclick="buyFactor(5)">Factor 1</button>
                     <button class="factor" id="factor6" onclick="buyFactor(6)">Factor 1</button>
-                </div>
-                <div class="flexBox" id="iFactorContainer" style="flex-direction: column; margin-left: 0.5rem; display: none">
-                    <button class="iFactor" id="iFactor0" onclick="buyFactor(0)">Factor 1</button>
-                    <button class="iFactor" id="iFactor1" onclick="buyFactor(1)">Factor 1</button>
-                    <button class="iFactor" id="iFactor2" onclick="buyFactor(2)">Factor 1</button>
-                    <button class="iFactor" id="iFactor3" onclick="buyFactor(3)">Factor 1</button>
-                    <button class="iFactor" id="iFactor4" onclick="buyFactor(4)">Factor 1</button>
-                    <button class="iFactor" id="iFactor5" onclick="buyFactor(5)">Factor 1</button>
-                    <button class="iFactor" id="iFactor6" onclick="buyFactor(6)">Factor 1</button>
                 </div>
             </div>
         </div>

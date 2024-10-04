@@ -116,11 +116,11 @@ let pringleData = [
         name: 'Barbecue',
         desc: "Boosts AutoBuyer Speed",
         sign: 'x',
-        eff: () => D(10**data.obliterate.pringleAmount[0]).times(getEUPEffect(3, 3)),
+        eff: () => D(10**data.obliterate.pringleAmount[9]).times(getEUPEffect(3, 3)),
         baseValue: 1,
         resNames: 'ℵ<sub>&omega;</sub>',
         resLocation: [['omega', 'bestRemnants']],
-        cost: () => D(2000+100*(data.obliterate.pringleAmount[9]+1))
+        cost: () => D(2000+(100*data.obliterate.pringleAmount[9]+1)*(data.obliterate.pringleAmount[9]+1))
     },
 ]
 

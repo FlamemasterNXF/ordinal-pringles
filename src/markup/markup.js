@@ -21,7 +21,6 @@ function updateMarkupHTML(){
 
     for (let i = 0; i < data.factors.length; i++) {
         DOM(`factor${i}`).innerText = hasFactor(i)?`Factor ${i+1} [${data.boost.hasBUP[11]?formatWhole(data.factors[i]+getBUPEffect(12)):formatWhole(data.factors[i])}] ${formatWhole(factorEffect(i))}x\nCost: ${formatWhole(factorCost(i))} Ordinal Powers`:`Factor ${i+1}\nLOCKED`
-        if(getEUPEffect(4, 1)) DOM(`iFactor${i}`).innerText = hasFactor(i, true)?`Factor ${i+1}i [${data.boost.hasBUP[11]?formatWhole(data.imaginary.factors[i]+getBUPEffect(12)):formatWhole(data.imaginary.factors[i])}] ${formatWhole(factorEffect(i, true))}x\nCost: ${formatWhole(factorCost(i, true))} Ordinal Powers`:`Factor ${i+1}i\nLOCKED`
     }
     DOM("factorText").innerText = `Your Factors are multiplying AutoClicker speed by a total of ${formatWhole(totalFactorEffect())}x`
 
