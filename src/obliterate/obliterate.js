@@ -1,4 +1,6 @@
 function updateObliterateHTML(){
+    DOM('obliterateButton').style.display = hasAOMilestone(4) || data.obliterate.times > 0 ? 'block' : 'none'
+
     DOM(`energyText`).innerHTML = `You have ${format(data.obliterate.energy)} <span style="color: #d56cdc">Fractal Energy</span>`
     DOM(`obliterateButton`).innerHTML = `Obliterate your Ordinal for 1 Fractal Energy<br><span style="font-size: 0.7rem">Requires ${format(getObliterateReq())} Incrementy</span>`
     DOM(`obliterateButton`).style.color = data.incrementy.amt.gte(getObliterateReq()) ? '#ff80b9' : '#b06cdc'
@@ -15,11 +17,15 @@ function getObliterateReq(n = data.obliterate.times, m = true){
 
 function obliterateConfirm(){
     if(!data.sToggles[15]) return obliterate()
-    createConfirmation('Are you absolutely certain?', `Obliterating will reset EVERYTHING prior. There is no going back.`, 'No Way!', 'Onward!', obliterate)
+    if(data.obliterate.times === 0)
+        createConfirmation('Are you absolutely certain?', `Obliterating will reset EVERYTHING prior in exchange for ONE Fractal Energy. There is no going back, but new content will be unlocked to make your Ordinal grow faster than ever.`, 'No Way!', 'To the Future!', obliterate)
+    else
+        createConfirmation('Are you absolutely certain?', `Obliterating will reset EVERYTHING prior in exchange for ONE Fractal Energy. There is no going back.`, 'No Way!', 'Onward!', obliterate)
 }
 function obliterate(){
     if(data.incrementy.amt.lt(getObliterateReq())) return createAlert("Failure", "Insufficient Incrementy.", "Oops.")
 
+    DOM('obliterateNav').style.display = 'block'
     obliterateReset()
 
     ++data.obliterate.energy

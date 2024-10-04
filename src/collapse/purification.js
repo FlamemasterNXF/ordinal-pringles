@@ -112,7 +112,7 @@ const aoMilestoneData = [
         req: 1000,
         eff: () => hasAOMilestone(3) ? purificationEffect(3) : 1
     },{
-        desc: "Boosters boost Cardinal Gain, and unlock two new ℵ<sub>0</sub> Rebuyables",
+        desc: "Boosters boost Cardinal Gain, unlock two new ℵ<sub>0</sub> Rebuyables, and unlock<span style='color: #9d58c9'> Obliteration</span>",
         req: 1750,
         eff: () => hasAOMilestone(4) ? data.boost.amt : 1
     },
