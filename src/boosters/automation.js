@@ -158,7 +158,11 @@ let getAutomationName = (i, j) => automationData[i][j].name
 let getAutomationDesc = (i, j) => automationData[i][j].desc
 let getAutomationReq = (i, j) => automationData[i][j].hasReq ? `, ${automationData[i][j].req}` : ''
 let isAutomationUnlocked = (i, j) => automationData[i][j].unlock()
-let getAutomationSpeed = (i) => i === 0 ? t2Auto() : 20
+function getAutomationSpeed(i, j){
+    if(i === 0) return t2Auto()
+    if(i === 1 && j === 1) return 200 // RUP Case
+    return 20
+}
 function getAutomationEnabled(i, j){
     if(!isAutomationUnlocked(i, j)) return false
     switch (i) {

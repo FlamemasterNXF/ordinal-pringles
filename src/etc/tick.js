@@ -75,13 +75,13 @@ function tick(diff){
     if(timesToLoop[3].gte(1) && data.ord.isPsi && getAutomationEnabled(0, 1) && !boostCheck && data.ord.isPsi) data.ord.ordinal = D(GRAHAMS_VALUE)
     if(timesToLoop[3].gte(1) && data.ord.isPsi && getAutomationEnabled(0, 1) && collapseCheck && boostCheck) markup(timesToLoop[3].times(diff/1000))
 
-    if(!collapseCheck) data.ord.ordinal = D(BHO_VALUE)
-
     // Automation Tier 2: Post-Collapse
     if(hasSluggishMilestone(2) && getAutomationEnabled(1, 0)) sacrificeIncrementy() //Charge Autobuyer
     if(hasSluggishMilestone(2) && getAutomationEnabled(1, 1)){ // Repeatable IUP Autobuyer
-        for (let i = 0; i < 3; i++) {
-            buyRUP(i)
+        for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 3; i++) {
+                buyRUP(i)
+            }
         }
         if(hasAOMilestone(3)){
             for (let i = 9; i < 12; i++) {

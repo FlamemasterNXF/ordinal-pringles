@@ -329,7 +329,7 @@ function boost(f=false, auto=false, hotkey=false){
     data.boost.amt += boosterGain()
     data.boost.total += boosterGain()
     data.boost.times += bulkBoostAmt
-    if (data.boost.times >= 30 && data.boost.times < 30 + bulkBoostAmt && data.collapse.times === 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
+    if (data.boost.times >= 30 && data.boost.times < 30 + bulkBoostAmt && data.collapse.times === 0 && data.obliterate.times === 0) createAlert('Congratulations!', `You've Factor Boosted 30 times! Something new is right around the corner, but these last 4 Boosts will be the hardest...`, 'Onwards!')
     /*for(let i=1;i<=bulkBoostAmt;i++) {
         data.boost.amt += data.boost.times+1
         data.boost.total += data.boost.times+1
