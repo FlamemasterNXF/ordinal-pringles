@@ -71,7 +71,7 @@ const baselessNames = ['Baseless', 'Obliterated', 'Forgotten']
 const anRebuyableData = [
     {
         desc: "Cardinals boost AutoClickers while in a Baseless Realm",
-        eff: () => (data.collapse.cardinals**2)*getANRLevels(0),
+        eff: () => Math.min(Number.MAX_VALUE, (data.collapse.cardinals**2)*getANRLevels(0)),
         costBase: 1e3,
         symbol: 'x',
         unl: () => true,
