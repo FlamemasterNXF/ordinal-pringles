@@ -87,7 +87,6 @@ function getTotalPassiveEnergyInvested(){
     for (let i = 0; i < data.obliterate.hasPassiveUpgrade.length; i++) {
         if(hasPassiveUpgrade(i)) ++total
     }
-    total += (data.purity.isUnlocked.slice(0,10).filter(i=>i).length - 3)
     return total
 }
 
