@@ -75,6 +75,8 @@ function tick(diff){
     if(timesToLoop[3].gte(1) && data.ord.isPsi && data.autoStatus.enabled[1] && !boostCheck && data.ord.isPsi) data.ord.ordinal = D(GRAHAMS_VALUE)
     if(timesToLoop[3].gte(1) && data.ord.isPsi && data.autoStatus.enabled[1] && collapseCheck && boostCheck) markup(timesToLoop[3].times(diff/1000))
 
+    if(!collapseCheck) data.ord.ordinal = D(BHO_VALUE)
+
     // Automation Tier 2: Post-Collapse
     if(hasSluggishMilestone(2) && data.autoStatus.enabled[2]) sacrificeIncrementy() //Charge Autobuyer
     if(hasSluggishMilestone(2) && data.autoStatus.enabled[3]){ // Repeatable IUP Autobuyer
