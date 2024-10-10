@@ -79,7 +79,7 @@ function switchSubtab(t, mode){
                 data.sing.tutorial = true
             }
             DOM(`singFunction8`).style.display = hasAOMilestone(0) ? `block` : `none`
-            DOM(`singularity1`).style.display = hasSingFunction(9) ? `flex` : `none`
+            DOM(`singularity1`).style.display = /*hasSingFunction(9) ? `flex` :*/ `none`
             checkPermanentFunctions()
         }
         if(t==="baseless"){
@@ -88,7 +88,6 @@ function switchSubtab(t, mode){
             DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
             updateBaselessEnterHTML(data.baseless.mode, true)
         }
-        if(t === "autoPrestige") updateAutoPrestigeHTML()
         if(t === "purification") {
             if(!data.omega.tutorial){
                 createAlert('Tutorial Time!', 'In order to gain ℶ<sub>&omega;</sub> you must enter a Purification and reach a never-before-reached Factor Boost within that Purification! This means ℶ<sub>&omega;</sub> is NOT farmable! Have fun!', 'Thanks for the tips!')

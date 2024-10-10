@@ -160,7 +160,7 @@ let singFunctions = [
     {requiredLevel: 72, hasUnlock: true, unlockDescription: 'Unlock Purification', canBePerm: true, permReq: () => data.incrementy.totalCharge > 71},
     {requiredLevel: 80, hasUnlock: true, unlockDescription: 'The second Darkness Buyable now Quadruples the Dynamic Cap', canBePerm: false, permReq: () => false},
     {requiredLevel: 100, hasUnlock: true, unlockDescription: 'Reduce the Base in the Forgotten Realm by 15 for every ℶ<sub>&omega;</sub> Milestone obtained', effect: () => 15*checkAllIndexes(aomArray(), true), canBePerm: false, permReq: () => false},
-    {requiredLevel: 500, hasUnlock: true, unlockDescription: 'Unlock a Ringularity, but cap the Singularity\'s Density at H<sub>&omega;<sup>2</sup>5</sub>', canBePerm: true, permReq: () => data.incrementy.totalCharge > 499},
+    {requiredLevel: 500, hasUnlock: true, unlockDescription: 'Unlock a Ringularity (Coming Soon!), but cap the Singularity\'s Density at H<sub>&omega;<sup>2</sup>5</sub>', canBePerm: true, permReq: () => data.incrementy.totalCharge > 499},
 ]
 
 let hasPermanentFunction = (i) => singFunctions[i].permReq()
