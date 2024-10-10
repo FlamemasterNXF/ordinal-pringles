@@ -178,7 +178,7 @@ function getMaxHBBuyableLevel(i){
     if(i > 2 && i < 5){
         if(data.hierarchies.ords[1].ord.gte(Decimal.tetrate(hierarchyData[1].base(), 3)) && D(getHBuyableCap()).lte(1e10)) return D(getHBuyableCap())
         let num = Decimal.max(Decimal.floor(effectiveSGH().log10()), 0)
-        if (num.lt(16) && effectiveFGH().lt(Decimal.pow(10,num).add(num.sub(1)))) num = num.sub(1)
+        if (num.lt(16) && effectiveSGH().lt(Decimal.pow(10,num).add(num.sub(1)))) num = num.sub(1)
         return Decimal.min(getHBuyableCap(), Decimal.max(num, data.hierarchies.rebuyableAmt[i]))
     }
     return D(10)
