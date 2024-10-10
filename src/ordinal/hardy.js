@@ -643,7 +643,7 @@ let useExpantaNum = () => data.sToggles[14]
 // Get the Hardy Value for Display
 function getHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.base, isPsi = data.ord.isPsi) {
     if (isPsi) return psiHardy(ord, base);
-    if(calculateSimpleHardy().lt(Number.MAX_VALUE)) return format(Decimal.floor(calculateSimpleHardy()))
+    if(calculateSimpleHardy().lt(Number.MAX_VALUE)) return format(Decimal.floor(calculateSimpleHardy().plus(1e-10)))
     ord = Decimal.floor(ord);
     let hardyValue = "Infinity";
     hardyValue = format(calculateHardy(ord, over, base));
