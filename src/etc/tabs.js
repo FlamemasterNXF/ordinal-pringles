@@ -4,7 +4,12 @@ function switchTab(tab){
     DOM(`${data.nav.last}Page`).style.display = 'none'
     DOM(`${tab}Page`).style.display = 'flex'
 
-    if(tab === 'collapse') checkCollapseUnlockHTML()
+    if(tab === 'markup' && !isTabUnlocked(boostTab)) switchSubtab('factor', 'markup')
+    if(tab === 'boosters' && !isTabUnlocked(boostTab)) switchSubtab('upgrades', 'boosters')
+    if(tab === 'collapse'){
+        if(!isTabUnlocked(collapseTab)) switchSubtab('cardinals', 'collapse')
+        checkCollapseUnlockHTML()
+    }
 }
 
 
@@ -26,12 +31,10 @@ function switchSubtab(t, mode){
 
     // Special Boosters Rules
     if(mode === "boosters"){
-        if(!isTabUnlocked(boostTab)) switchSubtab('upgrades', 'boosters')
         DOM(`${boostTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
 
-        DOM(`auto2Tab`).style.color = isAutomationUnlocked(2, 0) ? getAutomationTextColors(2)[0] : '#6f96e1'
-        DOM(`auto2Tab`).style.borderColor = isAutomationUnlocked(2, 0) ? getAutomationTextColors(2)[1] : '#5454e7'
+        updateAutomationTabHTML()
 
         if(t==="upgrades") checkSpecialBUPs()
         if(t==="hierarchies") checkSpecialHUPs()
@@ -60,7 +63,6 @@ function switchSubtab(t, mode){
 
     // Special Collapse Rules
     if(mode === "collapse"){
-        if(!isTabUnlocked(collapseTab)) switchSubtab('cardinals', 'collapse')
         DOM(`collapseInfoContainer`).style.display = t==='purification' ? 'none' : 'flex'
 
         if(t==='cardinals'){

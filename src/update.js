@@ -1,5 +1,5 @@
 //Important Constants for Loading
-const TABS = ["markup", "boost", "collapse", "obliterate", "ach", "settings"]
+const TABS = ["markup", "boosters", "collapse", "obliterate", "ach", "settings"]
 
 const uHTML = {
     update(){

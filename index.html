@@ -112,7 +112,7 @@
     <div class="flexBox" id="tabs" style="margin-bottom: 0.5rem">
         <button class="tabButton" id="ordNav" onclick="switchTab('ord')" style="color: indianred; border-color: #610000">Ordinals</button>
         <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchSubtab(markupTab, 'markup')" style="color: goldenrod; border-color: #785c13 ">Markup</button>
-        <button class="tabButton" id="boostNav" onclick="switchTab('boost'); switchSubtab(boostTab, 'boosters')" style="display: none; color: #8080FF; border-color: #0000ff">Boosters</button>
+        <button class="tabButton" id="boostNav" onclick="switchTab('boosters'); switchSubtab(boostTab, 'boosters')" style="display: none; color: #8080FF; border-color: #0000ff">Boosters</button>
         <button class="tabButton" id="collapseNav" onclick="switchTab('collapse'); switchSubtab(collapseTab, 'collapse')" style="display: none; color: #80ff82; border-color: #2da000">Collapse</button>
         <button class="tabButton" id="obliterateNav" onclick="switchTab('obliterate'); switchSubtab(obliterateTab, 'obliterate')" style="display: none; color: #d080ff; border-color: #6b00a0">Obliteration</button>
         <button class="tabButton" id="achNav" onclick="switchTab('ach')" style="color: #bd9309; border-color: #9b7c2b; width: 6.5rem ">Achievements</button>
@@ -166,7 +166,7 @@
             <div id="progressBar" style="height: 1.2rem; background-color: #0000ff; color: #000000; text-align: center; width: 0%; font-family: DosisBold;">0%</div>
         </div>
     </div>
-    <div class="flexBox" id="boostPage" style="flex-direction: column">
+    <div class="flexBox" id="boostersPage" style="flex-direction: column">
         <div class="flexBox" style="margin-top: 1rem">
             <button class="tabButton" id="upgradeTab" onclick="switchSubtab('upgrades', 'boosters')" style="color: #8080FF; border-color: #0000ff">Upgrades</button>
             <button class="tabButton" id="auto2Tab" onclick="switchSubtab('auto2', 'boosters')" style="color: #8080FF; border-color: #0000ff;">Automation</button>
@@ -471,6 +471,7 @@
             <button class="settingsButton" id="settingsToggle6" onclick="settingsToggle(6)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle7" onclick="settingsToggle(7)" style="width: 20rem">aaa</button>
             <button class="settingsButton" id="settingsToggle10" onclick="settingsToggle(10)" style="width: 20rem">aaa</button>
+            <button class="settingsButton" id="settingsToggle20" onclick="settingsToggle(20)" style="width: 20rem">aaa</button>
         </div>
         <div class="flexBox" id="togglesSubPage" style="display: none; flex-direction: column">
             <button class="settingsButton" id="settingsToggle3" onclick="settingsToggle(3)" style="width: 20rem">aaa</button>

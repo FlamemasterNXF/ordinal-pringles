@@ -43,7 +43,7 @@ function obliterateReset(){
     data.collapse.alephs = Array(alephData.length).fill(0)
     data.collapse.hasCUP = Array(8).fill(false)
     data.collapse.hasSluggish = Array(5).fill(false)
-    if(!hasSluggishMilestone(3)) data.collapse.apEnabled = Array(2).fill(false)
+    if(data.sToggles[20]) data.collapse.apEnabled = Array(3).fill(false)
 
     data.darkness.negativeCharge = 0
     data.darkness.sacrificedCharge = 0
@@ -86,10 +86,15 @@ function obliterateReset(){
 
     collapseReset()
 
-    for (let i = 0; i < data.autoStatus.enabled.length; i++) {
-        data.autoStatus.enabled[i] = false
+    if(data.sToggles[20]){
+        for (let i = 0; i < data.autoStatus.enabled.length; i++) {
+            data.autoStatus.enabled[i] = false
+        }
     }
 
+    switchTab(data.nav.current)
+
+    updateAutomationTabHTML()
     updateAllAlephHTML()
     updateAllCUPTextHTML()
     checkAllUnlocks(0, true)

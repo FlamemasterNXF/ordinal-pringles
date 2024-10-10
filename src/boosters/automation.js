@@ -160,6 +160,7 @@ let getAutomationReq = (i, j) => automationData[i][j].hasReq ? `, ${automationDa
 let isAutomationUnlocked = (i, j) => automationData[i][j].unlock()
 let getAutomationSpeed = (i) => i === 0 ? t2Auto() : 20
 function getAutomationEnabled(i, j){
+    if(!isAutomationUnlocked(i, j)) return false
     switch (i) {
         case 0: return data.autoStatus.enabled[j]
         case 1: return data.autoStatus.enabled[j+2]
@@ -169,4 +170,9 @@ function getAutomationEnabled(i, j){
 function getAutomationTextColors(i) {
     if(i < 2) return [ "#80ceff", "#8080FF" ]
     if(i === 2) return [ "#20da45", "#2da000"]
+}
+
+function updateAutomationTabHTML(){
+    DOM(`auto2Tab`).style.color = isAutomationUnlocked(2, 0) ? getAutomationTextColors(2)[0] : '#6f96e1'
+    DOM(`auto2Tab`).style.borderColor = isAutomationUnlocked(2, 0) ? getAutomationTextColors(2)[1] : '#5454e7'
 }

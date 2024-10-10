@@ -65,21 +65,21 @@ function tick(diff){
 
     // Automation Tier 2
     // BuyMax Autobuyer
-    if(timesToLoop[2].gte(1) && (data.markup.powers.lt(fsReqs[data.markup.shifts]) || data.ord.base === 3 || data.baseless.baseless) && data.autoStatus.enabled[0]){
+    if(timesToLoop[2].gte(1) && (data.markup.powers.lt(fsReqs[data.markup.shifts]) || data.ord.base === 3 || data.baseless.baseless) && getAutomationEnabled(0, 0)){
         buyMaxT1()
     }
 
     // Markup Autobuyer
     let collapseCheck = data.ord.ordinal.lt(BHO_VALUE) || data.collapse.times > 0
     let boostCheck = data.boost.times > 0 || hasSluggishMilestone(0)
-    if(timesToLoop[3].gte(1) && data.ord.isPsi && data.autoStatus.enabled[1] && !boostCheck && data.ord.isPsi) data.ord.ordinal = D(GRAHAMS_VALUE)
-    if(timesToLoop[3].gte(1) && data.ord.isPsi && data.autoStatus.enabled[1] && collapseCheck && boostCheck) markup(timesToLoop[3].times(diff/1000))
+    if(timesToLoop[3].gte(1) && data.ord.isPsi && getAutomationEnabled(0, 1) && !boostCheck && data.ord.isPsi) data.ord.ordinal = D(GRAHAMS_VALUE)
+    if(timesToLoop[3].gte(1) && data.ord.isPsi && getAutomationEnabled(0, 1) && collapseCheck && boostCheck) markup(timesToLoop[3].times(diff/1000))
 
     if(!collapseCheck) data.ord.ordinal = D(BHO_VALUE)
 
     // Automation Tier 2: Post-Collapse
-    if(hasSluggishMilestone(2) && data.autoStatus.enabled[2]) sacrificeIncrementy() //Charge Autobuyer
-    if(hasSluggishMilestone(2) && data.autoStatus.enabled[3]){ // Repeatable IUP Autobuyer
+    if(hasSluggishMilestone(2) && getAutomationEnabled(1, 0)) sacrificeIncrementy() //Charge Autobuyer
+    if(hasSluggishMilestone(2) && getAutomationEnabled(1, 1)){ // Repeatable IUP Autobuyer
         for (let i = 0; i < 3; i++) {
             buyRUP(i)
         }
@@ -89,29 +89,29 @@ function tick(diff){
             }
         }
     }
-    if(hasSluggishMilestone(3) && data.autoStatus.enabled[4]){ // Repeatable HUP Autobuyer
+    if(hasSluggishMilestone(3) && getAutomationEnabled(1, 2)){ // Repeatable HUP Autobuyer
         for (let i = 0; i < data.hierarchies.rebuyableAmt.length; i++) {
             if(hasSingFunction(2)) data.hierarchies.rebuyableAmt[i] = getMaxHBBuyableLevel(i).toNumber()
             else buyHBuyable(i)
         }
     }
-    if(hasSingFunction(0) && data.autoStatus.enabled[5]){ // BUP + Supercharge AutoBuyer
-        if(!data.boost.hasBUP[10] || chargeAutoCheck(10)) buyBUP(10, false, data.autoStatus.enabled[6]&&hasSingFunction(3), true)
-        if(!data.boost.hasBUP[5] || chargeAutoCheck(5)) buyBUP(5, false, data.autoStatus.enabled[6]&&hasSingFunction(3), true)
-        if(!data.boost.hasBUP[0] || chargeAutoCheck(0)) buyBUP(0, false, data.autoStatus.enabled[6]&&hasSingFunction(3), true)
+    if(hasSingFunction(0) && getAutomationEnabled(1, 3)){ // BUP + Supercharge AutoBuyer
+        if(!data.boost.hasBUP[10] || chargeAutoCheck(10)) buyBUP(10, false, getAutomationEnabled(1, 4)&&hasSingFunction(3), true)
+        if(!data.boost.hasBUP[5] || chargeAutoCheck(5)) buyBUP(5, false, getAutomationEnabled(1, 4)&&hasSingFunction(3), true)
+        if(!data.boost.hasBUP[0] || chargeAutoCheck(0)) buyBUP(0, false, getAutomationEnabled(1, 4)&&hasSingFunction(3), true)
         for (let i = 1; i < 5; i++) {
             let isBottom = i===4
             for (let j = 0; j < 3; j++) {
-                if(!data.boost.hasBUP[i+(5*j)] || chargeAutoCheck(i+(5*j))) buyBUP(i+(5*j), isBottom, data.autoStatus.enabled[6]&&hasSingFunction(3), true)
+                if(!data.boost.hasBUP[i+(5*j)] || chargeAutoCheck(i+(5*j))) buyBUP(i+(5*j), isBottom, getAutomationEnabled(1, 4)&&hasSingFunction(3), true)
             }
         }
     }
-    if(hasPassiveUpgrade(21) && data.autoStatus.enabled[7] && isTabUnlocked('baseless')){
+    if(hasPassiveUpgrade(21) && getAutomationEnabled(1, 5) && isTabUnlocked('baseless')){
         for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
             buyANR(i)
         }
     }
-    if(hasPassiveUpgrade(22) && data.autoStatus.enabled[8] && isTabUnlocked('purification')){
+    if(hasPassiveUpgrade(22) && getAutomationEnabled(1, 6) && isTabUnlocked('purification')){
         for (let i = 0; i < data.omega.aoRebuyables.length; i++) {
             buyAOR(i)
         }
@@ -120,9 +120,9 @@ function tick(diff){
     // Automation Tier 3
     let inSluggish = false
     if (data.boost.times === 2 && hasSluggishMilestone(4)) inSluggish = true
-    if(hasSluggishMilestone(3) && data.collapse.apEnabled[0] && data.ord.base > 3 && data.markup.shifts < 7) factorShift(true)
-    if(hasSluggishMilestone(3) && data.collapse.apEnabled[1] && data.boost.times < boostLimit() && !inSluggish) boost(false, true)
-    if(hasAOMilestone(0) && data.collapse.apEnabled[2] && data.baseless.baseless) dynamicShift()
+    if(hasSluggishMilestone(3) && getAutomationEnabled(2, 0) && data.ord.base > 3 && data.markup.shifts < 7) factorShift(true)
+    if(hasSluggishMilestone(3) && getAutomationEnabled(2, 1) && data.boost.times < boostLimit() && !inSluggish) boost(false, true)
+    if(hasAOMilestone(0) && getAutomationEnabled(2, 2) && data.baseless.baseless) dynamicShift()
 
     // Increase Hierarchies
     if(data.boost.unlocks[2] && !inPurification(2) && !inPurification(3)) increaseHierarchies(diff)
@@ -135,4 +135,4 @@ function tick(diff){
 }
 
 // Used for Charge AutoBuyer
-let chargeAutoCheck = (i) => !data.boost.isCharged[i] && data.autoStatus.enabled[6] && hasSingFunction(3)
+let chargeAutoCheck = (i) => !data.boost.isCharged[i] && getAutomationEnabled(1, 4) && hasSingFunction(3)
