@@ -172,6 +172,6 @@ function getTotalEnergyInvested(){
         let ids = getFixedTreeNode(data.obliterate.energyUpgrades[i])
         total += energyUpgradeData[ids[0]][ids[1]].cost
     }
-    total += (data.purity.isUnlocked.slice(0,10).filter(i=>i).length - 3)
+    //total += (data.purity.isUnlocked.slice(0,10).filter(i=>i).length - 3)
     return total
 }
