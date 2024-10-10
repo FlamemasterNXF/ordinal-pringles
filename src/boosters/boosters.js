@@ -376,7 +376,7 @@ function buyBUP(n, bottomRow, useCharge, isAuto = false){
     if((n % 5 !== 0 && !data.boost.hasBUP[n-1]) && !isAuto){
         for (let i = 0; i < n % 5; i++) {
             let index = (i % 5) + (5 * Math.floor(n / 5))
-            buyBUP(index, bottomRow, useCharge)
+            buyBUP(index, bottomRow, false)
         }
     }
 
