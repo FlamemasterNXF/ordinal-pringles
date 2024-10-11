@@ -172,6 +172,6 @@ function getTotalEnergyInvested(forPassive = false){
         let ids = getFixedTreeNode(data.obliterate.energyUpgrades[i])
         total += energyUpgradeData[ids[0]][ids[1]].cost
     }
-    if (forPassive) total += (data.purity.isUnlocked.slice(0,10).filter(i=>i).length - 3)
+    if (forPassive) total += (data.purity.isUnlocked.slice(0,10).filter(i=>i).length - 2)
     return total
 }
