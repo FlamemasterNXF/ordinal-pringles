@@ -108,11 +108,6 @@ function fixOldSaves(){
         data.hierarchies.ords[i].over = D(data.hierarchies.ords[i].over)
     }
 
-    // Exploit Fix
-    if(data.obliterate.passiveEnergy > getTotalEnergyInvested() || getTotalPassiveEnergyInvested() > getTotalEnergyInvested() || getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy > getTotalEnergyInvested()){
-        extra = true
-    }
-
     //AutoShift Fix
     if(data.markup.shifts > 7) data.markup.shifts = 7
 
