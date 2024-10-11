@@ -8,7 +8,7 @@ let automationData = [
             unlock: () => data.boost.hasBUP[5],
         },
         {
-            name: "Markup AutoBuyer AutoBuyer",
+            name: "Markup AutoBuyer",
             desc: "clicking the Markup button",
             hasReq: true,
             req: "but only if you're past Ψ(Ω)",
