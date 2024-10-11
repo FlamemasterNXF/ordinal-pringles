@@ -86,7 +86,7 @@ function buyUnstableFactor(i){
 }
 
 function respecUnstableFactors(){
-    data.obliterate.instability = getInstabilityConstant()
+    data.obliterate.instability = getInstabilityConstant() + data.obliterate.instability
     for (let i = 0; i < data.obliterate.unstableFactors.length; i++) {
         data.obliterate.unstableFactors[i] = 0
     }
