@@ -149,7 +149,7 @@ function updateEnergyTreeText(id){
 function purchaseTreeUpgrade(id, node){
     data.obliterate.energy -= node.cost
     data.obliterate.energyUpgrades.push(id)
-    if(data.obliterate.passiveEnergy + getTotalPassiveEnergyInvested() < getTotalEnergyInvested()) data.obliterate.passiveEnergy += node.cost
+    if(data.obliterate.passiveEnergy + getTotalPassiveEnergyInvested() < getTotalEnergyInvested(true)) data.obliterate.passiveEnergy += node.cost
     setNodeColor(id)
 }
 
@@ -166,12 +166,12 @@ function respecEnergyTree(){
 
     obliterateReset()
 }
-function getTotalEnergyInvested(){
+function getTotalEnergyInvested(forPassive = false){
     let total = 0
     for (let i = 0; i < data.obliterate.energyUpgrades.length; i++) {
         let ids = getFixedTreeNode(data.obliterate.energyUpgrades[i])
         total += energyUpgradeData[ids[0]][ids[1]].cost
     }
-    //total += (data.purity.isUnlocked.slice(0,10).filter(i=>i).length - 3)
+    if (forPassive) total += (data.purity.isUnlocked.slice(0,10).filter(i=>i).length - 3)
     return total
 }

@@ -57,7 +57,7 @@ function initPassiveEnergyUpgrades(){
 }
 
 function buyPEUP(i){
-    if(data.obliterate.passiveEnergy < 1) return
+    if(data.obliterate.passiveEnergy < 1 || hasPassiveUpgrade(i)) return
 
     if(((i % 5 === 0 && i !== 20) || i === 19) || hasPassiveUpgrade(i-1)){
         --data.obliterate.passiveEnergy
@@ -73,7 +73,7 @@ function passiveRespecConfirm(){
     createConfirmation('Are you certain?', 'This will force an Obliteration reset!', 'Nope!', 'Yeah', respecPassiveUpgrades)
 }
 function respecPassiveUpgrades(){
-    data.obliterate.passiveEnergy = getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy > data.obliterate.passiveEnergy ? getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy : data.obliterate.passiveEnergy
+    data.obliterate.passiveEnergy = getTotalEnergyInvested(true)
     for (let i = 0; i < data.obliterate.hasPassiveUpgrade.length; i++) {
         DOM(`peup${i}`).style.color = 'gray'
         data.obliterate.hasPassiveUpgrade[i] = false
