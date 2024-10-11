@@ -13,6 +13,12 @@
     font-family: DosisLight;
     text-align: center;
 }
+.column {
+    flex-direction: column;
+}
+.row {
+    flex-direction: row;
+}
 .layer{
     position: absolute;
 }
@@ -40,6 +46,14 @@
     background: black;
     margin-top: 0.3rem;
 }
+.iFactor{
+    width: 15rem;
+    min-height: 2rem;
+    border: 2px solid #836838;
+    color: rgb(222, 182, 99);
+    background: black;
+    margin-top: 0.3rem;
+}
 .bup{
     width: 13rem;
     height: 6rem;
@@ -61,7 +75,7 @@
 .iup{
     width: 15rem;
     height: 5.5rem;
-    border: 2px solid #8000ff;
+    border: 2px solid #6e3c9f;
     color: #8080FF;
     background: black;
     margin-top: 0.5rem;
@@ -70,13 +84,17 @@
 #chargeButton{
     width: 15rem;
     height: 5.5rem;
-    border: 2px solid #8080FF;
+    border: 2px solid #5d5da1;
     color: goldenrod;
     background: black;
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }
-.automation2{
+.automationText{
+    color: white;
+    font-family: DosisLight;
+}
+.automation0{
     margin-top: 1rem;
     width: 10rem;
     min-height: 2rem;
@@ -85,7 +103,16 @@
     background: black;
     margin-left: 0.5rem;
 }
-.automation3{
+.automation1{
+    margin-top: 1rem;
+    width: 10rem;
+    min-height: 2rem;
+    border: 2px solid #0000ff;
+    color: #8080FF;
+    background: black;
+    margin-left: 0.5rem;
+}
+.automation2{
     margin-top: 1rem;
     width: 13rem;
     min-height: 2rem;
@@ -155,7 +182,7 @@
 .hup{
     width: 17rem;
     height: 7rem;
-    border: 2px solid #a600ff;
+    border: 2px solid #631d89;
     color: #a680ff;
     background: black;
 }
@@ -170,7 +197,7 @@
     font-family: DosisSemiBold;
 }
 .tabButton{
-    width: 5rem;
+    width: 7rem;
     height: 1.5rem;
     margin-left: 0.3rem;
     background: black;
@@ -246,7 +273,16 @@
     margin-top: 1rem;
     margin-left: 0.5rem;
 }
-#dupC2{
+#instability{
+    width: 10rem;
+    height: 4rem;
+    border: 2px solid #8000ff4d;
+    color: #9f9fcce1;
+    background: rgb(18 1 26);
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+}
+.chargeSac{
     width: 25rem;
     height: 5rem;
     border: 2px solid #8000ff4d;
@@ -272,6 +308,20 @@
     background: black;
     margin-top: 0.5rem;
     margin-left: 0.5rem;
+}
+.instabilityPringle{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 75%;
+    background: black;
+    border: 2px solid white;
+    margin-top: 0.25rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    text-align: center;
+    color: white;
+    place-content: center;
+    box-shadow: rgba(0,0,0,0.2) 0px 2px 3px, inset rgba(0,0,0,0.2) 0px -1px 2px;
 }
 .singControl{
     width: 12rem;
@@ -333,10 +383,92 @@
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     width: 30rem;
-    height: 5rem;
+    height: 5rem;    box-shadow: rgba(0,0,0,0.2) 0px 2px 3px, inset rgba(0,0,0,0.2) 0px -1px 2px;
+
     border: 2px solid #4b001a;
     color: #940525;
     background: black;
+}
+.obliterateTabButton{
+    width: 8rem;
+    height: 1.5rem;
+    margin-left: 0.3rem;
+    background: black;
+    border: 2px solid #6b00a0;
+    color: #b06cdc;
+}
+.passiveUpgrade{
+    color: gray;
+    border: 2px solid #6b3a9f;
+    background: black;
+    margin-top: 0.5rem;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    width: 15rem;
+    height: 6rem;
+}
+.pringle{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 75%;
+    background: black;
+    border: 2px solid white;
+    color: white;
+    text-align: center;
+}
+.purityPringle{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 75%;
+    background: black;
+    border: 2px solid white;
+    margin-top: 1rem;
+    text-align: center;
+    color: white;
+    place-content: center;
+}
+.purityPoint{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 2px solid #5b5b5b;
+    background: black;
+    text-align: center;
+    color: white;
+}
+.purityBar{
+    width: 16rem;
+    height: 30rem;
+    border: 2px solid #5b5b5b;
+    color: white;
+}
+.unstableFactor{
+    width: 14rem;
+    height: 8rem;
+    border: 2px solid #2d2746;
+    color: #614cb9;
+    background: black;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+}
+.progressBar{
+    width: 7rem;
+    height: 20rem;
+    background-color: black;
+    border-radius: 10px;
+    text-align: center;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    margin-top: 2rem;
+    position: relative;
+}
+.progress{
+    border-radius: 6px;
+    width: 7rem;
+    height: 0%;
+    text-align: center;
+    position:absolute;
+    bottom:0px;
 }
 .settingsButton{
     width: 10rem;

@@ -21,20 +21,28 @@ function incrementyGain() {
 
     let base = Decimal.log10(ord.plus(1)).div(10)
     let iupMults = base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect())
-    let otherMults = iupMults.times(getHierarchyEffect(0)).times(alephEffect(3)).times(cupEffect(4)).times(sBUP2Effect())
+    let otherMults = iupMults.times(getHierarchyEffect(0)).times(alephEffect(3)).times(getCUPEffect(4)).times(getBUPEffect(14))
+        .times(getUnstableFactorEffect(0))
     return otherMults.div(negativeChargeEffect(false))
 }
 
 const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Factor boosts Incrementy gain',
     'Total Factor Boosts boost Incrementy Gain', 'Incrementy Multiplies the Dynamic Cap at a reduced rate (does not affect C5)', 'Dynamic boosts AutoBuyers at a reduced rate',
     'Challenge Completions provide free levels of Repeatable Upgrade 1', 'Repeatable Upgrade 2 is boosted by Challenge Completions', 'Total Repeatable Upgrade 3 levels boosts Upgrade 3',
-    'Double Negative Charge gain and Cap', 'Gain a level of the second Darkness Upgrade', 'Boost Cardinal gain'
+    'Double Negative Charge gain', 'Gain a level of the second Darkness Upgrade', 'Boost Cardinal gain'
 ]
 const iupCosts = [1, 1, 1, 2e6, 2e5, 1e10, 3e4, 1e8, 1e12, 1e100, 1e150, 1e200]
 let rebuyableCostBases = [20, 1000, 100, 1e150, 1e150, 1e150]
-let rebuyableCostScalings = [2, 2, 2, 30, 40, 10]
+let rebuyableCostScalings = [
+    () => Math.max(1, 2),
+    () => Math.max(1, 2),
+    () => Math.max(1, 2),
+    () => Math.max(1, 30),
+    () => Math.max(1, 40),
+    () => Math.max(1, 10),
+]
 
-let getRebuyableCost = (i) => Decimal.sqrt(rebuyableCostScalings[i]*(rebuyableCostScalings[i]*data.incrementy.rebuyableAmt[i]+1)).mul(Decimal.pow((rebuyableCostScalings[i]*data.incrementy.rebuyableAmt[i]+1)/Math.E, (rebuyableCostScalings[i]*data.incrementy.rebuyableAmt[i]+1)/2)).ceil().times(rebuyableCostBases[i])
+let getRebuyableCost = (i) => Decimal.sqrt(rebuyableCostScalings[i]()*(rebuyableCostScalings[i]()*data.incrementy.rebuyableAmt[i]+1)).mul(Decimal.pow((rebuyableCostScalings[i]()*data.incrementy.rebuyableAmt[i]+1)/Math.E, (rebuyableCostScalings[i]()*data.incrementy.rebuyableAmt[i]+1)/2)).ceil().times(rebuyableCostBases[i])
 function initIUPs(){
     let rows = [DOM('iupRow0'), DOM('iupRow1'), DOM('iupRow2'), DOM('iupRow3'),]
     let total = 0
@@ -103,13 +111,17 @@ function getTotalIBuyables(){
     YIPEEEEEEEEEEEEE HERE WE GO AGAIN
     - Flame, once again, 11/24/23
  */
+/*
+        Hi chat!!
+        - flamecaster96 05/07/24
+ */
 let iup1Effect = () => Decimal.max(1, D(2+alephNullEffects[0]()).pow(D(data.incrementy.rebuyableAmt[0]).add(iup7Effect())))
 let iup2Effect = () =>  inPurification(1) ? 1 : Decimal.max(1, D(3).pow(data.incrementy.rebuyableAmt[1]).mul(iup8Effect()))
 let iup3Effect = () => data.incrementy.rebuyableAmt[2] > 0 && !inPurification(1) && !inPurification(3) ? (Decimal.max(1, Decimal.sqrt(data.dy.level))).mul(1+(data.incrementy.rebuyableAmt[2])) : D(1)
 let iup4Effect = () => data.incrementy.hasIUP[3] && !inPurification(3) ? Decimal.max(1, data.boost.times) : D(1)
 let iup5Effect = () => data.incrementy.hasIUP[4] && !inPurification(3) ? data.hierarchies.hasUpgrade[6] ? Decimal.max(1, Decimal.pow(data.incrementy.amt, 1/8).add(1))
 : Decimal.max(1, Decimal.pow(data.incrementy.amt, 1/16).add(1)) : D(1)
-let iup6Effect = () => data.incrementy.hasIUP[5] && !inPurification(1) && !inPurification(3) ? Decimal.max(1, Decimal.sqrt(data.dy.level+1)).mul(iup9Effect()).mul(hbData[2].effect()).mul(hbData[5].effect()).mul(alephEffect(7)) : D(1)
+let iup6Effect = () => data.incrementy.hasIUP[5] && !inPurification(1) && !inPurification(3) ? Decimal.max(1, Decimal.sqrt(data.dy.level.add(1))).mul(iup9Effect()).mul(hbData[2].effect()).mul(hbData[5].effect()).mul(alephEffect(7)) : D(1)
 let iup7Effect = () => data.incrementy.hasIUP[6] && !inPurification(3) ? Decimal.floor(data.chal.totalCompletions/3).mul(hasSingFunction(4) ? 2 : 1) : D(0)
 let iup8Effect = () => data.incrementy.hasIUP[7] && !inPurification(3) ? Decimal.max(1, 1+data.chal.totalCompletions/3) : D(1)
 let iup9Effect = () => data.incrementy.hasIUP[8] && !inPurification(3) ? data.hierarchies.hasUpgrade[1] ? Decimal.max(1, data.incrementy.rebuyableAmt[2]/3)
@@ -132,36 +144,33 @@ function chargeBUP(i, bottomRow){
 
     if(bottomRow){
         ++data.boost.bottomRowCharges
-        DOM('bupBottomText').innerText = `Click a purchased Upgrade to Supercharge it! The cost to Supercharge a bottom-row Upgrade is currently ${getBottomRowChargeCost()} Charge.\nThe Unlockables Column does not consume Boosters`
+        updateBUPInfoText()
     }
 
     DOM(`bup${i}`).className = 'chargedBUP'
-    DOM(`bup${i}`).innerText = `${chargedBUPDesc[i]}`
+    DOM(`bup${i}`).innerText = `${getBUPDesc(i)}`
     DOM(`bup${i}`).style.color = 'goldenrod'
 }
 let getBottomRowChargeCost = () => 13+(12*data.boost.bottomRowCharges)
 
 function respecCharge(c=false){
     if(data.baseless.baseless) return
-    let indexes = []
+
     for (let i = 0; i < data.boost.isCharged.length; i++) {
-        if (data.boost.isCharged[i]) indexes.push(i)
         data.boost.isCharged[i] = false
         DOM(`bup${i}`).className = 'bup'
-        DOM(`bup${i}`).innerText = `${bupDesc[i]}\n${getBUPCosts(i)} Boosters`
+        DOM(`bup${i}`).innerHTML = `${getBUPDesc(i)}`
         DOM(`bup${i}`).style.color = `#8080FF`
     }
-    data.incrementy.charge = data.incrementy.totalCharge-data.sing.level
+    data.incrementy.charge = data.incrementy.totalCharge-data.sing.level[0]
     data.boost.bottomRowCharges = 0
-    if(data.collapse.hasSluggish[3]) DOM('bupBottomText').innerText = `Click a purchased Upgrade to Supercharge it! The cost to Supercharge a bottom-row Upgrade is currently ${getBottomRowChargeCost()} Charge.\nThe Unlockables Column does not consume Boosters`
+    if(hasSluggishMilestone(3)) updateBUPInfoText()
     if(!c) chalExit()
 }
 
 function sacrificeIncrementy(){
     if(data.incrementy.amt.gte(chargeReq())){
-
-        if(data.incrementy.totalCharge < 1) initBUPHover()
-
+        // if(data.incrementy.totalCharge < 1) initBUPHover()
         data.incrementy.amt = data.incrementy.amt.sub(chargeReq())
         ++data.incrementy.totalCharge
         ++data.incrementy.charge
@@ -172,8 +181,9 @@ function sacrificeIncrementy(){
 }
 
 //let chargeReq = () => (10**(6+((data.incrementy.totalCharge+data.darkness.sacrificedCharge)*(2+Math.floor((data.incrementy.totalCharge+data.darkness.sacrificedCharge)/12)))))/hierarchyData[1].effect()
+let chargeCostBase = () => 10
 function chargeReq() {
     let chargeExp = 6+((data.incrementy.totalCharge+data.darkness.sacrificedCharge)*(2+Math.floor((data.incrementy.totalCharge+data.darkness.sacrificedCharge)/12)));
     chargeExp -= Decimal.log10(getHierarchyEffect(1));
-    return D(10).pow(chargeExp);
+    return D(chargeCostBase()).pow(chargeExp);
 }

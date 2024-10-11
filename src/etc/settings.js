@@ -5,10 +5,13 @@ const SETTINGS_DESCS = [
     "Factor Boost confirmation", "Charge Refund Confirmation", "Boost Progress Bar", "ability to Bulk Boost",
     "Baselessness Confirmation", "Collapse Confirmation", "Booster Refund in C5 and C7", "Darkness Confirmation",
     "Charge Sacrifice Confirmation", "Hardy Value Display for Ordinals >= 1.8e308",
-    "Use ExpantaNum in Extended Hardy Displays",
+    "Use ExpantaNum in Extended Hardy Displays", "Toggle the Obliterate Confirmation",
+    "Toggle the Energy Upgrades Respec Confirmation", "Toggle the Passive Energy Respec Confirmation",
+    "Differentiate Pringles without Color", "Toggle the Unstable Factor Respec Confirmation",
+    "Force Automation to be disabled on Obliteration"
 ]
 const settingsDefaults = [
-    true, true, true, true, true, true, true, true, true, true, true, true, false, false, true
+    true, true, true, true, true, true, true, true, true, true, true, true, false, false, true, true, true, true, false, true, false
 ]
 function settingsToggle(i){
     if (i === -1){
@@ -27,6 +30,8 @@ function settingsToggle(i){
 
     DOM(`settingsToggle${i}`).innerHTML = `${i > 12 ? '' : 'Toggle the'} ${SETTINGS_DESCS[i]} ${settingsColor(data.sToggles[i])}`
     save()
+
+    if(i === 18) location.reload()
 }
 function settingsColor(bool){
     return bool

@@ -1,5 +1,5 @@
 //Important Constants for Loading
-const TABS = ["markup", "boost", "collapse", "ach", "settings"]
+const TABS = ["markup", "boosters", "collapse", "obliterate", "ach", "settings"]
 
 const uHTML = {
     update(){
@@ -7,6 +7,7 @@ const uHTML = {
         updateMarkupHTML()
         updateBoostersHTML()
         updateCollapseHTML()
+        updateObliterateHTML()
     },
     load(){
         //Load Tab Displays
@@ -16,13 +17,14 @@ const uHTML = {
         switchTab('ord')
 
         //Show and Hide things, based on data
-        DOM('boostNav').style.display = data.boost.times>0 || data.collapse.times>0?'block':'none'
-        DOM('collapseNav').style.display = data.collapse.times>0?'block':'none'
-        DOM('factorBoostButton').style.display = data.boost.times>0 || data.collapse.times>0?'inline-block':'none'
+        DOM('boostNav').style.display = data.boost.times>0 || data.collapse.times>0 || data.obliterate.times>0?'block':'none'
+        DOM('collapseNav').style.display = data.collapse.times > 0 || data.obliterate.times>0?'block':'none'
+        DOM('obliterateNav').style.display = data.obliterate.times > 0 ?'block':'none'
+        DOM('factorBoostButton').style.display = data.boost.times>0 || data.collapse.times>0 || data.obliterate.times>0?'inline-block':'none'
+        DOM('obliterateButton').style.display = hasAOMilestone(4) || data.obliterate.times > 0 ? 'block' : 'none'
 
         if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchSubtab('dynamic', 'markup'))
 
-        if(data.boost.unlocks[1])('bupBottomText').innerText = 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
         DOM('bp2Description').innerText = data.overflow.thirdEffect ? 'Dividing Decrementy Gain by ' : 'Multiplying Decrementy Gain by '
         DOM('progressBarContainer').style.display = data.sToggles[6] ? 'flex' : 'none'
         DOM('darken').innerText = data.darkness.darkened ? 'Escape' : 'Enter the Darkness'
@@ -42,6 +44,7 @@ const uHTML = {
         //Initialize all Tabs
         initAchs()
         initBUPs()
+        initAutomation()
         initChals()
         initIUPs()
         initHierarchies()
@@ -51,5 +54,9 @@ const uHTML = {
         initSingularityFunctions()
         initANRebuyables()
         initPurification()
+        initPassiveEnergyUpgrades()
+        initPringleAlchemy()
+        initPurityPlane()
+        initUnstableFactors()
     }
 }

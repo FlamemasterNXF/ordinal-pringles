@@ -608,7 +608,7 @@ function calculateHardy(ord = data.ord.ordinal, over = data.ord.over, base = dat
 
     if (ord.lt(base))
     {
-        return ord.add(base + over);
+        return ord.add(D(over).add(base));
     }
 
     if (ord.gte(base ** 100) || ord.gte(1e100))
@@ -627,7 +627,7 @@ function calculateSimpleHardy(ord = data.ord.ordinal, over = data.ord.over, base
     if (ord >= base**3) return D(Infinity)
     let f2 = Math.floor(ord/base**2)
     const f1 = Math.floor((ord-(f2*base**2))/base)
-    const f0 = Math.floor((ord-(f2*base**2)-(f1*base)))+over
+    const f0 = Math.floor((ord-(f2*base**2)-(f1*base)))+D(over).toNumber()
     let value = base+f0
     value = D(value).times(Decimal.pow(2,f1))
     while(f2 > 0) {
@@ -643,7 +643,7 @@ let useExpantaNum = () => data.sToggles[14]
 // Get the Hardy Value for Display
 function getHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.base, isPsi = data.ord.isPsi) {
     if (isPsi) return psiHardy(ord, base);
-    if(calculateSimpleHardy().lt(Number.MAX_VALUE)) return format(Decimal.floor(calculateSimpleHardy()))
+    if(calculateSimpleHardy().lt(Number.MAX_VALUE)) return format(Decimal.floor(calculateSimpleHardy().plus(1e-10)))
     ord = Decimal.floor(ord);
     let hardyValue = "Infinity";
     hardyValue = format(calculateHardy(ord, over, base));

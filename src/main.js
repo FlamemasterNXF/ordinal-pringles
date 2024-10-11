@@ -5,8 +5,8 @@ function mainLoop() {
     // Used for Offline Progress
     let uDiff = diff/1000
 
-    if(data.dy.gain > 0 && data.dy.level < data.dy.cap) data.dy.level = Math.min(data.dy.cap, data.dy.level+uDiff*dyGain())
-    if(data.boost.hasBUP[11]) data.markup.powers += bup9Effect()*uDiff
+    if(data.dy.gain.gt(0) && data.dy.level.lt(getDyCap())) data.dy.level = Decimal.min(getDyCap(), data.dy.level.add(D(uDiff).mul(dyGain())))
+    if(data.boost.hasBUP[11]) data.markup.powers = data.markup.powers.plus(getBUPEffect(11)*uDiff)
 
     if(data.chal.active[7]) data.chal.decrementy = Decimal.max(1, data.chal.decrementy.mul(decrementyGain().pow(uDiff)))
 
@@ -16,13 +16,15 @@ function mainLoop() {
         data.overflow.oc += getOverflowGain(1)*uDiff
     }
 
-    if(data.collapse.hasCUP[7]) data.collapse.cardinals += (data.collapse.bestCardinalsGained/100)*cupEffect(7)*uDiff
-    if(data.collapse.hasSluggish[0] && calculateSimpleHardy().gte(10240) && !data.ord.isPsi && data.markup.powers < 4e256) data.markup.powers += (totalOPGain()/100)*uDiff
+    if(hasCUP(7)) data.collapse.cardinals += (data.collapse.bestCardinalsGained/100)*getCUPEffect(7)*uDiff
 
-    if(remnantAmt() > 0 && data.omega.alephOmega < remnantAmt()) data.omega.alephOmega += aoGain()*uDiff
-    if(data.omega.alephOmega > remnantAmt()) data.omega.alephOmega = remnantAmt()
+    if(hasSluggishMilestone(0) && calculateSimpleHardy().gte(10240) && !data.ord.isPsi && data.markup.powers.lt(4e256)) data.markup.powers = data.markup.powers.plus((totalOPGain().div(100)).times(uDiff))
+    if(isTabUnlocked('hierarchies')) checkHierarchyMilestones()
 
-    data.darkness.negativeCharge = Math.min(negativeChargeCap(), data.darkness.negativeCharge+negativeChargeGain()*uDiff)
+    if(alephOmegaCap() > 0 && data.omega.alephOmega < alephOmegaCap()) data.omega.alephOmega += aoGain()*uDiff
+    if(data.omega.alephOmega > alephOmegaCap()) data.omega.alephOmega = alephOmegaCap()
+
+    data.darkness.negativeCharge = Math.min(Number.MAX_VALUE, data.darkness.negativeCharge+negativeChargeGain()*uDiff)
 
     // Run the tick() function to calculate things that rely on normal diff
     tick(diff)
@@ -56,7 +58,7 @@ window.onload = function () {
 
     if(extra) fixOldSavesP2()
 
-    if(data.collapse.times > 0) makeExcessOrdMarks()
+    if(data.collapse.times > 0 || data.obliterate.times > 0) makeExcessOrdMarks()
 
     window.setInterval(function () {
         mainLoop()

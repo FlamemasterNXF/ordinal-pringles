@@ -4,13 +4,19 @@ function switchTab(tab){
     DOM(`${data.nav.last}Page`).style.display = 'none'
     DOM(`${tab}Page`).style.display = 'flex'
 
-    if(tab === 'collapse') checkCollapseUnlockHTML()
+    if(tab === 'markup' && !isTabUnlocked(boostTab)) switchSubtab('factor', 'markup')
+    if(tab === 'boosters' && !isTabUnlocked(boostTab)) switchSubtab('upgrades', 'boosters')
+    if(tab === 'collapse'){
+        if(!isTabUnlocked(collapseTab)) switchSubtab('cardinals', 'collapse')
+        checkCollapseUnlockHTML()
+    }
 }
 
 
 let markupTab = "factor"
 let boostTab = "upgrades"
 let collapseTab = "cardinals"
+let obliterateTab = "pringles"
 let settingsTab = "gameSettings"
 
 function switchSubtab(t, mode){
@@ -28,8 +34,9 @@ function switchSubtab(t, mode){
         DOM(`${boostTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
 
+        updateAutomationTabHTML()
+
         if(t==="upgrades") checkSpecialBUPs()
-        if(t==="auto2") checkAutobuyerDisplay()
         if(t==="hierarchies") checkSpecialHUPs()
 
         if(t==="overflow"){
@@ -37,30 +44,32 @@ function switchSubtab(t, mode){
             DOM(`bp7Container`).style.display = hasAOMilestone(2) ? 'block' : 'none'
         }
 
-        if (t==="upgrades" && data.boost.unlocks[1]){
-            DOM('bupBottomText').innerText = data.collapse.hasSluggish[3]
-                ? `Click a purchased Upgrade to Supercharge it! The cost to Supercharge a bottom-row Upgrade is currently ${getBottomRowChargeCost()} Charge.\nThe Unlockables Column does not consume Boosters`
-                : 'Click a purchased Upgrade to Supercharge it!\nThe Unlockables Column does not consume Boosters'
-            DOM('chargeRefund').style.display = 'block'
-        }
-        else{
-            DOM('bupBottomText').innerText = 'The Unlockables Column does not consume Boosters'
-            DOM('chargeRefund').style.display = 'none'
+        if (t==="upgrades" && data.boost.unlocks[1]) {
+            updateBUPInfoText()
+            DOM('chargeRefund').style.display = data.boost.unlocks[1] ? 'block' : 'none'
+            DOM('destabRefund').style.display = getEUPEffect(4, 0) ? 'block' : 'none'
         }
 
         if(t==="incrementy"){
             DOM(`iupRow3`).style.display = hasAOMilestone(3) ? `flex` : `none`
+        }
+
+        if(t==="overflow"){
+            DOM(`bp1Description`).innerText = `Multiplying Passive OP gain by`
+            DOM(`bp1Description2`).style.display = ''
         }
         boostTab = t
     }
 
     // Special Collapse Rules
     if(mode === "collapse"){
-        DOM(`collapseInfoContainer`).style.display = t==='omega' ? 'none' : 'flex'
+        DOM(`collapseInfoContainer`).style.display = t==='purification' ? 'none' : 'flex'
 
         if(t==='cardinals'){
             DOM(`aleph8`).style.display = hasAOMilestone(1) ? `block` : `none`
         }
+        if(t==='cUpgrades' && data.obliterate.times > 0) checkAllUnlocks(0, true)
+        if(t==='sluggish' && data.obliterate.times > 0) checkAllUnlocks(1, true)
         if(t==='darkness'){
             updateDUPHTML(1)
             updateDUPHTML(2)
@@ -72,6 +81,7 @@ function switchSubtab(t, mode){
                 data.sing.tutorial = true
             }
             DOM(`singFunction8`).style.display = hasAOMilestone(0) ? `block` : `none`
+            DOM(`singularity1`).style.display = /*hasSingFunction(9) ? `flex` :*/ `none`
             checkPermanentFunctions()
         }
         if(t==="baseless"){
@@ -80,18 +90,31 @@ function switchSubtab(t, mode){
             DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
             updateBaselessEnterHTML(data.baseless.mode, true)
         }
-        if(t === "autoPrestige") updateAutoPrestigeHTML()
-        if(t === "omega") {
+        if(t === "purification") {
             if(!data.omega.tutorial){
                 createAlert('Tutorial Time!', 'In order to gain ℶ<sub>&omega;</sub> you must enter a Purification and reach a never-before-reached Factor Boost within that Purification! This means ℶ<sub>&omega;</sub> is NOT farmable! Have fun!', 'Thanks for the tips!')
                 data.omega.tutorial = true
             }
+            if(data.obliterate.times > 0) updateAllAOMHTML()
         }
 
         DOM(`${collapseTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
 
         collapseTab = t
+    }
+
+    // Special Obliteration Rules
+    if(mode === "obliterate"){
+        if(t === 'energy' && !hasDrawnTree) drawTree()
+        if(t === 'passive') updatePassiveEnergyText()
+        if(t === 'instability') updateInstabilityText()
+
+        DOM(`obliterateInfoContainer`).style.display = t === 'energy' ? 'flex' : 'none'
+
+        DOM(`${obliterateTab}SubPage`).style.display = `none`
+        DOM(`${t}SubPage`).style.display = `flex`
+        obliterateTab = t
     }
 
     // Special Settings Rules
@@ -116,11 +139,10 @@ function isTabUnlocked(t){
         case 'hierarchies': return data.boost.unlocks[2]
         case 'overflow': return data.boost.unlocks[3]
 
-        case 'darkness': return data.collapse.hasSluggish[2]
-        case 'autoPrestige': return data.collapse.hasSluggish[3]
-        case 'sing': return data.boost.unlocks[4]
-        case 'baseless': return data.boost.unlocks[4]
-        case 'omega': return data.incrementy.totalCharge > 71 || hasSingFunction(6)
+        case 'darkness': return hasSluggishMilestone(2)
+        case 'sing': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
+        case 'baseless': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
+        case 'purification': return hasSingFunction(6) || hasPassiveUpgrade(20)
 
         default: return true
     }

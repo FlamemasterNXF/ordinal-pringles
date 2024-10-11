@@ -50,6 +50,7 @@ function updateChalHTML(i){
     DOM(`chal7`).innerHTML = `Challenge 8<br>${chalDesc[7]}<br><br>Goal: ${format(chalGoals[7][data.chal.completions[7]])} OP<br>Reward: Dynamic Factor slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[7]}/3`
 }
 function chalEnter(i, force=false){
+    if(data.baseless.baseless) return;
     if((data.chal.completions[i] === 3 || data.chal.active.includes(true)) && !force) return
 
     if(i === 5) for (let j = 0; j < data.chal.active.length-4; j++) data.chal.active[j] = true
@@ -58,9 +59,9 @@ function chalEnter(i, force=false){
 
     boosterReset()
     if(i === 2 || i === 5) data.ord.base = 15
-    if(data.boost.hasBUP[2]) data.ord.base = 5
+    //if(data.boost.hasBUP[2]) data.ord.base = 5
     if(i === 4){
-        data.dy.gain = 0.002
+        data.dy.gain = D(0.002)
         //DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     }
     if((i === 4 || i === 6 || i === 7) && data.sToggles[10]){
@@ -103,19 +104,29 @@ function chalComplete(){
 
 let chalEffect = i => 0.25*data.chal.completions[i]
 function chalEffectTotal(){
-    let mult = 0
+    let mult = D(0)
     for (let i = 0; i < data.chal.completions.length-1; i++) {
-        mult += (factorEffect(i)*chalEffect(i))
+        mult = mult.add(D(factorEffect(i)).mul(chalEffect(i)))
     }
-    mult += data.dy.level * chalEffect(7)
+    mult = mult.add(D(data.dy.level).mul(chalEffect(7)))
 
-    let base = (mult)*hupData[0].effect()*getOverflowEffect(0)
-    let cup = data.collapse.hasCUP[2] ? cupEffect(2) : 0
-    return Math.min(Math.max(base**2+cup, 1), Number.MAX_VALUE)
+    let base = D(mult).mul(hupData[0].effect()).mul(getOverflowEffect(0))
+    let cup = data.collapse.hasCUP[2] ? D(getCUPEffect(2)) : D(0)
+    return Decimal.max(Decimal.pow(base,2).add(cup), 1)
+}
+function getDecrementyExponent(){
+    let base = 1+1+hupData[4].effect()+getANREffect(2)+getUnstableFactorEffect(1)
+    return hasTreeUpgrade(102) ? base+singEffects[1].effect() : base-singEffects[1].effect()
 }
 function decrementyGain() {
-    const exponent = 1+hupData[4].effect()+getANREffect(2)-singEffects[1].effect()
-    const base = D(0.000666).times((D(data.markup.powers+1)).pow(0.2).times(2).pow(exponent))
+    const exponent = getDecrementyExponent()
+    const base = D(0.000666).times((data.markup.powers.plus(1)).pow(0.2).times(2).pow(exponent))
     const overflow = data.overflow.thirdEffect ? base.div(getOverflowEffect(2)) : base.times(getOverflowEffect(2))
     return (overflow).pow(20) // 20 times per second
+}
+
+function getC5Effect(){
+    let m = 0
+    for (let i = 0; i < data.boost.hasBUP.length; i++) if(data.boost.hasBUP[i]) ++m
+    return Math.max(m, 1)
 }

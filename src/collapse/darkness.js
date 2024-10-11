@@ -1,6 +1,7 @@
 function updateDarknessHTML(){
-    DOM('nchargeText1').innerText = `You have ${format(data.darkness.negativeCharge)} Negative Charge [+${format(negativeChargeGain())}/s], which is capped by Incrementy at ${format(negativeChargeCap())}`
+    DOM('nchargeText1').innerText = `You have ${format(data.darkness.negativeCharge)} Negative Charge [+${format(negativeChargeGain())}/s]`
     DOM('nchargeText2').innerText = `Your Negative Charge divides Incrementy gain by /${format(negativeChargeEffect(false))} and Incrementy effect by /${format(negativeChargeEffect(true))}`
+    updateAllDUPHTML()
 }
 
 function updateDarknessControlHTML(mode){
@@ -37,31 +38,42 @@ function updateAllDUPHTML(){
 }
 
 function updateDrainHTML(i){
-    DOM(`drain${i}`).innerText = `Drain this Cardinal Upgrade (${data.darkness.drains[i]})\n${format(drainCost(i))} Negative Charge`
+    DOM(`drain${i}`).innerText = `Drain this Cardinal Upgrade (${getDrainLevel(i)})\n${format(drainCost(i))} Negative Charge`
 }
 
 let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)*(iup10Effect()) : 0
-let negativeChargeCap = () => Math.min(Decimal.pow(data.incrementy.amt, 1/3).toNumber()*(iup10Effect()), Number.MAX_VALUE)
+//let negativeChargeCap = () => Math.min(Decimal.pow(data.incrementy.amt, 1/3).toNumber()*(iup10Effect()), Number.MAX_VALUE)
 
-function negativeChargeEffect(eff){
-    if(eff === false) return Decimal.sqrt(data.darkness.negativeCharge+1).div(sacrificedChargeEffect())
-    if(eff === true) return Decimal.log10(data.darkness.negativeCharge+10).div(sacrificedChargeEffect())
- }
+function negativeChargeEffect(eff) {
+    if (eff === false) return Decimal.max(1, Decimal.sqrt(data.darkness.negativeCharge + 1).div(sacrificedChargeEffect()))
+    if (eff === true) return Decimal.max(1, Decimal.log10(data.darkness.negativeCharge + 10).div(sacrificedChargeEffect()))
+}
 
+let sacrificedChargeEffects = [
+    {
+        desc: "Dividing the Negative Charge effects",
+        eff: () => (data.darkness.sacrificedCharge+1)*2
+    },
+    {
+        desc: "Increasing the D gain ",
+        eff: () => (data.darkness.sacrificedCharge+1)*2
+    },
+]
 let sacrificedChargeEffect = () => data.darkness.sacrificedCharge > 0 ? (data.darkness.sacrificedCharge+1)*2 : 1
 
-let drainEffect = (i) => data.darkness.drains[i] > 0 ? i===1 ? Math.max(0, drain1Effect())
+let drainEffect = (i) => getDrainLevel(i) > 0 ? i===1 ? Math.max(0, drain1Effect())
     : Math.max(drainData[i].effect(), 1)
     : i===1 ? 0 : 1
-let drainCost = (i) => (10**(1+(data.darkness.totalDrains/2)))*(data.darkness.drains[i]+1)
+let drainCost = (i) => (10**(1+(data.darkness.totalDrains/2)))*(getDrainLevel(i)+1)
+let getDrainLevel = (i) => data.darkness.drains[i]
 let drainData = [
-    { effect: () => 2*data.darkness.drains[0] },
+    { effect: () => 2*getDrainLevel(0) },
     { effect: () => drain1Effect() },
-    { effect: () => 1.5*data.darkness.drains[2] },
-    { effect: () => 2*data.darkness.drains[3] },
-    { effect: () => 5*data.darkness.drains[4] },
-    { effect: () => 1.2*data.darkness.drains[5] },
-    { effect: () => 2*data.darkness.drains[6] },
+    { effect: () => 1.5*getDrainLevel(2) },
+    { effect: () => 2*getDrainLevel(3) },
+    { effect: () => 5*getDrainLevel(4) },
+    { effect: () => 1.2*getDrainLevel(5) },
+    { effect: () => 2*getDrainLevel(6) },
 ]
 
 let dupEffect = (i) => inPurification(0) ? 1 : Math.max(1, dupData[i].effect())
@@ -71,9 +83,9 @@ function dupScaling (i){
     if(i===2) return D(10).pow(D(3).pow(data.darkness.levels[i]+1)).pow(3)
 }
 let dupData = [
-    { text: "Multiply AutoBuyer speed by 1.5x", cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)), effect: ()=> (1.5*purificationEffect(0))**(data.darkness.levels[0]+getExtraDUPLevels(0)) },
-    { text: 'Double Dynamic Cap', cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> hasSingFunction(6) ? 4**(data.darkness.levels[1]+getExtraDUPLevels(1)) : 2**data.darkness.levels[1]},
-    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> 1.1**(data.darkness.levels[2]+getExtraDUPLevels(2)) }
+    { text: "Multiply AutoBuyer speed by 1.5x", cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)), effect: ()=> isTabUnlocked('darkness') ? (1.5*purificationEffect(0))**(data.darkness.levels[0]+getExtraDUPLevels(0)) : 1 },
+    { text: 'Double Dynamic Cap', cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> isTabUnlocked('darkness') ? hasSingFunction(6) ? 4**(data.darkness.levels[1]+getExtraDUPLevels(1)) : 2**data.darkness.levels[1] : 1},
+    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> isTabUnlocked('darkness') ? 1.1**(data.darkness.levels[2]+getExtraDUPLevels(2)) : 1 }
 ]
 let extraDUPLevels = [
     () => 0,
@@ -82,7 +94,7 @@ let extraDUPLevels = [
 ]
 
 function buyDrain(i) {
-    if (!data.collapse.hasCUP[i]) return createAlert("Failure.", "The Cardinal Upgrade must be purchased before being drained!", "Oops.")
+    if (!hasCUP(i)) return createAlert("Failure.", "The Cardinal Upgrade must be purchased before being drained!", "Oops.")
     if (data.darkness.negativeCharge < drainCost(i)) return createAlert("Failure.", "Insufficient Negative Charge", "Dang.")
 
     data.darkness.chargeSpent += drainCost(i)
@@ -102,7 +114,7 @@ function buyDUP(i){
         updateDUPHTML(i)
     }
 }
-let getTotalDUPs = () => data.darkness.levels[0]+data.darkness.levels[1]+data.darkness.levels[2]
+let getTotalDUPs = () => data.darkness.levels[0]+data.darkness.levels[1]+data.darkness.levels[2]+getExtraDUPLevels(0)+getExtraDUPLevels(1)+getExtraDUPLevels(2)
 
 function darknessControl(mode){
     if(data.baseless.baseless) return createAlert('Illegal Move', 'You cannot access Darkness Controls in the Baseless Realms', 'Dang.')
@@ -164,7 +176,9 @@ function respecDrains(){
 
 function resetDarkness(force = false){
     data.darkness.darkened = false
-    if(!data.collapse.hasSluggish[3]) data.darkness.levels = Array(3).fill(0)
+    for (let i = 0; i < 3; i++) {
+        data.darkness.levels[i] = (hasPassiveUpgrade(10+i) || hasSluggishMilestone(3)) ? data.darkness.levels[i] : 0
+    }
     data.darkness.negativeCharge = 0
     if(!hasSingFunction(1)) data.darkness.drains = Array(7).fill(0)
     if(!data.boost.unlocks[4]){

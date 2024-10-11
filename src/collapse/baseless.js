@@ -20,7 +20,7 @@ function initANRebuyables(){
 }
 
 function updateAlephNullHTML(){
-    DOM(`alephNull`).innerHTML = `You have <span style="color: red; font-family: DosisSemiBold">${format(data.baseless.alephNull)} ℵ<sub>0</sub></span>, increasing the RUP1 effect base by <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[0]())}</span> and providing <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[1]())}</span> free levels of the last Darkness Buyable</span><br>Your <span style="color: #80ce0b; font-family: DosisSemiBold">Singularity</span> is multiplying AutoClicker Speed in the Baseless Realms by <span style="color: #80ce0b; font-family: DosisSemiBold">${singBoostToBaseless(true)}x</span>`
+    DOM(`alephNull`).innerHTML = `You have <span style="color: red; font-family: DosisSemiBold">${format(data.baseless.alephNull)} ℵ<sub>0</sub></span>, increasing the RUP1 effect base by <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[0]())}</span> and providing <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[1]())}</span> free levels of the last Darkness Buyable</span><br>Your <span style="color: goldenrod; font-family: DosisSemiBold">Total Charge</span> is multiplying AutoClicker Speed in the Baseless Realms by <span style="color: goldenrod; font-family: DosisSemiBold">${format(chargeBoostToBaseless(true))}x</span>`
 }
 function updateDynamicShiftHTML(){
     DOM(`dynamicShift`).style.display = `${data.baseless.baseless ? 'block' : 'none'}`
@@ -33,7 +33,13 @@ function updateDynamicShiftHTML(){
     }
 }
 function updateANRHTML(i){
-    DOM(`anR${i}`).innerHTML = `<span style="color: #ce5c0b">${anRebuyableData[i].desc} (${formatWhole(data.baseless.anRebuyables[i])})</span><br>Requires: ${format(getANRCost(i))} ℵ<sub>0</sub><br>Currently: ${anRebuyableData[i].symbol !== 'x' ? anRebuyableData[i].symbol : ''}${format(getANREffect(i))}${anRebuyableData[i].symbol === 'x' ? anRebuyableData[i].symbol : ''}`
+    DOM(`anR${i}`).innerHTML = `<span style="color: #ce5c0b">${anRebuyableData[i].desc} (${formatWhole(getANRLevels(i))})</span><br>Requires: ${format(getANRCost(i))} ℵ<sub>0</sub><br>Currently: ${anRebuyableData[i].symbol !== 'x' ? anRebuyableData[i].symbol : ''}${format(getANREffect(i))}${anRebuyableData[i].symbol === 'x' ? anRebuyableData[i].symbol : ''}`
+}
+function updateAllANRHTML(){
+    for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
+        updateANRHTML(i)
+    }
+    checkANRUnlockHTML()
 }
 function checkANRUnlockHTML(){
     for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
@@ -58,47 +64,52 @@ const baselessMultipliers = [2, 100, 10000]
 const baselessLocks = [
     () => 10,
     () => 20,
-    () => 100-(hasSingFunction(8) ? getSingFunctionEffect(8) : 0)
+    () => 100-(hasSingFunction(8) ? getSingFunctionEffect(8) : 0)-getInstabilityConstantEffect(0)
 ]
 const baselessNames = ['Baseless', 'Obliterated', 'Forgotten']
 
 const anRebuyableData = [
     {
         desc: "Cardinals boost AutoClickers while in a Baseless Realm",
-        eff: () => Math.log10(10+data.collapse.cardinals)*data.baseless.anRebuyables[0],
+        eff: () => Math.min(Number.MAX_VALUE, (data.collapse.cardinals**2)*getANRLevels(0)),
         costBase: 1e3,
         symbol: 'x',
-        unl: () => true
+        unl: () => true,
+        freeLevels: () => getEUPEffect(1, 0, true)
     },
     {
-        desc: "Boost the Singularity boost to AutoClickers while in Baseless Realms",
-        eff: () => 2*data.baseless.anRebuyables[1],
+        desc: "Boost the Total Charge boost to Baseless Realms",
+        eff: () => Math.max(1, (getANRLevels(1))),
         costBase: 1e6,
-        symbol: 'x',
-        unl: () => true
+        symbol: '^',
+        unl: () => true,
+        freeLevels: () => 0
     },
     {
         desc: "Increase the Decrementy gain exponent",
-        eff: () => 0.1*data.baseless.anRebuyables[2],
+        eff: () => (0.1*getANRLevels(2))+(getPringleEffect(5, true))+(getEUPEffect(1, 2, true)),
         costBase: 1e4,
         symbol: '+',
-        unl: () => true
+        unl: () => true,
+        freeLevels: () => 0
     },
 
     // Unlocked by a Remnant / Beth Omega Milestone
     {
         desc: "ℵ<sub>0</sub> boosts both Hierarchy Successors",
-        eff: () => Math.sqrt(data.baseless.alephNull)*data.baseless.anRebuyables[3],
+        eff: () => Math.sqrt(data.baseless.alephNull)*getANRLevels(3),
         costBase: 1e9,
         symbol: 'x',
-        unl: () => hasAOMilestone(4)
+        unl: () => hasAOMilestone(4),
+        freeLevels: () => 0
     },
     {
         desc: "Provide a free level of the 1st, 3rd, 4th, and 5th ℵ<sub>&omega;</sub> Rebuyables",
-        eff: () => data.baseless.anRebuyables[4] > 0 ? data.baseless.anRebuyables[4] : 0,
+        eff: () => getANRLevels(4) > 0 ? getANRLevels(4) : 0,
         costBase: 1e11,
         symbol: '+',
-        unl: () => hasAOMilestone(4)
+        unl: () => hasAOMilestone(4),
+        freeLevels: () => 0
     },
 ]
 
@@ -119,7 +130,7 @@ function baselessControl(){
 
     if(data.baseless.baseless){
         data.ord.base = baselessLocks[data.baseless.mode]()
-        data.dy.gain = 0.002
+        data.dy.gain = D(0.002)
     }
     else{
         data.baseless.shifts = 0
@@ -153,17 +164,20 @@ let dynamicShiftMultipliers = [
     (i = data.baseless.shifts) => Math.max(1, 1000**(i+data.baseless.mode))
 ]
 
-let alephNullGain = () =>  Math.max(1, Decimal.log10(Decimal.max(data.ord.ordinal,1)).toNumber()*dynamicShiftMultipliers[0]()*getAOEffect(1))
+let alephNullGain = () =>  Math.max(1, Decimal.log10(Decimal.max(data.ord.ordinal,1)).toNumber()*dynamicShiftMultipliers[0]()*getAOEffect(1)*getPringleEffect(4, true))
 let alephNullEffects = [
-    () => Math.max(0, Math.log10(data.baseless.alephNull)/10),
+    () => Math.max(0, Math.log10(data.baseless.alephNull)/10)*(Math.max(1, getPringleEffect(5, true))),
     () => Math.max(0, Math.floor(Math.log10(data.baseless.alephNull)))
 ]
 let getBaselessMult = (i) => baselessMultipliers[i]
-let singBoostToBaseless = (display = false) => data.baseless.baseless || display
-    ? Math.max(1, data.sing.level*getANREffect(1))
+let chargeBoostToBaseless = (display = false) => data.baseless.baseless || display
+    ? Math.max(1, ((data.incrementy.totalCharge**10)*getEUPEffect(1, 1, true))**getANREffect(1))
     : 1
 let getANRCost = (i) => ((anRebuyableData[i].costBase/100+1)**data.baseless.anRebuyables[i])*anRebuyableData[i].costBase
 let getANREffect = (i) => {
-    if(i === 2) return data.baseless.anRebuyables[2] > 0 ? anRebuyableData[i].eff() : 0
+    if(i === 2) return getANRLevels(2) > 0 && isTabUnlocked('baseless') ? anRebuyableData[i].eff() : 0
+
+    if(!isTabUnlocked('baseless')) return 1
     return Math.max(1, anRebuyableData[i].eff());
 }
+let getANRLevels = (i) => data.baseless.anRebuyables[i] + anRebuyableData[i].freeLevels()
