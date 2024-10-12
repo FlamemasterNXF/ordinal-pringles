@@ -29,7 +29,10 @@ function updateAllDarknessControlHTML(){
 }
 
 function updateDUPHTML(i){
-    DOM(`dup${i}`).innerText = `${dupData[i].text} (${data.darkness.levels[i]} + ${formatWhole(getExtraDUPLevels(i))})\n${format(dupData[i].cost())} Decrementy\nCurrently: ${format(dupEffect(i))}x`
+    if(i === 2)
+        DOM(`dup${i}`).innerText = `${dupData[i].text()} (${data.darkness.levels[i]} + ${formatWhole(getExtraDUPLevels(i))})\n${format(dupData[i].cost())} Decrementy\nCurrently: ${format(dupEffect(i))}x`
+    else
+        DOM(`dup${i}`).innerText = `${dupData[i].text} (${data.darkness.levels[i]} + ${formatWhole(getExtraDUPLevels(i))})\n${format(dupData[i].cost())} Decrementy\nCurrently: ${format(dupEffect(i))}x`
 }
 function updateAllDUPHTML(){
     for (let i = 0; i < data.darkness.levels.length; i++) {
@@ -42,23 +45,12 @@ function updateDrainHTML(i){
 }
 
 let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)*(iup10Effect()) : 0
-//let negativeChargeCap = () => Math.min(Decimal.pow(data.incrementy.amt, 1/3).toNumber()*(iup10Effect()), Number.MAX_VALUE)
 
 function negativeChargeEffect(eff) {
     if (eff === false) return Decimal.max(1, Decimal.sqrt(data.darkness.negativeCharge + 1).div(sacrificedChargeEffect()))
     if (eff === true) return Decimal.max(1, Decimal.log10(data.darkness.negativeCharge + 10).div(sacrificedChargeEffect()))
 }
 
-let sacrificedChargeEffects = [
-    {
-        desc: "Dividing the Negative Charge effects",
-        eff: () => (data.darkness.sacrificedCharge+1)*2
-    },
-    {
-        desc: "Increasing the D gain ",
-        eff: () => (data.darkness.sacrificedCharge+1)*2
-    },
-]
 let sacrificedChargeEffect = () => data.darkness.sacrificedCharge > 0 ? (data.darkness.sacrificedCharge+1)*2 : 1
 
 let drainEffect = (i) => getDrainLevel(i) > 0 ? i===1 ? Math.max(0, drain1Effect())
@@ -82,10 +74,23 @@ function dupScaling (i){
     if(i===1) return D(10).pow(D(4).pow(data.darkness.levels[i]+1).pow(D(1.5)))
     if(i===2) return D(10).pow(D(3).pow(data.darkness.levels[i]+1)).pow(3)
 }
+
+let dupThreeMult = (n = 0) => 1 + 1 / dupThreeDivisor(n)
+let dupThreeDivisor = (n = 0) => 10*Math.max(1, 2*(Math.floor(getTotalDUPLevels(2) / 50)-n))
+function getDUPThreeEffect(){
+    if(Math.floor((getTotalDUPLevels(2)-1) / 50) === 0) return 1.1**getTotalDUPLevels(2)
+    let prev = 1
+    let iters = 0
+    for (let i = 0; i < Math.floor(getTotalDUPLevels(2) / 50); i++) {
+        prev *= dupThreeMult(i + 1)**50
+        ++iters
+    }
+    return prev * (dupThreeMult())**(getTotalDUPLevels(2)-(50*iters))
+}
 let dupData = [
     { text: "Multiply AutoBuyer speed by 1.5x", cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)), effect: ()=> isTabUnlocked('darkness') ? (1.5*purificationEffect(0))**(data.darkness.levels[0]+getExtraDUPLevels(0)) : 1 },
     { text: 'Double Dynamic Cap', cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)), effect: ()=> isTabUnlocked('darkness') ? hasSingFunction(6) ? 4**(data.darkness.levels[1]+getExtraDUPLevels(1)) : 2**data.darkness.levels[1] : 1},
-    { text: "Multiply both Hierarchy Effect exponents by 1.1x", cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> isTabUnlocked('darkness') ? 1.1**(data.darkness.levels[2]+getExtraDUPLevels(2)) : 1 }
+    { text: () => `Multiply both Hierarchy Effect exponents by ${format(dupThreeMult())}x`, cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)), effect: ()=> isTabUnlocked('darkness') ? getDUPThreeEffect() : 1 }
 ]
 let extraDUPLevels = [
     () => 0,
@@ -196,3 +201,4 @@ function resetDarkness(force = false){
 }
 
 let getExtraDUPLevels = (i) => extraDUPLevels[i]()
+let getTotalDUPLevels = (i) => data.darkness.levels[i]+getExtraDUPLevels(i)
