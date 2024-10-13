@@ -188,7 +188,7 @@ const energyUpgradeData = [
             desc: 'Cardinals provide free ℶ<sub>ω</sub>',
             sign: '+',
             cost: 3,
-            eff: () => Decimal.log10(data.collapse.cardinals+1),
+            eff: () => Decimal.log10(data.collapse.cardinals.plus(1)),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',

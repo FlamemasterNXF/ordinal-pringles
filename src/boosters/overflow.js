@@ -23,7 +23,7 @@ let getExtraBoosters = () => Math.max(0, data.boost.total-maxNonOverflowBoosters
 let getExtraCharge = () => Math.max(0, data.incrementy.totalCharge-12)
 
 function getOverflowGain(i){
-    if (i === 0) return (Math.sqrt(getExtraBoosters())/10)*alephEffect(6)*purificationEffect(2)
+    if (i === 0) return (Math.sqrt(getExtraBoosters())/10)*(alephEffect(6).toNumber())*purificationEffect(2)
     return (Math.sqrt(getExtraCharge())/10)*purificationEffect(2)
 }
 
@@ -33,7 +33,7 @@ function getOverflowEffect(i, depth=0){
         case 0:
             return Math.max(1, (Math.pow(data.overflow.bp, 1/8))*getOverflowEffect(4))
         case 1:
-            return Math.max(1, (Math.sqrt(data.overflow.bp)*opMult())*getOverflowEffect(4))
+            return Math.max(1, (Math.sqrt(data.overflow.bp)*(opMult().toNumber()))*getOverflowEffect(4))
         case 2:
             return Math.max(1, (Math.sqrt(data.overflow.bp+1))*getOverflowEffect(4))
         case 3:

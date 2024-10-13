@@ -364,7 +364,7 @@ let achievements = [
     {
         name: "Accessible Cardinals",
         description: "Reach 1e200 Cardinals",
-        req: () => data.collapse.cardinals >= 1e200
+        req: () => data.collapse.cardinals.gte(1e200)
     },
     {
         name: "Omega Mode",

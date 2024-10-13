@@ -48,7 +48,7 @@ function getTargetOrdinal() {
                 else return D(chalGoal)
             }
             let currentOP = (data.chal.html === 7 || data.darkness.darkened) ? 0 : data.markup.powers.gte(4e256) ? 4e256 : data.markup.powers.toNumber();
-            return D(OPtoOrd((chalGoal - currentOP) / opMult(), data.ord.base))
+            return D(OPtoOrd(D(chalGoal - currentOP).div(opMult()), data.ord.base))
         }
     }
 

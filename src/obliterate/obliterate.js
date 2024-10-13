@@ -38,9 +38,9 @@ function obliterateReset(){
     data.boost.unlocks[4] = false
 
     data.collapse.times = 0
-    data.collapse.cardinals = 0
-    data.collapse.bestCardinalsGained = 0
-    data.collapse.alephs = Array(alephData.length).fill(0)
+    data.collapse.cardinals = D(0)
+    data.collapse.bestCardinalsGained = D(0)
+    data.collapse.alephs = Array(alephData.length).fill(D(0))
     data.collapse.hasCUP = Array(8).fill(false)
     data.collapse.hasSluggish = Array(5).fill(false)
     if(data.sToggles[20]) data.collapse.apEnabled = Array(3).fill(false)

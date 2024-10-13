@@ -71,7 +71,7 @@ const baselessNames = ['Baseless', 'Obliterated', 'Forgotten']
 const anRebuyableData = [
     {
         desc: "Cardinals boost AutoClickers while in a Baseless Realm",
-        eff: () => Math.min(Number.MAX_VALUE, (data.collapse.cardinals**2)*getANRLevels(0)),
+        eff: () => (data.collapse.cardinals.pow(2)).times(getANRLevels(0)),
         costBase: 1e3,
         symbol: 'x',
         unl: () => true,
@@ -118,8 +118,8 @@ function baselessControl(){
     const gain = data.baseless.baseless ? alephNullGain() : 0
 
     if(!data.baseless.baseless){
-        if(cardinalGain() > data.collapse.bestCardinalsGained) data.collapse.bestCardinalsGained = cardinalGain()
-        data.collapse.cardinals += cardinalGain()
+        if(cardinalGain().gt(data.collapse.bestCardinalsGained)) data.collapse.bestCardinalsGained = cardinalGain()
+        data.collapse.cardinals = data.collapse.cardinals.plus(cardinalGain())
     }
     collapseReset()
 
@@ -174,10 +174,12 @@ let chargeBoostToBaseless = (display = false) => data.baseless.baseless || displ
     ? Math.max(1, ((data.incrementy.totalCharge**10)*getEUPEffect(1, 1, true))**getANREffect(1))
     : 1
 let getANRCost = (i) => ((anRebuyableData[i].costBase/100+1)**data.baseless.anRebuyables[i])*anRebuyableData[i].costBase
-let getANREffect = (i) => {
-    if(i === 2) return getANRLevels(2) > 0 && isTabUnlocked('baseless') ? anRebuyableData[i].eff() : 0
+let getANREffect = (i, number = true) => {
+    if(number) return getANREffect(i, false).toNumber()
 
-    if(!isTabUnlocked('baseless')) return 1
-    return Math.max(1, anRebuyableData[i].eff());
+    if(i === 2) return getANRLevels(2) > 0 && isTabUnlocked('baseless') ? D(anRebuyableData[i].eff()) : D(0)
+
+    if(!isTabUnlocked('baseless')) return D(1)
+    return Decimal.max(1, anRebuyableData[i].eff());
 }
 let getANRLevels = (i) => data.baseless.anRebuyables[i] + anRebuyableData[i].freeLevels()
