@@ -15,7 +15,7 @@ let unstableFactorData = [
         desc: "Boosts Cardinal gain",
         sign: "x",
         baseEff: () => 1,
-        eff: () => 10**getUnstableFactorLevel(2)
+        eff: () => 5**getUnstableFactorLevel(2)
     },
 ]
 let instabilityConstantData = [

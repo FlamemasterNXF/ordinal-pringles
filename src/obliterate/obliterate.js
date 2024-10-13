@@ -8,8 +8,8 @@ function updateObliterateHTML(){
     if(obliterateTab === 'pringles') updateCanBuyPringleHTML()
 }
 
-function getObliterateReq(n = data.obliterate.times, m = true){
-    let mult = n > 0 && m
+function getObliterateReq(n = data.obliterate.times){
+    let mult = n > 0
         ? Math.pow(2, n)
         : 1
     return D("1e750").pow(1+n/10).times(mult)
