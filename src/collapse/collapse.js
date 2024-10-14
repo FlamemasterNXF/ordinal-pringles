@@ -334,7 +334,7 @@ function collapseCardinals(){
     if (data.collapse.cardinals.eq(0)) return createAlert("Failure", "No Cardinals to Collapse.", "Oops.")
     if(data.collapse.times === 1 && data.obliterate.times === 0){
         for (let i = 0; i < 3; i++) {
-            data.collapse.alephs[i] = 1
+            data.collapse.alephs[i] = D(1)
             updateAlephHTML(i)
         }
         data.collapse.cardinals = data.collapse.cardinals.sub(3)
