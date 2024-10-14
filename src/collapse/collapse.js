@@ -224,7 +224,7 @@ let alephData = [
     {text: "multiplying the SGH effect by", effect: ()=> Decimal.pow(data.collapse.alephs[5].plus(1), 1/4), unl: () => true},
     {text: "multiplying Booster Power gain by", effect: ()=> Decimal.sqrt(data.collapse.alephs[6].plus(4)).div(2), unl: () => true},
     {text: "multiplying the IUP3 effect by", effect: ()=> (Decimal.sqrt(data.collapse.alephs[7].plus(4)).times(2).times(purificationEffect(1))).plus(hupData[9].effect()), unl: () => true},
-    {text: "multiplying the first Singularity effect by", effect: ()=> D(1).plus(Decimal.log10(data.collapse.alephs[8].plus(10)).div(1000)), unl: () => hasAOMilestone(1)},
+    {text: "multiplying the first Singularity effect by", effect: ()=> softcap(D(1).plus(Decimal.log10(data.collapse.alephs[8].plus(10)).div(1000)), D(1.1), 0.5, true), unl: () => hasAOMilestone(1)},
 ]
 let cupData = [
     {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max((data.incrementy.totalCharge/2)*purificationEffect(3)*getPringleEffect(0, true), 1)},
