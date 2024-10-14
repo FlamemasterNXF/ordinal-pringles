@@ -44,6 +44,16 @@ function allEqual(arr, i){
     return arr.every( v => v === i )
 }
 
+function softcap(value, cap, scPow, isDecimal = false){
+    if(isDecimal){
+        if(value.lte(cap)) return value
+        return value.pow(scPow).times(cap.pow(D(1).sub(scPow)))
+    }
+
+    if(value <= cap) return value
+    return (value ** scPow) * (cap ** (1 - scPow))
+}
+
 let boostersAtGivenFB = (i = data.boost.times) => i > 0 ? (i*(i+1))/2 : 0
 
 let logn = (num, logBase) => num === 0 ? 0 : Math.log10(num) / Math.log10(logBase);

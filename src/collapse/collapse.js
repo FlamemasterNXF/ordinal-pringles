@@ -172,9 +172,10 @@ function checkCollapseUnlockHTML(){
 
 function cardinalGain(){
     if(data.boost.times < 34) return D(0)
-    return Decimal.sqrt(data.boost.times-34)
+    let value = Decimal.sqrt(data.boost.times-34)
             .times(Decimal.log2((data.boost.times-34)+2)).times(Decimal.sqrt(data.boost.times-34)+3)
             .times(alephTotalEffect()).times(iup12Effect()).times(getAOMEffect(4)).times(getPringleEffect(2)).times(getUnstableFactorEffect(2)).pow(singEffects[0].effect())
+    return softcap(value, D(1e200), 0.5, true)
 }
 
 let oldCardinalGain = () => data.boost.times < 34 ? 0 : ((((Math.sqrt(data.boost.times-34)
