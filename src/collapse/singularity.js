@@ -131,6 +131,7 @@ function singControl(i, n){
             if(data.sing.level[n] !== 500) data.incrementy.charge -= 500-data.sing.level[n]
             data.sing.level[n] = 500
             updateSingLevelHTML(n)
+            updateSingFunctionUnlocks()
             return DOM(`singSlider${n}`).value = data.sing.level[n]
         }
         data.sing.level[n] = data.sing.level[n]+maxSingLevel(n)
