@@ -361,7 +361,7 @@ function collapseCardinals(){
             if (alephData[i].unl()) nUnlock++
         }
         for (let i = 0; i < data.collapse.alephs.length; i++) {
-            if (alephData[i].unl()) data.collapse.alephs[i] = data.collapse.alephs[i].sub(Decimal.floor(usedCardinals.div(nUnlock)))
+            if (alephData[i].unl()) data.collapse.alephs[i] = data.collapse.alephs[i].plus(Decimal.floor(usedCardinals.div(nUnlock)))
             updateAlephHTML(i)
         }
     }
