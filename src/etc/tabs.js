@@ -47,7 +47,6 @@ function switchSubtab(t, mode){
         if (t==="upgrades" && data.boost.unlocks[1]) {
             updateBUPInfoText()
             DOM('chargeRefund').style.display = data.boost.unlocks[1] ? 'block' : 'none'
-            DOM('destabRefund').style.display = getEUPEffect(4, 0) ? 'block' : 'none'
         }
 
         if(t==="incrementy"){
