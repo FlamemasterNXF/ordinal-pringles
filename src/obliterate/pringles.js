@@ -9,6 +9,7 @@ let pringleData = [
         baseValue: 1,
         resNames: 'Incrementy',
         resLocation: [['incrementy', 'amt']],
+        costIsDecimal: true,
         cost: () => D(1e10).pow((data.obliterate.pringleAmount[0]+1)*Math.pow(data.obliterate.pringleAmount[0]+1, 1/1.5))
     },
     {
@@ -21,6 +22,7 @@ let pringleData = [
         baseValue: 0,
         resNames: 'Incrementy',
         resLocation: [['incrementy', 'amt']],
+        costIsDecimal: true,
         cost: () => D(1e30).pow((data.obliterate.pringleAmount[1]+1)*Math.sqrt(data.obliterate.pringleAmount[1]+1))
     },
     {
@@ -33,6 +35,7 @@ let pringleData = [
         baseValue: 1,
         resNames: 'ℵ<sub>0</sub>',
         resLocation: [['baseless', 'alephNull']],
+        costIsDecimal: false,
         cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[2]))
     },
 
@@ -46,6 +49,7 @@ let pringleData = [
         baseValue: 1,
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
+        costIsDecimal: false,
         cost: () => D(1e20).times(Math.pow(10, data.obliterate.pringleAmount[3]))
     },
     {
@@ -58,6 +62,7 @@ let pringleData = [
         baseValue: 1,
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
+        costIsDecimal: false,
         cost: () => D(1e20).times(Math.pow(32, data.obliterate.pringleAmount[4]))
     },
     {
@@ -70,6 +75,7 @@ let pringleData = [
         baseValue: 0,
         resNames: 'ℵ<sub>0</sub>',
         resLocation: [['baseless', 'alephNull']],
+        costIsDecimal: false,
         cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[5]))
     },
 
@@ -83,6 +89,7 @@ let pringleData = [
         baseValue: 1,
         resNames: 'Cardinals',
         resLocation: [['collapse', 'cardinals']],
+        costIsDecimal: true,
         cost: () => D(1e30).pow(Math.sqrt(data.obliterate.pringleAmount[6]+1))
     },
     {
@@ -95,6 +102,7 @@ let pringleData = [
         baseValue: 1,
         resNames: 'Cardinals',
         resLocation: [['collapse', 'cardinals']],
+        costIsDecimal: true,
         cost: () => D(1e30).pow(Math.sqrt(data.obliterate.pringleAmount[7]+1))
     },
     {
@@ -107,6 +115,7 @@ let pringleData = [
         baseValue: 0,
         resNames: 'ℵ<sub>0</sub>',
         resLocation: [['baseless', 'alephNull']],
+        costIsDecimal: false,
         cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[8]))
     },
 
@@ -120,6 +129,7 @@ let pringleData = [
         baseValue: 1,
         resNames: 'ℵ<sub>&omega;</sub>',
         resLocation: [['omega', 'bestRemnants']],
+        costIsDecimal: false,
         cost: () => D(2000+(100*data.obliterate.pringleAmount[9]+1)*(data.obliterate.pringleAmount[9]+1))
     },
 ]
@@ -214,7 +224,8 @@ function buyPringle(localPringleData, index){
         for (let j = 0; j < localPringleData.resLocation[i].length; j++) {
             location += `['${[localPringleData.resLocation[i][j]]}']`
         }
-        if(location !== `data['incrementy']['amt']`) eval(`${location} -= localPringleData.cost().toNumber()`)
+        if(localPringleData.costIsDecimal) eval(`${location} = ${location}.sub(localPringleData.cost())`)
+        else eval(`${location} -= localPringleData.cost().toNumber()`)
     }
     ++data.obliterate.pringleAmount[index]
     updatePringleButtonText(localPringleData, index)
