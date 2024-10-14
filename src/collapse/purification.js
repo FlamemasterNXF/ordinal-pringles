@@ -239,7 +239,7 @@ function exitPurification(i, swap = false) {
     if (data.boost.times > data.omega.bestFBInPurification[data.omega.whichPurification]) data.omega.bestFBInPurification[data.omega.whichPurification] = data.boost.times
     if (!swap) {
         if (cardinalGain().gt(data.collapse.bestCardinalsGained)) data.collapse.bestCardinalsGained = cardinalGain()
-        data.collapse.cardinals = data.collapse.plus(cardinalGain())
+        data.collapse.cardinals = data.collapse.cardinals.plus(cardinalGain())
         collapseReset()
     }
 
