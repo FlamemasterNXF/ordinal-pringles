@@ -9,10 +9,9 @@ function updateObliterateHTML(){
 }
 
 function getObliterateReq(n = data.obliterate.times){
-    let mult = n > 0
-        ? Math.pow(2, n)
-        : 1
-    return D("1e750").pow(1+n/10).times(mult)
+    let mult = n > 0 ? Math.pow(2, n) : 1
+    let divisor = n >= 20 ? 10 - Math.floor(n/10) : 10
+    return D("1e750").pow(1+n/divisor).times(mult)
 }
 
 function obliterateConfirm(){
