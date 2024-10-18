@@ -73,6 +73,8 @@ function switchSubtab(t, mode){
             updateDUPHTML(1)
             updateDUPHTML(2)
             DOM('dupC4').innerHTML = `Invert the third Booster Power effect<br><span style="font-size: 0.7rem">Currently: ${data.overflow.thirdEffect ? 'Dividing': 'Multiplying'}</span>`
+            DOM(`dupC5`).style.display = data.obliterate.times > 0 ? 'block' : 'none'
+            DOM('dupC5').innerHTML = `${formatBool(!data.obliterate.unstableFactorState[1], 'EDT')} the Second Unstable Factor`
         }
         if(t==='sing'){
             if(!data.sing.tutorial){

@@ -97,7 +97,8 @@ function respecUnstableFactors(){
 }
 
 let getUnstableFactorLevel = (i) => data.obliterate.unstableFactors[i]
-let getUnstableFactorEffect = (i) => getUnstableFactorLevel(i) > 0 ? unstableFactorData[i].eff() : unstableFactorData[i].baseEff()
+let getUnstableFactorEffect = (i) => getUnstableFactorLevel(i) > 0 && isUnstableFactorEnabled(i) ? unstableFactorData[i].eff() : unstableFactorData[i].baseEff()
+let isUnstableFactorEnabled = (i) => data.obliterate.unstableFactorState[i]
 function getInstabilityConstant() {
     let total = 0
     for (let i = 0; i < data.obliterate.unstableFactors.length; i++) {
