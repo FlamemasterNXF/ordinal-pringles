@@ -10,7 +10,7 @@ const BO_VALUE = D('eee98235035280650.45') //Decimal.pow(3, ordMarksBO).mul(4)
 //Version Flags
 const VERSION = "0.4.1"
 const VERSION_NAME = "The Pringle Update"
-const VERSION_DATE = "October 16th, 2024"
+const VERSION_DATE = "October 22nd, 2024"
 const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 

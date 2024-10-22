@@ -57,7 +57,7 @@
 .bup{
     width: 13rem;
     height: 6rem;
-    border: 2px solid #0000ff;
+    border: 2px solid #1e47d0;
     color: #8080FF;
     background: black;
     margin-top: 0.5rem;
@@ -66,7 +66,7 @@
 .chargedBUP{
     width: 13rem;
     height: 6rem;
-    border: 2px solid goldenrod;
+    border: 2px solid #b27b14;
     color: goldenrod;
     background: black;
     margin-top: 0.5rem;
@@ -98,7 +98,7 @@
     margin-top: 1rem;
     width: 10rem;
     min-height: 2rem;
-    border: 2px solid #0000ff;
+    border: 2px solid #1e47d0;
     color: #8080FF;
     background: black;
     margin-left: 0.5rem;
@@ -107,7 +107,7 @@
     margin-top: 1rem;
     width: 10rem;
     min-height: 2rem;
-    border: 2px solid #0000ff;
+    border: 2px solid #1e47d0;
     color: #8080FF;
     background: black;
     margin-left: 0.5rem;
@@ -124,7 +124,7 @@
 .challenge{
     width: 24rem;
     height: 12rem;
-    border: 2px solid #0000ff;
+    border: 2px solid #1e47d0;
     color: #8080FF;
     background: black;
     margin-top: 0.5rem;
@@ -133,7 +133,7 @@
 .boostTopButton{
     width: 20rem;
     height: 1.5rem;
-    border: 2px solid #0000ff;
+    border: 2px solid #1e47d0;
     color: #8080FF;
     background: black;
     margin-top: 0.5rem;
@@ -162,7 +162,7 @@
 .hb0{
     width: 15rem;
     height: 7rem;
-    border: 2px solid #4000ff;
+    border: 2px solid #1e47d0;
     color: #8080FF;
     background: black;
     margin-top: 0.5rem;
@@ -172,7 +172,7 @@
 .hb1{
     width: 15rem;
     height: 7rem;
-    border: 2px solid #4000ff;
+    border: 2px solid #1e47d0;
     color: #8080FF;
     background: black;
     margin-top: 0.5rem;

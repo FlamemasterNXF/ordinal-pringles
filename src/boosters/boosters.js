@@ -226,7 +226,7 @@ function initBUPs(){
         DOM(`bup${i}`).addEventListener('click', ()=>buyBUP(i, bottomRow, true))
         DOM(`bup${i}`).addEventListener('mouseenter', ()=>showNextBUPLevelEffect(i, true))
         DOM(`bup${i}`).addEventListener('mouseleave', ()=>showNextBUPLevelEffect(i, false))
-        DOM(`bup${i}`).style.backgroundColor = data.boost.hasBUP[i] ? '#002480' : 'black'
+        DOM(`bup${i}`).style.backgroundColor = data.boost.isCharged[i] ? '#3b3100' : data.boost.hasBUP[i] ? '#002480' : 'black'
     }
     for (let i = 0; i < data.boost.unlocks.length; i++) {
         DOM(`bu${i}`).style.backgroundColor = data.boost.unlocks[i]?'#002480':'black'

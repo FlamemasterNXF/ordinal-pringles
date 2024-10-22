@@ -112,10 +112,10 @@
     <div class="flexBox" id="tabs" style="margin-bottom: 0.5rem">
         <button class="tabButton" id="ordNav" onclick="switchTab('ord')" style="color: indianred; border-color: #610000">Ordinals</button>
         <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchSubtab(markupTab, 'markup')" style="color: goldenrod; border-color: #785c13 ">Markup</button>
-        <button class="tabButton" id="boostNav" onclick="switchTab('boosters'); switchSubtab(boostTab, 'boosters')" style="display: none; color: #8080FF; border-color: #0000ff">Boosters</button>
+        <button class="tabButton" id="boostNav" onclick="switchTab('boosters'); switchSubtab(boostTab, 'boosters')" style="display: none; color: #8080FF; border-color: #1e47d0">Boosters</button>
         <button class="tabButton" id="collapseNav" onclick="switchTab('collapse'); switchSubtab(collapseTab, 'collapse')" style="display: none; color: #80ff82; border-color: #2da000">Collapse</button>
         <button class="tabButton" id="obliterateNav" onclick="switchTab('obliterate'); switchSubtab(obliterateTab, 'obliterate')" style="display: none; color: #d080ff; border-color: #6b00a0">Obliteration</button>
-        <button class="tabButton" id="achNav" onclick="switchTab('ach')" style="color: #bd9309; border-color: #9b7c2b; width: 6.5rem ">Achievements</button>
+        <button class="tabButton" id="achNav" onclick="switchTab('ach')" style="color: #bd9309; border-color: #9b7c2b;">Achievements</button>
         <button class="tabButton" id="settingsNav" onclick="switchTab('settings')" style="color: gray; border-color: #4a4a4a">Settings</button>
     </div>
     <div class="flexBox" id="ordPage" style="flex-direction: column">
@@ -133,7 +133,7 @@
         <div class="flexBox" id="factorSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="flexBox" style="flex-direction: row">
                 <button id="factorShiftButton" onclick="data.sToggles[3]?factorShiftConfirm():factorShift()" style="color: goldenrod; width: 20rem; height: 3rem; background-color: black; border: 2px solid #785c13">Perform a Factor Shift</button>
-                <button id="factorBoostButton" onclick="data.sToggles[4]&&(data.collapse.times > 0 || data.boost.times < 33)?createConfirmation('Are you sure?', 'Performing a Factor Boost will reset your Ordinal, Ordinal Powers, Factors, Automation, Base, and Dynamic Factor in exchange for some Boosters!', 'No Way!', 'Yes, lets do this.', boost):boost()" style="margin-left: 0.2rem; color: #8080FF; width: 20rem; min-height: 3rem; background-color: black; border: 2px solid #0000ff; display: none">Perform a Factor Boost</button>
+                <button id="factorBoostButton" onclick="data.sToggles[4]&&(data.collapse.times > 0 || data.boost.times < 33)?createConfirmation('Are you sure?', 'Performing a Factor Boost will reset your Ordinal, Ordinal Powers, Factors, Automation, Base, and Dynamic Factor in exchange for some Boosters!', 'No Way!', 'Yes, lets do this.', boost):boost()" style="margin-left: 0.2rem; color: #8080FF; width: 20rem; min-height: 3rem; background-color: black; border: 2px solid #1e47d0; display: none">Perform a Factor Boost</button>
             </div>
             <button class="factor" id="factorMax" onclick="buyMaxFactor()">Max All Factors [F]</button>
             <div class="flexBox" style="flex-direction: row">
@@ -163,25 +163,25 @@
             <button id="dynamicShift" style="margin-top: 0.5rem; width: 20rem; height: 10rem; color: goldenrod; border: 2px solid #785c13; background-color: black; font-family: DosisSemiBold; display: none" onclick="dynamicShift()">Shifty</button>
         </div>
         <div class="flexBox" id="progressBarContainer" style="margin-top: 2rem; width: 80%; height: 1.2rem; background-color: #1a1a1a; border: 1px solid;">
-            <div id="progressBar" style="height: 1.2rem; background-color: #0000ff; color: #000000; text-align: center; width: 0%; font-family: DosisBold;">0%</div>
+            <div id="progressBar" style="height: 1.2rem; background-color: #1e47d0; color: #000000; text-align: center; width: 0%; font-family: DosisBold;">0%</div>
         </div>
     </div>
     <div class="flexBox" id="boostersPage" style="flex-direction: column">
         <div class="flexBox" style="margin-top: 1rem">
-            <button class="tabButton" id="upgradeTab" onclick="switchSubtab('upgrades', 'boosters')" style="color: #8080FF; border-color: #0000ff">Upgrades</button>
-            <button class="tabButton" id="auto2Tab" onclick="switchSubtab('auto2', 'boosters')" style="color: #8080FF; border-color: #0000ff;">Automation</button>
-            <button class="tabButton" id="chalTab" style="color: #8080FF; border-color: #0000ff;" onclick="if(chalTabUnlocked()) {switchSubtab('chal', 'boosters');}">Challenges</button>
-            <button class="tabButton" id="incrementyTab" style="color: #8080FF; border-color: #0000ff;" onclick="if(incrementyTabUnlocked()) {switchSubtab('incrementy', 'boosters');}">Incrementy</button>
-            <button class="tabButton" id="hierarchiesTab" style="color: #8080FF; border-color: #0000ff;" onclick="if(hierarchiesTabUnlocked()) {switchSubtab('hierarchies', 'boosters');}">Hierarchies</button>
-            <button class="tabButton" id="overflowTab" style="color: #8080FF; border-color: #0000ff;" onclick="if(overflowTabUnlocked()) {switchSubtab('overflow', 'boosters');}">Overflow</button>
+            <button class="tabButton" id="upgradeTab" onclick="switchSubtab('upgrades', 'boosters')" style="color: #8080FF; border-color: #1e47d0">Upgrades</button>
+            <button class="tabButton" id="auto2Tab" onclick="switchSubtab('auto2', 'boosters')" style="color: #8080FF; border-color: #1e47d0;">Automation</button>
+            <button class="tabButton" id="chalTab" style="color: #8080FF; border-color: #1e47d0;" onclick="if(chalTabUnlocked()) {switchSubtab('chal', 'boosters');}">Challenges</button>
+            <button class="tabButton" id="incrementyTab" style="color: #8080FF; border-color: #1e47d0;" onclick="if(incrementyTabUnlocked()) {switchSubtab('incrementy', 'boosters');}">Incrementy</button>
+            <button class="tabButton" id="hierarchiesTab" style="color: #8080FF; border-color: #1e47d0;" onclick="if(hierarchiesTabUnlocked()) {switchSubtab('hierarchies', 'boosters');}">Hierarchies</button>
+            <button class="tabButton" id="overflowTab" style="color: #8080FF; border-color: #1e47d0;" onclick="if(overflowTabUnlocked()) {switchSubtab('overflow', 'boosters');}">Overflow</button>
         </div>
         <div class="flexBox" id="upgradesSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="centeredTexts" id="boosterText">boosteeeeeeeee</div>
             <div class="centeredTexts" id="boosterTimesText" style="font-size: 0.8rem">boosteeeeeeeee times</div>
             <div class="flexBox" style="flex-direction: row;">
-                <button class="boostTopButton" id="boostRefund" onclick="data.sToggles[0]?createConfirmation('Are you sure?', 'This will reset your Booster Upgrades and return spent Boosters, but it will trigger a Booster Reset!', 'Go back!', 'Go ahead.', boosterRefund)
+                <button class="boostTopButton" id="boostRefund" style="margin-right: 0.25rem" onclick="data.sToggles[0]?createConfirmation('Are you sure?', 'This will reset your Booster Upgrades and return spent Boosters, but it will trigger a Booster Reset!', 'Go back!', 'Go ahead.', boosterRefund)
                 :boosterRefund()">Refund your Booster Upgrades</button>
-                <button class="boostTopButton" id="chargeRefund" style="display: none" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Charged Booster Upgrades and return spent Charge, but it will force you to exit your Challenge!', 'Go back!', 'Go ahead.', respecCharge)
+                <button class="boostTopButton" id="chargeRefund" style="display: none; margin-left: 0.25rem" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Charged Booster Upgrades and return spent Charge, but it will force you to exit your Challenge!', 'Go back!', 'Go ahead.', respecCharge)
                 :respecCharge()">Refund your Charged Booster Upgrades</button>
             </div>
             <div class="flexBox">
@@ -249,41 +249,46 @@
                 <strong class="centeredTexts" id="overCharge" style="color: goldenrod; margin-left:0.3rem">boosteeeeeeeee [POWER] TWO</strong>
             </div>
 
-            <strong class="centeredTexts" id="bpTotal" style="margin-top: 1rem; color:#8080FF">Booster Power is</strong>
-            <div class="flexBox, bpEffectContainer">
-                <t class="generalTexts" id="bp0Description">Multiplying the Challenge Boost to AutoBuyers by </t>
-                <t class="overflowText" id="bp0Effect" style="color: aqua">1</t>
-            </div>
-            <div class="flexBox, bpEffectContainer">
-                <t class="generalTexts" id="bp1Description">Multiplying Passive OP gain by </t>
-                <t class="overflowText" id="bp1Effect" style="color: aqua">1</t>
-                <t class="generalTexts" id="bp1Description2">(based on your total OP multiplier)</t>
-            </div>
-            <div class="flexBox, bpEffectContainer">
-                <t class="generalTexts" id="bp2Description">Dividing Decrementy Gain by </t>
-                <t class="overflowText" id="bp2Effect" style="color: aqua">1</t>
-            </div>
-
-            <strong class="centeredTexts" id="ocTotal" style="margin-top: 1rem; color:rgb(218, 137, 32)">Overcharge is</strong>
-            <div class="flexBox, bpEffectContainer">
-                <t class="generalTexts" id="oc0Description">Multiplying Hierarchy Successor speed by </t>
-                <t class="overflowText" id="bp3Effect" style="color: goldenrod">1</t>
-            </div>
-            <div class="flexBox, bpEffectContainer">
-                <t class="generalTexts" id="oc1Description">Multiplying ALL Booster Power effects by </t>
-                <t class="overflowText" id="bp4Effect" style="color: goldenrod">1</t>
-            </div>
-            <div class="flexBox, bpEffectContainer" id="bp5Container" style="display:none">
-                <t class="generalTexts" id="oc2Description">Dividing Darkness Upgrade cost exponents by </t>
-                <t class="overflowText" id="bp5Effect" style="color: goldenrod">1</t>
-            </div>
-            <div class="flexBox, bpEffectContainer" id="bp6Container" style="display:none">
-                <t class="generalTexts" id="oc2Description">Multiplying the effect of the first ℵ<sub>&omega;</sub> Upgrade by </t>
-                <t class="overflowText" id="bp6Effect" style="color: goldenrod">1</t>
-            </div>
-            <div class="flexBox, bpEffectContainer" id="bp7Container" style="display:none">
-                <t class="generalTexts" id="oc2Description">Multiplying the effect of the third bottom-row Booster Upgrade by </t>
-                <t class="overflowText" id="bp7Effect" style="color: goldenrod">1</t>
+            <div class="flexBox row">
+                <div class="flexBox column">
+                    <strong class="centeredTexts" id="bpTotal" style="margin-top: 1rem; color:#8080FF">Booster Power is</strong>
+                    <div class="flexBox, bpEffectContainer">
+                        <t class="generalTexts" id="bp0Description">Multiplying the Challenge Boost to AutoBuyers by </t>
+                        <t class="overflowText" id="bp0Effect" style="color: aqua">1</t>
+                    </div>
+                    <div class="flexBox, bpEffectContainer">
+                        <t class="generalTexts" id="bp1Description">Multiplying Passive OP gain by </t>
+                        <t class="overflowText" id="bp1Effect" style="color: aqua">1</t>
+                        <t class="generalTexts" id="bp1Description2">(based on your total OP multiplier)</t>
+                    </div>
+                    <div class="flexBox, bpEffectContainer">
+                        <t class="generalTexts" id="bp2Description">Dividing Decrementy Gain by </t>
+                        <t class="overflowText" id="bp2Effect" style="color: aqua">1</t>
+                    </div>
+                </div>
+                <div class="flexBox column">
+                    <strong class="centeredTexts" id="ocTotal" style="margin-top: 1rem; color:rgb(218, 137, 32)">Overcharge is</strong>
+                    <div class="flexBox, bpEffectContainer">
+                        <t class="generalTexts" id="oc0Description">Multiplying Hierarchy Successor speed by </t>
+                        <t class="overflowText" id="bp3Effect" style="color: goldenrod">1</t>
+                    </div>
+                    <div class="flexBox, bpEffectContainer">
+                        <t class="generalTexts" id="oc1Description">Multiplying ALL Booster Power effects by </t>
+                        <t class="overflowText" id="bp4Effect" style="color: goldenrod">1</t>
+                    </div>
+                    <div class="flexBox, bpEffectContainer" id="bp5Container" style="display:none">
+                        <t class="generalTexts" id="oc2Description">Dividing Darkness Upgrade cost exponents by </t>
+                        <t class="overflowText" id="bp5Effect" style="color: goldenrod">1</t>
+                    </div>
+                    <div class="flexBox, bpEffectContainer" id="bp6Container" style="display:none">
+                        <t class="generalTexts" id="oc2Description">Multiplying the effect of the first ℵ<sub>&omega;</sub> Upgrade by </t>
+                        <t class="overflowText" id="bp6Effect" style="color: goldenrod">1</t>
+                    </div>
+                    <div class="flexBox, bpEffectContainer" id="bp7Container" style="display:none">
+                        <t class="generalTexts" id="oc2Description">Multiplying the effect of the third bottom-row Booster Upgrade by </t>
+                        <t class="overflowText" id="bp7Effect" style="color: goldenrod">1</t>
+                    </div>
+                </div>
             </div>
             <div class="centeredTexts" id="overflowInfo" style="margin-top:1rem">"Excess Boosters" means all Boosters above 435<br>"Excess Charge" means all Charge above 12</div>
         </div>

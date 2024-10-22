@@ -150,6 +150,7 @@ function chargeBUP(i, bottomRow){
     DOM(`bup${i}`).className = 'chargedBUP'
     DOM(`bup${i}`).innerText = `${getBUPDesc(i)}`
     DOM(`bup${i}`).style.color = 'goldenrod'
+    DOM(`bup${i}`).style.backgroundColor = '#3b3100'
 }
 let getBottomRowChargeCost = () => 13+(12*data.boost.bottomRowCharges)
 
@@ -161,6 +162,7 @@ function respecCharge(c=false){
         DOM(`bup${i}`).className = 'bup'
         DOM(`bup${i}`).innerHTML = `${getBUPDesc(i)}`
         DOM(`bup${i}`).style.color = `#8080FF`
+        if(data.boost.hasBUP[i]) DOM(`bup${i}`).style.backgroundColor = `#002480`
     }
     data.incrementy.charge = data.incrementy.totalCharge-data.sing.level[0]
     data.boost.bottomRowCharges = 0
