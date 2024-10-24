@@ -159,8 +159,6 @@
         </div>
         <div class="flexBox" id="dynamicSubPage" style="margin-top: 1rem; flex-direction: column; display: none">
             <p class="centeredTexts" id="dynamicText" style="color: goldenrod">Hello Cat</p>
-            <t class="centeredTexts" id="baselessMultiplierText" style="color: goldenrod; display: none">Hello MEOW</t>
-            <button id="dynamicShift" style="margin-top: 0.5rem; width: 20rem; height: 10rem; color: goldenrod; border: 2px solid #785c13; background-color: black; font-family: DosisSemiBold; display: none" onclick="dynamicShift()">Shifty</button>
         </div>
         <div class="flexBox" id="progressBarContainer" style="margin-top: 2rem; width: 80%; height: 1.2rem; background-color: #1a1a1a; border: 1px solid;">
             <div id="progressBar" style="height: 1.2rem; background-color: #1e47d0; color: #000000; text-align: center; width: 0%; font-family: DosisBold;">0%</div>
@@ -372,15 +370,18 @@
         </div>
         <div class="flexBox" id="baselessSubPage" style="display: none; flex-direction: column;">
             <t class="centeredTexts" id="alephNull" style="color: darkorange; margin-top: 1rem">Based</t>
-            <button id="baseless" style="font-size: 1.1rem" onclick="data.sToggles[8] ? createConfirmation('Are you sure?', 'Entering or exiting will perform a Collapse reset!', 'Nope!', 'Yep!', baselessControl) : baselessControl()"><span id="baselessEnterText">Enter</span> the
-                <select style="appearance: none; background-color: black; border: hidden; color: darkred; font-family: DosisBold; font-size: 1.1rem; text-align: center" onclick="event.stopPropagation()" onchange="updateBaselessEnterHTML(this.selectedIndex)">
-                    <option value="0">Baseless</option>
-                    <option value="1">Obliterated</option>
-                    <option value="2">Forgotten</option>
-                </select>
-                Realm
-                <span style="font-size: 1rem"></span>
-            </button>
+            <div class="flexBox" style="flex-direction: row">
+                <button id="baseless" style="font-size: 1.1rem; margin-right: 0.25rem" onclick="data.sToggles[8] ? createConfirmation('Are you sure?', 'Entering or exiting will perform a Collapse reset!', 'Nope!', 'Yep!', baselessControl) : baselessControl()"><span id="baselessEnterText">Enter</span> the
+                    <select style="appearance: none; background-color: black; border: hidden; color: darkred; font-family: DosisBold; font-size: 1.1rem; text-align: center" onclick="event.stopPropagation()" onchange="updateBaselessEnterHTML(this.selectedIndex)">
+                        <option value="0">Baseless</option>
+                        <option value="1">Obliterated</option>
+                        <option value="2">Forgotten</option>
+                    </select>
+                    Realm
+                    <span style="font-size: 1rem"></span>
+                </button>
+                <button id="dynamicShift" style="margin-top: 0.5rem; margin-left: 0.25rem; width: 20rem; height: 10rem; color: goldenrod; border: 2px solid #785c13; background-color: black; font-family: DosisSemiBold" onclick="dynamicShift()">Shifty</button>
+            </div>
             <div class="flexBox" id="anRebuyableContainer" style="flex-direction: column; margin-top: 0.5rem"></div>
             <t class="centeredTexts" style="color: #9e5803; margin-top: 2rem">Click the red Realm text to change the Realm you enter</t>
             <t class="centeredTexts" style="color: #9e5803;">You cannot enter Darkness while in any of the Baseless Realms</t>

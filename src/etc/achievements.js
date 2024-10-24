@@ -246,35 +246,35 @@ let achievements = [
     },
     {
         name: "Never Liked Those Bases Anyway",
-        description: "Dynamic Shift in Any Baseless Realm",
+        description: "Baseless Shift in Any Baseless Realm",
         req: () => data.baseless.shifts > 0
     },
     {
         name: "Definitely Broke The Speed Limit",
-        description: "Dynamic Shift Twice in Any Baseless Realm",
+        description: "Baseless Shift Twice in Any Baseless Realm",
         req: () => data.baseless.shifts > 1
     },
     {
         name: "The Sound of Light",
-        description: "Dynamic Shift Four Times in Any Baseless Realm",
+        description: "Baseless Shift Four Times in Any Baseless Realm",
         req: () => data.baseless.shifts > 3
     },
     /*
     {
 
         name: "The Gator is Proud",
-        description: "Dynamic Shift Seven Times in Any Baseless Realm",
+        description: "Baseless Shift Seven Times in Any Baseless Realm",
         req: () => data.baseless.shifts > 6
     },
      */
     {
         name: "Unknowable Horrors",
-        description: "Dynamic Shift in the Forgotten Realm",
+        description: "Baseless Shift in the Forgotten Realm",
         req: () => data.baseless.shifts > 0 && data.baseless.mode === 2
     },
     {
         name: "Forgotten Horrors",
-        description: "Dynamic Shift Three Times in the Forgotten Realm",
+        description: "Baseless Shift Three Times in the Forgotten Realm",
         req: () => data.baseless.shifts > 2  && data.baseless.mode === 2
     },
     /*
@@ -368,7 +368,7 @@ let achievements = [
     },
     {
         name: "Omega Mode",
-        description: "Dynamic Shift Five Times in the Forgotten Realm",
+        description: "Baseless Shift Five Times in the Forgotten Realm",
         req: () => data.baseless.shifts > 4  && data.baseless.mode === 2
     },
     {

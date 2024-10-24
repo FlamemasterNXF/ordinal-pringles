@@ -23,13 +23,13 @@ function updateAlephNullHTML(){
     DOM(`alephNull`).innerHTML = `You have <span style="color: red; font-family: DosisSemiBold">${format(data.baseless.alephNull)} ℵ<sub>0</sub></span>, increasing the RUP1 effect base by <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[0]())}</span> and providing <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[1]())}</span> free levels of the last Darkness Buyable</span><br>Your <span style="color: goldenrod; font-family: DosisSemiBold">Total Charge</span> is multiplying AutoClicker Speed in the Baseless Realms by <span style="color: goldenrod; font-family: DosisSemiBold">${format(chargeBoostToBaseless(true))}x</span>`
 }
 function updateDynamicShiftHTML(){
-    DOM(`dynamicShift`).style.display = `${data.baseless.baseless ? 'block' : 'none'}`
-    DOM(`baselessMultiplierText`).style.display = `${data.baseless.baseless ? 'block' : 'none'}`
     if(data.baseless.baseless){
         DOM(`dynamicShift`).innerHTML = data.baseless.shifts < 7
-            ? `<span style="font-size: 1rem">Perform a <span style="color: darkred">Dynamic Shift</span> (H)<br>Requires: &omega;<sup>&omega;</sup></span><br>This will unlock Factor ${data.baseless.shifts+1}, perform a Factor Shift reset, multiply your ℵ<sub>0</sub> gain multiplier by ${format(dynamicShiftMultipliers[0](data.baseless.shifts+1))}, multiply your Dynamic gain by ${format(dynamicShiftMultipliers[1](data.baseless.shifts+1))}, and <span style="color: darkred">double your Base</span>`
-            : `Perform a <span style="color: darkred; font-size: 1rem"">Dynamic Shift</span><br>The Future Remains Unknown`
-        DOM(`baselessMultiplierText`).innerHTML = `Your ℵ<sub>0</sub> gain multiplier is ${format(getBaselessMult(data.baseless.mode)*dynamicShiftMultipliers[0]())}`
+            ? `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br>Requires: &omega;<sup>&omega;</sup></span><br>This will unlock Factor ${data.baseless.shifts+1}, perform a Factor Shift reset, multiply your ℵ<sub>0</sub> gain multiplier by ${format(dynamicShiftMultipliers[0](data.baseless.shifts+1))}, multiply your Dynamic gain by ${format(dynamicShiftMultipliers[1](data.baseless.shifts+1))}, and <span style="color: darkred">double your Base</span>`
+            : `Perform a <span style="color: darkred; font-size: 1rem"">Baseless Shift</span><br>The Future Remains Unknown`
+    }
+    else {
+        DOM(`dynamicShift`).innerHTML = `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br><span style="font-size: 0.9rem">You must be in a Baseless Realm to perform a Baseless Shift</span><br>`
     }
 }
 function updateANRHTML(i){
@@ -57,7 +57,7 @@ function updateBaselessEnterHTML(id, load=false) {
     }
 
     data.baseless.mode = id
-    DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${baselessLocks[id]()}</span> with Dynamic Shifts providing a ${getBaselessMult(id)}x multiplier to ℵ<sub>0</sub> gain`
+    DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${baselessLocks[id]()}</span> with Baseless Shifts providing a ${getBaselessMult(id)}x multiplier to ℵ<sub>0</sub> gain`
 }
 
 const baselessMultipliers = [2, 100, 10000]
@@ -114,7 +114,7 @@ const anRebuyableData = [
 ]
 
 function baselessControl(){
-    if(!data.baseless.tutorial) createAlert('Welcome!', 'This popup will not be shown again!\nYou cannot respec Booster Upgrades while in this Realm. However, Dynamic Factor is unlocked immediately and the Max All AutoBuyer works all the time! I\'d recommend checking the Dynamic Factor tab, there are some things there that only exist in this realm.', 'Thanks?')
+    if(!data.baseless.tutorial) createAlert('Welcome!', 'This popup will not be shown again!\nYou cannot respec Booster Upgrades while in this Realm. However, Dynamic Factor is unlocked immediately and the Max All AutoBuyer works all the time!', 'Thanks?')
     const gain = data.baseless.baseless ? alephNullGain() : 0
 
     if(!data.baseless.baseless){
@@ -136,7 +136,7 @@ function baselessControl(){
         data.baseless.shifts = 0
         data.baseless.alephNull += gain
         data.ord.base = 10
-        DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${baselessLocks[data.baseless.mode]()}</span> with Dynamic Shifts providing a ${getBaselessMult(data.baseless.mode)}x multiplier to ℵ<sub>0</sub> gain`
+        DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${baselessLocks[data.baseless.mode]()}</span> with Baseless Shifts providing a ${getBaselessMult(data.baseless.mode)}x multiplier to ℵ<sub>0</sub> gain`
     }
 
     updateDynamicShiftHTML()
