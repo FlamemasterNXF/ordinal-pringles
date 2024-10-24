@@ -266,9 +266,10 @@ function updateBoostersHTML(){
 function updateHeaderHTML(){
     const el = DOM(`chalIn`)
     el.style.display = data.chal.active.includes(true) || data.baseless.baseless || inAnyPurification() ? 'block' : 'none'
-    el.innerText = inAnyPurification() ? `The ${purificationData[data.omega.whichPurification].alt} will be Purified`
+    el.innerHTML = inAnyPurification()
+        ? `The ${purificationData[data.omega.whichPurification].alt} will be Purified${data.darkness.darkened ? `<br>${getDarknessText()}` : ''}`
         : data.baseless.baseless ? `You are in the ${baselessNames[data.baseless.mode]} Realm`
-        : data.darkness.darkened ? `You trapped in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy [${format(decrementyGain())}x/s]`
+        : data.darkness.darkened ? getDarknessText()
         : data.chal.active[7] ? `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy and ${Math.max(1000-data.successorClicks,0)} clicks left` : `You are in Challenge ${data.chal.html+1}` + (data.chal.active[6] ? ` and there is ${Math.max(1000-data.successorClicks,0)} clicks left` : "")
 }
 
