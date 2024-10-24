@@ -273,16 +273,16 @@ const energyUpgradeData = [
             isUnlock: true,
         },
         {
-            desc: "??? (Coming Soon!)",
+            desc: "Permanently convert the Forgotten Realm to the Destabilized Realm",
             sign: 'x',
-            cost: Infinity,
+            cost: 1,
             eff: () => D(1),
             hasExtraReq: false,
             extraReq: true,
             extraReqText: '',
             node: 402,
             baseValue: 1,
-            isUnlock: false,
+            isUnlock: true,
         },
     ]
 ]

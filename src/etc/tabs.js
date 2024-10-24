@@ -89,6 +89,7 @@ function switchSubtab(t, mode){
             updateAlephNullHTML()
             checkANRUnlockHTML()
             DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
+            DOM(`baseless`).children[1].children[data.baseless.mode].innerText = getBaselessName(data.baseless.mode)
             updateBaselessEnterHTML(data.baseless.mode, true)
         }
         if(t === "purification") {

@@ -57,16 +57,35 @@ function updateBaselessEnterHTML(id, load=false) {
     }
 
     data.baseless.mode = id
-    DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${baselessLocks[id]()}</span> with Baseless Shifts providing a ${getBaselessMult(id)}x multiplier to ℵ<sub>0</sub> gain`
+    DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${getBaselessLock(id)}</span> with Baseless Shifts providing a ${getBaselessMult(id)}x multiplier to ℵ<sub>0</sub> gain`
 }
 
-const baselessMultipliers = [2, 100, 10000]
-const baselessLocks = [
-    () => 10,
-    () => 20,
-    () => 100-(hasSingFunction(8) ? getSingFunctionEffect(8) : 0)-getInstabilityConstantEffect(0)
+let baselessData = [
+    {
+        name: 'Baseless',
+        altName: '',
+        altUnlock: () => false,
+        altColor: '#000000',
+        multiplier: () => 2,
+        lock: () => 10,
+    },
+    {
+        name: 'Obliterated',
+        altName: '',
+        altUnlock: () => false,
+        altColor: '#000000',
+        multiplier: () => 100,
+        lock: () => 20,
+    },
+    {
+        name: 'Forgotten',
+        altName: 'Destabilized',
+        altUnlock: () => getEUPEffect(4, 1),
+        altColor: '#7c0081',
+        multiplier: () => 10000,
+        lock: () => 100-(hasSingFunction(8) ? getSingFunctionEffect(8) : 0)-getInstabilityConstantEffect(0),
+    },
 ]
-const baselessNames = ['Baseless', 'Obliterated', 'Forgotten']
 
 const anRebuyableData = [
     {
@@ -129,14 +148,14 @@ function baselessControl(){
     DOM(`baseless`).children[0].innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
 
     if(data.baseless.baseless){
-        data.ord.base = baselessLocks[data.baseless.mode]()
+        data.ord.base = getBaselessLock(data.baseless.mode)
         data.dy.gain = D(0.002)
     }
     else{
         data.baseless.shifts = 0
         data.baseless.alephNull += gain
         data.ord.base = 10
-        DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${baselessLocks[data.baseless.mode]()}</span> with Baseless Shifts providing a ${getBaselessMult(data.baseless.mode)}x multiplier to ℵ<sub>0</sub> gain`
+        DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${getBaselessLock(data.baseless.mode)}</span> with Baseless Shifts providing a ${getBaselessMult(data.baseless.mode)}x multiplier to ℵ<sub>0</sub> gain`
     }
 
     updateDynamicShiftHTML()
@@ -169,7 +188,10 @@ let alephNullEffects = [
     () => Math.max(0, Math.log10(data.baseless.alephNull)/10)*(Math.max(1, getPringleEffect(5, true))),
     () => Math.max(0, Math.floor(softcap(Math.log10(data.baseless.alephNull), 30, 0.5)))
 ]
-let getBaselessMult = (i) => baselessMultipliers[i]
+
+let getBaselessName = (i) => baselessData[i].altUnlock() ? baselessData[i].altName : baselessData[i].name
+let getBaselessMult = (i) => baselessData[i].multiplier()
+let getBaselessLock = (i) => baselessData[i].lock()
 let chargeBoostToBaseless = (display = false) => data.baseless.baseless || display
     ? Math.max(1, ((data.incrementy.totalCharge**10)*getEUPEffect(1, 1, true))**getANREffect(1))
     : 1
