@@ -120,3 +120,11 @@ function calcDyGain(){
     let boost = (data.ord.base < 6 || data.boost.isCharged[13]) ? getBUPEffect(13) : 1
     return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).mul(chargeBoost).div(ao2)
 }
+
+function getTotalFactors(){
+    let total = 0
+    for (let i = 0; i < data.factors.length; i++) {
+        total += data.factors[i]
+    }
+    return total
+}

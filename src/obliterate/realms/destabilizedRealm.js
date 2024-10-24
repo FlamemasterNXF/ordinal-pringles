@@ -9,21 +9,21 @@ let destabBupData = [
     {
         desc: "OP provides free Factors",
         cost: 5,
-        eff: () => 5,
+        eff: () => Math.floor(Decimal.pow(Decimal.log10(data.markup.powers), 1/4)),
         baseEff: () => 1,
         bottomRow: false
     },
     {
-        desc: "Factors reduce the Base in Challenges",
+        desc: "???",
         cost: 72,
-        eff: () => 5,
-        baseEff: () => data.ord.base,
+        eff: () => 1,
+        baseEff: () => 1,
         bottomRow: false
     },
     {
         desc: "AutoClicker Speed is multiplied by your Challenge completions in Challenges",
         cost: 53,
-        eff: () => Math.max(Math.pow(2, data.chal.completions[4]), 1),
+        eff: () => Math.max(Math.pow(getTotalDestabChallengeCompletions(), 10), 1),
         baseEff: () => 1,
         bottomRow: false
     },
@@ -38,21 +38,21 @@ let destabBupData = [
     {
         desc: "Factors boost OP gain",
         cost: 4,
-        eff: () => Math.max(Math.sqrt(data.boost.total)*getAOREffect(6), 1),
+        eff: () => Math.max(Math.pow(getTotalFactors(), 2), 1),
         baseEff: () => 1,
         bottomRow: false
     },
     {
         desc: "Boosters boost AutoClicker Speed",
         cost: 73,
-        eff: () => 10,
-        baseEff: () => 0,
+        eff: () => Math.max(Math.pow(data.destab.total, 2), 1),
+        baseEff: () => 1,
         bottomRow: false
     },
     {
         desc: "The Ordinal Base boosts Factors (higher is better)",
         cost: 74,
-        eff: () => Math.max(1,data.ord.base-2),
+        eff: () => Math.max(1, Math.floor(data.ord.base/2)),
         baseEff: () => 1,
         bottomRow: false
     },
@@ -60,28 +60,28 @@ let destabBupData = [
     {
         desc: "Baseless Shifts boost AutoClicker speed",
         cost: 1,
-        eff: () => 1,
+        eff: () => Math.max(Math.pow(data.baseless.shifts, 10), 1),
         baseEff: () => 1,
         bottomRow: false
     },
     {
         desc: "???",
         cost: 8,
-        eff: () => 20*getOverflowEffect(1),
+        eff: () => 1,
         baseEff: () => 1,
         bottomRow: false
     },
     {
         desc: "???",
         cost: 16,
-        eff: () => 3,
-        baseEff: () => 0,
+        eff: () => 1,
+        baseEff: () => 1,
         bottomRow: false
     },
     {
         desc: "ℵ<sub>0</sub> boosts AutoClicker speed",
         cost: 66,
-        eff: () => Math.max(Math.log2(data.boost.amt), 1),
+        eff: () => Math.max(data.baseless.alephNull, 1),
         baseEff: () => 1,
         bottomRow: false
     },
@@ -124,10 +124,10 @@ function initDBUPs(){
         }
     }
     for (let i = 0; i < data.destab.hasBUP.length; i++) {
-        DOM(`bup${i}`).addEventListener('click', ()=>buyDestabBUP(i, true))
-        DOM(`bup${i}`).addEventListener('mouseenter', ()=>showNextDestabBUPLevelEffect(i, true))
-        DOM(`bup${i}`).addEventListener('mouseleave', ()=>showNextDestabBUPLevelEffect(i, false))
-        DOM(`bup${i}`).style.backgroundColor = data.destab.isShattered[i] ? '#3b3100' : data.destab.hasBUP[i] ? '#800000' : 'black'
+        DOM(`dBup${i}`).addEventListener('click', ()=>buyDestabBUP(i, true))
+        DOM(`dBup${i}`).addEventListener('mouseenter', ()=>showNextDestabBUPLevelEffect(i, true))
+        DOM(`dBup${i}`).addEventListener('mouseleave', ()=>showNextDestabBUPLevelEffect(i, false))
+        DOM(`dBup${i}`).style.backgroundColor = data.destab.isShattered[i] ? '#3b3100' : data.destab.hasBUP[i] ? '#250505' : 'black'
     }
 
     let unlockCol = DOM(`dBuColumn`)
@@ -140,7 +140,7 @@ function initDBUPs(){
     }
 
     for (let i = 0; i < data.boost.unlocks.length; i++) {
-        DOM(`bu${i}`).style.backgroundColor = data.destab.unlocks[i] ? '#800000' : 'black'
+        DOM(`bu${i}`).style.backgroundColor = data.destab.unlocks[i] ? '#250505' : 'black'
     }
 }
 
@@ -160,13 +160,24 @@ function updateDestabBoostersHTML() {
 
 function updateDestabUnlockHTML(){
     for (let i = 0; i < data.destab.unlocks.length; i++) {
-        DOM(`dBu${i}`).style.backgroundColor = data.destab.total > destabUnlockData[i].req ? '#800000' : 'black'
+        DOM(`dBu${i}`).style.backgroundColor = data.destab.total > destabUnlockData[i].req ? '#250505' : 'black'
         DOM(`destab${destabUnlockData[i].unl}Tab`).innerText = isDBUUnlocked(i) ? destabUnlockData[i].unl : '???'
     }
 }
 
-function buyDestabBUP(i, shatter){
+function buyDestabBUP(n, shatter){
+    if(n % 4 !== 0 && !data.destab.hasBUP[n-1]){
+        for (let i = 0; i < n % 4; i++) {
+            let index = (i % 4) + (4 * Math.floor(n / 4))
+            buyDestabBUP(index, false)
+        }
+    }
 
+    if (data.destab.amt < getDBUPCost(n)) return
+    data.destab.amt -= getDBUPCost(n)
+    data.destab.hasBUP[n] = true
+
+    DOM(`dBup${n}`).style.backgroundColor = '#250505'
 }
 
 function showNextDestabBUPLevelEffect(i, show){
@@ -184,4 +195,12 @@ function getDBUPDesc(i, showNextLevel = false){
     //if(data.destab.isShattered[i]) return chargedBUPData[i].desc
     if(data.destab.hasBUP[i]) return showNextLevel ? chargedBUPData[i].desc : getBaseDBUPDesc(i)
     return getBaseDBUPDesc(i)
+}
+
+function getTotalDestabChallengeCompletions(){
+    let total = 0
+    for (let i = 0; i < data.destab.completions.length; i++) {
+        total += data.destab.completions[i]
+    }
+    return total
 }
