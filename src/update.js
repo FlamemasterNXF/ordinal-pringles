@@ -1,5 +1,5 @@
 //Important Constants for Loading
-const TABS = ["markup", "boosters", "collapse", "obliterate", "ach", "settings"]
+const TABS = ["markup", "boosters", "collapse", "obliterate", "destabBoosters", "ach", "settings"]
 
 const uHTML = {
     update(){
@@ -8,6 +8,7 @@ const uHTML = {
         updateBoostersHTML()
         updateCollapseHTML()
         updateObliterateHTML()
+        updateDestabBoostersHTML()
     },
     load(){
         //Load Tab Displays
@@ -28,6 +29,8 @@ const uHTML = {
         DOM('bp2Description').innerText = data.overflow.thirdEffect ? 'Dividing Decrementy Gain by ' : 'Multiplying Decrementy Gain by '
         DOM('progressBarContainer').style.display = data.sToggles[6] ? 'flex' : 'none'
         DOM('darken').innerText = data.darkness.darkened ? 'Escape' : 'Enter the Darkness'
+
+        if(isDestabilizedRealm()) destabilizationHTML()
 
         checkCollapseUnlockHTML()
         updateTotalAlephHTML()
@@ -58,5 +61,6 @@ const uHTML = {
         initPringleAlchemy()
         initPurityPlane()
         initUnstableFactors()
+        initDBUPs()
     }
 }

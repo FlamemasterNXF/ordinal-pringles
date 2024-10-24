@@ -17,6 +17,7 @@ let markupTab = "factor"
 let boostTab = "upgrades"
 let collapseTab = "cardinals"
 let obliterateTab = "pringles"
+let destabBoostTab = "upgrades"
 let settingsTab = "gameSettings"
 
 function switchSubtab(t, mode){
@@ -89,7 +90,12 @@ function switchSubtab(t, mode){
             updateAlephNullHTML()
             checkANRUnlockHTML()
             DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
-            DOM(`baseless`).children[1].children[data.baseless.mode].innerText = getBaselessName(data.baseless.mode)
+
+            if(data.obliterate.times > 0){
+                DOM(`baseless`).children[1].children[data.baseless.mode].innerText = getBaselessName(data.baseless.mode)
+                updateBaselessSelectHTML()
+            }
+
             updateBaselessEnterHTML(data.baseless.mode, true)
         }
         if(t === "purification") {
@@ -145,6 +151,10 @@ function isTabUnlocked(t){
         case 'sing': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
         case 'baseless': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
         case 'purification': return hasSingFunction(6) || hasPassiveUpgrade(20)
+
+        case 'dChal': return isDBUUnlocked(0)
+        case 'dIncrementy': return isDBUUnlocked(1)
+        case 'dHierarchies': return isDBUUnlocked(2)
 
         default: return true
     }

@@ -16,6 +16,7 @@
     <script defer src="src/internal/Formatting.js"></script>
     <script defer src="src/internal/FormatExpantanum.js"></script>
     <script defer src="src/internal/Helpers.js"></script>
+    <script defer src="src/internal/blendWords.js"></script>
 
     <script defer src="src/ordinal/ordinalDisplay.js"></script>
     <script defer src="src/ordinal/gwaifyOrdinal.js"></script>
@@ -39,6 +40,7 @@
     <script defer src="src/etc/tabs.js"></script>
     <script defer src="src/etc/settings.js"></script>
 
+    <script defer src="src/obliterate/realms/destabilizedRealm.js"></script>
     <script defer src="src/obliterate/instability.js"></script>
     <script defer src="src/obliterate/purity.js"></script>
     <script defer src="src/obliterate/passiveEnergy.js"></script>
@@ -112,7 +114,7 @@
     <div class="flexBox" id="tabs" style="margin-bottom: 0.5rem">
         <button class="tabButton" id="ordNav" onclick="switchTab('ord')" style="color: indianred; border-color: #610000">Ordinals</button>
         <button class="tabButton" id="markupNav" onclick="switchTab('markup'); switchSubtab(markupTab, 'markup')" style="color: goldenrod; border-color: #785c13 ">Markup</button>
-        <button class="tabButton" id="boostNav" onclick="switchTab('boosters'); switchSubtab(boostTab, 'boosters')" style="display: none; color: #8080FF; border-color: #1e47d0">Boosters</button>
+        <button class="tabButton" id="boostNav" onclick="openBoostersTab()" style="display: none; color: #8080FF; border-color: #1e47d0">Boosters</button>
         <button class="tabButton" id="collapseNav" onclick="switchTab('collapse'); switchSubtab(collapseTab, 'collapse')" style="display: none; color: #80ff82; border-color: #2da000">Collapse</button>
         <button class="tabButton" id="obliterateNav" onclick="switchTab('obliterate'); switchSubtab(obliterateTab, 'obliterate')" style="display: none; color: #d080ff; border-color: #6b00a0">Obliteration</button>
         <button class="tabButton" id="achNav" onclick="switchTab('ach')" style="color: #bd9309; border-color: #9b7c2b;">Achievements</button>
@@ -460,6 +462,69 @@
             <div class="flexBox" id="unstableFactorContainer" style="margin-top: 0.5rem"></div>
             <button class="unstableFactor" style="height: 2rem; width: 20rem; margin-top: 0.5rem" onclick="data.sToggles[19] ? createConfirmation('Are you sure?', 'Respecing Unstable Factors will return your Instability, but it will preform a Collapse reset!', 'No way!', 'Go ahead.', respecUnstableFactors) : respecUnstableFactors()">Respec Unstable Factors</button>
             <t class="centeredTexts" id="instabilityConstantText" style="margin-top: 1rem; font-family: DosisRegular; color: #6752c2"></t>
+        </div>
+    </div>
+    <div class="flexBox" id="destabBoostersPage" style="flex-direction: column">
+        <div class="flexBox" style="margin-top: 1rem">
+            <button class="tabButton" id="destabUpgradeTab" onclick="switchSubtab('dUpgrades', 'destabBoosters')" style="color: #ce6a6a; border-color: #a84a4a">Upgrades</button>
+            <button class="tabButton" id="destabChallengesTab" style="color: #ce6a6a; border-color: #a84a4a;" onclick="if(chalTabUnlocked()) {switchSubtab('dChal', 'destabBoosters');}">Challenges</button>
+            <button class="tabButton" id="destabIncrementyTab" style="color: #ce6a6a; border-color: #a84a4a;" onclick="if(incrementyTabUnlocked()) {switchSubtab('dIncrementy', 'destabBoosters');}">Incrementy</button>
+            <button class="tabButton" id="destabHierarchiesTab" style="color: #ce6a6a; border-color: #a84a4a;" onclick="if(hierarchiesTabUnlocked()) {switchSubtab('dHierarchies', 'destabBoosters');}">Hierarchies</button>
+        </div>
+        <div class="flexBox" id="dUpgradesSubPage" style="margin-top: 1rem; flex-direction: column">
+            <div class="centeredTexts" id="dBoosterText">boosteeeeeeeee</div>
+            <div class="centeredTexts" id="dBoosterTimesText" style="font-size: 0.8rem">boosteeeeeeeee times</div>
+            <div class="flexBox" style="flex-direction: row;">
+                <button class="dBoostTopButton" id="dBoostRefund" style="margin-right: 0.25rem" onclick="data.sToggles[0]?createConfirmation('Are you sure?', 'This will reset your Booster Upgrades and return spent Boosters, but it will trigger a Booster Reset!', 'Go back!', 'Go ahead.', boosterRefund)
+                :boosterRefund()">Refund your Booster Upgrades</button>
+                <button class="dBoostTopButton" id="shatterRefund" style="display: none; margin-left: 0.25rem" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Charged Booster Upgrades and return spent Charge, but it will force you to exit your Challenge!', 'Go back!', 'Go ahead.', respecCharge)
+                :respecCharge()">Refund your Shattered Upgrades</button>
+            </div>
+            <div class="flexBox">
+                <div class="flexBox" id="dBupColumn0" style="flex-direction: column"></div>
+                <div class="flexBox" id="dBupColumn1" style="flex-direction: column;"></div>
+                <div class="flexBox" id="dBupColumn2" style="flex-direction: column"></div>
+                <div class="flexBox" id="dBuColumn" style="flex-direction: column"></div>
+            </div>
+            <p class="centeredTexts" id="dBupBottomText" style="color: #565656"></p>
+        </div>
+        <div class="flexBox" id="chalSubPage" style="display: none; flex-direction: column;">
+            <button class="boostTopButton" id="chalExit" onclick="chalExitConfirm()">Escape the Challenge Early</button>
+            <div class="flexBox" id="chalRow0"></div>
+            <div class="flexBox" id="chalRow1"></div>
+            <div class="flexBox" id="chalRow2"></div>
+            <div class="flexBox" id="chalRow3"></div>
+        </div>
+        <div class="flexBox" id="incrementySubPage" style="display: none; flex-direction: column">
+            <div class="centeredTexts" id="incrementyText" style="color: #8080FF; margin-top: 1rem;">Incrementy</div>
+            <p class="centeredTexts" id="dynamicText2" style="color: goldenrod; margin-bottom: 0.5rem">Hello Dog</p>
+            <div class="centeredTexts" id="incrementyText2" style="color: #8080FF; margin-top: 0.5rem; margin-bottom: 0.5rem">The first row of upgrades are re-buyable.</div>
+            <div class="flexBox" id="iupRow0" style="flex-direction: row"></div>
+            <div class="flexBox" id="iupRow3" style="flex-direction: row"></div>
+            <div class="flexBox" id="iupRow1" style="flex-direction: row"></div>
+            <div class="flexBox" id="iupRow2" style="flex-direction: row"></div>
+            <button id="chargeButton" onclick="sacrificeIncrementy()">Jonas was here</button>
+        </div>
+        <div class="flexBox" id="hierarchiesSubPage" style="display: none; flex-direction: column">
+            <div class="flexBox, hierarchyContainer">
+                <sub class="generalTexts" id="h0Name">Your FGH Ordinal is</sub>
+                <strong class="centeredTexts, hierarchies" id="h0Text">SPEEDY QUICK</strong>
+                <sub class="generalTexts" id="h0Info">Info</sub>
+                <sub><strong class="generalTexts" id="h0Effect">Info</strong></sub>
+            </div>
+            <div class="flexBox, hierarchyContainer">
+                <sub class="generalTexts" id="h1Name">Your SGH Ordinal is</sub>
+                <strong class="centeredTexts, hierarchies" id="h1Text">slow not QUICK</strong>
+                <sub class="generalTexts" id="h1Info">Information</sub>
+                <sub><strong class="generalTexts" id="h1Effect">Information</strong></sub>
+            </div>
+            <div class="flexBox" id="hierarchyBuyableContainer" style="flex-direction: row; margin-top: 0.5rem">
+                <div class="flexBox" id="h0Upgrades" style="flex-direction: column"></div>
+                <div class="flexBox" id="h0Buyables" style="flex-direction: column"></div>
+                <div class="flexBox" id="h1Buyables" style="flex-direction: column"></div>
+                <div class="flexBox" id="h1Upgrades" style="flex-direction: column"></div>
+            </div>
+            <div class="centeredTexts" id="hierarchyInfo" style="margin-top:1rem">Both Hierarchies are Maximized instantly. Their Successor gains are based on Incrementy Amount and AutoBuyer speed respectively.</div>
         </div>
     </div>
     <div class="flexBox" id="achPage" style="flex-direction: column;"></div>

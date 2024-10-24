@@ -50,6 +50,7 @@ function checkANRUnlockHTML(){
 function updateBaselessEnterHTML(id, load=false) {
     if(data.baseless.baseless && !load){
         DOM(`baseless`).children[1].selectedIndex = data.baseless.mode
+        DOM(`baseless`).children[1].style.color = getBaselessColor(data.baseless.mode)
         return createAlert('Illegal Move!', 'You cannot change the Realm you\'re already in!', 'Dang it!')
     }
     if(load){
@@ -58,6 +59,13 @@ function updateBaselessEnterHTML(id, load=false) {
 
     data.baseless.mode = id
     DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${getBaselessLock(id)}</span> with Baseless Shifts providing a ${getBaselessMult(id)}x multiplier to ℵ<sub>0</sub> gain`
+}
+
+function updateBaselessSelectHTML(){
+    for (let i = 0; i < DOM(`baseless`).children[1].children.length; i++){
+        DOM(`baseless`).children[1].children[i].style.color = getBaselessColor(i)
+    }
+    DOM(`baseless`).children[1].style.color = getBaselessColor(data.baseless.mode)
 }
 
 let baselessData = [
@@ -81,7 +89,7 @@ let baselessData = [
         name: 'Forgotten',
         altName: 'Destabilized',
         altUnlock: () => getEUPEffect(4, 1),
-        altColor: '#7c0081',
+        altColor: '#ff8080',
         multiplier: () => 10000,
         lock: () => 100-(hasSingFunction(8) ? getSingFunctionEffect(8) : 0)-getInstabilityConstantEffect(0),
     },
@@ -145,6 +153,10 @@ function baselessControl(){
     data.baseless.tutorial = true
     data.baseless.baseless = !data.baseless.baseless
 
+    if(data.baseless.mode === 2 && getEUPEffect(4, 1)){
+        destabilizationHTML()
+    }
+
     DOM(`baseless`).children[0].innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
 
     if(data.baseless.baseless){
@@ -190,6 +202,7 @@ let alephNullEffects = [
 ]
 
 let getBaselessName = (i) => baselessData[i].altUnlock() ? baselessData[i].altName : baselessData[i].name
+let getBaselessColor = (i) => baselessData[i].altUnlock() ? baselessData[i].altColor : 'darkred'
 let getBaselessMult = (i) => baselessData[i].multiplier()
 let getBaselessLock = (i) => baselessData[i].lock()
 let chargeBoostToBaseless = (display = false) => data.baseless.baseless || display

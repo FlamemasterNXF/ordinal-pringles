@@ -63,6 +63,15 @@
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }
+.dBup{
+    width: 13rem;
+    height: 6rem;
+    border: 2px solid #a84a4a;
+    color: #ce6a6a;
+    background: black;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
 .chargedBUP{
     width: 13rem;
     height: 6rem;
@@ -135,6 +144,14 @@
     height: 1.5rem;
     border: 2px solid #1e47d0;
     color: #8080FF;
+    background: black;
+    margin-top: 0.5rem;
+}
+.dBoostTopButton{
+    width: 20rem;
+    height: 1.5rem;
+    border: 2px solid #a84a4a;
+    color: #ce6a6a;
     background: black;
     margin-top: 0.5rem;
 }

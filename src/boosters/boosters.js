@@ -235,6 +235,14 @@ function initBUPs(){
     checkSpecialBUPs()
 }
 
+function openBoostersTab(){
+    if(isDestabilizedRealm()){
+        switchTab('destabBoosters'); switchSubtab(destabBoostTab, 'destabBoosters')
+    }
+    else
+        switchTab('boosters'); switchSubtab(boostTab, 'boosters')
+}
+
 function checkSpecialBUPs(){
     DOM(`bup4`).style.display = hasSluggishMilestone(3) ? `block` : `none`
     DOM(`bup9`).style.display = hasSluggishMilestone(3) ? `block` : `none`
