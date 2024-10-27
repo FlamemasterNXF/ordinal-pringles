@@ -145,6 +145,7 @@ function baselessControl(){
 }
 
 function dynamicShift(){
+    if(!data.baseless.baseless) return
     if(data.ord.ordinal.lt(numberFromOrdinal('&omega;<sup>&omega;</sup>', data.ord.base)) || data.baseless.shifts > 6) return
     ++data.baseless.shifts
     data.ord.base *= 2
