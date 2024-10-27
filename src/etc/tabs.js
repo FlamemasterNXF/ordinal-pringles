@@ -28,6 +28,11 @@ function switchSubtab(t, mode){
         DOM(`${markupTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
         markupTab = t
+
+        if(t === "factor"){
+            DOM(`dFactorBoostButton`).style.display = isDestabilizedRealm() ? 'block' : 'none'
+            DOM(`factorBoostButton`).style.display = (data.boost.times>0 || data.collapse.times>0 || data.obliterate.times>0) && !isDestabilizedRealm() ? 'inline-block':'none'
+        }
     }
 
     // Special Boosters Rules

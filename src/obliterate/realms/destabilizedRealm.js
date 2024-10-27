@@ -155,6 +155,9 @@ function updateDestabBoostersHTML() {
         : */ `You have <span style="color: #ff8080; font-family: DosisSemiBold">${(data.destab.amt)} Unstable Boosters</span> (${(data.destab.total)} total)`
     DOM('dBoosterTimesText').innerHTML = `You have <span style="color: #ff8080">Boosted</span> ${data.destab.times} times`
 
+    if(data.nav.current === 'markup') DOM(`dFactorBoostButton`).innerHTML = `Perform an Unstable Boost [+${getDBoosterGain()}] (B)<br>Requires ${displayDBoostReq()}`
+    if(data.nav.current === 'markup') DOM("dFactorBoostButton").style.color = data.ord.ordinal.gte(dBoostReq()) ? '#fff480' : '#ff8080'
+
     updateDestabUnlockHTML()
 }
 
@@ -184,8 +187,18 @@ function showNextDestabBUPLevelEffect(i, show){
 
 }
 
-
 let isDestabilizedRealm = () => data.baseless.mode === 2 && getEUPEffect(4, 1) && data.baseless.baseless
+
+function getDBoosterGain(){
+    return data.destab.times+1
+}
+
+function displayDBoostReq(){
+    return ordinalDisplay('', dBoostReq(), 0, data.ord.base, 3, false)
+}
+function dBoostReq(){
+    return D(`1e1500`).times(D(1e100).times(data.destab.times+1))
+}
 
 let isDBUUnlocked = (i) => data.destab.total > destabUnlockData[i].unl
 

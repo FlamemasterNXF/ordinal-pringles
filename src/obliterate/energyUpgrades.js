@@ -275,7 +275,7 @@ const energyUpgradeData = [
         {
             desc: "Permanently convert the Forgotten Realm to the Destabilized Realm",
             sign: 'x',
-            cost: 1,
+            cost: 5,
             eff: () => D(1),
             hasExtraReq: false,
             extraReq: true,
