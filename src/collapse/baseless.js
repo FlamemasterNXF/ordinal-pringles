@@ -31,6 +31,7 @@ function updateDynamicShiftHTML(){
     else {
         DOM(`dynamicShift`).innerHTML = `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br><span style="font-size: 0.9rem">You must be in a Baseless Realm to perform a Baseless Shift</span><br>`
     }
+    updateHeaderHTML()
 }
 function updateANRHTML(i){
     DOM(`anR${i}`).innerHTML = `<span style="color: #ce5c0b">${anRebuyableData[i].desc} (${formatWhole(getANRLevels(i))})</span><br>Requires: ${format(getANRCost(i))} ℵ<sub>0</sub><br>Currently: ${anRebuyableData[i].symbol !== 'x' ? anRebuyableData[i].symbol : ''}${format(i==0?getANREffect(i, false):getANREffect(i))}${anRebuyableData[i].symbol === 'x' ? anRebuyableData[i].symbol : ''}`
@@ -176,6 +177,7 @@ function baselessControl(){
 }
 
 function dynamicShift(){
+    if(!data.baseless.baseless) return
     if(data.ord.ordinal.lt(numberFromOrdinal('&omega;<sup>&omega;</sup>', data.ord.base)) || data.baseless.shifts > 6) return
     ++data.baseless.shifts
     data.ord.base *= 2

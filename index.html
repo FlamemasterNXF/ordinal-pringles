@@ -136,7 +136,7 @@
             <div class="flexBox" style="flex-direction: row">
                 <button id="factorShiftButton" onclick="data.sToggles[3]?factorShiftConfirm():factorShift()" style="color: goldenrod; width: 20rem; height: 3rem; background-color: black; border: 2px solid #785c13">Perform a Factor Shift</button>
                 <button id="factorBoostButton" onclick="data.sToggles[4]&&(data.collapse.times > 0 || data.boost.times < 33)?createConfirmation('Are you sure?', 'Performing a Factor Boost will reset your Ordinal, Ordinal Powers, Factors, Automation, Base, and Dynamic Factor in exchange for some Boosters!', 'No Way!', 'Yes, lets do this.', boost):boost()" style="margin-left: 0.2rem; color: #8080FF; width: 20rem; min-height: 3rem; background-color: black; border: 2px solid #1e47d0; display: none">Perform a Factor Boost</button>
-                <button id="dFactorBoostButton" onclick="" style="margin-left: 0.2rem; color: #ff8080; width: 20rem; min-height: 3rem; background-color: black; border: 2px solid #bd5151; display: none">Perform a Factor Boost</button>
+                <button id="dFactorBoostButton" onclick="dBoost()" style="margin-left: 0.2rem; color: #ff8080; width: 20rem; min-height: 3rem; background-color: black; border: 2px solid #bd5151; display: none">Perform a Factor Boost</button>
             </div>
             <button class="factor" id="factorMax" onclick="buyMaxFactor()">Max All Factors [F]</button>
             <div class="flexBox" style="flex-direction: row">

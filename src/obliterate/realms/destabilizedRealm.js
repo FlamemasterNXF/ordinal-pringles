@@ -189,6 +189,16 @@ function showNextDestabBUPLevelEffect(i, show){
 
 let isDestabilizedRealm = () => data.baseless.mode === 2 && getEUPEffect(4, 1) && data.baseless.baseless
 
+function dBoost(){
+    if(data.ord.ordinal.lt(dBoostReq())) return
+    data.destab.amt += getDBoosterGain()
+    data.destab.total += getDBoosterGain()
+    ++data.destab.times
+
+    dBoosterReset()
+    updateDynamicShiftHTML()
+}
+
 function getDBoosterGain(){
     return data.destab.times+1
 }
@@ -197,9 +207,25 @@ function displayDBoostReq(){
     return ordinalDisplay('', dBoostReq(), 0, data.ord.base, 3, false)
 }
 function dBoostReq(){
-    return D(`1e1500`).times(D(1e100).times(data.destab.times+1))
+    return D(`1e1500`).times(D(1e100).pow(data.destab.times+1))
 }
 
+function dBoosterReset(){
+    data.ord.ordinal = D(0)
+    data.ord.over = D(0)
+    data.ord.base = getBaselessLock(data.baseless.mode)
+    data.markup.powers = D(0)
+    data.baseless.shifts = 0
+    data.dy.level = D(1)
+    data.dy.gain = D(0)
+    for (let i = 0; i < data.factors.length; i++) {
+        data.factors[i] = 0
+    }
+    for (let i = 0; i < data.autoLevels.length; i++) {
+        data.autoLevels[i] = 0
+    }
+    data.chal.decrementy = D(1)
+}
 let isDBUUnlocked = (i) => data.destab.total > destabUnlockData[i].unl
 
 let getDBUPCost = (i) => destabBupData[i].cost
