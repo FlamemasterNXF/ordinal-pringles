@@ -9,14 +9,14 @@ let destabBupData = [
     {
         desc: "OP provides free Factors",
         cost: 5,
-        eff: () => Math.floor(Decimal.pow(Decimal.log10(data.markup.powers), 1/4)),
-        baseEff: () => 1,
+        eff: () => Math.max(0, Math.floor(Decimal.pow(Decimal.log10(data.markup.powers+1), 1/4))),
+        baseEff: () => 0,
         bottomRow: false
     },
     {
-        desc: "???",
-        cost: 72,
-        eff: () => 1,
+        desc: "Factors boost their own effect",
+        cost: 14,
+        eff: () => totalFactorEffect(),
         baseEff: () => 1,
         bottomRow: false
     },
@@ -36,9 +36,9 @@ let destabBupData = [
         bottomRow: false
     },
     {
-        desc: "Factors boost OP gain",
+        desc: "OP boosts AutoClickers",
         cost: 4,
-        eff: () => Math.max(Math.pow(getTotalFactors(), 2), 1),
+        eff: () => Decimal.max(Decimal.log2(Decimal.sqrt(data.markup.powers)), 1),
         baseEff: () => 1,
         bottomRow: false
     },
@@ -227,7 +227,9 @@ function dBoosterReset(){
     data.chal.decrementy = D(1)
 }
 let isDBUUnlocked = (i) => data.destab.total > destabUnlockData[i].unl
+let hasDBUP = (i) => data.destab.hasBUP[i]
 
+let getDBUPEffect =  (i) => isDestabilizedRealm() && hasDBUP(i) ? destabBupData[i].eff() : destabBupData[i].baseEff()
 let getDBUPCost = (i) => destabBupData[i].cost
 let getBaseDBUPDesc = (i) => `${destabBupData[i].desc}<br>${getDBUPCost(i)} Unstable Boosters`
 function getDBUPDesc(i, showNextLevel = false){

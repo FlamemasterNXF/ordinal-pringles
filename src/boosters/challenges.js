@@ -131,3 +131,6 @@ function getC5Effect(){
     for (let i = 0; i < data.boost.hasBUP.length; i++) if(data.boost.hasBUP[i]) ++m
     return Math.max(m, 1)
 }
+
+let isInAnyChallenge = () => data.chal.active.includes(true)
+let isInChallenge = (i) => data.chal.active[i]

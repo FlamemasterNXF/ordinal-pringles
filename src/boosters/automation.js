@@ -5,14 +5,14 @@ let automationData = [
             desc: "clicking the Max All button",
             hasReq: true,
             req: "but only if you can't Factor Shift",
-            unlock: () => data.boost.hasBUP[5],
+            unlock: () => data.boost.hasBUP[5] || hasDBUP(4),
         },
         {
             name: "Markup AutoBuyer",
             desc: "clicking the Markup button",
             hasReq: true,
             req: "but only if you're past Ψ(Ω)",
-            unlock: () => data.boost.hasBUP[10],
+            unlock: () => data.boost.hasBUP[10] || hasDBUP(8),
         },
     ],
     [

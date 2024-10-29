@@ -32,21 +32,16 @@ function hasFactor(n, imaginary = false){
     if(imaginary) return data.imaginary.shifts >= n+1
     return data.markup.shifts >= n+1 || data.baseless.shifts >= n+1
 }
-function factorEffect(n, imaginary = false) {
-    const mult = getBUPEffect(0)
-    let add = hasFactor(n, imaginary) ? getBUPEffect(12) : 0
-
-    if(imaginary && data.imaginary.factors[n] < 1) return 1+add*mult
-    if((data.chal.active[1] || data.factors[n] < 1) && !imaginary) return 1+add*mult
-
-    if(imaginary) return ((data.imaginary[n]+(1+add))*mult*getBUPEffect(8))*(Math.max(1+(data.imaginary.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.imaginary.shifts])
+function factorEffect(n, imaginary) {
+    const mult = getDBUPEffect(0)*getBUPEffect(8)
+    let add = hasFactor(n, imaginary) ? getBUPEffect(12) + getDBUPEffect(1) : 0
     return ((data.factors[n]+(1+add))*mult*getBUPEffect(8))*(Math.max(1+(data.markup.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.markup.shifts])
 }
 function totalFactorEffect(){
     let mult = 1
     for (let i = 0; i < data.factors.length; i++) {
-        mult *= factorEffect(i)
-        mult *= factorEffect(i, true)
+        mult *= factorEffect(i)*getDBUPEffect(2)
+        //mult *= factorEffect(i, true)
     }
     return mult
 }
