@@ -58,23 +58,23 @@ let destabBupData = [
     },
 
     {
-        desc: "Baseless Shifts boost AutoClicker speed",
+        desc: "Automatically Markup without resetting anything",
         cost: 1,
+        eff: () => 1,
+        baseEff: () => 1,
+        bottomRow: false
+    },
+    {
+        desc: "Baseless Shifts boost AutoClicker speed",
+        cost: 8,
         eff: () => Math.max(Math.pow(data.baseless.shifts, 10), 1),
         baseEff: () => 1,
         bottomRow: false
     },
     {
-        desc: "???",
-        cost: 8,
-        eff: () => 1,
-        baseEff: () => 1,
-        bottomRow: false
-    },
-    {
-        desc: "???",
+        desc: "ℶ<sub>&omega;</sub> boosts AutoClicker speed",
         cost: 16,
-        eff: () => 1,
+        eff: () => Math.pow(alephOmegaCap(), 2),
         baseEff: () => 1,
         bottomRow: false
     },
