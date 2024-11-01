@@ -139,6 +139,36 @@
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }
+.destabChallenge{
+    width: 25rem;
+    height: 12rem;
+    border: 2px solid #a84a4a;
+    color: #ce6a6a;
+    background: black;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+.destabChallenge.completed{
+    width: 25rem;
+    height: 12rem;
+    border: 2px solid #944aa8;
+    color: #ce6a6a;
+    background: black;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+.destabChallenge.in{
+    width: 25rem;
+    height: 12rem;
+    border: 2px solid #a84a4a;
+    color: #ce6a6a;
+    background: #3b1e1e;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
 .boostTopButton{
     width: 20rem;
     height: 1.5rem;

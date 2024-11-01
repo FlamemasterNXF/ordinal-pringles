@@ -17,7 +17,7 @@ let markupTab = "factor"
 let boostTab = "upgrades"
 let collapseTab = "cardinals"
 let obliterateTab = "pringles"
-let destabBoostTab = "upgrades"
+let destabBoostTab = "dUpgrades"
 let settingsTab = "gameSettings"
 
 function switchSubtab(t, mode){
@@ -128,6 +128,12 @@ function switchSubtab(t, mode){
         DOM(`${obliterateTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
         obliterateTab = t
+    }
+
+    if(mode === "destabBoosters"){
+        DOM(`${destabBoostTab}SubPage`).style.display = `none`
+        DOM(`${t}SubPage`).style.display = `flex`
+        destabBoostTab = t
     }
 
     // Special Settings Rules

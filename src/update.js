@@ -61,6 +61,6 @@ const uHTML = {
         initPringleAlchemy()
         initPurityPlane()
         initUnstableFactors()
-        initDBUPs()
+        initDestabilizedRealm()
     }
 }

@@ -90,12 +90,12 @@ let destabUnlockData = [
     {
         desc: 'Unlock Challenges',
         unl: 'Challenges',
-        req: Infinity
+        req: 0
     },
     {
         desc: 'Unlock Incrementy',
         unl: 'Incrementy',
-        req: Infinity
+        req: 99
     },
     {
         desc: 'Unlock Hierarchies',
@@ -104,11 +104,81 @@ let destabUnlockData = [
     },
     {
         desc: 'Unlock Shattering',
-        unl: 'Challenges',
+        unl: 'Shattering',
         req: Infinity
     },
 ]
 
+let destabChallengeData = [
+    {
+        desc: 'You can only buy 1 of each AutoClicker and you cannot buy Factors',
+        effectDesc: 'Factors Boost themselves EVERYWHERE',
+        sign: 'x',
+        eff: () => 1,
+        effectBase: () => 1,
+        effectIsDecimal: false,
+
+        hasInnerEffect: false,
+    },
+    {
+        desc: 'All boosts from outside of Baseless Realms are useless, but Cardinals boost AutoClicker speeds',
+        effectDesc: 'Reward: Factors boost Dynamic Factor gain EVERYWHERE',
+        sign: 'x',
+        eff: () => 1,
+        effectBase: () => 1,
+        effectIsDecimal: false,
+
+        hasInnerEffect: true,
+        innerEffect: () => 1
+    },
+    {
+        desc: 'OP gain is massively reduced and the Popular Orange Pringle is disabled',
+        effectDesc: 'Reward: Factors boost the last Cardinal Upgrade\'s effect',
+        sign: '+',
+        eff: () => 1,
+        effectBase: () => 0,
+        effectIsDecimal: false,
+
+        hasInnerEffect: false,
+    },
+    {
+        desc: 'Unstable Booster Upgrades increase the Challenge Goal',
+        effectDesc: 'Reward: Factors boost Negative Charge and Decrementy gain',
+        sign: 'x',
+        eff: () => 1,
+        effectBase: () => 1,
+        effectIsDecimal: false,
+
+        hasInnerEffect: true,
+        innerEffect: () => 1
+    },
+    {
+        desc: 'All previous Baseless Challenges at once',
+        effectDesc: 'Reward: Factors boost Aleph Null gain',
+        sign: 'x',
+        eff: () => 1,
+        effectBase: () => 1,
+        effectIsDecimal: false,
+
+        hasInnerEffect: false,
+    },
+    {
+        desc: 'Your AutoClicker speed is equal to your Dynamic Factor',
+        effectDesc: 'Reward: Gain free Factor Levels EVERYWHERE',
+        sign: '+',
+        eff: () => 0,
+        effectBase: () => 0,
+        effectIsDecimal: false,
+
+        hasInnerEffect: true,
+        innerEffect: () => 1
+    },
+]
+
+function initDestabilizedRealm(){
+    initDBUPs()
+    initDChallenges()
+}
 function initDBUPs(){
     let rows = [DOM('dBupColumn0'), DOM('dBupColumn1'), DOM('dBupColumn2')]
     let total = 0
@@ -143,6 +213,26 @@ function initDBUPs(){
         DOM(`bu${i}`).style.backgroundColor = data.destab.unlocks[i] ? '#250505' : 'black'
     }
 }
+function initDChallenges(){
+    let container = DOM(`dChallengeContainer`)
+    for (let i = 0; i < 2; i++) {
+        let row = document.createElement('div')
+        row.className = 'flexBox row'
+        row.id = `dChallengeRow${i}`
+
+        for (let j = 0; j < 3; j++) {
+            let id = (j+(i*3))
+            let chal = document.createElement('button')
+            chal.className = 'destabChallenge'
+            chal.id = `dChallenge${id}`
+            chal.innerHTML = `Challenge ${id+1}<br><br>${getDChallengeDesc(id)}`
+            //chal.addEventListener('click', () => enterDChallenge(id))
+
+            row.append(chal)
+        }
+        container.append(row)
+    }
+}
 
 function destabilizationHTML(){
     DOM(`boostNav`).style.color = isDestabilizedRealm() ? '#ff8080' : '#8080FF'
@@ -163,7 +253,7 @@ function updateDestabBoostersHTML() {
 
 function updateDestabUnlockHTML(){
     for (let i = 0; i < data.destab.unlocks.length; i++) {
-        DOM(`dBu${i}`).style.backgroundColor = data.destab.total > destabUnlockData[i].req ? '#250505' : 'black'
+        DOM(`dBu${i}`).style.backgroundColor = isDBUUnlocked(i) ? '#250505' : 'black'
         DOM(`destab${destabUnlockData[i].unl}Tab`).innerText = isDBUUnlocked(i) ? destabUnlockData[i].unl : '???'
     }
 }
@@ -226,7 +316,7 @@ function dBoosterReset(){
     }
     data.chal.decrementy = D(1)
 }
-let isDBUUnlocked = (i) => data.destab.total > destabUnlockData[i].unl
+let isDBUUnlocked = (i) => data.destab.total >= destabUnlockData[i].req
 let hasDBUP = (i) => data.destab.hasBUP[i]
 
 function getDBUPEffect(i){
@@ -244,6 +334,13 @@ function getDBUPDesc(i, showNextLevel = false){
     if(data.destab.hasBUP[i]) return showNextLevel ? chargedBUPData[i].desc : getBaseDBUPDesc(i)
     return getBaseDBUPDesc(i)
 }
+
+let getDChallengeDesc = (i) => `${getDChallengeDescBase(i)}<br><br>Goal: &omega;<sup>&omega;</sup><br>${getDChallengeRewardDesc(i)}<br>${getDChallengeFactorRewardDesc(i)}<br>${getDChallengeCompDesc(i)}`
+let getDChallengeDescBase = (i) => destabChallengeData[i].desc
+let getDChallengeRewardDesc = (i) => destabChallengeData[i].effectDesc
+let getDChallengeFactorRewardDesc = (i) => `On your final completion, Cascade Factor ${i+1}`
+let getDChallengeCompDesc = (i) => `Completions: ${getDChallengeChallengeCompletions(i)}/$max`
+let getDChallengeChallengeCompletions  = (i) => data.destab.completions[i]
 
 function getTotalDestabChallengeCompletions(){
     let total = 0

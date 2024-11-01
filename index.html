@@ -469,9 +469,10 @@
     <div class="flexBox" id="destabBoostersPage" style="flex-direction: column">
         <div class="flexBox" style="margin-top: 1rem">
             <button class="tabButton" id="destabUpgradeTab" onclick="switchSubtab('dUpgrades', 'destabBoosters')" style="color: #ce6a6a; border-color: #a84a4a">Upgrades</button>
-            <button class="tabButton" id="destabChallengesTab" style="color: #ce6a6a; border-color: #a84a4a;" onclick="if(chalTabUnlocked()) {switchSubtab('dChal', 'destabBoosters');}">Challenges</button>
-            <button class="tabButton" id="destabIncrementyTab" style="color: #ce6a6a; border-color: #a84a4a;" onclick="if(incrementyTabUnlocked()) {switchSubtab('dIncrementy', 'destabBoosters');}">Incrementy</button>
-            <button class="tabButton" id="destabHierarchiesTab" style="color: #ce6a6a; border-color: #a84a4a;" onclick="if(hierarchiesTabUnlocked()) {switchSubtab('dHierarchies', 'destabBoosters');}">Hierarchies</button>
+            <button class="tabButton" id="destabChallengesTab" style="color: #ce6a6a; border-color: #a84a4a;" onclick="switchSubtab('dChal', 'destabBoosters')">Challenges</button>
+            <button class="tabButton" id="destabIncrementyTab" style="color: #ce6a6a; border-color: #a84a4a;" onclick="switchSubtab('dIncrementy', 'destabBoosters')">Incrementy</button>
+            <button class="tabButton" id="destabHierarchiesTab" style="color: #ce6a6a; border-color: #a84a4a;" onclick="switchSubtab('dHierarchies', 'destabBoosters')">Hierarchies</button>
+            <button class="tabButton" id="destabShatteringTab" style="color: #ce6a6a; border-color: #a84a4a;" onclick="switchSubtab('shattering', 'destabBoosters')">Shattering</button>
         </div>
         <div class="flexBox" id="dUpgradesSubPage" style="margin-top: 1rem; flex-direction: column">
             <div class="centeredTexts" id="dBoosterText">boosteeeeeeeee</div>
@@ -491,13 +492,10 @@
             <p class="centeredTexts" id="dBupBottomText" style="color: #565656"></p>
         </div>
         <div class="flexBox" id="dChalSubPage" style="display: none; flex-direction: column;">
-            <button class="boostTopButton" id="dChalExit" onclick="chalExitConfirm()">Escape the Challenge Early</button>
-            <div class="flexBox" id="chalRow0"></div>
-            <div class="flexBox" id="chalRow1"></div>
-            <div class="flexBox" id="chalRow2"></div>
-            <div class="flexBox" id="chalRow3"></div>
+            <button class="dBoostTopButton" id="dChalExit" style="margin-top: 1rem" onclick="chalExitConfirm()">Escape the Challenge Early</button>
+            <div class="flexBox column" id="dChallengeContainer"></div>
         </div>
-        <div class="flexBox" id="incrementySubPage" style="display: none; flex-direction: column">
+        <div class="flexBox" id="dIncrementySubPage" style="display: none; flex-direction: column">
             <div class="centeredTexts" id="incrementyText" style="color: #8080FF; margin-top: 1rem;">Incrementy</div>
             <p class="centeredTexts" id="dynamicText2" style="color: goldenrod; margin-bottom: 0.5rem">Hello Dog</p>
             <div class="centeredTexts" id="incrementyText2" style="color: #8080FF; margin-top: 0.5rem; margin-bottom: 0.5rem">The first row of upgrades are re-buyable.</div>
@@ -507,7 +505,7 @@
             <div class="flexBox" id="iupRow2" style="flex-direction: row"></div>
             <button id="chargeButton" onclick="sacrificeIncrementy()">Jonas was here</button>
         </div>
-        <div class="flexBox" id="hierarchiesSubPage" style="display: none; flex-direction: column">
+        <div class="flexBox" id="dHierarchiesSubPage" style="display: none; flex-direction: column">
             <div class="flexBox, hierarchyContainer">
                 <sub class="generalTexts" id="h0Name">Your FGH Ordinal is</sub>
                 <strong class="centeredTexts, hierarchies" id="h0Text">SPEEDY QUICK</strong>
