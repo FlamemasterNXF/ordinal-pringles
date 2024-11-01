@@ -7,6 +7,10 @@ p {
     font-family: DosisLight;
 }
 
+span {
+    pointer-events: none;
+}
+
 #gameLayer {
     width: 99%;
     height: 99%;

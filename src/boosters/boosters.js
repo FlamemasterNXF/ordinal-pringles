@@ -274,8 +274,8 @@ function updateBoostersHTML(){
 function updateHeaderHTML(){
     const el = DOM(`chalIn`)
     el.style.display = data.chal.active.includes(true) || data.baseless.baseless || inAnyPurification() ? 'block' : 'none'
-    el.innerHTML = inAnyPurification()
-        ? `The ${purificationData[data.omega.whichPurification].alt} will be Purified${data.darkness.darkened ? `<br>${getDarknessText()}` : ''}`
+    el.innerHTML = isInAnyDChallenge() ? `You are in Unstable Challenge ${data.destab.chalActive+1} in the Destabilized Realm with ${data.baseless.shifts} Baseless Shifts`
+        : inAnyPurification() ? `The ${purificationData[data.omega.whichPurification].alt} will be Purified${data.darkness.darkened ? `<br>${getDarknessText()}` : ''}`
         : data.baseless.baseless ? `You are in the ${getBaselessName(data.baseless.mode)} Realm and have Baseless Shifted ${data.baseless.shifts} times`
         : data.darkness.darkened ? getDarknessText()
         : data.chal.active[7] ? `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy and ${Math.max(1000-data.successorClicks,0)} clicks left` : `You are in Challenge ${data.chal.html+1}` + (data.chal.active[6] ? ` and there is ${Math.max(1000-data.successorClicks,0)} clicks left` : "")

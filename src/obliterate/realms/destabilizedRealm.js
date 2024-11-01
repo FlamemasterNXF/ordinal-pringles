@@ -223,10 +223,11 @@ function initDChallenges(){
         for (let j = 0; j < 3; j++) {
             let id = (j+(i*3))
             let chal = document.createElement('button')
-            chal.className = 'destabChallenge'
+            chal.className =  isDChallengeMax(id) ? 'completedDestabChallenge'
+                : id === getCurrentDChallenge() ? 'inDestabChallenge' : 'destabChallenge'
             chal.id = `dChallenge${id}`
             chal.innerHTML = `Challenge ${id+1}<br><br>${getDChallengeDesc(id)}`
-            //chal.addEventListener('click', () => enterDChallenge(id))
+            chal.addEventListener('click', () => controlDChallenge(id))
 
             row.append(chal)
         }
@@ -258,6 +259,12 @@ function updateDestabUnlockHTML(){
     }
 }
 
+function updateDChalHTML(i){
+    DOM(`dChallenge${i}`).className =  isDChallengeMax(i) ? 'completedDestabChallenge'
+        : i === getCurrentDChallenge() ? 'inDestabChallenge' : 'destabChallenge'
+    DOM(`dChallenge${i}`).innerHTML = `Challenge ${i+1}<br><br>${getDChallengeDesc(i)}`
+}
+
 function buyDestabBUP(n, shatter){
     if(n % 4 !== 0 && !data.destab.hasBUP[n-1]){
         for (let i = 0; i < n % 4; i++) {
@@ -277,7 +284,37 @@ function showNextDestabBUPLevelEffect(i, show){
 
 }
 
-let isDestabilizedRealm = () => data.baseless.mode === 2 && getEUPEffect(4, 1) && data.baseless.baseless
+function controlDChallenge(i = data.destab.chalActive){
+    if(isDChallengeMax(i)) return
+    if(i === getCurrentDChallenge()){
+        data.destab.chalActive = -1
+        dBoosterReset()
+        updateDChalHTML(i)
+        return
+    }
+
+    let temp = data.destab.chalActive
+    data.destab.chalActive = i
+    updateDChalHTML(i)
+    if(temp !== -1) updateDChalHTML(temp)
+    dBoosterReset()
+
+    data.baseless.shifts = getDChallengeLock(i)
+    data.ord.base = getBaselessLock(2)*2**data.baseless.shifts
+    updateDynamicShiftHTML()
+    updateHeaderHTML()
+}
+
+function completeDChallenge(){
+    if(!isInAnyDChallenge()) return
+    if(data.ord.ordinal.gte(numberFromOrdinal('&omega;<sup>&omega;</sup>', data.ord.base))){
+        let temp = data.destab.chalActive
+        controlDChallenge()
+        ++data.destab.completions[temp]
+        updateDChalHTML(temp)
+        /*if(data.sToggles[2])*/ createAlert("Unstable Challenge Complete!", `You have Completed Unstable Challenge ${temp+1}x${getDChallengeCompletions(temp)}!`, 'Awesome!')
+    }
+}
 
 function dBoost(){
     if(data.ord.ordinal.lt(dBoostReq())) return
@@ -316,6 +353,9 @@ function dBoosterReset(){
     }
     data.chal.decrementy = D(1)
 }
+
+let isDestabilizedRealm = () => data.baseless.mode === 2 && getEUPEffect(4, 1) && data.baseless.baseless
+
 let isDBUUnlocked = (i) => data.destab.total >= destabUnlockData[i].req
 let hasDBUP = (i) => data.destab.hasBUP[i]
 
@@ -336,12 +376,12 @@ function getDBUPDesc(i, showNextLevel = false){
 }
 
 let getDChallengeDesc = (i) => `${getDChallengeDescBase(i)}<br><br>Goal: &omega;<sup>&omega;</sup><br>${getDChallengeRewardDesc(i)}<br>${getDChallengeFactorRewardDesc(i)}<br>${getDChallengeCompDesc(i)}`
-let getDChallengeDescBase = (i) => destabChallengeData[i].desc
+let getDChallengeDescBase = (i) => `You will be in a Realm with ${getDChallengeLock(i)} Baseless Shifts<br>${destabChallengeData[i].desc}`
 let getDChallengeRewardDesc = (i) => destabChallengeData[i].effectDesc
 let getDChallengeFactorRewardDesc = (i) => `On your final completion, Cascade Factor ${i+1}`
-let getDChallengeCompDesc = (i) => `Completions: ${getDChallengeChallengeCompletions(i)}/$max`
-let getDChallengeChallengeCompletions  = (i) => data.destab.completions[i]
+let getDChallengeCompDesc = (i) => `Completions: ${getDChallengeCompletions(i)}/3`
 
+let getDChallengeCompletions  = (i) => data.destab.completions[i]
 function getTotalDestabChallengeCompletions(){
     let total = 0
     for (let i = 0; i < data.destab.completions.length; i++) {
@@ -349,3 +389,8 @@ function getTotalDestabChallengeCompletions(){
     }
     return total
 }
+
+let getDChallengeLock = (i) => 5+data.destab.completions[i]
+let isInAnyDChallenge = () => data.destab.chalActive !== -1
+let getCurrentDChallenge = () => data.destab.chalActive
+let isDChallengeMax = (i) => data.destab.completions[i] > 2

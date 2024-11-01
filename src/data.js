@@ -37,7 +37,7 @@ function getDefaultObject() {
         obliterate:{times:0, energy:0, passiveEnergy:0, energyUpgrades: [], pringleAmount: Array(10).fill(0), hasPassiveUpgrade: Array(passiveEnergyDescriptions.length).fill(false), instability:0, unstableFactors: Array(unstableFactorData.length).fill(0), unstableFactorState: Array(unstableFactorData.length).fill(true)},
         purity:{isAssigned: Array(10).fill(false), isUnlocked: Array(4).fill(false).concat(Array(2).fill(true)).concat(Array(4).fill(false)), assignment:Array(10).fill(false), pringleQueued: -1, tutorial: false},
         imaginary:{shifts:0, factors:Array(7).fill(0)},
-        destab: {amt: 0, total: 0, times: 0, hasBUP: Array(12).fill(false), isShattered: Array(12).fill(false), unlocks: Array(4).fill(false), completions: Array(6).fill(0)},
+        destab: {amt: 0, total: 0, times: 0, hasBUP: Array(12).fill(false), isShattered: Array(12).fill(false), unlocks: Array(4).fill(false), completions: Array(6).fill(0), chalActive: -1},
 
         autoStatus: {enabled: Array(9).fill(false)},
         sToggles: settingsDefaults,
