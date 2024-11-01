@@ -58,7 +58,7 @@ let destabBupData = [
     },
 
     {
-        desc: "Automatically Markup without resetting anything",
+        desc: "Automatically Markup without resetting anything and uncap OP",
         cost: 1,
         eff: () => 1,
         baseEff: () => 1,
@@ -121,19 +121,18 @@ let destabChallengeData = [
         hasInnerEffect: false,
     },
     {
-        desc: 'All boosts from outside of Baseless Realms are useless, but Cardinals boost AutoClicker speeds',
+        desc: 'All boosts from outside of Baseless Realms are useless',
         effectDesc: 'Reward: Factors boost Dynamic Factor gain EVERYWHERE',
         sign: 'x',
         eff: () => 1,
         effectBase: () => 1,
         effectIsDecimal: false,
 
-        hasInnerEffect: true,
-        innerEffect: () => 1
+        hasInnerEffect: false,
     },
     {
-        desc: 'OP gain is massively reduced and the Popular Orange Pringle is disabled',
-        effectDesc: 'Reward: Factors boost the last Cardinal Upgrade\'s effect',
+        desc: 'Your Base starts at 31',
+        effectDesc: 'Reward: Factors boost the last Cardinal Upgrade\'s effect EVERYWHERE',
         sign: '+',
         eff: () => 1,
         effectBase: () => 0,
@@ -143,14 +142,14 @@ let destabChallengeData = [
     },
     {
         desc: 'Unstable Booster Upgrades increase the Challenge Goal',
-        effectDesc: 'Reward: Factors boost Negative Charge and Decrementy gain',
+        effectDesc: 'Reward: Factors boost Negative Charge and Decrementy gain EVERYWHERE',
         sign: 'x',
         eff: () => 1,
         effectBase: () => 1,
         effectIsDecimal: false,
 
         hasInnerEffect: true,
-        innerEffect: () => 1
+        innerEffect: () => 1+getTotalDBUPs()*0.1
     },
     {
         desc: 'All previous Baseless Challenges at once',
@@ -224,7 +223,7 @@ function initDChallenges(){
             let id = (j+(i*3))
             let chal = document.createElement('button')
             chal.className =  isDChallengeMax(id) ? 'completedDestabChallenge'
-                : id === getCurrentDChallenge() ? 'inDestabChallenge' : 'destabChallenge'
+                : inDChallenge(id) ? 'inDestabChallenge' : 'destabChallenge'
             chal.id = `dChallenge${id}`
             chal.innerHTML = `Challenge ${id+1}<br><br>${getDChallengeDesc(id)}`
             chal.addEventListener('click', () => controlDChallenge(id))
@@ -261,7 +260,7 @@ function updateDestabUnlockHTML(){
 
 function updateDChalHTML(i){
     DOM(`dChallenge${i}`).className =  isDChallengeMax(i) ? 'completedDestabChallenge'
-        : i === getCurrentDChallenge() ? 'inDestabChallenge' : 'destabChallenge'
+        : inDChallenge(i) ? 'inDestabChallenge' : 'destabChallenge'
     DOM(`dChallenge${i}`).innerHTML = `Challenge ${i+1}<br><br>${getDChallengeDesc(i)}`
 }
 
@@ -277,6 +276,9 @@ function buyDestabBUP(n, shatter){
     data.destab.amt -= getDBUPCost(n)
     data.destab.hasBUP[n] = true
 
+    if(inDChallenge(3)) updateDChalHTML(3)
+    if(inDChallenge(4)) updateDChalHTML(4)
+
     DOM(`dBup${n}`).style.backgroundColor = '#250505'
 }
 
@@ -284,9 +286,19 @@ function showNextDestabBUPLevelEffect(i, show){
 
 }
 
+function dBoosterRefund(){
+    for (let i = 0; i < data.destab.hasBUP.length; i++) {
+        data.destab.hasBUP[i] = false
+        DOM(`dBup${i}`).style.backgroundColor = 'black'
+    }
+    data.destab.amt = data.destab.total
+    if(isInAnyDChallenge()) controlDChallenge()
+    else dBoosterReset()
+}
+
 function controlDChallenge(i = data.destab.chalActive){
     if(isDChallengeMax(i)) return
-    if(i === getCurrentDChallenge()){
+    if(inDChallenge(i)){
         data.destab.chalActive = -1
         dBoosterReset()
         updateDChalHTML(i)
@@ -307,7 +319,7 @@ function controlDChallenge(i = data.destab.chalActive){
 
 function completeDChallenge(){
     if(!isInAnyDChallenge()) return
-    if(data.ord.ordinal.gte(numberFromOrdinal('&omega;<sup>&omega;</sup>', data.ord.base))){
+    if(data.ord.ordinal.gte(getDChallengeGoal())){
         let temp = data.destab.chalActive
         controlDChallenge()
         ++data.destab.completions[temp]
@@ -318,6 +330,8 @@ function completeDChallenge(){
 
 function dBoost(){
     if(data.ord.ordinal.lt(dBoostReq())) return
+    if(isInAnyDChallenge()) controlDChallenge()
+
     data.destab.amt += getDBoosterGain()
     data.destab.total += getDBoosterGain()
     ++data.destab.times
@@ -375,11 +389,22 @@ function getDBUPDesc(i, showNextLevel = false){
     return getBaseDBUPDesc(i)
 }
 
-let getDChallengeDesc = (i) => `${getDChallengeDescBase(i)}<br><br>Goal: &omega;<sup>&omega;</sup><br>${getDChallengeRewardDesc(i)}<br>${getDChallengeFactorRewardDesc(i)}<br>${getDChallengeCompDesc(i)}`
+function getTotalDBUPs(){
+    let total = 0
+    for (let i = 0; i < data.destab.hasBUP.length; i++) {
+        if (data.destab.hasBUP[i]) ++total
+    }
+    return total
+}
+
+let getDChallengeDesc = (i) => `${getDChallengeDescBase(i)}<br><br>${getDChallengeGoalDesc(i)}</sup><br>${getDChallengeRewardDesc(i)}<br>${getDChallengeFactorRewardDesc(i)}<br>${getDChallengeCompDesc(i)}`
 let getDChallengeDescBase = (i) => `You will be in a Realm with ${getDChallengeLock(i)} Baseless Shifts<br>${destabChallengeData[i].desc}`
+let getDChallengeGoalDesc = () => `Goal: ${ordinalDisplay('', getDChallengeGoal(), 0, data.ord.base, ordinalDisplayTrim(1), false)}`
 let getDChallengeRewardDesc = (i) => destabChallengeData[i].effectDesc
 let getDChallengeFactorRewardDesc = (i) => `On your final completion, Cascade Factor ${i+1}`
 let getDChallengeCompDesc = (i) => `Completions: ${getDChallengeCompletions(i)}/3`
+
+let getDChallengeInnerEffect = (i) => inDChallenge(i) && destabChallengeData[i].hasInnerEffect || inDChallenge((4)) && i === 3  ? destabChallengeData[i].innerEffect() : 1
 
 let getDChallengeCompletions  = (i) => data.destab.completions[i]
 function getTotalDestabChallengeCompletions(){
@@ -390,7 +415,8 @@ function getTotalDestabChallengeCompletions(){
     return total
 }
 
+let getDChallengeGoal = () => numberFromOrdinal('&omega;<sup>&omega;</sup>', data.ord.base).pow(getDChallengeInnerEffect(3))
 let getDChallengeLock = (i) => 5+data.destab.completions[i]
 let isInAnyDChallenge = () => data.destab.chalActive !== -1
-let getCurrentDChallenge = () => data.destab.chalActive
+let inDChallenge = (i) => data.destab.chalActive === i
 let isDChallengeMax = (i) => data.destab.completions[i] > 2

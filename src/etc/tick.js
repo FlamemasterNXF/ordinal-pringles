@@ -1,9 +1,16 @@
 let timesToLoop = [0,0, 0,0]
 
-let t1Auto = () => D(totalFactorEffect()).mul(getBUPEffect(6)).mul(alephEffect(0)).pow(getCUPEffect(1)).mul(getCUPEffect(3))
-    .mul(chargeBoostToBaseless()).mul(data.baseless.baseless ? getANREffect(0, false) : 1).mul(getPringleEffect(3))
+let t1AutoPure = () => D(totalFactorEffect()).mul(mainT1AutoBoost())
     .mul(isInAnyChallenge() ? getDBUPEffect(3) : 1).mul(getDBUPEffect(5)).mul(getDBUPEffect(6)).mul(getDBUPEffect(9))
     .mul(getDBUPEffect(10)).mul(getDBUPEffect(11))
+
+let mainT1AutoBoost = () => inDChallenge(1) || inDChallenge(4) ? 1 :
+    D(getBUPEffect(6)).mul(alephEffect(0)).pow(getCUPEffect(1)).mul(getCUPEffect(3))
+    .mul(chargeBoostToBaseless()).mul(data.baseless.baseless ? getANREffect(0, false) : 1).mul(getPringleEffect(3))
+
+let t1Auto = () => inDChallenge(5)
+    ? data.dy.level
+    : t1AutoPure()
 
 let t2AutoPure = () => D(1).times(chalEffectTotal()).times(getBUPEffect(6)).times(incrementyMult()).times(iup6Effect())
     .times(getBUPEffect(5)).times(hupData[5].effect()).times(alephEffect(1)).times(getCUPEffect(0)).times(getCUPEffect(3))

@@ -4,6 +4,7 @@ function autoCost(n) {
 
 function buyAuto(n) {
     if(data.chal.active[0] && data.autoLevels[n] >= 1) return
+    if(inDChallenge(0) || inDChallenge(4)) return
     if (data.markup.powers.lt(autoCost(n))) return
     data.markup.powers = data.markup.powers.sub(autoCost(n))
     ++data.autoLevels[n]
@@ -12,7 +13,7 @@ function buyMaxAuto() {
     buyAuto(0)
     buyAuto(1)
 
-    if (data.chal.active[0]) return
+    if (data.chal.active[0] || inDChallenge(0) || inDChallenge(4)) return
 
     let bulkSucc = Decimal.floor(Decimal.log2(D(1).plus(data.markup.powers.div(D(100).times(D(2).pow(data.autoLevels[0]))))))
     data.markup.powers = data.markup.powers.sub(((D(2).pow(bulkSucc)).sub(1)).times(100).times(D(2).pow(data.autoLevels[0])))
@@ -46,14 +47,14 @@ function totalFactorEffect(){
     return mult
 }
 function buyFactor(n, imaginary = false){
-    if(data.markup.powers.lt(factorCost(n, imaginary)) || data.chal.active[1] || !hasFactor(n, imaginary)) return
+    if(data.markup.powers.lt(factorCost(n, imaginary)) || data.chal.active[1] || inDChallenge(0) || inDChallenge(4) || !hasFactor(n, imaginary)) return
     data.markup.powers = data.markup.powers.sub(factorCost(n, imaginary))
 
     if(imaginary) ++data.imaginary.factors[n]
     else ++data.factors[n]
 }
 function buyMaxFactor(){
-    if(data.chal.active[1]) return
+    if(data.chal.active[1] || inDChallenge(0) || inDChallenge(4)) return
 
     for (let i = data.imaginary.shifts-1; i >= 0; i--){
         if(!hasFactor(i, true)) break

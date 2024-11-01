@@ -478,8 +478,7 @@
             <div class="centeredTexts" id="dBoosterText">boosteeeeeeeee</div>
             <div class="centeredTexts" id="dBoosterTimesText" style="font-size: 0.8rem">boosteeeeeeeee times</div>
             <div class="flexBox" style="flex-direction: row;">
-                <button class="dBoostTopButton" id="dBoostRefund" style="margin-right: 0.25rem" onclick="data.sToggles[0]?createConfirmation('Are you sure?', 'This will reset your Booster Upgrades and return spent Boosters, but it will trigger a Booster Reset!', 'Go back!', 'Go ahead.', boosterRefund)
-                :boosterRefund()">Refund your Booster Upgrades</button>
+                <button class="dBoostTopButton" id="dBoostRefund" style="margin-right: 0.25rem" onclick="dBoosterRefund()">Refund your Booster Upgrades</button>
                 <button class="dBoostTopButton" id="shatterRefund" style="display: none; margin-left: 0.25rem" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Charged Booster Upgrades and return spent Charge, but it will force you to exit your Challenge!', 'Go back!', 'Go ahead.', respecCharge)
                 :respecCharge()">Refund your Shattered Upgrades</button>
             </div>

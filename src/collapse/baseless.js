@@ -94,7 +94,7 @@ let baselessData = [
         altUnlock: () => getEUPEffect(4, 1),
         altColor: '#ff8080',
         multiplier: () => 10000,
-        lock: () => 100-(hasSingFunction(8) ? getSingFunctionEffect(8) : 0)-getInstabilityConstantEffect(0),
+        lock: () => inDChallenge(2) || inDChallenge(4) ? 31 : 100-(hasSingFunction(8) ? getSingFunctionEffect(8) : 0)-getInstabilityConstantEffect(0),
     },
 ]
 
