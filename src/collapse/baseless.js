@@ -59,6 +59,7 @@ function updateBaselessEnterHTML(id, load=false) {
     }
 
     data.baseless.mode = id
+    updateBaselessSelectHTML()
     DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${getBaselessLock(id)}</span> with Baseless Shifts providing a ${getBaselessMult(id)}x multiplier to ℵ<sub>0</sub> gain`
 }
 

@@ -4,28 +4,28 @@ let destabBupData = [
         cost: 1,
         eff: () => 2,
         baseEff: () => 1,
-        bottomRow: false
+        isDecimal: false
     },
     {
         desc: "OP provides free Factors",
         cost: 5,
-        eff: () => Math.max(0, Math.floor(Decimal.pow(Decimal.log10(data.markup.powers+1), 1/4))),
+        eff: () => Math.floor(Decimal.pow(Decimal.log10(data.markup.powers+1), 1/4).toNumber()),
         baseEff: () => 0,
-        bottomRow: false
+        isDecimal: false
     },
     {
         desc: "Factors boost their own effect",
         cost: 14,
         eff: () => totalFactorEffect(),
         baseEff: () => 1,
-        bottomRow: false
+        isDecimal: false
     },
     {
         desc: "AutoClicker Speed is multiplied by your Challenge completions in Challenges",
         cost: 53,
-        eff: () => Math.max(Math.pow(getTotalDestabChallengeCompletions(), 10), 1),
+        eff: () => Math.pow(getTotalDestabChallengeCompletions(), 10),
         baseEff: () => 1,
-        bottomRow: false
+        isDecimal: false
     },
 
     {
@@ -33,28 +33,28 @@ let destabBupData = [
         cost: 1,
         eff: () => 1,
         baseEff: () => 1,
-        bottomRow: false
+        isDecimal: false
     },
     {
         desc: "OP boosts AutoClickers",
         cost: 4,
-        eff: () => Decimal.max(Decimal.log2(Decimal.sqrt(data.markup.powers)), 1),
-        baseEff: () => 1,
-        bottomRow: false
+        eff: () => Decimal.log2(Decimal.sqrt(data.markup.powers).plus(1)),
+        baseEff: () => D(1),
+        isDecimal: true
     },
     {
-        desc: "Boosters boost AutoClicker Speed",
+        desc: "Unstable Boosters boost AutoClicker Speed",
         cost: 73,
-        eff: () => Math.max(Math.pow(data.destab.total, 2), 1),
+        eff: () => Math.pow(data.destab.total, 2),
         baseEff: () => 1,
-        bottomRow: false
+        isDecimal: false
     },
     {
         desc: "The Ordinal Base boosts Factors (higher is better)",
         cost: 74,
-        eff: () => Math.max(1, Math.floor(data.ord.base/2)),
+        eff: () => Math.floor(data.ord.base/2),
         baseEff: () => 1,
-        bottomRow: false
+        isDecimal: false
     },
 
     {
@@ -62,28 +62,28 @@ let destabBupData = [
         cost: 1,
         eff: () => 1,
         baseEff: () => 1,
-        bottomRow: false
+        isDecimal: false
     },
     {
         desc: "Baseless Shifts boost AutoClicker speed",
         cost: 8,
-        eff: () => Math.max(Math.pow(data.baseless.shifts, 10), 1),
+        eff: () => Math.pow(data.baseless.shifts, 10),
         baseEff: () => 1,
-        bottomRow: false
+        isDecimal: false
     },
     {
         desc: "ℶ<sub>&omega;</sub> boosts AutoClicker speed",
         cost: 16,
         eff: () => Math.pow(alephOmegaCap(), 2),
         baseEff: () => 1,
-        bottomRow: false
+        isDecimal: false
     },
     {
         desc: "ℵ<sub>0</sub> boosts AutoClicker speed",
         cost: 66,
-        eff: () => Math.max(data.baseless.alephNull, 1),
+        eff: () => data.baseless.alephNull,
         baseEff: () => 1,
-        bottomRow: false
+        isDecimal: false
     },
 ]
 let destabUnlockData = [
@@ -229,7 +229,14 @@ function dBoosterReset(){
 let isDBUUnlocked = (i) => data.destab.total > destabUnlockData[i].unl
 let hasDBUP = (i) => data.destab.hasBUP[i]
 
-let getDBUPEffect =  (i) => isDestabilizedRealm() && hasDBUP(i) ? destabBupData[i].eff() : destabBupData[i].baseEff()
+function getDBUPEffect(i){
+    if(isDestabilizedRealm() && hasDBUP(i)){
+        return destabBupData[i].isDecimal
+            ? Decimal.max(destabBupData[i].eff(), destabBupData[i].baseEff())
+            : Math.max(destabBupData[i].eff(), destabBupData[i].baseEff())
+    }
+    return destabBupData[i].baseEff()
+}
 let getDBUPCost = (i) => destabBupData[i].cost
 let getBaseDBUPDesc = (i) => `${destabBupData[i].desc}<br>${getDBUPCost(i)} Unstable Boosters`
 function getDBUPDesc(i, showNextLevel = false){
