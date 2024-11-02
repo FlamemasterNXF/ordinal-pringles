@@ -221,13 +221,13 @@ function getTotalAlephs(){
 let alephTotalEffect = () => Decimal.max(1, Decimal.sqrt(getTotalAlephs()).times(getSingFunctionEffect(5))).times(hasSingFunction(1) ? getCUPEffect(6, false) : 1)
 
 let alephData = [
-    {text: "multiplying Autoclickers by", effect: ()=> Decimal.sqrt(data.collapse.alephs[0].plus(1)).times(3).times(purificationEffect(1)), unl: () => true},
-    {text: "multiplying Autobuyers by", effect: ()=> Decimal.log10(D(10).plus((data.collapse.alephs[1].times(90)))).times(purificationEffect(1)), unl: () => true},
-    {text: "multiplying Ordinal Power gain by", effect: ()=> Decimal.log2(data.collapse.alephs[2].plus(2)).times(3), unl: () => true},
-    {text: "multiplying Incrementy gain by", effect: ()=> Decimal.pow(data.collapse.alephs[3].plus(1), 1/4), unl: () => true},
-    {text: "multiplying Dynamic Cap by", effect: ()=> ((Decimal.sqrt(data.collapse.alephs[4].plus(1)).times(2)).plus(hupData[9].effect())).times(getSingFunctionEffect(2)).times(getAOMEffect(1)), unl: () => true},
-    {text: "multiplying the SGH effect by", effect: ()=> Decimal.pow(data.collapse.alephs[5].plus(1), 1/4), unl: () => true},
-    {text: "multiplying Booster Power gain by", effect: ()=> Decimal.sqrt(data.collapse.alephs[6].plus(4)).div(2), unl: () => true},
+    {text: "multiplying Autoclickers by", effect: ()=> Decimal.sqrt(data.collapse.alephs[0].plus(1)).times(3).times(purificationEffect(1)).times(getDChallengeEffect(0, 0)), unl: () => true},
+    {text: "multiplying Autobuyers by", effect: ()=> Decimal.log10(D(10).plus((data.collapse.alephs[1].times(90)))).times(purificationEffect(1)).times(getDChallengeEffect(0, 1)), unl: () => true},
+    {text: "multiplying Ordinal Power gain by", effect: ()=> Decimal.log2(data.collapse.alephs[2].plus(2)).times(3).times(getDChallengeEffect(0, 2)), unl: () => true},
+    {text: "multiplying Incrementy gain by", effect: ()=> Decimal.pow(data.collapse.alephs[3].plus(1), 1/4).times(getDChallengeEffect(0, 3)), unl: () => true},
+    {text: "multiplying Dynamic Cap by", effect: ()=> ((Decimal.sqrt(data.collapse.alephs[4].plus(1)).times(2)).plus(hupData[9].effect())).times(getSingFunctionEffect(2)).times(getAOMEffect(1)).times(getDChallengeEffect(0, 4)), unl: () => true},
+    {text: "multiplying the SGH effect by", effect: ()=> Decimal.pow(data.collapse.alephs[5].plus(1), 1/4).times(getDChallengeEffect(0, 5)), unl: () => true},
+    {text: "multiplying Booster Power gain by", effect: ()=> Decimal.sqrt(data.collapse.alephs[6].plus(4)).div(2).times(getDChallengeEffect(0, 6)), unl: () => true},
     {text: "multiplying the IUP3 effect by", effect: ()=> (Decimal.sqrt(data.collapse.alephs[7].plus(4)).times(2).times(purificationEffect(1))).plus(hupData[9].effect()), unl: () => true},
     {text: "multiplying the first Singularity effect by", effect: ()=> softcap(D(1).plus(Decimal.log10(data.collapse.alephs[8].plus(10)).div(1000)), D(1.1), 0.5, true), unl: () => hasAOMilestone(1)},
 ]
@@ -239,7 +239,7 @@ let cupData = [
     {text: "Incrementy boosts its own gain", cost: 2187, effect: ()=> Math.min(Decimal.max(1, Decimal.log10(data.incrementy.amt.plus(1))).mul(purificationEffect(3)).mul(getPringleEffect(0)).toNumber(), Number.MAX_VALUE)}, //TODO: Add a safety function
     {text: "Unlock a 3rd Overcharge Effect and boost Overcharge's 1st Effect", cost: 196608, effect: ()=> 3*getPringleEffect(0, true)},
     {text: "Unspent Cardinals boost Alephs", cost: 3e9, effect: ()=> Decimal.max(1, Decimal.log2(data.collapse.cardinals).times(getAOMEffect(3)).times(getPringleEffect(2)))},
-    {text: "Gain a percent of best Cardinals gained on Collapse every second", cost: 1e13, effect: ()=> getAOREffect(7)},
+    {text: "Gain a percent of best Cardinals gained on Collapse every second", cost: 1e13, effect: ()=> getAOREffect(7)+getDChallengeEffect(2)},
 ]
 let sluggishData = [
     {text: "Uncap the Ordinal, you can pass Graham's Number without Boosting, gain 1% of Ordinal Powers gained on Markup every second, and you always have one free Maximize and Successor AutoClicker", req: 34},

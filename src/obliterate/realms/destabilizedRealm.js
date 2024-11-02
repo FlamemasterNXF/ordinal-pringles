@@ -112,10 +112,11 @@ let destabUnlockData = [
 let destabChallengeData = [
     {
         desc: 'You can only buy 1 of each AutoClicker and you cannot buy Factors',
-        effectDesc: 'Factors Boost themselves EVERYWHERE',
+        effectDesc: 'Reward: Factors Boost their respective Alephs EVERYWHERE',
         sign: 'x',
-        eff: () => 1,
+        eff: (i) => Math.pow(factorEffect(i), 2),
         effectBase: () => 1,
+        effectIsIndex: true,
         effectIsDecimal: false,
 
         hasInnerEffect: false,
@@ -124,8 +125,9 @@ let destabChallengeData = [
         desc: 'All boosts from outside of Baseless Realms are useless',
         effectDesc: 'Reward: Factors boost Dynamic Factor gain EVERYWHERE',
         sign: 'x',
-        eff: () => 1,
+        eff: () => Math.pow(totalFactorEffect(), 2),
         effectBase: () => 1,
+        effectIsIndex: false,
         effectIsDecimal: false,
 
         hasInnerEffect: false,
@@ -134,18 +136,20 @@ let destabChallengeData = [
         desc: 'Your Base starts at 31',
         effectDesc: 'Reward: Factors boost the last Cardinal Upgrade\'s effect EVERYWHERE',
         sign: '+',
-        eff: () => 1,
+        eff: () => getTotalFactors()/10,
         effectBase: () => 0,
+        effectIsIndex: false,
         effectIsDecimal: false,
 
         hasInnerEffect: false,
     },
     {
         desc: 'Unstable Booster Upgrades increase the Challenge Goal',
-        effectDesc: 'Reward: Factors boost Negative Charge and Decrementy gain EVERYWHERE',
+        effectDesc: 'Reward: Factors boost Negative Charge gain EVERYWHERE',
         sign: 'x',
-        eff: () => 1,
+        eff: () => totalFactorEffect(),
         effectBase: () => 1,
+        effectIsIndex: false,
         effectIsDecimal: false,
 
         hasInnerEffect: true,
@@ -155,8 +159,9 @@ let destabChallengeData = [
         desc: 'All previous Baseless Challenges at once',
         effectDesc: 'Reward: Factors boost Aleph Null gain',
         sign: 'x',
-        eff: () => 1,
+        eff: () => totalFactorEffect(),
         effectBase: () => 1,
+        effectIsIndex: false,
         effectIsDecimal: false,
 
         hasInnerEffect: false,
@@ -165,8 +170,9 @@ let destabChallengeData = [
         desc: 'Your AutoClicker speed is equal to your Dynamic Factor',
         effectDesc: 'Reward: Gain free Factor Levels EVERYWHERE',
         sign: '+',
-        eff: () => 0,
+        eff: () => getTotalDestabChallengeCompletions()*getDChallengeCompletions(5),
         effectBase: () => 0,
+        effectIsIndex: false,
         effectIsDecimal: false,
 
         hasInnerEffect: true,
@@ -401,7 +407,7 @@ let getDChallengeDesc = (i) => `${getDChallengeDescBase(i)}<br><br>${getDChallen
 let getDChallengeDescBase = (i) => `You will be in a Realm with ${getDChallengeLock(i)} Baseless Shifts<br>${destabChallengeData[i].desc}`
 let getDChallengeGoalDesc = () => `Goal: ${ordinalDisplay('', getDChallengeGoal(), 0, data.ord.base, ordinalDisplayTrim(1), false)}`
 let getDChallengeRewardDesc = (i) => destabChallengeData[i].effectDesc
-let getDChallengeFactorRewardDesc = (i) => `On your final completion, Cascade Factor ${i+1}`
+let getDChallengeFactorRewardDesc = (i) => `On your final completion, Cascade Factor ${6-i}`
 let getDChallengeCompDesc = (i) => `Completions: ${getDChallengeCompletions(i)}/3`
 
 let getDChallengeInnerEffect = (i) => inDChallenge(i) && destabChallengeData[i].hasInnerEffect || inDChallenge((4)) && i === 3  ? destabChallengeData[i].innerEffect() : 1
@@ -420,3 +426,21 @@ let getDChallengeLock = (i) => 5+data.destab.completions[i]
 let isInAnyDChallenge = () => data.destab.chalActive !== -1
 let inDChallenge = (i) => data.destab.chalActive === i
 let isDChallengeMax = (i) => data.destab.completions[i] > 2
+
+function getTotalDChallengeCompletions(){
+    let total = 0
+    for (let i = 0; i < data.destab.completions; i++) {
+        total += data.destab.completions
+    }
+    return total
+}
+
+function getDChallengeEffect(i, j = null){
+    if(getDChallengeCompletions(i) === 0) return destabChallengeData[i].effectBase()
+    let divisor = 0.5**getDChallengeCompletions(i)*8
+
+    if(destabChallengeData[i].effectIsDecimal){
+        return Decimal.max(destabChallengeData[i].effectBase(), destabChallengeData[i].effectIsIndex ? destabChallengeData[i].eff(j).div(divisor) : destabChallengeData[i].eff().div(divisor))
+    }
+    return Math.max(destabChallengeData[i].effectBase(), destabChallengeData[i].effectIsIndex ? destabChallengeData[i].eff(j) / divisor : destabChallengeData[i].eff() / divisor)
+}

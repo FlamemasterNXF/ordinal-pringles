@@ -34,8 +34,8 @@ function hasFactor(n, imaginary = false){
     return data.markup.shifts >= n+1 || data.baseless.shifts >= n+1
 }
 function factorEffect(n, imaginary) {
-    const mult = getDBUPEffect(0)*getBUPEffect(8)*getDBUPEffect(7)
-    let add = hasFactor(n, imaginary) ? getBUPEffect(12) + getDBUPEffect(1) : 0
+    const mult = getDBUPEffect(0)*getBUPEffect(8)*getDBUPEffect(7)*getCascadeEffect(n)
+    let add = hasFactor(n, imaginary) ? getBUPEffect(12) + getDBUPEffect(1) + getDChallengeEffect(5) : 0
     return ((data.factors[n]+(1+add))*mult*getBUPEffect(8))*(Math.max(1+(data.markup.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.markup.shifts])
 }
 function totalFactorEffect(){
@@ -81,46 +81,20 @@ function buyMaxT1(){
     buyMaxAuto()
 }
 
-function getDyCap() {
-    if(data.chal.active[4]){
-        let c5 = getC5Effect()
-        return D(40*(5**c5)*(5**data.chal.completions[4]))
-    }
-    return D(40).mul(iup5Effect()).mul(alephEffect(4)).mul(dupEffect(1)).mul(getSingFunctionEffect(4))
-        .mul(getPringleEffect(3))
-}
-
-function dyGain(){
-    if(data.chal.active[6]) return 0
-
-    let boost = 1
-    if(data.ord.base < 6 || data.boost.isCharged[13]) boost = getBUPEffect(13)
-
-    if(data.chal.active[4]) {
-        let c5 = getC5Effect()
-        let c6 = data.chal.active[5] ? 1 :(5**data.chal.completions[4])
-        return data.dy.gain.mul((5**c5)*c6)
-    }
-
-    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(getBUPEffect(3)).mul(getPringleEffect(3)).toNumber()
-
-    return calcDyGain()
-}
-
-/*
- NOTE: The above function contains special logic for challenge cases, as this function was not added until v0.3
-*/
-function calcDyGain(){
-    let chargeBoost = data.boost.isCharged[3] ? getBUPEffect(3) : 1
-    let ao2 = inPurification(1) ? getAOREffect(2)+getEUPEffect(2, 5) : 1
-    let boost = (data.ord.base < 6 || data.boost.isCharged[13]) ? getBUPEffect(13) : 1
-    return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).mul(chargeBoost).div(ao2)
-}
-
 function getTotalFactors(){
     let total = 0
     for (let i = 0; i < data.factors.length; i++) {
         total += data.factors[i]
     }
     return total
+}
+
+let getCascadeEffect = (i) => isFactorCascaded(i) ? cascadeFactor(i) : 1
+let isFactorCascaded = (i) => i < 6 ? isDChallengeMax(5-i) : false
+function cascadeFactor(n){
+    let mult = 1
+    for (let i = n; i < data.factors.length; i++) {
+        mult *= factorEffect(i)
+    }
+    return mult
 }
