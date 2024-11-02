@@ -33,6 +33,6 @@ function calcDyGain(){
     let chargeBoost = data.boost.isCharged[3] ? getBUPEffect(3) : 1
     let ao2 = inPurification(1) ? getAOREffect(2)+getEUPEffect(2, 5) : 1
     let boost = (data.ord.base < 6 || data.boost.isCharged[13]) ? getBUPEffect(13) : 1
-    return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).mul(chargeBoost)
+    return D(data.dy.gain).plus(isDBUUnlocked(1) ? 1 : 0).mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).mul(chargeBoost)
         .mul(getDChallengeEffect(1)).div(ao2)
 }

@@ -90,6 +90,16 @@
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }
+.dIUP{
+    width: 17rem;
+    height: 5.5rem;
+    border: 2px solid #9f3c3c;
+    color: #ff8080;
+    background: black;
+    margin-top: 0.5rem;
+    margin-right: 0.25rem;
+    margin-left: 0.25rem;
+}
 #chargeButton{
     width: 15rem;
     height: 5.5rem;

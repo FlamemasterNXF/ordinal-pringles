@@ -5,7 +5,7 @@ function mainLoop() {
     // Used for Offline Progress
     let uDiff = diff/1000
 
-    if(data.dy.gain.gt(0) && data.dy.level.lt(getDyCap())) data.dy.level = Decimal.min(getDyCap(), data.dy.level.add(D(uDiff).mul(dyGain())))
+    if((data.dy.gain.gt(0) || isDBUUnlocked(1) && isDestabilizedRealm()) && data.dy.level.lt(getDyCap())) data.dy.level = Decimal.min(getDyCap(), data.dy.level.add(D(uDiff).mul(dyGain())))
     if(data.boost.hasBUP[11]) data.markup.powers = data.markup.powers.plus(getBUPEffect(11)*uDiff)
 
     if(data.chal.active[7]) data.chal.decrementy = Decimal.max(1, data.chal.decrementy.mul(decrementyGain().pow(uDiff)))
@@ -25,6 +25,8 @@ function mainLoop() {
     if(data.omega.alephOmega > alephOmegaCap()) data.omega.alephOmega = alephOmegaCap()
 
     data.darkness.negativeCharge = Math.min(Number.MAX_VALUE, data.darkness.negativeCharge+negativeChargeGain()*uDiff)
+
+    if(isDestabilizedRealm() && isDBUUnlocked(1)) data.destab.incrementy += getDIncrementyGain()*uDiff
 
     // Run the tick() function to calculate things that rely on normal diff
     tick(diff)
