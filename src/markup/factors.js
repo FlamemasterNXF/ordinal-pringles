@@ -34,7 +34,7 @@ function hasFactor(n, imaginary = false){
     return data.markup.shifts >= n+1 || data.baseless.shifts >= n+1
 }
 function factorEffect(n, imaginary) {
-    const mult = getDBUPEffect(0)*getBUPEffect(8)*getDBUPEffect(7)*getCascadeEffect(n)
+    const mult = getDBUPEffect(0)*getBUPEffect(8)*getDBUPEffect(7)*getCascadeEffect(n)*getDIUPEffect(10, n)
     let add = hasFactor(n, imaginary) ? getBUPEffect(12) + getDBUPEffect(1) + getDChallengeEffect(5) : 0
     return ((data.factors[n]+(1+add))*mult*getBUPEffect(8))*(Math.max(1+(data.markup.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.markup.shifts])
 }

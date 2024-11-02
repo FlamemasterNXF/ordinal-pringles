@@ -185,7 +185,7 @@ let destabIUPData = [
         desc: 'Double ?Incrementy? Gain',
         sign: 'x',
 
-        cost: () => 1e3*(data.destab.rupLevels[0]+1),
+        cost: () => 1e3**Math.sqrt(data.destab.rupLevels[0]+1),
         effect: () => 2**data.destab.rupLevels[0],
         effectBase: () => 1,
 
@@ -198,7 +198,7 @@ let destabIUPData = [
         sign: 'x',
 
         cost: () => 1e3**(Math.sqrt(data.destab.rupLevels[1]+1)),
-        effect: () => 3**data.destab.rupLevels[1],
+        effect: () => 3**(data.destab.rupLevels[1]+getDIUPEffect(8)),
         effectBase: () => 1,
 
         effectIsDecimal: false,
@@ -210,7 +210,7 @@ let destabIUPData = [
         sign: 'x',
 
         cost: () => 1e5**(Math.sqrt(data.destab.rupLevels[2]+1)),
-        effect: () => Math.log10(data.destab.incrementy)*data.destab.rupLevels[2],
+        effect: () => (Math.log10(data.destab.incrementy)*data.destab.rupLevels[2])*getDIUPEffect(5),
         effectBase: () => 1,
 
         effectIsDecimal: false,
@@ -223,7 +223,7 @@ let destabIUPData = [
         sign: 'x',
 
         cost: () => 1e5,
-        effect: () => 1,
+        effect: () => data.destab.times,
         effectBase: () => 1,
 
         effectIsDecimal: false,
@@ -235,7 +235,7 @@ let destabIUPData = [
         sign: 'x',
 
         cost: () => 5e7,
-        effect: () => 1,
+        effect: () => data.ord.base,
         effectBase: () => 1,
 
         effectIsDecimal: false,
@@ -247,7 +247,7 @@ let destabIUPData = [
         sign: 'x',
 
         cost: () => 1e9,
-        effect: () => 1,
+        effect: () => getTotalDRUPLevels(),
         effectBase: () => 1,
 
         effectIsDecimal: false,
@@ -259,7 +259,7 @@ let destabIUPData = [
         sign: 'x',
 
         cost: () => 1e11,
-        effect: () => 1,
+        effect: () => getTotalDestabChallengeCompletions(),
         effectBase: () => 1,
 
         effectIsDecimal: false,
@@ -268,11 +268,11 @@ let destabIUPData = [
     },
     {
         desc: 'Baseless Shifts boost the Ordinal to ?Incrementy? conversion',
-        sign: 'x',
+        sign: '+',
 
         cost: () => 5e13,
-        effect: () => 1,
-        effectBase: () => 1,
+        effect: () => data.baseless.shifts/100,
+        effectBase: () => 0,
 
         effectIsDecimal: false,
         effectIsIndex: false,
@@ -280,11 +280,11 @@ let destabIUPData = [
     },
     {
         desc: 'Each Challenge Completion provides a free level of the second Rebuyable',
-        sign: 'x',
+        sign: '+',
 
         cost: () => 1e16,
-        effect: () => 1,
-        effectBase: () => 1,
+        effect: () => getTotalDestabChallengeCompletions(),
+        effectBase: () => 0,
 
         effectIsDecimal: false,
         effectIsIndex: false,
@@ -295,7 +295,7 @@ let destabIUPData = [
         sign: 'x',
 
         cost: () => 1e20,
-        effect: () => 1,
+        effect: () => Math.sqrt(totalFactorEffect()),
         effectBase: () => 1,
 
         effectIsDecimal: false,
@@ -307,7 +307,7 @@ let destabIUPData = [
         sign: 'x',
 
         cost: () => 1e30,
-        effect: (i) => data.destab.completions[i],
+        effect: (i) => data.destab.completions[i]+1,
         effectBase: () => 1,
 
         effectIsDecimal: false,
@@ -638,12 +638,13 @@ let getDIUPLevels = (i) => data.destab.rupLevels[i]
 let getDIUPLevelsDesc = (i) => isDIUPRebuyable(i) ? ` (${getDIUPLevels(i)})` : ''
 let getDIUPCost = (i) => destabIUPData[i].cost()
 let getDIUPCostDesc = (i) => `Cost: ${format(getDIUPCost(i))} ?Incrementy?`
-let getDIUPEffectDesc = (i) => `Currently: ${format(getDIUPEffect(i))}x`
+let isDIUPMultiplier = (i) => destabIUPData[i].sign === 'x'
+let getDIUPEffectDesc = (i) => `Currently: ${!isDIUPMultiplier(i) ? destabIUPData[i].sign : ''}${format(getDIUPEffect(i))}${isDIUPMultiplier(i) ? destabIUPData[i].sign : ''}`
 let hasDIUP = (i) => isDIUPRebuyable(i) ? data.destab.rupLevels[i] > 0 : data.destab.hasUpgrade[i]
 let isDIUPRebuyable = (i) => destabIUPData[i].upgradeIsRebuyable
 
 function getDIUPEffect(i, j = null){
-    if(!hasDIUP(i)) return destabIUPData[i].effectBase()
+    if(!hasDIUP(i) || !isDestabilizedRealm()) return destabIUPData[i].effectBase()
     if(destabIUPData[i].effectIsIndex && j === null) j = 0
 
     if(destabIUPData[i].effectIsDecimal){
@@ -652,5 +653,13 @@ function getDIUPEffect(i, j = null){
     return Math.max(destabIUPData[i].effectBase(), destabIUPData[i].effectIsIndex ? destabIUPData[i].effect(j) : destabIUPData[i].effect())
 }
 
-let getDIncrementyGain = () => isDestabilizedRealm() ? data.ord.ordinal.pow(0.001).toNumber() : 0
+function getTotalDRUPLevels(){
+    let total = 0
+    for (let i = 0; i < data.destab.rupLevels; i++) {
+        total += data.destab.rupLevels[i]
+    }
+    return total
+}
+
+let getDIncrementyGain = () => isDestabilizedRealm() ? (data.ord.ordinal.pow(0.001+getDIUPEffect(7)).toNumber())*getDIUPEffect(0)*getDIUPEffect(3)*getDIUPEffect(4)*getDIUPEffect(9) : 0
 let getDIncrementyEffect = () => isDestabilizedRealm() ? Math.sqrt(data.destab.incrementy) : 1
