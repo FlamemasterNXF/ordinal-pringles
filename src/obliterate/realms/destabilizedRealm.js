@@ -185,7 +185,7 @@ let destabIUPData = [
         desc: 'Double ?Incrementy? Gain',
         sign: 'x',
 
-        cost: () => 1,
+        cost: () => 1e3*(data.destab.rupLevels[0]+1),
         effect: () => 2**data.destab.rupLevels[0],
         effectBase: () => 1,
 
@@ -197,7 +197,7 @@ let destabIUPData = [
         desc: 'Triple Dynamic Gain',
         sign: 'x',
 
-        cost: () => 1,
+        cost: () => 1e3**(Math.sqrt(data.destab.rupLevels[1]+1)),
         effect: () => 3**data.destab.rupLevels[1],
         effectBase: () => 1,
 
@@ -209,8 +209,8 @@ let destabIUPData = [
         desc: '?Incrementy? boosts Dynamic Gain',
         sign: 'x',
 
-        cost: () => 1,
-        effect: () => 1,
+        cost: () => 1e5**(Math.sqrt(data.destab.rupLevels[2]+1)),
+        effect: () => Math.log10(data.destab.incrementy)*data.destab.rupLevels[2],
         effectBase: () => 1,
 
         effectIsDecimal: false,
@@ -222,7 +222,7 @@ let destabIUPData = [
         desc: 'Unstable boosts boost ?Incrementy? gain',
         sign: 'x',
 
-        cost: () => 1,
+        cost: () => 1e5,
         effect: () => 1,
         effectBase: () => 1,
 
@@ -234,7 +234,7 @@ let destabIUPData = [
         desc: 'Your Base boost ?Incrementy? Gain',
         sign: 'x',
 
-        cost: () => 1,
+        cost: () => 5e7,
         effect: () => 1,
         effectBase: () => 1,
 
@@ -246,7 +246,7 @@ let destabIUPData = [
         desc: 'Total Rebuyables boost the third Rebuyable',
         sign: 'x',
 
-        cost: () => 1,
+        cost: () => 1e9,
         effect: () => 1,
         effectBase: () => 1,
 
@@ -258,7 +258,7 @@ let destabIUPData = [
         desc: 'Challenge Completions boost Dynamic Gain',
         sign: 'x',
 
-        cost: () => 1,
+        cost: () => 1e11,
         effect: () => 1,
         effectBase: () => 1,
 
@@ -270,7 +270,7 @@ let destabIUPData = [
         desc: 'Baseless Shifts boost the Ordinal to ?Incrementy? conversion',
         sign: 'x',
 
-        cost: () => 1,
+        cost: () => 5e13,
         effect: () => 1,
         effectBase: () => 1,
 
@@ -282,7 +282,7 @@ let destabIUPData = [
         desc: 'Each Challenge Completion provides a free level of the second Rebuyable',
         sign: 'x',
 
-        cost: () => 1,
+        cost: () => 1e16,
         effect: () => 1,
         effectBase: () => 1,
 
@@ -294,7 +294,7 @@ let destabIUPData = [
         desc: 'Factors multiply Unstable Incrementy gain at a reduced rate',
         sign: 'x',
 
-        cost: () => 1,
+        cost: () => 1e20,
         effect: () => 1,
         effectBase: () => 1,
 
@@ -306,7 +306,7 @@ let destabIUPData = [
         desc: 'Challenge Completions boost their respective Factors',
         sign: 'x',
 
-        cost: () => 1,
+        cost: () => 1e30,
         effect: (i) => data.destab.completions[i],
         effectBase: () => 1,
 
@@ -390,7 +390,9 @@ function initDIncrementy(){
             iup.className = 'dIUP'
             iup.id = `dIUP${id}`
             iup.innerText = `${getDIUPDesc(id)}`
-            //iup.addEventListener('click', () => buyDIUP(id))
+            iup.addEventListener('click', () => buyDIUP(id))
+
+            if(!isDIUPRebuyable(id) && hasDIUP(id)) iup.style.color = `#da3131`
 
             row.append(iup)
         }
@@ -434,6 +436,11 @@ let dIncrementyNames = ['Unstable', 'Broken', 'False']
 function updateDIncrementyHTML(){
     DOM(`dIncrementyText`).innerText = `You have ${format(data.destab.incrementy)} ${wordCycle(dIncrementyNames)} Incrementy [+${format(getDIncrementyGain())}/s], multiplying your AutoClicker speed by ${format(getDIncrementyEffect())}`
     DOM(`dDynamicText2`).innerText = `Your Dynamic Factor is ${format(data.dy.level)} [+${format(dyGain())}/s], it caps at ${format(getDyCap())}`
+}
+
+function updateDIUPHTML(i){
+    DOM(`dIUP${i}`).innerText = getDIUPDesc(i)
+    if(!isDIUPRebuyable(i) && hasDIUP(i)) DOM(`dIUP${i}`).style.color = `#da3131`
 }
 
 function buyDestabBUP(n, shatter){
@@ -498,6 +505,20 @@ function completeDChallenge(){
         updateDChalHTML(temp)
         /*if(data.sToggles[2])*/ createAlert("Unstable Challenge Complete!", `You have Completed Unstable Challenge ${temp+1}x${getDChallengeCompletions(temp)}!`, 'Awesome!')
     }
+}
+
+function buyDIUP(i){
+    if(data.destab.incrementy < getDIUPCost(i)) return
+
+    data.destab.incrementy -= getDIUPCost(i)
+    if(isDIUPRebuyable(i)){
+        ++data.destab.rupLevels[i]
+        updateDIUPHTML(i)
+        return
+    }
+
+    data.destab.hasUpgrade[i] = true
+    updateDIUPHTML(i)
 }
 
 function dBoost(){
@@ -614,11 +635,12 @@ function getDChallengeEffect(i, j = null){
 let getDIUPDesc = (i) => `${getDIUPDescBase(i)}${getDIUPLevelsDesc(i)}\n${getDIUPEffectDesc(i)}\n${getDIUPCostDesc(i)}`
 let getDIUPDescBase = (i) => destabIUPData[i].desc
 let getDIUPLevels = (i) => data.destab.rupLevels[i]
-let getDIUPLevelsDesc = (i) => destabIUPData[i].upgradeIsRebuyable ? ` (${getDIUPLevels(i)})` : ''
+let getDIUPLevelsDesc = (i) => isDIUPRebuyable(i) ? ` (${getDIUPLevels(i)})` : ''
 let getDIUPCost = (i) => destabIUPData[i].cost()
-let getDIUPCostDesc = (i) => `Cost: ${getDIUPCost(i)} ?Incrementy?`
-let getDIUPEffectDesc = (i) => `Currently: ${getDIUPEffect(i)}x`
-let hasDIUP = (i) => destabIUPData[i].upgradeIsRebuyable ? data.destab.rupLevels[i] > 0 : data.destab.hasUpgrade[i]
+let getDIUPCostDesc = (i) => `Cost: ${format(getDIUPCost(i))} ?Incrementy?`
+let getDIUPEffectDesc = (i) => `Currently: ${format(getDIUPEffect(i))}x`
+let hasDIUP = (i) => isDIUPRebuyable(i) ? data.destab.rupLevels[i] > 0 : data.destab.hasUpgrade[i]
+let isDIUPRebuyable = (i) => destabIUPData[i].upgradeIsRebuyable
 
 function getDIUPEffect(i, j = null){
     if(!hasDIUP(i)) return destabIUPData[i].effectBase()
