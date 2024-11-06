@@ -216,6 +216,11 @@
     font-size: 2rem;
     color: #8080FF;
 }
+.dHierarchy{
+    font-family: DosisLight;
+    font-size: 2rem;
+    color: #ce6a6a;
+}
 .hb0{
     width: 15rem;
     height: 7rem;
@@ -241,6 +246,31 @@
     height: 7rem;
     border: 2px solid #631d89;
     color: #a680ff;
+    background: black;
+}
+.growthUpgrade{
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    width: 17rem;
+    height: 7rem;
+    border: 2px solid #a84a4a;
+    color: #ce6a6a;
+    background: black;
+}
+.growthInput{
+    width: 2rem;
+    height: 1rem;
+    background: black;
+    border: 1px solid #522525;
+    color: #ce6a6a;
+}
+.dHUP{
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    width: 15rem;
+    height: 6rem;
+    border: 2px solid #a8634a;
+    color: #ce856a;
     background: black;
 }
 .bpEffectContainer{

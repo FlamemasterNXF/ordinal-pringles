@@ -27,6 +27,7 @@ function mainLoop() {
     data.darkness.negativeCharge = Math.min(Number.MAX_VALUE, data.darkness.negativeCharge+negativeChargeGain()*uDiff)
 
     if(isDestabilizedRealm() && isDBUUnlocked(1)) data.destab.incrementy += getDIncrementyGain()*uDiff
+    if(isDestabilizedRealm() && isDBUUnlocked(2)) data.destab.hierarchy.ord += getDHierarchyGain()*uDiff
 
     // Run the tick() function to calculate things that rely on normal diff
     tick(diff)

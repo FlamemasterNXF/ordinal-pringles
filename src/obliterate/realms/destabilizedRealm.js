@@ -100,7 +100,7 @@ let destabUnlockData = [
     {
         desc: 'Unlock Hierarchies',
         unl: 'Hierarchies',
-        req: Infinity
+        req: 0
     },
     {
         desc: 'Unlock Shattering',
@@ -223,7 +223,7 @@ let destabIUPData = [
         sign: 'x',
 
         cost: () => 1e5,
-        effect: () => data.destab.times,
+        effect: () => data.destab.times+1,
         effectBase: () => 1,
 
         effectIsDecimal: false,
@@ -231,7 +231,7 @@ let destabIUPData = [
         upgradeIsRebuyable: false,
     },
     {
-        desc: 'Your Base boost ?Incrementy? Gain',
+        desc: 'Your Base boosts ?Incrementy? Gain',
         sign: 'x',
 
         cost: () => 5e7,
@@ -316,10 +316,55 @@ let destabIUPData = [
     },
 ]
 
+let growthUpgradeData = [
+    {
+        desc: 'Boost AutoClicker speed',
+        sign: 'x',
+        effect: () => 1,
+        baseEffect: () => 1,
+        effectIsDecimal: false,
+    },
+    {
+        desc: 'Divide Challenge requirements',
+        sign: '/',
+        effect: () => 1,
+        baseEffect: () => 1,
+        effectIsDecimal: false,
+    },
+    {
+        desc: 'Increase the OP gain exponent',
+        sign: '+',
+        effect: () => 0,
+        baseEffect: () => 0,
+        effectIsDecimal: false,
+    },
+]
+let destabHUPData = [
+    {
+        desc: 'Boost NGH gain based on Challenge Completions',
+        effect: () => 1,
+        baseEffect: () => 1,
+        cost: () => 100,
+    },
+    {
+        desc: 'Boost NGH gain based on Total Untable Boosters',
+        effect: () => 1,
+        baseEffect: () => 1,
+        cost: () => 100,
+    },
+    {
+        desc: 'NGH boosts the 2nd Incrementy Upgrade',
+        effect: () => 1,
+        baseEffect: () => 1,
+        cost: () => 100,
+    }
+]
+
 function initDestabilizedRealm(){
     initDBUPs()
     initDChallenges()
     initDIncrementy()
+    initDHierarchy()
 }
 function initDBUPs(){
     let rows = [DOM('dBupColumn0'), DOM('dBupColumn1'), DOM('dBupColumn2')]
@@ -399,6 +444,41 @@ function initDIncrementy(){
         container.append(row)
     }
 }
+function initDHierarchy(){
+    let growthContainer = DOM(`growingUpgradesContainer`)
+    let upgradeContainer = DOM(`dHUPContainer`)
+    for (let i = 0; i < 3; i++) {
+        // Growth
+        let growth = document.createElement('button')
+        growth.className = 'growthUpgrade'
+        growth.id = `growthUpgrade${i}`
+        growth.innerText = `${getGUPDesc(i)}`
+
+        let label = document.createElement('label')
+        let input = document.createElement('input')
+        input.type = 'number'
+        input.max = '100'
+        input.min = '0'
+        input.defaultValue = `${data.destab.gupPercentage[i]}`
+        input.className = `growthInput`
+        input.id = `growthInput${i}`
+        input.addEventListener('change', () => changeGrowthPercent(i, true))
+        input.addEventListener('input', () => changeGrowthPercent(i, false))
+
+        label.append(input)
+        growth.append(label)
+        growthContainer.append(growth)
+
+        // Upgrades
+        let upgrade = document.createElement('button')
+        upgrade.className = 'dHUP'
+        upgrade.id = `dHUP${i}`
+        upgrade.innerHTML = `${getDHUPDesc(i)}`
+        //upgrade.addEventListener('click', () => buyDHUP(i))
+
+        upgradeContainer.append(upgrade)
+    }
+}
 
 function destabilizationHTML(){
     DOM(`boostNav`).style.color = isDestabilizedRealm() ? '#ff8080' : '#8080FF'
@@ -415,6 +495,7 @@ function updateDestabBoostersHTML() {
     if(data.nav.current === 'markup') DOM("dFactorBoostButton").style.color = data.ord.ordinal.gte(dBoostReq()) ? '#fff480' : '#ff8080'
 
     if(destabBoostTab === 'dIncrementy') updateDIncrementyHTML()
+    if(destabBoostTab === 'dHierarchies') updateDHierarchyHTML()
 
     updateDestabUnlockHTML()
 }
@@ -441,6 +522,11 @@ function updateDIncrementyHTML(){
 function updateDIUPHTML(i){
     DOM(`dIUP${i}`).innerText = getDIUPDesc(i)
     if(!isDIUPRebuyable(i) && hasDIUP(i)) DOM(`dIUP${i}`).style.color = `#da3131`
+}
+
+function updateDHierarchyHTML(){
+    DOM(`dhText`).innerHTML = `${ordinalDisplay('n', data.destab.hierarchy.ord, data.destab.hierarchy.over,  10, ordinalDisplayTrim(3), false)} (10)`
+    DOM(`dhGain`).innerText = `(+${format(getDHierarchyGain())}/s)`
 }
 
 function buyDestabBUP(n, shatter){
@@ -519,6 +605,40 @@ function buyDIUP(i){
 
     data.destab.hasUpgrade[i] = true
     updateDIUPHTML(i)
+}
+
+function checkGrowthPercent(value, n, getMaxPossible = false, forceMaxPossible = false){
+    let current = 0
+    for (let i = 0; i < data.destab.gupPercentage.length; i++) {
+        if(i !== n) current += data.destab.gupPercentage[i]
+    }
+    let isSafe = current + value <= 100
+    if(getMaxPossible && (!isSafe || forceMaxPossible) ) return 100 - current
+    return isSafe
+}
+function changeGrowthPercent(i, onChange){
+    let value = parseInt(DOM(`growthInput${i}`).value)
+    if(isNaN(value)){
+        if(onChange){
+            value = 0
+            DOM(`growthInput${i}`).value = '0'
+        }
+        else return
+    }
+    if(value < 0){
+        value = 0
+        DOM(`growthInput${i}`).value = '0'
+    }
+    if(value > 100){
+        value = 100
+        DOM(`growthInput${i}`).value = '100'
+    }
+
+    if(!checkGrowthPercent(value, i)){
+        data.destab.gupPercentage[i] = checkGrowthPercent(value, i, true)
+        DOM(`growthInput${i}`).value = `${checkGrowthPercent(value, i, true, true)}`
+    }
+    else data.destab.gupPercentage[i] = value
 }
 
 function dBoost(){
@@ -637,7 +757,7 @@ let getDIUPDescBase = (i) => destabIUPData[i].desc
 let getDIUPLevels = (i) => data.destab.rupLevels[i]
 let getDIUPLevelsDesc = (i) => isDIUPRebuyable(i) ? ` (${getDIUPLevels(i)})` : ''
 let getDIUPCost = (i) => destabIUPData[i].cost()
-let getDIUPCostDesc = (i) => `Cost: ${format(getDIUPCost(i))} ?Incrementy?`
+let getDIUPCostDesc = (i) => isDIUPRebuyable(i) || !hasDIUP(i) ? `Cost: ${format(getDIUPCost(i))} ?Incrementy?` : ''
 let isDIUPMultiplier = (i) => destabIUPData[i].sign === 'x'
 let getDIUPEffectDesc = (i) => `Currently: ${!isDIUPMultiplier(i) ? destabIUPData[i].sign : ''}${format(getDIUPEffect(i))}${isDIUPMultiplier(i) ? destabIUPData[i].sign : ''}`
 let hasDIUP = (i) => isDIUPRebuyable(i) ? data.destab.rupLevels[i] > 0 : data.destab.hasUpgrade[i]
@@ -663,3 +783,22 @@ function getTotalDRUPLevels(){
 
 let getDIncrementyGain = () => isDestabilizedRealm() ? (data.ord.ordinal.pow(0.001+getDIUPEffect(7)).toNumber())*getDIUPEffect(0)*getDIUPEffect(3)*getDIUPEffect(4)*getDIUPEffect(9) : 0
 let getDIncrementyEffect = () => isDestabilizedRealm() ? Math.sqrt(data.destab.incrementy) : 1
+
+let getGUPDesc = (i) => `${getGUPDescBase(i)}\n${getGUPEffectDesc(i)}\nHierarchy percent to allocate: `
+let getGUPDescBase = (i) => growthUpgradeData[i].desc
+let getGUPEffect = (i) => growthUpgradeData[i].effect()
+let isGUPMultiplier = (i) => growthUpgradeData[i].sign === 'x'
+let getGUPEffectDesc = (i) => `Currently: ${!isGUPMultiplier(i) ? growthUpgradeData[i].sign : ''}${format(getGUPEffect(i))}${isGUPMultiplier(i) ? growthUpgradeData[i].sign : ''}`
+let getGUPPercentage = (i) => data.destab.gupPercentage[i]
+
+let getDHUPDesc = (i) => `${getDHUPDescBase(i)} ${getDHUPLevelsDesc(i)}<br>${getDHUPEffectDesc(i)}<br>${getDHUPCostDesc(i)}`
+let getDHUPDescBase = (i) => destabHUPData[i].desc
+let getDHUPLevels = (i) => data.destab.hupLevels[i]
+let getDHUPLevelsDesc = (i) => `(${getDHUPLevels(i)})`
+let getDHUPCost = (i) => destabHUPData[i].cost()
+let getDHUPCostDesc = (i) => `Cost: ${ordinalDisplay('', getDHUPCost(i), 0, 10, ordinalDisplayTrim(1), false)} NGH`
+let isDHUPActive = (i) => getDHUPLevels(i) > 0 && isDestabilizedRealm()
+let getDHUPEffect = (i) => isDHUPActive(i) ? Math.max(destabHUPData[i].baseEffect(), destabHUPData[i].effect()) : destabHUPData[i].baseEffect()
+let getDHUPEffectDesc = (i) => `Currently: ${format(getDHUPEffect(i))}x`
+
+let getDHierarchyGain = () => data.ord.base
