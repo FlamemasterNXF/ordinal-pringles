@@ -198,7 +198,7 @@ let destabIUPData = [
         sign: 'x',
 
         cost: () => 1e3**(Math.sqrt(data.destab.rupLevels[1]+1)),
-        effect: () => 3**(data.destab.rupLevels[1]+getDIUPEffect(8)),
+        effect: () => 3**(data.destab.rupLevels[1]+getDIUPEffect(8))*getDHUPEffect(2),
         effectBase: () => 1,
 
         effectIsDecimal: false,
@@ -320,21 +320,21 @@ let growthUpgradeData = [
     {
         desc: 'Boost AutoClicker speed',
         sign: 'x',
-        effect: () => 1,
+        effect: () => Math.sqrt(data.destab.hierarchy.ord*getFunctionalGUPPercentage(0)),
         baseEffect: () => 1,
         effectIsDecimal: false,
     },
     {
-        desc: 'Divide Challenge requirements',
-        sign: '/',
-        effect: () => 1,
+        desc: 'Boost ?Incrementy? gain',
+        sign: 'x',
+        effect: () => safeLog(data.destab.hierarchy.ord*getFunctionalGUPPercentage(1), 10),
         baseEffect: () => 1,
         effectIsDecimal: false,
     },
     {
-        desc: 'Increase the OP gain exponent',
+        desc: 'Increase the post-4e256 OP gain exponent',
         sign: '+',
-        effect: () => 0,
+        effect: () => customRoot(data.destab.hierarchy.ord*getFunctionalGUPPercentage(2), 8),
         baseEffect: () => 0,
         effectIsDecimal: false,
     },
@@ -342,21 +342,18 @@ let growthUpgradeData = [
 let destabHUPData = [
     {
         desc: 'Boost NGH gain based on Challenge Completions',
-        effect: () => 1,
+        effect: () => getTotalDestabChallengeCompletions(),
         baseEffect: () => 1,
-        cost: () => 100,
     },
     {
         desc: 'Boost NGH gain based on Total Untable Boosters',
-        effect: () => 1,
+        effect: () => data.destab.total,
         baseEffect: () => 1,
-        cost: () => 100,
     },
     {
         desc: 'NGH boosts the 2nd Incrementy Upgrade',
-        effect: () => 1,
+        effect: () => safeLog(data.destab.hierarchy.ord*data.destab.hupLevels[2], 10),
         baseEffect: () => 1,
-        cost: () => 100,
     }
 ]
 
@@ -452,7 +449,10 @@ function initDHierarchy(){
         let growth = document.createElement('button')
         growth.className = 'growthUpgrade'
         growth.id = `growthUpgrade${i}`
-        growth.innerText = `${getGUPDesc(i)}`
+
+        let text = document.createElement('span')
+        text.id = `gupText${i}`
+        text.innerText = getGUPDesc(i)
 
         let label = document.createElement('label')
         let input = document.createElement('input')
@@ -466,6 +466,7 @@ function initDHierarchy(){
         input.addEventListener('input', () => changeGrowthPercent(i, false))
 
         label.append(input)
+        growth.append(text)
         growth.append(label)
         growthContainer.append(growth)
 
@@ -474,7 +475,7 @@ function initDHierarchy(){
         upgrade.className = 'dHUP'
         upgrade.id = `dHUP${i}`
         upgrade.innerHTML = `${getDHUPDesc(i)}`
-        //upgrade.addEventListener('click', () => buyDHUP(i))
+        upgrade.addEventListener('click', () => buyDHUP(i))
 
         upgradeContainer.append(upgrade)
     }
@@ -527,6 +528,14 @@ function updateDIUPHTML(i){
 function updateDHierarchyHTML(){
     DOM(`dhText`).innerHTML = `${ordinalDisplay('n', data.destab.hierarchy.ord, data.destab.hierarchy.over,  10, ordinalDisplayTrim(3), false)} (10)`
     DOM(`dhGain`).innerText = `(+${format(getDHierarchyGain())}/s)`
+}
+
+function updateGUPHTML(i){
+    DOM(`gupText${i}`).innerText = getGUPDesc(i)
+}
+
+function updateDHUPHTML(i){
+    DOM(`dHUP${i}`).innerHTML = getDHUPDesc(i)
 }
 
 function buyDestabBUP(n, shatter){
@@ -639,6 +648,14 @@ function changeGrowthPercent(i, onChange){
         DOM(`growthInput${i}`).value = `${checkGrowthPercent(value, i, true, true)}`
     }
     else data.destab.gupPercentage[i] = value
+
+    updateGUPHTML(i)
+}
+function buyDHUP(i){
+    if(data.destab.hierarchy.ord < getDHUPCost(i)) return
+    data.destab.hierarchy.ord -= getDHUPCost(i)
+    ++data.destab.hupLevels[i]
+    updateDHUPHTML(i)
 }
 
 function dBoost(){
@@ -781,24 +798,25 @@ function getTotalDRUPLevels(){
     return total
 }
 
-let getDIncrementyGain = () => isDestabilizedRealm() ? (data.ord.ordinal.pow(0.001+getDIUPEffect(7)).toNumber())*getDIUPEffect(0)*getDIUPEffect(3)*getDIUPEffect(4)*getDIUPEffect(9) : 0
+let getDIncrementyGain = () => isDestabilizedRealm() ? (data.ord.ordinal.pow(0.001+getDIUPEffect(7)).toNumber())*getDIUPEffect(0)*getDIUPEffect(3)*getDIUPEffect(4)*getDIUPEffect(9)*getGUPEffect(1) : 0
 let getDIncrementyEffect = () => isDestabilizedRealm() ? Math.sqrt(data.destab.incrementy) : 1
 
 let getGUPDesc = (i) => `${getGUPDescBase(i)}\n${getGUPEffectDesc(i)}\nHierarchy percent to allocate: `
 let getGUPDescBase = (i) => growthUpgradeData[i].desc
-let getGUPEffect = (i) => growthUpgradeData[i].effect()
+let getGUPEffect = (i) => isDestabilizedRealm() && getGUPPercentage(i) > 0 ? Math.max(growthUpgradeData[i].baseEffect(), growthUpgradeData[i].effect()) : growthUpgradeData[i].baseEffect()
 let isGUPMultiplier = (i) => growthUpgradeData[i].sign === 'x'
 let getGUPEffectDesc = (i) => `Currently: ${!isGUPMultiplier(i) ? growthUpgradeData[i].sign : ''}${format(getGUPEffect(i))}${isGUPMultiplier(i) ? growthUpgradeData[i].sign : ''}`
 let getGUPPercentage = (i) => data.destab.gupPercentage[i]
+let getFunctionalGUPPercentage = (i) => data.destab.gupPercentage[i]/100
 
 let getDHUPDesc = (i) => `${getDHUPDescBase(i)} ${getDHUPLevelsDesc(i)}<br>${getDHUPEffectDesc(i)}<br>${getDHUPCostDesc(i)}`
 let getDHUPDescBase = (i) => destabHUPData[i].desc
 let getDHUPLevels = (i) => data.destab.hupLevels[i]
 let getDHUPLevelsDesc = (i) => `(${getDHUPLevels(i)})`
-let getDHUPCost = (i) => destabHUPData[i].cost()
+let getDHUPCost = (i) => (data.destab.hupLevels[i] + 10)**(1 + data.destab.hupLevels[i])
 let getDHUPCostDesc = (i) => `Cost: ${ordinalDisplay('', getDHUPCost(i), 0, 10, ordinalDisplayTrim(1), false)} NGH`
 let isDHUPActive = (i) => getDHUPLevels(i) > 0 && isDestabilizedRealm()
 let getDHUPEffect = (i) => isDHUPActive(i) ? Math.max(destabHUPData[i].baseEffect(), destabHUPData[i].effect()) : destabHUPData[i].baseEffect()
 let getDHUPEffectDesc = (i) => `Currently: ${format(getDHUPEffect(i))}x`
 
-let getDHierarchyGain = () => data.ord.base
+let getDHierarchyGain = () => data.ord.base*getDHUPEffect(0)*getDHUPEffect(1)

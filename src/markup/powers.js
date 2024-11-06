@@ -17,4 +17,4 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
 }
 let totalOPGain = () => Decimal.min(4e256, D(opGain()).times(opMult()))
 
-let uncappedOPGain = () => D(data.ord.ordinal).pow(getInstabilityConstantEffect(1))
+let uncappedOPGain = () => D(data.ord.ordinal).pow(getInstabilityConstantEffect(1)+getGUPEffect(2))

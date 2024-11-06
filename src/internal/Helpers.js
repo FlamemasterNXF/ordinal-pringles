@@ -56,6 +56,18 @@ function softcap(value, cap, scPow, isDecimal = false){
 
 let boostersAtGivenFB = (i = data.boost.times) => i > 0 ? (i*(i+1))/2 : 0
 
-let logn = (num, logBase) => num === 0 ? 0 : Math.log10(num) / Math.log10(logBase);
+let logn = (num, logBase) => num === 0 ? 0 : Math.log10(num) / Math.log10(logBase)
 
 let splitAt = (index, str) => [str.slice(0, index), str.slice(index)]
+
+function safeLog(num, logBase, minValue = 1){
+    let val = logn(num, logBase)
+    if(val === -Infinity || val === Infinity || isNaN(val) || val < minValue) return minValue
+    return val
+}
+
+function customRoot(num, root, minValue = 1){
+    let val = num**(1/root)
+    if(val < minValue) return minValue
+    return val
+}
