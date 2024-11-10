@@ -134,6 +134,8 @@ function switchSubtab(t, mode){
         DOM(`${destabBoostTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
         destabBoostTab = t
+
+        if(t === 'shattering') updateShatterHTML()
     }
 
     // Special Settings Rules

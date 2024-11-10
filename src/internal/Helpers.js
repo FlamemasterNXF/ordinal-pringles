@@ -71,3 +71,8 @@ function customRoot(num, root, minValue = 1){
     if(val < minValue) return minValue
     return val
 }
+
+function formatEffectText(sign, effect, color = null){
+    if(color !== null) return `<span style="color: ${color}">${sign !== 'x' ? sign : ''}${effect}${sign === 'x' ? sign : ''}</span>`
+    return `${sign !== 'x' ? sign : ''}${effect}${sign === 'x' ? sign : ''}`
+}
