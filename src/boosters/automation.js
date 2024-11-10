@@ -76,8 +76,8 @@ let automationData = [
             unlock: () => hasSluggishMilestone(3)
         },
         {
-            name: "Dynamic Shift AutoPrestiger",
-            desc: "Dynamic Shifting",
+            name: "Baseless Shift AutoPrestiger",
+            desc: "Baseless Shifting",
             hasReq: true,
             req: "but only if you're in a Baseless Realm",
             unlock: () => hasAOMilestone(0)
