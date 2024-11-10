@@ -103,8 +103,8 @@ let destabUnlockData = [
         req: 0
     },
     {
-        desc: 'Unlock Shattering',
-        unl: 'Shattering',
+        desc: 'You can now Baseless Shift more than seven times, but the reward is changed',
+        unl: 'Hierarchies',
         req: 0
     },
 ]
@@ -357,27 +357,6 @@ let destabHUPData = [
     }
 ]
 
-let baselessEnergyData = [
-    {
-        desc: 'dividing your Base in the Destabilized Realm',
-        sign: '/',
-        effect: () => 1,
-        baseEffect: () => 1,
-    },
-    {
-        desc: 'It is also multiplying the 1st Unstable Factor',
-        sign: 'x',
-        effect: () => 1,
-        baseEffect: () => 1,
-    },
-    {
-        desc: 'and reducing the 1st Instability Constant effect',
-        sign: '-',
-        effect: () => Math.floor(0),
-        baseEffect: () => 0,
-    },
-]
-
 function initDestabilizedRealm(){
     initDBUPs()
     initDChallenges()
@@ -408,7 +387,7 @@ function initDBUPs(){
     let unlockCol = DOM(`dBuColumn`)
     for (let i = 0; i < 4; i++){
         let bup = document.createElement('button')
-        bup.className = 'dBup'
+        bup.className = 'dBu'
         bup.id = `dBu${i}`
         bup.innerText = `${destabUnlockData[i].desc}\nRequires: ${destabUnlockData[i].req} Unstable Boosters`
         unlockCol.append(bup)
@@ -518,7 +497,6 @@ function updateDestabBoostersHTML() {
 
     if(destabBoostTab === 'dIncrementy') updateDIncrementyHTML()
     if(destabBoostTab === 'dHierarchies') updateDHierarchyHTML()
-    if(destabBoostTab === 'shattering') updateShatteringHTML()
 
     updateDestabUnlockHTML()
 }
@@ -558,15 +536,6 @@ function updateGUPHTML(i){
 
 function updateDHUPHTML(i){
     DOM(`dHUP${i}`).innerHTML = getDHUPDesc(i)
-}
-
-function updateShatteringHTML(){
-    DOM(`baselessEnergyText`).innerHTML = `You have <span style="color: #e70505">${data.destab.baselessEnergy} Baseless Energy</span>, ${getBaselessEnergyDesc(0)}<br><span style="font-size: 0.9rem">${getBaselessEnergyDesc(1)} ${getBaselessEnergyDesc(2)}</span>`
-}
-function updateShatterHTML(){
-    DOM(`shatterButton`).innerHTML =
-        !isShattered() ? `Enter the Realm of Remembrance<br><br>You will be trapped in Base 15 with Baseless Shifts providing <span style="color: #e70505">Baseless Energy</span> and ???<br><br><span style="font-size: 0.85rem; color: #4a4a4a">Your best ever Baseless Shift in the Realm of Remembrance is ${data.destab.bestShatteredShift}</span>`
-        : `Exit the Realm of Remembrance<br><br>You will gain ${Math.max(0, data.baseless.shifts-data.destab.bestShatteredShift)} <span style="color: #e70505">Baseless Energy</span>`
 }
 
 function buyDestabBUP(n, shatter){
@@ -853,7 +822,4 @@ let getDHUPEffectDesc = (i) => `Currently: ${format(getDHUPEffect(i))}x`
 
 let getDHierarchyGain = () => data.ord.base*getDHUPEffect(0)*getDHUPEffect(1)
 
-let getBaselessEnergyDesc = (i) => `${getBaselessEnergyDescBase(i)} ${getBaselessEnergyEffectDesc(i)}`
-let getBaselessEnergyDescBase = (i) => baselessEnergyData[i].desc
-let getBaselessEnergyEffect = (i) => data.destab.baselessEnergy > 0 ? Math.max(baselessEnergyData[i].effect(), baselessEnergyData[i].baseEffect()) : baselessEnergyData[i].baseEffect()
-let getBaselessEnergyEffectDesc = (i) => `by ${formatEffectText(baselessEnergyData[i].sign, getBaselessEnergyEffect(i), '#e70505')}`
+let getBaselessEnergyReq = () => Math.max(8, data.baseless.bestShift)

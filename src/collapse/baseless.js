@@ -25,8 +25,9 @@ function updateAlephNullHTML(){
 function updateDynamicShiftHTML(){
     if(data.baseless.baseless){
         if(isInAnyDChallenge()) return DOM(`dynamicShift`).innerHTML = `Perform a <span style="color: darkred; font-size: 1rem"">Baseless Shift</span><br>The Instability of your Realm prevents this`
-        DOM(`dynamicShift`).innerHTML = data.baseless.shifts < 7
-            ? `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br>Requires: &omega;<sup>&omega;</sup></span><br>This will unlock Factor ${data.baseless.shifts+1}, perform a Factor Shift reset, multiply your ℵ<sub>0</sub> gain multiplier by ${format(dynamicShiftMultipliers[0](data.baseless.shifts+1))}, multiply your Dynamic gain by ${format(dynamicShiftMultipliers[1](data.baseless.shifts+1))}, and <span style="color: darkred">double your Base</span>`
+        DOM(`dynamicShift`).innerHTML =
+            data.baseless.shifts >= 7 && isDBUUnlocked(3) ? `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br>Requires: &omega;<sup>&omega;</sup></span><br>You will gain ${data.baseless.shifts+1 > data.baseless.bestShift ? '1 Baseless Energy' : 'nothing'}, perform a Factor Shift reset, multiply your ℵ<sub>0</sub> gain multiplier by ${format(dynamicShiftMultipliers[0](data.baseless.shifts+1))}, multiply your Dynamic gain by ${format(dynamicShiftMultipliers[1](data.baseless.shifts+1))}, and <span style="color: darkred">double your Base</span>`
+            : data.baseless.shifts < 7 ? `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br>Requires: &omega;<sup>&omega;</sup></span><br>This will unlock Factor ${data.baseless.shifts+1}, perform a Factor Shift reset, multiply your ℵ<sub>0</sub> gain multiplier by ${format(dynamicShiftMultipliers[0](data.baseless.shifts+1))}, multiply your Dynamic gain by ${format(dynamicShiftMultipliers[1](data.baseless.shifts+1))}, and <span style="color: darkred">double your Base</span>`
             : `Perform a <span style="color: darkred; font-size: 1rem"">Baseless Shift</span><br>The Future Remains Unknown`
     }
     else {
@@ -182,6 +183,7 @@ function dynamicShift(){
     if(!data.baseless.baseless || isInAnyDChallenge()) return
     if(data.ord.ordinal.lt(numberFromOrdinal('&omega;<sup>&omega;</sup>', data.ord.base)) || data.baseless.shifts > 6) return
     ++data.baseless.shifts
+    if(data.baseless.shifts > data.baseless.bestShift) data.baseless.bestShift = data.baseless.shifts
     data.ord.base *= 2
     fsReset()
     updateDynamicShiftHTML()
