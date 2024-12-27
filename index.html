@@ -475,8 +475,8 @@
             <button class="tabButton" id="destabHierarchiesTab" style="color: #ce6a6a; border-color: #a84a4a;" onclick="switchSubtab('dHierarchies', 'destabBoosters')">Hierarchies</button>
         </div>
         <div class="flexBox" id="dUpgradesSubPage" style="margin-top: 1rem; flex-direction: column">
-            <div class="centeredTexts" id="dBoosterText">boosteeeeeeeee</div>
-            <div class="centeredTexts" id="dBoosterTimesText" style="font-size: 0.8rem">boosteeeeeeeee times</div>
+            <div class="centeredTexts" id="dBoosterText" style="color: gray">boosteeeeeeeee</div>
+            <div class="centeredTexts" id="dBoosterTimesText" style="font-size: 0.8rem; color: gray">boosteeeeeeeee times</div>
             <div class="flexBox" style="flex-direction: row;">
                 <button class="dBoostTopButton" id="dBoostRefund" style="margin-right: 0.25rem" onclick="dBoosterRefund()">Refund your Booster Upgrades</button>
                 <button class="dBoostTopButton" id="shatterRefund" style="display: none; margin-left: 0.25rem" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Charged Booster Upgrades and return spent Charge, but it will force you to exit your Challenge!', 'Go back!', 'Go ahead.', respecCharge)
@@ -488,7 +488,7 @@
                 <div class="flexBox" id="dBupColumn2" style="flex-direction: column"></div>
                 <div class="flexBox" id="dBuColumn" style="flex-direction: column"></div>
             </div>
-            <p class="centeredTexts" id="dBupBottomText" style="color: #565656"></p>
+            <p class="centeredTexts" id="dBupBottomText" style="color: #565656">Purchased <span style="color: #a84a4a">Upgrades</span> can be <span style="color: silver">Split</span> for <span style="color: silver">1 Imaginary Energy.</span><br>Doing so will grant them a unique effect within the <span style="color: goldenrod">Normal Realm</span>, <span style="color: red">Baseless Realms</span>, and <span style="color: #9f9fcce1">Darkness</span></p>
         </div>
         <div class="flexBox" id="dChalSubPage" style="display: none; flex-direction: column;">
             <div class="flexBox column" id="dChallengeContainer"></div>

@@ -274,7 +274,7 @@ function updateBoostersHTML(){
 function updateHeaderHTML(){
     const el = DOM(`chalIn`)
     el.style.display = data.chal.active.includes(true) || data.baseless.baseless || inAnyPurification() ? 'block' : 'none'
-    el.innerHTML = data.baseless.baseless && data.baseless.mode === 2 && isDBUUnlocked(3) ? `You are in the Destabilized Realm and have Baseless Shifted ${data.baseless.shifts} times<br>You will gain 1 Baseless Energy on your ${getBaselessEnergyReq()}th Baseless Shift`
+    el.innerHTML = data.baseless.baseless && data.baseless.mode === 2 && isDBUUnlocked(3) ? `You are in the Destabilized Realm and have Baseless Shifted ${data.baseless.shifts} times<br>You will gain <span style="color: silver">1 Imaginary Energy</span> on your ${getBaselessEnergyReq()}th Baseless Shift`
         : isInAnyDChallenge() ? `You are in Unstable Challenge ${data.destab.chalActive+1} in the Destabilized Realm with ${data.baseless.shifts} Baseless Shifts`
         : inAnyPurification() ? `The ${purificationData[data.omega.whichPurification].alt} will be Purified${data.darkness.darkened ? `<br>${getDarknessText()}` : ''}`
         : data.baseless.baseless ? `You are in the ${getBaselessName(data.baseless.mode)} Realm and have Baseless Shifted ${data.baseless.shifts} times`

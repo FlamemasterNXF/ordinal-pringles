@@ -357,6 +357,288 @@ let destabHUPData = [
     }
 ]
 
+let shatteredBUPData = [
+    [
+        {
+            desc: 'Effect 1',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 2',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 3',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+    ],
+    [
+        {
+            desc: 'Effect 1',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 2',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 3',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+    ],
+    [
+        {
+            desc: 'Effect 1',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 2',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 3',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+    ],
+    [
+        {
+            desc: 'Effect 1',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 2',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 3',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+    ],
+
+    [
+        {
+            desc: 'Effect 1',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 2',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 3',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+    ],
+    [
+        {
+            desc: 'Effect 1',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 2',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 3',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+    ],
+    [
+        {
+            desc: 'Effect 1',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 2',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 3',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+    ],
+    [
+        {
+            desc: 'Effect 1',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 2',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 3',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+    ],
+
+    [
+        {
+            desc: 'Effect 1',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 2',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 3',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+    ],
+    [
+        {
+            desc: 'Effect 1',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 2',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 3',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+    ],
+    [
+        {
+            desc: 'Effect 1',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 2',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 3',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+    ],
+    [
+        {
+            desc: 'Effect 1',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 2',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+        {
+            desc: 'Effect 3',
+            effect: () => 1,
+            baseEffect: () => 1,
+            effectIsDecimal: false,
+            effectIsIndex: false,
+        },
+    ],
+
+]
+
 function initDestabilizedRealm(){
     initDBUPs()
     initDChallenges()
@@ -379,9 +661,22 @@ function initDBUPs(){
     }
     for (let i = 0; i < data.destab.hasBUP.length; i++) {
         DOM(`dBup${i}`).addEventListener('click', ()=>buyDestabBUP(i, true))
-        DOM(`dBup${i}`).addEventListener('mouseenter', ()=>showNextDestabBUPLevelEffect(i, true))
-        DOM(`dBup${i}`).addEventListener('mouseleave', ()=>showNextDestabBUPLevelEffect(i, false))
         DOM(`dBup${i}`).style.backgroundColor = data.destab.isShattered[i] ? '#3b3100' : data.destab.hasBUP[i] ? '#250505' : 'black'
+
+        let isMouseOver = false
+        DOM(`dBup${i}`).addEventListener('mouseover', async ()=> {
+            if(hasDBUP(i)) isMouseOver = true
+            while(isMouseOver){
+                DOM(`dBup${i}`).innerHTML = wordCycle(getOverallSBUPDesc(i))
+                await new Promise(resolve => setTimeout(resolve, 50)) // No blow up PC :D
+            }
+        })
+        DOM(`dBup${i}`).addEventListener('mouseleave', ()=> {
+            if(isMouseOver === true){
+                isMouseOver = false
+                DOM(`dBup${i}`).innerHTML = getBaseDBUPDesc(i)
+            }
+        })
     }
 
     let unlockCol = DOM(`dBuColumn`)
@@ -489,12 +784,13 @@ function destabilizationHTML(){
 function updateDestabBoostersHTML() {
     DOM('dBoosterText').innerHTML = /*data.boost.unlocks[1] > 0 ?
         `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
-        : */ `You have <span style="color: #ff8080; font-family: DosisSemiBold">${(data.destab.amt)} Unstable Boosters</span> (${(data.destab.total)} total)`
+        : */ `You have <span style="color: #ff8080; font-family: DosisSemiBold">${(data.destab.amt)} Unstable Boosters</span> (${(data.destab.total)} total) and <span style="color: silver; font-family: DosisSemiBold">${data.destab.baselessEnergy} Imaginary Energy</span> (${data.baseless.bestDestabShift-7} total)`
     DOM('dBoosterTimesText').innerHTML = `You have <span style="color: #ff8080">Boosted</span> ${data.destab.times} times`
 
     if(data.nav.current === 'markup') DOM(`dFactorBoostButton`).innerHTML = `Perform an Unstable Boost [+${getDBoosterGain()}] (B)<br>Requires ${displayDBoostReq()}`
     if(data.nav.current === 'markup') DOM("dFactorBoostButton").style.color = data.ord.ordinal.gte(dBoostReq()) ? '#fff480' : '#ff8080'
 
+    if(destabBoostTab === 'dUpgrades') DOM(`dBupBottomText`).style.display = data.baseless.shifts > 7 ? 'block' : 'none'
     if(destabBoostTab === 'dIncrementy') updateDIncrementyHTML()
     if(destabBoostTab === 'dHierarchies') updateDHierarchyHTML()
 
@@ -554,10 +850,6 @@ function buyDestabBUP(n, shatter){
     if(inDChallenge(4)) updateDChalHTML(4)
 
     DOM(`dBup${n}`).style.backgroundColor = '#250505'
-}
-
-function showNextDestabBUPLevelEffect(i, show){
-
 }
 
 function dBoosterRefund(){
@@ -699,7 +991,6 @@ function dBoosterReset(){
 }
 
 let isDestabilizedRealm = () => data.baseless.mode === 2 && getEUPEffect(4, 1) && data.baseless.baseless
-let isShattered = () => isDestabilizedRealm() && data.destab.shattered
 
 let isDBUUnlocked = (i) => data.destab.total >= destabUnlockData[i].req
 let hasDBUP = (i) => data.destab.hasBUP[i]
@@ -714,9 +1005,8 @@ function getDBUPEffect(i){
 }
 let getDBUPCost = (i) => destabBupData[i].cost
 let getBaseDBUPDesc = (i) => `${destabBupData[i].desc}<br>${getDBUPCost(i)} Unstable Boosters`
-function getDBUPDesc(i, showNextLevel = false){
-    //if(data.destab.isShattered[i]) return chargedBUPData[i].desc
-    if(data.destab.hasBUP[i]) return showNextLevel ? chargedBUPData[i].desc : getBaseDBUPDesc(i)
+function getDBUPDesc(i){
+    if(data.destab.isShattered[i]) return getBaseSBUPDesc(i)
     return getBaseDBUPDesc(i)
 }
 
@@ -822,4 +1112,51 @@ let getDHUPEffectDesc = (i) => `Currently: ${format(getDHUPEffect(i))}x`
 
 let getDHierarchyGain = () => data.ord.base*getDHUPEffect(0)*getDHUPEffect(1)
 
-let getBaselessEnergyReq = () => Math.max(8, data.baseless.bestShift)
+let getBaselessEnergyReq = () => Math.max(8, data.baseless.bestDestabShift+1)
+
+let isBUPShattered = (i) => data.destab.isShattered[i]
+function getOverallSBUPDesc(i){
+    let array = []
+    for (let j = 0; j < 3; j++) {
+        array.push(shatteredBUPData[i][j].desc)
+    }
+    return array
+}
+let getBaseSBUPDesc = (i) => data.darkness.darkened ? shatteredBUPData[i][1].desc : data.baseless.baseless ? shatteredBUPData[i][2].desc : shatteredBUPData[i][0].desc
+function getSBUPEffect(i, j = null, forceShow = false, showIndex = -1){
+    if((data.darkness.darkened && isBUPShattered(i)) || (forceShow && showIndex === 1)){
+        if(shatteredBUPData[i][1].effectIsIndex && j === null) j = 0
+        if(shatteredBUPData[i][1].isDecimal){
+            return shatteredBUPData[i][1].effectIsIndex
+                ? Decimal.max(shatteredBUPData[i][1].effect(j), shatteredBUPData[i][1].baseEffect())
+                : Decimal.max(shatteredBUPData[i][1].effect(j), shatteredBUPData[i][1].baseEffect())
+        }
+        return shatteredBUPData[i][1].effectIsIndex
+            ? Math.max(shatteredBUPData[i][1].effect(j), shatteredBUPData[i][1].baseEffect())
+            : Math.max(shatteredBUPData[i][1].effect(j), shatteredBUPData[i][1].baseEffect())
+    }
+    if((data.baseless.baseless && isBUPShattered(i)) || (forceShow && showIndex === 2)){
+        if(shatteredBUPData[i][2].effectIsIndex && j === null) j = 0
+        if(shatteredBUPData[i][2].isDecimal){
+            return shatteredBUPData[i][2].effectIsIndex
+                ? Decimal.max(shatteredBUPData[i][2].effect(j), shatteredBUPData[i][2].baseEffect())
+                : Decimal.max(shatteredBUPData[i][2].effect(j), shatteredBUPData[i][2].baseEffect())
+        }
+        return shatteredBUPData[i][2].effectIsIndex
+            ? Math.max(shatteredBUPData[i][2].effect(j), shatteredBUPData[i][2].baseEffect())
+            : Math.max(shatteredBUPData[i][2].effect(j), shatteredBUPData[i][2].baseEffect())
+    }
+    if(isBUPShattered(i) || (forceShow && showIndex === 0)){
+        if(shatteredBUPData[i][0].effectIsIndex && j === null) j = 0
+        if(shatteredBUPData[i][0].isDecimal){
+            return shatteredBUPData[i][0].effectIsIndex
+                ? Decimal.max(shatteredBUPData[i][0].effect(j), shatteredBUPData[i][0].baseEffect())
+                : Decimal.max(shatteredBUPData[i][0].effect(j), shatteredBUPData[i][0].baseEffect())
+        }
+        return shatteredBUPData[i][0].effectIsIndex
+            ? Math.max(shatteredBUPData[i][0].effect(j), shatteredBUPData[i][0].baseEffect())
+            : Math.max(shatteredBUPData[i][0].effect(j), shatteredBUPData[i][0].baseEffect())
+    }
+
+    return data.darkness.darkened ? shatteredBUPData[i][1].baseEffect() : data.baseless.baseless ? shatteredBUPData[i][2].baseEffect() : shatteredBUPData[i][0].baseEffect()
+}

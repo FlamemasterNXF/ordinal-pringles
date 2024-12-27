@@ -27,10 +27,11 @@ function randomSymbol() {
 //   word. This mostly serves to smoothly ease between strings of different lengths, and only occurs between
 //   strings which already have a high randomization fraction (frac > 1.3)
 
-function wordCycle(list, noBuffer = false) {
+function wordCycle(list, customWait = null, noBuffer = false) {
+    let wait = customWait === null ? 250: customWait
     const len = list.length;
-    const tick = Math.floor(Date.now() / 250) % (len * 5);
-    const mod5 = ((Date.now() / 250) % (len * 5)) % 5;
+    const tick = Math.floor(Date.now() / wait) % (len * 5);
+    const mod5 = ((Date.now() / wait) % (len * 5)) % 5;
     const largeTick = Math.floor(tick / 5);
     let v = list[largeTick];
 
