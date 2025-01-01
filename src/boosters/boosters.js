@@ -202,6 +202,7 @@ function getBUPEffect(i) {
 }
 let getBaseBUPDesc = (i) => `${bupData[i].desc}<br>${getBUPCosts(i)} Boosters`
 function getBUPDesc(i, showNextLevel = false){
+    if(isBUPShattered(i)) return getBaseSBUPDesc(i)
     if(data.boost.isCharged[i]) return chargedBUPData[i].desc
     if(data.boost.hasBUP[i]) return showNextLevel ? chargedBUPData[i].desc : getBaseBUPDesc(i)
     return getBaseBUPDesc(i)
@@ -213,7 +214,7 @@ function initBUPs(){
     for (let i = 0; i < rows.length; i++) {
         for (let n = 0; n < 5; n++) {
             let bup = document.createElement('button')
-            bup.className = data.boost.isCharged[total] ? 'chargedBUP' : 'bup'
+            bup.className = isBUPShattered(total) ? 'shatteredBUP' : data.boost.isCharged[total] ? 'chargedBUP' : 'bup'
             bup.id = `bup${total}`
             bup.innerHTML = `${getBUPDesc(total)}`
 
@@ -226,7 +227,7 @@ function initBUPs(){
         DOM(`bup${i}`).addEventListener('click', ()=>buyBUP(i, bottomRow, true))
         DOM(`bup${i}`).addEventListener('mouseenter', ()=>showNextBUPLevelEffect(i, true))
         DOM(`bup${i}`).addEventListener('mouseleave', ()=>showNextBUPLevelEffect(i, false))
-        DOM(`bup${i}`).style.backgroundColor = data.boost.isCharged[i] ? '#3b3100' : data.boost.hasBUP[i] ? '#002480' : 'black'
+        DOM(`bup${i}`).style.backgroundColor = isBUPShattered(i) ? '#202020' : data.boost.isCharged[i] ? '#3b3100' : data.boost.hasBUP[i] ? '#002480' : 'black'
     }
     for (let i = 0; i < data.boost.unlocks.length; i++) {
         DOM(`bu${i}`).style.backgroundColor = data.boost.unlocks[i]?'#002480':'black'
@@ -288,7 +289,20 @@ function updateAllBUPHTML(){
     }
 }
 
+function updateAllSplitBUPHTML(isDestabilized = false){
+    let id = isDestabilized ? 'dBup' : 'bup'
+    if(!isDestabilized) updateAllBUPHTML()
+    for (let i = 0; i < data.boost.hasBUP.length; i++) {
+        if(!isBUPShattered(i)) continue;
+        DOM(`${id}${i}`).style.className = `shatterdBUP`
+        DOM(`${id}${i}`).style.color = 'silver'
+        DOM(`${id}${i}`).style.borderColor = '#8e8e8e'
+        DOM(`${id}${i}`).style.backgroundColor = '#202020'
+    }
+}
+
 function showNextBUPLevelEffect(i, showNextLevel) {
+    if(isBUPShattered(i)) return
     if(data.incrementy.totalCharge === 0 && data.darkness.sacrificedCharge === 0) return
     if(!getEUPEffect(4, 0) && data.boost.isCharged[i]) return
     DOM(`bup${i}`).style.color = showNextLevel || data.boost.isCharged[i] && data.boost.unlocks[1] ? 'goldenrod' : '#8080FF'

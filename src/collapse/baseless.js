@@ -159,6 +159,7 @@ function baselessControl(){
 
     if(data.baseless.mode === 2 && getEUPEffect(4, 1)){
         destabilizationHTML()
+        updateAllSplitBUPHTML(data.baseless.baseless)
     }
 
     DOM(`baseless`).children[0].innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`

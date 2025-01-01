@@ -98,7 +98,7 @@ let destabUnlockData = [
         req: 0
     },
     {
-        desc: 'Unlock Hierarchies',
+        desc: 'Unlock the N-Growing Hierarchy',
         unl: 'Hierarchies',
         req: 0
     },
@@ -660,13 +660,17 @@ function initDBUPs(){
         }
     }
     for (let i = 0; i < data.destab.hasBUP.length; i++) {
-        DOM(`dBup${i}`).addEventListener('click', ()=>buyDestabBUP(i, true))
-        DOM(`dBup${i}`).style.backgroundColor = data.destab.isShattered[i] ? '#3b3100' : data.destab.hasBUP[i] ? '#250505' : 'black'
+        DOM(`dBup${i}`).addEventListener('click', ()=>buyDestabBUP(i))
+        DOM(`dBup${i}`).style.backgroundColor = isBUPShattered(i) ? '#202020' : hasDBUP(i) ? '#250505' : 'black'
 
         let isMouseOver = false
         DOM(`dBup${i}`).addEventListener('mouseover', async ()=> {
-            if(hasDBUP(i)) isMouseOver = true
+            if(hasDBUP(i) && !isBUPShattered(i)) isMouseOver = true
             while(isMouseOver){
+                if(isBUPShattered(i)){
+                    isMouseOver = false
+                    DOM(`dBup${i}`).innerHTML = getDBUPDesc(i)
+                }
                 DOM(`dBup${i}`).innerHTML = wordCycle(getOverallSBUPDesc(i))
                 await new Promise(resolve => setTimeout(resolve, 50)) // No blow up PC :D
             }
@@ -674,7 +678,7 @@ function initDBUPs(){
         DOM(`dBup${i}`).addEventListener('mouseleave', ()=> {
             if(isMouseOver === true){
                 isMouseOver = false
-                DOM(`dBup${i}`).innerHTML = getBaseDBUPDesc(i)
+                DOM(`dBup${i}`).innerHTML = getDBUPDesc(i)
             }
         })
     }
@@ -790,7 +794,7 @@ function updateDestabBoostersHTML() {
     if(data.nav.current === 'markup') DOM(`dFactorBoostButton`).innerHTML = `Perform an Unstable Boost [+${getDBoosterGain()}] (B)<br>Requires ${displayDBoostReq()}`
     if(data.nav.current === 'markup') DOM("dFactorBoostButton").style.color = data.ord.ordinal.gte(dBoostReq()) ? '#fff480' : '#ff8080'
 
-    if(destabBoostTab === 'dUpgrades') DOM(`dBupBottomText`).style.display = data.baseless.shifts > 7 ? 'block' : 'none'
+    if(destabBoostTab === 'dUpgrades') DOM(`dBupBottomText`).style.display = data.baseless.bestDestabShift > 7 ? 'block' : 'none'
     if(destabBoostTab === 'dIncrementy') updateDIncrementyHTML()
     if(destabBoostTab === 'dHierarchies') updateDHierarchyHTML()
 
@@ -834,11 +838,12 @@ function updateDHUPHTML(i){
     DOM(`dHUP${i}`).innerHTML = getDHUPDesc(i)
 }
 
-function buyDestabBUP(n, shatter){
+function buyDestabBUP(n){
+    if(hasDBUP(n)) return shatterBUP(n)
     if(n % 4 !== 0 && !data.destab.hasBUP[n-1]){
         for (let i = 0; i < n % 4; i++) {
             let index = (i % 4) + (4 * Math.floor(n / 4))
-            buyDestabBUP(index, false)
+            buyDestabBUP(index)
         }
     }
 
@@ -850,6 +855,18 @@ function buyDestabBUP(n, shatter){
     if(inDChallenge(4)) updateDChalHTML(4)
 
     DOM(`dBup${n}`).style.backgroundColor = '#250505'
+}
+
+function shatterBUP(n){
+    if(data.destab.baselessEnergy === 0) return
+    data.destab.isShattered[n] = true
+    --data.destab.baselessEnergy
+
+    DOM(`dBup${n}`).innerHTML = getDBUPDesc(n)
+    DOM(`dBup${n}`).style.className = `shatterdBUP`
+    DOM(`dBup${n}`).style.color = 'silver'
+    DOM(`dBup${n}`).style.borderColor = '#8e8e8e'
+    DOM(`dBup${n}`).style.backgroundColor = '#202020'
 }
 
 function dBoosterRefund(){
