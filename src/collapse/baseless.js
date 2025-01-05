@@ -216,8 +216,8 @@ let getBaselessColor = (i) => baselessData[i].altUnlock() ? baselessData[i].altC
 let getBaselessMult = (i) => baselessData[i].multiplier()
 let getBaselessLock = (i) => baselessData[i].lock()
 let chargeBoostToBaseless = (display = false) => data.baseless.baseless || display
-    ? Math.max(1, ((data.incrementy.totalCharge**10)*getEUPEffect(1, 1, true))**getANREffect(1))
-    : 1
+    ? Decimal.max(D(1), D(data.incrementy.totalCharge).pow(10).times(getEUPEffect(1, 1)).pow(getANREffect(1)))
+    : D(1)
 let getANRCost = (i) => ((anRebuyableData[i].costBase/100+1)**data.baseless.anRebuyables[i])*anRebuyableData[i].costBase
 let getANREffect = (i, number = true) => {
     if(number) return getANREffect(i, false).toNumber()

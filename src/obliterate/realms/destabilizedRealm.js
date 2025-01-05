@@ -9,7 +9,7 @@ let destabBupData = [
     {
         desc: "OP provides free Factors",
         cost: 5,
-        eff: () => Math.floor(Decimal.pow(Decimal.log10(data.markup.powers+1), 1/4).toNumber()),
+        eff: () => Math.floor(Decimal.pow(Decimal.log10(data.markup.powers+1), 1/2).toNumber()),
         baseEff: () => 0,
         isDecimal: false
     },
@@ -38,7 +38,7 @@ let destabBupData = [
     {
         desc: "OP boosts AutoClickers",
         cost: 4,
-        eff: () => Decimal.log2(Decimal.sqrt(data.markup.powers).plus(1)),
+        eff: () => Decimal.log2((data.markup.powers).plus(1)),
         baseEff: () => D(1),
         isDecimal: true
     },
@@ -67,7 +67,7 @@ let destabBupData = [
     {
         desc: "Baseless Shifts boost AutoClicker speed",
         cost: 8,
-        eff: () => Math.pow(data.baseless.shifts, 10),
+        eff: () => Math.pow(data.baseless.shifts, data.baseless.shifts*10),
         baseEff: () => 1,
         isDecimal: false
     },
@@ -1086,14 +1086,6 @@ let getDChallengeLock = (i) => 5+data.destab.completions[i]
 let isInAnyDChallenge = () => data.destab.chalActive !== -1
 let inDChallenge = (i) => data.destab.chalActive === i
 let isDChallengeMax = (i) => data.destab.completions[i] > 2
-
-function getTotalDChallengeCompletions(){
-    let total = 0
-    for (let i = 0; i < data.destab.completions; i++) {
-        total += data.destab.completions
-    }
-    return total
-}
 
 function getDChallengeEffect(i, j = null){
     if(getDChallengeCompletions(i) === 0) return destabChallengeData[i].effectBase()
