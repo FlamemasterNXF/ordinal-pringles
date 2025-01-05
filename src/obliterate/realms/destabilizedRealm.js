@@ -182,7 +182,7 @@ let destabChallengeData = [
 
 let destabIUPData = [
     {
-        desc: 'Double ?Incrementy? Gain',
+        desc: 'Double Unstable Incrementy Gain',
         sign: 'x',
 
         cost: () => 1e3**Math.sqrt(data.destab.rupLevels[0]+1),
@@ -206,7 +206,7 @@ let destabIUPData = [
         upgradeIsRebuyable: true,
     },
     {
-        desc: '?Incrementy? boosts Dynamic Gain',
+        desc: 'Unstable Incrementy boosts Dynamic Gain',
         sign: 'x',
 
         cost: () => 1e5**(Math.sqrt(data.destab.rupLevels[2]+1)),
@@ -219,7 +219,7 @@ let destabIUPData = [
     },
 
     {
-        desc: 'Unstable boosts boost ?Incrementy? gain',
+        desc: 'Unstable boosts boost Unstable Incrementy gain',
         sign: 'x',
 
         cost: () => 1e5,
@@ -231,7 +231,7 @@ let destabIUPData = [
         upgradeIsRebuyable: false,
     },
     {
-        desc: 'Your Base boosts ?Incrementy? Gain',
+        desc: 'Your Base boosts Unstable Incrementy Gain',
         sign: 'x',
 
         cost: () => 5e7,
@@ -267,7 +267,7 @@ let destabIUPData = [
         upgradeIsRebuyable: false,
     },
     {
-        desc: 'Baseless Shifts boost the Ordinal to ?Incrementy? conversion',
+        desc: 'Baseless Shifts boost the Ordinal to Unstable Incrementy conversion',
         sign: '+',
 
         cost: () => 5e13,
@@ -325,7 +325,7 @@ let growthUpgradeData = [
         effectIsDecimal: false,
     },
     {
-        desc: 'Boost ?Incrementy? gain',
+        desc: 'Boost Unstable Incrementy gain',
         sign: 'x',
         effect: () => safeLog(data.destab.hierarchy.ord*getFunctionalGUPPercentage(1), 10),
         baseEffect: () => 1,
@@ -738,7 +738,7 @@ function initDIncrementy(){
             iup.innerText = `${getDIUPDesc(id)}`
             iup.addEventListener('click', () => buyDIUP(id))
 
-            if(!isDIUPRebuyable(id) && hasDIUP(id)) iup.style.color = `#da3131`
+            if(!isDIUPRebuyable(id) && hasDIUP(id)) iup.style.color = `#9e5324`
 
             row.append(iup)
         }
@@ -818,15 +818,14 @@ function updateDChalHTML(i){
     DOM(`dChallenge${i}`).innerHTML = `Challenge ${i+1}<br><br>${getDChallengeDesc(i)}`
 }
 
-let dIncrementyNames = ['Unstable', 'Broken', 'Shattered']
 function updateDIncrementyHTML(){
-    DOM(`dIncrementyText`).innerText = `You have ${format(data.destab.incrementy)} ${wordCycle(dIncrementyNames)} Incrementy [+${format(getDIncrementyGain())}/s], multiplying your AutoClicker speed by ${format(getDIncrementyEffect())}`
+    DOM(`dIncrementyText`).innerText = `You have ${format(data.destab.incrementy)} Unstable Incrementy [+${format(getDIncrementyGain())}/s], multiplying your AutoClicker speed by ${format(getDIncrementyEffect())}x`
     DOM(`dDynamicText2`).innerText = `Your Dynamic Factor is ${format(data.dy.level)} [+${format(dyGain())}/s], it caps at ${format(getDyCap())}`
 }
 
 function updateDIUPHTML(i){
     DOM(`dIUP${i}`).innerText = getDIUPDesc(i)
-    if(!isDIUPRebuyable(i) && hasDIUP(i)) DOM(`dIUP${i}`).style.color = `#da3131`
+    if(!isDIUPRebuyable(i) && hasDIUP(i)) DOM(`dIUP${i}`).style.color = `#9e5324`
 }
 
 function updateDHierarchyHTML(){
@@ -1111,7 +1110,7 @@ let getDIUPDescBase = (i) => destabIUPData[i].desc
 let getDIUPLevels = (i) => data.destab.rupLevels[i]
 let getDIUPLevelsDesc = (i) => isDIUPRebuyable(i) ? ` (${getDIUPLevels(i)})` : ''
 let getDIUPCost = (i) => destabIUPData[i].cost()
-let getDIUPCostDesc = (i) => isDIUPRebuyable(i) || !hasDIUP(i) ? `Cost: ${format(getDIUPCost(i))} ?Incrementy?` : ''
+let getDIUPCostDesc = (i) => isDIUPRebuyable(i) || !hasDIUP(i) ? `Cost: ${format(getDIUPCost(i))} Unstable Incrementy` : ''
 let isDIUPMultiplier = (i) => destabIUPData[i].sign === 'x'
 let getDIUPEffectDesc = (i) => `Currently: ${!isDIUPMultiplier(i) ? destabIUPData[i].sign : ''}${format(getDIUPEffect(i))}${isDIUPMultiplier(i) ? destabIUPData[i].sign : ''}`
 let hasDIUP = (i) => isDIUPRebuyable(i) ? data.destab.rupLevels[i] > 0 : data.destab.hasUpgrade[i]

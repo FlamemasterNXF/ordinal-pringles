@@ -6,11 +6,11 @@
 }
 .generalTexts{
     color: white;
-    font-family: DosisLight;
+    font-family: DosisLight, sans-serif;
 }
 .centeredTexts{
     color: white;
-    font-family: DosisLight;
+    font-family: DosisLight, sans-serif;
     text-align: center;
 }
 .column {
@@ -111,8 +111,8 @@
 .dIUP{
     width: 17rem;
     height: 5.5rem;
-    border: 2px solid #9f3c3c;
-    color: #ff8080;
+    border: 2px solid #703d2b;
+    color: #ae7b56;
     background: black;
     margin-top: 0.5rem;
     margin-right: 0.25rem;
@@ -129,7 +129,7 @@
 }
 .automationText{
     color: white;
-    font-family: DosisLight;
+    font-family: DosisLight, sans-serif;
 }
 .automation0{
     margin-top: 1rem;
@@ -230,12 +230,12 @@
     flex-wrap: wrap;
 }
 .hierarchies{
-    font-family: DosisLight;
+    font-family: DosisLight, sans-serif;
     font-size: 2rem;
     color: #8080FF;
 }
 .dHierarchy{
-    font-family: DosisLight;
+    font-family: DosisLight, sans-serif;
     font-size: 2rem;
     color: #ce6a6a;
 }
@@ -299,7 +299,7 @@
 }
 .overflowText{
     color: white;
-    font-family: DosisSemiBold;
+    font-family: DosisSemiBold, serif;
 }
 .tabButton{
     width: 7rem;
@@ -318,7 +318,7 @@
 }
 .alephText{
     color: white;
-    font-family: DosisLight;
+    font-family: DosisLight, sans-serif;
     text-align: center;
 }
 .cupRow{
@@ -426,7 +426,7 @@
     text-align: center;
     color: white;
     place-content: center;
-    box-shadow: rgba(0,0,0,0.2) 0px 2px 3px, inset rgba(0,0,0,0.2) 0px -1px 2px;
+    box-shadow: rgba(0,0,0,0.2) 0 2px 3px, inset rgba(0,0,0,0.2) 0 -1px 2px;
 }
 .singControl{
     width: 12rem;
@@ -438,7 +438,7 @@
 }
 .singFunction{
     color: darkgray;
-    font-family: DosisLight;
+    font-family: DosisLight, sans-serif;
     text-align: center;
 }
 #baseless{
@@ -448,7 +448,7 @@
     color: #ae6610;
     background: black;
     margin-top: 0.5rem;
-    font-family: DosisSemiBold;
+    font-family: DosisSemiBold, serif;
 }
 .anRebuyable{
     width: 16rem;
@@ -488,7 +488,8 @@
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     width: 30rem;
-    height: 5rem;    box-shadow: rgba(0,0,0,0.2) 0px 2px 3px, inset rgba(0,0,0,0.2) 0px -1px 2px;
+    height: 5rem;
+    box-shadow: rgba(0,0,0,0.2) 0 2px 3px, inset rgba(0,0,0,0.2) 0 -1px 2px;
 
     border: 2px solid #4b001a;
     color: #940525;
@@ -570,10 +571,10 @@
 .progress{
     border-radius: 6px;
     width: 7rem;
-    height: 0%;
+    height: 0;
     text-align: center;
     position:absolute;
-    bottom:0px;
+    bottom:0;
 }
 .settingsButton{
     width: 10rem;
