@@ -1,7 +1,7 @@
 let timesToLoop = [0,0, 0,0]
 
 let t1AutoPure = () => D(totalFactorEffect()).mul(mainT1AutoBoost())
-    .mul(isInAnyChallenge() ? getDBUPEffect(3) : 1).mul(getDBUPEffect(5)).mul(getDBUPEffect(6)).mul(getDBUPEffect(9))
+    .mul(isInAnyDChallenge() ? getDBUPEffect(3) : 1).mul(getDBUPEffect(5)).mul(getDBUPEffect(6)).mul(getDBUPEffect(9))
     .mul(getDBUPEffect(10)).mul(getDBUPEffect(11)).mul(getDIncrementyEffect()).mul(getGUPEffect(0))
 
 let mainT1AutoBoost = () => inDChallenge(1) || inDChallenge(4) ? 1 :

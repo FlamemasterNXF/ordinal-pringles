@@ -30,6 +30,7 @@ function switchSubtab(t, mode){
         markupTab = t
 
         if(t === "factor"){
+            DOM(`factorShiftButton`).style.display = data.baseless.baseless ? 'none' : 'block'
             DOM(`dFactorBoostButton`).style.display = isDestabilizedRealm() ? 'block' : 'none'
             DOM(`factorBoostButton`).style.display = (data.boost.times>0 || data.collapse.times>0 || data.obliterate.times>0) && !isDestabilizedRealm() ? 'inline-block':'none'
         }

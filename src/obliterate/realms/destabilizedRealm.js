@@ -90,22 +90,22 @@ let destabUnlockData = [
     {
         desc: 'Unlock Challenges',
         unl: 'Challenges',
-        req: 0
+        req: 15
     },
     {
         desc: 'Unlock Incrementy and increase the Dynamic Gain base',
         unl: 'Incrementy',
-        req: 0
+        req: 999
     },
     {
         desc: 'Unlock the N-Growing Hierarchy',
         unl: 'Hierarchies',
-        req: 0
+        req: 999
     },
     {
-        desc: 'You can now Baseless Shift more than seven times, but the reward is changed',
+        desc: '???',
         unl: 'Hierarchies',
-        req: 0
+        req: Infinity
     },
 ]
 
@@ -1135,7 +1135,7 @@ function getTotalDRUPLevels(){
 }
 
 let getDIncrementyGain = () => isDestabilizedRealm() ? (data.ord.ordinal.pow(0.001+getDIUPEffect(7)).toNumber())*getDIUPEffect(0)*getDIUPEffect(3)*getDIUPEffect(4)*getDIUPEffect(9)*getGUPEffect(1) : 0
-let getDIncrementyEffect = () => isDestabilizedRealm() ? Math.sqrt(data.destab.incrementy) : 1
+let getDIncrementyEffect = () => isDestabilizedRealm() ? Math.max(1, Math.sqrt(data.destab.incrementy)) : 1
 
 let getGUPDesc = (i) => `${getGUPDescBase(i)}\n${getGUPEffectDesc(i)}\nHierarchy percent to allocate: `
 let getGUPDescBase = (i) => growthUpgradeData[i].desc
