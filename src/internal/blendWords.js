@@ -28,7 +28,7 @@ function randomSymbol() {
 //   strings which already have a high randomization fraction (frac > 1.3)
 
 function wordCycle(list, customWait = null, noBuffer = false) {
-    let wait = customWait === null ? 250: customWait
+    let wait = customWait === null ? 250 : customWait
     const len = list.length;
     const tick = Math.floor(Date.now() / wait) % (len * 5);
     const mod5 = ((Date.now() / wait) % (len * 5)) % 5;

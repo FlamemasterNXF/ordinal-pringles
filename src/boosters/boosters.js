@@ -190,14 +190,16 @@ let chargedBUPData = [
 
 let getBUPCosts = (i) => bupData[i].cost
 function getBUPEffect(i) {
-    // Special Case for BUPs 5 and 10
-    if((i === 5) || (i === 10) ){
-        if(data.boost.isCharged[5] && data.boost.isCharged[10] && data.hierarchies.hasUpgrade[3]) return chargedBUPData[5].eff()**2
-        if(data.boost.isCharged[5] || data.boost.isCharged[10]) return chargedBUPData[5].eff()
-    }
+    if(!isDestabilizedRealm() && !isBUPShattered(i)){
+        // Special Case for BUPs 5 and 10
+        if((i === 5) || (i === 10) ){
+            if(data.boost.isCharged[5] && data.boost.isCharged[10] && data.hierarchies.hasUpgrade[3]) return chargedBUPData[5].eff()**2
+            if(data.boost.isCharged[5] || data.boost.isCharged[10]) return chargedBUPData[5].eff()
+        }
 
-    if(data.boost.isCharged[i]) return chargedBUPData[i].eff()
-    if(data.boost.hasBUP[i]) return bupData[i].eff()
+        if(data.boost.isCharged[i]) return chargedBUPData[i].eff()
+        if(data.boost.hasBUP[i]) return bupData[i].eff()
+    }
     return bupData[i].baseEff()
 }
 let getBaseBUPDesc = (i) => `${bupData[i].desc}<br>${getBUPCosts(i)} Boosters`
@@ -275,7 +277,8 @@ function updateBoostersHTML(){
 function updateHeaderHTML(){
     const el = DOM(`chalIn`)
     el.style.display = data.chal.active.includes(true) || data.baseless.baseless || inAnyPurification() ? 'block' : 'none'
-    el.innerHTML = data.baseless.baseless && data.baseless.mode === 2 && isDBUUnlocked(3) ? `You are in the Destabilized Realm and have Baseless Shifted ${data.baseless.shifts} times<br>You will gain <span style="color: silver">1 Imaginary Energy</span> on your ${getBaselessEnergyReq()}th Baseless Shift`
+    //<br>You will gain <span style="color: silver">1 Imaginary Energy</span> on your ${getBaselessEnergyReq()}th Baseless Shift
+    el.innerHTML = data.baseless.baseless && data.baseless.mode === 2 && isDBUUnlocked(3) ? `You are in the Destabilized Realm and have Baseless Shifted ${data.baseless.shifts} times`
         : isInAnyDChallenge() ? `You are in Unstable Challenge ${data.destab.chalActive+1} in the Destabilized Realm with ${data.baseless.shifts} Baseless Shifts`
         : inAnyPurification() ? `The ${purificationData[data.omega.whichPurification].alt} will be Purified${data.darkness.darkened ? `<br>${getDarknessText()}` : ''}`
         : data.baseless.baseless ? `You are in the ${getBaselessName(data.baseless.mode)} Realm and have Baseless Shifted ${data.baseless.shifts} times`
@@ -289,7 +292,8 @@ function updateAllBUPHTML(){
     }
 }
 
-function updateAllSplitBUPHTML(isDestabilized = false){
+/*
+function updateAllShatteredBUPHTML(isDestabilized = false){
     let id = isDestabilized ? 'dBup' : 'bup'
     if(!isDestabilized) updateAllBUPHTML()
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
@@ -300,6 +304,7 @@ function updateAllSplitBUPHTML(isDestabilized = false){
         DOM(`${id}${i}`).style.backgroundColor = '#202020'
     }
 }
+ */
 
 function showNextBUPLevelEffect(i, showNextLevel) {
     if(isBUPShattered(i)) return

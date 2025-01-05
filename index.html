@@ -186,6 +186,8 @@
                 :boosterRefund()">Refund your Booster Upgrades</button>
                 <button class="boostTopButton" id="chargeRefund" style="display: none; margin-left: 0.25rem" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Charged Booster Upgrades and return spent Charge, but it will force you to exit your Challenge!', 'Go back!', 'Go ahead.', respecCharge)
                 :respecCharge()">Refund your Charged Booster Upgrades</button>
+                <button class="boostTopButton" id="shatterRefund" style="display: none; margin-left: 0.25rem" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Shattered Booster Upgrades and return spent Imaginary Energy, but it will force a Boost reset!', 'Go back!', 'Go ahead.', respecShattered)
+                :respecShattered()">Refund your Shattered Upgrades</button>
             </div>
             <div class="flexBox">
                 <div class="flexBox" id="bupColumn0" style="flex-direction: column"></div>
@@ -479,8 +481,8 @@
             <div class="centeredTexts" id="dBoosterTimesText" style="font-size: 0.8rem; color: gray">boosteeeeeeeee times</div>
             <div class="flexBox" style="flex-direction: row;">
                 <button class="dBoostTopButton" id="dBoostRefund" style="margin-right: 0.25rem" onclick="dBoosterRefund()">Refund your Booster Upgrades</button>
-                <button class="dBoostTopButton" id="shatterRefund" style="display: none; margin-left: 0.25rem" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Charged Booster Upgrades and return spent Charge, but it will force you to exit your Challenge!', 'Go back!', 'Go ahead.', respecCharge)
-                :respecCharge()">Refund your Shattered Upgrades</button>
+                <button class="dBoostTopButton" id="dShatterRefund" style="display: none; margin-left: 0.25rem" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Shattered Booster Upgrades and return spent Imaginary Energy, but it will force a Collapse reset!', 'Go back!', 'Go ahead.', respecShattered)
+                :respecShattered()">Refund your Shattered Upgrades</button>
             </div>
             <div class="flexBox">
                 <div class="flexBox" id="dBupColumn0" style="flex-direction: column"></div>

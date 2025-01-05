@@ -357,24 +357,26 @@ let destabHUPData = [
     }
 ]
 
+// Each sub-array corresponds to a given upgrade
+// The effects are in the order of Normal, Darkness, and then Baseless
 let shatteredBUPData = [
     [
         {
-            desc: 'Effect 1',
+            desc: 'Each Factor\'s effect is multiplied by 16x',
             effect: () => 1,
             baseEffect: () => 1,
             effectIsDecimal: false,
             effectIsIndex: false,
         },
         {
-            desc: 'Effect 2',
+            desc: 'Factors boost Decrementy gain',
             effect: () => 1,
             baseEffect: () => 1,
             effectIsDecimal: false,
             effectIsIndex: false,
         },
         {
-            desc: 'Effect 3',
+            desc: 'Each Factor\'s effect is squared',
             effect: () => 1,
             baseEffect: () => 1,
             effectIsDecimal: false,
@@ -663,6 +665,7 @@ function initDBUPs(){
         DOM(`dBup${i}`).addEventListener('click', ()=>buyDestabBUP(i))
         DOM(`dBup${i}`).style.backgroundColor = isBUPShattered(i) ? '#202020' : hasDBUP(i) ? '#250505' : 'black'
 
+        /*
         let isMouseOver = false
         DOM(`dBup${i}`).addEventListener('mouseover', async ()=> {
             if(hasDBUP(i) && !isBUPShattered(i)) isMouseOver = true
@@ -670,6 +673,7 @@ function initDBUPs(){
                 if(isBUPShattered(i)){
                     isMouseOver = false
                     DOM(`dBup${i}`).innerHTML = getDBUPDesc(i)
+                    break
                 }
                 DOM(`dBup${i}`).innerHTML = wordCycle(getOverallSBUPDesc(i))
                 await new Promise(resolve => setTimeout(resolve, 50)) // No blow up PC :D
@@ -681,6 +685,7 @@ function initDBUPs(){
                 DOM(`dBup${i}`).innerHTML = getDBUPDesc(i)
             }
         })
+         */
     }
 
     let unlockCol = DOM(`dBuColumn`)
@@ -786,9 +791,8 @@ function destabilizationHTML(){
 }
 
 function updateDestabBoostersHTML() {
-    DOM('dBoosterText').innerHTML = /*data.boost.unlocks[1] > 0 ?
-        `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
-        : */ `You have <span style="color: #ff8080; font-family: DosisSemiBold">${(data.destab.amt)} Unstable Boosters</span> (${(data.destab.total)} total) and <span style="color: silver; font-family: DosisSemiBold">${data.destab.baselessEnergy} Imaginary Energy</span> (${data.baseless.bestDestabShift-7} total)`
+    // and <span style="color: silver; font-family: DosisSemiBold">${data.destab.baselessEnergy} Imaginary Energy</span> (${data.baseless.bestDestabShift-7} total)
+    DOM('dBoosterText').innerHTML = `You have <span style="color: #ff8080; font-family: DosisSemiBold">${(data.destab.amt)} Unstable Boosters</span> (${(data.destab.total)} total)`
     DOM('dBoosterTimesText').innerHTML = `You have <span style="color: #ff8080">Boosted</span> ${data.destab.times} times`
 
     if(data.nav.current === 'markup') DOM(`dFactorBoostButton`).innerHTML = `Perform an Unstable Boost [+${getDBoosterGain()}] (B)<br>Requires ${displayDBoostReq()}`
@@ -814,7 +818,7 @@ function updateDChalHTML(i){
     DOM(`dChallenge${i}`).innerHTML = `Challenge ${i+1}<br><br>${getDChallengeDesc(i)}`
 }
 
-let dIncrementyNames = ['Unstable', 'Broken', 'False']
+let dIncrementyNames = ['Unstable', 'Broken', 'Shattered']
 function updateDIncrementyHTML(){
     DOM(`dIncrementyText`).innerText = `You have ${format(data.destab.incrementy)} ${wordCycle(dIncrementyNames)} Incrementy [+${format(getDIncrementyGain())}/s], multiplying your AutoClicker speed by ${format(getDIncrementyEffect())}`
     DOM(`dDynamicText2`).innerText = `Your Dynamic Factor is ${format(data.dy.level)} [+${format(dyGain())}/s], it caps at ${format(getDyCap())}`
@@ -839,7 +843,7 @@ function updateDHUPHTML(i){
 }
 
 function buyDestabBUP(n){
-    if(hasDBUP(n)) return shatterBUP(n)
+    //if(hasDBUP(n)) return shatterBUP(n)
     if(n % 4 !== 0 && !data.destab.hasBUP[n-1]){
         for (let i = 0; i < n % 4; i++) {
             let index = (i % 4) + (4 * Math.floor(n / 4))
@@ -857,6 +861,30 @@ function buyDestabBUP(n){
     DOM(`dBup${n}`).style.backgroundColor = '#250505'
 }
 
+/*
+function respecShattered(){
+    for (let i = 0; i < data.destab.isShattered.length; i++) {
+        if(!data.destab.isShattered[i]) continue
+        data.destab.isShattered[i] = false
+        if(isDestabilizedRealm()){
+            DOM(`dBup${i}`).className = 'dBup'
+            DOM(`dBup${i}`).innerHTML = getDBUPDesc(i)
+            DOM(`dBup${i}`).style.color = `#ce6a6a`
+            DOM(`dBup${i}`).style.borderColor = `#a84a4a`
+            DOM(`dBup${i}`).style.backgroundColor = `#250505`
+        }
+        else{
+            DOM(`bup${i}`).className = 'bup'
+            DOM(`bup${i}`).innerHTML = getBUPDesc(i)
+            DOM(`bup${i}`).style.color = '#8080FF'
+            DOM(`bup${i}`).style.borderColor = '#1e47d0'
+            DOM(`bup${i}`).style.backgroundColor = 'black'
+        }
+    }
+    data.destab.baselessEnergy = data.baseless.bestDestabShift-7
+    isDestabilizedRealm() ? dBoosterReset() : boosterReset()
+}
+
 function shatterBUP(n){
     if(data.destab.baselessEnergy === 0) return
     data.destab.isShattered[n] = true
@@ -868,6 +896,7 @@ function shatterBUP(n){
     DOM(`dBup${n}`).style.borderColor = '#8e8e8e'
     DOM(`dBup${n}`).style.backgroundColor = '#202020'
 }
+ */
 
 function dBoosterRefund(){
     for (let i = 0; i < data.destab.hasBUP.length; i++) {
@@ -1013,7 +1042,7 @@ let isDBUUnlocked = (i) => data.destab.total >= destabUnlockData[i].req
 let hasDBUP = (i) => data.destab.hasBUP[i]
 
 function getDBUPEffect(i){
-    if(isDestabilizedRealm() && hasDBUP(i)){
+    if(isDestabilizedRealm() && hasDBUP(i) && !isBUPShattered(i)){
         return destabBupData[i].isDecimal
             ? Decimal.max(destabBupData[i].eff(), destabBupData[i].baseEff())
             : Math.max(destabBupData[i].eff(), destabBupData[i].baseEff())
@@ -1140,6 +1169,12 @@ function getOverallSBUPDesc(i){
     return array
 }
 let getBaseSBUPDesc = (i) => data.darkness.darkened ? shatteredBUPData[i][1].desc : data.baseless.baseless ? shatteredBUPData[i][2].desc : shatteredBUPData[i][0].desc
+/*
+    NOTE TO FUTURE CONTRIBUTORS
+    This function is called independently of all other BUP Effect related functions because Shattered BUPs can have
+    completely new effects rather than just improved effects, unlike Supercharged BUPs
+    I might optimize all the effect calls to pass through one function one day.
+ */
 function getSBUPEffect(i, j = null, forceShow = false, showIndex = -1){
     if((data.darkness.darkened && isBUPShattered(i)) || (forceShow && showIndex === 1)){
         if(shatteredBUPData[i][1].effectIsIndex && j === null) j = 0

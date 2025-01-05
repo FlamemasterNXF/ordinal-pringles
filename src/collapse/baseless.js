@@ -26,9 +26,9 @@ function updateDynamicShiftHTML(){
     if(data.baseless.baseless){
         if(isInAnyDChallenge()) return DOM(`dynamicShift`).innerHTML = `Perform a <span style="color: darkred; font-size: 1rem"">Baseless Shift</span><br>The Instability of your Realm prevents this`
         DOM(`dynamicShift`).innerHTML =
-            data.baseless.shifts >= 7 && isDBUUnlocked(3) ? `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br>Requires: &omega;<sup>&omega;</sup></span><br>You will gain ${data.baseless.shifts+1 > data.baseless.bestDestabShift ? '<span style="color: silver">1 Imaginary Energy</span>' : 'nothing'}, perform a Factor Shift reset, multiply your ℵ<sub>0</sub> gain multiplier by ${format(dynamicShiftMultipliers[0](data.baseless.shifts+1))}, multiply your Dynamic gain by ${format(dynamicShiftMultipliers[1](data.baseless.shifts+1))}, and <span style="color: darkred">double your Base</span>`
-            : data.baseless.shifts < 7 ? `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br>Requires: &omega;<sup>&omega;</sup></span><br>This will unlock Factor ${data.baseless.shifts+1}, perform a Factor Shift reset, multiply your ℵ<sub>0</sub> gain multiplier by ${format(dynamicShiftMultipliers[0](data.baseless.shifts+1))}, multiply your Dynamic gain by ${format(dynamicShiftMultipliers[1](data.baseless.shifts+1))}, and <span style="color: darkred">double your Base</span>`
-            : `Perform a <span style="color: darkred; font-size: 1rem"">Baseless Shift</span><br>The Future Remains Unknown`
+            //data.baseless.shifts >= 7 && isDBUUnlocked(3) ? `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br>Requires: &omega;<sup>&omega;</sup></span><br>You will gain ${data.baseless.shifts+1 > data.baseless.bestDestabShift ? '<span style="color: silver">1 Imaginary Energy</span>' : 'nothing'}, perform a Factor Shift reset, multiply your ℵ<sub>0</sub> gain multiplier by ${format(dynamicShiftMultipliers[0](data.baseless.shifts+1))}, multiply your Dynamic gain by ${format(dynamicShiftMultipliers[1](data.baseless.shifts+1))}, and <span style="color: darkred">double your Base</span>`
+            /*:*/ data.baseless.shifts < 7 ? `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br>Requires: &omega;<sup>&omega;</sup></span><br>This will unlock Factor ${data.baseless.shifts+1}, perform a Factor Shift reset, multiply your ℵ<sub>0</sub> gain multiplier by ${format(dynamicShiftMultipliers[0](data.baseless.shifts+1))}, multiply your Dynamic gain by ${format(dynamicShiftMultipliers[1](data.baseless.shifts+1))}, and <span style="color: darkred">double your Base</span>`
+            : `You cannot <span style="color: darkred; font-size: 1rem">Baseless Shift</span> more than 7 times<br><small><i>Perhaps you'd like to Imagine something more?</i></small>`
     }
     else {
         DOM(`dynamicShift`).innerHTML = `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br><span style="font-size: 0.9rem">You must be in a Baseless Realm to perform a Baseless Shift</span><br>`
@@ -159,7 +159,7 @@ function baselessControl(){
 
     if(data.baseless.mode === 2 && getEUPEffect(4, 1)){
         destabilizationHTML()
-        updateAllSplitBUPHTML(data.baseless.baseless)
+        //updateAllShatteredBUPHTML(data.baseless.baseless)
     }
 
     DOM(`baseless`).children[0].innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
@@ -186,7 +186,7 @@ function dynamicShift(){
     ++data.baseless.shifts
     if(data.baseless.shifts > data.baseless.bestDestabShift && isDestabilizedRealm()) {
         data.baseless.bestDestabShift = data.baseless.shifts
-        ++data.destab.baselessEnergy
+        //++data.destab.baselessEnergy
     }
     data.ord.base *= 2
     fsReset()

@@ -42,7 +42,10 @@ function switchSubtab(t, mode){
 
         updateAutomationTabHTML()
 
-        if(t==="upgrades") checkSpecialBUPs()
+        if(t==="upgrades"){
+            checkSpecialBUPs()
+            //DOM(`shatterRefund`).style.display = data.baseless.bestDestabShift > 7 ? 'block' : 'none'
+        }
         if(t==="hierarchies") checkSpecialHUPs()
 
         if(t==="overflow"){
@@ -134,6 +137,8 @@ function switchSubtab(t, mode){
         DOM(`${destabBoostTab}SubPage`).style.display = `none`
         DOM(`${t}SubPage`).style.display = `flex`
         destabBoostTab = t
+
+        //if(t === 'dUpgrades') DOM(`dShatterRefund`).style.display = data.baseless.bestDestabShift > 7 ? 'block' : 'none'
     }
 
     // Special Settings Rules

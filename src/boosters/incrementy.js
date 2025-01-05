@@ -162,7 +162,7 @@ function respecCharge(c=false){
         DOM(`bup${i}`).className = 'bup'
         DOM(`bup${i}`).innerHTML = `${getBUPDesc(i)}`
         DOM(`bup${i}`).style.color = `#8080FF`
-        if(data.boost.hasBUP[i]) DOM(`bup${i}`).style.backgroundColor = `#002480`
+        DOM(`bup${i}`).style.backgroundColor = data.boost.hasBUP[i] ? `#002480` : 'black'
     }
     data.incrementy.charge = data.incrementy.totalCharge-data.sing.level[0]
     data.boost.bottomRowCharges = 0
