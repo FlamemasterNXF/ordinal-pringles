@@ -16,7 +16,7 @@ let destabBupData = [
     {
         desc: "Factors boost their own effect",
         cost: 14,
-        eff: () => totalFactorEffect(),
+        eff: () => totalFactorEffect(false),
         baseEff: () => 1,
         isDecimal: false
     },

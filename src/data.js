@@ -8,10 +8,10 @@ const BHO_VALUE = 4*3**40
 const BO_VALUE = D('eee98235035280650.45') //Decimal.pow(3, ordMarksBO).mul(4)
 
 //Version Flags
-const VERSION = "0.4.2"
-const VERSION_NAME = "The Pringle Update"
-const VERSION_DATE = "October 24th, 2024"
-const IS_BETA = false
+const VERSION = "0.5b1"
+const VERSION_NAME = "Redemption of The Realms"
+const VERSION_DATE = "January 5th, 2025"
+const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
 //create all the variables in a data object for saving
@@ -36,7 +36,6 @@ function getDefaultObject() {
         omega:{bestRemnants: 0, alephOmega:1, bestFBInPurification: Array(4).fill(0), purificationIsActive: Array(4).fill(false), whichPurification: -1, aoRebuyables:Array(8).fill(0), tutorial: false},
         obliterate:{times:0, energy:0, passiveEnergy:0, energyUpgrades: [], pringleAmount: Array(10).fill(0), hasPassiveUpgrade: Array(passiveEnergyDescriptions.length).fill(false), instability:0, unstableFactors: Array(unstableFactorData.length).fill(0), unstableFactorState: Array(unstableFactorData.length).fill(true)},
         purity:{isAssigned: Array(10).fill(false), isUnlocked: Array(4).fill(false).concat(Array(2).fill(true)).concat(Array(4).fill(false)), assignment:Array(10).fill(false), pringleQueued: -1, tutorial: false},
-        imaginary:{shifts:0, factors:Array(7).fill(0)},
         destab: {amt: 0, total: 0, times: 0, hasBUP: Array(12).fill(false), isShattered: Array(12).fill(false), unlocks: Array(4).fill(false), completions: Array(6).fill(0), chalActive: -1, incrementy: 0, rupLevels: Array(3).fill(0), hasUpgrade: Array(11).fill(false), hierarchy: {ord: 0, over: 0}, gupPercentage: Array(3).fill(0), hupLevels: Array(3).fill(0), baselessEnergy: 0},
 
         autoStatus: {enabled: Array(9).fill(false)},
@@ -65,7 +64,7 @@ function load() {
     let savedata = JSON.parse(window.localStorage.getItem(SAVE_PATH()))
     if (savedata !== undefined) fixSave(data, savedata)
     let extra = fixOldSaves()
-    createAlert('Welcome Back!', `You've loaded into Ordinal PRINGLES v${VERSION}: ${VERSION_NAME}\nEnjoy!`, 'Thanks!')
+    createAlert('Welcome Back!', `You've loaded into Ordinal PRINGLES v${VERSION}: ${VERSION_NAME}<br>Enjoy!`, 'Thanks!')
 
     return extra
 }
