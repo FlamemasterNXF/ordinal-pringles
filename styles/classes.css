@@ -22,7 +22,7 @@
 .layer{
     position: absolute;
 }
-.subtab{
+.tab{
     flex-direction: column;
     display: none;
 }

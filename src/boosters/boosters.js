@@ -249,11 +249,11 @@ function updateBoostersHTML(){
     DOM('boosterTimesText').innerHTML = `You have <span style="color: #8080FF">Boosted</span> ${data.boost.times} times`
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
 
-    if(boostTab === 'auto2') updateAllAutomationHTML()
-    if(boostTab === 'chal') updateAllChalHTML()
-    if(boostTab === 'incrementy') updateIncrementyHTML()
-    if(boostTab === 'hierarchies') updateHierarchiesHTML()
-    if(boostTab === 'overflow') updateOverflowHTML()
+    if(getSubtab('boosters') === 'auto2') updateAllAutomationHTML()
+    if(getSubtab('boosters') === 'chal') updateAllChalHTML()
+    if(getSubtab('boosters') === 'incrementy') updateIncrementyHTML()
+    if(getSubtab('boosters') === 'hierarchies') updateHierarchiesHTML()
+    if(getSubtab('boosters') === 'overflow') updateOverflowHTML()
 
     DOM("chalTab").innerText = data.boost.unlocks[0]?'Challenges':'???'
     DOM("incrementyTab").innerText = data.boost.unlocks[1]?'Incrementy':'???'

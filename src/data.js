@@ -17,7 +17,10 @@ const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsa
 //create all the variables in a data object for saving
 function getDefaultObject() {
     return {
-        nav: {current:"ord", last:"ord"},
+        nav: {
+            current: "ord",
+            subtabs: defaultSubTabs,
+        },
 
         ord: {ordinal:D(1), over:D(0), base:10, trim: 5, isPsi: false, color:false, displayType: 'Buchholz'},
         markup: {powers:D(0), shifts:0},

@@ -1,6 +1,3 @@
-//Important Constants for Loading
-const TABS = ["markup", "boosters", "collapse", "obliterate", "ach", "settings"]
-
 const uHTML = {
     update(){
         updateOrdHTML()
@@ -11,10 +8,7 @@ const uHTML = {
     },
     load(){
         //Load Tab Displays
-        for (let i = 0; i < TABS.length; i++) {
-            DOM(`${TABS[i]}Page`).style.display = 'none'
-        }
-        switchTab('ord')
+        switchTab(data.nav.current)
 
         //Show and Hide things, based on data
         DOM('boostNav').style.display = data.boost.times>0 || data.collapse.times>0 || data.obliterate.times>0?'block':'none'

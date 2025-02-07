@@ -1,5 +1,5 @@
 function updateCollapseHTML(){
-    if(collapseTab === 'cUpgrades' && hasSluggishMilestone(2)){
+    if(getSubtab('collapse') === 'cUpgrades' && hasSluggishMilestone(2)){
         DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals <span style="color: #9f9fcce1">and ${format(data.darkness.negativeCharge)} Negative Charge</span><br><span style="font-size: 0.8rem; color: #565656">Your best Collapse yielded <span style="color: #20da45">${format(data.collapse.bestCardinalsGained)}</span> Cardinals</span>`
     }
     else{

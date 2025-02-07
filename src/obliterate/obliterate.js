@@ -5,7 +5,7 @@ function updateObliterateHTML(){
     DOM(`obliterateButton`).innerHTML = `Obliterate your Ordinal for 1 Fractal Energy<br><span style="font-size: 0.7rem">Requires ${format(getObliterateReq())} Incrementy</span>`
     DOM(`obliterateButton`).style.color = data.incrementy.amt.gte(getObliterateReq()) ? '#ff80b9' : '#b06cdc'
 
-    if(obliterateTab === 'pringles') updateCanBuyPringleHTML()
+    if(getSubtab('obliterate') === 'pringles') updateCanBuyPringleHTML()
 }
 
 function getObliterateReq(n = data.obliterate.times){
