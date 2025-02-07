@@ -22,6 +22,10 @@
 .layer{
     position: absolute;
 }
+.subtab{
+    flex-direction: column;
+    display: none;
+}
 .ordButtons{
     width: 15rem;
     height: 2rem;
