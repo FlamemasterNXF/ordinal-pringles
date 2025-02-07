@@ -123,7 +123,7 @@
         <button class="ordButtons" id="maximize" onclick="maximize()">Maximize Ordinal (M)</button>
     </div>
     <div class="tab flexBox" id="markupPage">
-        <div class="flexBox" style="margin-top: 1rem">
+        <div style="margin-top: 1rem">
             <button class="tabButton" id="factorTab" onclick="switchSubtab('factor', 'markup')" style="color: goldenrod; border-color: #785c13">Factors</button>
             <button class="tabButton" id="autoTab" onclick="switchSubtab('auto', 'markup')" style="color: goldenrod; border-color: #785c13;">AutoClickers</button>
             <button class="tabButton" id="dynamicTab" onclick="switchSubtab('dynamic', 'markup')" style="color: goldenrod; border-color: #785c13">Dynamic</button>
@@ -131,7 +131,7 @@
         <h3 class="centeredTexts" id="powersText" style="margin-top: 1rem; color: goldenrod;">You have Chips. In your house.</h3>
         <button id="markupButton" onclick="markup()" style="color: goldenrod; min-width: 20rem; height: 2rem; background-color: black; border: 2px solid #785c13">ω<sup>2</sup> is required to Markup</button>
         <div class="tab flexBox" id="factorSubPage" style="margin-top: 1rem;">
-            <div class="row flexBox">
+            <div>
                 <button id="factorShiftButton" onclick="data.sToggles[3]?factorShiftConfirm():factorShift()" style="color: goldenrod; width: 20rem; height: 3rem; background-color: black; border: 2px solid #785c13">Perform a Factor Shift</button>
                 <button id="factorBoostButton" onclick="data.sToggles[4]&&(data.collapse.times > 0 || data.boost.times < 33)?createConfirmation('Are you sure?', 'Performing a Factor Boost will reset your Ordinal, Ordinal Powers, Factors, Automation, Base, and Dynamic Factor in exchange for some Boosters!', 'No Way!', 'Yes, lets do this.', boost):boost()" style="margin-left: 0.2rem; color: #8080FF; width: 20rem; min-height: 3rem; background-color: black; border: 2px solid #1e47d0; display: none">Perform a Factor Boost</button>
             </div>
@@ -148,14 +148,14 @@
         </div>
         <div class="tab flexBox" id="autoSubPage" style="margin-top:0.8rem;">
             <p class="centeredTexts" id="factorText" style="color: orange">Factorial Cog</p>
-            <div class="flexBox">
+            <div>
                 <button class="automation" id="autoclicker0" onclick="buyAuto(0)">Succc Auto</button>
                 <button class="automation" id="autoclicker1" onclick="buyAuto(1)">not Succc Auto</button>
             </div>
             <button class="automation" id="autoBuyMax" onclick="buyMaxAuto()" style="margin-top: 0.5rem; width: 11rem">BuyMax AutoClickers [F]</button>
             <p class="centeredTexts" id="autoText" style="color: orangered"></p>
         </div>
-        <div class="tab flexBox" id="dynamicSubPage" style="margin-top: 1rem;">
+        <div class="tab" id="dynamicSubPage" style="margin-top: 1rem;">
             <p class="centeredTexts" id="dynamicText" style="color: goldenrod">Hello Cat</p>
         </div>
         <div class="flexBox" id="progressBarContainer" style="margin-top: 2rem; width: 80%; height: 1.2rem; background-color: #1a1a1a; border: 1px solid;">
@@ -163,7 +163,7 @@
         </div>
     </div>
     <div class="tab flexBox" id="boostersPage">
-        <div class="flexBox" style="margin-top: 1rem">
+        <div style="margin-top: 1rem">
             <button class="tabButton" id="upgradeTab" onclick="switchSubtab('upgrades', 'boosters')" style="color: #8080FF; border-color: #1e47d0">Upgrades</button>
             <button class="tabButton" id="auto2Tab" onclick="switchSubtab('auto2', 'boosters')" style="color: #8080FF; border-color: #1e47d0;">Automation</button>
             <button class="tabButton" id="chalTab" style="color: #8080FF; border-color: #1e47d0;" onclick="if(chalTabUnlocked()) {switchSubtab('chal', 'boosters');}">Challenges</button>
@@ -194,7 +194,7 @@
             </div>
             <p class="centeredTexts" id="bupBottomText" style="color: #565656"></p>
         </div>
-        <div class="tab flexBox" id="auto2SubPage">
+        <div class="tab" id="auto2SubPage">
             <div class="centeredTexts" id="factorText2" style="color: orange; margin-top: 1rem;">Factorial! Cog</div>
         </div>
         <div class="tab flexBox" id="chalSubPage">
@@ -214,14 +214,14 @@
             <div class="row flexBox" id="iupRow2"></div>
             <button id="chargeButton" onclick="sacrificeIncrementy()">Jonas was here</button>
         </div>
-        <div class="tab flexBox" id="hierarchiesSubPage">
-            <div class="flexBox, hierarchyContainer">
+        <div class="tab" id="hierarchiesSubPage">
+            <div class="hierarchyContainer">
                 <sub class="generalTexts" id="h0Name">Your FGH Ordinal is</sub>
                 <strong class="centeredTexts, hierarchies" id="h0Text">SPEEDY QUICK</strong>
                 <sub class="generalTexts" id="h0Info">Info</sub>
                 <sub><strong class="generalTexts" id="h0Effect">Info</strong></sub>
             </div>
-            <div class="flexBox, hierarchyContainer">
+            <div class="hierarchyContainer">
                 <sub class="generalTexts" id="h1Name">Your SGH Ordinal is</sub>
                 <strong class="centeredTexts, hierarchies" id="h1Text">slow not QUICK</strong>
                 <sub class="generalTexts" id="h1Info">Information</sub>
@@ -235,7 +235,7 @@
             </div>
             <div class="centeredTexts" id="hierarchyInfo" style="margin-top:1rem">Both Hierarchies are Maximized instantly. Their Successor gains are based on Incrementy Amount and AutoBuyer speed respectively.</div>
         </div>
-        <div class="tab flexBox" id="overflowSubPage">
+        <div class="tab" id="overflowSubPage">
             <div class="row flexBox" style="margin-top: 1rem;">
                 <div class="centeredTexts" id="boosterText2">boosteeeeeeeee TWO</div>
                 <strong class="centeredTexts" id="boosterPower" style="color: aqua; margin-left:0.3rem">boosteeeeeeeee [POWER]</strong>
@@ -248,16 +248,16 @@
             <div class="flexBox row" style="align-items: flex-start">
                 <div class="flexBox column">
                     <strong class="centeredTexts" id="bpTotal" style="margin-top: 1rem; color:#8080FF">Booster Power is</strong>
-                    <div class="flexBox, bpEffectContainer">
+                    <div class="bpEffectContainer">
                         <span class="generalTexts" id="bp0Description">Multiplying the Challenge Boost to AutoBuyers by </span>
                         <span class="overflowText" id="bp0Effect" style="color: aqua">1</span>
                     </div>
-                    <div class="flexBox, bpEffectContainer">
+                    <div class="bpEffectContainer">
                         <span class="generalTexts" id="bp1Description">Multiplying Passive OP gain by </span>
                         <span class="overflowText" id="bp1Effect" style="color: aqua">1</span>
                         <span class="generalTexts" id="bp1Description2">(based on your total OP multiplier)</span>
                     </div>
-                    <div class="flexBox, bpEffectContainer">
+                    <div class="bpEffectContainer">
                         <span class="generalTexts" id="bp2Description">Dividing Decrementy Gain by </span>
                         <span class="overflowText" id="bp2Effect" style="color: aqua">1</span>
                     </div>
@@ -265,23 +265,23 @@
                 </div>
                 <div class="flexBox column">
                     <strong class="centeredTexts" id="ocTotal" style="margin-top: 1rem; color:rgb(218, 137, 32)">Overcharge is</strong>
-                    <div class="flexBox, bpEffectContainer">
+                    <div class="bpEffectContainer">
                         <span class="generalTexts" id="oc0Description">Multiplying Hierarchy Successor speed by </span>
                         <span class="overflowText" id="bp3Effect" style="color: goldenrod">1</span>
                     </div>
-                    <div class="flexBox, bpEffectContainer">
+                    <div class="bpEffectContainer">
                         <span class="generalTexts" id="oc1Description">Multiplying ALL Booster Power effects by </span>
                         <span class="overflowText" id="bp4Effect" style="color: goldenrod">1</span>
                     </div>
-                    <div class="flexBox, bpEffectContainer" id="bp5Container" style="display:none">
+                    <div class="bpEffectContainer" id="bp5Container" style="display:none">
                         <span class="generalTexts">Dividing Darkness Upgrade cost exponents by </span>
                         <span class="overflowText" id="bp5Effect" style="color: goldenrod">1</span>
                     </div>
-                    <div class="flexBox, bpEffectContainer" id="bp6Container" style="display:none">
+                    <div class="bpEffectContainer" id="bp6Container" style="display:none">
                         <span class="generalTexts">Multiplying the effect of the first ℵ<sub>&omega;</sub> Upgrade by </span>
                         <span class="overflowText" id="bp6Effect" style="color: goldenrod">1</span>
                     </div>
-                    <div class="flexBox, bpEffectContainer" id="bp7Container" style="display:none">
+                    <div class="bpEffectContainer" id="bp7Container" style="display:none">
                         <span class="generalTexts">Multiplying the effect of the third bottom-row Booster Upgrade by </span>
                         <span class="overflowText" id="bp7Effect" style="color: goldenrod">1</span>
                     </div>
@@ -290,7 +290,7 @@
             </div>
         </div>
     </div>
-    <div class="tab flexBox" id="collapsePage">
+    <div class="tab" id="collapsePage">
         <div class="flexBox" style="margin-top: 1rem">
             <button class="collapseTabButton" id="cardinalsTab" onclick="switchSubtab('cardinals', 'collapse')">Alephs</button>
             <button class="collapseTabButton" id="cupsTab" onclick="switchSubtab('cUpgrades', 'collapse')">Cardinal Upgrades</button>
@@ -311,8 +311,8 @@
                     style="color: #20da45; "><b>${format(alephEffect(i))}x</b></span></span>
             <span class="centeredTexts" style="margin-top: 1rem;">You can <span style="color: #20da45; ">Collapse</span> if you reach <span id="omega2Text">&psi;(Ω<sub>2</sub>)</span> or at any point after Factor Boost 34.<br>You must reach Factor Boost 34 to gain any Cardinals.</span>
         </div>
-        <div class="tab flexBox" id="cUpgradesSubPage"></div>
-        <div class="tab flexBox" id="sluggishSubPage">
+        <div class="tab" id="cUpgradesSubPage"></div>
+        <div class="tab" id="sluggishSubPage">
             <div class="column flexBox" id="sluggishContainer"></div>
             <span class="centeredTexts" style="color: #0e8626; margin-top: 1rem">Each Sluggish Milestone gives you (3*previously completed SMs) free Cardinals!<br>Collapse in the required Factor Boosts or less to complete Sluggish Milestones</span>
         </div>
@@ -334,9 +334,9 @@
             </div>
             <button class="chargeSac" id="dupC2" onclick="chargeSacConfirm()">Sacrifice Charge</button>
         </div>
-        <div class="tab flexBox" id="singSubPage">
+        <div class="tab" id="singSubPage">
             <span class="centeredTexts" id="singCostText" style="margin-top: 1rem">Singularitying</span>
-            <div class="row flexBox">
+            <div class="row">
                 <div class="column flexBox">
                     <span class="centeredTexts" id="sing0Level" style="color: #80ce0b; font-size: 1.5rem; margin-top: 0.5rem">LEvel</span>
                     <span class="centeredTexts" id="sing0Level2" style="color: #67a40d; font-size: 0.8rem">LEve2l</span>
@@ -362,7 +362,7 @@
             <div class="column flexBox" id="singFunctionContainer" style="margin-top: 1rem"></div>
             <span class="centeredTexts" style="color: darkgray; margin-top: 2rem"><span style="color: #00ceb6">Blue</span> Functions are <span style="color: #00ceb6">Persistent</span>! This means they are active as long as you have whatever makes them <span style="color: #00ceb6">Persistent</span>!</span>
         </div>
-        <div class="tab flexBox" id="baselessSubPage">
+        <div class="tab" id="baselessSubPage">
             <span class="centeredTexts" id="alephNull" style="color: darkorange; margin-top: 1rem">Based</span>
             <div class="row flexBox">
                 <button id="baseless" style="font-size: 1.1rem; margin-right: 0.25rem" onclick="data.sToggles[8] ? createConfirmation('Are you sure?', 'Entering or exiting will perform a Collapse reset!', 'Nope!', 'Yep!', baselessControl) : baselessControl()"><span id="baselessEnterText">Enter</span> the
@@ -380,14 +380,14 @@
             <span class="centeredTexts" style="color: #9e5803; margin-top: 2rem">Click the red Realm text to change the Realm you enter</span>
             <span class="centeredTexts" style="color: #9e5803;">You cannot enter Darkness while in any of the Baseless Realms</span>
         </div>
-        <div class="tab flexBox" id="purificationSubPage">
+        <div class="tab" id="purificationSubPage">
             <span class="centeredTexts" id="alephOmega" style="color: darkred; margin-top: 1rem">Omegel</span>
             <div class="flexBox" id="purificationContainer" style="margin-top: 1rem"></div>
             <div class="column flexBox" id="aoRebuyableContainer" style="margin-top: 0.5rem"></div>
             <div class="column flexBox" id="aoMilestoneContainer"></div>
         </div>
     </div>
-    <div class="tab flexBox" id="obliteratePage">
+    <div class="tab" id="obliteratePage">
         <div class="flexBox" style="margin-top: 1rem">
             <button class="obliterateTabButton" id="pringlesTab" onclick="switchSubtab('pringles', 'obliterate')">Pringles</button>
             <button class="obliterateTabButton" id="energyTab" onclick="switchSubtab('energy', 'obliterate')">Energy</button>
@@ -397,38 +397,38 @@
         <div class="column flexBox" id="obliterateInfoContainer" style="margin-top: 0.1rem;">
             <h3 class="centeredTexts" id="energyText" style="color: #ae50b4;">You have no Chips. In your house. You are broke.</h3>
         </div>
-        <div class="tab flexBox" id="pringlesSubPage" style="margin-top: 2rem">
+        <div class="tab" id="pringlesSubPage" style="margin-top: 2rem">
             <div class="layer" id="pringleButton" style="display: none; transition: 1s ease-out; z-index: 2; width: 17rem; height: 10rem; border-radius: 20%; border: 1px solid #5b5b5b; background: rgba(0,0,0,0.75); color: white; text-align: center; place-content:center; transform: translate(-100%, -100%); font-family: DosisLight, serif; font-size: 0.95rem; pointer-events: none;">Pringling</div>
             <div class="column flexBox">
                 <div class="layer" style="z-index: -1;">
-                    <canvas class="flexBox" id="pringleCanvas" width="1000" height="600"></canvas>
+                    <canvas id="pringleCanvas" width="1000" height="600"></canvas>
                 </div>
-                <div class="flexBox" style="margin-top: -1rem; margin-bottom: 7rem">
+                <div style="margin-top: -1rem; margin-bottom: 7rem">
                     <button class="pringle" id="pringle2" style=""></button>
                 </div>
-                <div class="flexBox" style="margin-top: -6rem; margin-bottom: 4.5rem;">
+                <div style="margin-top: -6rem; margin-bottom: 4.5rem;">
                     <button class="pringle" id="pringle1" style="margin-right: 14rem"></button>
                     <button class="pringle" id="pringle0" style=""></button>
                 </div>
-                <div class="flexBox" style="margin-bottom: 4.5rem">
+                <div style="margin-bottom: 4.5rem">
                     <button class="pringle" id="pringle3" style="margin-right: 22.5rem"></button>
                     <button class="pringle" id="pringle6" style=""></button>
                 </div>
                 <div class="layer" style="z-index: 1">
                     <button class="pringle" id="pringle9" style="width: 8rem; height: 8rem; box-shadow: 0 5px 15px rgba(175,31,173,0.4)"></button>
                 </div>
-                <div class="flexBox" style="margin-top: 2rem">
+                <div style="margin-top: 2rem">
                     <button class="pringle" id="pringle4" style="margin-right: 20.5rem"></button>
                     <button class="pringle" id="pringle7" style=""></button>
                 </div>
-                <div class="flexBox" style="margin-top: 4rem;">
+                <div style="margin-top: 4rem;">
                     <button class="pringle" id="pringle5" style="margin-right: 8rem"></button>
                     <button class="pringle" id="pringle8" style=""></button>
                 </div>
             </div>
             <div class="column flexBox">
                 <div class="layer" style="z-index: -1; top: 32rem">
-                    <canvas class="flexBox" id="purityCanvas" width="700" height="300"></canvas>
+                    <canvas id="purityCanvas" width="700" height="300"></canvas>
                 </div>
                 <div class="flexBox" id="ppContainer" style="margin-top: 4rem">
                     <div class="row flexBox" id="ppXContainer0" style="margin-right: 2.45rem"></div>
@@ -457,7 +457,7 @@
             <span class="centeredTexts" id="instabilityConstantText" style="margin-top: 1rem; font-family: DosisRegular, serif; color: #6752c2"></span>
         </div>
     </div>
-    <div class="tab flexBox" id="achPage"></div>
+    <div class="tab" id="achPage"></div>
     <div class="tab flexBox" id="settingsPage">
         <p class="centeredTexts">Consider joining <a href="https://discord.com/invite/dauxGZwc9u" target="_blank">the Discord</a> :)</p>
         <div style="margin-top: 0.5rem; margin-bottom: 1rem">

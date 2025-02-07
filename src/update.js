@@ -7,9 +7,6 @@ const uHTML = {
         updateObliterateHTML()
     },
     load(){
-        //Load Tab Displays
-        switchTab(data.nav.current)
-
         //Show and Hide things, based on data
         DOM('boostNav').style.display = data.boost.times>0 || data.collapse.times>0 || data.obliterate.times>0?'block':'none'
         DOM('collapseNav').style.display = data.collapse.times > 0 || data.obliterate.times>0?'block':'none'
@@ -52,5 +49,8 @@ const uHTML = {
         initPringleAlchemy()
         initPurityPlane()
         initUnstableFactors()
+
+        //Load Tab Displays
+        switchTab(data.nav.current)
     }
 }
