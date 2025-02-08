@@ -20,7 +20,7 @@ const defaultSubTabs = {
 }
 
 function switchSubtab(tab, mode){
-    if(!isTabUnlocked(tab)) switchTab(defaultSubTabs[mode], mode)
+    if(!isTabUnlocked(tab)) return
 
     DOM(`${data.nav.subtabs[mode]}SubPage`).style.display = 'none'
     DOM(`${tab}SubPage`).style.display = 'flex'
