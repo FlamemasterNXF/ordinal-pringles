@@ -332,6 +332,7 @@ function boost(f=false, auto=false, hotkey=false){
     data.boost.times = Math.min(data.boost.times, Number.MAX_VALUE)
     boosterUnlock()
     boosterReset()
+    updateStatusHTML()
 }
 function boostReq(n = data.boost.times){
     if(data.boost.times === 0 && !hasSluggishMilestone(0)) return D(GRAHAMS_VALUE)

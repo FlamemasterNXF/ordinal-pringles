@@ -67,8 +67,6 @@ function assignPringle(i, type, skipUpdate = false){
         TYPE 2: Unassign Pringle
      */
 
-    if(!isPurityPointUnlocked(i)) return
-
     if(type === 0) data.purity.pringleQueued = i
     if(type === 1){
         if(isPringleAssigned(data.purity.pringleQueued)) return

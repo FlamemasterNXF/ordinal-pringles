@@ -2,12 +2,23 @@
     Yes, quite a bit of this logic is redundant.
     To be honest, I just want something clear and easy to work with.
 */
+
+function makeNormalStatusText(){
+    if(data.boost.times === 0 && data.collapse.times === 0 && data.obliterate.times === 0) return "???"
+    let text = ""
+    if(data.boost.times > 0 || data.collapse.times > 0 || data.obliterate.times > 0) text += "You are not in any Challenges"
+    if(isTabUnlocked('baseless')){
+        text += !isTabUnlocked('purification') ? " or Realms" : ", Realms, or Purifications"
+    }
+    return text
+}
+
 function updateStatusHTML(){
     const el = DOM(`header`)
     const escapeText = '<br><span style="font-size: 0.7rem">Click to Escape</span>'
 
     if(!data.chal.active.includes(true) && !data.baseless.baseless && !inAnyPurification()){
-        return el.innerHTML = 'The Universe is Stable'
+        return el.innerHTML = makeNormalStatusText()
     }
     if(inAnyPurification()){
         let text = `You are in the ${purificationData[data.omega.whichPurification].alt} Purification`
