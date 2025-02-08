@@ -5,15 +5,15 @@ function updateCollapseHTML(){
     else{
         DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals<br><span style="font-size: 0.8rem; color: #565656">Your best Collapse yielded <span style="color: #20da45">${format(data.collapse.bestCardinalsGained)}</span> Cardinals</span>`
     }
-    DOM(`collapseButton`).innerText = `Collapse for ${format(cardinalGain())} Cardinals (C)`
+    DOM(getAdaptiveButton(`collapseButton`)).innerText = `Collapse for ${format(cardinalGain())} Cardinals (C)`
 
     for (let i = 0; i < data.collapse.hasCUP.length-1; i++) {
         if(hasCUP(i)) updateCUPTextHTML(i)
     }
     if(hasCUP(7)) DOM(`cup7`).innerText = `${cupData[7].text}\n\nCurrently: ${format(cupData[7].effect())}%`
 
-    DOM("collapseButton").style.display = data.boost.times > 33 || data.collapse.times > 0 || data.obliterate.times > 0 ? 'block' : 'none'
-    DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) || data.boost.times > 33 ? '#b3ff80' : '#20da45'
+    DOM(getAdaptiveButton("collapseButton")).style.display = data.boost.times > 33 || data.collapse.times > 0 || data.obliterate.times > 0 ? 'block' : 'none'
+    DOM(getAdaptiveButton("collapseButton")).style.color = data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) || data.boost.times > 33 ? '#b3ff80' : '#20da45'
 
     if(data.baseless.baseless) DOM(`baseless`).children[2].innerHTML = `<br><br>You will gain <span style="color: darkred">${format(alephNullGain())} ℵ<sub>0</sub></span> if you exit now<br><span style="font-size: 0.9rem">Your <span style="color: darkred">ℵ<sub>0</sub></span> gain multipier is currently ${format(getBaselessMult(data.baseless.mode)*dynamicShiftMultipliers[0]())}</span>`
 
@@ -292,7 +292,7 @@ function collapseReset(){
     data.boost.unlocks = Array(4).fill(false).concat(data.boost.unlocks[4])
     boosterUnlock()
 
-    DOM('factorBoostButton').style.display = 'inline-block'
+    DOM(getAdaptiveButton('factorBoostButton')).style.display = 'inline-block'
 
     data.chal.decrementy = D(1)
     data.chal.html = -1

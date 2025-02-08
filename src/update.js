@@ -5,13 +5,14 @@ const uHTML = {
         updateBoostersHTML()
         updateCollapseHTML()
         updateObliterateHTML()
+        updateAdaptiveHTML()
     },
     load(){
         //Show and Hide things, based on data
         DOM('boostNav').style.display = data.boost.times>0 || data.collapse.times>0 || data.obliterate.times>0?'block':'none'
         DOM('collapseNav').style.display = data.collapse.times > 0 || data.obliterate.times>0?'block':'none'
         DOM('obliterateNav').style.display = data.obliterate.times > 0 ?'block':'none'
-        DOM('factorBoostButton').style.display = data.boost.times>0 || data.collapse.times>0 || data.obliterate.times>0?'inline-block':'none'
+        DOM(getAdaptiveButton('factorBoostButton')).style.display = data.boost.times>0 || data.collapse.times>0 || data.obliterate.times>0?'inline-block':'none'
         DOM('obliterateButton').style.display = hasAOMilestone(4) || data.obliterate.times > 0 ? 'block' : 'none'
 
         if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchSubtab('dynamic', 'markup'))
@@ -52,5 +53,18 @@ const uHTML = {
 
         //Load Tab Displays
         switchTab(data.nav.current)
+    }
+}
+
+let isMobileMode = () => window.matchMedia("(max-width: 960px)").matches
+
+function getAdaptiveButton(name){
+    return isMobileMode() ? `mobile${name}` : name
+}
+
+function updateAdaptiveHTML(){
+    if(isMobileMode()){
+        DOM(`header`).style.borderTopLeftRadius = isObliterationUnlocked() ? '0px' : '16px'
+        DOM(`header`).style.borderLeft = isObliterationUnlocked() ? '1px solid gray' : '2px solid gray'
     }
 }

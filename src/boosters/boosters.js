@@ -310,7 +310,7 @@ function boost(f=false, auto=false, hotkey=false){
 
     if(data.boost.times === 0){
         DOM('boostNav').style.display = 'block'
-        DOM('factorBoostButton').style.display = 'inline-block'
+        DOM(getAdaptiveButton('factorBoostButton')).style.display = 'inline-block'
     }
 
     let bulkBoostAmt = getBulkBoostAmt();
