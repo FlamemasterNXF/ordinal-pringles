@@ -78,15 +78,17 @@
             <h3 id="promptTitle"></h3>
             <p id="promptDesc"></p>
             <input id="promptInput" type="text" placeholder="">
-            <button id="promptButton">Submit</button>
-            <button id="promptCancelButton" onclick="closeModal('prompt')">Cancel</button>
+            <div>
+                <button class="modalButton" id="promptButton">Submit</button>
+                <button class="modalButton" id="promptCancelButton" onclick="closeModal('prompt')">Cancel</button>
+            </div>
         </div>
     </div>
     <div class="flexbox modalContainer" id="alertContainer">
         <div id="alert">
             <h3 id="alertTitle">Welcome back!</h3>
             <p id="alertContent">New things have been added since last time</p>
-            <button id="closeAlert" onclick="closeModal('alert')">Thanks!</button>
+            <button class="modalButton" id="closeAlert" onclick="closeModal('alert')">Thanks!</button>
             <br>
         </div>
     </div>
@@ -95,8 +97,8 @@
             <h3 id="confirmTitle">Are you sure?</h3>
             <p id="confirmContent" style="margin-bottom:1vh">New things have been added since last time</p>
             <div class="flexRow">
-                <button id="noConfirm" class="lockedResearch" style="margin-right:0.5vw">No!</button>
-                <button id="yesConfirm" class="unlockedResearch" style="margin-left:0.5vw">Yes!</button>
+                <button id="noConfirm" class="modalButton" style="margin-right:0.5vw">No!</button>
+                <button id="yesConfirm" class="modalButton" style="margin-left:0.5vw">Yes!</button>
             </div>
             <br>
         </div>

@@ -5,11 +5,22 @@
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 1rem;
-    border-radius: 15px;
-    border: 4px solid #5d5d5d;
+    border-radius: 5px;
+    border: 2px solid #bababa;
     text-align: center;
-    background-color: #838383;
-    font-family: DosisLight;
-    width: 13rem;
+    background-color: #353535;
+    font-family: DosisLight, serif;
+    color: #9a9a9a;
+    width: 17rem;
     pointer-events: all;
+}
+.modalButton{
+    width: 5rem;
+    height: 2rem;
+    color: #9a9a9a;
+    background-color: #353535;
+    border: 2px solid #bababa;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    margin-top: 0.25rem;
 }
