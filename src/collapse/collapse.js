@@ -266,7 +266,7 @@ function collapse(first = false, auto = false){
         makeExcessOrdMarks()
         return createAlert("You have Collapsed!", "Congratulations! You can now Factor Boost beyond FB34! Cardinals are gained based on how many FBs you have before Collapse.", "Got it!")
     }
-    if (data.ord.ordinal.gte(BHO_VALUE) || data.boost.times > 33){
+    if ((data.ord.ordinal.gte(BHO_VALUE) && data.ord.isPsi) || data.boost.times > 33){
         if(cardinalGain().gt(data.collapse.bestCardinalsGained)) data.collapse.bestCardinalsGained = cardinalGain()
         data.collapse.cardinals = data.collapse.cardinals.plus(cardinalGain())
         ++data.collapse.times
