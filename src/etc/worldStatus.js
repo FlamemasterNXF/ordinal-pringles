@@ -49,5 +49,8 @@ function universalEscape(){
     if(inAnyPurification()) return exitPurification(data.omega.whichPurification)
     if(data.baseless.baseless) return baselessControl()
     if(data.darkness.darkened) return chalExit(true)
-    if(data.chal.active.includes(true)) return chalExit(false)
+    if(data.chal.active.includes(true)){ // The challenge exiting functionality is really confusing :/
+        if(data.darkness.darkened) chalExit(true)
+        return chalExit(false)
+    }
 }
