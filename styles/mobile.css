@@ -23,6 +23,17 @@
         z-index: 2;
     }
 
+    #headerWrapper{
+        position: sticky;
+    }
+
+    #minimizeButton{
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
     #game{
         width: 100%;
     }

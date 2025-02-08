@@ -591,3 +591,19 @@
 #header{
     border-bottom-left-radius: 16px;
 }
+
+.maxMinButton{
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 25px;
+    background: black;
+    border: 2px solid gray;
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    display: none;
+}
+
+#maximizeButton{
+    margin-left: 70%;
+}

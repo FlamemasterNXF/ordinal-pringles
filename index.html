@@ -40,6 +40,7 @@
     <script defer src="src/etc/tabs.js"></script>
     <script defer src="src/etc/settings.js"></script>
     <script defer src="src/etc/worldStatus.js"></script>
+    <script defer src="src/etc/adaptive.js"></script>
 
     <script defer src="src/obliterate/instability.js"></script>
     <script defer src="src/obliterate/purity.js"></script>
@@ -713,10 +714,14 @@
             style="color: #b06cdc;">
         SODA!!!
     </button>
-    <button class="prestigeButton" id="header" onclick="universalEscape()"
-            style="color: #b1b1b1; height: 4rem;">
-        The Universe is Stable
-    </button>
+    <div id="headerWrapper">
+        <button class="prestigeButton" id="header" onclick="universalEscape()"
+                style="color: #b1b1b1; height: 4rem;">
+            The Universe is Stable
+        </button>
+        <button class="maxMinButton" id="minimizeButton" onclick="changeMobileNavHTML()">-</button>
+    </div>
+    <div class="maxMinButton" id="maximizeButton" onclick="changeMobileNavHTML()">+</div>
 </div>
 </body>
 </html>
