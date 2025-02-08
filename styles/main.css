@@ -566,3 +566,28 @@
 #notification.show {
     right: 0;
 }
+
+#game{
+    width: calc(100% - 32rem);
+    height: 100%;
+    overflow: scroll;
+    position: relative;
+}
+
+#sidebar0{
+    width: 11rem;
+    height: 21rem;
+}
+
+#sidebar1{
+    width: 20rem;
+    height: 12rem;
+}
+
+#settingsNav{
+    border-bottom-right-radius: 16px
+}
+
+#header{
+    border-bottom-left-radius: 16px;
+}

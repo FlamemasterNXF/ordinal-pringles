@@ -244,8 +244,8 @@ function checkSpecialBUPs(){
 
 function updateBoostersHTML(){
     DOM('boosterText').innerHTML = data.boost.unlocks[1] > 0 ?
-        `You have <span style="color: #8080FF; font-family: DosisSemiBold">${format(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
-        : `You have <span style="color: #8080FF; font-family: DosisSemiBold">${format(data.boost.amt)} Boosters</span> (${(data.boost.total)} total)`
+        `You have <span style="color: #8080FF; font-family: DosisSemiBold">${format(data.boost.amt)} Boosters</span> (${format(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
+        : `You have <span style="color: #8080FF; font-family: DosisSemiBold">${format(data.boost.amt)} Boosters</span> (${format(data.boost.total)} total)`
     DOM('boosterTimesText').innerHTML = `You have <span style="color: #8080FF">Boosted</span> ${data.boost.times} times`
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
 
@@ -310,7 +310,7 @@ function boost(f=false, auto=false, hotkey=false){
 
     if(data.boost.times === 0){
         DOM('boostNav').style.display = 'block'
-        DOM('factorBoostButton').style.display = 'inline-block'
+        DOM(getAdaptiveButton('factorBoostButton')).style.display = 'inline-block'
     }
 
     let bulkBoostAmt = getBulkBoostAmt();
@@ -332,6 +332,7 @@ function boost(f=false, auto=false, hotkey=false){
     data.boost.times = Math.min(data.boost.times, Number.MAX_VALUE)
     boosterUnlock()
     boosterReset()
+    updateStatusHTML()
 }
 function boostReq(n = data.boost.times){
     if(data.boost.times === 0 && !hasSluggishMilestone(0)) return D(GRAHAMS_VALUE)

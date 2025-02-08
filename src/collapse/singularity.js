@@ -148,6 +148,7 @@ function singControl(i, n){
         changeSingLevel(n, true)
     }
     updateSingLevelHTML(n)
+    updateStatusHTML()
     DOM(`singSlider${n}`).value = data.sing.level[n]
 }
 

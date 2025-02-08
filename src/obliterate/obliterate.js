@@ -1,5 +1,6 @@
+let isObliterationUnlocked = () => hasAOMilestone(4) || data.obliterate.times > 0
 function updateObliterateHTML(){
-    DOM('obliterateButton').style.display = hasAOMilestone(4) || data.obliterate.times > 0 ? 'block' : 'none'
+    DOM('obliterateButton').style.display = isObliterationUnlocked() ? 'block' : 'none'
 
     DOM(`energyText`).innerHTML = `You have ${format(data.obliterate.energy)} <span style="color: #d56cdc">Fractal Energy</span>`
     DOM(`obliterateButton`).innerHTML = `Obliterate your Ordinal for 1 Fractal Energy<br><span style="font-size: 0.7rem">Requires ${format(getObliterateReq())} Incrementy</span>`
