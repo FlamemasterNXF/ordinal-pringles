@@ -35,7 +35,7 @@ function initChals(){
         :chalEnter(i))
         updateChalHTML(i)
     }
-    updateHeaderHTML()
+    updateStatusHTML()
 }
 function updateAllChalHTML(){
     for (let i = 0; i < data.chal.active.length; i++) {
@@ -74,7 +74,7 @@ function chalEnter(i, force=false){
         updateChalHTML(j)
     }
     data.chal.html = i
-    updateHeaderHTML()
+    updateStatusHTML()
 }
 function chalExit(darkness = false){
     if(data.darkness.darkened && data.chal.active[7] && !darkness) darken(true)
@@ -84,7 +84,7 @@ function chalExit(darkness = false){
     }
     data.chal.html = -1
     boosterReset()
-    updateHeaderHTML()
+    updateStatusHTML()
 }
 //TODO: This exists because of how createConfirmation works. Change it.
 function chalExitConfirm(){

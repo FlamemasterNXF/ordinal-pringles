@@ -172,7 +172,7 @@ function darken(force = false){
 
     DOM('darken').innerText = data.darkness.darkened ? 'Enter the Darkness' : 'Escape'
     data.darkness.darkened = !data.darkness.darkened
-    updateHeaderHTML()
+    updateStatusHTML()
 }
 
 function respecDrains(){

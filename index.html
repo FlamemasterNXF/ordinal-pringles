@@ -38,6 +38,7 @@
     <script defer src="src/etc/achievements.js"></script>
     <script defer src="src/etc/tabs.js"></script>
     <script defer src="src/etc/settings.js"></script>
+    <script defer src="src/etc/worldStatus.js"></script>
 
     <script defer src="src/obliterate/instability.js"></script>
     <script defer src="src/obliterate/purity.js"></script>
@@ -129,7 +130,6 @@
     <div id="ordinalContainer">
         <span id="ordinal">H<sub>0</sub> (10)=10</span>
     </div>
-    <div class="centeredTexts" id="chalIn" style="margin-bottom: 0.5rem; color: orangered">Decrementy my beloved</div>
     <div class="tab flexBox" id="ordPage">
         <button class="ordButtons" id="successor" onclick="successor(1, true)">Increase Successor by 1 (S)</button>
         <button class="ordButtons" id="maximize" onclick="maximize()">Maximize Ordinal (M)</button>
@@ -703,8 +703,12 @@
         Collapse
     </button>
     <button class="prestigeButton" id="obliterateButton" onclick="obliterateConfirm()"
-            style="color: #b06cdc; border-bottom-left-radius: 16px">
+            style="color: #b06cdc;">
         SODA!!!
+    </button>
+    <button class="prestigeButton" id="header" onclick="universalEscape()"
+            style="color: #b1b1b1; border-bottom-left-radius: 16px; height: 4rem;">
+        The Universe is Stable
     </button>
 </div>
 </body>

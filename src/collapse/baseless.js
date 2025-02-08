@@ -141,7 +141,7 @@ function baselessControl(){
 
     updateDynamicShiftHTML()
     updateAlephNullHTML()
-    updateHeaderHTML()
+    updateStatusHTML()
 }
 
 function dynamicShift(){
