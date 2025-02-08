@@ -6,11 +6,9 @@
 }
 .generalTexts{
     color: white;
-    font-family: DosisLight, serif;
 }
 .centeredTexts{
     color: white;
-    font-family: DosisLight, serif;
     text-align: center;
 }
 .column {
@@ -25,6 +23,7 @@
 .tab{
     flex-direction: column;
     display: none;
+
 }
 .ordButtons{
     width: 15rem;
@@ -96,7 +95,6 @@
 }
 .automationText{
     color: white;
-    font-family: DosisLight, serif;
 }
 .automation0{
     margin-top: 1rem;
@@ -159,7 +157,6 @@
     flex-wrap: wrap;
 }
 .hierarchies{
-    font-family: DosisLight, serif;
     font-size: 2rem;
     color: #8080FF;
 }
@@ -200,13 +197,46 @@
     color: white;
     font-family: DosisSemiBold, serif;
 }
+
+.prestigeButton{
+    border: none;
+    border-bottom: 1px solid gray;
+    border-left: 1px solid gray;
+    background: black;
+    width: 100%;
+    height: 3rem;
+}
+.prestigeButton:hover{
+    background: #222222;
+}
+
 .tabButton{
-    width: 7rem;
+    width: 100%;
+    height: 3rem;
+    position: relative;
+    overflow: hidden;
+    background: black;
+    border: none;
+    border-bottom: 1px solid gray;
+    border-right: 1px solid gray;
+    color: white;
+    background: black;
+}
+.tabButton:hover{
+    background: #222222;
+}
+
+.subTabButton{
+    width: 9rem;
     height: 1.5rem;
     margin-left: 0.3rem;
     background: black;
     border: 2px solid;
 }
+.subTabButton:hover{
+    background: #222222;
+}
+
 .collapseTabButton{
     width: 9rem;
     height: 1.5rem;
@@ -215,9 +245,11 @@
     border: 2px solid #2da000;
     color: #20da45;
 }
+.collapseTabButton:hover{
+    background: #222222;
+}
 .alephText{
     color: white;
-    font-family: DosisLight, serif;
     text-align: center;
 }
 .cupRow{
@@ -337,7 +369,6 @@
 }
 .singFunction{
     color: darkgray;
-    font-family: DosisLight, serif;
     text-align: center;
 }
 #baseless{
@@ -395,12 +426,15 @@
     background: black;
 }
 .obliterateTabButton{
-    width: 8rem;
+    width: 9rem;
     height: 1.5rem;
     margin-left: 0.3rem;
     background: black;
     border: 2px solid #6b00a0;
     color: #b06cdc;
+}
+.obliterateTabButton:hover{
+    background: #222222;
 }
 .passiveUpgrade{
     color: gray;
@@ -440,7 +474,6 @@
     background: black;
     text-align: center;
     color: white;
-    font-family: DosisLight, serif;
 }
 .purityBar{
     width: 16rem;
@@ -482,17 +515,37 @@
     background: black;
     border: 2px solid rgb(128, 128, 128);
 }
+.settingsTabButton{
+    width: 9rem;
+    height: 1.5rem;
+    margin-top: 0.5rem;
+    color: darkgray;
+    background: black;
+    border: 2px solid rgb(128, 128, 128);
+}
+.settingsTabButton:hover{
+    background: #222222;
+}
 #ordinal {
     text-overflow: ellipsis;
     overflow: hidden;
-    max-width: 50vw;
     display: inline-block;
-    position: relative;
-    left: 0;
+    max-width: 100%;
+
+    font-family: DosisSemiBold, serif;
+    font-size: 1.8rem;
+    background-image: linear-gradient(90deg, red, orange, yellow);
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    color: transparent;
+    white-space: nowrap;
+
+    margin-bottom: 1rem;
 }
 
 #ordinalContainer {
-    text-align: left;
-    margin-left: 25vw;
-    white-space: nowrap;
+    padding: 0 20px;
+    border-bottom: 1px solid gray;
+    max-height: 4rem;
 }

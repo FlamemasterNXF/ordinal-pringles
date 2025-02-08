@@ -1,32 +1,25 @@
-html {
-    background-color: black;
+body {
+    background: black;
     touch-action: pan-x pan-y;
+    font-family: DosisLight, serif;
+    display: flex;
+    align-items: stretch;
+    position: fixed;
+    inset: 0;
+    margin: 0;
 }
 
-p {
-    font-family: DosisLight;
+::-webkit-scrollbar {
+    width: 0;
+    background: transparent; /* make scrollbar transparent */
+}
+
+button {
+    cursor: pointer;
 }
 
 span {
     pointer-events: none;
-}
-
-#gameLayer {
-    width: 99%;
-    height: 99%;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#loadingLayer {
-    width: 99%;
-    height: 99%;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 #modalLayer {

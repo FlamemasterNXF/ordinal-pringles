@@ -244,8 +244,8 @@ function checkSpecialBUPs(){
 
 function updateBoostersHTML(){
     DOM('boosterText').innerHTML = data.boost.unlocks[1] > 0 ?
-        `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
-        : `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total)`
+        `You have <span style="color: #8080FF; font-family: DosisSemiBold">${format(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
+        : `You have <span style="color: #8080FF; font-family: DosisSemiBold">${format(data.boost.amt)} Boosters</span> (${(data.boost.total)} total)`
     DOM('boosterTimesText').innerHTML = `You have <span style="color: #8080FF">Boosted</span> ${data.boost.times} times`
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
 
