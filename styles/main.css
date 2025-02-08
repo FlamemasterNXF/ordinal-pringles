@@ -549,3 +549,20 @@
     border-bottom: 1px solid gray;
     max-height: 4rem;
 }
+
+#notification{
+    position: fixed;
+    right: -40rem;
+    background-color: #333;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    border: 2px solid gray;
+    transition: right 0.5s ease-in-out;
+    z-index: 1;
+    font-family: DosisLight, serif;
+}
+
+#notification.show {
+    right: 0;
+}

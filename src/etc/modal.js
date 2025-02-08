@@ -35,3 +35,13 @@ function closeModal(i) {
     document.getElementById(`${i}Container`).style.display = 'none'
     document.getElementById(`${i}`).style.display = 'none'
 }
+
+function showNotification(text){
+    const notification = DOM(`notification`)
+    notification.innerHTML = text
+
+    notification.classList.add('show')
+    setTimeout(()=>{
+        notification.classList.remove('show')
+    }, 3000)
+}

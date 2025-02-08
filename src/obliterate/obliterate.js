@@ -22,7 +22,7 @@ function obliterateConfirm(){
         createConfirmation('Are you absolutely certain?', `Obliterating will reset EVERYTHING prior in exchange for ONE Fractal Energy. There is no going back.`, 'No Way!', 'Onward!', obliterate)
 }
 function obliterate(){
-    if(data.incrementy.amt.lt(getObliterateReq())) return createAlert("Failure", "Insufficient Incrementy.", "Oops.")
+    if(data.incrementy.amt.lt(getObliterateReq())) return showNotification("Insufficient Incrementy!")
 
     DOM('obliterateNav').style.display = 'block'
     obliterateReset()

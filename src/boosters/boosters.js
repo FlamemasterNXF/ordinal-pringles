@@ -306,9 +306,7 @@ const boosterGain = () => inPurification(0) ? (getAOREffect(3)) * getBulkBoostAm
 function boost(f=false, auto=false, hotkey=false){
     if(data.boost.times === 33 && data.collapse.times === 0 && data.obliterate.times === 0) return collapse(true)
     if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && (auto || hotkey)) return
-    if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
-
-    if(data.boost.times === boostLimit()) return createAlert("The End... for now!", "You've reached the current Endgame!", "Thanks!")
+    if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && !f) return
 
     if(data.boost.times === 0){
         DOM('boostNav').style.display = 'block'

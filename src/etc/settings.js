@@ -66,7 +66,7 @@ function toggleOrdDisplay(){
 // Changes the Millisecond Interval
 function changeMs(x){
     if (!x) return
-    if (isNaN(Math.floor(x))) return createAlert('Failure', 'Invalid Input.', `Oops.`)
+    if (isNaN(Math.floor(x))) return showNotification('Invalid Input!')
     data.ms = Math.min(Math.max(Math.floor(x),20),1000)
     DOM(`changeMsInterval`).children[0].innerHTML = `[${data.ms}ms]`
     save();
