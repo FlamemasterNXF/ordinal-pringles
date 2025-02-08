@@ -95,8 +95,8 @@ function changeSingLevel(i, single = false){
 
     let change = single ? data.sing.level[i] + 1 : parseInt(DOM(`singSlider${i}`).value)
     let cost = change-data.sing.level[i]
-    if(single && data.incrementy.charge === 0) return createAlert('Failure', 'Insufficient Charge!', 'Oops')
-    if(!single && data.incrementy.charge - cost < 0) return createAlert('Failure', 'Insufficient Charge!', 'Oops')
+    if(single && data.incrementy.charge === 0) return showNotification('Insufficient Charge!')
+    if(!single && data.incrementy.charge - cost < 0) return showNotification('Insufficient Charge!')
 
     if(single) --data.incrementy.charge
     if(!single && data.sing.level[i] > change) data.incrementy.charge += data.sing.level[i]-change

@@ -100,8 +100,8 @@ let extraDUPLevels = [
 ]
 
 function buyDrain(i) {
-    if (!hasCUP(i)) return createAlert("Failure.", "The Cardinal Upgrade must be purchased before being drained!", "Oops.")
-    if (data.darkness.negativeCharge < drainCost(i)) return createAlert("Failure.", "Insufficient Negative Charge", "Dang.")
+    if (!hasCUP(i)) return showNotification("The Cardinal Upgrade must be purchased before being drained!")
+    if (data.darkness.negativeCharge < drainCost(i)) return showNotification("Insufficient Negative Charge")
 
     data.darkness.chargeSpent += drainCost(i)
     data.darkness.negativeCharge -= drainCost(i)
@@ -123,7 +123,7 @@ function buyDUP(i){
 let getTotalDUPs = () => data.darkness.levels[0]+data.darkness.levels[1]+data.darkness.levels[2]+getExtraDUPLevels(0)+getExtraDUPLevels(1)+getExtraDUPLevels(2)
 
 function darknessControl(mode){
-    if(data.baseless.baseless) return createAlert('Illegal Move', 'You cannot access Darkness Controls in the Baseless Realms', 'Dang.')
+    if(data.baseless.baseless) return showNotification('You cannot access Darkness Controls in the Baseless Realms!')
     updateDarknessControlHTML(0)
     if(mode===4){
         data.overflow.thirdEffect = !data.overflow.thirdEffect
@@ -172,7 +172,7 @@ function darken(force = false){
 
     DOM('darken').innerText = data.darkness.darkened ? 'Enter the Darkness' : 'Escape'
     data.darkness.darkened = !data.darkness.darkened
-    updateHeaderHTML()
+    updateStatusHTML()
 }
 
 function respecDrains(){

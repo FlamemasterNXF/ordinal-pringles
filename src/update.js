@@ -1,6 +1,3 @@
-//Important Constants for Loading
-const TABS = ["markup", "boosters", "collapse", "obliterate", "ach", "settings"]
-
 const uHTML = {
     update(){
         updateOrdHTML()
@@ -10,12 +7,6 @@ const uHTML = {
         updateObliterateHTML()
     },
     load(){
-        //Load Tab Displays
-        for (let i = 0; i < TABS.length; i++) {
-            DOM(`${TABS[i]}Page`).style.display = 'none'
-        }
-        switchTab('ord')
-
         //Show and Hide things, based on data
         DOM('boostNav').style.display = data.boost.times>0 || data.collapse.times>0 || data.obliterate.times>0?'block':'none'
         DOM('collapseNav').style.display = data.collapse.times > 0 || data.obliterate.times>0?'block':'none'
@@ -58,5 +49,8 @@ const uHTML = {
         initPringleAlchemy()
         initPurityPlane()
         initUnstableFactors()
+
+        //Load Tab Displays
+        switchTab(data.nav.current)
     }
 }

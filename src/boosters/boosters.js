@@ -244,33 +244,23 @@ function checkSpecialBUPs(){
 
 function updateBoostersHTML(){
     DOM('boosterText').innerHTML = data.boost.unlocks[1] > 0 ?
-        `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
-        : `You have <span style="color: #8080FF; font-family: DosisSemiBold">${(data.boost.amt)} Boosters</span> (${(data.boost.total)} total)`
+        `You have <span style="color: #8080FF; font-family: DosisSemiBold">${format(data.boost.amt)} Boosters</span> (${(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
+        : `You have <span style="color: #8080FF; font-family: DosisSemiBold">${format(data.boost.amt)} Boosters</span> (${(data.boost.total)} total)`
     DOM('boosterTimesText').innerHTML = `You have <span style="color: #8080FF">Boosted</span> ${data.boost.times} times`
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
 
-    if(boostTab === 'auto2') updateAllAutomationHTML()
-    if(boostTab === 'chal') updateAllChalHTML()
-    if(boostTab === 'incrementy') updateIncrementyHTML()
-    if(boostTab === 'hierarchies') updateHierarchiesHTML()
-    if(boostTab === 'overflow') updateOverflowHTML()
+    if(getSubtab('boosters') === 'auto2') updateAllAutomationHTML()
+    if(getSubtab('boosters') === 'chal') updateAllChalHTML()
+    if(getSubtab('boosters') === 'incrementy') updateIncrementyHTML()
+    if(getSubtab('boosters') === 'hierarchies') updateHierarchiesHTML()
+    if(getSubtab('boosters') === 'overflow') updateOverflowHTML()
 
     DOM("chalTab").innerText = data.boost.unlocks[0]?'Challenges':'???'
     DOM("incrementyTab").innerText = data.boost.unlocks[1]?'Incrementy':'???'
     DOM("hierarchiesTab").innerText = data.boost.unlocks[2]?'Hierarchies':'???'
     DOM("overflowTab").innerText = data.boost.unlocks[3]?'Overflow':'???'
 
-    if(data.chal.active[6] || data.chal.active[7]) updateHeaderHTML()
-}
-
-function updateHeaderHTML(){
-    const el = DOM(`chalIn`)
-    el.style.display = data.chal.active.includes(true) || data.baseless.baseless || inAnyPurification() ? 'block' : 'none'
-    el.innerHTML = inAnyPurification()
-        ? `The ${purificationData[data.omega.whichPurification].alt} will be Purified${data.darkness.darkened ? `<br>${getDarknessText()}` : ''}`
-        : data.baseless.baseless ? `You are in the ${baselessNames[data.baseless.mode]} Realm`
-        : data.darkness.darkened ? getDarknessText()
-        : data.chal.active[7] ? `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy and ${Math.max(1000-data.successorClicks,0)} clicks left` : `You are in Challenge ${data.chal.html+1}` + (data.chal.active[6] ? ` and there is ${Math.max(1000-data.successorClicks,0)} clicks left` : "")
+    if(data.chal.active[6] || data.chal.active[7]) updateStatusHTML()
 }
 
 function updateAllBUPHTML(){
@@ -314,11 +304,9 @@ function boosterReset(){
 
 const boosterGain = () => inPurification(0) ? (getAOREffect(3)) * getBulkBoostAmt() : ((data.boost.times * getBulkBoostAmt()) + (getBulkBoostAmt() * (getBulkBoostAmt() + 1) / 2));
 function boost(f=false, auto=false, hotkey=false){
-    if(data.boost.times === 33 && data.collapse.times === 0 && data.obliterate.times === 0) return createConfirmation("Are you certain?", "This will perform a Collapse, which will reset EVERYTHING you've done so far in exchange for three Cardinals. The next layer awaits....", "Not yet.", "To the beyond!", collapse, true)
+    if(data.boost.times === 33 && data.collapse.times === 0 && data.obliterate.times === 0) return collapse(true)
     if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && (auto || hotkey)) return
-    if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && !f) return createAlert("Failure", "Insufficient Ordinal", "Dang.")
-
-    if(data.boost.times === boostLimit()) return createAlert("The End... for now!", "You've reached the current Endgame!", "Thanks!")
+    if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && !f) return
 
     if(data.boost.times === 0){
         DOM('boostNav').style.display = 'block'

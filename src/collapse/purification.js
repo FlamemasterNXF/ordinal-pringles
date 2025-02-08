@@ -232,7 +232,7 @@ function enterPurification(i){
 
     updatePossiblePurificationHTML()
     updatePurificationHTML(i)
-    updateHeaderHTML()
+    updateStatusHTML()
 }
 function exitPurification(i, swap = false) {
     updateAllAOMHTML()
@@ -251,7 +251,7 @@ function exitPurification(i, swap = false) {
     data.omega.whichPurification = -1
 
     updatePurificationHTML(i)
-    updateHeaderHTML()
+    updateStatusHTML()
 }
 
 function buyAOR(i){

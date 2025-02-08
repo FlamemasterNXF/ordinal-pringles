@@ -1,5 +1,5 @@
 function updateCollapseHTML(){
-    if(collapseTab === 'cUpgrades' && hasSluggishMilestone(2)){
+    if(getSubtab('collapse') === 'cUpgrades' && hasSluggishMilestone(2)){
         DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals <span style="color: #9f9fcce1">and ${format(data.darkness.negativeCharge)} Negative Charge</span><br><span style="font-size: 0.8rem; color: #565656">Your best Collapse yielded <span style="color: #20da45">${format(data.collapse.bestCardinalsGained)}</span> Cardinals</span>`
     }
     else{
@@ -12,7 +12,8 @@ function updateCollapseHTML(){
     }
     if(hasCUP(7)) DOM(`cup7`).innerText = `${cupData[7].text}\n\nCurrently: ${format(cupData[7].effect())}%`
 
-    DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) || data.boost.times > 33 ? '#fff480' : '#20da45'
+    DOM("collapseButton").style.display = data.boost.times > 33 || data.collapse.times > 0 || data.obliterate.times > 0 ? 'block' : 'none'
+    DOM("collapseButton").style.color = data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) || data.boost.times > 33 ? '#b3ff80' : '#20da45'
 
     if(data.baseless.baseless) DOM(`baseless`).children[2].innerHTML = `<br><br>You will gain <span style="color: darkred">${format(alephNullGain())} ℵ<sub>0</sub></span> if you exit now<br><span style="font-size: 0.9rem">Your <span style="color: darkred">ℵ<sub>0</sub></span> gain multipier is currently ${format(getBaselessMult(data.baseless.mode)*dynamicShiftMultipliers[0]())}</span>`
 
@@ -148,7 +149,7 @@ function checkUnlocks(mode, i, preview = false){
             if(data.boost.times <= sluggishData[i].req && !hasSluggishMilestone(i)){
                 data.collapse.hasSluggish[i] = true
                 data.collapse.cardinals = data.collapse.cardinals.plus(3*i)
-                createAlert("Congratulations!", `You have completed a Sluggish Milestone!\nYour completion has been rewarded with ${3*i} free Cardinals!`, 'Great!')
+                showNotification(`You have completed a Sluggish Milestone${data.collapse.times > 1 ? `and your completion has been rewarded with ${3*i} free Cardinals!` : '!'}`)
                 updateUnlockHTML(1, i)
             }
             break;
@@ -265,7 +266,7 @@ function collapse(first = false, auto = false){
         makeExcessOrdMarks()
         return createAlert("You have Collapsed!", "Congratulations! You can now Factor Boost beyond FB34! Cardinals are gained based on how many FBs you have before Collapse.", "Got it!")
     }
-    if (data.ord.ordinal.gte(BHO_VALUE) || data.boost.times > 33){
+    if ((data.ord.ordinal.gte(BHO_VALUE) && data.ord.isPsi) || data.boost.times > 33){
         if(cardinalGain().gt(data.collapse.bestCardinalsGained)) data.collapse.bestCardinalsGained = cardinalGain()
         data.collapse.cardinals = data.collapse.cardinals.plus(cardinalGain())
         ++data.collapse.times
@@ -274,7 +275,7 @@ function collapse(first = false, auto = false){
         checkCollapseUnlockHTML()
         return collapseReset()
     }
-    if (!auto) createAlert("Failure", "Insufficent Ordinal.", "Oops.")
+    if (!auto) showNotification("Insufficent Ordinal")
 }
 function boostersOnCollapse(){
     let sing = hasSingFunction(0) ? 2 : 0
@@ -333,7 +334,7 @@ function collapseReset(){
 }
 
 function collapseCardinals(){
-    if (data.collapse.cardinals.eq(0)) return createAlert("Failure", "No Cardinals to Collapse.", "Oops.")
+    if (data.collapse.cardinals.eq(0)) return showNotification("No Cardinals to Collapse")
     if(data.collapse.times === 1 && data.obliterate.times === 0){
         for (let i = 0; i < 3; i++) {
             data.collapse.alephs[i] = D(1)

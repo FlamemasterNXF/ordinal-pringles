@@ -35,7 +35,7 @@ function initChals(){
         :chalEnter(i))
         updateChalHTML(i)
     }
-    updateHeaderHTML()
+    updateStatusHTML()
 }
 function updateAllChalHTML(){
     for (let i = 0; i < data.chal.active.length; i++) {
@@ -66,7 +66,7 @@ function chalEnter(i, force=false){
         //DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     }
     if((i === 4 || i === 6 || i === 7) && data.sToggles[10]){
-        createAlert('Forced Refund', `Your Booster Upgrades have been refunded to help with the Challenge. Feel free to rebuy them, but remember the debuff!`, 'Thanks!')
+        showNotification(`Your Booster Upgrades have been refunded to help with the Challenge. Feel free to rebuy them, but remember the debuff!`)
         boosterRefund(true)
     }
 
@@ -74,7 +74,7 @@ function chalEnter(i, force=false){
         updateChalHTML(j)
     }
     data.chal.html = i
-    updateHeaderHTML()
+    updateStatusHTML()
 }
 function chalExit(darkness = false){
     if(data.darkness.darkened && data.chal.active[7] && !darkness) darken(true)
@@ -84,11 +84,11 @@ function chalExit(darkness = false){
     }
     data.chal.html = -1
     boosterReset()
-    updateHeaderHTML()
+    updateStatusHTML()
 }
 //TODO: This exists because of how createConfirmation works. Change it.
 function chalExitConfirm(){
-    if(checkAllIndexes(data.chal.active, true) === 0) return createAlert(`Oops.`, `You have to be in a Challenge to leave it!`, `Sorry :(`)
+    if(checkAllIndexes(data.chal.active, true) === 0) return
     createConfirmation("Are you sure?", "Leaving a Challenge early will force a Booster Reset and you will get no rewards!", "No way!", "Of course!", chalExit)
 }
 function chalComplete(){
@@ -98,7 +98,7 @@ function chalComplete(){
     if(currency>=chalGoals[data.chal.html][data.chal.completions[data.chal.html]] && ex){
         ++data.chal.completions[data.chal.html]
         ++data.chal.totalCompletions
-        if(data.sToggles[2]) createAlert("Challenge Complete!", `You have Completed Challenge ${data.chal.html+1}x${data.chal.completions[data.chal.html]}!`, 'Awesome!')
+        if(data.sToggles[2]) showNotification(`You have Completed Challenge ${data.chal.html+1}x${data.chal.completions[data.chal.html]}!`)
         chalExit()
     }
 }

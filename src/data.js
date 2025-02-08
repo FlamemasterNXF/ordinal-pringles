@@ -8,16 +8,19 @@ const BHO_VALUE = 4*3**40
 const BO_VALUE = D('eee98235035280650.45') //Decimal.pow(3, ordMarksBO).mul(4)
 
 //Version Flags
-const VERSION = "0.4.2"
+const VERSION = "0.4.3"
 const VERSION_NAME = "The Pringle Update"
-const VERSION_DATE = "November 1st, 2024"
+const VERSION_DATE = "February 7th, 2025"
 const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
 //create all the variables in a data object for saving
 function getDefaultObject() {
     return {
-        nav: {current:"ord", last:"ord"},
+        nav: {
+            current: "ord",
+            subtabs: defaultSubTabs,
+        },
 
         ord: {ordinal:D(1), over:D(0), base:10, trim: 5, isPsi: false, color:false, displayType: 'Buchholz'},
         markup: {powers:D(0), shifts:0},
@@ -56,7 +59,7 @@ let data = getDefaultObject()
 function save(){
     try{ window.localStorage.setItem(SAVE_PATH(), JSON.stringify(data)) }
     catch (e) {
-        createAlert('Error', `Save failed.\n${e}`, 'Dang.');
+        showNotification(`Save failed.\n${e}`);
         console.error(e);
     }
 }
@@ -64,7 +67,7 @@ function load() {
     let savedata = JSON.parse(window.localStorage.getItem(SAVE_PATH()))
     if (savedata !== undefined) fixSave(data, savedata)
     let extra = fixOldSaves()
-    createAlert('Welcome Back!', `You've loaded into Ordinal PRINGLES v${VERSION}: ${VERSION_NAME}\nEnjoy!`, 'Thanks!')
+    showNotification(`You're playing Ordinal PRINGLES v${VERSION}: ${VERSION_NAME}, Enjoy!`)
 
     return extra
 }
@@ -251,10 +254,10 @@ function exportSave(){
         exportedDataText.setSelectionRange(0, 99999);
         document.execCommand("copy");
         document.body.removeChild(exportedDataText);
-        createAlert('Export Successful', 'Your Data has been copied to the clipboard!', 'Thanks!')
+        showNotification('Your save has been copied to the clipboard!')
     }
     catch (e){
-        createAlert('Error', `Save export failed.\n${e}`, 'Dang.');
+        showNotification(`Save export failed.\n${e}`)
         console.error(e);
     }
 }
@@ -268,16 +271,16 @@ async function downloadSave() {
         a.href = window.URL.createObjectURL(file)
         a.download = `Ordinal-Pringles-save-${VERSION}-${date}.txt`
         a.click()
-        createAlert("Success!", 'Your save has been successfully downloaded!', 'Thanks!');
+        showNotification('Your save has been successfully downloaded!')
     } catch (e) {
-        createAlert('Error', `Save download failed.\n${e}`, 'Dang.');
+        showNotification(`Save download failed.\n${e}`)
         console.error(e);
         closeModal(1)
     }
 }
 function importSave(x) {
     if(x === "gwa"){
-        if(!data.gword.unl) createAlert('Secret!', 'You have unlocked the secret <img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'> Ordinal Display! You can now enable or disable it in Settings :) If you\'re curious what those gwas mean check out the Info Box next to the <img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'> Display Setting!', '<img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'>!')
+        if(!data.gword.unl) showNotification('You have unlocked the secret <img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'> Ordinal Display! You can now enable or disable it in Settings :)')
         data.gword.unl = true
         data.gword.enabled = true
         return closeModal('prompt')
@@ -285,17 +288,17 @@ function importSave(x) {
     try {
         if(x.length <= 0) {
             DOM('promptContainer').style.display = 'none'
-            createAlert('Failure', 'No data found.', `Oops.`)
+            showNotification('No data found.')
             return
         }
         data = Object.assign(getDefaultObject(), JSON.parse(atob(x)))
-        if(data.isBeta && !IS_BETA) return createAlert('Beta Save detected!', 'You tried to load a Beta Save into the main version. This is not allowed, sorry :(', 'Dang it!')
+        if(data.isBeta && !IS_BETA) return showNotification('You tried to load a Beta Save into the main version. This is not allowed, sorry :(')
         save()
         location.reload()
     }
     catch (e){
         closeModal('prompt')
-        createAlert('Error', `Save import failed.\n${e}`, 'Dang.');
+        showNotification(`Save import failed.\n${e}`);
         console.error(e);
     }
 }

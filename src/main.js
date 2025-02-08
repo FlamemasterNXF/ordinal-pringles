@@ -40,7 +40,7 @@ function mainLoop() {
     if (controls["h"].pressed && !data.baseless.baseless) factorShift();
     if (controls["h"].pressed && data.baseless.baseless) dynamicShift();
     if (controls["b"].pressed) boost(false, false, true);
-    if (controls["c"].pressed) collapseConfirm(true);
+    if (controls["c"].pressed && (data.collapse.times > 0 || data.obliterate.times > 0)) collapseConfirm(true);
 
     // Update Achievements
     checkAchs()

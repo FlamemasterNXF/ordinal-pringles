@@ -128,7 +128,7 @@ function tick(diff){
     if(data.boost.unlocks[2] && !inPurification(2) && !inPurification(3)) increaseHierarchies(diff)
 
     // TODO: Check for "Base is Always 5/4 in Challenges", probably doesn't need to be on tick()
-    if(data.chal.active.includes(true) && !data.darkness.darkened) data.ord.base = getBUPEffect(2)
+    if(data.chal.active.includes(true) && !data.chal.active[6]) data.ord.base = getBUPEffect(2)
 
     // Unlock Booster Features
     boosterUnlock()

@@ -50,7 +50,7 @@ function checkANRUnlockHTML(){
 function updateBaselessEnterHTML(id, load=false) {
     if(data.baseless.baseless && !load){
         DOM(`baseless`).children[1].selectedIndex = data.baseless.mode
-        return createAlert('Illegal Move!', 'You cannot change the Realm you\'re already in!', 'Dang it!')
+        return showNotification('You cannot change the Realm you\'re already in!')
     }
     if(load){
         DOM(`baseless`).children[1].selectedIndex = data.baseless.mode
@@ -141,7 +141,7 @@ function baselessControl(){
 
     updateDynamicShiftHTML()
     updateAlephNullHTML()
-    updateHeaderHTML()
+    updateStatusHTML()
 }
 
 function dynamicShift(){
