@@ -35,8 +35,10 @@ function initializeCloudSaving() {
                     info is sent when saving is initialized, so we can check for it directly
                 */
                 cloudSavingData.isGalaxy = true // We can now confirm that we are on galaxy
+                DOM(`cloudStatus`).innerHTML = 'You are on Galaxy, but not logged in.<br><br>Please log in to enjoy the benefits of Cloud saving!'
                 if(e.data.logged_in){
                     cloudSavingData.isLoggedIn = true // We can now confirm that the user is logged in
+                    DOM(`cloudStatus`).innerHTML = 'You are on Galaxy and logged in!<br><br>The game will Cloud save every five minutes!'
 
                     // Begin loading from the cloud
                     window.top.postMessage({
@@ -84,11 +86,4 @@ function initializeCloudSaving() {
             }
         }
     })
-}
-
-function updateCloudSavingHTML(){
-    DOM(`cloudStatus`).innerHTML = cloudSavingData.isGalaxy
-        ? cloudSavingData.isLoggedIn ? 'You are on Galaxy and logged in!<br><br>The game will Cloud save every five minutes!'
-            : 'You are on Galaxy, but not logged in<br><br>Please log in to enjoy the benefits of Cloud saving!'
-        : 'You must be logged in on <a href="https://galaxy.click/play/8" target="_blank">Galaxy</a> to use Cloud saving!<br><br>Galaxy players are able to enjoy the benefits of automatic Cloud saving every five minutes!'
 }

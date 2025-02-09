@@ -61,7 +61,6 @@ window.onload = function () {
     if(data.collapse.times > 0 || data.obliterate.times > 0) makeExcessOrdMarks()
 
     initializeCloudSaving()
-    updateCloudSavingHTML()
 
     window.setInterval(function () {
         mainLoop()
