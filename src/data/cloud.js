@@ -73,8 +73,11 @@ function initializeCloudSaving() {
                     }
                 }
                 else if(e.data.message === "empty_slot"){
-                    // This is an error which means that the save slot is empty, so we fill it immediately
-                    saveToCloud()
+                    /*
+                        It turns out that saving twice in quick succession can create a race condition, leading to
+                        two identical cloud saves being created (bad).
+                        So, instead of creating a save to fill the empty slot, we do nothing.
+                    */
                 }
                 else{
                     /*
