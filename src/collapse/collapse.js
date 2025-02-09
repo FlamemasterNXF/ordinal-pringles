@@ -1,6 +1,10 @@
 function updateCollapseHTML(){
+    DOM('cardinalsText').style.color = getSubtab('collapse') === 'hyper' ? 'goldenrod' : '#20da45'
     if(getSubtab('collapse') === 'cUpgrades' && hasSluggishMilestone(2)){
         DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals <span style="color: #9f9fcce1">and ${format(data.darkness.negativeCharge)} Negative Charge</span><br><span style="font-size: 0.8rem; color: #565656">Your best Collapse yielded <span style="color: #20da45">${format(data.collapse.bestCardinalsGained)}</span> Cardinals</span>`
+    }
+    else if(getSubtab('collapse') === 'hyper'){
+        DOM('cardinalsText').innerHTML = `You have ${formatWhole(data.incrementy.charge)} Charge<br><span style="font-size: 0.9rem; color: #8a8a8a">You have 0 Hypercharges, <span style="color: #da2020">doing bad [effect]</span></span><br><span style="font-size: 0.9rem; color: #8a8a8a">You have 0 Stable Hypercharges, <span style="color: #20da45">reducing the penalty by effect</span></span>`
     }
     else{
         DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals<br><span style="font-size: 0.8rem; color: #565656">Your best Collapse yielded <span style="color: #20da45">${format(data.collapse.bestCardinalsGained)}</span> Cardinals</span>`
@@ -171,7 +175,7 @@ function checkAllUnlocks(mode, prev = false){
 }
 function checkCollapseUnlockHTML(){
     DOM('darkTab').innerText = hasSluggishMilestone(2) ? 'Darkness' : '???'
-    DOM('singTab').innerText = data.boost.unlocks[4] ? 'Singularity' : '???'
+    DOM('hyperTab').innerText = data.boost.unlocks[4] ? 'Hypercharge' : '???'
     DOM('baselessTab').innerText = data.boost.unlocks[4] ? 'Baselessness' : '???'
     DOM('purificationTab').innerText = isTabUnlocked('purification') ? 'Purification' : '???'
 }
@@ -227,7 +231,7 @@ let alephData = [
     {text: "multiplying the SGH effect by", effect: ()=> Decimal.pow(data.collapse.alephs[5].plus(1), 1/4), unl: () => true},
     {text: "multiplying Booster Power gain by", effect: ()=> Decimal.sqrt(data.collapse.alephs[6].plus(4)).div(2), unl: () => true},
     {text: "multiplying the IUP3 effect by", effect: ()=> (Decimal.sqrt(data.collapse.alephs[7].plus(4)).times(2).times(purificationEffect(1))).plus(hupData[9].effect()), unl: () => true},
-    {text: "multiplying the first Singularity effect by", effect: ()=> softcap(D(1).plus(Decimal.log10(data.collapse.alephs[8].plus(10)).div(1000)), D(1.1), 0.5, true), unl: () => hasAOMilestone(1)},
+    {text: "TODO", effect: ()=> D(1), unl: () => hasAOMilestone(1)},
 ]
 let cupData = [
     {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max((data.incrementy.totalCharge/2)*purificationEffect(3)*getPringleEffect(0, true), 1)},

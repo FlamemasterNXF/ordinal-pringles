@@ -51,6 +51,7 @@
 
     <script defer src="src/collapse/purification.js"></script>
     <script defer src="src/collapse/baseless.js"></script>
+    <script defer src="src/collapse/hypercharge.js"></script>
     <script defer src="src/collapse/singularity.js"></script>
     <script defer src="src/collapse/darkness.js"></script>
     <script defer src="src/collapse/collapse.js"></script>
@@ -366,7 +367,7 @@
             <button class="collapseTabButton" id="darkTab" onclick="switchSubtab('darkness', 'collapse')"
                     style="border-color: rgba(128,0,255,0.5); color: rgba(159,159,204,0.92)">???
             </button>
-            <button class="collapseTabButton" id="singTab" onclick="switchSubtab('sing', 'collapse')">???</button>
+            <button class="collapseTabButton" id="hyperTab" onclick="switchSubtab('hyper', 'collapse')">???</button>
             <button class="collapseTabButton" id="baselessTab" onclick="switchSubtab('baseless', 'collapse')">???
             </button>
             <button class="collapseTabButton" id="purificationTab" onclick="switchSubtab('purification', 'collapse')"
@@ -415,6 +416,10 @@
                 </button>
             </div>
             <button class="chargeSac" id="dupC2" onclick="chargeSacConfirm()">Sacrifice Charge</button>
+        </div>
+        <div class="tab" id="hyperSubPage">
+            <div id="hyperUpgradeContainer"></div>
+            <span class="centeredTexts" style="margin-top: 1rem; color: gray">If a Hypercharge is in row one or the Hypercharge above it is purchased it is considered a <span style="color: #20da45">Stable Hypercharge</span><br>Only one Hypercharge from each row may be purchased. You must purchase at least one Hypercharge in a given row to access the row beneath it.<br>Purchasing a Hypercharge in a row will also unlock that row's <span style="color: #aed500">Passive Hypercharge</span> for free.</br></span>
         </div>
         <div class="tab" id="singSubPage">
             <span class="centeredTexts" id="singCostText" style="margin-top: 1rem">Singularitying</span>

@@ -10,6 +10,7 @@
 .centeredTexts{
     color: white;
     text-align: center;
+    font-family: DosisLight, serif;
 }
 .column {
     flex-direction: column;
@@ -371,6 +372,31 @@
     color: darkgray;
     text-align: center;
 }
+
+.hyperChargeUpgrade {
+    width: 10rem;
+    height: 6rem;
+    background-color: #000000;
+    border: 2px solid #615400;
+    color: #d5ad00;
+    font-family: DosisLight, serif;
+    margin: 1rem;
+}
+.hyperChargeQOL{
+    width: 8rem;
+    height: 6rem;
+    background-color: #000000;
+    border: 2px solid #4c6100;
+    color: #aed500;
+    font-family: DosisLight, serif;
+    margin: 1rem;
+}
+.hyperChargeLine {
+    height: 2px;
+    background-color: #393939;
+    width: 100%;
+}
+
 #baseless{
     width: 25rem;
     height: 10rem;

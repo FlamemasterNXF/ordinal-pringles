@@ -167,7 +167,7 @@ let singFunctions = [
 
 let hasPermanentFunction = (i) => singFunctions[i].permReq()
 let hasSingFunction = (i) => getTotalSingDensity() >= singFunctions[i].requiredLevel || hasPermanentFunction(i)
-let getSingFunctionEffect = (i) => hasSingFunction(i) ? singFunctions[i].effect() : 1
+let getSingFunctionEffect = (i) => /*hasSingFunction(i) ? singFunctions[i].effect() :*/ 1
 
 function getTotalSingDensity(){
     let total = 0

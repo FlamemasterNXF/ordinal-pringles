@@ -32,7 +32,7 @@ function getDefaultPlayer() {
         omega:{bestRemnants: 0, alephOmega:1, bestFBInPurification: Array(4).fill(0), purificationIsActive: Array(4).fill(false), whichPurification: -1, aoRebuyables:Array(8).fill(0), tutorial: false},
         obliterate:{times:0, energy:0, passiveEnergy:0, energyUpgrades: [], pringleAmount: Array(10).fill(0), hasPassiveUpgrade: Array(passiveEnergyDescriptions.length).fill(false), instability:0, unstableFactors: Array(unstableFactorData.length).fill(0), unstableFactorState: Array(unstableFactorData.length).fill(true)},
         purity:{isAssigned: Array(10).fill(false), isUnlocked: Array(4).fill(false).concat(Array(2).fill(true)).concat(Array(4).fill(false)), assignment:Array(10).fill(false), pringleQueued: -1, tutorial: false},
-        imaginary:{shifts:0, factors:Array(7).fill(0)},
+        hyper: { hasUpgrade: Array(hyperChargeUpgradeData.length).fill(false) },
 
         autoStatus: {enabled: Array(9).fill(false)},
         sToggles: settingsDefaults,
