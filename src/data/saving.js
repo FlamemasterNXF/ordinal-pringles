@@ -1,5 +1,5 @@
 //Version Flags
-const VERSION = "0.4.3γ"
+const VERSION = "0.4.3p3"
 const VERSION_NAME = "The Pringle Update"
 const VERSION_DATE = "February 9th, 2025"
 const IS_BETA = false
@@ -75,6 +75,8 @@ function fixOldSaves(){
 
     //AutoShift Fix
     if(data.markup.shifts > 7) data.markup.shifts = 7
+
+    if(data.loadedVersion === "0.4.3λ" || data.loadedVersion === "0.4.3γ") data.loadedVersion = "0.4.3"
 
     if(data.loadedVersion === "0.4b7"){
         data.obliterate.instability = data.obliterate.times
