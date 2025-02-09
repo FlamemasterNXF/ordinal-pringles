@@ -56,7 +56,10 @@ function initializeCloudSaving() {
                     save_content is sent as a reply to our previous load request
                 */
                 if(!e.data.error){
-                    let cloudData = JSON.parse(e.data.content)
+                    const defaultPlayer = JSON.stringify(getDefaultPlayer())
+                    const localData = JSON.stringify(data)
+                    let cloudData = e.data.content
+
                     if(cloudData !== getDefaultPlayer() && data === getDefaultPlayer()){
                         // If your local save looks like the default save and your cloud save doesn't, load from cloud.
                         createConfirmation(
