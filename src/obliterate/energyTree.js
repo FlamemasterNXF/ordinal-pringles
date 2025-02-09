@@ -76,6 +76,15 @@ let treeOptions = {
         'borderWidth' : 2,
         'borderWidthSelected' : 3,
     },
+    edges: {
+        arrows: {
+            to: {
+                enabled: true,
+                scaleFactor: 1,
+                type: "arrow"
+            },
+        }
+    },
     interaction: {hover: true}
 }
 let hasDrawnTree = false
