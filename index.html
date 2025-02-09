@@ -66,7 +66,9 @@
 
     <script defer src="src/main.js"></script>
     <script defer src="src/update/update.js"></script>
-    <script defer src="src/data.js"></script>
+    <script defer src="src/data/saving.js"></script>
+    <script defer src="src/data/cloud.js"></script>
+    <script defer src="src/data/player.js"></script>
 
     <script defer src="src/obliterate/pringles.js"></script>
     <script defer src="src/boosters/boosters.js"></script>
@@ -679,7 +681,7 @@
         </div>
         <div class="tab" id="savingSubPage">
             <button class="settingsButton" onclick="save()">Manual Save</button>
-            <button class="settingsButton" onclick="exportSave()">Export your Save</button>
+            <button class="settingsButton" onclick="copySaveToClipboard()">Export your Save</button>
             <button class="settingsButton" onclick="downloadSave()">Download your Save</button>
             <button class="settingsButton" onclick="createPrompt('Import SaveData', importSave, true)">Import your
                 Save
