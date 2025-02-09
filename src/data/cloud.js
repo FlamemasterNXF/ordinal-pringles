@@ -84,8 +84,6 @@ function initializeCloudSaving() {
             }
         }
     })
-
-    updateCloudSavingHTML()
 }
 
 function updateCloudSavingHTML(){
