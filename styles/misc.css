@@ -22,6 +22,10 @@ span {
     pointer-events: none;
 }
 
+a:active, a:link, a:visited {
+    color: #e1e1e1;
+}
+
 #modalLayer {
     width: 99%;
     height: 99%;

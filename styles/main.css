@@ -607,3 +607,16 @@
 #maximizeButton{
     margin-left: 70%;
 }
+
+#cloudStatus{
+    width: 29rem;
+    height: 11rem;
+    background: black;
+    border: 2px solid #7e6085;
+    color: #ae6cc5;
+    text-align: center;
+    place-content: center;
+    font-family: DosisLight, serif;
+    border-radius: 16px;
+    padding: 1rem;
+}
