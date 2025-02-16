@@ -163,26 +163,26 @@
 .hb0{
     width: 15rem;
     height: 7rem;
-    border: 2px solid #1e47d0;
+    border: 2px solid #414d78;
     color: #8080FF;
     background: black;
     margin-top: 0.5rem;
-    margin-left: 2rem;
-    margin-right: 0.25rem;
+    margin-left: 1.25rem;
+    margin-right: 0rem;
 }
 .hb1{
     width: 15rem;
     height: 7rem;
-    border: 2px solid #1e47d0;
+    border: 2px solid #414d78;
     color: #8080FF;
     background: black;
     margin-top: 0.5rem;
-    margin-right: 2rem;
-    margin-left: 0.25rem;
+    margin-right: 1.25rem;
+    border-left: 0;
 }
 .hup{
-    width: 17rem;
-    height: 7rem;
+    width: 15rem;
+    height: 6rem;
     border: 2px solid #631d89;
     color: #a680ff;
     background: black;
