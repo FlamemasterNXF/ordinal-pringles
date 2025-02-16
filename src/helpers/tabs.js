@@ -56,6 +56,7 @@ function switchSubtab(tab, mode){
     // Special Collapse Rules
     if(mode === "collapse"){
         DOM(`collapseInfoContainer`).style.display = tab==='purification' ? 'none' : 'flex'
+        DOM(`mobilecollapseButton`).style.display = isMobileMode() ? 'block' : 'none'
 
         if(tab==='cardinals'){
             DOM(`aleph8`).style.display = hasAOMilestone(1) ? `block` : `none`

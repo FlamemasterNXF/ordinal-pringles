@@ -375,9 +375,9 @@
         </div>
         <div class="column flexBox" id="collapseInfoContainer" style="margin-top: 0.1rem;">
             <h3 class="centeredTexts" id="cardinalsText" style="color: #20da45;">You have Collapsed Chips. In your house.</h3>
-            <button id="mobilecollapseButton" onclick="collapseConfirm()" style="color: #20da45;; min-width: 20rem; height: 2rem; background-color: black; border: 2px solid #2da000; display: none">Collapse</button>
+            <button id="mobilecollapseButton" onclick="collapseConfirm()" style="color: #20da45; width: 20rem; height: 2rem; background-color: black; border: 2px solid #2da000; display: none; margin-bottom: 1rem;">Collapse</button>
         </div>
-        <div class="tab flexBox" id="cardinalsSubPage" style="margin-top: 1rem;">
+        <div class="tab flexBox" id="cardinalsSubPage">
             <button id="distributeButton" onclick="collapseCardinals()"
                     style="color: #20da45; min-width: 20rem; height: 3rem; background-color: black; border: 2px solid #2da000">
                 Collapse all Cardinals into random Alephs
@@ -417,7 +417,7 @@
             <button class="chargeSac" id="dupC2" onclick="chargeSacConfirm()">Sacrifice Charge</button>
         </div>
         <div class="tab" id="singSubPage">
-            <span class="centeredTexts" id="singCostText" style="margin-top: 1rem">Singularitying</span>
+            <span class="centeredTexts" id="singCostText">Singularitying</span>
             <div class="row">
                 <div class="column flexBox">
                     <span class="centeredTexts" id="sing0Level"
@@ -461,7 +461,7 @@
                     style="color: #00ceb6">Persistent</span>!</span>
         </div>
         <div class="tab" id="baselessSubPage">
-            <span class="centeredTexts" id="alephNull" style="color: darkorange; margin-top: 1rem">Based</span>
+            <span class="centeredTexts" id="alephNull" style="color: darkorange;">Based</span>
             <div class="row flexBox">
                 <button id="baseless" style="font-size: 1.1rem; margin-right: 0.25rem"
                         onclick="data.sToggles[8] ? createConfirmation('Are you sure?', 'Entering or exiting will perform a Collapse reset!', 'Nope!', 'Yep!', baselessControl) : baselessControl()">
