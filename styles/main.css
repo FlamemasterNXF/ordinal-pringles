@@ -238,7 +238,7 @@
 }
 
 .collapseTabButton{
-    width: 9rem;
+    width: 8rem;
     height: 1.5rem;
     margin-left: 0.3rem;
     background: black;
@@ -273,7 +273,6 @@
     color: #20da45;
     background: black;
     margin-left: 0.5rem;
-    margin-top: 1rem;
 }
 .drain{
     width: 15rem;
@@ -298,7 +297,7 @@
     border: 1px solid #154b00;
     color: #0f9329;
     background: black;
-    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 #darken{
     width: 25rem;
@@ -306,7 +305,6 @@
     border: 2px solid #8000ff4d;
     color: #9f9fcce1;
     background: rgb(18 1 26);
-    margin-top: 1rem;
     margin-left: 0.5rem;
 }
 #instability{
@@ -390,6 +388,7 @@
     margin-right: 0.25rem
 }
 .purification{
+    margin-bottom: 0.5rem;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     width: 20rem;
@@ -402,25 +401,25 @@
     display: flex;
     align-items: center;
     place-content:center;
-    margin-top: 1rem;
     flex-wrap: wrap;
 }
 .aoRebuyable{
-    width: 21rem;
+    width: 15rem;
     height: 7rem;
     border: 2px solid #650000;
     color: #ce0b0b;
     background: black;
     margin-left: 0.25rem;
-    margin-right: 0.25rem
+    margin-right: 0.25rem;
+    margin-bottom: 0.5rem;
 }
 .aoMilestone{
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-    width: 30rem;
+    margin-top: 0.5rem;
+    width: 28rem;
     height: 5rem;
     box-shadow: rgba(0,0,0,0.2) 0 2px 3px, inset rgba(0,0,0,0.2) 0 -1px 2px;
-
     border: 2px solid #4b001a;
     color: #940525;
     background: black;
