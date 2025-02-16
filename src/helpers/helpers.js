@@ -59,3 +59,10 @@ let boostersAtGivenFB = (i = data.boost.times) => i > 0 ? (i*(i+1))/2 : 0
 let logn = (num, logBase) => num === 0 ? 0 : Math.log10(num) / Math.log10(logBase);
 
 let splitAt = (index, str) => [str.slice(0, index), str.slice(index)]
+
+let checkArrayBetween = (arr, start, end, value) => arr.slice(start, end).some(x => x === value);
+
+function formatSign(text, sign){
+    return sign !== 'x' ? `${sign}${text}` : `${text}${sign}`
+}
+

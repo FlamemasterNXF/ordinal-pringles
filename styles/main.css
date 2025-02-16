@@ -24,7 +24,9 @@
 .tab{
     flex-direction: column;
     display: none;
-
+}
+.noGap{
+    line-height: 1;
 }
 .ordButtons{
     width: 15rem;
@@ -374,7 +376,7 @@
 }
 
 .hyperChargeUpgrade {
-    width: 10rem;
+    width: 11rem;
     height: 6rem;
     background-color: #000000;
     border: 2px solid #615400;
@@ -383,7 +385,7 @@
     margin: 1rem;
 }
 .hyperChargeQOL{
-    width: 8rem;
+    width: 9rem;
     height: 6rem;
     background-color: #000000;
     border: 2px solid #4c6100;
@@ -392,9 +394,16 @@
     margin: 1rem;
 }
 .hyperChargeLine {
-    height: 2px;
+    height: 1px;
     background-color: #393939;
     width: 100%;
+}
+.hyperChargeRequirement{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: goldenrod;
+    font-family: DosisLight, serif;
 }
 
 #baseless{

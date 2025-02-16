@@ -5,7 +5,7 @@
 */
 
 function updateOverflowHTML(){
-    DOM(`boosterText2`).innerText =  `You have ${getExtraBoosters()} Excess Boosters, producing`
+    DOM(`boosterText2`).innerText =  `You have ${format(getExtraBoosters())} Excess Boosters, producing`
     DOM(`boosterPower`).innerText = ` ${format(getOverflowGain(0))} Booster Power/s`
     DOM(`bpTotal`).innerText = `Your ${format(data.overflow.bp)} Booster Power is`
 
