@@ -332,7 +332,7 @@ function bigHardy(ord, base, over=0)
       w^w^2 level = order of {10, 10 [3] 2}
       w^w^n level = order of {10, 10 [n] 2}
       w^w^w level = order of {10, 10 [1, 2] 2}
-      etc. until ε0 = order of {10, 10 [1 [1 [... [1 [2] 2] ...] 2] 2] 2}
+      helpers. until ε0 = order of {10, 10 [1 [1 [... [1 [2] 2] ...] 2] 2] 2}
     */
 }
 

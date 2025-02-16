@@ -10,13 +10,13 @@
     <link rel="stylesheet" type="text/css" href="styles/tooltip.css"/>
     <link rel="icon" href="res/chipper.gif" type="image/gif" sizes="32x32"/>
 
-    <script defer src="src/internal/vis-network.min.js"></script>
+    <script defer src="src/lib/vis-network.min.js"></script>
 
-    <script defer src="src/internal/BreakEternity.js"></script>
-    <script defer src="src/internal/ExpantaNum.js"></script>
-    <script defer src="src/internal/Formatting.js"></script>
-    <script defer src="src/internal/FormatExpantanum.js"></script>
-    <script defer src="src/internal/Helpers.js"></script>
+    <script defer src="src/lib/BreakEternity.js"></script>
+    <script defer src="src/lib/ExpantaNum.js"></script>
+    <script defer src="src/lib/Formatting.js"></script>
+    <script defer src="src/lib/FormatExpantanum.js"></script>
+    <script defer src="src/helpers/helpers.js"></script>
 
     <script defer src="src/ordinal/ordinalDisplay.js"></script>
     <script defer src="src/ordinal/gwaifyOrdinal.js"></script>
@@ -32,14 +32,15 @@
     <script defer src="src/ordinal/displayBMSOrd.js"></script>
     <script defer src="src/ordinal/displayYSequenceOrd.js"></script>
 
-    <script defer src="src/etc/modal.js"></script>
-    <script defer src="src/etc/progressBar.js"></script>
-    <script defer src="src/etc/hotkeys.js"></script>
-    <script defer src="src/etc/tick.js"></script>
-    <script defer src="src/etc/achievements.js"></script>
-    <script defer src="src/etc/tabs.js"></script>
-    <script defer src="src/etc/settings.js"></script>
-    <script defer src="src/etc/worldStatus.js"></script>
+    <script defer src="src/helpers/modal.js"></script>
+    <script defer src="src/helpers/progressBar.js"></script>
+    <script defer src="src/minor/hotkeys.js"></script>
+    <script defer src="src/update/tick.js"></script>
+    <script defer src="src/minor/achievements.js"></script>
+    <script defer src="src/helpers/tabs.js"></script>
+    <script defer src="src/minor/settings.js"></script>
+    <script defer src="src/helpers/worldStatus.js"></script>
+    <script defer src="src/minor/adaptive.js"></script>
 
     <script defer src="src/obliterate/instability.js"></script>
     <script defer src="src/obliterate/purity.js"></script>
@@ -64,8 +65,10 @@
     <script defer src="src/markup/markup.js"></script>
 
     <script defer src="src/main.js"></script>
-    <script defer src="src/update.js"></script>
-    <script defer src="src/data.js"></script>
+    <script defer src="src/update/update.js"></script>
+    <script defer src="src/data/saving.js"></script>
+    <script defer src="src/data/cloud.js"></script>
+    <script defer src="src/data/player.js"></script>
 
     <script defer src="src/obliterate/pringles.js"></script>
     <script defer src="src/boosters/boosters.js"></script>
@@ -126,7 +129,7 @@
         <span>Achievements</span>
     </button>
     <button class="minorTabButton tabButton" id="settingsNav" alttext="⚙️" onclick="switchTab('settings')"
-            style="color: gray;"><span>Settings</span>
+            style="color: gray;"><span>Settings and Saving</span>
     </button>
 </div>
 <div id="game">
@@ -585,9 +588,9 @@
     </div>
     <div class="tab" id="achPage"></div>
     <div class="tab flexBox" id="settingsPage">
-        <p class="centeredTexts">Consider joining <a href="https://discord.com/invite/dauxGZwc9u" target="_blank">the
+        <p class="centeredTexts">Consider joining <a href="https://discord.com/invite/dauxGZwc9u" style="color: #95d0ef" target="_blank">the
             Discord</a> :)</p>
-        <div style="margin-top: 0.5rem; margin-bottom: 1rem">
+        <div class="flexBox" style="margin-top: 0.5rem; margin-bottom: 1rem">
             <button class="settingsTabButton" id="gameTab" onclick="switchSubtab('gameSettings', 'settings')">Game</button>
             <button class="settingsTabButton" id="togglesTab" onclick="switchSubtab('toggles', 'settings')"
                     style="margin-left: 0.5rem">Confirmations
@@ -598,8 +601,11 @@
             <button class="settingsTabButton" id="savingTab" onclick="switchSubtab('saving', 'settings')"
                     style="margin-left: 0.5rem">Saving
             </button>
+            <button class="settingsTabButton" id="galaxyTab" onclick="switchSubtab('galaxy', 'settings')"
+                    style="margin-left: 0.5rem; border-color: #7e6085; color: #ae6cc5">Cloud
+            </button>
             <button class="settingsTabButton" id="technicalTab" onclick="switchSubtab('tech', 'settings')"
-                    style="margin-left: 0.5rem; color: #c93e00">Advanced
+                    style="margin-left: 0.5rem; border-color: #501900; color: #c93e00">Advanced
             </button>
         </div>
         <div class="tab" id="gameSettingsSubPage">
@@ -678,7 +684,7 @@
         </div>
         <div class="tab" id="savingSubPage">
             <button class="settingsButton" onclick="save()">Manual Save</button>
-            <button class="settingsButton" onclick="exportSave()">Export your Save</button>
+            <button class="settingsButton" onclick="copySaveToClipboard()">Export your Save</button>
             <button class="settingsButton" onclick="downloadSave()">Download your Save</button>
             <button class="settingsButton" onclick="createPrompt('Import SaveData', importSave, true)">Import your
                 Save
@@ -687,6 +693,9 @@
                     onclick="createConfirmation('Are you sure?', 'Are you absolutely sure you want to do this?\nThis will export your save (just in case) but delete your save from LocalStorage.', 'No Way!', 'Yes, I understand the consequences.', fullReset)"
                     style="color: red">Delete your Save
             </button>
+        </div>
+        <div class="tab" id="galaxySubPage">
+            <div id="cloudStatus">You must be logged in on <a href="https://galaxy.click/play/8" target="_blank">Galaxy</a> to use Cloud saving!<br><br>Galaxy players are able to enjoy the benefits of automatic Cloud saving every five minutes!</div>
         </div>
         <div class="centeredTexts" id="versionText"
              style="margin-top: 3rem; color: #009696; font-family: DosisBold, serif;">Version
@@ -713,10 +722,14 @@
             style="color: #b06cdc;">
         SODA!!!
     </button>
-    <button class="prestigeButton" id="header" onclick="universalEscape()"
-            style="color: #b1b1b1; height: 4rem;">
-        The Universe is Stable
-    </button>
+    <div id="headerWrapper">
+        <button class="prestigeButton" id="header" onclick="universalEscape()"
+                style="color: #b1b1b1; height: 4rem;">
+            The Universe is Stable
+        </button>
+        <button class="maxMinButton" id="minimizeButton" onclick="changeMobileNavHTML()">-</button>
+    </div>
+    <div class="maxMinButton" id="maximizeButton" onclick="changeMobileNavHTML()">+</div>
 </div>
 </body>
 </html>

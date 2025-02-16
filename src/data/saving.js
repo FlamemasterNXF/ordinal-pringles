@@ -1,93 +1,55 @@
-//Easy Decimal Creation
-const D = x => new Decimal(x)
-
-//Important Constant Variables
-const PSI_VALUE = 7625597484987
-const GRAHAMS_VALUE = 109
-const BHO_VALUE = 4*3**40
-const BO_VALUE = D('eee98235035280650.45') //Decimal.pow(3, ordMarksBO).mul(4)
-
 //Version Flags
-const VERSION = "0.4.3λ"
+const VERSION = "0.4.3p3"
 const VERSION_NAME = "The Pringle Update"
-const VERSION_DATE = "February 8th, 2025"
+const VERSION_DATE = "February 9th, 2025"
 const IS_BETA = false
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
-//create all the variables in a data object for saving
-function getDefaultObject() {
-    return {
-        nav: {
-            current: "ord",
-            subtabs: defaultSubTabs,
-        },
-
-        ord: {ordinal:D(1), over:D(0), base:10, trim: 5, isPsi: false, color:false, displayType: 'Buchholz'},
-        markup: {powers:D(0), shifts:0},
-        factors: Array(7).fill(0),
-        dy: {level:D(1), gain:D(0)},
-        autoLevels: Array(2).fill(0),
-        boost: {amt:0, total:0, times:0, bottomRowCharges:0, hasBUP:Array(15).fill(false), isCharged:Array(15).fill(false), unlocks: Array(5).fill(false)},
-        chal: {decrementy: D(1), html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
-        incrementy: {amt:D(0), hasIUP:Array(12).fill(false), rebuyableAmt: Array(6).fill(0), charge:0, totalCharge:0},
-        hierarchies: { ords:[ {ord:D(1), over:D(0), type:"f"}, {ord:D(1), over:D(0), type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(10).fill(false)},
-        overflow: {bp:1, oc:1, thirdEffect:true}, //for thirdEffect: true=normal, false=inverted
-        collapse: {times:0, cardinals:D(0), bestCardinalsGained:D(0), alephs:Array(alephData.length).fill(D(0)), hasCUP:Array(8).fill(false), hasSluggish:Array(5).fill(false), apEnabled:Array(3).fill(false)},
-        darkness: {levels: Array(3).fill(0), negativeCharge:0, drains: Array(7).fill(0), sacrificedCharge:0, totalDrains: 0, chargeSpent:0, negativeChargeEnabled:false, darkened:false},
-        sing: {highestLevel:[0, 0], level:[0, 0], tutorial:false, hasEverHadFunction: Array(singFunctions.length).fill(false)},
-        baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), anRebuyables: Array(anRebuyableData.length).fill(0), tutorial: false},
-        omega:{bestRemnants: 0, alephOmega:1, bestFBInPurification: Array(4).fill(0), purificationIsActive: Array(4).fill(false), whichPurification: -1, aoRebuyables:Array(8).fill(0), tutorial: false},
-        obliterate:{times:0, energy:0, passiveEnergy:0, energyUpgrades: [], pringleAmount: Array(10).fill(0), hasPassiveUpgrade: Array(passiveEnergyDescriptions.length).fill(false), instability:0, unstableFactors: Array(unstableFactorData.length).fill(0), unstableFactorState: Array(unstableFactorData.length).fill(true)},
-        purity:{isAssigned: Array(10).fill(false), isUnlocked: Array(4).fill(false).concat(Array(2).fill(true)).concat(Array(4).fill(false)), assignment:Array(10).fill(false), pringleQueued: -1, tutorial: false},
-        imaginary:{shifts:0, factors:Array(7).fill(0)},
-
-        autoStatus: {enabled: Array(9).fill(false)},
-        sToggles: settingsDefaults,
-        successorClicks: 0,
-        lastTick: 0,
-        achs: Array(achievements.length).fill(false),
-        loadedVersion: VERSION,
-        isBeta: IS_BETA,
-        offline: true,
-        gword: {unl: false, enabled: false},
-        ms: 50,
+// Saving the game
+let getSaveData = () => JSON.stringify(data)
+function save(saveData = getSaveData()){
+    try {
+        window.localStorage.setItem(SAVE_PATH(), saveData)
     }
-}
-let data = getDefaultObject()
-
-//saving and loading
-function save(){
-    try{ window.localStorage.setItem(SAVE_PATH(), JSON.stringify(data)) }
     catch (e) {
         showNotification(`Save failed.\n${e}`);
         console.error(e);
     }
 }
-function load() {
+
+function saveAndReload(saveData = getSaveData()){
+    save(saveData)
+    location.reload()
+}
+
+// Loading
+function load(first = false) {
     let savedata = JSON.parse(window.localStorage.getItem(SAVE_PATH()))
-    if (savedata !== undefined) fixSave(data, savedata)
+    if (savedata !== undefined) unpackSave(data, savedata)
     let extra = fixOldSaves()
-    showNotification(`You're playing Ordinal PRINGLES v${VERSION}: ${VERSION_NAME}, Enjoy!`)
+    if(first) showNotification(`You're playing Ordinal PRINGLES v${VERSION}: ${VERSION_NAME}, Enjoy!`)
 
     return extra
 }
 
-//fix saves
-function fixSave(main=getDefaultObject(), data) {
+// Converting the strings back into their proper types
+function unpackSave(main=getDefaultPlayer(), data) {
     if (typeof data === "object") {
         Object.keys(data).forEach(i => {
             if (main[i] instanceof Decimal) {
                 main[i] = D(data[i]!==null?data[i]:main[i])
             } else if (typeof main[i]  == "object") {
-                fixSave(main[i], data[i])
+                unpackSave(main[i], data[i])
             } else {
                 main[i] = data[i]
             }
         })
         return main
     }
-    else return getDefaultObject()
+    else return getDefaultPlayer()
 }
+
+// Apply necessary fixes to old saves
 function fixOldSaves(){
     let extra = false
 
@@ -113,6 +75,8 @@ function fixOldSaves(){
 
     //AutoShift Fix
     if(data.markup.shifts > 7) data.markup.shifts = 7
+
+    if(data.loadedVersion === "0.4.3λ" || data.loadedVersion === "0.4.3γ") data.loadedVersion = "0.4.3"
 
     if(data.loadedVersion === "0.4b7"){
         data.obliterate.instability = data.obliterate.times
@@ -208,7 +172,9 @@ function fixOldSaves(){
 
     return extra
 }
-function fixOldSavesP2(){
+
+// Apply more fixes to old saves, specifically those that need the game to be fully loaded first
+function fixOldSavesAfterLoad(){
     // Exploit Fix
     if(data.obliterate.passiveEnergy > getTotalEnergyInvested() || getTotalPassiveEnergyInvested() > getTotalEnergyInvested() || getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy > getTotalEnergyInvested()){
         respecPassiveUpgrades()
@@ -243,7 +209,9 @@ function fixOldSavesP2(){
         }
     }
 }
-function exportSave(){
+
+// Export the current save to the clipboard
+function copySaveToClipboard(){
     try {
         save()
         let exportedData = btoa(JSON.stringify(data))
@@ -261,6 +229,8 @@ function exportSave(){
         console.error(e);
     }
 }
+
+// Export the current save into an actual file
 async function downloadSave() {
     try {
         const file = new Blob([btoa(JSON.stringify(data))], {type: "text/plain"});
@@ -278,23 +248,26 @@ async function downloadSave() {
         closeModal(1)
     }
 }
+
+// Import a save into the game
 function importSave(x) {
+    // Easter Egg
     if(x === "gwa"){
         if(!data.gword.unl) showNotification('You have unlocked the secret <img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'> Ordinal Display! You can now enable or disable it in Settings :)')
         data.gword.unl = true
         data.gword.enabled = true
         return closeModal('prompt')
     }
+
     try {
         if(x.length <= 0) {
             DOM('promptContainer').style.display = 'none'
             showNotification('No data found.')
             return
         }
-        data = Object.assign(getDefaultObject(), JSON.parse(atob(x)))
+        data = Object.assign(getDefaultPlayer(), JSON.parse(atob(x)))
         if(data.isBeta && !IS_BETA) return showNotification('You tried to load a Beta Save into the main version. This is not allowed, sorry :(')
-        save()
-        location.reload()
+        saveAndReload()
     }
     catch (e){
         closeModal('prompt')
@@ -302,15 +275,21 @@ function importSave(x) {
         console.error(e);
     }
 }
+
+// Save every ten seconds
 window.setInterval(function(){
     save()
 }, 10000);
-//full reset
-function fullReset(){
-    exportSave()
-    deleteSave()
-}
+
+
+// Completely delete the save from LocalStorage
 function deleteSave(){
     window.localStorage.removeItem(SAVE_PATH())
     location.reload()
+}
+
+// The actual user-facing save "reset" functionality
+function fullReset(){
+    copySaveToClipboard()
+    deleteSave()
 }
