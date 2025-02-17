@@ -15,7 +15,7 @@ let hyperChargeUpgradeData = [
         cost: 10,
     },
     {
-        description: "Negative Charge now boosts Incrementy Gain",
+        description: "Negative Charge now boosts Incrementy Gain and no longer reduces its effect",
         sign: 'x',
         effect: () => 1,
         baseEffect: () => 1,
@@ -45,14 +45,14 @@ let hyperChargeUpgradeData = [
     },
 
     {
-        description: "???",
+        description: "Charge boosts the Darkness Buyable thing that needs a name",
         sign: 'x',
         effect: () => 1,
         baseEffect: () => 1,
         cost: 10,
     },
     {
-        description: "???",
+        description: "CUP3 now instead provides effective Challenge completions",
         sign: 'x',
         effect: () => 1,
         baseEffect: () => 1,
@@ -67,21 +67,21 @@ let hyperChargeUpgradeData = [
     },
 
     {
-        description: "???",
+        description: "Charge boosts the first ℵ<sub>&omega;</sub> Upgrade",
         sign: 'x',
         effect: () => 1,
         baseEffect: () => 1,
         cost: 10,
     },
     {
-        description: "???",
+        description: "Negative Charge boosts ℵ<sub>0</sub> gain",
         sign: 'x',
         effect: () => 1,
         baseEffect: () => 1,
         cost: 10,
     },
     {
-        description: "???",
+        description: "Deeper Darkness Depths enhance the Depth Buffs",
         sign: 'x',
         effect: () => 1,
         baseEffect: () => 1,
@@ -89,7 +89,7 @@ let hyperChargeUpgradeData = [
     },
 
     {
-        description: "???",
+        description: "Negative Charge boosts Hierarchy Effects",
         sign: 'x',
         effect: () => 1,
         baseEffect: () => 1,
@@ -103,7 +103,7 @@ let hyperChargeUpgradeData = [
         cost: 100,
     },
     {
-        description: "???",
+        description: "The Barbecue Pringle is boosted by all other Pringles",
         sign: 'x',
         effect: () => 1,
         baseEffect: () => 1,
@@ -128,12 +128,12 @@ let hyperChargeQOLData = [
         baseEffect: () => 1,
     },
     {
-        description: "Unlock Purification",
+        description: "Unlock Purification and the Base is always 3 in Darkness",
         effect: () => 1,
         baseEffect: () => 1,
     },
     {
-        description: "Crazy NEW! Stuff!",
+        description: "All Drain amounts are equal to your highest Drain amount (maybe)",
         effect: () => 1,
         baseEffect: () => 1,
     },
