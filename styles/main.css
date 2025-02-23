@@ -303,14 +303,28 @@
     background: black;
     margin-top: 0.5rem;
 }
-#darken{
-    width: 25rem;
-    height: 4rem;
+.darknessButton{
+    width: 17rem;
+    height: 5rem;
     border: 2px solid #8000ff4d;
     color: #9f9fcce1;
-    background: rgb(18 1 26);
-    margin-top: 1rem;
-    margin-left: 0.5rem;
+    background: rgb(13, 0, 18);
+}
+.depthButton{
+    width: 10rem;
+    height: 1.5rem;
+    border: 2px solid rgba(38, 0, 76, 0.3);
+    color: #9f9fcce1;
+    background: rgb(13, 0, 18);
+    margin: 0.5rem;
+}
+#dbup{
+    width: 36rem;
+    height: 10rem;
+    border: 2px solid #8000ff4d;
+    color: #9f9fcce1;
+    background: rgb(13, 0, 18);
+    border-left: 0;
 }
 #instability{
     width: 10rem;
@@ -640,7 +654,8 @@
 }
 
 #maximizeButton{
-    margin-left: 70%;
+    margin-left: 55%;
+    margin-bottom: 3rem;
 }
 
 #cloudStatus{

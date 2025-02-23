@@ -397,9 +397,16 @@
             <span class="centeredTexts" style="color: #0e8626; margin-top: 1rem">Each Sluggish Milestone gives you (3*previously completed SMs) free Cardinals!<br>Collapse in the required Factor Boosts or less to complete Sluggish Milestones</span>
         </div>
         <div class="tab flexBox" id="darknessSubPage">
-            <button id="darken" onclick="darkenConfirm()">Enter the Darkness</button>
-            <span class="centeredTexts" id="nchargeText1" style="color: #9f9fcce1; margin-top: 1rem">You have zero Negative Charge [+x/s], capping at zero</span>
-            <span class="centeredTexts" id="nchargeText2" style="color: #9f9fcce1;">Your Negative Charge divides Incrementy by the log700 of foxes</span>
+            <div class="column flexBox">
+                <div class="row flexBox">
+                    <button class="darknessButton" id="darken" style="height: 10rem;" onclick="darkenConfirm()">Enter the Darkness</button>
+                    <button id="dbup" onclick="darkenConfirm()"></button>
+                </div>
+                <div class="column flexBox darknessButton" id="depthContainer" style="width: 52.8rem; border-top: none;">
+                    <span id="depthDescriptor" style="color: rgba(201,201,244,0.88)">Hover over a Depth to view its effect!</span>
+                    <div class="row flexBox" id="depthSelect"></div>
+                </div>
+            </div>
             <div class="row flexBox" id="dupContainer">
                 <button class="dup" id="dup0" onclick="buyDUP(0)">DUP0</button>
                 <button class="dup" id="dup1" onclick="buyDUP(1)">DUP1</button>
@@ -410,16 +417,14 @@
                     effect
                 </button>
                 <button class="dupControl" id="dupC0" onclick="darknessControl(0)">Enable Negative Charge Gain</button>
-                <button class="dupControl" id="dupC3" onclick="darknessControl(3)">Reset Sacrifice Charge</button>
                 <button class="dupControl" id="dupC1" onclick="darknessControl(1)">Reset Negative Charge</button>
                 <button class="dupControl" id="dupC5" onclick="darknessControl(5)">Enable the Second Unstable Factor
                 </button>
             </div>
-            <button class="chargeSac" id="dupC2" onclick="chargeSacConfirm()">Sacrifice Charge</button>
         </div>
         <div class="tab" id="hyperSubPage">
             <div id="hyperUpgradeContainer"></div>
-            <span class="centeredTexts" style="margin-top: 1rem; color: gray">If a Hypercharge is in row one or the Hypercharge above it is purchased it is considered a <span style="color: #20da45">Stable Hypercharge</span><br>Only one Hypercharge from each row may be purchased. You must purchase at least one Hypercharge in a given row to access the row beneath it.<br>Purchasing a Hypercharge in a row will also unlock that row's <span style="color: #aed500">Passive Hypercharge</span> for free.</br></span>
+            <span class="centeredTexts" style="margin-top: 1rem; color: gray">If a Hypercharge is in row one or the Hypercharge above it is purchased it is considered a <span style="color: #20da45">Stable Hypercharge</span><br>Only one Hypercharge from each row may be purchased. You must purchase at least one Hypercharge in a given row to access the row beneath it.<br>Purchasing a Hypercharge in a row will also unlock that row's <span style="color: #aed500">Passive Hypercharge</span> for free.</span>
         </div>
         <div class="tab" id="singSubPage">
             <span class="centeredTexts" id="singCostText" style="margin-top: 1rem">Singularitying</span>

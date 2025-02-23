@@ -1,7 +1,10 @@
 function updateCollapseHTML(){
     DOM('cardinalsText').style.color = getSubtab('collapse') === 'hyper' ? 'goldenrod' : '#20da45'
     if(getSubtab('collapse') === 'cUpgrades' && hasSluggishMilestone(2)){
-        DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals <span style="color: #9f9fcce1">and ${format(data.darkness.negativeCharge)} Negative Charge</span><br><span style="font-size: 0.8rem; color: #565656">Your best Collapse yielded <span style="color: #20da45">${format(data.collapse.bestCardinalsGained)}</span> Cardinals</span>`
+        DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals<span style="color: #9f9fcce1">and ${format(data.darkness.negativeCharge)} Negative Charge</span><br><span style="font-size: 0.8rem; color: #565656">Your best Collapse yielded <span style="color: #20da45">${format(data.collapse.bestCardinalsGained)}</span> Cardinals</span>`
+    }
+    else if(getSubtab('collapse') === 'darkness'){
+        DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals<span style="color: #9f9fcce1">, ${format(data.darkness.negativeCharge)} Negative Charge, and ${format(data.chal.decrementy)} Decrementy</span><br><span style="font-size: 0.9rem; color: rgba(143,143,151,0.88)">Your Negative Charge is dividing Incrementy gain by ${format(negativeChargeEffect(false))} and Incrementy's effect by ${format(negativeChargeEffect(true))}</span>`
     }
     else if(getSubtab('collapse') === 'hyper'){
         DOM('cardinalsText').innerHTML = `You have ${formatWhole(data.incrementy.charge)} Charge<br><span style="font-size: 0.9rem; color: #8a8a8a">You have 0 Hypercharges, <span style="color: #da2020">doing bad [effect]</span></span><br><span style="font-size: 0.9rem; color: #8a8a8a">You have 0 Stable Hypercharges, <span style="color: #20da45">reducing the penalty by effect</span></span>`

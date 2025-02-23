@@ -62,7 +62,8 @@ let splitAt = (index, str) => [str.slice(0, index), str.slice(index)]
 
 let checkArrayBetween = (arr, start, end, value) => arr.slice(start, end).some(x => x === value);
 
-function formatSign(text, sign){
+function formatSign(text, sign, doFormat = true){
+    if(doFormat) return sign !== 'x' ? `${sign}${format(text)}` : `${format(text)}${sign}`
     return sign !== 'x' ? `${sign}${text}` : `${text}${sign}`
 }
 

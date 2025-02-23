@@ -47,7 +47,7 @@ function obliterateReset(){
 
     data.darkness.negativeCharge = 0
     data.darkness.sacrificedCharge = 0
-    data.darkness.chargeSpent = 0
+    data.darkness.negativeChargeSpent = 0
     data.darkness.totalDrains = 0
     for (let i = 0; i < 3; i++) {
         data.darkness.levels[i] = hasPassiveUpgrade(10+i) ? data.darkness.levels[i] : 0

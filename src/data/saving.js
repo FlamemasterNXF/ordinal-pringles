@@ -53,6 +53,9 @@ function unpackSave(main=getDefaultPlayer(), data) {
 function fixOldSaves(){
     let extra = false
 
+    //Removal of Sacrificed Charge
+    if(data.darkness.sacrificedCharge > 0) darknessControl(3)
+
     //Settings fix
     if(typeof data.sToggles === "number") data.sToggles = settingsDefaults
     if(typeof data.gword === 'boolean') data.gword = {unl: data.gword, enabled: data.gword}

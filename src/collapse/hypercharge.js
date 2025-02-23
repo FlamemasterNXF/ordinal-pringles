@@ -45,7 +45,7 @@ let hyperChargeUpgradeData = [
     },
 
     {
-        description: "Charge boosts the Darkness Buyable thing that needs a name",
+        description: "Charge boosts all Stabilization effects",
         sign: 'x',
         effect: () => 1,
         baseEffect: () => 1,
