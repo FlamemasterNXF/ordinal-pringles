@@ -20,7 +20,7 @@ function initANRebuyables(){
 }
 
 function updateAlephNullHTML(){
-    DOM(`alephNull`).innerHTML = `You have <span style="color: red; font-family: DosisSemiBold">${format(data.baseless.alephNull)} ℵ<sub>0</sub></span>, increasing the RUP1 effect base by <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[0]())}</span> and providing <span style="color: red; font-family: DosisSemiBold">${format(alephNullEffects[1]())}</span> free levels of the last Darkness Buyable</span><br>Your <span style="color: goldenrod; font-family: DosisSemiBold">Total Charge</span> is multiplying AutoClicker Speed in the Baseless Realms by <span style="color: goldenrod; font-family: DosisSemiBold">${format(chargeBoostToBaseless(true))}x</span>`
+    DOM(`alephNull`).innerHTML = ``
 }
 function updateDynamicShiftHTML(){
     if(data.baseless.baseless){
