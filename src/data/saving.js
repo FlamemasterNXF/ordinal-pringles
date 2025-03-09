@@ -1,8 +1,8 @@
 //Version Flags
-const VERSION = "0.4.3γ"
+const VERSION = "0.4.4b1"
 const VERSION_NAME = "The Pringle Update"
-const VERSION_DATE = "February 9th, 2025"
-const IS_BETA = false
+const VERSION_DATE = "March 9th, 2025"
+const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
 // Saving the game
@@ -27,7 +27,9 @@ function load(first = false) {
     let savedata = JSON.parse(window.localStorage.getItem(SAVE_PATH()))
     if (savedata !== undefined) unpackSave(data, savedata)
     let extra = fixOldSaves()
-    if(first) showNotification(`You're playing Ordinal PRINGLES v${VERSION}: ${VERSION_NAME}, Enjoy!`)
+    if(first){
+        if(IS_BETA) showNotification(`You're playing an Ordinal Pringles <b>BETA</b>: v${VERSION}, remember to give feedback!`)
+    }
 
     return extra
 }
