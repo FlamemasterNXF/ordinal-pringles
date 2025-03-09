@@ -225,23 +225,23 @@ let achievements = [
         req: () => data.collapse.hasCUP[6]
     },
     {
-        name: "Infinitely Dense",
-        description: "Reach Singularity Density ω",
+        name: "Hyperactive Charge",
+        description: "Obtain your first Hypercharge",
+        req: () => hasPassiveHypercharge(0)
+    },
+    {
+        name: "Well that was easy",
+        description: "Obtain a row two Hypercharge",
+        req: () => hasPassiveHypercharge(1)
+    },
+    {
+        name: "Trickle-Down Chargenomics",
+        description: "Obtain a row three Hypercharge",
         req: () => false
     },
     {
-        name: "Bigger Infinitely Dense",
-        description: "Reach Singularity Density ω2",
-        req: () => false
-    },
-    {
-        name: "PLEASE DO NOT FEED WILD SINGULARITIES",
-        description: "Reach Singularity Density ω5",
-        req: () => false
-    },
-    {
-        name: "I Fed The Wild Singularity",
-        description: "Reach Singularity Density ω8",
+        name: "I Hypercharged the Nightlight",
+        description: "Obtain a row four Hypercharge",
         req: () => false
     },
     {
@@ -311,11 +311,6 @@ let achievements = [
         req: () => hasAOMilestone(4)
     },
     {
-        name: "Obesity",
-        description: "Reach Singularity Density ω²",
-        req: () => false
-    },
-    {
         name: "The Only Hierarchy Achievement",
         description: "Reach Level 3333 of Any Hierarchy Rebuyable",
         req: () => checkAllIndexes(data.hierarchies.rebuyableAmt, 3333) > 0
@@ -377,8 +372,8 @@ let achievements = [
         req: () => data.boost.amt >= 3e6
     },
     {
-        name: "The Blugularity",
-        description: "Unlock the Ringularity",
+        name: "Hypercharging Drains sounds... Dangerous",
+        description: "Obtain a row five Hypercharge",
         req: () => false
     },
 
