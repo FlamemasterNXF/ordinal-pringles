@@ -58,6 +58,9 @@ function fixOldSaves(){
     //Removal of Sacrificed Charge
     if(data.darkness.sacrificedCharge > 0) darknessControl(3)
 
+    // Version Fix
+    if(data.loadedVersion === "0.4.3λ" || data.loadedVersion === "0.4.3γ") data.loadedVersion = "0.4.3"
+
     //Settings fix
     if(typeof data.sToggles === "number") data.sToggles = settingsDefaults
     if(typeof data.gword === 'boolean') data.gword = {unl: data.gword, enabled: data.gword}

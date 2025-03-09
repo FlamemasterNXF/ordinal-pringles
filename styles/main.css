@@ -171,7 +171,7 @@
     background: black;
     margin-top: 0.5rem;
     margin-left: 1.25rem;
-    margin-right: 0rem;
+    margin-right: 0;
 }
 .hb1{
     width: 15rem;
@@ -223,7 +223,6 @@
     border-bottom: 1px solid gray;
     border-right: 1px solid gray;
     color: white;
-    background: black;
 }
 .tabButton:hover{
     background: #222222;
