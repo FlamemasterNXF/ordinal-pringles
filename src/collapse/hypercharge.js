@@ -259,6 +259,20 @@ function respecHyperchargeRow(row){
     collapseReset()
 }
 
+function isHyperchargeStable(i){
+    if (i < 3) return true
+    return data.hyper.hasUpgrade[i - 3]
+}
+function getStableHypercharges(){
+    let count = 0
+    for (let i = 0; i < data.hyper.hasUpgrade.length; i++) {
+        if(!hasHyperCharge(i)) continue
+        if(isHyperchargeStable(i)) ++count
+    }
+    return count
+}
+let getStableHyperchargeEffect = () => 1+getStableHypercharges()/100
+
 let hasPassiveHypercharge = (i) => hasHyperchargeRow(i)
 let hasHyperCharge = (i) => data.hyper.hasUpgrade[i]
 let hasHyperQOL = (i) => checkArrayBetween(data.hyper.hasUpgrade, i*3, (i+1)*3, true)
