@@ -71,7 +71,8 @@ let stabilizationEffects = [
         sign: 's',
     }
 ]
-let getStabilizationLevels = () => data.darkness.stabilization + getHyperchargeEffect(6)
+let extraStabilizationLevels = () => getHyperchargeEffect(6)+getEUPEffect(1, 3, true)
+let getStabilizationLevels = () => data.darkness.stabilization+extraStabilizationLevels()
 function getStabilizationCost(){
     const stabilization = data.darkness.stabilization + 1
     const exponent = Math.pow(stabilization, 1/2+(stabilization-2)/11)
@@ -91,7 +92,7 @@ function makeStabilizationText(){
     return text
 }
 function updateStabilizationHTML(){
-    const levelsText = getHyperchargeEffect(6) > 0 ? ` + ${getHyperchargeEffect(6)}` : ''
+    const levelsText = extraStabilizationLevels() > 0 ? ` + ${extraStabilizationLevels()}` : ''
     DOM(`dbup`).innerHTML = `<b>Stabilization</b> (${data.darkness.stabilization}${levelsText})${makeStabilizationText()}<br><br>Cost: ${format(getStabilizationCost())} Cardinals`
 }
 
@@ -205,7 +206,9 @@ function drainEffect(i){
     return Math.max(drainData[i].effect(), 1)
 }
 let drainCost = (i) => ((10**(1+(data.darkness.totalDrains/2)))*(getDrainLevel(i)+1))/getHyperchargeEffect(7)
-let getDrainLevel = (i) => hasPassiveHypercharge(4) ? Math.max(...data.darkness.drains) : data.darkness.drains[i]
+let getDrainLevel = (i) => hasPassiveHypercharge(4)
+    ? Math.max(...data.darkness.drains)+getEUPEffect(1, 4, true)
+    : data.darkness.drains[i]
 let drainData = [
     { effect: () => 2*getDrainLevel(0) },
     { effect: () => drain1Effect() },

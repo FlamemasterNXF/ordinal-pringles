@@ -22,7 +22,7 @@ const passiveEnergyDescriptions = [
     "Obscure Boosts are now permanent",
     "Inferior Boosts are now permanent",
 
-    "Singularity and Baselessness are now permanently unlocked",
+    "Hypercharge and Baselessness are now permanently unlocked",
     "Purification is now permanently unlocked",
     "Unlock a permanent AutoBuyer for ℵ<sub>0</sub> Upgrades",
     "Unlock a permanent AutoBuyer for ℵ<sub>&omega;</sub> Upgrades",
