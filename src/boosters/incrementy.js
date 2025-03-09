@@ -24,6 +24,7 @@ function incrementyGain() {
     let iupMults = base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect())
     let otherMults = iupMults.times(getHierarchyEffect(0)).times(alephEffect(3)).times(getCUPEffect(4)).times(getBUPEffect(14))
         .times(getUnstableFactorEffect(0))
+    if(hasHyperCharge(2)) return otherMults.times(negativeChargeEffect(false))
     return otherMults.div(negativeChargeEffect(false))
 }
 
@@ -116,7 +117,7 @@ function getTotalIBuyables(){
         - flamecaster96 05/07/24
  */
 /*
-        I am still here in the year of our lord 2025
+        I am still here in the year of our lord twenty twenty-five
         - me
  */
 let iup1Effect = () => Decimal.max(1, D(2+alephNullEffects[0]()).pow(D(data.incrementy.rebuyableAmt[0]).add(iup7Effect())))
@@ -126,7 +127,7 @@ let iup4Effect = () => data.incrementy.hasIUP[3] && !inPurification(3) ? Decimal
 let iup5Effect = () => data.incrementy.hasIUP[4] && !inPurification(3) ? data.hierarchies.hasUpgrade[6] ? Decimal.max(1, Decimal.pow(data.incrementy.amt, 1/8).add(1))
 : Decimal.max(1, Decimal.pow(data.incrementy.amt, 1/16).add(1)) : D(1)
 let iup6Effect = () => data.incrementy.hasIUP[5] && !inPurification(1) && !inPurification(3) ? Decimal.max(1, Decimal.sqrt(data.dy.level.add(1))).mul(iup9Effect()).mul(hbData[2].effect()).mul(hbData[5].effect()).mul(alephEffect(7)) : D(1)
-let iup7Effect = () => data.incrementy.hasIUP[6] && !inPurification(3) ? Decimal.floor(data.chal.totalCompletions/3).mul(hasSingFunction(4) ? 2 : 1) : D(0)
+let iup7Effect = () => data.incrementy.hasIUP[6] && !inPurification(3) ? Decimal.floor(data.chal.totalCompletions/3).mul(hasSingFunction(4) ? 2 : 1).plus(getHyperchargeEffect(3)) : D(0)
 let iup8Effect = () => data.incrementy.hasIUP[7] && !inPurification(3) ? Decimal.max(1, 1+data.chal.totalCompletions/3) : D(1)
 let iup9Effect = () => data.incrementy.hasIUP[8] && !inPurification(3) ? data.hierarchies.hasUpgrade[1] ? Decimal.max(1, data.incrementy.rebuyableAmt[2]/3)
 : Decimal.max(1, Decimal.sqrt(data.incrementy.rebuyableAmt[2])) : D(1)

@@ -96,7 +96,8 @@ let hierarchyGainBases = [
 let hierarchyGainGlobalMults = () =>
     hupData[2].effect()*hupData[7].effect()*hbData[0].effect()*hbData[5].effect()*getOverflowEffect(3)
     *purificationEffect(2)*getANREffect(3)
-let getHierarchyEffect = (i) => hierarchyData[i].effect()
+let hierarchyEffectGlobalBoosts = () => getHyperchargeEffect(4)*getHyperchargeEffect(12)
+let getHierarchyEffect = (i) => hierarchyData[i].effect().times(hierarchyEffectGlobalBoosts())
 
 let hbData = [
     {

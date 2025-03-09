@@ -102,9 +102,9 @@ function buyPurityPoint(i){
 }
 
 function getPurityStrength(i){
-    if(i < 5) return (i+1)*0.2
-    if(i >= 5) return 1-(i-5)*0.2
-    return 0.96
+    if(i < 5) return ((i+1)*0.2)*getHyperchargeEffect(14)
+    if(i >= 5) return (1-(i-5)*0.2)*getHyperchargeEffect(14)
+    return Infinity // Emergency Case
 }
 let isPurityPointUnlocked = (i) => data.purity.isUnlocked[i]
 let isPurityPointAssigned = (i) => data.purity.isAssigned[i]

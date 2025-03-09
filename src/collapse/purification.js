@@ -32,7 +32,7 @@ const purificationData = [
 const aoRebuyableData = [
     {
         desc: "SLIGHTLY boost ℶ<sub>&omega;</sub> gain",
-        eff: () => (1+getAORLevel(0)/10)*getOverflowEffect(6),
+        eff: () => (1+getAORLevel(0)/10)*getOverflowEffect(6)*getHyperchargeEffect(9),
         costBase: 50,
         symbol: 'x',
         req: () => true,

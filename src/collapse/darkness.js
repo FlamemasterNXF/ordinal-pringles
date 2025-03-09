@@ -42,37 +42,38 @@ function updateDrainHTML(i){
 
 let stabilizationEffects = [
     {
-        effect: () => 0.5*data.darkness.stabilization,
+        effect: () => 0.5*getStabilizationLevels(),
         baseEffect: () => 0,
         desc: 'Increase the Decrementy gain exponent after Ψ(Ω)',
         sign: '+',
     },
     {
-        effect: () => 0.1*data.darkness.stabilization,
+        effect: () => 0.1*getStabilizationLevels(),
         baseEffect: () => 0,
         desc: 'Reduce the Decrementy reduction factor',
         sign: '-',
     },
     {
-        effect: () => 5**data.darkness.stabilization,
+        effect: () => 5**getStabilizationLevels(),
         baseEffect: () => 1,
         desc: 'Decrease the Darkness-ending Incrementy threshold',
         sign: '/',
     },
     {
-        effect: () => data.darkness.stabilization,
+        effect: () => getStabilizationLevels(),
         baseEffect: () => 0,
         desc: 'After Incrementy reaches the threshold, you are given a grace period',
         sign: 's',
     }
 ]
+let getStabilizationLevels = () => data.darkness.stabilization + getHyperchargeEffect(6)
 function getStabilizationCost(){
     const stabilization = data.darkness.stabilization + 1
     const exponent = Math.pow(stabilization, 1/2+(stabilization-2)/11)
     return Decimal.pow(1e6, exponent)
 }
 function getStabilizationEffect(i, ui = false) {
-    if((getDepth() < i || data.darkness.stabilization === 0) && !ui) return stabilizationEffects[i].baseEffect()
+    if((getDepth() < i || getStabilizationLevels() === 0) && !ui) return stabilizationEffects[i].baseEffect()
     return stabilizationEffects[i].effect()
 }
 function makeStabilizationText(){
@@ -85,7 +86,8 @@ function makeStabilizationText(){
     return text
 }
 function updateStabilizationHTML(){
-    DOM(`dbup`).innerHTML = `<b>Stabilization</b> (${data.darkness.stabilization})${makeStabilizationText()}<br><br>Cost: ${format(getStabilizationCost())} Cardinals`
+    const levelsText = getHyperchargeEffect(6) > 0 ? ` + ${getHyperchargeEffect(6)}` : ''
+    DOM(`dbup`).innerHTML = `<b>Stabilization</b> (${data.darkness.stabilization}${levelsText})${makeStabilizationText()}<br><br>Cost: ${format(getStabilizationCost())} Cardinals`
 }
 
 function buyStabilization(){
@@ -187,17 +189,15 @@ function negativeChargeGain(){
     return Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)*(iup10Effect())
 }
 
-function negativeChargeEffect(eff) {
-    if (eff === false) return Decimal.max(1, Decimal.sqrt(data.darkness.negativeCharge + 1).div(sacrificedChargeEffect()))
-    if (eff === true) return Decimal.max(1, Decimal.log10(data.darkness.negativeCharge + 10).div(sacrificedChargeEffect()))
+function negativeChargeEffect(incrementyEffectNerf) {
+    if (incrementyEffectNerf) return hasHyperCharge(2) ? 1 : Decimal.max(1, Decimal.log10(data.darkness.negativeCharge + 10))
+    return Decimal.max(1, Decimal.sqrt(data.darkness.negativeCharge + 1))
 }
-
-let sacrificedChargeEffect = () => data.darkness.sacrificedCharge > 0 ? (data.darkness.sacrificedCharge+1)*2 : 1
 
 let drainEffect = (i) => getDrainLevel(i) > 0 ? i===1 ? Math.max(0, drain1Effect())
     : Math.max(drainData[i].effect(), 1)
     : i===1 ? 0 : 1
-let drainCost = (i) => (10**(1+(data.darkness.totalDrains/2)))*(getDrainLevel(i)+1)
+let drainCost = (i) => ((10**(1+(data.darkness.totalDrains/2)))*(getDrainLevel(i)+1))/getHyperchargeEffect(7)
 let getDrainLevel = (i) => data.darkness.drains[i]
 let drainData = [
     { effect: () => 2*getDrainLevel(0) },

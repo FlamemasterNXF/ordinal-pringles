@@ -6,12 +6,12 @@ body {
     align-items: stretch;
     position: fixed;
     inset: 0;
-    margin: 0 -0.95% 0 0;
+    margin: 0 -1% 0 0;
 }
 
 ::-webkit-scrollbar {
     width: 0;
-    background: transparent; /* make scrollbar transparent */
+    background: transparent;
 }
 
 button {

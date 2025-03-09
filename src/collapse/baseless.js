@@ -64,7 +64,7 @@ const baselessMultipliers = [2, 100, 10000]
 const baselessLocks = [
     () => 10,
     () => 20,
-    () => 100-(hasSingFunction(8) ? getSingFunctionEffect(8) : 0)-getInstabilityConstantEffect(0)
+    () => 100-getHyperchargeEffect(13)-getInstabilityConstantEffect(0)
 ]
 const baselessNames = ['Baseless', 'Obliterated', 'Forgotten']
 
@@ -165,7 +165,8 @@ let dynamicShiftMultipliers = [
     (i = data.baseless.shifts) => Math.max(1, 1000**(i+data.baseless.mode))
 ]
 
-let alephNullGain = () =>  Math.max(1, Decimal.log10(Decimal.max(data.ord.ordinal,1)).toNumber()*dynamicShiftMultipliers[0]()*getAOEffect(1)*getPringleEffect(4, true))
+let alephNullGain = () =>  Math.max(1, Decimal.log10(Decimal.max(data.ord.ordinal,1)).toNumber()
+    *dynamicShiftMultipliers[0]()*getAOEffect(1)*getPringleEffect(4, true)*getHyperchargeEffect(10))
 let alephNullEffects = [
     () => Math.max(0, Math.log10(data.baseless.alephNull)/10)*(Math.max(1, getPringleEffect(5, true))),
     () => Math.max(0, Math.floor(softcap(Math.log10(data.baseless.alephNull), 30, 0.5)))

@@ -407,15 +407,25 @@
     font-family: DosisLight, serif;
     margin: 1rem;
 }
+.hyperChargeRespec{
+    width: 9rem;
+    height: 6rem;
+    background-color: #000000;
+    border: 2px solid #393939;
+    color: #777777;
+    font-family: DosisLight, serif;
+    margin: 0;
+}
 .hyperChargeLine {
     height: 1px;
     background-color: #393939;
-    width: 100%;
+    width: calc(100% - 0.5rem);
+    margin-left: 0.5rem;
 }
 .hyperChargeRequirement{
     position: absolute;
     bottom: 0;
-    left: 0;
+    left: 0.5rem;
     color: goldenrod;
     font-family: DosisLight, serif;
 }

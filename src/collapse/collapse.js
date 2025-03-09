@@ -3,7 +3,10 @@ function updateCollapseHTML(){
         DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals <span style="color: #9f9fcce1">and ${format(data.darkness.negativeCharge)} Negative Charge</span><br><span style="font-size: 0.8rem; color: #565656">Your best Collapse yielded <span style="color: #20da45">${format(data.collapse.bestCardinalsGained)}</span> Cardinals</span>`
     }
     else if(getSubtab('collapse') === 'darkness'){
-        DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals<span style="color: #9f9fcce1">, ${format(data.darkness.negativeCharge)} Negative Charge, and ${format(data.chal.decrementy)} Decrementy</span><br><span style="font-size: 0.9rem; color: rgba(143,143,151,0.88)">Your Negative Charge is dividing Incrementy gain by ${format(negativeChargeEffect(false))} and Incrementy's effect by ${format(negativeChargeEffect(true))}</span>`
+        const negativeChargeType = hasHyperCharge(2) ? 'multiplying' : 'dividing'
+        let text = `You have ${format(data.collapse.cardinals)} Cardinals<span style="color: #9f9fcce1">, ${format(data.darkness.negativeCharge)} Negative Charge, and ${format(data.chal.decrementy)} Decrementy</span><br><span style="font-size: 0.9rem; color: rgba(143,143,151,0.88)">Your Negative Charge is ${negativeChargeType} Incrementy gain by ${format(negativeChargeEffect(false))}`
+        text += hasHyperCharge(2) ? '</span>' : ` and Incrementy\'s effect by ${format(negativeChargeEffect(true))}</span>`
+        DOM(`cardinalsText`).innerHTML = text
     }
     else if(getSubtab('collapse') === 'hyper'){
         DOM('cardinalsText').innerHTML = `<span style="color: goldenrod">You have ${formatWhole(data.incrementy.charge)} Charge</span><br><span style="font-size: 0.9rem; color: #8a8a8a">You have 0 Hypercharges, <span style="color: #da2020">doing bad [effect]</span></span><br><span style="font-size: 0.9rem; color: #8a8a8a">You have 0 Stable Hypercharges, <span style="color: #20da45">reducing the penalty by effect</span></span>`
@@ -30,6 +33,8 @@ function updateCollapseHTML(){
     updateDarknessHTML()
     updateAllSingularityHTML()
     updatePurificationTabHTML()
+
+    if(data.nav.subtabs.collapse === 'hyper') updateAllUnlockedHyperchargeHTML()
 }
 
 function updateCUPTextHTML(i){
@@ -187,10 +192,11 @@ function checkCollapseUnlockHTML(){
 
 function cardinalGain(){
     if(data.boost.times < 34) return D(0)
-    let value = Decimal.sqrt(data.boost.times-34)
+    let gain = Decimal.sqrt(data.boost.times-34)
             .times(Decimal.log2((data.boost.times-34)+2)).times(Decimal.sqrt(data.boost.times-34)).plus(3)
-            .times(alephTotalEffect()).times(iup12Effect()).times(getAOMEffect(4)).times(getPringleEffect(2)).times(getUnstableFactorEffect(2)).pow(singEffects[0].effect())
-    return softcap(value, D(1e200), 0.5, true)
+            .times(alephTotalEffect()).times(iup12Effect()).times(getAOMEffect(4)).times(getPringleEffect(2))
+            .times(getUnstableFactorEffect(2)).times(getHyperchargeEffect(0))
+    return gain
 }
 
 let alephEffect = (i) => data.collapse.alephs[i].gt(0) && (!inPurification(1) || i === 0) && alephData[i].unl()
@@ -225,7 +231,7 @@ function getTotalAlephs(){
     }
     return total
 }
-let alephTotalEffect = () => Decimal.max(1, Decimal.sqrt(getTotalAlephs()).times(getSingFunctionEffect(5))).times(hasSingFunction(1) ? getCUPEffect(6, false) : 1)
+let alephTotalEffect = () => Decimal.max(1, Decimal.sqrt(getTotalAlephs())).times(getHyperchargeEffect(8)).times(getHyperchargeEffect(1))
 
 let alephData = [
     {text: "multiplying Autoclickers by", effect: ()=> Decimal.sqrt(data.collapse.alephs[0].plus(1)).times(3).times(purificationEffect(1)), unl: () => true},
