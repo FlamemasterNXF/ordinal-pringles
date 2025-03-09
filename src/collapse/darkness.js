@@ -1,6 +1,7 @@
 function updateDarknessHTML(){
     updateAllDUPHTML()
     updateStabilizationHTML()
+    if(data.darkness.darkened) updateDarknessDepthHTML()
 }
 
 let getDarknessText = () => `You are trapped in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy [${format(decrementyGain())}x/s]`
@@ -41,40 +42,56 @@ function updateDrainHTML(i){
 
 let stabilizationEffects = [
     {
-        effect: () => 0,
+        effect: () => 0.5*data.darkness.stabilization,
         baseEffect: () => 0,
         desc: 'Increase the Decrementy gain exponent after Ψ(Ω)',
         sign: '+',
     },
     {
-        effect: () => 1,
+        effect: () => 0.1*data.darkness.stabilization,
+        baseEffect: () => 0,
+        desc: 'Reduce the Decrementy reduction factor',
+        sign: '-',
+    },
+    {
+        effect: () => 5**data.darkness.stabilization,
         baseEffect: () => 1,
-        desc: 'Reduce the Decrementy effects',
+        desc: 'Decrease the Darkness-ending Incrementy threshold',
         sign: '/',
     },
     {
-        effect: () => 1,
-        baseEffect: () => 1,
-        desc: 'Decrease the Incrementy gain threshold',
-        sign: '/',
-    },
-    {
-        effect: () => 1,
-        baseEffect: () => 1,
-        desc: 'Decrease the Decay speed',
-        sign: '/',
+        effect: () => data.darkness.stabilization,
+        baseEffect: () => 0,
+        desc: 'After Incrementy reaches the threshold, you are given a grace period',
+        sign: 's',
     }
 ]
-let getStabilizationCost = () => 1
+function getStabilizationCost(){
+    const stabilization = data.darkness.stabilization + 1
+    const exponent = Math.pow(stabilization, 1/2+(stabilization-2)/11)
+    return Decimal.pow(1e6, exponent)
+}
+function getStabilizationEffect(i, ui = false) {
+    if((getDepth() < i || data.darkness.stabilization === 0) && !ui) return stabilizationEffects[i].baseEffect()
+    return stabilizationEffects[i].effect()
+}
 function makeStabilizationText(){
     let text = ''
     for (let i = 0; i < stabilizationEffects.length; i++) {
-        text += `<br><b>While in Depth ${i+1} or below:</b> ${stabilizationEffects[i].desc} [${formatSign(stabilizationEffects[i].effect(), stabilizationEffects[i].sign)}]`
+        const doFormat = i !== 3
+        text += i < 3 ? `<br><b>While in Depth ${i+1} or below:</b> ` : `<br><b>While in Depth ${i+1}:</b> `
+        text += `${stabilizationEffects[i].desc} [${formatSign(getStabilizationEffect(i, true), stabilizationEffects[i].sign, doFormat)}]`
     }
     return text
 }
 function updateStabilizationHTML(){
     DOM(`dbup`).innerHTML = `<b>Stabilization</b> (${data.darkness.stabilization})${makeStabilizationText()}<br><br>Cost: ${format(getStabilizationCost())} Cardinals`
+}
+
+function buyStabilization(){
+    if(data.collapse.cardinals.lt(getStabilizationCost())) return
+    data.collapse.cardinals = data.collapse.cardinals.sub(getStabilizationCost())
+    ++data.darkness.stabilization
 }
 
 let depthEffects = [
@@ -83,31 +100,43 @@ let depthEffects = [
         nerf: 'You are trapped in Challenge 8',
     },
     {
-        buff: 'Decrementy boosts Negative Charge gain',
-        nerf: ', but it now effects AutoBuyer speed',
+        buff: 'Greatly boost Negative Charge gain',
+        nerf: ', but Decrementy gain is greatly reduced',
         buffEffect: {
-            desc: 'Negative Charge multiplier: ',
-            effect: () => 1
+            desc: 'Negative Charge gain is enhanced',
+            hideEffect: true,
+            // NOTE: Due to how this "buff" works, it's actual value should never be queried.
         },
         nerfEffect: {
-            desc: 'AutoBuyer speed divisor: ',
-            effect: () => 1
+            desc: 'Decrementy reduction factor: ', // TODO: This is actually a log, should I say so in-game?
+            effect: () => 2-getStabilizationEffect(1)
         },
     },
     {
-        buff: 'You can now gain Incrementy in Darkness',
-        nerf: `, but if it's gain becomes too slow it Decays`,
+        buff: 'You can now gain Incrementy',
+        nerf: `, but it Decays based on your Decrementy and can end Darkness`,
+        buffEffect: { // This is scuffed because I didn't want to add the ability to make two nerfs just for this :p
+            desc: 'Darkness ends if Incrementy reaches: ',
+            effect: () => incrementyGain().div(getStabilizationEffect(2)),
+            baseEffect: Infinity
+        },
         nerfEffect: {
-            desc: 'Incrementy/s threshold: ',
-            effect: () => 1
+            desc: `Decay factor: `,
+            effect: () => Decimal.log10(data.chal.decrementy+1).pow(getDepthNerf(3))
         }
     },
     {
         buff: 'Decrementy gain exponent is boosted by Cardinals',
-        nerf: `, but all Decrementy nerfs are intensified`,
+        nerf: `, but all Decrementy nerfs and Decay are intensified`,
         buffEffect: {
-            desc: 'Decrementy exponent increase: ',
-            effect: () => 1,
+            desc: 'Decrementy gain exponent increase: ',
+            effect: () => Decimal.log10(data.collapse.cardinals),
+            baseEffect: 0,
+        },
+        nerfEffect: {
+            desc: 'Decay is greatly intensified',
+            effect: () => 2,
+            hideEffect: true,
         },
     }
 ]
@@ -117,16 +146,18 @@ function updateDarknessDepthHTML(){
     for (let i = 1; i < data.darkness.depth+1; i++) {
         let currentDepth = depthEffects[i]
         if(currentDepth.buffEffect !== undefined){
-            text += `<br><span style="color: #887bc1">${currentDepth.buffEffect.desc}</span>${format(currentDepth.buffEffect.effect())}`
+            text += `<br><span style="color: #887bc1">${currentDepth.buffEffect.desc}</span>`
+            if(!currentDepth.buffEffect.hideEffect) text += format(getDepthBuff(i))
         }
         if(currentDepth.nerfEffect !== undefined){
-            text += `<br><span style="color: #887bc1">${currentDepth.nerfEffect.desc}</span>${format(currentDepth.nerfEffect.effect())}`
+            text += `<br><span style="color: #887bc1">${currentDepth.nerfEffect.desc}</span>`
+            if(!currentDepth.nerfEffect.hideEffect) text += format(getDepthNerf(i))
         }
     }
     DOM('darken').innerHTML = text
 }
 function updateDepthSelectHTML(i){
-    DOM(`depthDescriptor`).innerHTML = `<span style="color: #9e89f6">Depth ${i + 1} and below:</span> ${depthEffects[i].buff}${depthEffects[i].nerf}`
+    DOM(`depthDescriptor`).innerHTML = `<span style="color: #9e89f6">Depth ${i + 1}${i < 3 ? ' and below' : ''}:</span> ${depthEffects[i].buff}${depthEffects[i].nerf}`
 }
 function setDarknessDepth(i){
     data.darkness.depth = i
@@ -146,7 +177,15 @@ function initDepthHTML(){
     updateDarknessDepthHTML()
 }
 
-let negativeChargeGain = () => data.darkness.darkened && data.darkness.negativeChargeEnabled ? Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)*(iup10Effect()) : 0
+let getDepth = () => data.darkness.darkened ? data.darkness.depth : -1
+let getDepthNerf = (i) => getDepth() >= i ? depthEffects[i].nerfEffect.effect() : 1
+let getDepthBuff = (i) => getDepth() >= i ? depthEffects[i].buffEffect.effect() : depthEffects[i].buffEffect.baseEffect
+
+function negativeChargeGain(){
+    if(!data.darkness.darkened || !data.darkness.negativeChargeEnabled) return 0
+    if(getDepth() > 0) return Math.max(0, Decimal.log2(data.chal.decrementy.plus(1))**3)*(iup10Effect())
+    return Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)*(iup10Effect())
+}
 
 function negativeChargeEffect(eff) {
     if (eff === false) return Decimal.max(1, Decimal.sqrt(data.darkness.negativeCharge + 1).div(sacrificedChargeEffect()))

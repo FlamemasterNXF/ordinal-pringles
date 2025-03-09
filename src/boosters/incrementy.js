@@ -1,5 +1,5 @@
 function updateIncrementyHTML(){
-    DOM("incrementyText").innerText = `You have ${format(data.incrementy.amt)} Incrementy [+${format(incrementyGain())}/s], multiplying AutoBuyer speed by ${format(incrementyMult())}\nYou gain Incrementy based on your Ordinal, but only above Ψ(Ω). You cannot gain Incrementy in Challenges.`;
+    DOM("incrementyText").innerText = `You have ${format(data.incrementy.amt)} Incrementy [+${format(incrementyGain())}/s], multiplying AutoBuyer speed by ${format(incrementyMult())}\nYou gain Incrementy based on your Ordinal, but only above Ψ(Ω)${!getDepth() > 1 ? 'and while you are not in any Challenges' : ''}`;
     DOM(`iup0`).innerText = `[RUP1] ${iupDesc[0]} (${formatWhole(data.incrementy.rebuyableAmt[0])}+${iup7Effect()})\n${format(getRebuyableCost(0))} Incrementy\nCurrently: ${format(iupEffects[0]())}x`
     DOM(`iup1`).innerText = `[RUP2] ${iupDesc[1]} (${formatWhole(data.incrementy.rebuyableAmt[1])})\n${format(getRebuyableCost(1))} Incrementy\nCurrently: ${format(iupEffects[1]())}x`
     DOM(`iup2`).innerText = `[RUP3] ${iupDesc[2]} (${formatWhole(data.incrementy.rebuyableAmt[2])})\n${format(getRebuyableCost(2))} Incrementy\nCurrently: ${format(iupEffects[2]())}x`
@@ -15,7 +15,8 @@ function switchIUPText(i, mode){
 
 let incrementyMult = () => Decimal.max(1, Decimal.pow(Decimal.sqrt(data.incrementy.amt).add(10), 1/4).mul(Decimal.pow(data.incrementy.amt, 1/16)).div(negativeChargeEffect(true)))
 function incrementyGain() {
-    if (!data.ord.isPsi || checkAllIndexes(data.chal.active, true) > 0 || inPurification(3)) return D(0)
+    const areChallengesClear = checkAllIndexes(data.chal.active, true) === 0 || (data.darkness.darkened && getDepth() > 1)
+    if (!data.ord.isPsi || !areChallengesClear || inPurification(3)) return D(0)
 
     let ord = D(data.ord.ordinal)
 
@@ -100,7 +101,6 @@ function getTotalIBuyables(){
         Pain
         -Flame, 8/26/23
  */
-
 /*
         I really need to fix this
         - Flame, again, 22/11/23
@@ -108,12 +108,16 @@ function getTotalIBuyables(){
         - Flame, 11/24/23
  */
 /*
-    YIPEEEEEEEEEEEEE HERE WE GO AGAIN
-    - Flame, once again, 11/24/23
- */
+        YIPEEEEEEEEEEEEE HERE WE GO AGAIN
+        - Flame, once again, 11/24/23
+*/
 /*
         Hi chat!!
         - flamecaster96 05/07/24
+ */
+/*
+        I am still here in the year of our lord 2025
+        - me
  */
 let iup1Effect = () => Decimal.max(1, D(2+alephNullEffects[0]()).pow(D(data.incrementy.rebuyableAmt[0]).add(iup7Effect())))
 let iup2Effect = () =>  inPurification(1) ? 1 : Decimal.max(1, D(3).pow(data.incrementy.rebuyableAmt[1]).mul(iup8Effect()))

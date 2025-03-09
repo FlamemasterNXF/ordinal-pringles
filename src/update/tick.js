@@ -11,7 +11,7 @@ let t2AutoPure = () => D(1).times(chalEffectTotal()).times(getBUPEffect(6)).time
 
 let t2Auto = () => inPurification(2)
     ? hierarchyData[0].gain().times(data.incrementy.totalCharge).times(getEUPEffect(2, 4))
-    :  t2AutoPure().div(purificationData[1].special()).pow(singEffects[2].effect())
+    :  t2AutoPure().div(getDepthNerf(1)).div(purificationData[1].special()).pow(singEffects[2].effect())
 
 
 function tick(diff){

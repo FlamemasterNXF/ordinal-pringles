@@ -178,5 +178,5 @@ function getAutomationTextColors(i) {
 
 function updateAutomationTabHTML(){
     DOM(`auto2Tab`).style.color = isAutomationUnlocked(2, 0) ? getAutomationTextColors(2)[0] : '#8080FF'
-    DOM(`auto2Tab`).style.borderColor = isAutomationUnlocked(2, 0) ? getAutomationTextColors(2)[1] : '#0000ff'
+    DOM(`auto2Tab`).style.borderColor = isAutomationUnlocked(2, 0) ? getAutomationTextColors(2)[1] : '#1e47d0'
 }
