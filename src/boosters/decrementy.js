@@ -1,7 +1,7 @@
 function getDecrementyExponent(){
     let base = 1+1+hupData[4].effect()+getANREffect(2)+getUnstableFactorEffect(1)+getStabilizationEffect(0)
         +getHyperchargeEffect(11)
-    return hasTreeUpgrade(102) ? base+singEffects[1].effect() : base-singEffects[1].effect()
+    return base
 }
 function decrementyGain() {
     const exponent = getDecrementyExponent()

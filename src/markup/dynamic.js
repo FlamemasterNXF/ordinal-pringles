@@ -3,8 +3,8 @@ function getDyCap() {
         let c5 = getC5Effect()
         return D(40*(5**c5)*(5**data.chal.completions[4]))
     }
-    return D(40).mul(iup5Effect()).mul(alephEffect(4)).mul(dupEffect(1)).mul(getSingFunctionEffect(4))
-        .mul(getPringleEffect(3)).mul(getHyperchargeEffect(5))
+    return D(40).mul(iup5Effect()).mul(alephEffect(4)).mul(dupEffect(1)).mul(getPringleEffect(3))
+        .mul(getHyperchargeEffect(5))
 }
 
 function dyGain(){

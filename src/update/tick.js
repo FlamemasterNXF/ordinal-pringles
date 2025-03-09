@@ -11,7 +11,7 @@ let t2AutoPure = () => D(1).times(chalEffectTotal()).times(getBUPEffect(6)).time
 
 let t2Auto = () => inPurification(2)
     ? hierarchyData[0].gain().times(data.incrementy.totalCharge).times(getEUPEffect(2, 4))
-    :  t2AutoPure().div(getDepthNerf(1)).div(purificationData[1].special()).pow(singEffects[2].effect())
+    :  t2AutoPure().div(getDepthNerf(1)).div(purificationData[1].special())
 
 
 function tick(diff){
@@ -95,14 +95,14 @@ function tick(diff){
             else buyHBuyable(i)
         }
     }
-    if(hasSingFunction(0) && getAutomationEnabled(1, 3)){ // BUP + Supercharge AutoBuyer
-        if(!data.boost.hasBUP[10] || chargeAutoCheck(10)) buyBUP(10, false, getAutomationEnabled(1, 4)&&hasSingFunction(3), true)
-        if(!data.boost.hasBUP[5] || chargeAutoCheck(5)) buyBUP(5, false, getAutomationEnabled(1, 4)&&hasSingFunction(3), true)
-        if(!data.boost.hasBUP[0] || chargeAutoCheck(0)) buyBUP(0, false, getAutomationEnabled(1, 4)&&hasSingFunction(3), true)
+    if(getAutomationEnabled(1, 3)){ // BUP + Supercharge AutoBuyer
+        if(!data.boost.hasBUP[10] || chargeAutoCheck(10)) buyBUP(10, false, getAutomationEnabled(1, 4), true)
+        if(!data.boost.hasBUP[5] || chargeAutoCheck(5)) buyBUP(5, false, getAutomationEnabled(1, 4), true)
+        if(!data.boost.hasBUP[0] || chargeAutoCheck(0)) buyBUP(0, false, getAutomationEnabled(1, 4), true)
         for (let i = 1; i < 5; i++) {
             let isBottom = i===4
             for (let j = 0; j < 3; j++) {
-                if(!data.boost.hasBUP[i+(5*j)] || chargeAutoCheck(i+(5*j))) buyBUP(i+(5*j), isBottom, getAutomationEnabled(1, 4)&&hasSingFunction(3), true)
+                if(!data.boost.hasBUP[i+(5*j)] || chargeAutoCheck(i+(5*j))) buyBUP(i+(5*j), isBottom, getAutomationEnabled(1, 4), true)
             }
         }
     }
@@ -135,4 +135,4 @@ function tick(diff){
 }
 
 // Used for Charge AutoBuyer
-let chargeAutoCheck = (i) => !data.boost.isCharged[i] && getAutomationEnabled(1, 4) && hasSingFunction(3)
+let chargeAutoCheck = (i) => !data.boost.isCharged[i] && getAutomationEnabled(1, 4)

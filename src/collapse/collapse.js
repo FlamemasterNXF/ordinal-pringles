@@ -31,7 +31,6 @@ function updateCollapseHTML(){
 
     updateTotalAlephHTML()
     updateDarknessHTML()
-    updateAllSingularityHTML()
     updatePurificationTabHTML()
 
     if(data.nav.subtabs.collapse === 'hyper') updateAllUnlockedHyperchargeHTML()
@@ -238,7 +237,7 @@ let alephData = [
     {text: "multiplying Autobuyers by", effect: ()=> Decimal.log10(D(10).plus((data.collapse.alephs[1].times(90)))).times(purificationEffect(1)), unl: () => true},
     {text: "multiplying Ordinal Power gain by", effect: ()=> Decimal.log2(data.collapse.alephs[2].plus(2)).times(3), unl: () => true},
     {text: "multiplying Incrementy gain by", effect: ()=> Decimal.pow(data.collapse.alephs[3].plus(1), 1/4), unl: () => true},
-    {text: "multiplying Dynamic Cap by", effect: ()=> ((Decimal.sqrt(data.collapse.alephs[4].plus(1)).times(2)).plus(hupData[9].effect())).times(getSingFunctionEffect(2)).times(getAOMEffect(1)), unl: () => true},
+    {text: "multiplying Dynamic Cap by", effect: ()=> ((Decimal.sqrt(data.collapse.alephs[4].plus(1)).times(2)).plus(hupData[9].effect())).times(getAOMEffect(1)), unl: () => true},
     {text: "multiplying the SGH effect by", effect: ()=> Decimal.pow(data.collapse.alephs[5].plus(1), 1/4), unl: () => true},
     {text: "multiplying Booster Power gain by", effect: ()=> Decimal.sqrt(data.collapse.alephs[6].plus(4)).div(2), unl: () => true},
     {text: "multiplying the IUP3 effect by", effect: ()=> (Decimal.sqrt(data.collapse.alephs[7].plus(4)).times(2).times(purificationEffect(1))).plus(hupData[9].effect()), unl: () => true},
@@ -264,7 +263,7 @@ let sluggishData = [
 
 let collapseConfirm = (auto = false) =>
     data.sToggles[9]
-    ? createConfirmation('Are you certain?', `Collapsing will reset everything prior and Darkness!\n${data.boost.unlocks[4] && data.sing.level[0] === 0 && !hasAOMilestone(0) ? `WARNING: Your Singularity density is Zero!` : ''}`, 'No Way!', 'Go Ahead!', collapse)
+    ? createConfirmation('Are you certain?', `Collapsing will reset everything prior and Darkness!`, 'No Way!', 'Go Ahead!', collapse)
     : collapse(false, auto)
 
 function collapse(first = false, auto = false){
@@ -324,7 +323,7 @@ function collapseReset(){
     }
     else { data.incrementy.hasIUP = Array(12).fill(false) }
     data.incrementy.rebuyableAmt = Array(6).fill(0)
-    data.incrementy.charge = data.boost.unlocks[4] ? data.incrementy.totalCharge-data.sing.level[0] : 0
+    data.incrementy.charge = data.boost.unlocks[4] ? data.incrementy.totalCharge : 0
     data.incrementy.totalCharge = data.boost.unlocks[4] ? data.incrementy.totalCharge : 0
     updateIncrementyHTML()
     if(!hasSluggishMilestone(3)){

@@ -72,15 +72,6 @@ function switchSubtab(tab, mode){
             DOM(`dupC5`).style.display = data.obliterate.times > 0 ? 'block' : 'none'
             DOM('dupC5').innerHTML = `${formatBool(!data.obliterate.unstableFactorState[1], 'EDT')} the Second Unstable Factor`
         }
-        if(tab==='sing'){
-            if(!data.sing.tutorial){
-                createAlert('Tutorial Time!', 'Increase the Singularity\'s Density with the slider! Each increase will grant you a boost to Cardinal gain, with every few increases unlocking a new Singularity Function! Singularity Functions can boost or unlock things. But beware, growing your Singularity costs Charge!', 'Thanks for the tips!')
-                data.sing.tutorial = true
-            }
-            DOM(`singFunction8`).style.display = hasAOMilestone(0) ? `block` : `none`
-            DOM(`singularity1`).style.display = /*hasSingFunction(9) ? `flex` :*/ `none`
-            checkPermanentFunctions()
-        }
         if(tab==="baseless"){
             updateAlephNullHTML()
             checkANRUnlockHTML()

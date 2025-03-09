@@ -192,17 +192,17 @@ function buyHBuyable(i){
     if(data.hierarchies.rebuyableAmt[i] >= getHBuyableCap()) return
 
     if(data.incrementy.amt.gt(cost) && (i === 2 || i === 5)){
-        if(!hasSingFunction(2)) data.incrementy.amt = data.incrementy.amt.sub(cost)
+        if(!hasPassiveHypercharge(1)) data.incrementy.amt = data.incrementy.amt.sub(cost)
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
     }
     if(data.hierarchies.ords[0].ord.gt(OPtoOrd(cost, hierarchyData[0].base())) && i < 2){
-        if(!hasSingFunction(2)) data.hierarchies.ords[0].ord = data.hierarchies.ords[0].ord.sub(OPtoOrd(cost, hierarchyData[0].base()))
+        if(!hasPassiveHypercharge(1)) data.hierarchies.ords[0].ord = data.hierarchies.ords[0].ord.sub(OPtoOrd(cost, hierarchyData[0].base()))
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
     }
     if(data.hierarchies.ords[1].ord.gt(OPtoOrd(cost, hierarchyData[1].base())) && i > 2 && i < 5){
-        if(!hasSingFunction(2)) data.hierarchies.ords[1].ord = data.hierarchies.ords[1].ord.sub(OPtoOrd(cost, hierarchyData[1].base()))
+        if(!hasPassiveHypercharge(1)) data.hierarchies.ords[1].ord = data.hierarchies.ords[1].ord.sub(OPtoOrd(cost, hierarchyData[1].base()))
         ++data.hierarchies.rebuyableAmt[i]
         updateHBBuyableHTML(i)
     }

@@ -56,13 +56,6 @@ function obliterateReset(){
     data.darkness.negativeChargeEnabled = false
     data.darkness.darkened = false
 
-    for (let i = 0; i < data.sing.highestLevel.length; i++) {
-        data.sing.highestLevel[i] = 0
-        data.sing.level[i] = 0
-    }
-    data.sing.hasEverHadFunction = Array(singFunctions.length).fill(false)
-    lastSingFunctionUnlockedIndex = 0
-
     data.baseless.alephNull = 0
     data.baseless.mode = 0
     data.baseless.baseless = false
@@ -99,9 +92,6 @@ function obliterateReset(){
     updateAllCUPTextHTML()
     checkAllUnlocks(0, true)
     checkAllUnlocks(1, true)
-    loadSingularityHTML()
-    updateAllSingularityHTML()
-    checkPermanentFunctions()
     updateAllANRHTML()
     updateAllAORHTML()
     updateAllPurificationHTML()

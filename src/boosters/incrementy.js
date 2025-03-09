@@ -127,7 +127,7 @@ let iup4Effect = () => data.incrementy.hasIUP[3] && !inPurification(3) ? Decimal
 let iup5Effect = () => data.incrementy.hasIUP[4] && !inPurification(3) ? data.hierarchies.hasUpgrade[6] ? Decimal.max(1, Decimal.pow(data.incrementy.amt, 1/8).add(1))
 : Decimal.max(1, Decimal.pow(data.incrementy.amt, 1/16).add(1)) : D(1)
 let iup6Effect = () => data.incrementy.hasIUP[5] && !inPurification(1) && !inPurification(3) ? Decimal.max(1, Decimal.sqrt(data.dy.level.add(1))).mul(iup9Effect()).mul(hbData[2].effect()).mul(hbData[5].effect()).mul(alephEffect(7)) : D(1)
-let iup7Effect = () => data.incrementy.hasIUP[6] && !inPurification(3) ? Decimal.floor(data.chal.totalCompletions/3).mul(hasSingFunction(4) ? 2 : 1).plus(getHyperchargeEffect(3)) : D(0)
+let iup7Effect = () => data.incrementy.hasIUP[6] && !inPurification(3) ? Decimal.floor(data.chal.totalCompletions/3).plus(getHyperchargeEffect(3)) : D(0)
 let iup8Effect = () => data.incrementy.hasIUP[7] && !inPurification(3) ? Decimal.max(1, 1+data.chal.totalCompletions/3) : D(1)
 let iup9Effect = () => data.incrementy.hasIUP[8] && !inPurification(3) ? data.hierarchies.hasUpgrade[1] ? Decimal.max(1, data.incrementy.rebuyableAmt[2]/3)
 : Decimal.max(1, Decimal.sqrt(data.incrementy.rebuyableAmt[2])) : D(1)
@@ -169,7 +169,7 @@ function respecCharge(c=false){
         DOM(`bup${i}`).style.color = `#8080FF`
         if(data.boost.hasBUP[i]) DOM(`bup${i}`).style.backgroundColor = `#002480`
     }
-    data.incrementy.charge = data.incrementy.totalCharge-data.sing.level[0]
+    data.incrementy.charge = data.incrementy.totalCharge
     data.boost.bottomRowCharges = 0
     if(hasSluggishMilestone(3)) updateBUPInfoText()
     if(!c) chalExit()

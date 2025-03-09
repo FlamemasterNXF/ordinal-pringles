@@ -227,22 +227,22 @@ let achievements = [
     {
         name: "Infinitely Dense",
         description: "Reach Singularity Density ω",
-        req: () => data.sing.level[0] > 9
+        req: () => false
     },
     {
         name: "Bigger Infinitely Dense",
         description: "Reach Singularity Density ω2",
-        req: () => data.sing.level[0] > 19
+        req: () => false
     },
     {
         name: "PLEASE DO NOT FEED WILD SINGULARITIES",
         description: "Reach Singularity Density ω5",
-        req: () => data.sing.level[0] > 49
+        req: () => false
     },
     {
         name: "I Fed The Wild Singularity",
         description: "Reach Singularity Density ω8",
-        req: () => data.sing.level[0] > 79
+        req: () => false
     },
     {
         name: "Never Liked Those Bases Anyway",
@@ -313,7 +313,7 @@ let achievements = [
     {
         name: "Obesity",
         description: "Reach Singularity Density ω²",
-        req: () => data.sing.level[0] > 99
+        req: () => false
     },
     {
         name: "The Only Hierarchy Achievement",
@@ -379,7 +379,7 @@ let achievements = [
     {
         name: "The Blugularity",
         description: "Unlock the Ringularity",
-        req: () => hasSingFunction(9)
+        req: () => false
     },
 
 

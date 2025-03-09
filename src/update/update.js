@@ -25,7 +25,6 @@ const uHTML = {
         updateTotalAlephHTML()
         updateAllDarknessControlHTML()
         updateAllDUPHTML()
-        loadSingularityHTML()
         updateBaselessEnterHTML(data.baseless.mode, true)
         updateDynamicShiftHTML()
 
@@ -45,7 +44,6 @@ const uHTML = {
         initSluggish()
         initDepthHTML()
         initHyperchargeHTML()
-        initSingularityFunctions()
         initANRebuyables()
         initPurification()
         initPassiveEnergyUpgrades()

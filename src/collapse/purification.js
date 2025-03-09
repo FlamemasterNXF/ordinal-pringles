@@ -217,10 +217,7 @@ function enterPurification(i){
     if(inAnyPurification() && (i === data.omega.whichPurification)) return exitPurification(i)
     if(inAnyPurification()) exitPurification(i,true)
 
-    if(i === 3){
-        singControl(1, 0)
-        darknessControl(3)
-    }
+    if(i === 3) darknessControl(3)
 
     data.omega.whichPurification = i
     data.omega.purificationIsActive[i] = true

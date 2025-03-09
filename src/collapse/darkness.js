@@ -236,7 +236,7 @@ let dupData = [
         sign: 'x',
         extraLevels: () => iup11Effect(),
         cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)),
-        effect: ()=> isTabUnlocked('darkness') ? hasSingFunction(6) ? 4**(getTotalDUPLevels(1)) : 2**data.darkness.levels[1] : 1
+        effect: ()=> isTabUnlocked('darkness') ? getTotalDUPLevels(1) : 1
     },
     {
         text: `Increase both Hierarchy Effect exponents`,
