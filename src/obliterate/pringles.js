@@ -176,7 +176,7 @@ function displayPringleButton(event, pringleData, i, type = 'pringleButton'){
     if(type === 'pringleButton') pringleData != null ? updatePringleButtonText(pringleData, i) : updatePurityText(i)
 }
 function updatePringleButtonText(pringleData, i){
-    DOM('pringleButton').innerHTML = `The ${pringleData.name}${i !== 9 ? ` ${pringleData.colorDesc}` : ''} Pringle [${data.obliterate.pringleAmount[i]}]<br><b>${pringleData.desc} [${getPringleEffectText(pringleData, i)}]</b><br>It costs <b>${format(pringleData.cost())} ${pringleData.resNames}</b> to craft<br>${getPringleAssignmentText(i)}<br><i style="font-size: 0.85rem; color: gray">Click this Pringle to Craft it!</i>`
+    DOM('pringleButton').innerHTML = `The ${pringleData.name}${i !== 9 ? ` ${pringleData.colorDesc}` : ''} Pringle [${data.obliterate.pringleAmount[i]}]<br><b>${pringleData.desc} [${getPringleEffectText(pringleData, i)}]</b><br>It requires <b>${format(pringleData.cost())} ${pringleData.resNames}</b> to craft<br>${getPringleAssignmentText(i)}<br><i style="font-size: 0.85rem; color: gray">Click this Pringle to Craft it!</i>`
 }
 
 let getPringleEffectText = (pringleData, i) =>
@@ -224,8 +224,8 @@ function buyPringle(localPringleData, index){
         for (let j = 0; j < localPringleData.resLocation[i].length; j++) {
             location += `['${[localPringleData.resLocation[i][j]]}']`
         }
-        if(localPringleData.costIsDecimal) eval(`${location} = ${location}.sub(localPringleData.cost())`)
-        else eval(`${location} -= localPringleData.cost().toNumber()`)
+        //if(localPringleData.costIsDecimal) eval(`${location} = ${location}.sub(localPringleData.cost())`)
+        //else eval(`${location} -= localPringleData.cost().toNumber()`)
     }
     ++data.obliterate.pringleAmount[index]
     updatePringleButtonText(localPringleData, index)
