@@ -16,7 +16,7 @@ function saveToCloud(){
             action: "save",
             slot: 0, // The dedicated autosave slot
             label: "Autosave",
-            data: JSON.stringify(data),
+            data: btoa(JSON.stringify(data)),
         },"https://galaxy.click")
     }
 }

@@ -130,15 +130,15 @@ let hbData = [
 let hupData = [
     // Effcects of 1 mean that it is a true/false effect.
     { text:"The Challenge Boost is Improved", cost: 1e10, effect: ()=> data.hierarchies.hasUpgrade[0] ? 2*hupData[8].effect() : 1 },
-    { text:"Incrementy Upgrade 6 is Improved", cost: 1e20, effect: ()=> 1 },
-    { text:"Booster Upgrade 1x4 boosts Hierarchy Successors", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[2] ? getBUPEffect(3)**2 : 1 },
-    { text:"If Booster Upgrades 2x1 and 3x1 are Supercharged their effects multiply each other", cost: 1e40, effect: ()=> 1},
-    { text:"The BUP 2x1 and 3x1 effect slightly adds to the Decrementy gain exponent", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[4] ? getBUPEffect(5)/100 : 0 },
+    { text:"IUP6 is Improved", cost: 1e20, effect: ()=> 1 },
+    { text:"BUP1x4 boosts Hierarchy gain", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[2] ? getBUPEffect(3)**2 : 1 },
+    { text:"If BUP 2x1 and 3x1 are Supercharged their effects stack", cost: 1e40, effect: ()=> 1},
+    { text:"BUP2x1 and 3x1 slightly increase the Decrementy gain exponent", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[4] ? getBUPEffect(5)/100 : 0 },
     { text:"Total Charge Boosts AutoBuyers", cost: 1e10, effect: ()=> data.hierarchies.hasUpgrade[5] ? Math.max(1, data.incrementy.totalCharge/2)*hupData[8].effect() : 1 },
-    { text:"Incrementy Upgrade 2 is Improved", cost: 1e20, effect: ()=> 1 },
-    { text:"Booster Upgrade 2x4 boosts Hierarchy Successors", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[7] ? getBUPEffect(8)**3 : 1 },
-    { text:"Each Drain boosts the effects of the first Hierarchy Upgrade of each column", cost: 1e40, effect: ()=> data.hierarchies.hasUpgrade[8] ?  Math.max(1, Math.sqrt(data.darkness.totalDrains)) : 1 },
-    { text:"The final Hierarchy Buyable of each column's effect adds to the ℵ<sub>5</sub> and ℵ<sub>8</sub> effects", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[9] ? (hbData[2].effect().plus(hbData[5].effect())).toNumber() : 1 },
+    { text:"IUP2 is Improved", cost: 1e20, effect: ()=> 1 },
+    { text:"BUP2x4 boosts Hierarchy gain", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[7] ? getBUPEffect(8)**3 : 1 },
+    { text:"Each Drain boosts the first Hierarchy Upgrade of each column", cost: 1e40, effect: ()=> data.hierarchies.hasUpgrade[8] ?  Math.max(1, Math.sqrt(data.darkness.totalDrains)) : 1 },
+    { text:"The final Hierarchy Buyable of each column's boosts the ℵ<sub>5</sub> and ℵ<sub>8</sub> effects", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[9] ? (hbData[2].effect().plus(hbData[5].effect())).toNumber() : 1 },
 ]
 
 function increaseHierarchies(diff){
