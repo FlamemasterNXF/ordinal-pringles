@@ -91,7 +91,7 @@ function tick(diff){
     }
     if(hasSluggishMilestone(3) && getAutomationEnabled(1, 2)){ // Repeatable HUP Autobuyer
         for (let i = 0; i < data.hierarchies.rebuyableAmt.length; i++) {
-            if(hasSingFunction(2)) data.hierarchies.rebuyableAmt[i] = getMaxHBBuyableLevel(i).toNumber()
+            if(hasPassiveHypercharge(1)) data.hierarchies.rebuyableAmt[i] = getMaxHBBuyableLevel(i).toNumber()
             else buyHBuyable(i)
         }
     }

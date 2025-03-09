@@ -60,7 +60,10 @@ function switchSubtab(tab, mode){
         if(tab==='cardinals'){
             DOM(`aleph8`).style.display = hasAOMilestone(1) ? `block` : `none`
         }
-        if(tab==='cUpgrades' && data.obliterate.times > 0) checkAllUnlocks(0, true)
+        if(tab==='cUpgrades' && data.obliterate.times > 0) {
+            checkAllUnlocks(0, true)
+            updateAllDrainHTML()
+        }
         if(tab==='sluggish' && data.obliterate.times > 0) checkAllUnlocks(1, true)
         if(tab==='darkness'){
             updateDUPHTML(1)
@@ -123,7 +126,7 @@ function isTabUnlocked(t){
         case 'darkness': return hasSluggishMilestone(2)
         case 'hyper': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
         case 'baseless': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
-        case 'purification': return hasSingFunction(6) || hasPassiveUpgrade(20)
+        case 'purification': return hasPassiveHypercharge(3) || hasPassiveUpgrade(20)
 
         default: return true
     }

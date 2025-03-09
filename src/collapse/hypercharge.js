@@ -125,7 +125,7 @@ let hyperChargeQOLData = [
         description: "Unlock Purification and the Base is always 3 in Darkness",
     },
     {
-        description: "All Drain amounts are equal to your highest Drain amount (maybe)",
+        description: "All Drain amounts are equal to your highest Drain amount",
     },
 ]
 
@@ -259,6 +259,7 @@ function respecHyperchargeRow(row){
     collapseReset()
 }
 
+let hasPassiveHypercharge = (i) => hasHyperchargeRow(i)
 let hasHyperCharge = (i) => data.hyper.hasUpgrade[i]
 let hasHyperQOL = (i) => checkArrayBetween(data.hyper.hasUpgrade, i*3, (i+1)*3, true)
 let getHyperchargeEffect = (i) => hasHyperCharge(i) ? hyperChargeUpgradeData[i].effect() : hyperChargeUpgradeData[i].baseEffect()

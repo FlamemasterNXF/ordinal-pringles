@@ -39,14 +39,14 @@ let automationData = [
             name: "Booster Upgrades AutoBuyer",
             desc: "buying Booster Upgrades",
             hasReq: false,
-            unlock: () => data.sing.hasEverHadFunction[0]
+            unlock: () => hasPassiveHypercharge(0)
         },
         {
             name: "Supercharge AutoBuyer",
             desc: "Supercharging Booster Upgrades",
             hasReq: true,
             req: "but only if you already have the required Booster Upgrade",
-            unlock: () => data.sing.hasEverHadFunction[3]
+            unlock: () => hasPassiveHypercharge(2)
         },
         {
             name: "ℵ<sub>0</sub> Upgrade AutoBuyer",

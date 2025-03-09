@@ -38,6 +38,11 @@ function updateAllDUPHTML(){
 function updateDrainHTML(i){
     DOM(`drain${i}`).innerText = `Drain this Cardinal Upgrade (${getDrainLevel(i)})\n${format(drainCost(i))} Negative Charge`
 }
+function updateAllDrainHTML(){
+    for (let i = 0; i < drainData.length; i++) {
+        updateDrainHTML(i)
+    }
+}
 
 
 let stabilizationEffects = [
@@ -194,11 +199,13 @@ function negativeChargeEffect(incrementyEffectNerf) {
     return Decimal.max(1, Decimal.sqrt(data.darkness.negativeCharge + 1))
 }
 
-let drainEffect = (i) => getDrainLevel(i) > 0 ? i===1 ? Math.max(0, drain1Effect())
-    : Math.max(drainData[i].effect(), 1)
-    : i===1 ? 0 : 1
+function drainEffect(i){
+    if(getDrainLevel(i) === 0 || i === 7) return i===1 ? 0 : 1
+    if(i === 1) return Math.max(0, drain1Effect())
+    return Math.max(drainData[i].effect(), 1)
+}
 let drainCost = (i) => ((10**(1+(data.darkness.totalDrains/2)))*(getDrainLevel(i)+1))/getHyperchargeEffect(7)
-let getDrainLevel = (i) => data.darkness.drains[i]
+let getDrainLevel = (i) => hasPassiveHypercharge(4) ? Math.max(...data.darkness.drains) : data.darkness.drains[i]
 let drainData = [
     { effect: () => 2*getDrainLevel(0) },
     { effect: () => drain1Effect() },
@@ -249,9 +256,7 @@ function buyDrain(i) {
     ++data.darkness.drains[i]
     ++data.darkness.totalDrains
 
-    for (let i = 0; i < drainData.length; i++) {
-        updateDrainHTML(i)
-    }
+    updateAllDrainHTML()
 }
 
 function buyDUP(i){
@@ -305,8 +310,14 @@ function darkenConfirm(){
 function darken(force = false){
     if(data.baseless.baseless) return
     data.darkness.darkened && !force ? chalExit(true) : chalEnter(7, true)
-
     data.darkness.darkened = !data.darkness.darkened
+
+    if(data.darkness.darkened && hasPassiveHypercharge(3)){
+        data.markup.shifts = 7
+        data.ord.base = 3
+        data.ord.isPsi = true
+    }
+
     updateDarknessDepthHTML()
     updateStatusHTML()
 }
@@ -326,19 +337,15 @@ function resetDarkness(force = false){
     for (let i = 0; i < 3; i++) {
         data.darkness.levels[i] = (hasPassiveUpgrade(10+i) || hasSluggishMilestone(3)) ? data.darkness.levels[i] : 0
     }
-    data.darkness.negativeCharge = 0
-    if(!hasSingFunction(1)) data.darkness.drains = Array(7).fill(0)
-    if(!data.boost.unlocks[4]){
-        data.darkness.sacrificedCharge = 0
-        updateDarknessControlHTML(2)
-    }
-    if(!hasSingFunction(1)) data.darkness.totalDrains = 0
+
+    if(!data.boost.unlocks[4]) data.darkness.negativeCharge = 0
+    if(!hasPassiveHypercharge(1)) data.darkness.drains = Array(7).fill(0)
+    if(!hasPassiveHypercharge(1)) data.darkness.totalDrains = 0
+
     //data.darkness.negativeChargeEnabled = false
     updateDarknessHTML()
     updateAllDUPHTML()
-    for (let i = 0; i < drainData.length; i++) {
-        updateDrainHTML(i)
-    }
+    updateAllDrainHTML()
     updateDarknessDepthHTML()
 }
 

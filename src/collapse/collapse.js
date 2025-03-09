@@ -293,7 +293,7 @@ function collapse(first = false, auto = false){
     if (!auto) showNotification("Insufficent Ordinal")
 }
 function boostersOnCollapse(){
-    let sing = hasSingFunction(0) ? 2 : 0
+    let sing = hasPassiveHypercharge(0) ? 2 : 0
     return 0+sing
 }
 function collapseReset(){
