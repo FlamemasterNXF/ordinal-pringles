@@ -42,7 +42,6 @@ function totalFactorEffect(){
     let mult = 1
     for (let i = 0; i < data.factors.length; i++) {
         mult *= factorEffect(i)
-        mult *= factorEffect(i, true)
     }
     return mult
 }
@@ -56,15 +55,15 @@ function buyMaxFactor(){
 
     if(data.baseless.baseless){
         for (let i = data.baseless.shifts-1; i >= 0; i--){
-            if(!hasFactor(i, false)) break
-            while (data.markup.powers.gte(Decimal.pow(10 ** (i + 1), Decimal.pow(2, data.factors[i])))) buyFactor(i, false);
+            if(!hasFactor(i)) break
+            while (data.markup.powers.gte(Decimal.pow(10 ** (i + 1), Decimal.pow(2, data.factors[i])))) buyFactor(i);
         }
         return
     }
 
     for (let i = data.markup.shifts-1; i >= 0; i--){
-        if(!hasFactor(i, false)) break
-        while (data.markup.powers.gte(Decimal.pow(10 ** (i + 1), Decimal.pow(2, data.factors[i])))) buyFactor(i, false);
+        if(!hasFactor(i)) break
+        while (data.markup.powers.gte(Decimal.pow(10 ** (i + 1), Decimal.pow(2, data.factors[i])))) buyFactor(i);
     }
 }
 function buyMaxT1(){
