@@ -3,7 +3,7 @@ let hyperChargeUpgradeData = [
     {
         description: "Total Charge boosts Cardinal Gain",
         sign: 'x',
-        effect: () => data.incrementy.totalCharge,
+        effect: () => data.incrementy.totalCharge + 1,
         baseEffect: () => 1,
         cost: 10,
     },
@@ -32,7 +32,7 @@ let hyperChargeUpgradeData = [
     {
         description: "Boosters boost Hierarchy Effects",
         sign: 'x',
-        effect: () => data.boost.amt,
+        effect: () => data.boost.amt + 1,
         baseEffect: () => 1,
         cost: 12,
     },
@@ -76,7 +76,7 @@ let hyperChargeUpgradeData = [
     {
         description: "Negative Charge boosts ℵ<sub>0</sub> gain",
         sign: 'x',
-        effect: () => Math.max(1, Math.pow(data.darkness.negativeCharge, 1/4)),
+        effect: () => Math.max(1, Math.pow(data.darkness.negativeCharge, 1/6)),
         baseEffect: () => 1,
         cost: 24,
     },
