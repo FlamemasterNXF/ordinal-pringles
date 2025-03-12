@@ -242,11 +242,11 @@ let dupData = [
         effect: ()=> isTabUnlocked('darkness') ? getTotalDUPLevels(1) : 1
     },
     {
-        text: `Increase both Hierarchy Effect exponents`,
-        sign: '+',
+        text: `Multiply both Hierarchy Effect exponents`,
+        sign: 'x',
         extraLevels: () => alephNullEffects[1](),
         cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)),
-        effect: ()=> isTabUnlocked('darkness') ? getTotalDUPLevels(2)+1 : 1
+        effect: ()=> isTabUnlocked('darkness') ? 0.0175*getTotalDUPLevels(2)**2+1: 1
     }
 ]
 
