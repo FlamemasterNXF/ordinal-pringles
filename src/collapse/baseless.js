@@ -79,7 +79,7 @@ const anRebuyableData = [
     },
     {
         desc: "Boost the Total Charge boost to Baseless Realms",
-        eff: () => Math.max(1, (getANRLevels(1))),
+        eff: () => getANRLevels(1)+1,
         costBase: 1e6,
         symbol: '^',
         unl: () => true,
@@ -173,7 +173,7 @@ let alephNullEffects = [
 ]
 let getBaselessMult = (i) => baselessMultipliers[i]
 let chargeBoostToBaseless = (display = false) => data.baseless.baseless || display
-    ? Math.max(1, ((data.incrementy.totalCharge**10)*getEUPEffect(1, 1, true))**getANREffect(1))
+    ? Decimal.max(1, D(data.incrementy.totalCharge**10).times(getEUPEffect(1, 1)).pow(getANREffect(1)))
     : 1
 let getANRCost = (i) => ((anRebuyableData[i].costBase/100+1)**data.baseless.anRebuyables[i])*anRebuyableData[i].costBase
 let getANREffect = (i, number = true) => {
