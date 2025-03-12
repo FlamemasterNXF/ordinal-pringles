@@ -299,6 +299,15 @@ function boostersOnCollapse(){
     return 0+sing
 }
 function collapseReset(){
+    for (let i = 0; i < data.hierarchies.ords.length; i++) {
+        data.hierarchies.ords[i].ord = D(1)
+        data.hierarchies.ords[i].over = D(0)
+    }
+    data.hierarchies.rebuyableAmt = Array(6).fill(0)
+    data.hierarchies.hasUpgrade = Array(10).fill(false)
+    updateHierarchiesHTML()
+    updateHierarchyPurchaseHTML()
+
     boosterRefund()
 
     data.boost.amt = boostersOnCollapse()
@@ -330,20 +339,11 @@ function collapseReset(){
     data.incrementy.charge = data.boost.unlocks[4] ? data.incrementy.totalCharge-getTotalChargeInHypercharge() : 0
     data.incrementy.totalCharge = data.boost.unlocks[4] ? data.incrementy.totalCharge : 0
     updateIncrementyHTML()
-    if(!hasSluggishMilestone(3)){
+    if(!hasSluggishMilestone(3)) {
         for (let i = 0; i < data.incrementy.hasIUP.length; i++) {
             DOM(`iup${i}`).style.color = '#8080FF'
         }
     }
-
-    for (let i = 0; i < data.hierarchies.ords.length; i++) {
-        data.hierarchies.ords[i].ord = D(1)
-        data.hierarchies.ords[i].over = D(0)
-    }
-    data.hierarchies.rebuyableAmt = Array(6).fill(0)
-    data.hierarchies.hasUpgrade = Array(10).fill(false)
-    updateHierarchiesHTML()
-    updateHierarchyPurchaseHTML()
 
     resetDarkness()
 

@@ -237,12 +237,12 @@ let achievements = [
     {
         name: "Trickle-Down Chargenomics",
         description: "Obtain a row three Hypercharge",
-        req: () => false
+        req: () => hasPassiveHypercharge(2)
     },
     {
         name: "I Hypercharged the Nightlight",
         description: "Obtain a row four Hypercharge",
-        req: () => false
+        req: () => hasPassiveHypercharge(3)
     },
     {
         name: "Never Liked Those Bases Anyway",
@@ -374,7 +374,7 @@ let achievements = [
     {
         name: "Hypercharging Drains sounds... Dangerous",
         description: "Obtain a row five Hypercharge",
-        req: () => false
+        req: () => hasPassiveHypercharge(4)
     },
 
 
