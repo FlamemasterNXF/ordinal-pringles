@@ -222,7 +222,7 @@ function initHyperchargeHTML(){
     }
 }
 
-function hasHyperchargeRow(row){
+function hasPassiveHypercharge(row){
     const rowStart = row * 3
     const rowEnd = rowStart + 3
     return data.hyper.hasUpgrade.slice(rowStart, rowEnd).includes(true)
@@ -230,7 +230,7 @@ function hasHyperchargeRow(row){
 
 function hasAllPreviousHyperchargeRows(row){
     for (let i = 0; i < row; i++) {
-        if(!hasHyperchargeRow(i)) return false
+        if(!hasPassiveHypercharge(i)) return false
     }
     return true
 }
@@ -238,7 +238,7 @@ function hasAllPreviousHyperchargeRows(row){
 function buyHypercharge(i){
     const hyperchargeData = hyperChargeUpgradeData[i]
     const row = Math.floor(i / 3)
-    if(hasHyperchargeRow(row) || !hasAllPreviousHyperchargeRows(row) || data.incrementy.charge < hyperchargeData.cost) return
+    if(hasPassiveHypercharge(row) || !hasAllPreviousHyperchargeRows(row) || data.incrementy.charge < hyperchargeData.cost) return
 
     data.incrementy.charge -= hyperchargeData.cost
     data.hyper.hasUpgrade[i] = true
@@ -273,7 +273,6 @@ function getStableHypercharges(){
 }
 let getStableHyperchargeEffect = () => 1+getStableHypercharges()/100
 
-let hasPassiveHypercharge = (i) => hasHyperchargeRow(i)
 let hasHyperCharge = (i) => data.hyper.hasUpgrade[i]
 let hasHyperQOL = (i) => checkArrayBetween(data.hyper.hasUpgrade, i*3, (i+1)*3, true)
 let getHyperchargeEffect = (i) => hasHyperCharge(i) ? hyperChargeUpgradeData[i].effect() : hyperChargeUpgradeData[i].baseEffect()
