@@ -277,3 +277,12 @@ let hasPassiveHypercharge = (i) => hasHyperchargeRow(i)
 let hasHyperCharge = (i) => data.hyper.hasUpgrade[i]
 let hasHyperQOL = (i) => checkArrayBetween(data.hyper.hasUpgrade, i*3, (i+1)*3, true)
 let getHyperchargeEffect = (i) => hasHyperCharge(i) ? hyperChargeUpgradeData[i].effect() : hyperChargeUpgradeData[i].baseEffect()
+
+function getTotalChargeInHypercharge(){
+    let amt = 0
+    for (let i = 0; i < data.hyper.hasUpgrade.length; i++) {
+        if(!hasHyperCharge(i)) continue;
+        amt += hyperChargeUpgradeData[i].cost
+    }
+    return amt
+}

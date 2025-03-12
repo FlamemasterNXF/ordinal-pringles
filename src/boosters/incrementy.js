@@ -169,7 +169,7 @@ function respecCharge(c=false){
         DOM(`bup${i}`).style.color = `#8080FF`
         if(data.boost.hasBUP[i]) DOM(`bup${i}`).style.backgroundColor = `#002480`
     }
-    data.incrementy.charge = data.incrementy.totalCharge
+    data.incrementy.charge = data.incrementy.totalCharge-getTotalChargeInHypercharge()
     data.boost.bottomRowCharges = 0
     if(hasSluggishMilestone(3)) updateBUPInfoText()
     if(!c) chalExit()

@@ -325,8 +325,9 @@ function collapseReset(){
         data.incrementy.hasIUP[2] = false
     }
     else { data.incrementy.hasIUP = Array(12).fill(false) }
+
     data.incrementy.rebuyableAmt = Array(6).fill(0)
-    data.incrementy.charge = data.boost.unlocks[4] ? data.incrementy.totalCharge : 0
+    data.incrementy.charge = data.boost.unlocks[4] ? data.incrementy.totalCharge-getTotalChargeInHypercharge() : 0
     data.incrementy.totalCharge = data.boost.unlocks[4] ? data.incrementy.totalCharge : 0
     updateIncrementyHTML()
     if(!hasSluggishMilestone(3)){
