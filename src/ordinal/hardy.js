@@ -645,11 +645,11 @@ function getHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.
     if (isPsi) return psiHardy(ord, base);
     if(calculateSimpleHardy().lt(Number.MAX_VALUE)) return format(Decimal.floor(calculateSimpleHardy().plus(1e-10)))
     ord = Decimal.floor(ord);
-    let hardyValue = "Infinity";
+    let hardyValue = "&infin;";
     hardyValue = format(calculateHardy(ord, over, base));
-    if (hardyValue === "Infinity") {
+    if (hardyValue === "&infin;") {
         if (!data.baseless.baseless && useExpantaNum()) hardyValue = EN_format(hardy(ord, base, over));
-        if (hardyValue === "Infinity") hardyValue = bigHardy(ord, base, over);
+        if (hardyValue === "&infin;") hardyValue = bigHardy(ord, base, over);
     }
     return hardyValue;
 }

@@ -135,7 +135,7 @@ function EN_format(num, precision=2, small=false) {
     let array = num.array
     if (num.abs().lt(1e-308)) return (0).toFixed(precision)
     if (num.sign < 0) return "-" + EN_format(num.neg(), precision)
-    if (num.isInfinite()) return "Infinity"
+    if (num.isInfinite()) return "&infin;"
     if (num.lt("0.0001")) { return EN_format(num.rec(), precision) + "⁻¹" }
     else if (num.lt(1)) return EN_regularFormat(num, precision + (small ? 2 : 0))
     else if (num.lt(1000)) return EN_regularFormat(num, precision)
