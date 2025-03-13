@@ -28,7 +28,12 @@ const passiveEnergyDescriptions = [
     "Unlock a permanent AutoBuyer for ℵ<sub>&omega;</sub> Upgrades",
 ]
 
-let updatePassiveEnergyText = () => DOM(`passiveEnergyText`).innerHTML = `You have <span style="font-family: DosisSemiBold; color: #bd80ff">${formatWhole(data.obliterate.passiveEnergy)} Passive Energy</span>`
+let passiveEnergyEffects = [
+    () => (1+getTotalPassiveEnergy())**10,
+    () => 1.5**getTotalPassiveEnergy()
+]
+
+let updatePassiveEnergyText = () => DOM(`passiveEnergyText`).innerHTML = `You have <span style="font-family: DosisSemiBold; color: #bd80ff">${formatWhole(data.obliterate.passiveEnergy)} Passive Energy</span><br><span style="font-size: 0.9rem">You have <span style="color: #bd80ff">${getTotalPassiveEnergy()} Total Passive Energy</span>, multiplying <span style="color: #95d0ef">AutoBuyer speed by ${format(getPassiveEnergyEffect(0))}x</span> and <span style="color: #ff4848">ℵ<sub>&omega;</sub> gain by ${format(getPassiveEnergyEffect(1))}x</span></span>`
 function initPassiveEnergyUpgrades(){
     let total = 0
     for (let i = 0; i < 5; i++) {
@@ -89,6 +94,7 @@ function getTotalPassiveEnergyInvested(){
     }
     return total
 }
+let getTotalPassiveEnergy = () => getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy
 
 let hasPassiveUpgrade = (i) => data.obliterate.hasPassiveUpgrade[i]
 function completedPassiveUpgradeRows(){
@@ -101,3 +107,5 @@ function completedPassiveUpgradeRows(){
     return rows
 }
 let isAOMilestonePermanent = (i) => i < completedPassiveUpgradeRows()
+
+let getPassiveEnergyEffect = (i) => passiveEnergyEffects[i]()

@@ -259,7 +259,7 @@ function buyAOR(i){
     updateAllAOMHTML()
 }
 
-let aoGain = () => (alephOmegaCap()/1000)*getAOREffect(1)
+let aoGain = () => (alephOmegaCap()/1000)*getAOREffect(1)*getPassiveEnergyEffect(1)
 let aoEffects = [
     () => data.omega.alephOmega*getEUPEffect(2, 0, true),
     () => Math.sqrt(data.omega.alephOmega)*getEUPEffect(2, 2, true),
