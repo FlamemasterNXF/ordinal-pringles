@@ -198,7 +198,7 @@ function cardinalGain(){
             .times(Decimal.log2((data.boost.times-34)+2)).times(Decimal.sqrt(data.boost.times-34)).plus(3)
             .times(alephTotalEffect()).times(iup12Effect()).times(getAOMEffect(4)).times(getPringleEffect(2))
             .times(getStableEnergyEffect(1, 0)).times(getHyperchargeEffect(0))
-    return gain
+    return gain.pow(getEUPEffect(1, 5))
 }
 
 let alephEffect = (i) => data.collapse.alephs[i].gt(0) && (!inPurification(1) || i === 0) && alephData[i].unl()

@@ -25,7 +25,6 @@ let treeNodes = new vis.DataSet([
     { id: 305, label: "305" },
 
     { id: 401, label: "401" },
-    { id: 402, label: "402" },
 ])
 
 let treeEdges = new vis.DataSet([
@@ -57,7 +56,6 @@ let treeEdges = new vis.DataSet([
 
     { from: 0, to: 401 },
     { from: 0, to: 401 },
-    { from: 401, to: 402 },
 ])
 
 let treeContainer = DOM("energyTree")

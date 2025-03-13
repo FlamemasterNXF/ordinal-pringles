@@ -50,7 +50,7 @@ function markup(n=D(1)){
     if(data.ord.isPsi){
         data.ord.ordinal = data.ord.ordinal.plus(n);
         if (capOrdinalAtBO && data.ord.base===3 && data.ord.ordinal.gt(BO_VALUE)) data.ord.ordinal = D(BO_VALUE)
-        return data.markup.powers = D(4e256).mul(getEUPEffect(4, 0) ? uncappedOPGain() : 1)
+        return data.markup.powers = D(4e256).mul(false ? uncappedOPGain() : 1)
     }
 
     if(data.chal.active[7]){
