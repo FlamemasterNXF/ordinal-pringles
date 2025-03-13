@@ -261,9 +261,9 @@ const energyUpgradeData = [
     ],
     [
         {
-            desc: "??? (Coming Soon!)",
+            desc: "(Coming Soon!)",
             sign: 'x',
-            cost: Infinity,
+            cost: 1,
             eff: () => D(1),
             hasExtraReq: false,
             extraReq: true,
