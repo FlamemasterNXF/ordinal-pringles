@@ -537,12 +537,22 @@
 }
 .stability{
     width: 22rem;
-    height: 17rem;
+    height: 12rem;
     border: 2px solid #2d2746;
     color: #7d5394;
     background: black;
-    margin: 1rem;
-    border-radius: 10px;
+    margin: 1rem 1rem 0;
+    border-radius: 10px 10px 0 0;
+}
+.stabilityRespec{
+    width: 22rem;
+    height: 5rem;
+    border: 2px solid #2d2746;
+    color: #7d5394;
+    background: black;
+    margin: 0 1rem 1rem;
+    border-top: 0;
+    border-radius: 0 0 10px 10px;
 }
 .progressBar{
     width: 7rem;

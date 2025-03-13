@@ -197,7 +197,7 @@ function cardinalGain(){
     let gain = Decimal.sqrt(data.boost.times-34)
             .times(Decimal.log2((data.boost.times-34)+2)).times(Decimal.sqrt(data.boost.times-34)).plus(3)
             .times(alephTotalEffect()).times(iup12Effect()).times(getAOMEffect(4)).times(getPringleEffect(2))
-            .times(getUnstableFactorEffect(2)).times(getHyperchargeEffect(0))
+            .times(getStableEnergyEffect(1, 0)).times(getHyperchargeEffect(0))
     return gain
 }
 

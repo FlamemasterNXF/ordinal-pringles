@@ -1,5 +1,5 @@
 function getDecrementyExponent(){
-    let base = 1+1+hupData[4].effect()+getANREffect(2)+getUnstableFactorEffect(1)+getStabilizationEffect(0)
+    let base = 1+1+hupData[4].effect()+getANREffect(2)+getStableEnergyEffect(1, 1)+getStabilizationEffect(0)
         +getHyperchargeEffect(11)
     return base
 }

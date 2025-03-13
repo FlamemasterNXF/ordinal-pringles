@@ -64,7 +64,7 @@ const baselessMultipliers = [2, 100, 10000]
 const baselessLocks = [
     () => 10,
     () => 20,
-    () => 100-getHyperchargeEffect(13)-getInstabilityConstantEffect(0)
+    () => 100-getHyperchargeEffect(13)-getStableEnergyEffect(2, 0)
 ]
 const baselessNames = ['Baseless', 'Obliterated', 'Forgotten']
 
