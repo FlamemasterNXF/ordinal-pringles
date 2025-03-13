@@ -83,7 +83,7 @@ const energyUpgradeData = [
             extraReq: true,
             extraReqText: '',
             node: 106,
-            baseValue: 0,
+            baseValue: 1,
             isUnlock: false,
         },
     ],
