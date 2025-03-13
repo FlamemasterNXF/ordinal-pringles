@@ -42,6 +42,7 @@
     <script defer src="src/helpers/worldStatus.js"></script>
     <script defer src="src/minor/adaptive.js"></script>
 
+    <script defer src="src/obliterate/stability.js"></script>
     <script defer src="src/obliterate/instability.js"></script>
     <script defer src="src/obliterate/purity.js"></script>
     <script defer src="src/obliterate/passiveEnergy.js"></script>
@@ -468,8 +469,8 @@
             <button class="obliterateTabButton" id="passiveTab" onclick="switchSubtab('passive', 'obliterate')">Passive
                 Energy
             </button>
-            <button class="obliterateTabButton" id="instabTab" onclick="switchSubtab('instability', 'obliterate')">
-                Instability
+            <button class="obliterateTabButton" id="stabilityTab" onclick="switchSubtab('stability', 'obliterate')">
+                Stabilization
             </button>
         </div>
         <div class="column flexBox" id="obliterateInfoContainer" style="margin-top: 0.1rem;">
@@ -540,6 +541,9 @@
             <span class="centeredTexts" style="margin-top: 0.25rem">Every <span
                     style="color: #bd80ff">Passive Upgrade</span> costs one <span
                     style="color: #bd80ff">Passive Energy</span>, but you must buy the previous Upgrade in the row first<br>Each row of Passive Upgrades bought causes a Purification Milestone to become Permanent.</span>
+        </div>
+        <div class="tab flexBox" id="stabilitySubPage">
+            <div class="row flexBox" id="stabilityContainer"></div>
         </div>
         <div class="tab flexBox" id="instabilitySubPage">
             <span class="centeredTexts" id="instabilityText"

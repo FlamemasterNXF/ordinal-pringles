@@ -31,6 +31,7 @@ function getDefaultPlayer() {
         obliterate:{times:0, energy:0, passiveEnergy:0, energyUpgrades: [], pringleAmount: Array(10).fill(0), hasPassiveUpgrade: Array(passiveEnergyDescriptions.length).fill(false), instability:0, unstableFactors: Array(unstableFactorData.length).fill(0), unstableFactorState: Array(unstableFactorData.length).fill(true)},
         purity:{isAssigned: Array(10).fill(false), isUnlocked: Array(4).fill(false).concat(Array(2).fill(true)).concat(Array(4).fill(false)), assignment:Array(10).fill(false), pringleQueued: -1, tutorial: false},
         hyper: { hasUpgrade: Array(hyperChargeUpgradeData.length).fill(false) },
+        stability: { energy:Array(3).fill(0) },
 
         autoStatus: {enabled: Array(9).fill(false)},
         sToggles: settingsDefaults,

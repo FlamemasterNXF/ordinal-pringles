@@ -92,9 +92,8 @@ function switchSubtab(tab, mode){
     if(mode === "obliterate"){
         if(tab === 'energy' && !hasDrawnTree) drawTree()
         if(tab === 'passive') updatePassiveEnergyText()
-        if(tab === 'instability') updateInstabilityText()
 
-        DOM(`obliterateInfoContainer`).style.display = tab === 'energy' ? 'flex' : 'none'
+        DOM(`obliterateInfoContainer`).style.display = tab === 'energy' || tab === 'stability' ? 'flex' : 'none'
     }
 
     // Special Settings Rules

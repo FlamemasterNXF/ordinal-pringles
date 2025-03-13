@@ -55,6 +55,10 @@ function unpackSave(main=getDefaultPlayer(), data) {
 function fixOldSaves(){
     let extra = false
 
+    // Removal of tabs
+    if(data.nav.subtabs.collapse === 'sing') data.nav.subtabs.collapse = 'cardinals'
+    if(data.nav.subtabs.obliterate === 'instability') data.nav.subtabs.obliterate = 'pringles'
+
     //Removal of Sacrificed Charge
     if(data.darkness.sacrificedCharge > 0) darknessControl(3)
 

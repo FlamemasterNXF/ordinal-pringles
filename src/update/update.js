@@ -50,6 +50,7 @@ const uHTML = {
         initPringleAlchemy()
         initPurityPlane()
         initUnstableFactors()
+        initStabilityHTML()
 
         //Load Tab Displays
         switchTab(data.nav.current)
