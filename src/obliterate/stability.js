@@ -130,6 +130,8 @@ function respecStability(i){
 
     data.stability.energy[i] = 0
     updateStabilityHTML(i)
+
+    collapseReset()
 }
 
 let getStableEnergy = (i) => data.stability.energy[i]

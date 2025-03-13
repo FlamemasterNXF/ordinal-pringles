@@ -79,6 +79,7 @@ function switchSubtab(tab, mode){
             DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
             updateBaselessEnterHTML(data.baseless.mode, true)
         }
+        if(tab === 'hyper') updateHyperchargeBottomTextHTML()
         if(tab === "purification") {
             if(!data.omega.tutorial){
                 createAlert('Tutorial Time!', 'In order to gain ℶ<sub>&omega;</sub> you must enter a Purification and reach a never-before-reached Factor Boost within that Purification! This means ℶ<sub>&omega;</sub> is NOT farmable! Have fun!', 'Thanks for the tips!')
