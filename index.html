@@ -43,7 +43,6 @@
     <script defer src="src/minor/adaptive.js"></script>
 
     <script defer src="src/obliterate/stability.js"></script>
-    <script defer src="src/obliterate/instability.js"></script>
     <script defer src="src/obliterate/purity.js"></script>
     <script defer src="src/obliterate/passiveEnergy.js"></script>
     <script defer src="src/obliterate/energyUpgrades.js"></script>
@@ -420,7 +419,6 @@
                 </button>
                 <button class="dupControl" id="dupC0" onclick="darknessControl(0)">Enable Negative Charge Gain</button>
                 <button class="dupControl" id="dupC1" onclick="darknessControl(1)">Reset Negative Charge</button>
-                <button class="dupControl" id="dupC5" onclick="darknessControl(5)">Enable the Second Unstable Factor
                 </button>
             </div>
         </div>
@@ -544,17 +542,6 @@
         </div>
         <div class="tab flexBox" id="stabilitySubPage">
             <div class="row flexBox" id="stabilityContainer"></div>
-        </div>
-        <div class="tab flexBox" id="instabilitySubPage">
-            <span class="centeredTexts" id="instabilityText"
-                  style="margin-top: 1rem; font-size: 1.1rem; font-family: DosisRegular, serif"></span>
-            <div class="flexBox" id="unstableFactorContainer" style="margin-top: 0.5rem"></div>
-            <button class="unstableFactor" style="height: 2rem; width: 20rem; margin-top: 0.5rem"
-                    onclick="data.sToggles[19] ? createConfirmation('Are you sure?', 'Respecing Unstable Factors will return your Instability, but it will preform a Collapse reset!', 'No way!', 'Go ahead.', respecUnstableFactors) : respecUnstableFactors()">
-                Respec Unstable Factors
-            </button>
-            <span class="centeredTexts" id="instabilityConstantText"
-                  style="margin-top: 1rem; font-family: DosisRegular, serif; color: #6752c2"></span>
         </div>
     </div>
     <div class="tab" id="achPage"></div>

@@ -95,7 +95,6 @@ function obliterateReset(){
     updateAllANRHTML()
     updateAllAORHTML()
     updateAllPurificationHTML()
-    updateInstabilityText()
 }
 
 function spendFractalEnergy(n = 1){

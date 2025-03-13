@@ -297,10 +297,6 @@ function darknessControl(mode){
         data.incrementy.charge += data.darkness.sacrificedCharge
         data.darkness.sacrificedCharge = 0
     }
-    if(mode === 5){
-        data.obliterate.unstableFactorState[1] = !data.obliterate.unstableFactorState[1]
-        DOM('dupC5').innerHTML = `${formatBool(!data.obliterate.unstableFactorState[1], 'EDT')} the Second Unstable Factor`
-    }
     updateDarknessControlHTML(mode)
 }
 

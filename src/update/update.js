@@ -49,7 +49,6 @@ const uHTML = {
         initPassiveEnergyUpgrades()
         initPringleAlchemy()
         initPurityPlane()
-        initUnstableFactors()
         initStabilityHTML()
 
         //Load Tab Displays
