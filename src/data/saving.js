@@ -1,5 +1,5 @@
 //Version Flags
-const VERSION = "0.4.4b1"
+const VERSION = "0.4.4b2"
 const VERSION_NAME = "The Pringle Update"
 const VERSION_DATE = "March 12th, 2025"
 const IS_BETA = true
