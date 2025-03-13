@@ -168,6 +168,7 @@ function updateDepthSelectHTML(i){
     DOM(`depthDescriptor`).innerHTML = `<span style="color: #9e89f6">Depth ${i + 1}${i < 3 ? ' and below' : ''}:</span> ${depthEffects[i].buff}${depthEffects[i].nerf}`
 }
 function setDarknessDepth(i){
+    if(data.darkness.darkened) return
     data.darkness.depth = i
     updateDarknessDepthHTML()
 }
