@@ -45,7 +45,7 @@ let hyperChargeUpgradeData = [
     },
 
     {
-        description: "Total Charge provides free Lightening levels",
+        description: "Total Charge provides free Anti-Darkness levels",
         sign: '+',
         effect: () => Math.floor(Math.log2(data.incrementy.totalCharge+1)),
         baseEffect: () => 0,

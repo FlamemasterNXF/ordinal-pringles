@@ -93,7 +93,7 @@ function makeStabilizationText(){
 }
 function updateStabilizationHTML(){
     const levelsText = extraStabilizationLevels() > 0 ? ` + ${extraStabilizationLevels()}` : ''
-    DOM(`dbup`).innerHTML = `<b>Lightening</b> (${data.darkness.stabilization}${levelsText})${makeStabilizationText()}<br><br>Cost: ${format(getStabilizationCost())} Cardinals`
+    DOM(`dbup`).innerHTML = `<b>Anti-Darkness</b> (${data.darkness.stabilization}${levelsText})${makeStabilizationText()}<br><br>Cost: ${format(getStabilizationCost())} Cardinals`
 }
 
 function buyStabilization(){

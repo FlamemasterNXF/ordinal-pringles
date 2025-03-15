@@ -11,8 +11,8 @@ const passiveEnergyDescriptions = [
     "The seventh Cardinal Upgrade is now permanent",
     "The eighth Cardinal Upgrade is now permanent",
 
-    "The first Darkness Upgrade's levels are now permanent",
-    "The second Darkness Upgrade's levels are now permanent",
+    "The first and second Darkness Upgrade's levels are now permanent",
+    "Anti-Darkness is now permanent",
     "The third Darkness Upgrade's levels are now permanent",
     "The first three Baselessness Upgrades' levels are now permanent",
     "The fourth and fifth Baselessness Upgrades' levels are now permanent",
@@ -22,7 +22,8 @@ const passiveEnergyDescriptions = [
     "Obscure Boosts are now permanent",
     "Inferior Boosts are now permanent",
 
-    "Hypercharge and Baselessness are now permanently unlocked",
+    "The bottom-row Booster Unlock is now permanently unlocked",
+    "All Hypercharges are now permanent",
     "Purification is now permanently unlocked",
     "Unlock a permanent AutoBuyer for ℵ<sub>0</sub> Upgrades",
     "Unlock a permanent AutoBuyer for ℵ<sub>&omega;</sub> Upgrades",
@@ -42,7 +43,7 @@ function initPassiveEnergyUpgrades(){
         row.id = `peupRow${i}`
         DOM(`passiveUpgradeContainer`).append(row)
 
-        let rowUpgrades = i < 3 ? 5 : 4
+        let rowUpgrades = i === 3 ? 4 : 5
         for (let j = 0; j < rowUpgrades; j++) {
             let upgrade = document.createElement('button')
             upgrade.className = 'passiveUpgrade'
@@ -103,7 +104,7 @@ function completedPassiveUpgradeRows(){
     if(hasPassiveUpgrade(9)) ++rows
     if(hasPassiveUpgrade(14)) ++rows
     if(hasPassiveUpgrade(18)) ++rows
-    if(hasPassiveUpgrade(22)) ++rows
+    if(hasPassiveUpgrade(23)) ++rows
     return rows
 }
 let isAOMilestonePermanent = (i) => i < completedPassiveUpgradeRows()

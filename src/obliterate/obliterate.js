@@ -49,27 +49,30 @@ function obliterateReset(){
     data.darkness.sacrificedCharge = 0
     data.darkness.negativeChargeSpent = 0
     data.darkness.totalDrains = 0
-    for (let i = 0; i < 3; i++) {
-        data.darkness.levels[i] = hasPassiveUpgrade(10+i) ? data.darkness.levels[i] : 0
+    for (let i = 0; i < 2; i++) {
+        data.darkness.levels[i] = hasPassiveUpgrade(10) ? data.darkness.levels[i] : 0
     }
+    if(!hasPassiveUpgrade(12)) data.darkness.levels[2] = 0
     data.darkness.drains = Array(7).fill(0)
     data.darkness.negativeChargeEnabled = false
     data.darkness.darkened = false
-    data.darkness.stabilization = 0
+    if(!hasPassiveUpgrade(11)) data.darkness.stabilization = 0
 
-    for (let i = 0; i < data.hyper.hasUpgrade.length; i++) {
-        data.hyper.hasUpgrade[i] = false
-        if(data.hyper.isUpgradeSecondary[i]){
-            data.hyper.isUpgradeSecondary[i] = false
-            ++data.stability.energy[0]
+    if(!hasPassiveUpgrade(20)){
+        for (let i = 0; i < data.hyper.hasUpgrade.length; i++) {
+            data.hyper.hasUpgrade[i] = false
+            if(data.hyper.isUpgradeSecondary[i]){
+                data.hyper.isUpgradeSecondary[i] = false
+                ++data.stability.energy[0]
+            }
+            if(data.hyper.shouldForceStable[i]){
+                data.hyper.shouldForceStable[i] = false
+                ++data.stability.energy[2]
+            }
         }
-        if(data.hyper.shouldForceStable[i]){
-            data.hyper.shouldForceStable[i] = false
-            ++data.stability.energy[2]
+        for (let i = 0; i < data.hyper.hasPassiveHypercharge.length; i++){
+            data.hyper.hasPassiveHypercharge[i] = false
         }
-    }
-    for (let i = 0; i < data.hyper.hasPassiveHypercharge.length; i++){
-        data.hyper.hasPassiveHypercharge[i] = false
     }
 
     data.baseless.alephNull = 0

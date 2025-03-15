@@ -52,13 +52,13 @@ let automationData = [
             name: "ℵ<sub>0</sub> Upgrade AutoBuyer",
             desc: "purchasing ℵ<sub>0</sub> Upgrades",
             hasReq: false,
-            unlock: () => hasPassiveUpgrade(21)
+            unlock: () => hasPassiveUpgrade(22)
         },
         {
             name: "ℵ<sub>&omega;</sub> Upgrade AutoBuyer",
             desc: "purchasing ℵ<sub>&omega;</sub> Upgrades",
             hasReq: false,
-            unlock: () => hasPassiveUpgrade(22)
+            unlock: () => hasPassiveUpgrade(23)
         },
     ],
     [
