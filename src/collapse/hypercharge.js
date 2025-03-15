@@ -164,6 +164,7 @@ function getHyperChargeUpgradeText(i, forceHideSecondary = false){
     return text+end+secondary+stabilizer+isStabilized
 }
 function previewHyperchargeEffectHTML(i, shouldDisplay){
+    if(hasHypercharge(i)) return
     const preview = shouldDisplay ? `<br>Potential: ${formatSign(hyperChargeUpgradeData[i].effect(), hyperChargeUpgradeData[i].sign)}` : ''
     DOM(`hyperChargeUpgrade${i}`).innerHTML = getHyperChargeUpgradeText(i)+preview
 }
