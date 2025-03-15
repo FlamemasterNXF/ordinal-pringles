@@ -172,13 +172,19 @@ function updateHyperChargeTextHTML(i, type, customElement = null, forceHideSecon
     }
     if(type === 'QOL') element.style.color = hasPassiveHypercharge(i) ? '#aed500' : 'gray'
 }
-function updateAllHyperchargeHTML(){
+function updateAllHyperchargeHTML(forceUpdate = false){
     for (let i = 0; i < data.hyper.hasUpgrade.length/3; i++) {
         updateHyperChargeRowHTML(i)
     }
     for (let i = 0; i < data.hyper.hasUpgrade.length; i++) {
-        if(!hasHypercharge(i) && !shouldDisplaySecondary(i)) continue
+        if(!hasHypercharge(i) && !shouldDisplaySecondary(i) && !forceUpdate) continue
         updateHyperChargeTextHTML(i, 'Upgrade')
+    }
+    if(forceUpdate) updateAllPassiveHyperchargeHTML()
+}
+function updateAllPassiveHyperchargeHTML(){
+    for (let i = 0; i < data.hyper.hasPassiveHypercharge.length; i++) {
+        updateHyperChargeTextHTML(i, 'QOL')
     }
 }
 
