@@ -267,7 +267,6 @@ function buyHypercharge(i){
 
     if(canBuySecondaryHypercharge(row)){
         data.stability.energy[0] -= getSecondaryHyperchargeCost()
-        data.hyper.secondaryInputCost[i] = getSecondaryHyperchargeCost()
         data.hyper.isUpgradeSecondary[i] = true
     }
     data.incrementy.charge -= hyperchargeData.cost
@@ -290,8 +289,7 @@ function respecHyperchargeRow(row){
         for (let j = rowStart; j < rowEnd; j++) {
             if(data.hyper.isUpgradeSecondary[j]){
                 data.hyper.isUpgradeSecondary[j] = false
-                data.stability.energy[0] += data.hyper.secondaryInputCost[j]
-                data.hyper.secondaryInputCost[j] = 0
+                data.stability.energy[0] += 1
             }
             if(data.hyper.shouldForceStable[j]){
                 data.hyper.shouldForceStable[j] = false
