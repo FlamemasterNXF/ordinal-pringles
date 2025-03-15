@@ -84,4 +84,15 @@
         border-top-right-radius: 16px;
         border-right: 2px solid gray;
     }
+
+    #depthContainer{
+        max-width: 99vw;
+        height: 10rem;
+        text-align: center;
+        border: 2px solid #8000ff4d;
+    }
+    #dbup{
+        max-width: 99vw;
+        border: 2px solid #8000ff4d;
+    }
 }
