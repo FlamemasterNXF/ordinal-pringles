@@ -24,7 +24,7 @@ function incrementyGain() {
     let iupMults = base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect())
     let otherMults = iupMults.times(getHierarchyEffect(0)).times(alephEffect(3)).times(getCUPEffect(4)).times(getBUPEffect(14))
         .times(getStableEnergyEffect(0, 0))
-    if(hasHyperCharge(2)) return otherMults.times(negativeChargeEffect(false)).pow(getStableHyperchargeEffect())
+    if(hasHypercharge(2)) return otherMults.times(negativeChargeEffect(false)).pow(getStableHyperchargeEffect())
     return otherMults.div(negativeChargeEffect(false)).pow(getStableHyperchargeEffect())
 }
 

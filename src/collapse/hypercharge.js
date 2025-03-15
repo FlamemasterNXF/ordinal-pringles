@@ -150,14 +150,14 @@ function updateHyperChargeRowHTML(i){
     DOM(`hyperChargeRow${i}`).style.display = unlocked ? 'flex' : 'none'
 }
 
-let shouldDisplaySecondary = (i) => data.obliterate.times > 0 && hasPassiveHypercharge(Math.floor(i/3))
-let shouldDisplayStabilizer = (i) => data.obliterate.times > 0 && !isHyperchargeStable(i) && hasHyperCharge(i)
+let shouldDisplaySecondary = (i) => data.obliterate.times > 0 && hasHyperchargeRow(Math.floor(i/3))
+let shouldDisplayStabilizer = (i) => data.obliterate.times > 0 && !isHyperchargeStable(i) && hasHypercharge(i)
 function getHyperChargeUpgradeText(i, forceHideSecondary = false){
     let text = `${hyperChargeUpgradeData[i].description}`
-    let end = !hasHyperCharge(i)
+    let end = !hasHypercharge(i)
         ? `<br>${formatWhole(hyperChargeUpgradeData[i].cost)} Charge`
         : `<br>Currently: ${formatSign(hyperChargeUpgradeData[i].effect(), hyperChargeUpgradeData[i].sign)}`
-    let secondary = !hasHyperCharge(i) && shouldDisplaySecondary(i) && !forceHideSecondary
+    let secondary = !hasHypercharge(i) && shouldDisplaySecondary(i) && !forceHideSecondary
         ? `<span style="color: #a08fa2"> and ${getSecondaryHyperchargeCost()} Stable Energy</span` : ''
     let stabilizer = shouldDisplayStabilizer(i) ? `<br><b style="color: #a1936a">Stabilize for 1 Unbounded Energy</b>` : ''
     let isStabilized = shouldForceHyperchargeStable(i) ? `<br><b style="color: #7aa16a">Forcefully Stabilized</b>` : ''
@@ -167,17 +167,17 @@ function updateHyperChargeTextHTML(i, type, customElement = null, forceHideSecon
     let element = customElement ? customElement : DOM(`hyperCharge${type}${i}`)
     if(type === 'Upgrade'){
         element.innerHTML = getHyperChargeUpgradeText(i, forceHideSecondary)
-        element.style.color = isHyperchargeStable(i) ? '#20da45' : hasHyperCharge(i) ? isHyperchargeSecondary(i) ? '#c281e5' : '#d5ad00' : 'gray'
-        element.style.borderColor = isHyperchargeStable(i) ? '#0e591d' : hasHyperCharge(i) && isHyperchargeSecondary(i) ? '#503857' : '#615400'
+        element.style.color = isHyperchargeStable(i) ? '#20da45' : hasHypercharge(i) ? isHyperchargeSecondary(i) ? '#c281e5' : '#d5ad00' : 'gray'
+        element.style.borderColor = isHyperchargeStable(i) ? '#0e591d' : hasHypercharge(i) && isHyperchargeSecondary(i) ? '#503857' : '#615400'
     }
-    if(type === 'QOL') element.style.color = hasHyperQOL(i) ? '#aed500' : 'gray'
+    if(type === 'QOL') element.style.color = hasPassiveHypercharge(i) ? '#aed500' : 'gray'
 }
 function updateAllHyperchargeHTML(){
     for (let i = 0; i < data.hyper.hasUpgrade.length/3; i++) {
         updateHyperChargeRowHTML(i)
     }
     for (let i = 0; i < data.hyper.hasUpgrade.length; i++) {
-        if(!hasHyperCharge(i) && !shouldDisplaySecondary(i)) continue
+        if(!hasHypercharge(i) && !shouldDisplaySecondary(i)) continue
         updateHyperChargeTextHTML(i, 'Upgrade')
     }
 }
@@ -235,10 +235,14 @@ function initHyperchargeHTML(){
     }
 }
 
-function hasPassiveHypercharge(row){
+function hasHyperchargeRow(row){
     const rowStart = row * 3
     const rowEnd = rowStart + 3
     return data.hyper.hasUpgrade.slice(rowStart, rowEnd).includes(true)
+}
+
+function hasPassiveHypercharge(row){
+    return hasHyperchargeRow(row) || data.hyper.hasPassiveHypercharge[row]
 }
 
 function hasSecondaryHyperchargeInRow(row){
@@ -249,20 +253,20 @@ function hasSecondaryHyperchargeInRow(row){
 
 function hasAllPreviousHyperchargeRows(row){
     for (let i = 0; i < row; i++) {
-        if(!hasPassiveHypercharge(i)) return false
+        if(!hasHyperchargeRow(i)) return false
     }
     return true
 }
 
 function canBuySecondaryHypercharge(i){
-    return data.obliterate.times > 0 && getStableEnergy(0) >= getSecondaryHyperchargeCost() && hasPassiveHypercharge(i) && !hasSecondaryHyperchargeInRow(i)
+    return data.obliterate.times > 0 && getStableEnergy(0) >= getSecondaryHyperchargeCost() && hasHyperchargeRow(i) && !hasSecondaryHyperchargeInRow(i)
 }
 
 function buyHypercharge(i){
     const hyperchargeData = hyperChargeUpgradeData[i]
     const row = Math.floor(i / 3)
-    if(hasHyperCharge(i)) return stabilizeHypercharge(i, row)
-    if(hasPassiveHypercharge(row) && !canBuySecondaryHypercharge(row)) return
+    if(hasHypercharge(i)) return stabilizeHypercharge(i, row)
+    if(hasHyperchargeRow(row) && !canBuySecondaryHypercharge(row)) return
     if(!hasAllPreviousHyperchargeRows(row) || data.incrementy.charge < hyperchargeData.cost) return
 
     if(canBuySecondaryHypercharge(row)){
@@ -271,6 +275,7 @@ function buyHypercharge(i){
     }
     data.incrementy.charge -= hyperchargeData.cost
     data.hyper.hasUpgrade[i] = true
+    data.hyper.hasPassiveHypercharge[row] = true
     updateHyperChargeTextHTML(i, 'Upgrade')
     updateHyperChargeTextHTML(row, 'QOL')
 }
@@ -304,28 +309,27 @@ function respecHyperchargeRow(row){
 }
 
 function isHyperchargeStable(i){
-    if(!hasHyperCharge(i)) return false
+    if(!hasHypercharge(i)) return false
     if ((i < 3 && !isHyperchargeSecondary(i)) || shouldForceHyperchargeStable(i)) return true
     return data.hyper.hasUpgrade[i - 3] && !isHyperchargeSecondary(i)
 }
 function getStableHypercharges(){
     let count = 0
     for (let i = 0; i < data.hyper.hasUpgrade.length; i++) {
-        if(!hasHyperCharge(i)) continue
+        if(!hasHypercharge(i)) continue
         if(isHyperchargeStable(i)) ++count
     }
     return count
 }
 let getStableHyperchargeEffect = () => 1+getStableHypercharges()/100
 
-let hasHyperCharge = (i) => data.hyper.hasUpgrade[i]
-let hasHyperQOL = (i) => checkArrayBetween(data.hyper.hasUpgrade, i*3, (i+1)*3, true)
-let getHyperchargeEffect = (i) => hasHyperCharge(i) ? hyperChargeUpgradeData[i].effect() : hyperChargeUpgradeData[i].baseEffect()
+let hasHypercharge = (i) => data.hyper.hasUpgrade[i]
+let getHyperchargeEffect = (i) => hasHypercharge(i) ? hyperChargeUpgradeData[i].effect() : hyperChargeUpgradeData[i].baseEffect()
 
 function getTotalChargeInHypercharge(){
     let amt = 0
     for (let i = 0; i < data.hyper.hasUpgrade.length; i++) {
-        if(!hasHyperCharge(i)) continue;
+        if(!hasHypercharge(i)) continue;
         amt += hyperChargeUpgradeData[i].cost
     }
     return amt

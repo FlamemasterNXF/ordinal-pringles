@@ -197,7 +197,7 @@ function negativeChargeGain(){
 }
 
 function negativeChargeEffect(incrementyEffectNerf) {
-    if (incrementyEffectNerf) return hasHyperCharge(2) ? 1 : Decimal.max(1, Decimal.log10(data.darkness.negativeCharge + 10))
+    if (incrementyEffectNerf) return hasHypercharge(2) ? 1 : Decimal.max(1, Decimal.log10(data.darkness.negativeCharge + 10))
     return Decimal.max(1, Decimal.sqrt(data.darkness.negativeCharge + 1))
 }
 
