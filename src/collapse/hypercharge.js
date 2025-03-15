@@ -158,10 +158,14 @@ function getHyperChargeUpgradeText(i, forceHideSecondary = false){
         ? `<br>${formatWhole(hyperChargeUpgradeData[i].cost)} Charge`
         : `<br>Currently: ${formatSign(hyperChargeUpgradeData[i].effect(), hyperChargeUpgradeData[i].sign)}`
     let secondary = !hasHypercharge(i) && shouldDisplaySecondary(i) && !forceHideSecondary
-        ? `<span style="color: #a08fa2"> and ${getSecondaryHyperchargeCost()} Stable Energy</span` : ''
+        ? `<span style="color: #a08fa2"> and ${getSecondaryHyperchargeCost()} Stable Energy</span>` : ''
     let stabilizer = shouldDisplayStabilizer(i) ? `<br><b style="color: #a1936a">Stabilize for 1 Unbounded Energy</b>` : ''
     let isStabilized = shouldForceHyperchargeStable(i) ? `<br><b style="color: #7aa16a">Forcefully Stabilized</b>` : ''
     return text+end+secondary+stabilizer+isStabilized
+}
+function previewHyperchargeEffectHTML(i, shouldDisplay){
+    const preview = shouldDisplay ? `<br>Potential: ${formatSign(hyperChargeUpgradeData[i].effect(), hyperChargeUpgradeData[i].sign)}` : ''
+    DOM(`hyperChargeUpgrade${i}`).innerHTML = getHyperChargeUpgradeText(i)+preview
 }
 function updateHyperChargeTextHTML(i, type, customElement = null, forceHideSecondary = false){
     let element = customElement ? customElement : DOM(`hyperCharge${type}${i}`)
@@ -177,7 +181,7 @@ function updateAllHyperchargeHTML(forceUpdate = false){
         updateHyperChargeRowHTML(i)
     }
     for (let i = 0; i < data.hyper.hasUpgrade.length; i++) {
-        if(!hasHypercharge(i) && !shouldDisplaySecondary(i) && !forceUpdate) continue
+        if(!hasHypercharge(i) && !forceUpdate) continue
         updateHyperChargeTextHTML(i, 'Upgrade')
     }
     if(forceUpdate) updateAllPassiveHyperchargeHTML()
@@ -211,6 +215,8 @@ function initHyperchargeHTML(){
             upgrade.className = "hyperChargeUpgrade"
             upgrade.id = `hyperChargeUpgrade${index}`
             upgrade.onclick = () => buyHypercharge(index)
+            upgrade.onmouseenter = () => previewHyperchargeEffectHTML(index, true)
+            upgrade.onmouseleave = () => previewHyperchargeEffectHTML(index, false)
 
             updateHyperChargeTextHTML(index, 'Upgrade', upgrade)
             row.appendChild(upgrade)
@@ -282,6 +288,14 @@ function buyHypercharge(i){
     data.incrementy.charge -= hyperchargeData.cost
     data.hyper.hasUpgrade[i] = true
     data.hyper.hasPassiveHypercharge[row] = true
+
+    if(data.obliterate.times > 0) {
+        for (let j = i+1; j < i+3; j++) {
+            let index = j
+            updateHyperChargeTextHTML(index, 'Upgrade')
+            if(index % 3 === 2) break
+        }
+    }
     updateHyperChargeTextHTML(i, 'Upgrade')
     updateHyperChargeTextHTML(row, 'QOL')
 }
