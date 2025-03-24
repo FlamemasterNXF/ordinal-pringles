@@ -58,7 +58,7 @@ function obliterateReset(){
     data.darkness.darkened = false
     if(!hasPassiveUpgrade(11)) data.darkness.stabilization = 0
 
-    if(!hasPassiveUpgrade(20)){
+    if(!hasPassiveUpgrade(21)){
         for (let i = 0; i < data.hyper.hasUpgrade.length; i++) {
             data.hyper.hasUpgrade[i] = false
             if(data.hyper.isUpgradeSecondary[i]){
@@ -85,6 +85,22 @@ function obliterateReset(){
     }
     for (let i = 3; i < 5; i++) {
         data.baseless.anRebuyables[i] = hasPassiveUpgrade(14) ? data.baseless.anRebuyables[i] : 0
+    }
+
+    if(!hasPassiveUpgrade(19)){
+        data.baselessRealm.amt = 0
+        data.baselessRealm.total = 0
+        data.baselessRealm.times = 0
+        data.baselessRealm.hasBUP = Array(12).fill(false)
+        data.baselessRealm.unlocks = Array(4).fill(false)
+        data.baselessRealm.completions = Array(6).fill(0)
+        data.baselessRealm.chalActive = -1
+        data.baselessRealm.incrementy = 0
+        data.baselessRealm.rupLevels = Array(6).fill(0)
+        data.baselessRealm.hasUpgrade = Array(11).fill(false)
+        data.baselessRealm.hierarchy = {ord: 0, over: 0}
+        data.baselessRealm.gupPercentage = Array(3).fill(0)
+        data.baselessRealm.hupLevels = Array(3).fill(0)
     }
 
     data.omega.bestRemnants = 0

@@ -118,12 +118,12 @@ function tick(diff){
             }
         }
     }
-    if(hasPassiveUpgrade(22) && getAutomationEnabled(1, 5) && isTabUnlocked('baseless')){
+    if(hasPassiveUpgrade(23) && getAutomationEnabled(1, 5) && isTabUnlocked('baseless')){
         for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
             buyANR(i)
         }
     }
-    if(hasPassiveUpgrade(23) && getAutomationEnabled(1, 6) && isTabUnlocked('purification')){
+    if(hasPassiveUpgrade(24) && getAutomationEnabled(1, 6) && isTabUnlocked('purification')){
         for (let i = 0; i < data.omega.aoRebuyables.length; i++) {
             buyAOR(i)
         }

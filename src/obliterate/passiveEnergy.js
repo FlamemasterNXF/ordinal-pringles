@@ -21,6 +21,7 @@ const passiveEnergyDescriptions = [
     "Infinite Boosts are now permanent",
     "Obscure Boosts are now permanent",
     "Inferior Boosts are now permanent",
+    "Everything within Baseless Realms is now permanent",
 
     "The bottom-row Booster Unlock is now permanently unlocked",
     "All Hypercharges are now permanent",
@@ -43,8 +44,7 @@ function initPassiveEnergyUpgrades(){
         row.id = `peupRow${i}`
         DOM(`passiveUpgradeContainer`).append(row)
 
-        let rowUpgrades = i === 3 ? 4 : 5
-        for (let j = 0; j < rowUpgrades; j++) {
+        for (let j = 0; j < 5; j++) {
             let upgrade = document.createElement('button')
             upgrade.className = 'passiveUpgrade'
             upgrade.id = `peup${total}`
@@ -103,8 +103,8 @@ function completedPassiveUpgradeRows(){
     if(hasPassiveUpgrade(4)) ++rows
     if(hasPassiveUpgrade(9)) ++rows
     if(hasPassiveUpgrade(14)) ++rows
-    if(hasPassiveUpgrade(18)) ++rows
-    if(hasPassiveUpgrade(23)) ++rows
+    if(hasPassiveUpgrade(19)) ++rows
+    if(hasPassiveUpgrade(24)) ++rows
     return rows
 }
 let isAOMilestonePermanent = (i) => i < completedPassiveUpgradeRows()
