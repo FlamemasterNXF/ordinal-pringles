@@ -1,7 +1,17 @@
 let timesToLoop = [0,0, 0,0]
 
-let t1Auto = () => D(totalFactorEffect()).mul(getBUPEffect(6)).mul(alephEffect(0)).pow(getCUPEffect(1)).mul(getCUPEffect(3))
-    .mul(chargeBoostToBaseless()).mul(data.baseless.baseless ? getANREffect(0, false) : 1).mul(getPringleEffect(3))
+let t1AutoPure = () => D(totalFactorEffect()).mul(mainT1AutoBoost())
+    .mul(inAnyRealmChallenge() ? getRealmBUPEffect(3) : 1).mul(getRealmBUPEffect(5)).mul(getRealmBUPEffect(6))
+    .mul(getRealmBUPEffect(9)).mul(getRealmBUPEffect(10)).mul(getRealmBUPEffect(11))
+    .mul(getRealmIncrementyEffect()).mul(getGUPEffect(0))
+
+let mainT1AutoBoost = () => inRealmChallenge(1) || inRealmChallenge(4) ? 1 :
+    D(getBUPEffect(6)).mul(alephEffect(0)).pow(getCUPEffect(1)).mul(getCUPEffect(3))
+        .mul(chargeBoostToBaseless()).mul(data.baseless.baseless ? getANREffect(0, false) : 1).mul(getPringleEffect(3))
+
+let t1Auto = () => inRealmChallenge(5)
+    ? data.dy.level
+    : t1AutoPure()
 
 let t2AutoPure = () => D(1).times(chalEffectTotal()).times(getBUPEffect(6)).times(incrementyMult()).times(iup6Effect())
     .times(getBUPEffect(5)).times(hupData[5].effect()).times(alephEffect(1)).times(getCUPEffect(0)).times(getCUPEffect(3))
@@ -75,6 +85,7 @@ function tick(diff){
     let boostCheck = data.boost.times > 0 || hasSluggishMilestone(0)
     if(timesToLoop[3].gte(1) && data.ord.isPsi && getAutomationEnabled(0, 1) && !boostCheck && data.ord.isPsi) data.ord.ordinal = D(GRAHAMS_VALUE)
     if(timesToLoop[3].gte(1) && data.ord.isPsi && getAutomationEnabled(0, 1) && collapseCheck && boostCheck) markup(timesToLoop[3].times(diff/1000))
+    if(isBaseless() && hasBaselessBUP(8)) mockMarkup()
 
     // Automation Tier 2: Post-Collapse
     if(hasSluggishMilestone(2) && getAutomationEnabled(1, 0)) sacrificeIncrementy() //Charge Autobuyer

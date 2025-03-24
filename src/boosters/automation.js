@@ -5,7 +5,7 @@ let automationData = [
             desc: "clicking the Max All button",
             hasReq: true,
             req: "but only if you can't Factor Shift",
-            unlock: () => data.boost.hasBUP[5],
+            unlock: () => data.boost.hasBUP[5] || (hasBaselessBUP(4) && isBaseless()),
         },
         {
             name: "Markup AutoBuyer",

@@ -4,6 +4,7 @@ function autoCost(n) {
 
 function buyAuto(n) {
     if(data.chal.active[0] && data.autoLevels[n] >= 1) return
+    if(inRealmChallenge(0) || inRealmChallenge(4)) return
     if (data.markup.powers.lt(autoCost(n))) return
     data.markup.powers = data.markup.powers.sub(autoCost(n))
     ++data.autoLevels[n]
@@ -12,7 +13,7 @@ function buyMaxAuto() {
     buyAuto(0)
     buyAuto(1)
 
-    if (data.chal.active[0]) return
+    if (data.chal.active[0] || inRealmChallenge(0) || inRealmChallenge(4)) return
 
     let bulkSucc = Decimal.floor(Decimal.log2(D(1).plus(data.markup.powers.div(D(100).times(D(2).pow(data.autoLevels[0]))))))
     data.markup.powers = data.markup.powers.sub(((D(2).pow(bulkSucc)).sub(1)).times(100).times(D(2).pow(data.autoLevels[0])))
@@ -31,8 +32,8 @@ function hasFactor(n){
     return data.markup.shifts >= n+1 || data.baseless.shifts >= n+1
 }
 function factorEffect(n) {
-    const mult = getBUPEffect(0)*getCascadeEffect(n)
-    let add = hasFactor(n) ? getBUPEffect(12) : 0
+    const mult = getBUPEffect(0)*getCascadeEffect(n)*getRealmBUPEffect(0)*getRealmBUPEffect(2)
+    let add = hasFactor(n) ? getBUPEffect(12) + getRealmBUPEffect(1) : 0
 
     if(data.chal.active[1] || data.factors[n] < 1) return 1+add*mult
 
@@ -46,12 +47,13 @@ function totalFactorEffect(){
     return mult
 }
 function buyFactor(n){
+    if(inRealmChallenge(0) || inRealmChallenge(4)) return
     if(data.markup.powers.lt(factorCost(n)) || data.chal.active[1] || !hasFactor(n)) return
     data.markup.powers = data.markup.powers.sub(factorCost(n))
     ++data.factors[n]
 }
 function buyMaxFactor(){
-    if(data.chal.active[1]) return
+    if(data.chal.active[1] || (inRealmChallenge(0) || inRealmChallenge(4))) return
 
     if(data.baseless.baseless){
         for (let i = data.baseless.shifts-1; i >= 0; i--){

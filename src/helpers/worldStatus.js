@@ -26,9 +26,9 @@ function updateStatusHTML(){
         return el.innerHTML = text
     }
     if(data.baseless.baseless){
-        let text = `You are in the ${baselessNames[data.baseless.mode]} Realm`
+        let text = `You are in the ${getBaselesssName(data.baseless.mode)} Realm`
 
-        if(isInAnyRealmChallenge()) text += `and Baseless Challenge ${data.baselessRealm.chalActive}`
+        if(inAnyRealmChallenge()) text += ` and Baseless Challenge ${data.baselessRealm.chalActive}`
         text += `<br>Your theoretical ℵ<sub>0</sub> gain is ${format(alephNullGain())}`
 
         return el.innerHTML = text + escapeText

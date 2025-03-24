@@ -6,7 +6,7 @@ function updateMarkupHTML(){
         data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) ? `Markup and increase your Ordinal` :
         data.ord.isPsi && data.ord.ordinal.eq(GRAHAMS_VALUE)&&data.boost.times===0&&!hasSluggishMilestone(0)?`Base 2 is required to go further...`:
         data.ord.isPsi?`Markup and gain ${ordinalDisplay('', data.ord.ordinal.plus(1), data.ord.over, data.ord.base, ((data.ord.displayType === "BMS") || (data.ord.displayType === "Y-Sequence")) ? Math.max(data.ord.trim, 4) : 4)} (I)`:
-        data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${formatWhole(totalOPGain())} Ordinal Powers (I)`:`${ordinalDisplay("H", data.ord.base**2, 0, data.ord.base, ordinalDisplayTrim(), false)}(${data.ord.base}) is required to Markup...`
+        data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${formatWhole(cappedOPGain())} Ordinal Powers (I)`:`${ordinalDisplay("H", data.ord.base**2, 0, data.ord.base, ordinalDisplayTrim(), false)}(${data.ord.base}) is required to Markup...`
 
     DOM(getAdaptiveButton("factorShiftButton")).innerHTML = data.ord.base===3?data.boost.times>0||hasSluggishMilestone(0)?`Perform a Factor Shift<br><span style="font-size: 0.7rem">Requires OFP</span>`
             :`Perform a Factor Shift<br><span style="font-size: 0.7rem">Requires Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))</span>`:
@@ -43,14 +43,14 @@ function boostName(){
     return purificationData[data.omega.whichPurification].alt
 }
 
-let uncappedOPGain = () => D(data.ord.ordinal)
+const opCap = 4e256
 function markup(n=D(1)){
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal.eq(GRAHAMS_VALUE) && !hasSluggishMilestone(0)) return
     if(data.ord.ordinal.lt(data.ord.base**2) && !data.ord.isPsi) return
     if(data.ord.isPsi){
         data.ord.ordinal = data.ord.ordinal.plus(n);
         if (capOrdinalAtBO && data.ord.base===3 && data.ord.ordinal.gt(BO_VALUE)) data.ord.ordinal = D(BO_VALUE)
-        return data.markup.powers = D(4e256).mul(false ? uncappedOPGain() : 1)
+        return data.markup.powers = uncappedOPGain()
     }
 
     if(data.chal.active[7]){
@@ -58,29 +58,17 @@ function markup(n=D(1)){
         data.chal.decrementy = D(1)
     }
     data.ord.isPsi = false
-    data.markup.powers = data.markup.powers.plus(totalOPGain())
+    data.markup.powers = data.markup.powers.plus(cappedOPGain())
     data.ord.ordinal = D(0)
     data.ord.over = D(0)
     data.successorClicks = 0
 }
-function opMult(){
-    let mult = getBUPEffect(1)
 
-    let baseReq = data.boost.isCharged[6] ? 4 : 5
-    mult += data.ord.base >= baseReq ? getBUPEffect(7) : 0
+function mockMarkup(){
+    if(data.markup.powers.gte(opCap)) data.markup.powers = uncappedOPGain()
+    else data.markup.powers = data.markup.powers.plus(cappedOPGain())
+}
 
-    return D(mult).times(alephEffect(2))
-}
-function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over) {
-    if(D(ord).eq(data.ord.ordinal) && D(ord).gte(Number.MAX_VALUE)) return 4e256
-    if(D(ord).eq(data.ord.ordinal)) ord = Number(ord)
-    if (ord < base) return Decimal.add(ord, over).toNumber()
-    let pow = Math.floor(Math.log(ord + 0.1) / Math.log(base))
-    let divisor = Math.pow(base, pow)
-    let mult = Math.floor((ord + 0.1) / divisor)
-    return Math.min(4e256, 10 ** Math.min(4e256, opGain(pow, base, 0)) * mult + Math.min(4e256, opGain(ord - divisor * mult, base, over)))
-}
-let totalOPGain = () => Decimal.min(4e256, D(opGain()).times(opMult()))
 function calcOrdPoints(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over, trim=0) {
     let opBase = new Decimal(10)
     if (trim >= 10) return new Decimal(0)

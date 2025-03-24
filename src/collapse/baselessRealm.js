@@ -164,7 +164,7 @@ let realmChallengeData = [
         effectIsIndex: false,
         effectIsDecimal: false,
 
-        hasInnerEffect: false,
+        hasInnerEffect: false
     },
     {
         desc: 'Your AutoClicker speed is equal to your Dynamic Factor',
@@ -175,8 +175,7 @@ let realmChallengeData = [
         effectIsIndex: false,
         effectIsDecimal: false,
 
-        hasInnerEffect: true,
-        innerEffect: () => 1
+        hasInnerEffect: false
     },
 ]
 
@@ -558,7 +557,7 @@ function realmBoosterRefund(){
         DOM(`rBup${i}`).style.backgroundColor = 'black'
     }
     data.baselessRealm.amt = data.baselessRealm.total
-    if(isInAnyRealmChallenge()) controlRealmChallenge()
+    if(inAnyRealmChallenge()) controlRealmChallenge()
     else realmBoosterReset()
 }
 
@@ -585,7 +584,7 @@ function controlRealmChallenge(i = data.baselessRealm.chalActive){
 }
 
 function completeRealmChallenge(){
-    if(!isInAnyRealmChallenge()) return
+    if(!inAnyRealmChallenge()) return
     if(data.ord.ordinal.gte(getRealmChallengeGoal())){
         let temp = data.baselessRealm.chalActive
         controlRealmChallenge()
@@ -653,7 +652,7 @@ function buyRealmHUP(i){
 
 function realmBoost(){
     if(alephNullGain() < realmBoostReq()) return
-    if(isInAnyRealmChallenge()) controlRealmChallenge()
+    if(inAnyRealmChallenge()) controlRealmChallenge()
 
     data.baselessRealm.amt += getRealmBoosterGain()
     data.baselessRealm.total += getRealmBoosterGain()
@@ -707,6 +706,7 @@ function getRealmBUPEffect(i){
 let getRealmBUPCost = (i) => realmBupData[i].cost
 let getBaseRealmBUPDesc = (i) => `${realmBupData[i].desc}<br>${getRealmBUPCost(i)} Baseless Boosters`
 let getRealmBUPDesc = (i) => getBaseRealmBUPDesc(i)
+let hasBaselessBUP = (i) => data.baselessRealm.hasBUP[i]
 
 function getTotalRealmBUPs(){
     let total = 0
@@ -736,7 +736,7 @@ function getTotalRealmChallengeCompletions(){
 
 let getRealmChallengeGoal = () => numberFromOrdinal('&omega;<sup>&omega;</sup>', data.ord.base).pow(getRealmChallengeInnerEffect(3))
 let getRealmChallengeLock = (i) => 5+data.baselessRealm.completions[i]
-let isInAnyRealmChallenge = () => data.baselessRealm.chalActive !== -1
+let inAnyRealmChallenge = () => data.baselessRealm.chalActive !== -1
 let inRealmChallenge = (i) => data.baselessRealm.chalActive === i
 let isRealmChallengeMax = (i) => data.baselessRealm.completions[i] > 2
 

@@ -261,7 +261,7 @@ const energyUpgradeData = [
     ],
     [
         {
-            desc: "(Coming Soon!)",
+            desc: "Uncap Ordinal Power gain, but it is not affected by any of its boosts past 4e256",
             sign: 'x',
             cost: 1,
             eff: () => D(1),
@@ -270,7 +270,7 @@ const energyUpgradeData = [
             extraReqText: '',
             node: 401,
             baseValue: 1,
-            isUnlock: false,
+            isUnlock: true,
         },
     ]
 ]
