@@ -192,8 +192,12 @@ let getDepthBuff = (i) => getDepth() >= i ? depthEffects[i].buffEffect.effect() 
 
 function negativeChargeGain(){
     if(!data.darkness.darkened || !data.darkness.negativeChargeEnabled) return 0
-    if(getDepth() > 0) return Math.max(0, Decimal.log2(data.chal.decrementy.plus(1))**3)*(iup10Effect())
-    return Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)*(iup10Effect())
+
+    let base = getDepth() > 0
+        ? Math.max(0, Decimal.log2(data.chal.decrementy.plus(1))**3)
+        : Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)
+
+    return base * iup10Effect() * getRealmChallengeEffect(3)
 }
 
 function negativeChargeEffect(incrementyEffectNerf) {

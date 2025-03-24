@@ -4,7 +4,7 @@ function opMult(){
     let baseReq = data.boost.isCharged[6] ? 4 : 5
     mult += data.ord.base >= baseReq ? getBUPEffect(7) : 0
 
-    return D(mult).times(alephEffect(2))
+    return D(mult).times(getAlephEffect(2))
 }
 function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over) {
     if(D(ord).eq(data.ord.ordinal) && D(ord).gte(Number.MAX_VALUE)) return opCap

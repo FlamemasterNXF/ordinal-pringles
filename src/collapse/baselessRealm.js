@@ -112,33 +112,30 @@ let realmUnlockData = [
 let realmChallengeData = [
     {
         desc: 'You can only buy 1 of each AutoClicker and you cannot buy Factors',
-        effectDesc: 'Reward: Factors Boost their respective Alephs EVERYWHERE',
+        effectDesc: 'Reward: Factors Boost Alephs EVERYWHERE',
         sign: 'x',
-        eff: (i) => Math.pow(factorEffect(i), 2),
+        eff: (i) => Math.pow(totalFactorEffect(i), 2),
         effectBase: () => 1,
-        effectIsIndex: true,
         effectIsDecimal: false,
 
         hasInnerEffect: false,
     },
     {
         desc: 'All boosts from outside of Baseless Realms are useless',
-        effectDesc: 'Reward: Factors boost Dynamic Factor gain EVERYWHERE',
+        effectDesc: 'Reward: Factors boost Dynamic gain EVERYWHERE',
         sign: 'x',
         eff: () => Math.pow(totalFactorEffect(), 2),
         effectBase: () => 1,
-        effectIsIndex: false,
         effectIsDecimal: false,
 
         hasInnerEffect: false,
     },
     {
         desc: 'Your Base starts at 31',
-        effectDesc: 'Reward: Factors boost the last Cardinal Upgrade\'s effect EVERYWHERE',
-        sign: '+',
-        eff: () => getTotalFactors()/10,
-        effectBase: () => 0,
-        effectIsIndex: false,
+        effectDesc: 'Reward: Factors boost Cardinal gain EVERYWHERE',
+        sign: 'x',
+        eff: () => getTotalFactors(),
+        effectBase: () => 1,
         effectIsDecimal: false,
 
         hasInnerEffect: false,
@@ -149,7 +146,6 @@ let realmChallengeData = [
         sign: 'x',
         eff: () => totalFactorEffect(),
         effectBase: () => 1,
-        effectIsIndex: false,
         effectIsDecimal: false,
 
         hasInnerEffect: true,
@@ -161,7 +157,6 @@ let realmChallengeData = [
         sign: 'x',
         eff: () => totalFactorEffect(),
         effectBase: () => 1,
-        effectIsIndex: false,
         effectIsDecimal: false,
 
         hasInnerEffect: false
@@ -172,7 +167,6 @@ let realmChallengeData = [
         sign: '+',
         eff: () => getTotalRealmChallengeCompletions()*getRealmChallengeCompletions(5),
         effectBase: () => 0,
-        effectIsIndex: false,
         effectIsDecimal: false,
 
         hasInnerEffect: false
@@ -189,7 +183,6 @@ let realmIUPData = [
         effectBase: () => 1,
 
         effectIsDecimal: false,
-        effectIsIndex: false,
         upgradeIsRebuyable: true,
     },
     {
@@ -201,7 +194,6 @@ let realmIUPData = [
         effectBase: () => 1,
 
         effectIsDecimal: false,
-        effectIsIndex: false,
         upgradeIsRebuyable: true,
     },
     {
@@ -213,7 +205,6 @@ let realmIUPData = [
         effectBase: () => 1,
 
         effectIsDecimal: false,
-        effectIsIndex: false,
         upgradeIsRebuyable: true,
     },
 
@@ -226,7 +217,6 @@ let realmIUPData = [
         effectBase: () => 1,
 
         effectIsDecimal: false,
-        effectIsIndex: false,
         upgradeIsRebuyable: false,
     },
     {
@@ -238,7 +228,6 @@ let realmIUPData = [
         effectBase: () => 1,
 
         effectIsDecimal: false,
-        effectIsIndex: false,
         upgradeIsRebuyable: false,
     },
     {
@@ -250,7 +239,6 @@ let realmIUPData = [
         effectBase: () => 1,
 
         effectIsDecimal: false,
-        effectIsIndex: false,
         upgradeIsRebuyable: false,
     },
     {
@@ -262,7 +250,6 @@ let realmIUPData = [
         effectBase: () => 1,
 
         effectIsDecimal: false,
-        effectIsIndex: false,
         upgradeIsRebuyable: false,
     },
     {
@@ -274,7 +261,6 @@ let realmIUPData = [
         effectBase: () => 0,
 
         effectIsDecimal: false,
-        effectIsIndex: false,
         upgradeIsRebuyable: false,
     },
     {
@@ -286,7 +272,6 @@ let realmIUPData = [
         effectBase: () => 0,
 
         effectIsDecimal: false,
-        effectIsIndex: false,
         upgradeIsRebuyable: false,
     },
     {
@@ -298,19 +283,17 @@ let realmIUPData = [
         effectBase: () => 1,
 
         effectIsDecimal: false,
-        effectIsIndex: false,
         upgradeIsRebuyable: false,
     },
     {
-        desc: 'Challenge Completions boost their respective Factors',
+        desc: 'Challenge Completions boost Factors',
         sign: 'x',
 
         cost: () => 1e30,
-        effect: (i) => data.baselessRealm.completions[i]+1,
+        effect: () => getTotalRealmChallengeCompletions()+1,
         effectBase: () => 1,
 
         effectIsDecimal: false,
-        effectIsIndex: true,
         upgradeIsRebuyable: false,
     },
 ]
@@ -488,7 +471,7 @@ function updateRealmBoostersHTML() {
     DOM('rBoosterTimesText').innerHTML = `You have <span style="color: #ff8080">Boosted</span> ${data.baselessRealm.times} times`
 
     DOM(getAdaptiveButton('factorBoostButton')).innerHTML = `Perform a Baseless Boost [+${getRealmBoosterGain()}] (B)<br>Requires ${displayRealmBoostReq()}`
-    DOM(getAdaptiveButton('factorBoostButton')).style.color = alephNullGain() > realmBoostReq() ? '#fff480' : '#ff8080'
+    DOM(getAdaptiveButton('factorBoostButton')).style.color = getAlephNullGain() > realmBoostReq() ? '#fff480' : '#ff8080'
 
     if(getSubtab('realm') === 'realmIncrementy') updateRealmIncrementyHTML()
     if(getSubtab('realm') === 'realmHierarchies') updateRealmHierarchiesHTML()
@@ -651,7 +634,7 @@ function buyRealmHUP(i){
 }
 
 function realmBoost(){
-    if(alephNullGain() < realmBoostReq()) return
+    if(getAlephNullGain() < realmBoostReq()) return
     if(inAnyRealmChallenge()) controlRealmChallenge()
 
     data.baselessRealm.amt += getRealmBoosterGain()
@@ -740,14 +723,14 @@ let inAnyRealmChallenge = () => data.baselessRealm.chalActive !== -1
 let inRealmChallenge = (i) => data.baselessRealm.chalActive === i
 let isRealmChallengeMax = (i) => data.baselessRealm.completions[i] > 2
 
-function getRealmChallengeEffect(i, j = null){
+function getRealmChallengeEffect(i){
     if(getRealmChallengeCompletions(i) === 0) return realmChallengeData[i].effectBase()
     let divisor = 0.5**getRealmChallengeCompletions(i)*8
 
     if(realmChallengeData[i].effectIsDecimal){
-        return Decimal.max(realmChallengeData[i].effectBase(), realmChallengeData[i].effectIsIndex ? realmChallengeData[i].eff(j).div(divisor) : realmChallengeData[i].eff().div(divisor))
+        return Decimal.max(realmChallengeData[i].effectBase(), realmChallengeData[i].eff().div(divisor))
     }
-    return Math.max(realmChallengeData[i].effectBase(), realmChallengeData[i].effectIsIndex ? realmChallengeData[i].eff(j) / divisor : realmChallengeData[i].eff() / divisor)
+    return Math.max(realmChallengeData[i].effectBase(), realmChallengeData[i].eff() / divisor)
 }
 
 let getRealmIUPDesc = (i) => `${getRealmIUPDescBase(i)}${getRealmIUPLevelsDesc(i)}\n${getRealmIUPEffectDesc(i)}\n${getRealmIUPCostDesc(i)}`
@@ -761,14 +744,13 @@ let getRealmIUPEffectDesc = (i) => `Currently: ${!isRealmIUPMultiplier(i) ? real
 let hasRealmIUP = (i) => isRealmIUPRebuyable(i) ? data.baselessRealm.rupLevels[i] > 0 : data.baselessRealm.hasUpgrade[i]
 let isRealmIUPRebuyable = (i) => realmIUPData[i].upgradeIsRebuyable
 
-function getRealmIUPEffect(i, j = null){
+function getRealmIUPEffect(i){
     if(!hasRealmIUP(i) || !isBaseless()) return realmIUPData[i].effectBase()
-    if(realmIUPData[i].effectIsIndex && j === null) j = 0
 
     if(realmIUPData[i].effectIsDecimal){
-        return Decimal.max(realmIUPData[i].effectBase(), realmIUPData[i].effectIsIndex ? realmIUPData[i].effect(j) : realmIUPData[i].effect())
+        return Decimal.max(realmIUPData[i].effectBase(), realmIUPData[i].effect())
     }
-    return Math.max(realmIUPData[i].effectBase(), realmIUPData[i].effectIsIndex ? realmIUPData[i].effect(j) : realmIUPData[i].effect())
+    return Math.max(realmIUPData[i].effectBase(), realmIUPData[i].effect())
 }
 
 function getTotalRealmRUPLevels(){

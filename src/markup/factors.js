@@ -32,8 +32,8 @@ function hasFactor(n){
     return data.markup.shifts >= n+1 || data.baseless.shifts >= n+1
 }
 function factorEffect(n) {
-    const mult = getBUPEffect(0)*getCascadeEffect(n)*getRealmBUPEffect(0)*getRealmBUPEffect(2)
-    let add = hasFactor(n) ? getBUPEffect(12) + getRealmBUPEffect(1) : 0
+    const mult = getBUPEffect(0)*getCascadeEffect(n)*getRealmBUPEffect(0)*getRealmBUPEffect(2)*getRealmIUPEffect(10)
+    let add = hasFactor(n) ? getBUPEffect(12) + getRealmBUPEffect(1) + getRealmChallengeEffect(5) : 0
 
     if(data.chal.active[1] || data.factors[n] < 1) return 1+add*mult
 

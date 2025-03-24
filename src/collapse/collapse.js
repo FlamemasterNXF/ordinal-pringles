@@ -30,7 +30,7 @@ function updateCollapseHTML(){
     DOM(getAdaptiveButton("collapseButton")).style.display = data.boost.times > 33 || data.collapse.times > 0 || data.obliterate.times > 0 ? 'block' : 'none'
     DOM(getAdaptiveButton("collapseButton")).style.color = data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) || data.boost.times > 33 ? '#b3ff80' : '#20da45'
 
-    if(data.baseless.baseless) DOM(`baseless`).children[2].innerHTML = `<br><br>You will gain <span style="color: darkred">${format(alephNullGain())} ℵ<sub>0</sub></span> if you exit now<br><span style="font-size: 0.9rem">Your <span style="color: darkred">ℵ<sub>0</sub></span> gain multipier is currently ${format(getBaselessMult(data.baseless.mode)*dynamicShiftMultipliers[0]())}</span>`
+    if(data.baseless.baseless) DOM(`baseless`).children[2].innerHTML = `<br><br>You will gain <span style="color: darkred">${format(getAlephNullGain())} ℵ<sub>0</sub></span> if you exit now<br><span style="font-size: 0.9rem">Your <span style="color: darkred">ℵ<sub>0</sub></span> gain multipier is currently ${format(getBaselessMult(data.baseless.mode)*dynamicShiftMultipliers[0]())}</span>`
 
     updateTotalAlephHTML()
     updateDarknessHTML()
@@ -57,7 +57,7 @@ function initAlephs(){
         let el = document.createElement('t')
         el.className = 'alephText'
         el.id = `aleph${i}`
-        el.innerHTML = `You have <span style='color:#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></span>, ${alephData[i].text} <span style='color: #20da45'><b>${format(alephEffect(i))}x</b></span>`
+        el.innerHTML = `You have <span style='color:#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></span>, ${alephData[i].text} <span style='color: #20da45'><b>${format(getAlephEffect(i))}x</b></span>`
         container.append(el)
     }
 }
@@ -118,7 +118,7 @@ function initSluggish(){
 }
 
 function updateAlephHTML(i){
-    DOM(`aleph${i}`).innerHTML = `You have <span style='color: #20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></span>, ${alephData[i].text} <span style='color: #20da45'><b>${format(alephEffect(i))}x</b></span>`
+    DOM(`aleph${i}`).innerHTML = `You have <span style='color: #20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></span>, ${alephData[i].text} <span style='color: #20da45'><b>${format(getAlephEffect(i))}x</b></span>`
 }
 function updateAllAlephHTML(){
     for (let i = 0; i < data.collapse.alephs.length; i++) {
@@ -198,12 +198,12 @@ function cardinalGain(){
     let gain = Decimal.sqrt(data.boost.times-34)
             .times(Decimal.log2((data.boost.times-34)+2)).times(Decimal.sqrt(data.boost.times-34)).plus(3)
             .times(alephTotalEffect()).times(iup12Effect()).times(getAOMEffect(4)).times(getPringleEffect(2))
-            .times(getStableEnergyEffect(1, 0)).times(getHyperchargeEffect(0))
+            .times(getStableEnergyEffect(1, 0)).times(getHyperchargeEffect(0)).times(getRealmChallengeEffect(2))
     return gain.pow(getEUPEffect(1, 5))
 }
 
-let alephEffect = (i) => data.collapse.alephs[i].gt(0) && (!inPurification(1) || i === 0) && alephData[i].unl()
-    ? alephData[i].effect().times((i !== 8 ? getCUPEffect(6, false) : 1))
+let getAlephEffect = (i) => data.collapse.alephs[i].gt(0) && (!inPurification(1) || i === 0) && alephData[i].unl()
+    ? alephData[i].effect().times((i !== 8 ? getCUPEffect(6, false) : 1)).times(getRealmChallengeEffect(0))
     : D(1)
 function getCUPEffect(i, number = true){
     if(number) return getCUPEffect(i, false).toNumber()
