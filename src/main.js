@@ -67,11 +67,10 @@ function mainLoop() {
 window.onload = function () {
     let extra = false
     try { extra = load(true) } catch(e){ console.log('New Save!\nIf you\'re seeing this, welcome :)') }
-    console.log(extra)
+
     uHTML.load()
 
     if(extra) fixOldSavesAfterLoad()
-
     if(data.collapse.times > 0 || data.obliterate.times > 0) makeExcessOrdMarks()
 
     initializeCloudSaving()

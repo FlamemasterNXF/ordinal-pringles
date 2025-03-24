@@ -6,11 +6,24 @@ let cloudSavingData = {
     blockSaving:  false,    // Prevents further cloud saving if true.
 }
 
-function loadFromCloud(cloudData){
-    saveAndReload(cloudData)
+function loadFromCloud(cloudData = null){
+    if(!cloudSavingData.isGalaxy) return showNotification('You must be on galaxy.click to use this!')
+
+    if(cloudData){
+        // When we load directly during initialization, there is no need to send a new request.
+        saveAndReload(cloudData)
+    }
+    else{
+        // When we load manually we must request the data through galaxy
+        window.postMessage({
+            action: 'load',
+            slot: 0 // The dedicated autosave slot
+        }, "https://galaxy.click")
+    }
 }
 
 function saveToCloud(){
+    if(!cloudSavingData.isGalaxy) return showNotification('You must be on galaxy.click to use this!')
     if(!cloudSavingData.blockSaving){
         window.top.postMessage({
             action: "save",
@@ -23,6 +36,13 @@ function saveToCloud(){
 
 // Initialization is called immediately after the loading process is complete
 function initializeCloudSaving() {
+    // If the game is not running through galaxy, do not continue.
+    if(window.top.origin !== "https://galaxy.click"){
+        console.info("Game is not on galaxy, Cloud initialization aborted.")
+        return
+    }
+
+    // Otherwise, trigger a galaxy info message.
     window.top.postMessage({
         action: "info",
     }, "https://galaxy.click");
@@ -55,22 +75,11 @@ function initializeCloudSaving() {
             else if(e.data.type === "save_content"){
                 /*
                     https://galaxy.click/docs/dev/responses/save_content
-                    save_content is sent as a reply to our previous load request
+                    save_content is sent as a reply to a load request
                 */
                 if(!e.data.error){
-                    const defaultPlayer = JSON.stringify(getDefaultPlayer())
-                    const localData = JSON.stringify(data)
-                    let cloudData = e.data.content
-
-                    if(cloudData !== getDefaultPlayer() && data === getDefaultPlayer()){
-                        // If your local save looks like the default save and your cloud save doesn't, load from cloud.
-                        createConfirmation(
-                            'Progress Discovered!',
-                            'Your local save appears to be brand-new, but your Cloud save is not! Would you like to load from the Cloud?',
-                            'No', 'Yes!',
-                            loadFromCloud, cloudData
-                        )
-                    }
+                    const cloudData = e.data.content
+                    loadFromCloud(cloudData)
                 }
                 else if(e.data.message === "empty_slot"){
                     /*

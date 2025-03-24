@@ -653,7 +653,13 @@
             </button>
         </div>
         <div class="tab" id="galaxySubPage">
-            <div id="cloudStatus">You must be logged in on <a href="https://galaxy.click/play/8" target="_blank">Galaxy</a> to use Cloud saving!<br><br>Galaxy players are able to enjoy the benefits of automatic Cloud saving every five minutes!</div>
+            <div class="row flexBox">
+                <div class="cloudButton" id="cloudStatus">You must be logged in on <a href="https://galaxy.click/play/8" target="_blank">Galaxy</a> to use Cloud saving!<br><br>Galaxy players are able to enjoy the benefits of automatic Cloud saving every five minutes!</div>
+                <div class="column flexBox">
+                    <button class="cloudButton" id="cloudLoad" style="border-top-right-radius: 16px; border-bottom: none;" onclick="loadFromCloud()">Load from the Galaxy Cloud (Slot 0)</button>
+                    <button class="cloudButton" id="cloudSave" style="border-bottom-right-radius: 16px" onclick="saveToCloud()">Save to the Galaxy Cloud (Slot 0)</button>
+                </div>
+            </div>
         </div>
         <div class="centeredTexts" id="versionText"
              style="margin-top: 3rem; color: #009696; font-family: DosisBold, serif;">Version
