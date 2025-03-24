@@ -4,7 +4,7 @@ function updateCollapseHeaderHTML(){
     }
     else if(getSubtab('collapse') === 'darkness'){
         const negativeChargeType = hasHypercharge(2) ? 'multiplying' : 'dividing'
-        let text = `You have ${format(data.collapse.cardinals)} Cardinals<span style="color: #9f9fcce1">, ${format(data.darkness.negativeCharge)} Negative Charge, and ${format(data.chal.decrementy)} Decrementy</span><br><span style="font-size: 0.9rem; color: rgba(143,143,151,0.88)">Your Negative Charge is ${negativeChargeType} Incrementy gain by ${format(negativeChargeEffect(false))}`
+        let text = `You have ${format(data.collapse.cardinals)} Cardinals<span style="color: #9f9fcce1">, ${format(data.chal.decrementy)} Decrementy, and ${format(data.darkness.negativeCharge)} Negative Charge [+${format(negativeChargeGain())}/s]</span><br><span style="font-size: 0.9rem; color: rgba(143,143,151,0.88)">Your Negative Charge is ${negativeChargeType} Incrementy gain by ${format(negativeChargeEffect(false))}`
         text += hasHypercharge(2) ? '</span>' : ` and Incrementy\'s effect by ${format(negativeChargeEffect(true))}</span>`
         DOM(`cardinalsText`).innerHTML = text
     }
