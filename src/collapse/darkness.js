@@ -138,7 +138,7 @@ let depthEffects = [
         nerf: `, but all Decrementy nerfs and Decay are intensified`,
         buffEffect: {
             desc: 'Decrementy gain exponent increase: ',
-            effect: () => Decimal.log10(data.collapse.cardinals),
+            effect: () => Decimal.log10(data.collapse.cardinals+1),
             baseEffect: 0,
         },
         nerfEffect: {

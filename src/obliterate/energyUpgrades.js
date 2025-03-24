@@ -51,7 +51,7 @@ const energyUpgradeData = [
             isUnlock: false,
         },
         {
-            desc: 'Total Fractal Energy provides free Stabilization levels',
+            desc: 'Total Fractal Energy provides free Anti-Darkness levels',
             sign: '+',
             cost: 1,
             eff: () => Math.floor(Math.sqrt(data.obliterate.energy)),
