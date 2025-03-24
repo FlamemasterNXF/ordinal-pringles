@@ -23,6 +23,7 @@ function tick(diff){
 
     // Check for Challenge Completion
     chalComplete()
+    completeRealmChallenge()
 
     //Automation Tier 1
     for (let i = 0; i < 2; i++) timesToLoop[i] = D(timesToLoop[i]).add(!data.chal.active[4]

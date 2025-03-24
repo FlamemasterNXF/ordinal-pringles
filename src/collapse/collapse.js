@@ -36,6 +36,7 @@ function updateCollapseHTML(){
     updateDarknessHTML()
     updatePurificationTabHTML()
     if(data.nav.subtabs.collapse === 'hyper') updateAllHyperchargeHTML()
+    if(isBaseless()) updateRealmBoostersHTML()
     updateCollapseHeaderHTML()
 }
 

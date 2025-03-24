@@ -244,8 +244,8 @@ function checkSpecialBUPs(){
 
 function updateBoostersHTML(){
     DOM('boosterText').innerHTML = data.boost.unlocks[1] > 0 ?
-        `You have <span style="color: #8080FF; font-family: DosisSemiBold">${format(data.boost.amt)} Boosters</span> (${format(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
-        : `You have <span style="color: #8080FF; font-family: DosisSemiBold">${format(data.boost.amt)} Boosters</span> (${format(data.boost.total)} total)`
+        `You have <span style="color: #8080FF; font-family: DosisSemiBold, serif">${format(data.boost.amt)} Boosters</span> (${format(data.boost.total)} total) and <span style="color: goldenrod; font-family: DosisSemiBold, serif">${data.incrementy.charge} Charge</span> (${data.incrementy.totalCharge} total)`
+        : `You have <span style="color: #8080FF; font-family: DosisSemiBold, serif">${format(data.boost.amt)} Boosters</span> (${format(data.boost.total)} total)`
     DOM('boosterTimesText').innerHTML = `You have <span style="color: #8080FF">Boosted</span> ${data.boost.times} times`
     DOM("factorText2").innerText = `Your Challenges are multiplying AutoBuyer speed by a total of ${format(chalEffectTotal())}x`
 
@@ -304,6 +304,11 @@ function boosterReset(){
 
 const boosterGain = () => inPurification(0) ? (getAOREffect(3)) * getBulkBoostAmt() : ((data.boost.times * getBulkBoostAmt()) + (getBulkBoostAmt() * (getBulkBoostAmt() + 1) / 2));
 function boost(f=false, auto=false, hotkey=false){
+    if(!f && !auto && isBaseless()){
+        realmBoost()
+        return
+    }
+
     if(data.boost.times === 33 && data.collapse.times === 0 && data.obliterate.times === 0) return collapse(true)
     if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && (auto || hotkey)) return
     if((!data.ord.isPsi || data.ord.ordinal.lt(boostReq())) && !f) return
@@ -334,12 +339,14 @@ function boost(f=false, auto=false, hotkey=false){
     boosterReset()
     updateStatusHTML()
 }
+
 function boostReq(n = data.boost.times){
     if(data.boost.times === 0 && !hasSluggishMilestone(0)) return D(GRAHAMS_VALUE)
     if(n >= 34) return D(BHO_VALUE).times(D(3).pow(n-33))
     let scaling = n < 30 ? 1 : Math.floor(100*(n/15))
     return n < 33 ? D(3 ** (n+1) * 4 * 10 * scaling) : D(BHO_VALUE)
 }
+
 //Credit to ryanleonels
 let boostLimit = () => (data.collapse.times === 0 && data.obliterate.times === 0) ? 33 : Infinity;
 function getBulkBoostAmt(){
@@ -355,9 +362,9 @@ function getBulkBoostAmt(){
     return Math.min(Math.max(maxBoost - data.boost.times, 1), Number.MAX_VALUE)
 }
 //End credit
+
 function buyBUP(n, bottomRow, useCharge, isAuto = false){
     updateHierarchyPurchaseHTML()
-    //if(data.boost.isCharged[n] && !bottomRow && !isAuto) return destabBUP(n)
     if(data.boost.hasBUP[n]) return useCharge ? chargeBUP(n, bottomRow) : null
 
     /*
@@ -434,4 +441,8 @@ function getTotalSupercharges(){
         if (data.boost.isCharged[i]) ++total
     }
     return total
+}
+
+function switchBoostTab(){
+    isBaseless() ? switchTab('realm') : switchTab('boosters')
 }

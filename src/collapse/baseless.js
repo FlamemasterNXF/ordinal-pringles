@@ -17,6 +17,7 @@ function initANRebuyables(){
     for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
         updateANRHTML(i)
     }
+    initBaselessRealm()
 }
 
 function updateAlephNullHTML(){
@@ -137,8 +138,10 @@ function baselessControl(){
         data.baseless.alephNull += gain
         data.ord.base = 10
         DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${baselessLocks[data.baseless.mode]()}</span> with Baseless Shifts providing a ${getBaselessMult(data.baseless.mode)}x multiplier to ℵ<sub>0</sub> gain`
+        switchTab('collapse')
     }
 
+    updateRealmHTML()
     updateDynamicShiftHTML()
     updateAlephNullHTML()
     updateStatusHTML()
@@ -172,6 +175,7 @@ let alephNullEffects = [
     () => Math.max(0, Math.floor(softcap(Math.log10(data.baseless.alephNull), 30, 0.5)))
 ]
 let getBaselessMult = (i) => baselessMultipliers[i]
+let getBaselessLock = (i) => baselessLocks[i]()
 let chargeBoostToBaseless = (display = false) => data.baseless.baseless || display
     ? Decimal.max(1, D(data.incrementy.totalCharge**10).times(getEUPEffect(1, 1)).pow(getANREffect(1)))
     : 1

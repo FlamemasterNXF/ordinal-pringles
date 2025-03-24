@@ -27,6 +27,10 @@ function updateStatusHTML(){
     }
     if(data.baseless.baseless){
         let text = `You are in the ${baselessNames[data.baseless.mode]} Realm`
+
+        if(isInAnyRealmChallenge()) text += `and Baseless Challenge ${data.baselessRealm.chalActive}`
+        text += `<br>Your theoretical ℵ<sub>0</sub> gain is ${format(alephNullGain())}`
+
         return el.innerHTML = text + escapeText
     }
     if(data.darkness.darkened){
@@ -49,6 +53,7 @@ function universalEscape(){
     if(inAnyPurification()) return exitPurification(data.omega.whichPurification)
     if(data.baseless.baseless) return baselessControl()
     if(data.darkness.darkened) return chalExit(false)
+    if(data.baselessRealm.chalActive > -1) return controlRealmChallenge()
     if(data.chal.active.includes(true)){ // The challenge exiting functionality is really confusing :/
         if(data.darkness.darkened) chalExit(false)
         return chalExit(true)

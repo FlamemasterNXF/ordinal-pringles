@@ -15,6 +15,7 @@ const defaultSubTabs = {
     "markup": "factor",
     "boosters": "upgrades",
     "collapse": "cardinals",
+    "realm": "realmUpgrades",
     "obliterate": "pringles",
     "settings": "gameSettings",
 }
@@ -117,6 +118,10 @@ function isTabUnlocked(t){
         case 'hyper': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
         case 'baseless': return data.boost.unlocks[4] || hasPassiveUpgrade(19)
         case 'purification': return hasPassiveHypercharge(3) || hasPassiveUpgrade(21)
+
+        case 'realmChal': return hasRealmUnlock(0)
+        case 'realmIncrementy': return hasRealmUnlock(1)
+        case 'realmHierarchies': return hasRealmUnlock(2)
 
         default: return true
     }

@@ -31,7 +31,7 @@ function hasFactor(n){
     return data.markup.shifts >= n+1 || data.baseless.shifts >= n+1
 }
 function factorEffect(n) {
-    const mult = getBUPEffect(0)
+    const mult = getBUPEffect(0)*getCascadeEffect(n)
     let add = hasFactor(n) ? getBUPEffect(12) : 0
 
     if(data.chal.active[1] || data.factors[n] < 1) return 1+add*mult
@@ -71,4 +71,22 @@ function buyMaxT1(){
     if(data.autoLevels[1] === 0 && data.collapse.times === 0) buyAuto(1)
     buyMaxFactor()
     buyMaxAuto()
+}
+
+function getTotalFactors(){
+    let total = 0
+    for (let i = 0; i < data.factors.length; i++) {
+        total += data.factors[i]
+    }
+    return total
+}
+
+let getCascadeEffect = (i) => isFactorCascaded(i) ? cascadeFactor(i) : 1
+let isFactorCascaded = (i) => i < 6 ? isRealmChallengeMax(5-i) : false
+function cascadeFactor(n){
+    let mult = 1
+    for (let i = n; i < data.factors.length; i++) {
+        mult *= factorEffect(i)
+    }
+    return mult
 }

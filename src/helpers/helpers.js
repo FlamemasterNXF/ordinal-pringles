@@ -77,3 +77,15 @@ function countElements(arr, value) {
     return count
 }
 
+function safeLog(num, logBase, minValue = 1){
+    let val = logn(num, logBase)
+    if(val === -Infinity || val === Infinity || isNaN(val) || val < minValue) return minValue
+    return val
+}
+
+function customRoot(num, root, minValue = 1){
+    let val = num**(1/root)
+    if(val < minValue) return minValue
+    return val
+}
+

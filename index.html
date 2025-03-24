@@ -50,6 +50,7 @@
     <script defer src="src/obliterate/obliterate.js"></script>
 
     <script defer src="src/collapse/purification.js"></script>
+    <script defer src="src/collapse/baselessRealm.js"></script>
     <script defer src="src/collapse/baseless.js"></script>
     <script defer src="src/collapse/hypercharge.js"></script>
     <script defer src="src/collapse/darkness.js"></script>
@@ -118,7 +119,7 @@
     <button class="tabButton" id="markupNav" onclick="switchTab('markup')"
             style="color: goldenrod;">Markup
     </button>
-    <button class="tabButton" id="boostNav" onclick="switchTab('boosters')"
+    <button class="tabButton" id="boostNav" onclick="switchBoostTab()"
             style="display: none; color: #8080FF;">Boosters
     </button>
     <button class="tabButton" id="collapseNav" onclick="switchTab('collapse')"
@@ -455,6 +456,46 @@
             <div class="flexBox" id="purificationContainer" style="margin-top: 1rem"></div>
             <div class="column flexBox" id="aoRebuyableContainer" style="margin-top: 0.5rem"></div>
             <div class="column flexBox" id="aoMilestoneContainer"></div>
+        </div>
+    </div>
+    <div class="tab flexBox" id="realmPage" style="flex-direction: column">
+        <div class="flexBox" style="margin-top: 1rem">
+            <button class="realmTabButton" id="relamUpgradeTab" onclick="switchSubtab('realmUpgrades', 'realm')">Upgrades</button>
+            <button class="realmTabButton" id="realmChallengesTab" onclick="switchSubtab('realmChal', 'realm')">Challenges</button>
+            <button class="realmTabButton" id="realmIncrementyTab" onclick="switchSubtab('realmIncrementy', 'realm')">Incrementy</button>
+            <button class="realmTabButton" id="realmHierarchiesTab" onclick="switchSubtab('realmHierarchies', 'realm')">Hierarchies</button>
+        </div>
+        <div class="tab flexBox" id="realmUpgradesSubPage" style="margin-top: 1rem; flex-direction: column">
+            <div class="centeredTexts" id="rBoosterText" style="color: gray">boosteeeeeeeee</div>
+            <div class="centeredTexts" id="rBoosterTimesText" style="font-size: 0.8rem; color: gray">boosteeeeeeeee times</div>
+            <div class="flexBox" style="flex-direction: row;">
+                <button class="rBoostTopButton" id="rBoostRefund" style="margin-right: 0.25rem" onclick="realmBoosterRefund()">Refund your Booster Upgrades</button>
+            </div>
+            <div class="flexBox">
+                <div class="flexBox" id="rBupColumn0" style="flex-direction: column"></div>
+                <div class="flexBox" id="rBupColumn1" style="flex-direction: column;"></div>
+                <div class="flexBox" id="rBupColumn2" style="flex-direction: column"></div>
+                <div class="flexBox" id="rBuColumn" style="flex-direction: column"></div>
+            </div></div>
+        <div class="tab flexBox" id="realmChalSubPage" style="display: none; flex-direction: column;">
+            <div class="flexBox column" id="rChallengeContainer"></div>
+        </div>
+        <div class="tab flexBox" id="realmIncrementySubPage" style="display: none; flex-direction: column">
+            <div class="centeredTexts" id="rIncrementyText" style="color: #ffaa86; margin-top: 1rem;">Incrementy</div>
+            <div class="centeredTexts" style="color: #ce856a;">It is gained based on your Ordinal outside of Challenges</div>
+            <p class="centeredTexts" id="rDynamicText2" style="color: goldenrod; margin-bottom: 0.5rem">Hello Unstable Dog</p>
+            <div class="flexBox column" id="rIncrementyContainer"></div>
+            <div class="centeredTexts" style="color: #ce856a; margin-top: 0.5rem; margin-bottom: 0.5rem">The first row of upgrades are re-buyable.</div>
+        </div>
+        <div class="tab flexBox" id="realmHierarchiesSubPage" style="display: none; flex-direction: column">
+            <div class="flexBox, hierarchyContainer">
+                <sub class="generalTexts" id="rhName">Your NGH Ordinal is</sub>
+                <strong class="centeredTexts rHierarchy" id="rhText"></strong>
+                <sub><strong class="generalTexts" id="rhGain"></strong></sub>
+            </div>
+            <div class="flexBox row" id="growingUpgradesContainer" style="flex-direction: row; margin-top: 0.5rem"></div>
+            <div class="flexBox row" id="rHUPContainer" style="flex-direction: row; margin-top: 0.5rem"></div>
+            <div class="centeredTexts" style="margin-top:1rem">The N-Growing Hierarchy is maximized instantly and grows based on your Base.<br>The first row of Upgrades are stronger based on the Hierarchy percentage allocated to them.</div>
         </div>
     </div>
     <div class="tab" id="obliteratePage">

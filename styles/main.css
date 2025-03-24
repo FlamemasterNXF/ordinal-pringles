@@ -553,6 +553,113 @@
     border-top: 0;
     border-radius: 0 0 10px 10px;
 }
+.rBup{
+    width: 13rem;
+    height: 6rem;
+    border: 2px solid #a84a4a;
+    color: #ce6a6a;
+    background: black;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+.rBu{
+    width: 15rem;
+    height: 6rem;
+    border: 2px solid #a84a4a;
+    color: #ce6a6a;
+    background: black;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+.rBoostTopButton{
+    width: 20rem;
+    height: 1.5rem;
+    border: 2px solid #a84a4a;
+    color: #ce6a6a;
+    background: black;
+    margin-top: 0.5rem;
+}
+.realmChallenge{
+    width: 25rem;
+    height: 12rem;
+    border: 2px solid #a84a4a;
+    color: #ce6a6a;
+    background: black;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+.completedRealmChallenge{
+    width: 25rem;
+    height: 12rem;
+    border: 2px solid #a84a4a;
+    color: #ce6a6a;
+    background: #351603;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+.inRealmChallenge{
+    width: 25rem;
+    height: 12rem;
+    border: 2px solid #a84a4a;
+    color: #ce6a6a;
+    background: #211111;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+.rIUP{
+    width: 17rem;
+    height: 5.5rem;
+    border: 2px solid #703d2b;
+    color: #ae7b56;
+    background: black;
+    margin-top: 0.5rem;
+    margin-right: 0.25rem;
+    margin-left: 0.25rem;
+}
+.rHierarchy{
+    font-family: DosisLight, sans-serif;
+    font-size: 2rem;
+    color: #ce6a6a;
+}
+.growthUpgrade{
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    width: 17rem;
+    height: 7rem;
+    border: 2px solid #a84a4a;
+    color: #ce6a6a;
+    background: black;
+}
+.growthInput{
+    width: 2rem;
+    height: 1rem;
+    background: black;
+    border: 1px solid #522525;
+    color: #ce6a6a;
+}
+.rHUP{
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    width: 15rem;
+    height: 6rem;
+    border: 2px solid #a8634a;
+    color: #ce856a;
+    background: black;
+}
+.realmTabButton{
+    width: 9rem;
+    height: 1.5rem;
+    margin-left: 0.3rem;
+    background: black;
+    border: 2px solid #a84a4a;
+    color: #ce6a6a;
+}
+.realmTabButton:hover{
+    background: #222222;
+}
 .progressBar{
     width: 7rem;
     height: 20rem;
