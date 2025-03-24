@@ -260,6 +260,7 @@
     place-content:center;
     flex-direction: row;
     flex-wrap: wrap;
+    margin-bottom: 1rem;
 }
 .cupContainer{
     display: flex;
@@ -291,7 +292,6 @@
     color: #9f9fcce1;
     background: black;
     margin-left: 0.5rem;
-    margin-top: 1rem;
 }
 .sluggish{
     width: 50rem;

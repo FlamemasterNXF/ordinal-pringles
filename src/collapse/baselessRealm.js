@@ -90,22 +90,22 @@ let realmUnlockData = [
     {
         desc: 'Unlock Challenges',
         unl: 'Challenges',
-        req: 0
+        req: 15
     },
     {
         desc: 'Unlock Incrementy and increase the Dynamic Gain base',
         unl: 'Incrementy',
-        req: 0
+        req: 45
     },
     {
         desc: 'Unlock the N-Growing Hierarchy',
         unl: 'Hierarchies',
-        req: 0
+        req: 105
     },
     {
         desc: '???',
-        unl: 'Hierarchies',
-        req: 0
+        unl: 'soontm',
+        req: Infinity
     },
 ]
 
@@ -481,7 +481,7 @@ function updateRealmBoostersHTML() {
 }
 
 function updateRealmUnlockHTML(){
-    for (let i = 0; i < data.baselessRealm.unlocks.length; i++) {
+    for (let i = 0; i < data.baselessRealm.unlocks.length-1; i++) {
         DOM(`rBu${i}`).style.backgroundColor = hasRealmUnlock(i) ? '#250505' : 'black'
         DOM(`realm${realmUnlockData[i].unl}Tab`).innerText = hasRealmUnlock(i) ? realmUnlockData[i].unl : '???'
     }
@@ -653,7 +653,7 @@ function displayRealmBoostReq(){
     return `${format(realmBoostReq())} theoretical ℵ<sub>0</sub> gain`
 }
 function realmBoostReq(){
-    return 9.6e96
+    return 100**customRoot(data.baselessRealm.times+1, 1.2)
 }
 
 function realmBoosterReset(){

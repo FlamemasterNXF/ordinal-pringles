@@ -58,7 +58,7 @@ function updateBaselessEnterHTML(id, load=false) {
     }
 
     data.baseless.mode = id
-    DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${getBaselessLock(id)}</span> with Baseless Shifts providing a ${getBaselessMult(id)}x multiplier to ℵ<sub>0</sub> gain`
+    DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${getBaselessLock(id)}</span>, but Baseless Shifts and Boosters will be accessible and Baseless Shifts will boost ℵ<sub>0</sub> gain by ${getBaselessMult(id)}x`
 }
 
 const baselessRealmData = [
@@ -125,7 +125,6 @@ const anRebuyableData = [
 ]
 
 function baselessControl(){
-    if(!data.baseless.tutorial) createAlert('Welcome!', 'This popup will not be shown again!\nYou cannot respec Booster Upgrades while in this Realm. However, Dynamic Factor is unlocked immediately and the Max All AutoBuyer works all the time!', 'Thanks?')
     const gain = data.baseless.baseless ? getAlephNullGain() : 0
 
     if(!data.baseless.baseless){
@@ -147,7 +146,7 @@ function baselessControl(){
         data.baseless.shifts = 0
         data.baseless.alephNull += gain
         data.ord.base = 10
-        DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${getBaselessLock(data.baseless.mode)}</span> with Baseless Shifts providing a ${getBaselessMult(data.baseless.mode)}x multiplier to ℵ<sub>0</sub> gain`
+        DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${getBaselessLock(data.baseless.mode)}</span>, but Baseless Shifts and Boosters will be accessible and Baseless Shifts will boost ℵ<sub>0</sub> gain by ${getBaselessMult(data.baseless.mode)}x`
         switchTab('collapse')
     }
 

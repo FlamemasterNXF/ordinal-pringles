@@ -65,15 +65,14 @@ function initCUPS(){
     const container = DOM('cUpgradesSubPage')
     for (let i = 0; i < data.collapse.hasCUP.length/4; i++) {
         let row = document.createElement('div')
-        row.className = 'cupRow'
+        row.className = 'cupRow row'
         row.id = `cupRow${i}`
         container.append(row)
         for (let j = 0; j < 4; j++) {
             let id = j+(i*4)
             let innerContainer = document.createElement('div')
-            innerContainer.className = 'cupContainer'
+            innerContainer.className = id < 7 ? 'cupContainer' : 'flexBox'
             innerContainer.id = `cupContainer${id}`
-            if(id===7) innerContainer.style.flexDirection = `row`
 
 
             let el = document.createElement('button')
