@@ -30,7 +30,7 @@ function initChals(){
         }
     }
     for (let i = 0; i < data.chal.completions.length; i++) {
-        DOM(`chal${i}`).addEventListener('click', ()=>data.sToggles[1]?
+        DOM(`chal${i}`).addEventListener('click', ()=> getSimpleSetting('challengeConfirmation') ?
             createConfirmation("Are you sure?", "Entering a Challenge will perform a Booster Reset!", "No chance.", "Of course!", chalEnter, i)
         :chalEnter(i))
         updateChalHTML(i)
@@ -65,7 +65,7 @@ function chalEnter(i, force=false){
         data.dy.gain = D(0.002)
         //DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     }
-    if((i === 4 || i === 6 || i === 7) && data.sToggles[10]){
+    if((i === 4 || i === 6 || i === 7) && getSimpleSetting('challengeRefund')){
         showNotification(`Your Booster Upgrades have been refunded to help with the Challenge. Feel free to rebuy them, but remember the debuff!`)
         boosterRefund(true)
     }
@@ -98,7 +98,7 @@ function chalComplete(){
     if(currency>=chalGoals[data.chal.html][data.chal.completions[data.chal.html]] && ex){
         ++data.chal.completions[data.chal.html]
         ++data.chal.totalCompletions
-        if(data.sToggles[2]) showNotification(`You have Completed Challenge ${data.chal.html+1}x${data.chal.completions[data.chal.html]}!`)
+        if(getSimpleSetting('challengePopup')) showNotification(`You have Completed Challenge ${data.chal.html+1}x${data.chal.completions[data.chal.html]}!`)
         chalExit()
     }
 }

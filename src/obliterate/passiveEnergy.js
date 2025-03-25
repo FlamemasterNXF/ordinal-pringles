@@ -75,7 +75,7 @@ function buyPEUP(i){
 }
 
 function passiveRespecConfirm(){
-    if(!data.sToggles[17]) return respecPassiveUpgrades()
+    if(!getSimpleSetting('peupRespecConfirmation')) return respecPassiveUpgrades()
     createConfirmation('Are you certain?', 'This will force an Obliteration reset!', 'Nope!', 'Yeah', respecPassiveUpgrades)
 }
 function respecPassiveUpgrades(bypassReset = false){

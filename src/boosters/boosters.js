@@ -350,7 +350,7 @@ function boostReq(n = data.boost.times){
 //Credit to ryanleonels
 let boostLimit = () => (data.collapse.times === 0 && data.obliterate.times === 0) ? 33 : Infinity;
 function getBulkBoostAmt(){
-    if (!data.sToggles[7] || !data.ord.isPsi || data.ord.ordinal.lte(boostReq()) || data.boost.times >= Number.MAX_VALUE) return 1
+    if (!getSimpleSetting('bulkBoosting') || !data.ord.isPsi || data.ord.ordinal.lte(boostReq()) || data.boost.times >= Number.MAX_VALUE) return 1
     let maxBoost = data.boost.times
     while (data.ord.ordinal.gte(boostReq(maxBoost)) && maxBoost < boostLimit()) {
         maxBoost++

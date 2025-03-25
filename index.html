@@ -164,8 +164,8 @@
         </button>
         <div class="tab flexBox" id="factorSubPage" style="margin-top: 1rem;">
             <div class="flexBox">
-                <button id="mobilefactorShiftButton" onclick="data.sToggles[3]?factorShiftConfirm():factorShift()" style="color: goldenrod; width: 20rem; height: 3rem; background-color: black; border: 2px solid #785c13">Perform a Factor Shift</button>
-                <button id="mobilefactorBoostButton" onclick="data.sToggles[4]&&(data.collapse.times > 0 || data.boost.times < 33)?createConfirmation('Are you sure?', 'Performing a Factor Boost will reset your Ordinal, Ordinal Powers, Factors, Automation, Base, and Dynamic Factor in exchange for some Boosters!', 'No Way!', 'Yes, lets do this.', boost):boost()" style="margin-left: 0.2rem; color: #8080FF; width: 20rem; min-height: 3rem; background-color: black; border: 2px solid #1e47d0; display: none">Perform a Factor Boost</button>
+                <button id="mobilefactorShiftButton" onclick="getSimpleSetting('shiftConfirmation')?factorShiftConfirm():factorShift()" style="color: goldenrod; width: 20rem; height: 3rem; background-color: black; border: 2px solid #785c13">Perform a Factor Shift</button>
+                <button id="mobilefactorBoostButton" onclick="getSimpleSetting('boostConfirmation')&&(data.collapse.times > 0 || data.boost.times < 33)?createConfirmation('Are you sure?', 'Performing a Factor Boost will reset your Ordinal, Ordinal Powers, Factors, Automation, Base, and Dynamic Factor in exchange for some Boosters!', 'No Way!', 'Yes, lets do this.', boost):boost()" style="margin-left: 0.2rem; color: #8080FF; width: 20rem; min-height: 3rem; background-color: black; border: 2px solid #1e47d0; display: none">Perform a Factor Boost</button>
             </div>
             <button class="factor" id="factorMax" onclick="buyMaxFactor()">Max All Factors [F]</button>
             <div class="column flexBox">
@@ -225,10 +225,10 @@
             <div class="centeredTexts" id="boosterText">boosteeeeeeeee</div>
             <div class="centeredTexts" id="boosterTimesText" style="font-size: 0.8rem">boosteeeeeeeee times</div>
             <div class="row flexBox">
-                <button class="boostTopButton" id="boostRefund" style="margin-right: 0.25rem" onclick="data.sToggles[0]?createConfirmation('Are you sure?', 'This will reset your Booster Upgrades and return spent Boosters, but it will trigger a Booster Reset!', 'Go back!', 'Go ahead.', boosterRefund)
+                <button class="boostTopButton" id="boostRefund" style="margin-right: 0.25rem" onclick="getSimpleSetting('refundConfirmation')?createConfirmation('Are you sure?', 'This will reset your Booster Upgrades and return spent Boosters, but it will trigger a Booster Reset!', 'Go back!', 'Go ahead.', boosterRefund)
                 :boosterRefund()">Refund your Booster Upgrades
                 </button>
-                <button class="boostTopButton" id="chargeRefund" style="display: none; margin-left: 0.25rem" onclick="data.sToggles[5]?createConfirmation('Are you sure?', 'This will reset your Charged Booster Upgrades and return spent Charge, but it will force you to exit your Challenge!', 'Go back!', 'Go ahead.', respecCharge)
+                <button class="boostTopButton" id="chargeRefund" style="display: none; margin-left: 0.25rem" onclick="getSimpleSetting('chargeRefundConfirmation')?createConfirmation('Are you sure?', 'This will reset your Charged Booster Upgrades and return spent Charge, but it will force you to exit your Challenge!', 'Go back!', 'Go ahead.', respecCharge)
                 :respecCharge()">Refund your Charged Booster Upgrades
                 </button>
             </div>
@@ -432,7 +432,7 @@
             <span class="centeredTexts" id="alephNull" style="color: darkorange;">Based</span>
             <div class="row flexBox">
                 <button id="baseless" style="font-size: 1.1rem; margin-right: 0.25rem"
-                        onclick="data.sToggles[8] ? createConfirmation('Are you sure?', 'Entering or exiting will perform a Collapse reset!', 'Nope!', 'Yep!', baselessControl) : baselessControl()">
+                        onclick="getSimpleSetting('baselessnessConfirmation') ? createConfirmation('Are you sure?', 'Entering or exiting a Baseless Realm will perform a Collapse reset!', 'Nope!', 'Yep!', baselessControl) : baselessControl()">
                     <span id="baselessEnterText">Enter</span> the
                     <select style="appearance: none; background-color: black; border: hidden; color: darkred; font-family: DosisBold, serif; font-size: 1.1rem; text-align: center"
                             onclick="event.stopPropagation()" onchange="updateBaselessEnterHTML(this.selectedIndex)">
@@ -591,11 +591,14 @@
         <p class="centeredTexts">Consider joining <a href="https://discord.com/invite/dauxGZwc9u" style="color: #95d0ef" target="_blank">the
             Discord</a> :)</p>
         <div class="flexBox" style="margin-top: 0.5rem; margin-bottom: 1rem">
-            <button class="settingsTabButton" id="gameTab" onclick="switchSubtab('gameSettings', 'settings')">Game</button>
-            <button class="settingsTabButton" id="togglesTab" onclick="switchSubtab('toggles', 'settings')"
+            <button class="settingsTabButton" id="gameTab" onclick="switchSubtab('settingsGame', 'settings')">Game</button>
+            <button class="settingsTabButton" id="togglesTab" onclick="switchSubtab('settingsConfirmation', 'settings')"
                     style="margin-left: 0.5rem">Confirmations
             </button>
-            <button class="settingsTabButton" id="uiTab" onclick="switchSubtab('ui', 'settings')"
+            <button class="settingsTabButton" id="popupsTab" onclick="switchSubtab('settingsPopup', 'settings')"
+                    style="margin-left: 0.5rem">Popups
+            </button>
+            <button class="settingsTabButton" id="uiTab" onclick="switchSubtab('settingsUI', 'settings')"
                     style="margin-left: 0.5rem">UI
             </button>
             <button class="settingsTabButton" id="savingTab" onclick="switchSubtab('saving', 'settings')"
@@ -608,72 +611,20 @@
                     style="margin-left: 0.5rem; border-color: #501900; color: #c93e00">Advanced
             </button>
         </div>
-        <div class="tab" id="gameSettingsSubPage">
-            <button class="settingsButton" id="offlineProgressToggle" onclick="settingsToggle(-1)" style="width: 20rem">
-                Toggle Offline Progress
-            </button>
-            <button class="settingsButton" id="settingsToggle6" onclick="settingsToggle(6)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle7" onclick="settingsToggle(7)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle10" onclick="settingsToggle(10)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle20" onclick="settingsToggle(20)" style="width: 20rem">aaa
-            </button>
-        </div>
-        <div class="tab" id="togglesSubPage">
-            <button class="settingsButton" id="settingsToggle3" onclick="settingsToggle(3)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle4" onclick="settingsToggle(4)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle0" onclick="settingsToggle(0)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle5" onclick="settingsToggle(5)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle1" onclick="settingsToggle(1)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle2" onclick="settingsToggle(2)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle9" onclick="settingsToggle(9)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle11" onclick="settingsToggle(11)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle12" onclick="settingsToggle(12)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle8" onclick="settingsToggle(8)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle15" onclick="settingsToggle(15)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle16" onclick="settingsToggle(16)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle17" onclick="settingsToggle(17)" style="width: 20rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle19" onclick="settingsToggle(19)" style="width: 20rem">aaa
-            </button>
-        </div>
-        <div class="tab" id="uiSubPage">
-            <button class="settingsButton" id='changeOrdLength'
-                    onclick="createPrompt('Input New Length', changeTrim, true)" style="width: 22rem">Change Max Ordinal
-                Display Length <span style="color: #8080FF">[0]</span></button>
-            <button class="settingsButton" id="changeOrdDisplay" onclick="toggleOrdDisplay()" style="width: 22rem">
-                Change the Ordinal Display Mode <span style="color: #2da000">[Buchholz]</span></button>
-            <button class="settingsButton" id="changeOrdColor" onclick="toggleOrdColor()" style="width: 22rem">Change
-                the Ordinal Color Mode <span style="color: #2da000">[Normal]</span></button>
-            <button class="settingsButton" id="settingsToggle13" onclick="settingsToggle(13)" style="width: 22rem">aaa
-            </button>
-            <button class="settingsButton" id="settingsToggle18" onclick="settingsToggle(18)"
-                    style="width: 22rem;">aaa
-            </button>
-            <div class="row" id="gwaifySettingContainer">
-                <button class="settingsButton" id="gwaifyToggle" onclick="settingsToggle(-2)"
-                        style="width: 22rem; height: 2rem"><img
+        <div class="tab" id="settingsGameSubPage"></div>
+        <div class="tab" id="settingsConfirmationSubPage"></div>
+        <div class="tab" id="settingsUISubPage">
+            <div class="flexBox" id="gwaifySettingContainer">
+                <button class="setting" id="gwaifyToggle" onclick="gwaToggle()"
+                        style="width: 18rem; height: 2rem"><img
                         src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24' alt="gwa"> Display
                 </button>
-                <button class="settingsButton" style="height: 2rem; width: 2rem; margin-left: 0.5rem"
+                <button class="setting" style="height: 2rem; width: 2rem; border-left: none;"
                         onclick="gwaifyExplain()">I
                 </button>
             </div>
         </div>
+        <div class="tab" id="settingsPopupSubPage"></div>
         <div class="tab" id="techSubPage">
             <button class="settingsButton" id="settingsToggle14" onclick="settingsToggle(14)"
                     style="width: 24rem"></button>
@@ -711,12 +662,12 @@
 </div>
 <div id="sidebar1">
     <div class="desktopOnly">
-        <button class="prestigeButton" id="factorShiftButton" onclick="data.sToggles[3]?factorShiftConfirm():factorShift()"
+        <button class="prestigeButton" id="factorShiftButton" onclick="getSimpleSetting('shiftConfirmation')?factorShiftConfirm():factorShift()"
                 style="color: goldenrod; width: 100%; height: 3rem;">
             Perform a Factor Shift
         </button>
         <button class="prestigeButton" id="factorBoostButton"
-                onclick="data.sToggles[4]&&(data.collapse.times > 0 || data.boost.times < 33)?createConfirmation('Are you sure?', 'Performing a Factor Boost will reset your Ordinal, Ordinal Powers, Factors, Automation, Base, and Dynamic Factor in exchange for some Boosters!', 'No Way!', 'Yes, lets do this.', boost):boost()"
+                onclick="getSimpleSetting('boostConfirmation')&&(data.collapse.times > 0 || data.boost.times < 33)?createConfirmation('Are you sure?', 'Performing a Factor Boost will reset your Ordinal, Ordinal Powers, Factors, Automation, Base, and Dynamic Factor in exchange for some Boosters!', 'No Way!', 'Yes, lets do this.', boost):boost()"
                 style="color: #8080FF;">
             Perform a Factor Boost
         </button>

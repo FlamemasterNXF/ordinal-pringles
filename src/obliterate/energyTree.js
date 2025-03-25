@@ -161,7 +161,7 @@ function purchaseTreeUpgrade(id, node){
 }
 
 function energyRespecConfirm(){
-    if(!data.sToggles[16]) return respecEnergyTree()
+    if(!getSimpleSetting('eupRespecConfirmation')) return respecEnergyTree()
     createConfirmation('Are you certain?', 'This will force an Obliteration reset!', 'Nope!', 'Yeah', respecEnergyTree)
 }
 function respecEnergyTree(){

@@ -153,7 +153,7 @@ function initPringles(){
         DOM(`pringle${i}`).addEventListener("mouseenter", (e) => displayPringleButton(e, pringleData[i], i))
         DOM(`pringle${i}`).addEventListener("click", () => buyPringle(pringleData[i], i))
         DOM(`pringle${i}`).style.border = `2px solid ${pringleData[i].color}`
-        if(data.sToggles[18]) DOM(`pringle${i}`).innerText = `${i}`
+        if(data.settings.noColorPringles) DOM(`pringle${i}`).innerText = `${i}`
     }
 }
 

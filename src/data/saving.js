@@ -91,6 +91,8 @@ function fixOldSaves(){
     //AutoShift Fix
     if(data.markup.shifts > 7) data.markup.shifts = 7
 
+    if(data.loadedVersion !== "0.4.4") data.nav.subtabs.settings = 'settingsGame'
+
     if(data.loadedVersion === "0.4b7"){
         data.obliterate.instability = data.obliterate.times
         data.loadedVersion = "0.4b7p2"
@@ -168,7 +170,7 @@ function fixOldSaves(){
         if (data.chal.completions[7] > 0) data.chal.completions[7] = 0
         extra = true
     }
-    if (data.offline !== true && data.offline !== false) data.offline = true
+    //if (data.offline !== true && data.offline !== false) data.offline = true
     // v0.0.4 => v0.0.5+
     if (data.chal.completions[0] > 0 && data.chal.totalCompletions === 0){
         for (let i = 0; i < data.chal.completions.length; i++) {

@@ -87,7 +87,7 @@ function initStabilityHTML(){
         respec.className = 'stabilityRespec'
         respec.id = `stabilityRespec${i}`
         respec.innerText = `Reset your ${stableEnergyData[i].name} Energy, regaining your ${ i === 0 ? 'Fractal' : stableEnergyData[i-1].name} Energy`
-        respec.onclick = () => respecStability(i)
+        respec.onclick = () => confirmStabilityRespec(i)
         container.appendChild(respec)
 
         bigContainer.appendChild(container)
@@ -112,6 +112,11 @@ function buyStability(i){
 
     ++data.stability.energy[i]
     updateStabilityHTML(i)
+}
+
+function confirmStabilityRespec(i){
+    if(!getSimpleSetting('stabilizationRespecConfirmation')) return respecStability(i)
+    createConfirmation('Are you certain?', 'This will force a Collapse reset!', 'Nope!', 'Yeah', respecStability, i)
 }
 
 function respecStability(i){

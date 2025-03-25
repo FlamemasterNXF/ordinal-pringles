@@ -17,7 +17,7 @@ const defaultSubTabs = {
     "collapse": "cardinals",
     "realm": "realmUpgrades",
     "obliterate": "pringles",
-    "settings": "gameSettings",
+    "settings": "settingsGame",
 }
 
 function switchSubtab(tab, mode){

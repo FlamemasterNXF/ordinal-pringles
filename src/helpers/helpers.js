@@ -89,3 +89,12 @@ function customRoot(num, root, minValue = 1){
     return val
 }
 
+function updateGwaHTML(){
+    const color = data.gword.enabled ? '#2da000' : '#ce0b0b'
+    DOM(`gwaifyToggle`).innerHTML = `<img src='https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24'> Display <span style="color: ${color}">${formatBool(data.gword.enabled)}</span>`
+}
+function gwaToggle() {
+    data.gword.enabled = !data.gword.enabled
+    updateGwaHTML()
+}
+

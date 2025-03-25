@@ -1,28 +1,28 @@
-let ordinalDisplayTrim = (n=1) => (data.ord.displayType === "BMS" || data.ord.displayType === "Y-Sequence") ? data.ord.trim : n
+let ordinalDisplayTrim = (n=1) => (data.settings.ordinalDisplayMode === "BMS" || data.settings.ordinalDisplayMode === "Y-Sequence") ? data.ord.trim : n
 
 // The entry point for Ordinal Display
 function ordinalDisplay(type='', ord=data.ord.ordinal, over=data.ord.over, base=data.ord.base, trim=data.ord.trim, d=true, forcePsi=false) {
     let ordinal = "Oops! You shouldn't see this!"
 
-    if(data.ord.displayType === "Buchholz"){
+    if(data.settings.ordinalDisplayMode === "Buchholz"){
         ordinal = d
             ? displayOrd(ord, Math.floor(over), base, trim, forcePsi)
             : displayInfiniteOrd(ord, Math.floor(over), base, trim)
     }
 
-    if(data.ord.displayType === "Veblen"){
+    if(data.settings.ordinalDisplayMode === "Veblen"){
         ordinal = d
             ? displayVeblenOrd(ord, Math.floor(over), base, trim, forcePsi)
             : displayInfiniteVeblenOrd(ord, Math.floor(over), base, trim)
     }
 
-    if(data.ord.displayType === "BMS"){
+    if(data.settings.ordinalDisplayMode === "BMS"){
         ordinal = d
             ? displayBMSOrd(ord, Math.floor(over), base, trim, 0, true, forcePsi)
             : displayInfiniteBMSOrd(ord, Math.floor(over), base, trim)
     }
 
-    if(data.ord.displayType === "Y-Sequence"){
+    if(data.settings.ordinalDisplayMode === "Y-Sequence"){
         ordinal = d
             ? displayYSeqOrd(ord, Math.floor(over), base, trim, 0, true, forcePsi)
             : displayInfiniteYSeqOrd(ord, Math.floor(over), base, trim)
@@ -39,19 +39,18 @@ function ordinalDisplay(type='', ord=data.ord.ordinal, over=data.ord.over, base=
 function changeTrim(x){
     if (isNaN(Math.floor(x))) return showNotification('Invalid Input!')
     data.ord.trim = Math.floor(x)
-    DOM(`changeOrdLength`).children[0].innerHTML = `[${data.ord.trim}]`
 }
 
 // Updates the Ordinal's HTML
 function updateOrdHTML(){
-    if(!data.sToggles[13] && (data.ord.isPsi || calculateSimpleHardy().gte(Number.MAX_VALUE))) {
-        if(data.ord.color){
+    if(!data.settings.bigHardy && (data.ord.isPsi || calculateSimpleHardy().gte(Number.MAX_VALUE))) {
+        if(data.settings.ordinalColorMode === 'Shifting'){
             let date = Date.now()/100
             return DOM("ordinal").innerHTML = `${colorWrap(ordinalDisplay("H"), HSL(date))} ${colorWrap(`(${data.ord.base})`, HSL(date))}`
         }
         return DOM("ordinal").innerHTML = `${ordinalDisplay("H")} (${data.ord.base})`
     }
-    if(data.ord.color){
+    if(data.settings.ordinalColorMode === 'Shifting'){
         let date = Date.now()/100
         return DOM(`ordinal`).innerHTML = `${colorWrap(`${ordinalDisplay("H")} (${data.ord.base})=${(getHardy(data.ord.ordinal, data.ord.over, data.ord.base))}`, HSL(date))}`
     }
@@ -63,25 +62,25 @@ function displayOrdMarks(x){
 
     x = D(Decimal.floor(D(x).add(0.000000000001)))
 
-    if(data.ord.displayType === "Buchholz"){
+    if(data.settings.ordinalDisplayMode === "Buchholz"){
         ordMark = x.lt(ordMarks.length)
             ? ordMarks[x.toNumber()].replace(/x/, '').replace(/y/, 'ω')
             : infiniteOrdMarks(x).replace(/x/, '').replace(/y/, 'ω')
     }
 
-    if(data.ord.displayType === "Veblen"){
+    if(data.settings.ordinalDisplayMode === "Veblen"){
         ordMark = x.lt(ordMarks.length)
             ? ordMarksVeblen[x.toNumber()].replace(/x/, '0').replace(/y/, 'φ(1)')
             : infiniteOrdMarksVeblen(x).replace(/x/, '0').replace(/y/, 'φ(1)')
     }
 
-    if(data.ord.displayType === "BMS"){
+    if(data.settings.ordinalDisplayMode === "BMS"){
         ordMark = x.lt(ordMarks.length)
             ? ordMarksBMS[x.toNumber()]
             : infiniteOrdMarksBMS(x)
     }
 
-    if(data.ord.displayType === "Y-Sequence"){
+    if(data.settings.ordinalDisplayMode === "Y-Sequence"){
         ordMark = x.lt(ordMarks.length)
             ? ordMarksBMS[x.toNumber()]
             : infiniteOrdMarksBMS(x)
@@ -93,6 +92,6 @@ function displayOrdMarks(x){
 }
 
 function displayBoostReq(n = data.boost.times){
-    if (n < 33) return ordinalDisplay('', boostReq(n), data.ord.over, data.ord.base, ((data.ord.displayType === "BMS") || (data.ord.displayType === "Y-Sequence")) ? Math.max(data.ord.trim, 3) : 3, true, true)
+    if (n < 33) return ordinalDisplay('', boostReq(n), data.ord.over, data.ord.base, ((data.settings.ordinalDisplayMode === "BMS") || (data.settings.ordinalDisplayMode === "Y-Sequence")) ? Math.max(data.ord.trim, 3) : 3, true, true)
     return displayOrdMarks(n + 7)
 }

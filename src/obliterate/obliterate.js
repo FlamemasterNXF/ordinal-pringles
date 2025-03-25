@@ -16,7 +16,7 @@ function getObliterateReq(n = data.obliterate.times){
 }
 
 function obliterateConfirm(){
-    if(!data.sToggles[15]) return obliterate()
+    if(!getSimpleSetting('obliterationConfirmation')) return obliterate()
     if(data.obliterate.times === 0)
         createConfirmation('Are you absolutely certain?', `Obliterating will reset EVERYTHING prior in exchange for ONE Fractal Energy. There is no going back, but new content will be unlocked to make your Ordinal grow faster than ever.`, 'No Way!', 'To the Future!', obliterate)
     else
@@ -43,7 +43,7 @@ function obliterateReset(){
     data.collapse.alephs = Array(alephData.length).fill(D(0))
     data.collapse.hasCUP = Array(8).fill(false)
     data.collapse.hasSluggish = Array(5).fill(false)
-    if(data.sToggles[20]) data.collapse.apEnabled = Array(3).fill(false)
+    if(getSimpleSetting('obliterationAutomationDisable')) data.collapse.apEnabled = Array(3).fill(false)
 
     data.darkness.negativeCharge = 0
     data.darkness.sacrificedCharge = 0
@@ -114,7 +114,7 @@ function obliterateReset(){
 
     collapseReset()
 
-    if(data.sToggles[20]){
+    if(getSimpleSetting('obliterationAutomationDisable')){
         for (let i = 0; i < data.autoStatus.enabled.length; i++) {
             data.autoStatus.enabled[i] = false
         }

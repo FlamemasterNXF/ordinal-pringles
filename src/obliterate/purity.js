@@ -38,7 +38,7 @@ function setupPurityPoint(i, point){
     if(isPurityPointUnlocked(i)) point.style.borderColor = '#949494'
     if(isPurityPointAssigned(i)){
         point.style.borderColor = pringleData[data.purity.assignment[i]].color
-        if(data.sToggles[18]) point.innerText = `${data.purity.assignment[i]}`
+        if(data.settings.noColorPringles) point.innerText = `${data.purity.assignment[i]}`
     }
 
     point.addEventListener('mouseover', (e) => displayPringleButton(e, null, i, 'pringleButton'))
@@ -77,14 +77,14 @@ function assignPringle(i, type, skipUpdate = false){
             data.purity.isAssigned[i] = true
             data.purity.assignment[i] = data.purity.pringleQueued
             DOM(`purityPoint${i}`).style.borderColor = pringleData[data.purity.pringleQueued].color
-            if(data.sToggles[18]) DOM(`purityPoint${i}`).innerText = `${data.purity.assignment[i]}`
+            if(data.settings.noColorPringles) DOM(`purityPoint${i}`).innerText = `${data.purity.assignment[i]}`
             data.purity.pringleQueued = -1
         }
         updatePurityText(i)
     }
     if(type === 2){
         DOM(`purityPoint${i}`).style.borderColor = '#949494'
-        if(data.sToggles[18]) DOM(`purityPoint${i}`).innerText = ''
+        if(data.settings.noColorPringles) DOM(`purityPoint${i}`).innerText = ''
         data.purity.isAssigned[i] = false
         data.purity.assignment[i] = false
         if(!skipUpdate) updatePurityText(i)

@@ -14,7 +14,7 @@ function getDefaultPlayer() {
             current: "ord",
             subtabs: defaultSubTabs,
         },
-        ord: {ordinal:D(1), over:D(0), base:10, trim: 5, isPsi: false, color:false, displayType: 'Buchholz'},
+        ord: {ordinal:D(1), over:D(0), base:10, trim: 5, isPsi: false},
         markup: {powers:D(0), shifts:0},
         factors: Array(7).fill(0),
         dy: {level:D(1), gain:D(0)},
@@ -35,7 +35,7 @@ function getDefaultPlayer() {
         stability: { energy:Array(3).fill(0) },
 
         autoStatus: {enabled: Array(9).fill(false)},
-        sToggles: settingsDefaults,
+        settings: {},
         successorClicks: 0,
         lastTick: 0,
         achs: Array(achievements.length).fill(false),

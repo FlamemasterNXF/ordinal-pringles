@@ -29,7 +29,7 @@ const uHTML = {
         updateDynamicShiftHTML()
 
         //Load Settings
-        loadSettings()
+        initSettings()
         DOM(`versionText`).innerText = `You're playing Ordinal Pringles v${VERSION}: ${VERSION_NAME}\n Last Update: ${VERSION_DATE}`
 
         //Initialize all Tabs
@@ -50,6 +50,7 @@ const uHTML = {
         initPringleAlchemy()
         initPurityPlane()
         initStabilityHTML()
+        updateGwaHTML()
 
         //Load Tab Displays
         switchTab(data.nav.current)
