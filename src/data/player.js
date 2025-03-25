@@ -43,7 +43,6 @@ function getDefaultPlayer() {
         isBeta: IS_BETA,
         offline: true,
         gword: {unl: false, enabled: false},
-        ms: 50,
     }
 }
 let data = getDefaultPlayer()

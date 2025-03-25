@@ -11,7 +11,7 @@ function doDepthThreeEffect(){
 function mainLoop() {
     // Calculate diff and usableDiff
     if(data.lastTick === 0) data.lastTick = Date.now()
-    let diff = getSimpleSetting('offlineProgress') ? Math.max((Date.now() - data.lastTick), 0) : data.ms
+    let diff = getSimpleSetting('offlineProgress') ? Math.max((Date.now() - data.lastTick), 0) : 50
     // Used for Offline Progress
     let uDiff = diff/1000
 
@@ -80,5 +80,5 @@ window.onload = function () {
 
     window.setInterval(function () {
         mainLoop()
-    }, data.ms);
+    }, 50);
 }
