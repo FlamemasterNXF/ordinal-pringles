@@ -607,7 +607,7 @@
             <button class="settingsTabButton" id="galaxyTab" onclick="switchSubtab('galaxy', 'settings')"
                     style="margin-left: 0.5rem; border-color: #7e6085; color: #ae6cc5">Cloud
             </button>
-            <button class="settingsTabButton" id="technicalTab" onclick="switchSubtab('tech', 'settings')"
+            <button class="settingsTabButton" id="technicalTab" onclick="switchSubtab('settingsTech', 'settings')"
                     style="margin-left: 0.5rem; border-color: #501900; color: #c93e00">Advanced
             </button>
         </div>
@@ -625,24 +625,19 @@
             </div>
         </div>
         <div class="tab" id="settingsPopupSubPage"></div>
-        <div class="tab" id="techSubPage">
-            <button class="settingsButton" id="settingsToggle14" onclick="settingsToggle(14)"
-                    style="width: 24rem"></button>
-            <button class="settingsButton" id='changeMsInterval'
-                    onclick="createPrompt('Input New Millisecond Interval (20≤x≤1000)', changeMs, true)"
-                    style="width: 24rem">Change Millisecond Interval <span style="color: #8080FF">[50ms]</span></button>
-            <span class="centeredTexts" style="margin-top: 1rem; font-family: DosisBold, serif; color: darkred">Changing these could have unintended consequences!!!</span>
+        <div class="tab" id="settingsTechSubPage">
+            <span class="centeredTexts" style="font-family: DosisBold, serif; color: darkred">Changing these could have unintended consequences!!!</span>
         </div>
         <div class="tab" id="savingSubPage">
-            <button class="settingsButton" onclick="save()">Manual Save</button>
-            <button class="settingsButton" onclick="copySaveToClipboard()">Export your Save</button>
-            <button class="settingsButton" onclick="downloadSave()">Download your Save</button>
-            <button class="settingsButton" onclick="createPrompt('Import SaveData', importSave, true)">Import your
+            <button class="setting" onclick="save()">Manual Save</button>
+            <button class="setting" onclick="copySaveToClipboard()">Export your Save</button>
+            <button class="setting" onclick="downloadSave()">Download your Save</button>
+            <button class="setting" onclick="createPrompt('Import SaveData', importSave, true)">Import your
                 Save
             </button>
-            <button class="settingsButton"
+            <button class="setting"
                     onclick="createConfirmation('Are you sure?', 'Are you absolutely sure you want to do this?\nThis will export your save (just in case) but delete your save from LocalStorage.', 'No Way!', 'Yes, I understand the consequences.', fullReset)"
-                    style="color: red">Delete your Save
+                    style="color: #a47575; border-color: #563c3c">Delete your Save
             </button>
         </div>
         <div class="tab" id="galaxySubPage">

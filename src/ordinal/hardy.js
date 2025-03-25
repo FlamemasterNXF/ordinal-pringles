@@ -638,7 +638,7 @@ function calculateSimpleHardy(ord = data.ord.ordinal, over = data.ord.over, base
     return value
 }
 
-let useExpantaNum = () => data.sToggles[14]
+let useExpantaNum = () => getSimpleSetting('useExpanta')
 
 // Get the Hardy Value for Display
 function getHardy(ord = data.ord.ordinal, over = data.ord.over, base = data.ord.base, isPsi = data.ord.isPsi) {

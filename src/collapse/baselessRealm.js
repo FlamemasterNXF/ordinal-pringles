@@ -573,7 +573,7 @@ function completeRealmChallenge(){
         controlRealmChallenge()
         ++data.baselessRealm.completions[temp]
         updateRealmChalHTML(temp)
-        /*if(data.sToggles[2])*/ createAlert("Baseless Challenge Complete!", `You have Completed Baseless Challenge ${temp+1}x${getRealmChallengeCompletions(temp)}!`, 'Awesome!')
+        if(getSimpleSetting('baselessChallengePopup')) createAlert("Baseless Challenge Complete!", `You have Completed Baseless Challenge ${temp+1}x${getRealmChallengeCompletions(temp)}!`, 'Awesome!')
     }
 }
 

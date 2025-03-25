@@ -37,7 +37,7 @@ function inNonPsiChallenge() {
 
 function getTargetBoost() {
     if (data.boost.times >= boostLimit()) return data.boost.times
-    return Math.min(data.boost.times + getBulkBoostAmt() - (data.ord.ordinal.lt(boostReq()) || !data.sToggles[7] ? 1 : 0), boostLimit() - 1)
+    return Math.min(data.boost.times + getBulkBoostAmt() - (data.ord.ordinal.lt(boostReq()) || !getSimpleSetting('bulkBoosting') ? 1 : 0), boostLimit() - 1)
 }
 function getTargetOrdinal() {
     if (data.chal.html !== -1) {
