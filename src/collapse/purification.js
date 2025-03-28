@@ -36,7 +36,7 @@ const aoRebuyableData = [
         costBase: 50,
         symbol: 'x',
         req: () => true,
-        extraLevels: () => anRebuyableData[4].eff()
+        extraLevels: () => getNormalANREffect(3, true)
     },
     {
         desc: "Boost ℵ<sub>&omega;</sub> gain",
@@ -52,7 +52,7 @@ const aoRebuyableData = [
         costBase: 125,
         symbol: '/',
         req: () => inPurification(1),
-        extraLevels: () => anRebuyableData[4].eff()
+        extraLevels: () => getNormalANREffect(3, true)
     },
     {
         desc: "Double the amount of Boosters gained in an Eternal Boost",
@@ -60,7 +60,7 @@ const aoRebuyableData = [
         costBase: 150,
         symbol: 'x',
         req: () => inPurification(0),
-        extraLevels: () => anRebuyableData[4].eff()+getEUPEffect(2, 6, true)
+        extraLevels: () => getNormalANREffect(3, true)+getEUPEffect(2, 6, true)
     },
     {
         desc: "ℵ<sub>&omega;</sub> multiplies AutoBuyer speed while Purification of Obscurity or Inferiority are active",
@@ -68,7 +68,7 @@ const aoRebuyableData = [
         costBase: 200,
         symbol: 'x',
         req: () => inPurification(2) || inPurification(3),
-        extraLevels: () => anRebuyableData[4].eff()
+        extraLevels: () => getNormalANREffect(3, true)
     },
     {
         desc: "ℵ<sub>&omega;</sub> boosts Purification of Inferiority's effects",

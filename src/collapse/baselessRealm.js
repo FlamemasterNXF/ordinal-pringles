@@ -121,7 +121,7 @@ let realmChallengeData = [
         hasInnerEffect: false,
     },
     {
-        desc: 'All boosts from outside of Baseless Realms are useless',
+        desc: 'All boosts from outside of Baseless Realms except the 2nd Aleph Null Rebuyable are useless',
         effectDesc: 'Reward: Factors boost Dynamic gain EVERYWHERE',
         sign: 'x',
         eff: () => Math.pow(totalFactorEffect(), 2),

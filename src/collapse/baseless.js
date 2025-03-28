@@ -1,66 +1,3 @@
-function initANRebuyables(){
-    const container = DOM('anRebuyableContainer')
-    for (let i = 0; i < data.baseless.anRebuyables.length/5; i++) {
-        let row = document.createElement('div')
-        row.className = `aoRow`
-        row.id = `anRRow${i}`
-        for (let j = 0; j < 5; j++ ){
-            let id = i*5+j
-            let el = document.createElement('button')
-            el.className = 'anRebuyable'
-            el.id = `anR${id}`
-            el.addEventListener("click", ()=>buyANR(id))
-            row.append(el)
-        }
-        container.append(row)
-    }
-    for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
-        updateANRHTML(i)
-    }
-    initBaselessRealm()
-}
-
-function updateAlephNullHTML(){
-    DOM(`alephNull`).innerHTML = ``
-}
-function updateDynamicShiftHTML(){
-    if(data.baseless.baseless){
-        DOM(`dynamicShift`).innerHTML = data.baseless.shifts < 7
-            ? `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br>Requires: &omega;<sup>&omega;</sup></span><br>This will unlock Factor ${data.baseless.shifts+1}, perform a Factor Shift reset, multiply your ℵ<sub>0</sub> gain multiplier by ${format(dynamicShiftMultipliers[0](data.baseless.shifts+1))}, multiply your Dynamic gain by ${format(dynamicShiftMultipliers[1](data.baseless.shifts+1))}, and <span style="color: darkred">double your Base</span>`
-            : `Perform a <span style="color: darkred; font-size: 1rem"">Baseless Shift</span><br>The Future Remains Unknown`
-    }
-    else {
-        DOM(`dynamicShift`).innerHTML = `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br><span style="font-size: 0.9rem">You must be in a Baseless Realm to perform a Baseless Shift</span><br>`
-    }
-}
-function updateANRHTML(i){
-    DOM(`anR${i}`).innerHTML = `<span style="color: #ce5c0b">${anRebuyableData[i].desc} (${formatWhole(getANRLevels(i))})</span><br>Requires: ${format(getANRCost(i))} ℵ<sub>0</sub><br>Currently: ${anRebuyableData[i].symbol !== 'x' ? anRebuyableData[i].symbol : ''}${format(i==0?getANREffect(i, false):getANREffect(i))}${anRebuyableData[i].symbol === 'x' ? anRebuyableData[i].symbol : ''}`
-}
-function updateAllANRHTML(){
-    for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
-        updateANRHTML(i)
-    }
-    checkANRUnlockHTML()
-}
-function checkANRUnlockHTML(){
-    for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
-        DOM(`anR${i}`).style.display = anRebuyableData[i].unl() ? `block` : `none`
-    }
-}
-
-function updateBaselessEnterHTML(id, load=false) {
-    if(data.baseless.baseless && !load){
-        DOM(`baseless`).children[1].selectedIndex = data.baseless.mode
-        return showNotification('You cannot change the Realm you\'re already in!')
-    }
-    if(load){
-        DOM(`baseless`).children[1].selectedIndex = data.baseless.mode
-    }
-
-    data.baseless.mode = id
-    DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${getBaselessLock(id)}</span>, but Baseless Shifts and Boosters will be accessible and Baseless Shifts will boost ℵ<sub>0</sub> gain by ${getBaselessMult(id)}x`
-}
-
 const baselessRealmData = [
     {
         name: 'Baseless',
@@ -79,50 +16,185 @@ const baselessRealmData = [
     },
 ]
 
-const anRebuyableData = [
+const metaANBuyableData = [
     {
-        desc: "Cardinals boost AutoClickers while in a Baseless Realm",
-        eff: () => (data.collapse.cardinals.pow(2)).times(getANRLevels(0)),
-        costBase: 1e3,
-        symbol: 'x',
-        unl: () => true,
-        freeLevels: () => getEUPEffect(1, 0, true)
+        desc: "Boost all Realm Enhancements",
+        sign: '^',
+        effect: () => D(1).plus(getANRLevel(0, 'meta')/100),
+        baseEffect: () => D(1),
+        //costBase: 1e6,
     },
     {
-        desc: "Boost the Total Charge boost to Baseless Realms",
-        eff: () => getANRLevels(1)+1,
-        costBase: 1e6,
-        symbol: '^',
-        unl: () => true,
-        freeLevels: () => 0
-    },
-    {
-        desc: "Increase the Decrementy gain exponent",
-        eff: () => (0.1*getANRLevels(2))+(getPringleEffect(5, true))+(getEUPEffect(1, 2, true)),
-        costBase: 1e4,
-        symbol: '+',
-        unl: () => true,
-        freeLevels: () => 0
-    },
-
-    // Unlocked by a Remnant / Beth Omega Milestone
-    {
-        desc: "ℵ<sub>0</sub> boosts both Hierarchy Successors",
-        eff: () => Math.sqrt(data.baseless.alephNull)*getANRLevels(3),
-        costBase: 1e9,
-        symbol: 'x',
-        unl: () => hasAOMilestone(4),
-        freeLevels: () => 0
-    },
-    {
-        desc: "Provide a free level of the 1st, 3rd, 4th, and 5th ℵ<sub>&omega;</sub> Rebuyables",
-        eff: () => getANRLevels(4) > 0 ? getANRLevels(4) : 0,
-        costBase: 1e11,
-        symbol: '+',
-        unl: () => hasAOMilestone(4),
-        freeLevels: () => 0
+        desc: "Total Baseless Boosters boost AutoClicker speed",
+        sign: '^',
+        effect: () => D(1).plus(Decimal.log10((data.baselessRealm.total+1)/100).times(getANRLevel(1, 'meta'))),
+        baseEffect: () => D(1),
+        //costBase: 1e6,
     },
 ]
+
+const normalANBuyableData = [
+    {
+        desc: "Increase the Decrementy gain exponent",
+        sign: '+',
+        effect: () => D(0.1*getANRLevel(0, 'normal')).plus(getPringleEffect(5)).plus(getEUPEffect(1, 2, true)),
+        //costBase: 1e4,
+    },
+    {
+        desc: "Increase the RUP1 effect base",
+        sign: '+',
+        effect: () => D(getANRLevel(1, 'normal')),
+        //costBase: 1e4,
+    },
+    {
+        desc: "Gain a free level of every Darkness Rebuyable",
+        sign: '+',
+        effect: () => D(getANRLevel(2, 'normal')),
+        //costBase: 1e4,
+    },
+    {
+        desc: "Gain a free leve of the 1st, 3rd, 4th, and 5th ℵ<sub>&omega;</sub> Rebuyables",
+        sign: '+',
+        effect: () => D(getANRLevel(3, 'normal')),
+        //costBase: 1e4,
+        unlockReq: () => hasAOMilestone(4),
+    },
+]
+
+const alephNullEffectData = [
+    {
+        desc: 'increasing every other ℵ\'s amount by',
+        sign: '+',
+        effect: () => data.baseless.alephNull,
+        baseEffect: () => 0,
+    },
+    {
+        desc: 'multiplying every other ℵ\'s effect by',
+        sign: 'x',
+        effect: () => Math.sqrt(data.baseless.alephNull),
+        baseEffect: () => 1,
+    },
+    {
+        desc: 'multiplying both Hierarchy Successors by',
+        sign: 'x',
+        effect: () => customRoot(data.baseless.alephNull, 4),
+        baseEffect: () => 1,
+        unlockReq: () => hasAOMilestone(4)
+    },
+]
+
+const realmEnhancementData = [
+    {
+        name: 'Total Charge',
+        amount: () => data.incrementy.totalCharge,
+        effect: () => data.incrementy.totalCharge**2
+    },
+    {
+        name: 'Cardinals',
+        amount: () => data.collapse.cardinals,
+        effect: () => Math.sqrt(data.collapse.cardinals)
+    }
+]
+
+function initANRebuyables(){
+    const metaContainer = DOM('metaANRROW')
+    const normalContainer = DOM('normalANRROW')
+    for (let i = 0; i < metaANBuyableData.length; i++) {
+        let el = document.createElement('button')
+        el.className = 'metaANR'
+        el.id = `metaANR${i}`
+        el.innerHTML = makeANRText(i, 'meta')
+        el.addEventListener("click", ()=>buyANR(i, 'meta'))
+        metaContainer.append(el)
+    }
+    for (let i = 0; i < normalANBuyableData.length; i++) {
+        let el = document.createElement('button')
+        el.className = 'normalANR'
+        el.id = `normalANR${i}`
+        el.innerHTML = makeANRText(i, 'normal')
+        el.addEventListener("click", ()=>buyANR(i, 'normal'))
+        normalContainer.append(el)
+    }
+
+    initBaselessRealm()
+}
+
+function updateAlephNullHTML(){
+    DOM(`alephNull`).innerHTML = ``
+}
+function updateDynamicShiftHTML(){
+    if(data.baseless.baseless){
+        DOM(`dynamicShift`).innerHTML = data.baseless.shifts < 7
+            ? `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br>Requires: &omega;<sup>&omega;</sup></span><br>This will unlock Factor ${data.baseless.shifts+1}, perform a Factor Shift reset, multiply your ℵ<sub>0</sub> gain multiplier by ${format(dynamicShiftMultipliers[0](data.baseless.shifts+1))}, multiply your Dynamic gain by ${format(dynamicShiftMultipliers[1](data.baseless.shifts+1))}, and <span style="color: darkred">double your Base</span>`
+            : `Perform a <span style="color: darkred; font-size: 1rem"">Baseless Shift</span><br>The Future Remains Unknown`
+    }
+    else {
+        DOM(`dynamicShift`).innerHTML = `<span style="font-size: 1rem">Perform a <span style="color: darkred">Baseless Shift</span> (H)<br><span style="font-size: 0.9rem">You must be in a Baseless Realm to perform a Baseless Shift</span><br>`
+    }
+}
+
+function isAlephNullEffectLocked(i){
+    if(alephNullEffectData[i].unlockReq === undefined) return false
+    return !alephNullEffectData[i].unlockReq()
+}
+function makeAlephNullEffectText(){
+    let text = ''
+    for (let i = 0; i < alephNullEffectData.length; i++) {
+        if(isAlephNullEffectLocked(i)) continue
+        const isNextLocked = i + 1 === alephNullEffectData.length ? true : isAlephNullEffectLocked(i+1)
+        const leader = isNextLocked ? ', and ' : ', '
+        text += `${leader}${getAlephNullEffectText(i)} <span style="color: #ff4400">${format(getAlephNullEffect(i))}</span>`
+    }
+    return text
+}
+
+function makeRealmEnhancementText(){
+    let text = ''
+    for (let i = 0; i < realmEnhancementData.length; i++) {
+        text += `<br>You have <span style="color: goldenrod">${format(getRealmEnhancementAmount(i))} ${getRealmEnhancementText(i)}</span>, multiplying AutoClicker speed in the Realms by <span style="color: goldenrod">${format(getRealmEnhancement(i))}x</span>`
+    }
+    return text
+}
+
+function makeANRText(i, type){
+    return `<span style="color: #ce5c0b">${getANRText(i, type)} (${formatWhole(getANRLevel(i, type))})</span><br>Requires: ${format(getANRCost(i, type))} ℵ<sub>0</sub><br>Currently: ${formatSign(getANREffect(i, type), getANRSign(i, type))}`
+}
+
+function updateANRHTML(i, type){
+    DOM(`${type}ANR${i}`).innerHTML = makeANRText(i, type)
+}
+function updateAllANRHTML(){
+    for (let i = 0; i < metaANBuyableData.length; i++) {
+        updateANRHTML(i, 'meta')
+    }
+    for (let i = 0; i < normalANBuyableData.length; i++) {
+        updateANRHTML(i, 'normal')
+    }
+    checkANRUnlockHTML()
+}
+function checkANRUnlockHTML(){
+    for (let i = 0; i < metaANBuyableData.length; i++) {
+        if(metaANBuyableData[i].unlockReq === undefined) continue
+        DOM(`metaANR${i}`).style.display = metaANBuyableData[i].unlockReq() ? `block` : `none`
+    }
+    for (let i = 0; i < normalANBuyableData.length; i++) {
+        if(normalANBuyableData[i].unlockReq === undefined) continue
+        DOM(`normalANR${i}`).style.display = normalANBuyableData[i].unlockReq() ? `block` : `none`
+    }
+}
+
+function updateBaselessEnterHTML(id, load=false) {
+    if(data.baseless.baseless && !load){
+        DOM(`baseless`).children[1].selectedIndex = data.baseless.mode
+        return showNotification('You cannot change the Realm you\'re already in!')
+    }
+    if(load){
+        DOM(`baseless`).children[1].selectedIndex = data.baseless.mode
+    }
+
+    data.baseless.mode = id
+    DOM(`baseless`).children[2].innerHTML = `<br><br>You will be trapped in <span style="color: darkred">Base ${getBaselessLock(id)}</span>, but Baseless Shifts and Boosters will be accessible and Baseless Shifts will boost ℵ<sub>0</sub> gain by ${getBaselessMult(id)}x`
+}
 
 function baselessControl(){
     const gain = data.baseless.baseless ? getAlephNullGain() : 0
@@ -165,10 +237,12 @@ function dynamicShift(){
     updateDynamicShiftHTML()
 }
 
-function buyANR(i){
-    if(data.baseless.alephNull < getANRCost(i)) return
-    ++data.baseless.anRebuyables[i]
-    updateANRHTML(i)
+function buyANR(i, type){
+    if(data.baseless.alephNull < getANRCost(i, type)) return
+
+    if(type === 'meta') ++data.baseless.metaANR[i]
+    if(type === 'normal') ++data.baseless.normalANR[i]
+    updateANRHTML(i, type)
     updateAlephNullHTML()
 }
 
@@ -177,14 +251,29 @@ let dynamicShiftMultipliers = [
     (i = data.baseless.shifts) => Math.max(1, 1000**(i+data.baseless.mode))
 ]
 
-let getAlephNullGain = () =>  Math.max(1, Decimal.log10(Decimal.max(data.ord.ordinal,1)).toNumber()
-    *dynamicShiftMultipliers[0]()*getAOEffect(1)*getPringleEffect(4, true)*getHyperchargeEffect(10))
-    *getRealmChallengeEffect(4)
+function getAlephNullGain(){
+    const base = Decimal.log10(Decimal.max(data.ord.ordinal, 1)).toNumber()
+    const multipliers = dynamicShiftMultipliers[0]()*getAOEffect(1)*getPringleEffect(4, true)
+        *getHyperchargeEffect(10)*getRealmChallengeEffect(4)
+    return Math.max(1, base*multipliers)
+}
 
-let alephNullEffects = [
-    () => Math.max(0, Math.log10(data.baseless.alephNull)/10)*(Math.max(1, getPringleEffect(5, true))),
-    () => Math.max(0, Math.floor(softcap(Math.log10(data.baseless.alephNull), 30, 0.5)))
-]
+function getAlephNullEffect(i){
+    const effectData = alephNullEffectData[i]
+    if(effectData.unlockReq === undefined) return Math.max(1, effectData.effect())
+    return effectData.unlockReq() ? effectData.effect() : 1
+}
+
+let getRealmEnhancement = (i) => Math.max(1, realmEnhancementData[i].effect()**getMetaANREffect(0, true))
+function getTotalRealmEnhancement(){
+    if(!isBaseless()) return 1
+
+    let mult = 1
+    for (let i = 0; i < realmEnhancementData.length; i++) {
+        mult *= getRealmEnhancement(i)
+    }
+    return mult
+}
 
 let getBaselesssName = (i) => baselessRealmData[i].name
 let getBaselessMult = (i) => baselessRealmData[i].multiplier
@@ -193,16 +282,38 @@ function getBaselessLock(i){
     return baselessRealmData[i].lock()
 }
 
-let chargeBoostToBaseless = (display = false) => data.baseless.baseless || display
-    ? Decimal.max(1, D(data.incrementy.totalCharge**10).times(getEUPEffect(1, 1)).pow(getANREffect(1)))
-    : 1
-let getANRCost = (i) => ((anRebuyableData[i].costBase/100+1)**data.baseless.anRebuyables[i])*anRebuyableData[i].costBase
-let getANREffect = (i, number = true) => {
-    if(number) return getANREffect(i, false).toNumber()
+function getANREffect(i, type, useNumber = true){
+    if(useNumber) return getANREffect(i, type,false).toNumber()
 
-    if(i === 2) return getANRLevels(2) > 0 && isTabUnlocked('baseless') ? D(anRebuyableData[i].eff()) : D(0)
+    const anrData = type === 'meta' ? metaANBuyableData[i] : normalANBuyableData[i]
+    const baseEffect = type === 'meta' ? anrData.baseEffect() : D(0)
 
-    if(!isTabUnlocked('baseless')) return D(1)
-    return Decimal.max(1, anRebuyableData[i].eff());
+    if(!isTabUnlocked('baseless')) return baseEffect
+    return Decimal.max(baseEffect, anrData.effect());
 }
-let getANRLevels = (i) => data.baseless.anRebuyables[i] + anRebuyableData[i].freeLevels()
+function getANRLevel(i, type){
+    if(type === 'meta') return data.baseless.metaANR[i]
+    if(type === 'normal') return data.baseless.normalANR[i]
+}
+function getANRCost(i, type){
+    if(type === 'meta') return 1//metaANBuyableData[i].cost()
+    if(type === 'normal') return 1//normalANBuyableData[i].cost()
+}
+
+function getANRText(i, type){
+    if(type === 'meta') return metaANBuyableData[i].desc
+    if(type === 'normal') return normalANBuyableData[i].desc
+}
+
+function getANRSign(i, type){
+    if(type === 'meta') return metaANBuyableData[i].sign
+    if(type === 'normal') return normalANBuyableData[i].sign
+}
+
+let getMetaANREffect = (i, useNumber) => getANREffect(i, 'meta', useNumber)
+let getNormalANREffect = (i, useNumber) => getANREffect(i, 'normal', useNumber)
+
+let getAlephNullEffectText = (i) => alephNullEffectData[i].desc
+
+let getRealmEnhancementText = (i) => realmEnhancementData[i].name
+let getRealmEnhancementAmount = (i) => realmEnhancementData[i].amount()

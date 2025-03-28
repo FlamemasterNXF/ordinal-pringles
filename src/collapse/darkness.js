@@ -235,21 +235,21 @@ let dupData = [
     {
         text: "Multiply AutoBuyer speed by 1.5x",
         sign: 'x',
-        extraLevels: () => 0,
+        extraLevels: () => getNormalANREffect(2),
         cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)),
         effect: ()=> isTabUnlocked('darkness') ? (1.5*purificationEffect(0))**(getTotalDUPLevels(0)) : 1
     },
     {
         text: 'Double Dynamic Cap',
         sign: 'x',
-        extraLevels: () => iup11Effect(),
+        extraLevels: () => iup11Effect()+getNormalANREffect(2),
         cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)),
         effect: ()=> isTabUnlocked('darkness') ? getTotalDUPLevels(1) : 1
     },
     {
         text: `Multiply both Hierarchy Effect exponents`,
         sign: 'x',
-        extraLevels: () => alephNullEffects[1](),
+        extraLevels: () => getNormalANREffect(2),
         cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)),
         effect: ()=> isTabUnlocked('darkness') ? 0.0175*getTotalDUPLevels(2)**2+1: 1
     }

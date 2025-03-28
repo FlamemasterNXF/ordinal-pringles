@@ -13,7 +13,7 @@ function updateCollapseHeaderHTML(){
         DOM('cardinalsText').innerHTML = `<span style="color: goldenrod">You have ${formatWhole(data.incrementy.charge)} Charge</span>${data.obliterate.times > 0 ? `<span style="color: #b87dd9">, ${data.stability.energy[0]} Stable Energy, and ${data.stability.energy[2]} Unbounded Energy</span>` : ''}<br><span style="font-size: 0.9rem; color: #8a8a8a">You have ${getStableHypercharges()} Stable Hypercharges, <span style="color: #20da45">raising Incrementy gain to the ${format(getStableHyperchargeEffect())}</span></span>`
     }
     else if(getSubtab('collapse') === 'baseless'){
-        DOM(`cardinalsText`).innerHTML = `<span style="color: #aa6000">You have <span style="color: #ff4400">${format(data.baseless.alephNull)} ℵ<sub>0</sub></span>, increasing the RUP1 effect base by <span style="color: #ff4400">${format(alephNullEffects[0]())}</span> and providing <span style="color: #ff4400">${format(alephNullEffects[1]())}</span> free levels of the third Darkness Buyable<br><span style="font-size: 1rem">You have <span style="color: goldenrod">${data.incrementy.totalCharge} Charge</span>, multiplying AutoClicker Speed in the Baseless Realms by <span style="color: goldenrod">${format(chargeBoostToBaseless(true))}x</span></span>`
+        DOM(`cardinalsText`).innerHTML = `<span style="color: #aa6000; font-size: 1rem;">You have <span style="color: #ff4400">${format(data.baseless.alephNull)} ℵ<sub>0</sub></span>${makeAlephNullEffectText()}<span style="font-size: 0.9rem; font-family: DosisLight, sans-serif">${makeRealmEnhancementText()}</span></span>`
     }
     else{
         DOM(`cardinalsText`).innerHTML = `You have ${format(data.collapse.cardinals)} Cardinals<br><span style="font-size: 0.8rem; color: #565656">Your best Collapse yielded <span style="color: #20da45">${format(data.collapse.bestCardinalsGained)}</span> Cardinals</span>`
@@ -57,7 +57,7 @@ function initAlephs(){
         let el = document.createElement('t')
         el.className = 'alephText'
         el.id = `aleph${i}`
-        el.innerHTML = `You have <span style='color:#20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></span>, ${alephData[i].text} <span style='color: #20da45'><b>${format(getAlephEffect(i))}x</b></span>`
+        el.innerHTML = `You have <span style='color:#20da45'><b>${format(getAlephAmount(i))} ℵ<sub>${i+1}</sub></b></span>, ${alephData[i].text} <span style='color: #20da45'><b>${format(getAlephEffect(i))}x</b></span>`
         container.append(el)
     }
 }
@@ -117,7 +117,7 @@ function initSluggish(){
 }
 
 function updateAlephHTML(i){
-    DOM(`aleph${i}`).innerHTML = `You have <span style='color: #20da45'><b>${format(data.collapse.alephs[i])} ℵ<sub>${i+1}</sub></b></span>, ${alephData[i].text} <span style='color: #20da45'><b>${format(getAlephEffect(i))}x</b></span>`
+    DOM(`aleph${i}`).innerHTML = `You have <span style='color: #20da45'><b>${format(getAlephAmount(i))} ℵ<sub>${i+1}</sub></b></span>, ${alephData[i].text} <span style='color: #20da45'><b>${format(getAlephEffect(i))}x</b></span>`
 }
 function updateAllAlephHTML(){
     for (let i = 0; i < data.collapse.alephs.length; i++) {
@@ -201,9 +201,14 @@ function cardinalGain(){
     return gain.pow(getEUPEffect(1, 5))
 }
 
-let getAlephEffect = (i) => data.collapse.alephs[i].gt(0) && (!inPurification(1) || i === 0) && alephData[i].unl()
-    ? alephData[i].effect().times((i !== 8 ? getCUPEffect(6, false) : 1)).times(getRealmChallengeEffect(0))
-    : D(1)
+let getAlephAmount = (i) => data.collapse.alephs[i].plus(getAlephNullEffect(0))
+
+function getAlephEffect(i){
+    if(getAlephAmount(i).eq(0) || (inPurification(1) && i !== 0) || !alephData[i].unl()) return D(1)
+    return alephData[i].effect().times(getCUPEffect(6, false)).times(getRealmChallengeEffect(0))
+        .times(getAlephNullEffect(1))
+}
+
 function getCUPEffect(i, number = true){
     if(number) return getCUPEffect(i, false).toNumber()
 
@@ -229,21 +234,21 @@ let drain1Effect = () =>
 function getTotalAlephs(){
     let total = D(0)
     for (let i = 0; i < data.collapse.alephs.length; i++) {
-        total = total.plus(data.collapse.alephs[i])
+        total = total.plus(getAlephAmount(i))
     }
     return total
 }
 let alephTotalEffect = () => Decimal.max(1, Decimal.sqrt(getTotalAlephs())).times(getHyperchargeEffect(8)).times(getHyperchargeEffect(1))
 
 let alephData = [
-    {text: "multiplying Autoclickers by", effect: ()=> Decimal.sqrt(data.collapse.alephs[0].plus(1)).times(3).times(purificationEffect(1)), unl: () => true},
-    {text: "multiplying Autobuyers by", effect: ()=> Decimal.log10(D(10).plus((data.collapse.alephs[1].times(90)))).times(purificationEffect(1)), unl: () => true},
-    {text: "multiplying Ordinal Power gain by", effect: ()=> Decimal.log2(data.collapse.alephs[2].plus(2)).times(3), unl: () => true},
-    {text: "multiplying Incrementy gain by", effect: ()=> Decimal.pow(data.collapse.alephs[3].plus(1), 1/4), unl: () => true},
-    {text: "multiplying Dynamic Cap by", effect: ()=> ((Decimal.sqrt(data.collapse.alephs[4].plus(1)).times(2)).plus(hupData[9].effect())).times(getAOMEffect(1)), unl: () => true},
-    {text: "multiplying the SGH effect by", effect: ()=> Decimal.pow(data.collapse.alephs[5].plus(1), 1/4), unl: () => true},
-    {text: "multiplying Booster Power gain by", effect: ()=> Decimal.sqrt(data.collapse.alephs[6].plus(4)).div(2), unl: () => true},
-    {text: "multiplying the IUP3 effect by", effect: ()=> (Decimal.sqrt(data.collapse.alephs[7].plus(4)).times(2).times(purificationEffect(1))).plus(hupData[9].effect()), unl: () => true},
+    {text: "multiplying Autoclickers by", effect: ()=> Decimal.sqrt(getAlephAmount(0).plus(1)).times(3).times(purificationEffect(1)), unl: () => true},
+    {text: "multiplying Autobuyers by", effect: ()=> Decimal.log10(D(10).plus((getAlephAmount(1).times(90)))).times(purificationEffect(1)), unl: () => true},
+    {text: "multiplying Ordinal Power gain by", effect: ()=> Decimal.log2(getAlephAmount(2).plus(2)).times(3), unl: () => true},
+    {text: "multiplying Incrementy gain by", effect: ()=> Decimal.pow(getAlephAmount(3).plus(1), 1/4), unl: () => true},
+    {text: "multiplying Dynamic Cap by", effect: ()=> ((Decimal.sqrt(getAlephAmount(4).plus(1)).times(2)).plus(hupData[9].effect())).times(getAOMEffect(1)), unl: () => true},
+    {text: "multiplying the SGH effect by", effect: ()=> Decimal.pow(getAlephAmount(5).plus(1), 1/4), unl: () => true},
+    {text: "multiplying Booster Power gain by", effect: ()=> Decimal.sqrt(getAlephAmount(6).plus(4)).div(2), unl: () => true},
+    {text: "multiplying the IUP3 effect by", effect: ()=> (Decimal.sqrt(getAlephAmount(7).plus(4)).times(2).times(purificationEffect(1))).plus(hupData[9].effect()), unl: () => true},
     {text: "TODO", effect: ()=> D(1), unl: () => hasAOMilestone(1)},
 ]
 let cupData = [

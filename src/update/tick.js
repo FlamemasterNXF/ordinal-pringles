@@ -7,11 +7,11 @@ let t1AutoPure = () => D(totalFactorEffect()).mul(mainT1AutoBoost())
 
 let mainT1AutoBoost = () => inRealmChallenge(1) || inRealmChallenge(4) ? 1 :
     D(getBUPEffect(6)).mul(getAlephEffect(0)).pow(getCUPEffect(1)).mul(getCUPEffect(3))
-        .mul(chargeBoostToBaseless()).mul(data.baseless.baseless ? getANREffect(0, false) : 1).mul(getPringleEffect(3))
+        .mul(getTotalRealmEnhancement()).mul(getPringleEffect(3))
 
 let t1Auto = () => inRealmChallenge(5)
     ? data.dy.level
-    : t1AutoPure()
+    : t1AutoPure().pow(getMetaANREffect(1))
 
 let t2AutoPure = () => D(1).times(chalEffectTotal()).times(getBUPEffect(6)).times(incrementyMult()).times(iup6Effect())
     .times(getBUPEffect(5)).times(hupData[5].effect()).times(getAlephEffect(1)).times(getCUPEffect(0)).times(getCUPEffect(3))
@@ -118,11 +118,16 @@ function tick(diff){
             }
         }
     }
+
     if(hasPassiveUpgrade(23) && getAutomationEnabled(1, 5) && isTabUnlocked('baseless')){
-        for (let i = 0; i < data.baseless.anRebuyables.length; i++) {
-            buyANR(i)
+        for (let i = 0; i < metaANBuyableData.length; i++) {
+            buyANR(i, 'meta')
+        }
+        for (let i = 0; i < normalANBuyableData.length; i++) {
+            buyANR(i, 'normal')
         }
     }
+
     if(hasPassiveUpgrade(24) && getAutomationEnabled(1, 6) && isTabUnlocked('purification')){
         for (let i = 0; i < data.omega.aoRebuyables.length; i++) {
             buyAOR(i)

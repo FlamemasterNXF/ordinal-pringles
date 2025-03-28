@@ -120,7 +120,7 @@ function getTotalIBuyables(){
         I am still here in the year of our lord twenty twenty-five
         - me
  */
-let iup1Effect = () => Decimal.max(1, D(2+alephNullEffects[0]()).pow(D(data.incrementy.rebuyableAmt[0]).add(iup7Effect())))
+let iup1Effect = () => Decimal.max(1, D(2+getNormalANREffect(1, true)).pow(D(data.incrementy.rebuyableAmt[0]).add(iup7Effect())))
 let iup2Effect = () =>  inPurification(1) ? 1 : Decimal.max(1, D(3).pow(data.incrementy.rebuyableAmt[1]).mul(iup8Effect()))
 let iup3Effect = () => data.incrementy.rebuyableAmt[2] > 0 && !inPurification(1) && !inPurification(3) ? (Decimal.max(1, Decimal.sqrt(data.dy.level))).mul(1+(data.incrementy.rebuyableAmt[2])) : D(1)
 let iup4Effect = () => data.incrementy.hasIUP[3] && !inPurification(3) ? Decimal.max(1, data.boost.times) : D(1)

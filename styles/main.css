@@ -423,9 +423,18 @@
     margin-top: 0.5rem;
     font-family: DosisSemiBold, serif;
 }
-.anRebuyable{
-    width: 16rem;
-    height: 9rem;
+.metaANR{
+    width: 22rem;
+    height: 6rem;
+    border: 2px solid #6d3d00;
+    color: #ae7710;
+    background: black;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem
+}
+.normalANR{
+    width: 15rem;
+    height: 7rem;
     border: 2px solid #6d3d00;
     color: #ae7710;
     background: black;
@@ -447,6 +456,7 @@
     align-items: center;
     place-content:center;
     flex-wrap: wrap;
+    margin-bottom: 0.5rem;
 }
 .aoRebuyable{
     width: 15rem;
@@ -456,7 +466,6 @@
     background: black;
     margin-left: 0.25rem;
     margin-right: 0.25rem;
-    margin-bottom: 0.5rem;
 }
 .aoMilestone{
     margin-left: 0.5rem;
