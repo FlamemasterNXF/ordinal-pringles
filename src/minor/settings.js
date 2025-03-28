@@ -43,73 +43,73 @@ const settingsData = [
     {
         type: 'Confirmation',
         id: 'shiftConfirmation',
-        desc: 'Factor Shift',
+        desc: 'Factor Shift Confirmation',
         default: true
     },
     {
         type: 'Confirmation',
         id: 'boostConfirmation',
-        desc: 'Factor Boost',
+        desc: 'Factor Boost Confirmation',
         default: true
     },
     {
         type: 'Confirmation',
         id: 'refundConfirmation',
-        desc: 'Booster Refund',
+        desc: 'Booster Refund Confirmation',
         default: true
     },
     {
         type: 'Confirmation',
         id: 'chargeRefundConfirmation',
-        desc: 'Charge Refund',
+        desc: 'Charge Refund Confirmation',
         default: true
     },
     {
         type: 'Confirmation',
         id: 'challengeConfirmation',
-        desc: 'Challenge Enter and Exit',
+        desc: 'Challenge Enter and Exit Confirmation',
         default: true
     },
     {
         type: 'Confirmation',
         id: 'collapseConfirmation',
-        desc: 'Collapse',
+        desc: 'Collapse Confirmation',
         default: true
     },
     {
         type: 'Confirmation',
         id: 'darknessConfirmation',
-        desc: 'Darkness Enter and Exit',
+        desc: 'Darkness Enter and Exit Confirmation',
         default: true
     },
     {
         type: 'Confirmation',
         id: 'baselessnessConfirmation',
-        desc: 'Baselessness Enter and Exit',
+        desc: 'Baselessness Enter and Exit Confirmation',
         default: true
     },
     {
         type: 'Confirmation',
         id: 'obliterationConfirmation',
-        desc: 'Obliteration',
+        desc: 'Obliteration Confirmation',
         default: true
     },
     {
         type: 'Confirmation',
         id: 'eupRespecConfirmation',
-        desc: 'Energy Upgrade Respec',
+        desc: 'Energy Upgrade Respec Confirmation',
         default: true
     },
     {
         type: 'Confirmation',
         id: 'peupRespecConfirmation',
-        desc: 'Passive Upgrade Respec',
+        desc: 'Passive Upgrade Respec Confirmation',
         default: true
     },
     {
         type: 'Confirmation',
         id: 'stabilizationRespecConfirmation',
-        desc: 'All Stabilization Respecs',
+        desc: 'All Stabilization Respec Confirmations',
         default: true
     },
 
@@ -186,12 +186,12 @@ const settingsData = [
         type: 'UI',
         id: 'boostBar',
         desc: 'Display the Boost Progress Bar',
-        default: true,
+        default: true
     },
     {
         type: 'UI',
         id: 'noColorPringles',
-        desc: 'Differentiate Pringles Without Color',
+        desc: 'Differentiate Pringles Without Color Confirmation',
         default: true,
 
         doRefresh: true
