@@ -14,8 +14,8 @@ const passiveEnergyDescriptions = [
     "The first and second Darkness Upgrade's levels are now permanent",
     "Anti-Darkness is now permanent",
     "The third Darkness Upgrade's levels are now permanent",
-    "The first three Baselessness Upgrades' levels are now permanent",
-    "The fourth and fifth Baselessness Upgrades' levels are now permanent",
+    "The top-row Baselessness Upgrades' levels are now permanent",
+    "The bottom-row Baselessness Upgrades' levels are now permanent",
 
     "Eternal Boosts are now permanent",
     "Infinite Boosts are now permanent",

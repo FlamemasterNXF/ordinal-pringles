@@ -80,14 +80,13 @@ function obliterateReset(){
     data.baseless.baseless = false
     data.baseless.shifts = 0
     data.baseless.bestOrdinalInMode = Array(3).fill(0)
-    /* TODO
-    for (let i = 0; i < 3; i++) {
-        data.baseless.anRebuyables[i] = hasPassiveUpgrade(13) ? data.baseless.anRebuyables[i] : 0
+
+    for (let i = 0; i < data.baseless.metaANR; i++) {
+        data.baseless.metaANR[i] = hasPassiveUpgrade(13) ? data.baseless.metaANR[i] : 0
     }
-    for (let i = 3; i < 5; i++) {
-        data.baseless.anRebuyables[i] = hasPassiveUpgrade(14) ? data.baseless.anRebuyables[i] : 0
+    for (let i = 0; i < data.baseless.normalANR; i++) {
+        data.baseless.normalANR[i] = hasPassiveUpgrade(14) ? data.baseless.normalANR[i] : 0
     }
-     */
 
     if(!hasPassiveUpgrade(19)){
         data.baselessRealm.amt = 0
