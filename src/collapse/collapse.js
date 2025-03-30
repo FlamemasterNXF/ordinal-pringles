@@ -249,7 +249,7 @@ let alephData = [
     {text: "multiplying the SGH effect by", effect: ()=> Decimal.pow(getAlephAmount(5).plus(1), 1/4), unl: () => true},
     {text: "multiplying Booster Power gain by", effect: ()=> Decimal.sqrt(getAlephAmount(6).plus(4)).div(2), unl: () => true},
     {text: "multiplying the IUP3 effect by", effect: ()=> (Decimal.sqrt(getAlephAmount(7).plus(4)).times(2).times(purificationEffect(1))).plus(hupData[9].effect()), unl: () => true},
-    {text: "TODO", effect: ()=> D(1), unl: () => hasAOMilestone(1)},
+    {text: "multiplying Dynamic Gain by", effect: ()=> Decimal.log2(getAlephAmount(8)), unl: () => hasAOMilestone(1)},
 ]
 let cupData = [
     {text: "Total Charge Boosts AutoBuyers", cost: 9, effect: ()=> Math.max((data.incrementy.totalCharge/2)*purificationEffect(3)*getPringleEffect(0, true), 1)},

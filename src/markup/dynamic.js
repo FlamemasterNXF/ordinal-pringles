@@ -34,5 +34,5 @@ function calcDyGain(){
     let boost = (data.ord.base < 6 || data.boost.isCharged[13]) ? getBUPEffect(13) : 1
     return base.mul(boost).mul(iup2Effect()).mul(dynamicShiftMultipliers[1]()).mul(chargeBoost)
         .mul(getRealmChallengeEffect(1)).mul(getRealmIUPEffect(1)).mul(getRealmIUPEffect(2))
-        .mul(getRealmIUPEffect(6)).div(ao2)
+        .mul(getRealmIUPEffect(6)).mul(getAlephEffect(8)).div(ao2)
 }
