@@ -22,6 +22,7 @@ const metaANBuyableData = [
         sign: '^',
         effect: () => D(1).plus(getANRLevel(0, 'meta')/100),
         baseEffect: () => D(1),
+        freeLevels: () => getEUPEffect(1, 1, true),
         //costBase: 1e6,
     },
     {
@@ -37,7 +38,7 @@ const normalANBuyableData = [
     {
         desc: "Increase the Decrementy gain exponent",
         sign: '+',
-        effect: () => D(0.1*getANRLevel(0, 'normal')).plus(getEUPEffect(1, 2, true)),
+        effect: () => D(0.1*getANRLevel(0, 'normal')),
         //costBase: 1e4,
     },
     {
@@ -88,14 +89,23 @@ const alephNullEffectData = [
 const realmEnhancementData = [
     {
         name: 'Total Charge',
+        color: 'goldenrod',
         amount: () => data.incrementy.totalCharge,
-        effect: () => data.incrementy.totalCharge**2
+        effect: () => D(data.incrementy.totalCharge**2)
     },
     {
         name: 'Cardinals',
+        color: '#20da45',
         amount: () => data.collapse.cardinals,
-        effect: () => Math.sqrt(data.collapse.cardinals)
-    }
+        effect: () => Decimal.sqrt(data.collapse.cardinals)
+    },
+    {
+        name: 'Total Fractal Energy',
+        color: '#b06cdc',
+        amount: () => data.obliterate.times,
+        effect: () => D(data.obliterate.times).pow(data.obliterate.times),
+        unlockReq: () => getEUPEffect(1, 2)
+    },
 ]
 
 function initANRebuyables(){
@@ -150,10 +160,16 @@ function makeAlephNullEffectText(){
     return text
 }
 
+function isRealmEnhancementLocked(i){
+    if(realmEnhancementData[i].unlockReq === undefined) return false
+    return !realmEnhancementData[i].unlockReq()
+}
 function makeRealmEnhancementText(){
     let text = ''
     for (let i = 0; i < realmEnhancementData.length; i++) {
-        text += `<br>You have <span style="color: goldenrod">${format(getRealmEnhancementAmount(i))} ${getRealmEnhancementText(i)}</span>, multiplying AutoClicker speed in the Realms by <span style="color: goldenrod">${format(getRealmEnhancement(i))}x</span>`
+        if(isRealmEnhancementLocked(i)) continue
+        const color = realmEnhancementData[i].color
+        text += `<br>You have <span style="color: ${color}">${format(getRealmEnhancementAmount(i))} ${getRealmEnhancementText(i)}</span>, multiplying AutoClicker speed in the Realms by <span style="color: ${color}">${format(getRealmEnhancement(i))}x</span>`
     }
     return text
 }
@@ -266,13 +282,16 @@ function getAlephNullEffect(i){
     return effectData.unlockReq() ? effectData.effect() : 1
 }
 
-let getRealmEnhancement = (i) => Math.max(1, realmEnhancementData[i].effect()**getMetaANREffect(0, true))
+function getRealmEnhancement(i){
+    if(isRealmEnhancementLocked(i)) return D(1)
+    return Decimal.max(1, realmEnhancementData[i].effect().pow(getMetaANREffect(0)))
+}
 function getTotalRealmEnhancement(){
-    if(!isBaseless()) return 1
+    if(!isBaseless()) return D(1)
 
-    let mult = 1
+    let mult = D(1)
     for (let i = 0; i < realmEnhancementData.length; i++) {
-        mult *= getRealmEnhancement(i)
+        mult = mult.times(getRealmEnhancement(i))
     }
     return mult
 }

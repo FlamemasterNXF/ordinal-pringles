@@ -1,29 +1,5 @@
 let timesToLoop = [0,0, 0,0]
 
-let t1AutoPure = () => D(totalFactorEffect()).mul(mainT1AutoBoost())
-    .mul(inAnyRealmChallenge() ? getRealmBUPEffect(3) : 1).mul(getRealmBUPEffect(5)).mul(getRealmBUPEffect(6))
-    .mul(getRealmBUPEffect(9)).mul(getRealmBUPEffect(10)).mul(getRealmBUPEffect(11))
-    .mul(getRealmIncrementyEffect()).mul(getGUPEffect(0))
-
-let mainT1AutoBoost = () => inRealmChallenge(1) || inRealmChallenge(4) ? 1 :
-    D(getBUPEffect(6)).mul(getAlephEffect(0)).pow(getCUPEffect(1)).mul(getCUPEffect(3))
-        .mul(getTotalRealmEnhancement()).mul(getPringleEffect(3))
-
-let t1Auto = () => inRealmChallenge(5)
-    ? data.dy.level
-    : t1AutoPure().pow(getMetaANREffect(1))
-
-let t2AutoPure = () => D(1).times(chalEffectTotal()).times(getBUPEffect(6)).times(incrementyMult()).times(iup6Effect())
-    .times(getBUPEffect(5)).times(hupData[5].effect()).times(getAlephEffect(1)).times(getCUPEffect(0)).times(getCUPEffect(3))
-    .times(dupEffect(0)).times(getAOEffect(0)).times(getPringleEffect(9)).times(getEUPEffect(2, 3))
-    .times(inPurification(2) || inPurification(3) ? getAOREffect(4) : 1)
-    .times(getEUPEffect(0, 0)).times(getPassiveEnergyEffect(0))
-
-let t2Auto = () => inPurification(2)
-    ? hierarchyData[0].gain().times(data.incrementy.totalCharge).times(getEUPEffect(2, 4))
-    :  t2AutoPure().div(getDepthNerf(1)).div(purificationData[1].special())
-
-
 function tick(diff){
     // TODO: PSI Check, probably doesn't need to be on tick()
     if(!data.ord.isPsi && data.ord.ordinal.gte(PSI_VALUE) && data.ord.base === 3) {
@@ -37,11 +13,11 @@ function tick(diff){
 
     //Automation Tier 1
     for (let i = 0; i < 2; i++) timesToLoop[i] = D(timesToLoop[i]).add(!data.chal.active[4]
-        ? D(diff).mul(D(data.autoLevels[i]).add(extraT1())).mul(t1Auto()).mul(data.dy.level).div(data.chal.decrementy)
-        : D(diff).mul(D(data.autoLevels[i]).add(extraT1())).mul(t1Auto()).div(data.dy.level).div(data.chal.decrementy))
+        ? D(diff).mul(D(data.autoLevels[i]).add(extraT1())).mul(getAutoClickerSpeed()).mul(data.dy.level).div(data.chal.decrementy)
+        : D(diff).mul(D(data.autoLevels[i]).add(extraT1())).mul(getAutoClickerSpeed()).div(data.dy.level).div(data.chal.decrementy))
 
     timesToLoop[2] = isAutomationUnlocked(0, 0) ? D(1) : D(0)
-    timesToLoop[3] = isAutomationUnlocked(0, 1) ? t2Auto() : D(0)
+    timesToLoop[3] = isAutomationUnlocked(0, 1) ? getAutoBuyerSpeed() : D(0)
 
     if(Decimal.floor(D(timesToLoop[0]).div(1000)).gte(1)) {
         successor()

@@ -14,11 +14,11 @@ function updateMarkupHTML(){
     DOM("autoclicker0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
     DOM("autoclicker1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
     let succSpeed = !data.chal.active[4]
-        ? D(data.autoLevels[0]).add(extraT1()).mul(t1Auto()).mul(data.dy.level).div(data.chal.decrementy)
-        : D(data.autoLevels[0]).add(extraT1()).mul(t1Auto()).div(data.dy.level).div(data.chal.decrementy)
+        ? D(data.autoLevels[0]).add(extraT1()).mul(getAutoClickerSpeed()).mul(data.dy.level).div(data.chal.decrementy)
+        : D(data.autoLevels[0]).add(extraT1()).mul(getAutoClickerSpeed()).div(data.dy.level).div(data.chal.decrementy)
     let maxSpeed = !data.chal.active[4]
-        ? D(data.autoLevels[1]).add(extraT1()).mul(t1Auto()).mul(data.dy.level).div(data.chal.decrementy)
-        : D(data.autoLevels[1]).add(extraT1()).mul(t1Auto()).div(data.dy.level).div(data.chal.decrementy)
+        ? D(data.autoLevels[1]).add(extraT1()).mul(getAutoClickerSpeed()).mul(data.dy.level).div(data.chal.decrementy)
+        : D(data.autoLevels[1]).add(extraT1()).mul(getAutoClickerSpeed()).div(data.dy.level).div(data.chal.decrementy)
     DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0]+extraT1())} Successor Autoclickers click the Successor button ${formatWhole(succSpeed)} times/second\nYour ${formatWhole(data.autoLevels[1]+extraT1())} Maximize Autoclickers click the Maximize button ${formatWhole(maxSpeed)} times/second`
 
     for (let i = 0; i < data.factors.length; i++) {

@@ -159,7 +159,7 @@ let getAutomationDesc = (i, j) => automationData[i][j].desc
 let getAutomationReq = (i, j) => automationData[i][j].hasReq ? `, ${automationData[i][j].req}` : ''
 let isAutomationUnlocked = (i, j) => automationData[i][j].unlock()
 function getAutomationSpeed(i, j){
-    if(i === 0) return t2Auto()
+    if(i === 0) return getAutoBuyerSpeed()
     if(i === 1 && j === 1) return 200 // RUP Case
     return 20
 }
