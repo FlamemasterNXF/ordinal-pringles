@@ -37,19 +37,21 @@ const normalANBuyableData = [
     {
         desc: "Increase the Decrementy gain exponent",
         sign: '+',
-        effect: () => D(0.1*getANRLevel(0, 'normal')).plus(getPringleEffect(5)).plus(getEUPEffect(1, 2, true)),
+        effect: () => D(0.1*getANRLevel(0, 'normal')).plus(getEUPEffect(1, 2, true)),
         //costBase: 1e4,
     },
     {
         desc: "Increase the RUP1 effect base",
         sign: '+',
         effect: () => D(getANRLevel(1, 'normal')),
+        freeLevels: () => getPringleEffect(5)
         //costBase: 1e4,
     },
     {
         desc: "Gain a free level of every Darkness Rebuyable",
         sign: '+',
         effect: () => D(getANRLevel(2, 'normal')),
+        freeLevels: () => getPringleEffect(5)
         //costBase: 1e4,
     },
     {
@@ -292,8 +294,14 @@ function getANREffect(i, type, useNumber = true){
     return Decimal.max(baseEffect, anrData.effect());
 }
 function getANRLevel(i, type){
-    if(type === 'meta') return data.baseless.metaANR[i]
-    if(type === 'normal') return data.baseless.normalANR[i]
+    if(type === 'meta'){
+        const extraLevels = metaANBuyableData[i].freeLevels === undefined ? 0 : metaANBuyableData[i].freeLevels()
+        return data.baseless.metaANR[i]+extraLevels
+    }
+    if(type === 'normal'){
+        const extraLevels = normalANBuyableData[i].freeLevels === undefined ? 0 : normalANBuyableData[i].freeLevels()
+        return data.baseless.normalANR[i]+extraLevels
+    }
 }
 function getANRCost(i, type){
     if(type === 'meta') return 1//metaANBuyableData[i].cost()
