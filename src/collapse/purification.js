@@ -100,7 +100,7 @@ const aoMilestoneData = [
         desc: "Unlock a Baseless Shift AutoPrestiger",
         req: 200
     },{
-        desc: "Purification of Infinity now boosts ℵ<sub>5</sub>, and unlock a new Aleph that is not effected by the seventh Cardinal Upgrade",
+        desc: "Purification of Infinity now boosts ℵ<sub>5</sub> and unlock a new Aleph",
         req: 500,
         eff: () => hasAOMilestone(1) ? purificationEffect(1) : 1
     },{
@@ -112,7 +112,7 @@ const aoMilestoneData = [
         req: 1000,
         eff: () => hasAOMilestone(3) ? purificationEffect(3) : 1
     },{
-        desc: "Boosters boost Cardinal Gain, unlock two new ℵ<sub>0</sub> Rebuyables, and unlock<span style='color: #9d58c9'> Obliteration</span>",
+        desc: "Boosters boost Cardinal Gain, unlock a new ℵ<sub>0</sub> Rebuyable, unlock a new ℵ<sub>0</sub> effect, and unlock<span style='color: #9d58c9'> Obliteration</span>",
         req: 1700,
         eff: () => hasAOMilestone(4) ? data.boost.amt : 1
     },

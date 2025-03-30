@@ -23,14 +23,14 @@ const metaANBuyableData = [
         effect: () => D(1).plus(getANRLevel(0, 'meta')/100),
         baseEffect: () => D(1),
         freeLevels: () => getEUPEffect(1, 1, true),
-        //costBase: 1e6,
+        cost: () => 1e6**data.baseless.metaANR[0]*1e6,
     },
     {
         desc: "Total Baseless Boosters boost AutoClicker speed",
         sign: '^',
         effect: () => D(1).plus(Decimal.log10((data.baselessRealm.total+1)/100).times(getANRLevel(1, 'meta'))),
         baseEffect: () => D(1),
-        //costBase: 1e6,
+        cost: () => 1e5**data.baseless.metaANR[1]*1e5
     },
 ]
 
@@ -39,28 +39,28 @@ const normalANBuyableData = [
         desc: "Increase the Decrementy gain exponent",
         sign: '+',
         effect: () => D(0.1*getANRLevel(0, 'normal')),
-        //costBase: 1e4,
+        cost: () => 1e4**data.baseless.normalANR[0]*1e4,
     },
     {
         desc: "Increase the RUP1 effect base",
         sign: '+',
         effect: () => D(getANRLevel(1, 'normal')),
-        freeLevels: () => getPringleEffect(5)
-        //costBase: 1e4,
+        freeLevels: () => getPringleEffect(5, true),
+        cost: () => 50**data.baseless.normalANR[1]
     },
     {
         desc: "Gain a free level of every Darkness Rebuyable",
         sign: '+',
         effect: () => D(getANRLevel(2, 'normal')),
-        freeLevels: () => getPringleEffect(5)
-        //costBase: 1e4,
+        freeLevels: () => getPringleEffect(5, true),
+        cost: () => 1e3**data.baseless.normalANR[2]*1e3
     },
     {
         desc: "Gain a free leve of the 1st, 3rd, 4th, and 5th ℵ<sub>&omega;</sub> Rebuyables",
         sign: '+',
         effect: () => D(getANRLevel(3, 'normal')),
-        //costBase: 1e4,
         unlockReq: () => hasAOMilestone(4),
+        cost: () => 2e6**data.baseless.normalANR[3]*2e6
     },
 ]
 
@@ -323,8 +323,8 @@ function getANRLevel(i, type){
     }
 }
 function getANRCost(i, type){
-    if(type === 'meta') return 1//metaANBuyableData[i].cost()
-    if(type === 'normal') return 1//normalANBuyableData[i].cost()
+    if(type === 'meta') return metaANBuyableData[i].cost()
+    if(type === 'normal') return normalANBuyableData[i].cost()
 }
 
 function getANRText(i, type){
