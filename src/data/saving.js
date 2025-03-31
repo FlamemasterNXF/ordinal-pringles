@@ -55,9 +55,6 @@ function unpackSave(main=getDefaultPlayer(), data) {
 function fixOldSaves(){
     let extra = false
 
-    // Removal of EUP401
-    // if(data.obliterate.energyUpgrades.includes(401)) data.obliterate.energyUpgrades = data.obliterate.energyUpgrades.splice(data.obliterate.energyUpgrades.indexOf(401), 1)
-
     // Removal of tabs
     if(data.nav.subtabs.collapse === 'sing') data.nav.subtabs.collapse = 'cardinals'
     if(data.nav.subtabs.obliterate === 'instability') data.nav.subtabs.obliterate = 'pringles'

@@ -19,4 +19,4 @@ let cappedOPGain = () => Decimal.min(opCap, D(opGain()).times(opMult()))
 
 let uncappedOPGain = () => getEUPEffect(4, 0)
     ? D(opCap).mul(D(data.ord.ordinal).pow(getGUPEffect(2)+1))
-    : 1
+    : D(opCap)
