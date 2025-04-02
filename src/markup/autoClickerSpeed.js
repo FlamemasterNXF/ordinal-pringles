@@ -7,7 +7,7 @@ let mainAutoClickerBoost = () => inRealmChallenge(1) || inRealmChallenge(4) ? 1 
     D(getBUPEffect(6)).mul(getAlephEffect(0)).pow(getCUPEffect(1)).mul(getCUPEffect(3))
         .mul(getTotalRealmEnhancement()).mul(getPringleEffect(3))
 
-let autoClickerExponent = () => getMetaANREffect(1)+getEUPEffect(1, 6)
+let autoClickerExponent = () => getMetaANREffect(1)+getEUPEffect(1, 6, true)
 
 function getAutoClickerSpeed(){
     if(inRealmChallenge(5)) return data.dy.level

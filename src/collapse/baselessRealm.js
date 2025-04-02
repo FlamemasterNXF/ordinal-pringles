@@ -14,9 +14,9 @@ let realmBupData = [
         isDecimal: false
     },
     {
-        desc: "Factors boost their own effect",
+        desc: "Baseless Boosters boost Factors",
         cost: 14,
-        eff: () => totalFactorEffect(false),
+        eff: () => data.baselessRealm.amt,
         baseEff: () => 1,
         isDecimal: false
     },
@@ -178,7 +178,7 @@ let realmIUPData = [
         desc: 'Double Baseless Incrementy Gain',
         sign: 'x',
 
-        cost: () => 1e3**Math.sqrt(data.baselessRealm.rupLevels[0]+1),
+        cost: () => 1e3**((data.baselessRealm.rupLevels[0]+1)/2),
         effect: () => 2**data.baselessRealm.rupLevels[0],
         effectBase: () => 1,
 
@@ -189,7 +189,7 @@ let realmIUPData = [
         desc: 'Triple Dynamic Gain',
         sign: 'x',
 
-        cost: () => 1e3**(Math.sqrt(data.baselessRealm.rupLevels[1]+1)),
+        cost: () => 1e3**((data.baselessRealm.rupLevels[1]+1)/2),
         effect: () => 3**(data.baselessRealm.rupLevels[1]+getRealmIUPEffect(8))*getRealmHUPEffect(2),
         effectBase: () => 1,
 
@@ -200,7 +200,7 @@ let realmIUPData = [
         desc: 'Baseless Incrementy boosts Dynamic Gain',
         sign: 'x',
 
-        cost: () => 1e5**(Math.sqrt(data.baselessRealm.rupLevels[2]+1)),
+        cost: () => 1e5**((data.baselessRealm.rupLevels[2]+1)/2),
         effect: () => (Math.log10(data.baselessRealm.incrementy)*data.baselessRealm.rupLevels[2])*getRealmIUPEffect(5),
         effectBase: () => 1,
 
@@ -209,7 +209,7 @@ let realmIUPData = [
     },
 
     {
-        desc: 'Baseless boosts boost Baseless Incrementy gain',
+        desc: 'Baseless Boosts boost Baseless Incrementy gain',
         sign: 'x',
 
         cost: () => 1e5,
@@ -257,7 +257,7 @@ let realmIUPData = [
         sign: '+',
 
         cost: () => 5e13,
-        effect: () => data.baseless.shifts/100,
+        effect: () => data.baseless.shifts/1e6,
         effectBase: () => 0,
 
         effectIsDecimal: false,
@@ -517,6 +517,7 @@ function updateRealmHUPHTML(i){
 }
 
 function buyRealmBUP(n){
+    if(hasBaselessBUP(n)) return
     if(n % 4 !== 0 && !data.baselessRealm.hasBUP[n-1]){
         for (let i = 0; i < n % 4; i++) {
             let index = (i % 4) + (4 * Math.floor(n / 4))
@@ -653,6 +654,7 @@ function displayRealmBoostReq(){
     return `${format(realmBoostReq())} theoretical ℵ<sub>0</sub> gain`
 }
 function realmBoostReq(){
+    if(data.baselessRealm.times >= 34) return Infinity
     return 100**customRoot(data.baselessRealm.times+1, 1.2)
 }
 

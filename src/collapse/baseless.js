@@ -232,7 +232,8 @@ function baselessControl(){
         data.ord.base = getBaselessLock(data.baseless.mode)
         data.dy.gain = D(0.002)
     }
-    else{
+    else {
+        if(inAnyRealmChallenge()) controlRealmChallenge() // i defaults to current ID
         data.baseless.shifts = 0
         data.baseless.alephNull += gain
         data.ord.base = 10
@@ -278,8 +279,8 @@ function getAlephNullGain(){
 
 function getAlephNullEffect(i){
     const effectData = alephNullEffectData[i]
-    if(effectData.unlockReq === undefined) return Math.max(1, effectData.effect())
-    return effectData.unlockReq() ? effectData.effect() : 1
+    if(effectData.unlockReq === undefined) return Math.max(effectData.baseEffect(), effectData.effect())
+    return effectData.unlockReq() ? effectData.effect() : effectData.baseEffect()
 }
 
 function getRealmEnhancement(i){

@@ -244,7 +244,7 @@ let dupData = [
         sign: 'x',
         extraLevels: () => iup11Effect()+getNormalANREffect(2),
         cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)),
-        effect: ()=> isTabUnlocked('darkness') ? getTotalDUPLevels(1) : 1
+        effect: ()=> isTabUnlocked('darkness') ? 2**getTotalDUPLevels(1) : 1
     },
     {
         text: `Multiply both Hierarchy Effect exponents`,

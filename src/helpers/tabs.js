@@ -98,9 +98,9 @@ function switchSubtab(tab, mode){
 
     // Special Settings Rules
     if(mode === "settings"){
-        if(tab === 'ui'){
+        if(tab === 'settingsUI'){
             DOM(`gwaifySettingContainer`).style.display = data.gword.unl ? 'flex' : 'none'
-            DOM(`settingsToggle14`).innerHTML = `${SETTINGS_DESCS[14]} ${settingsColor(data.gword.enabled)}`
+            //DOM(`settingsToggle14`).innerHTML = `${SETTINGS_DESCS[14]} ${settingsColor(data.gword.enabled)}`
         }
     }
 }

@@ -70,6 +70,7 @@ const energyUpgradeData = [
             sign: '^',
             cost: 2,
             effect: () => getStableHyperchargeEffect(),
+            baseEffect: 0,
 
             specialNodeReq: 105
         },

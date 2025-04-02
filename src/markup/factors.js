@@ -31,13 +31,16 @@ function factorCost(n){
 function hasFactor(n){
     return data.markup.shifts >= n+1 || data.baseless.shifts >= n+1
 }
-function factorEffect(n) {
-    const mult = getBUPEffect(0)*getCascadeEffect(n)*getRealmBUPEffect(0)*getRealmBUPEffect(2)*getRealmIUPEffect(10)
+function baseFactorEffect(n) {
+    const mult = getBUPEffect(0)*getRealmBUPEffect(0)*getRealmBUPEffect(2)*getRealmIUPEffect(10)
     let add = hasFactor(n) ? getBUPEffect(12) + getRealmBUPEffect(1) + getRealmChallengeEffect(5) : 0
 
     if(data.chal.active[1] || data.factors[n] < 1) return 1+add*mult
 
     return ((data.factors[n]+(1+add))*mult*getBUPEffect(8))*(Math.max(1+(data.markup.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.markup.shifts])
+}
+function factorEffect(n) {
+    return baseFactorEffect(n)*getCascadeEffect(n)
 }
 function totalFactorEffect(){
     let mult = 1
@@ -83,12 +86,12 @@ function getTotalFactors(){
     return total
 }
 
-let getCascadeEffect = (i) => isFactorCascaded(i) ? cascadeFactor(i) : 1
 let isFactorCascaded = (i) => i < 6 ? isRealmChallengeMax(5-i) : false
-function cascadeFactor(n){
+function getCascadeEffect(n){
+    /*if(!isFactorCascaded(n))*/ return 1
     let mult = 1
     for (let i = n; i < data.factors.length; i++) {
-        mult *= factorEffect(i)
+        mult *= baseFactorEffect(i)
     }
     return mult
 }

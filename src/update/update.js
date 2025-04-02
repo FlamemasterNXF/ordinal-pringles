@@ -18,7 +18,6 @@ const uHTML = {
         if(data.markup.shifts === 7 || data.chal.active[4]) DOM('dynamicTab').addEventListener('click', _=> switchSubtab('dynamic', 'markup'))
 
         DOM('bp2Description').innerText = data.overflow.thirdEffect ? 'Dividing Decrementy Gain by ' : 'Multiplying Decrementy Gain by '
-        DOM('progressBarContainer').style.display = getSimpleSetting('boostBar') ? 'flex' : 'none'
         DOM('darken').innerText = data.darkness.darkened ? 'Escape' : 'Enter the Darkness'
 
         checkCollapseUnlockHTML()
@@ -31,6 +30,7 @@ const uHTML = {
         //Load Settings
         initSettings()
         DOM(`versionText`).innerText = `You're playing Ordinal Pringles v${VERSION}: ${VERSION_NAME}\n Last Update: ${VERSION_DATE}`
+        DOM('progressBarContainer').style.display = getSimpleSetting('boostBar') ? 'flex' : 'none'
 
         //Initialize all Tabs
         initAchs()
