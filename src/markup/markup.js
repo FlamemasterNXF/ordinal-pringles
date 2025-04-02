@@ -101,8 +101,8 @@ function factorShiftConfirm(){
 }
 
 function factorShift(isAuto = false){
-    if(data.baseless.baseless && !isAuto){
-        dynamicShift()
+    if(data.baseless.baseless){
+        if(!isAuto) dynamicShift()
         return
     }
     if(data.markup.shifts === 7 && !isAuto){
