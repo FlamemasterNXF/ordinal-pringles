@@ -471,7 +471,10 @@ function updateRealmBoostersHTML() {
     DOM('rBoosterTimesText').innerHTML = `You have <span style="color: #ff8080">Boosted</span> ${data.baselessRealm.times} times`
 
     DOM(getAdaptiveButton('factorBoostButton')).innerHTML = `Perform a Baseless Boost [+${getRealmBoosterGain()}] (B)<br>Requires ${displayRealmBoostReq()}`
+    DOM(getAdaptiveButton('factorShiftButton')).innerHTML = `Perform a Baseless Shift (H)<br>Requires &omega;<sup>&omega;</sup>`
+
     DOM(getAdaptiveButton('factorBoostButton')).style.color = getAlephNullGain() > realmBoostReq() ? '#fff480' : '#ff8080'
+    DOM(getAdaptiveButton('factorShiftButton')).style.color = canDynamicShift() ? '#fff480' : '#d93c3c'
 
     if(getSubtab('realm') === 'realmIncrementy') updateRealmIncrementyHTML()
     if(getSubtab('realm') === 'realmHierarchies') updateRealmHierarchiesHTML()

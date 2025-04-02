@@ -27,6 +27,11 @@ function switchSubtab(tab, mode){
     DOM(`${tab}SubPage`).style.display = 'flex'
     data.nav.subtabs[mode] = tab
 
+    // Special Markup Rules
+    if(mode === 'markup'){
+        if(tab === "factor") DOM("mobilefactorShiftButton").style.display = isMobileMode() ? 'block' : 'none'
+    }
+
     // Special Boosters Rules
     if(mode === "boosters"){
         updateAutomationTabHTML()

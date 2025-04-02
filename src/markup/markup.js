@@ -94,13 +94,17 @@ function getFSReq(){
 }
 
 function factorShiftConfirm(){
-    if(data.baseless.baseless || data.markup.powers.lt(getFSReq()))  return
+    if(data.baseless.baseless) factorShift()
+    if(data.markup.powers.lt(getFSReq()))  return
 
     createConfirmation('Are you sure?', 'Performing a Factor Shift will reduce your Base by 1 and unlock a new Factor, but it will reset your Ordinal, Ordinal Powers, Factors, and Automation!', 'No Way!', 'Yes, lets do this.', factorShift)
 }
 
 function factorShift(isAuto = false){
-    if(data.baseless.baseless) return
+    if(data.baseless.baseless && !isAuto){
+        dynamicShift()
+        return
+    }
     if(data.markup.shifts === 7 && !isAuto){
         if(data.ord.isPsi && data.ord.ordinal.gte(GRAHAMS_VALUE) && data.boost.times === 0) return boost(true)
         else return //createAlert("Failure", "Insufficient Ordinal", "Dang.")

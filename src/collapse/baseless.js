@@ -247,6 +247,10 @@ function baselessControl(){
     updateStatusHTML()
 }
 
+function canDynamicShift(){
+    return data.baseless.baseless && data.ord.ordinal.gte(numberFromOrdinal('&omega;<sup>&omega;</sup>', data.ord.base)) && data.baseless.shifts < 7
+}
+
 function dynamicShift(){
     if(!data.baseless.baseless) return
     if(data.ord.ordinal.lt(numberFromOrdinal('&omega;<sup>&omega;</sup>', data.ord.base)) || data.baseless.shifts > 6) return
