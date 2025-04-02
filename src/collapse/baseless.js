@@ -277,7 +277,7 @@ let dynamicShiftMultipliers = [
 function getAlephNullGain(){
     const base = Decimal.log10(Decimal.max(data.ord.ordinal, 1)).toNumber()
     const multipliers = dynamicShiftMultipliers[0]()*getAOEffect(1)*getPringleEffect(4, true)
-        *getHyperchargeEffect(10)*getRealmChallengeEffect(4)
+        *getHyperchargeEffect(10)*getRealmChallengeEffect(4)*getRealmChallengeOverallEffect()
     return Math.max(1, base*multipliers)
 }
 
