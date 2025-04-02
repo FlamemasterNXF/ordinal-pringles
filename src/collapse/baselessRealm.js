@@ -476,6 +476,7 @@ function updateRealmBoostersHTML() {
     DOM(getAdaptiveButton('factorBoostButton')).style.color = getAlephNullGain() > realmBoostReq() ? '#fff480' : '#ff8080'
     DOM(getAdaptiveButton('factorShiftButton')).style.color = canDynamicShift() ? '#fff480' : '#d93c3c'
 
+    if(getSubtab('realm') === 'realmChal') DOM(`rChallengeEffectText`).innerText = `Your Factors are boosting Aleph Null gain by ${format(getRealmChallengeOverallEffect())}x`
     if(getSubtab('realm') === 'realmIncrementy') updateRealmIncrementyHTML()
     if(getSubtab('realm') === 'realmHierarchies') updateRealmHierarchiesHTML()
 
@@ -708,7 +709,7 @@ let getRealmChallengeDesc = (i) => `${getRealmChallengeDescBase(i)}<br><br>${get
 let getRealmChallengeDescBase = (i) => `You will be in a Realm with ${getRealmChallengeLock(i)} Baseless Shifts<br>${realmChallengeData[i].desc}`
 let getRealmChallengeGoalDesc = () => `Goal: ${ordinalDisplay('', getRealmChallengeGoal(), 0, data.ord.base, ordinalDisplayTrim(1), false)}`
 let getRealmChallengeRewardDesc = (i) => realmChallengeData[i].effectDesc
-let getRealmChallengeFactorRewardDesc = (i) => `On your final completion, Cascade Factor ${6-i}`
+let getRealmChallengeFactorRewardDesc = (i) => `On your final completion, all Factors slightly boost ℵ<sub>0</sub> gain`
 let getRealmChallengeCompDesc = (i) => `Completions: ${getRealmChallengeCompletions(i)}/3`
 
 let getRealmChallengeInnerEffect = (i) => inRealmChallenge(i) && realmChallengeData[i].hasInnerEffect || inRealmChallenge((4)) && i === 3  ? realmChallengeData[i].innerEffect() : 1
@@ -728,6 +729,13 @@ let inAnyRealmChallenge = () => data.baselessRealm.chalActive !== -1
 let inRealmChallenge = (i) => data.baselessRealm.chalActive === i
 let isRealmChallengeMax = (i) => data.baselessRealm.completions[i] > 2
 
+function getMaxedRealmChallenges() {
+    let count = 0
+    for (let i = 0; i < data.baselessRealm.completions.length; i++) {
+        if(isRealmChallengeMax(i)) ++count
+    }
+    return count
+}
 function getRealmChallengeEffect(i){
     if(getRealmChallengeCompletions(i) === 0) return realmChallengeData[i].effectBase()
     let divisor = 0.5**getRealmChallengeCompletions(i)*8
@@ -736,6 +744,11 @@ function getRealmChallengeEffect(i){
         return Decimal.max(realmChallengeData[i].effectBase(), realmChallengeData[i].eff().div(divisor))
     }
     return Math.max(realmChallengeData[i].effectBase(), realmChallengeData[i].eff() / divisor)
+}
+function getRealmChallengeOverallEffect(){
+    if(getMaxedRealmChallenges() === 0) return 1
+    const root = 12-getMaxedRealmChallenges()
+    return customRoot(totalFactorEffect(), root)
 }
 
 let getRealmIUPDesc = (i) => `${getRealmIUPDescBase(i)}${getRealmIUPLevelsDesc(i)}\n${getRealmIUPEffectDesc(i)}\n${getRealmIUPCostDesc(i)}`

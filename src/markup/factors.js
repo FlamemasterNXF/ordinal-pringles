@@ -40,7 +40,7 @@ function baseFactorEffect(n) {
     return ((data.factors[n]+(1+add))*mult*getBUPEffect(8))*(Math.max(1+(data.markup.shifts-n-1)/10, 1)**[1, 1, 1, 1, 1.3, 1.9, 2.2, 2.3][data.markup.shifts])
 }
 function factorEffect(n) {
-    return baseFactorEffect(n)*getCascadeEffect(n)
+    return baseFactorEffect(n)
 }
 function totalFactorEffect(){
     let mult = 1
@@ -84,14 +84,4 @@ function getTotalFactors(){
         total += data.factors[i]
     }
     return total
-}
-
-let isFactorCascaded = (i) => i < 6 ? isRealmChallengeMax(5-i) : false
-function getCascadeEffect(n){
-    /*if(!isFactorCascaded(n))*/ return 1
-    let mult = 1
-    for (let i = n; i < data.factors.length; i++) {
-        mult *= baseFactorEffect(i)
-    }
-    return mult
 }
