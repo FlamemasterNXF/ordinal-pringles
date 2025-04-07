@@ -127,7 +127,7 @@ function decrementyGain() {
 }
 
 function getC5Effect(){
-    let m = 0
-    for (let i = 0; i < data.boost.hasBUP.length; i++) if(data.boost.hasBUP[i]) ++m
-    return Math.max(m, 1)
+    let boosterUpgradesNum = 0 // Could be replaced with "const boosterUpgradesNum = data.boost.hasBUP.filter(hasUpgrade => hasUpgrade === true).length"
+    for (let i = 0; i < data.boost.hasBUP.length; i++) if (data.boost.hasBUP[i]) ++boosterUpgradesNum // This line could be removed if the variable above is replaced
+    return boosterUpgradesNum + 1
 }
