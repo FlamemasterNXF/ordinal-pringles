@@ -583,6 +583,7 @@ function completeRealmChallenge(){
 }
 
 function buyRealmIUP(i){
+    if(!isRealmIUPRebuyable(i) && hasRealmIUP(i)) return
     if(data.baselessRealm.incrementy < getRealmIUPCost(i)) return
 
     data.baselessRealm.incrementy -= getRealmIUPCost(i)
