@@ -464,6 +464,22 @@ function initRealmHierarchies(){
 
 function updateRealmHTML(){
     DOM(`boostNav`).style.color = isBaseless() ? '#ff8080' : '#8080FF'
+
+    updateRealmUnlockHTML()
+    for (let i = 0; i < realmChallengeData.length; i++) {
+        updateRealmChalHTML(i)
+    }
+    updateRealmIncrementyHTML()
+    for (let i = 0; i < realmIUPData.length; i++) {
+        updateRealmIUPHTML(i)
+    }
+    updateRealmHierarchiesHTML()
+    for (let i = 0; i < growthUpgradeData.length; i++) {
+        updateGUPHTML(i)
+    }
+    for (let i = 0; i < realmHUPData.length; i++) {
+        updateRealmHUPHTML(i)
+    }
 }
 
 function updateRealmBoostersHTML() {
