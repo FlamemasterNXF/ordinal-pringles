@@ -116,7 +116,7 @@ function buyStability(i){
 
 function confirmStabilityRespec(i){
     if(!getSimpleSetting('stabilizationRespecConfirmation')) return respecStability(i)
-    createConfirmation('Are you certain?', 'This will force a Collapse reset!', 'Nope!', 'Yeah', respecStability, i)
+    createConfirmation('Are you certain?', 'This will force an Obliteration reset!', 'Nope!', 'Yeah', respecStability, i)
 }
 
 function respecStability(i){
@@ -132,7 +132,7 @@ function respecStability(i){
     data.stability.energy[i] = 0
     updateStabilityHTML(i)
 
-    collapseReset()
+    obliterateReset()
 }
 
 let getStableEnergy = (i) => data.stability.energy[i]
