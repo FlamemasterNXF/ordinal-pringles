@@ -49,9 +49,8 @@ function obliterateReset(){
     data.darkness.sacrificedCharge = 0
     data.darkness.negativeChargeSpent = 0
     data.darkness.totalDrains = 0
-    for (let i = 0; i < 2; i++) {
-        data.darkness.levels[i] = hasPassiveUpgrade(10) ? data.darkness.levels[i] : 0
-    }
+    if(!hasPassiveUpgrade(10)) data.darkness.levels[0] = 0
+    if(!hasPassiveUpgrade(10)) data.darkness.levels[1] = 0
     if(!hasPassiveUpgrade(12)) data.darkness.levels[2] = 0
     data.darkness.drains = Array(7).fill(0)
     data.darkness.negativeChargeEnabled = false
@@ -81,12 +80,8 @@ function obliterateReset(){
     data.baseless.shifts = 0
     data.baseless.bestOrdinalInMode = Array(3).fill(0)
 
-    for (let i = 0; i < data.baseless.metaANR.length; i++) {
-        data.baseless.metaANR[i] = hasPassiveUpgrade(13) ? data.baseless.metaANR[i] : 0
-    }
-    for (let i = 0; i < data.baseless.normalANR.length; i++) {
-        data.baseless.normalANR[i] = hasPassiveUpgrade(14) ? data.baseless.normalANR[i] : 0
-    }
+    if(!hasPassiveUpgrade(13)) data.baseless.metaANR = Array(data.baseless.metaANR.length).fill(0)
+    if(!hasPassiveUpgrade(14)) data.baseless.normalANR = Array(data.baseless.normalANR.length).fill(0)
 
     if(!hasPassiveUpgrade(19)){
         data.baselessRealm.amt = 0
@@ -100,7 +95,7 @@ function obliterateReset(){
         data.baselessRealm.rupLevels = Array(6).fill(0)
         data.baselessRealm.hasUpgrade = Array(11).fill(false)
         data.baselessRealm.hierarchy = {ord: 0, over: 0}
-        data.baselessRealm.gupPercentage = Array(3).fill(0)
+        // GUP Percentages should persist, for QOL data.baselessRealm.gupPercentage = Array(3).fill(0)
         data.baselessRealm.hupLevels = Array(3).fill(0)
     }
 

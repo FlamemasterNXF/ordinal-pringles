@@ -831,7 +831,7 @@ let getRealmIncrementyEffect = () => isBaseless() ? Math.max(1, Math.sqrt(data.b
 
 let getGUPDesc = (i) => `${getGUPDescBase(i)}\n${getGUPEffectDesc(i)}\nHierarchy percent to allocate: `
 let getGUPDescBase = (i) => growthUpgradeData[i].desc
-let getGUPEffect = (i) => isBaseless() && getGUPPercentage(i) > 0 ? Math.max(growthUpgradeData[i].baseEffect(), growthUpgradeData[i].effect()) : growthUpgradeData[i].baseEffect()
+let getGUPEffect = (i) => isBaseless() && getGUPPercentage(i) > 0 && isTabUnlocked('realmHierarchies') ? Math.max(growthUpgradeData[i].baseEffect(), growthUpgradeData[i].effect()) : growthUpgradeData[i].baseEffect()
 let isGUPMultiplier = (i) => growthUpgradeData[i].sign === 'x'
 let getGUPEffectDesc = (i) => `Currently: ${!isGUPMultiplier(i) ? growthUpgradeData[i].sign : ''}${format(getGUPEffect(i))}${isGUPMultiplier(i) ? growthUpgradeData[i].sign : ''}`
 let getGUPPercentage = (i) => data.baselessRealm.gupPercentage[i]
