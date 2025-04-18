@@ -115,7 +115,7 @@ function tick(diff){
     if (data.boost.times === 2 && hasSluggishMilestone(4)) inSluggish = true
     if(hasSluggishMilestone(3) && getAutomationEnabled(2, 0) && data.ord.base > 3 && data.markup.shifts < 7) factorShift(true)
     if(hasSluggishMilestone(3) && getAutomationEnabled(2, 1) && data.boost.times < boostLimit() && !inSluggish) boost(false, true)
-    if(hasAOMilestone(0) && getAutomationEnabled(2, 2) && data.baseless.baseless) dynamicShift()
+    if(hasAOMilestone(0) && getAutomationEnabled(2, 2) && data.baseless.baseless && !inAnyRealmChallenge()) dynamicShift()
 
     // Increase Hierarchies
     if(data.boost.unlocks[2] && !inPurification(2) && !inPurification(3)) increaseHierarchies(diff)
