@@ -29,7 +29,7 @@ let realmBupData = [
     },
 
     {
-        desc: "Automatically BuyMax AutoClickers and Factors",
+        desc: "Unlock the Max All AutoBuyer",
         cost: 1,
         eff: () => 1,
         baseEff: () => 1,
@@ -58,7 +58,7 @@ let realmBupData = [
     },
 
     {
-        desc: "Automatically Markup without resetting anything and uncap OP",
+        desc: "Unlock the Markup AutoBuyer and uncap Ordinal Powers",
         cost: 1,
         eff: () => 1,
         baseEff: () => 1,
@@ -339,6 +339,23 @@ let realmHUPData = [
     }
 ]
 
+let realmAutomationData = [
+    {
+        name: "Max All AutoBuyer",
+        desc: "clicking the Max All button",
+        req: ", but only if you can't Factor Shift"
+    },
+    {
+        name: "Markup AutoBuyer",
+        desc: "clicking the Markup button without resetting anything"
+    },
+    {
+        name: "Baseless Shift AutoPrestiger",
+        desc: "Baseless Shifting",
+        req: ", but only if you aren't in a Challenge"
+    }
+]
+
 function initBaselessRealm(){
     initRealmBUPs()
     initRealmChallenges()
@@ -536,6 +553,12 @@ function updateRealmHUPHTML(i){
     DOM(`rHUP${i}`).innerHTML = getRealmHUPDesc(i)
 }
 
+function updateRealmAutomationHTML(i){
+    DOM(`realmAuto${i}`).innerText = `${getRealmAutomationName(i)}: ${formatBool(isRealmAutomationEnabled(i), 'EDL')}`
+    DOM(`realmAutoText${i}`).innerHTML = `Your <span style="color: ${getRealmAutomationColors(i)[0]}">${getRealmAutomationName(i)}</span> is ${getRealmAutomationDesc(i)} <span style="color: ${getRealmAutomationColors(i)[1]}">20 times/second</span>${getRealmAutomationReq(i)}`
+
+}
+
 function buyRealmBUP(n){
     if(hasBaselessBUP(n)) return
     if(n % 4 !== 0 && !data.baselessRealm.hasBUP[n-1]){
@@ -653,6 +676,13 @@ function buyRealmHUP(i){
     data.baselessRealm.hierarchy.ord -= getRealmHUPCost(i)
     ++data.baselessRealm.hupLevels[i]
     updateRealmHUPHTML(i)
+}
+
+function controlRealmAutomation(i){
+    if(i === 2) data.collapse.apEnabled[2] = !data.collapse.apEnabled[2]
+    else data.baselessRealm.automationEnabled[i] = !data.baselessRealm.automationEnabled[i]
+
+    updateRealmAutomationHTML(i)
 }
 
 function realmBoost(){
@@ -818,3 +848,22 @@ let getRealmHUPEffect = (i) => isRealmHUPActive(i) ? Math.max(realmHUPData[i].ba
 let getRealmHUPEffectDesc = (i) => `Currently: ${format(getRealmHUPEffect(i))}x`
 
 let getRealmHierarchyGain = () => data.ord.base*getRealmHUPEffect(0)*getRealmHUPEffect(1)
+
+let getRealmAutomationName = (i) => realmAutomationData[i].name
+let getRealmAutomationDesc = (i) => realmAutomationData[i].desc
+let getRealmAutomationReq = (i) => realmAutomationData[i].req ?? ''
+
+function getRealmAutomationColors(i) {
+    if(i === 2) return [ "#20da45", "#2da000"]
+    return [ "#ff8f80", "#ff8b80" ]
+}
+
+function isRealmAutomationUnlocked(i){
+    if(i === 2) return true
+    return hasBaselessBUP(4*(i+1))
+}
+
+function isRealmAutomationEnabled(i){
+    if(i === 2) return data.collapse.apEnabled[2]
+    return data.baselessRealm.automationEnabled[i] && isRealmAutomationUnlocked(i) && isBaseless()
+}

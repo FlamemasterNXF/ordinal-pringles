@@ -126,6 +126,15 @@
     background: black;
     margin-left: 0.5rem;
 }
+.realmAutomation{
+    margin-top: 1rem;
+    width: 10rem;
+    min-height: 2rem;
+    border: 2px solid #9a5650;
+    color: #d97a6e;
+    background: black;
+    margin-left: 0.5rem;
+}
 .challenge{
     width: 20rem;
     height: 12rem;

@@ -467,11 +467,12 @@
     <div class="tab flexBox" id="realmPage" style="flex-direction: column">
         <div class="flexBox" style="margin-top: 1rem">
             <button class="realmTabButton" id="relamUpgradeTab" onclick="switchSubtab('realmUpgrades', 'realm')">Upgrades</button>
+            <button class="realmTabButton" id="relamAutomationTab" onclick="switchSubtab('realmAutomation', 'realm')">Automation</button>
             <button class="realmTabButton" id="realmChallengesTab" onclick="switchSubtab('realmChal', 'realm')">Challenges</button>
             <button class="realmTabButton" id="realmIncrementyTab" onclick="switchSubtab('realmIncrementy', 'realm')">Incrementy</button>
             <button class="realmTabButton" id="realmHierarchiesTab" onclick="switchSubtab('realmHierarchies', 'realm')">Hierarchies</button>
         </div>
-        <div class="tab flexBox" id="realmUpgradesSubPage" style="margin-top: 1rem; flex-direction: column">
+        <div class="tab flexBox" id="realmUpgradesSubPage" style="margin-top: 1rem;">
             <div class="centeredTexts" id="rBoosterText" style="color: gray">boosteeeeeeeee</div>
             <div class="centeredTexts" id="rBoosterTimesText" style="font-size: 0.8rem; color: gray">boosteeeeeeeee times</div>
             <div class="flexBox" style="flex-direction: row;">
@@ -483,6 +484,16 @@
                 <div class="flexBox" id="rBupColumn2" style="flex-direction: column"></div>
                 <div class="flexBox" id="rBuColumn" style="flex-direction: column"></div>
             </div></div>
+        <div class="tab flexBox" id="realmAutomationSubPage">
+            <div class="row flexBox">
+                <button class="realmAutomation" id="realmAuto0" onclick="controlRealmAutomation(0)"></button>
+                <button class="realmAutomation" id="realmAuto1" onclick="controlRealmAutomation(1)"></button>
+            </div>
+            <button class="automation2" id="realmAuto2" style="margin-bottom: 1rem" onclick="controlRealmAutomation(2)"></button>
+            <span class="centeredTexts" id="realmAutoText0"></span>
+            <span class="centeredTexts" id="realmAutoText1"></span>
+            <span class="centeredTexts" id="realmAutoText2"></span>
+        </div>
         <div class="tab flexBox" id="realmChalSubPage" style="display: none; flex-direction: column;">
             <span class="centeredTexts" id="rChallengeEffectText" style="color: darkgoldenrod; margin-top: 1rem; font-family: DosisMedium, serif"></span>
             <div class="flexBox column" id="rChallengeContainer"></div>

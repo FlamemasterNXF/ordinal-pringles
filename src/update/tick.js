@@ -61,7 +61,7 @@ function tick(diff){
     let boostCheck = data.boost.times > 0 || hasSluggishMilestone(0)
     if(timesToLoop[3].gte(1) && data.ord.isPsi && getAutomationEnabled(0, 1) && !boostCheck && data.ord.isPsi) data.ord.ordinal = D(GRAHAMS_VALUE)
     if(timesToLoop[3].gte(1) && data.ord.isPsi && getAutomationEnabled(0, 1) && collapseCheck && boostCheck) markup(timesToLoop[3].times(diff/1000))
-    if(isBaseless() && hasBaselessBUP(8)) mockMarkup()
+    if(isRealmAutomationEnabled(1)) mockMarkup()
 
     // Automation Tier 2: Post-Collapse
     if(hasSluggishMilestone(2) && getAutomationEnabled(1, 0)) sacrificeIncrementy() //Charge Autobuyer

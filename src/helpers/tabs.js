@@ -93,6 +93,17 @@ function switchSubtab(tab, mode){
         }
     }
 
+    // Special Realm Rules
+    if(mode === "realm"){
+        if(tab === "realmAutomation"){
+            for (let i = 0; i < 3; i++) {
+                DOM(`realmAuto${i}`).style.display = isRealmAutomationUnlocked(i) ? 'block' : 'none'
+                DOM(`realmAutoText${i}`).style.display = isRealmAutomationUnlocked(i) ? 'block' : 'none'
+                updateRealmAutomationHTML(i)
+            }
+        }
+    }
+
     // Special Obliteration Rules
     if(mode === "obliterate"){
         if(tab === 'energy' && !hasDrawnTree) drawTree()

@@ -5,7 +5,7 @@ let automationData = [
             desc: "clicking the Max All button",
             hasReq: true,
             req: "but only if you can't Factor Shift",
-            unlock: () => data.boost.hasBUP[5] || (hasBaselessBUP(4) && isBaseless()),
+            unlock: () => data.boost.hasBUP[5] || (isRealmAutomationEnabled(0)),
         },
         {
             name: "Markup AutoBuyer",
