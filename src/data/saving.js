@@ -186,10 +186,10 @@ function fixOldSaves(){
 // Apply more fixes to old saves, specifically those that need the game to be fully loaded first
 function fixOldSavesAfterLoad(){
     // Exploit Fix
-    if(data.obliterate.passiveEnergy > getTotalEnergyInvested() || getTotalPassiveEnergyInvested() > getTotalEnergyInvested() || getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy > getTotalEnergyInvested()){
-        respecPassiveUpgrades()
-        data.obliterate.passiveEnergy = getTotalEnergyInvested()
-    }
+    // if(data.obliterate.passiveEnergy > getTotalFractalEnergyInvested() || getTotalPassiveEnergyInvested() > getTotalFractalEnergyInvested() || getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy > getTotalFractalEnergyInvested()){
+    //    respecPassiveUpgrades()
+    //    data.obliterate.passiveEnergy = getTotalFractalEnergyInvested()
+    //}
 
     //v0.2.2 => v0.2.3
     if(data.loadedVersion === "0.2.2"){

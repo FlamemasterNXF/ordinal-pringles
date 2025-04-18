@@ -138,7 +138,7 @@ function energyRespecConfirm(){
 function respecEnergyTree(){
     loadNodeColors(true)
 
-    let total = getTotalEnergyInvested() + data.obliterate.energy > data.obliterate.energy ? getTotalEnergyInvested() + data.obliterate.energy : data.obliterate.energy
+    let total = getTotalFractalEnergyInvested() + data.obliterate.energy > data.obliterate.energy ? getTotalFractalEnergyInvested() + data.obliterate.energy : data.obliterate.energy
     data.obliterate.energyUpgrades = []
     data.obliterate.energy = total
 

@@ -43,6 +43,11 @@ function mainLoop() {
     if(isBaseless() && hasRealmUnlock(1)) data.baselessRealm.incrementy += getRealmIncrementyGain()*uDiff
     if(isBaseless() && hasRealmUnlock(2)) data.baselessRealm.hierarchy.ord += getRealmHierarchyGain()*uDiff
 
+    if(getCurrentPassiveEnergy() < 0){
+        respecPassiveUpgrades(true)
+        createAlert('Uh oh!', 'You invested Passive Energy which you just lost in a respec, so much that your Passive Energy became negative! For this reason, your Passive Energy Upgrades have been reset. Don\'t worry, no resets were triggered!', 'Ok, thanks!')
+    }
+
     // Run the tick() function to calculate things that rely on normal diff
     tick(diff)
 

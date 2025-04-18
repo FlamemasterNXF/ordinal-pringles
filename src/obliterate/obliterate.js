@@ -81,10 +81,10 @@ function obliterateReset(){
     data.baseless.shifts = 0
     data.baseless.bestOrdinalInMode = Array(3).fill(0)
 
-    for (let i = 0; i < data.baseless.metaANR; i++) {
+    for (let i = 0; i < data.baseless.metaANR.length; i++) {
         data.baseless.metaANR[i] = hasPassiveUpgrade(13) ? data.baseless.metaANR[i] : 0
     }
-    for (let i = 0; i < data.baseless.normalANR; i++) {
+    for (let i = 0; i < data.baseless.normalANR.length; i++) {
         data.baseless.normalANR[i] = hasPassiveUpgrade(14) ? data.baseless.normalANR[i] : 0
     }
 
@@ -138,15 +138,15 @@ function obliterateReset(){
 
 function spendFractalEnergy(n = 1){
     data.obliterate.energy -= n
-    data.obliterate.passiveEnergy += n
+    //data.obliterate.passiveEnergy += n
 }
 
-function getTotalEnergyInvested(forPassive = false){
+function getTotalFractalEnergyInvested(considerPurity = false){
     let total = 0
     for (let i = 0; i < data.obliterate.energyUpgrades.length; i++) {
         let ids = getDataIDFromTreeID(data.obliterate.energyUpgrades[i])
         total += energyUpgradeData[ids[0]][ids[1]].cost
     }
-    if (forPassive) total += (data.purity.isUnlocked.slice(0,10).filter(i=>i).length - 2)
+    if (considerPurity) total += (data.purity.isUnlocked.slice(0,10).filter(i=>i).length - 2)
     return total
 }

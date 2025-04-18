@@ -29,7 +29,7 @@ function getDefaultPlayer() {
         baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), metaANR: Array(metaANBuyableData.length).fill(0), normalANR: Array(normalANBuyableData.length).fill(0), tutorial: false},
         baselessRealm: {amt: 0, total: 0, times: 0, hasBUP: Array(12).fill(false), unlocks: Array(4).fill(false), completions: Array(6).fill(0), chalActive: -1, incrementy: 0, rupLevels: Array(3).fill(0), hasUpgrade: Array(11).fill(false), hierarchy: {ord: 0, over: 0}, gupPercentage: Array(3).fill(0), hupLevels: Array(3).fill(0)},
         omega:{bestRemnants: 0, alephOmega:1, bestFBInPurification: Array(4).fill(0), purificationIsActive: Array(4).fill(false), whichPurification: -1, aoRebuyables:Array(8).fill(0), tutorial: false},
-        obliterate:{times:0, energy:0, passiveEnergy:0, energyUpgrades: [], pringleAmount: Array(10).fill(0), hasPassiveUpgrade: Array(passiveEnergyDescriptions.length).fill(false)},
+        obliterate:{times:0, energy:0, passiveEnergy:0, energyUpgrades: [], pringleAmount: Array(10).fill(0), hasPassiveUpgrade: Array(passiveUpgradeData.length).fill(false)},
         purity:{isAssigned: Array(10).fill(false), isUnlocked: Array(4).fill(false).concat(Array(2).fill(true)).concat(Array(4).fill(false)), assignment:Array(10).fill(false), pringleQueued: -1, tutorial: false},
         hyper: { hasUpgrade: Array(hyperChargeUpgradeData.length).fill(false), isUpgradeSecondary: Array(hyperChargeUpgradeData.length).fill(false), shouldForceStable: Array(hyperChargeUpgradeData.length).fill(false), hasPassiveHypercharge: Array(Math.floor(hyperChargeUpgradeData.length/3)).fill(false) },
         stability: { energy:Array(3).fill(0) },

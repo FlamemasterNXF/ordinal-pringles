@@ -122,11 +122,7 @@ function confirmStabilityRespec(i){
 function respecStability(i){
     if(i === 0){
         data.obliterate.energy += data.stability.energy[0]
-        data.obliterate.passiveEnergy -= data.stability.energy[0]
-        if(data.obliterate.passiveEnergy < 0){
-            respecPassiveUpgrades(true)
-            createAlert('Uh oh!', 'You invested Passive Energy which you just lost in that respec, so much that your Passive Energy became negative! For this reason, your Passive Energy Upgrades have been reset. Don\'t worry, no resets were triggered!', 'Ok, thanks!')
-        }
+        //data.obliterate.passiveEnergy -= data.stability.energy[0]
     }
     else{
         data.stability.energy[i-1] += data.stability.energy[i]*stableEnergyData[i].cost

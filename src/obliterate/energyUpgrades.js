@@ -242,6 +242,6 @@ function updateEUPDescriptionHTML(id){
 function purchaseEUP(id, node){
     data.obliterate.energy -= node.cost
     data.obliterate.energyUpgrades.push(id)
-    if(data.obliterate.passiveEnergy + getTotalPassiveEnergyInvested() < getTotalEnergyInvested(true)) data.obliterate.passiveEnergy += node.cost
+    //if(data.obliterate.passiveEnergy + getTotalPassiveEnergyInvested() < getTotalFractalEnergyInvested(true)) data.obliterate.passiveEnergy += node.cost
     setNodeColor(id)
 }

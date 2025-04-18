@@ -1,4 +1,4 @@
-const passiveEnergyDescriptions = [
+const passiveUpgradeData = [
     "The first Sluggish Milestone is now permanent",
     "The second Sluggish Milestone is now permanent",
     "The third Sluggish Milestone is now permanent",
@@ -35,7 +35,7 @@ let passiveEnergyEffects = [
     () => 1.5**getTotalPassiveEnergy()
 ]
 
-let updatePassiveEnergyText = () => DOM(`passiveEnergyText`).innerHTML = `You have <span style="font-family: DosisSemiBold; color: #bd80ff">${formatWhole(data.obliterate.passiveEnergy)} Passive Energy</span><br><span style="font-size: 0.9rem">You have <span style="color: #bd80ff">${getTotalPassiveEnergy()} Total Passive Energy</span>, multiplying <span style="color: #95d0ef">AutoBuyer speed by ${format(getPassiveEnergyEffect(0))}x</span> and <span style="color: #ff4848">ℵ<sub>&omega;</sub> gain by ${format(getPassiveEnergyEffect(1))}x</span></span>`
+let updatePassiveEnergyText = () => DOM(`passiveEnergyText`).innerHTML = `You have <span style="font-family: DosisSemiBold; color: #bd80ff">${getCurrentPassiveEnergy()} Passive Energy</span><br><span style="font-size: 0.9rem">You have <span style="color: #bd80ff">${getTotalPassiveEnergy()} Total Passive Energy</span>, multiplying <span style="color: #95d0ef">AutoBuyer speed by ${format(getPassiveEnergyEffect(0))}x</span> and <span style="color: #ff4848">ℵ<sub>&omega;</sub> gain by ${format(getPassiveEnergyEffect(1))}x</span></span>`
 function initPassiveEnergyUpgrades(){
     let total = 0
     for (let i = 0; i < 5; i++) {
@@ -48,7 +48,7 @@ function initPassiveEnergyUpgrades(){
             let upgrade = document.createElement('button')
             upgrade.className = 'passiveUpgrade'
             upgrade.id = `peup${total}`
-            upgrade.innerHTML = `${passiveEnergyDescriptions[total]}`
+            upgrade.innerHTML = `${passiveUpgradeData[total]}`
             upgrade.style.color = hasPassiveUpgrade(total) ? '#e180ff' : 'gray'
             DOM(`peupRow${i}`).append(upgrade)
 
@@ -57,16 +57,16 @@ function initPassiveEnergyUpgrades(){
     }
 
     // Weird Workaround
-    for (let i = 0; i < passiveEnergyDescriptions.length; i++) {
+    for (let i = 0; i < passiveUpgradeData.length; i++) {
         DOM(`peup${i}`).addEventListener("click", ()=>buyPEUP(i))
     }
 }
 
 function buyPEUP(i){
-    if(data.obliterate.passiveEnergy < 1 || hasPassiveUpgrade(i)) return
+    if(getCurrentPassiveEnergy() < 1 || hasPassiveUpgrade(i)) return
 
-    if(((i % 5 === 0 && i !== 20) || i === 19) || hasPassiveUpgrade(i-1)){
-        --data.obliterate.passiveEnergy
+    if(i % 5 === 0 || hasPassiveUpgrade(i-1)){
+        //--data.obliterate.passiveEnergy
         data.obliterate.hasPassiveUpgrade[i] = true
 
         DOM(`peup${i}`).style.color = '#e180ff'
@@ -79,7 +79,7 @@ function passiveRespecConfirm(){
     createConfirmation('Are you certain?', 'This will force an Obliteration reset!', 'Nope!', 'Yeah', respecPassiveUpgrades)
 }
 function respecPassiveUpgrades(bypassReset = false){
-    data.obliterate.passiveEnergy = getTotalEnergyInvested(true)
+    //data.obliterate.passiveEnergy = getTotalFractalEnergyInvested(true)
     for (let i = 0; i < data.obliterate.hasPassiveUpgrade.length; i++) {
         DOM(`peup${i}`).style.color = 'gray'
         data.obliterate.hasPassiveUpgrade[i] = false
@@ -89,22 +89,23 @@ function respecPassiveUpgrades(bypassReset = false){
     updatePassiveEnergyText()
 }
 function getTotalPassiveEnergyInvested(){
-    let total = 0
+    let fromUpgrades = 0
     for (let i = 0; i < data.obliterate.hasPassiveUpgrade.length; i++) {
-        if(hasPassiveUpgrade(i)) ++total
+        if(hasPassiveUpgrade(i)) ++fromUpgrades
     }
-    return total
+    return fromUpgrades
 }
-let getTotalPassiveEnergy = () => getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy
+let getBasePassiveEnergy = () => getTotalFractalEnergyInvested(true) + data.stability.energy[0]
+let getCurrentPassiveEnergy = () => getBasePassiveEnergy() - getTotalPassiveEnergyInvested()
+let getTotalPassiveEnergy = () => getBasePassiveEnergy() + getTotalPassiveEnergyInvested()
 
 let hasPassiveUpgrade = (i) => data.obliterate.hasPassiveUpgrade[i]
 function completedPassiveUpgradeRows(){
     let rows = 0
-    if(hasPassiveUpgrade(4)) ++rows
-    if(hasPassiveUpgrade(9)) ++rows
-    if(hasPassiveUpgrade(14)) ++rows
-    if(hasPassiveUpgrade(19)) ++rows
-    if(hasPassiveUpgrade(24)) ++rows
+    for (let i = 0; i < passiveUpgradeData.length; i++) {
+        let index = 4+5*i
+        if(hasPassiveUpgrade(index)) ++rows
+    }
     return rows
 }
 let isAOMilestonePermanent = (i) => i < completedPassiveUpgradeRows()
