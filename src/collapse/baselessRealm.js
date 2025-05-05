@@ -516,7 +516,10 @@ function updateRealmBoostersHTML() {
 
     if(getSubtab('realm') === 'realmChal') DOM(`rChallengeEffectText`).innerText = `Your Factors are boosting Aleph Null gain by ${format(getRealmChallengeOverallEffect())}x`
     if(getSubtab('realm') === 'realmIncrementy') updateRealmIncrementyHTML()
-    if(getSubtab('realm') === 'realmHierarchies') updateRealmHierarchiesHTML()
+    if(getSubtab('realm') === 'realmHierarchies'){
+        updateRealmHierarchiesHTML()
+        updateAllGUPHTML()
+    }
 
     updateRealmUnlockHTML()
     updateStatusHTML()
@@ -552,6 +555,12 @@ function updateRealmHierarchiesHTML(){
 
 function updateGUPHTML(i){
     DOM(`gupText${i}`).innerText = getGUPDesc(i)
+}
+
+function updateAllGUPHTML(){
+    for (let i = 0; i < growthUpgradeData.length; i++) {
+        updateGUPHTML(i)
+    }
 }
 
 function updateRealmHUPHTML(i){
