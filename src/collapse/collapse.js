@@ -85,7 +85,7 @@ function initCUPS(){
                 let drain = document.createElement('button')
                 drain.className = 'drain'
                 drain.id = `drain${id}`
-                drain.innerText = `Drain this Cardinal Upgrade (${makeDrainLevelText(id)})<br>${format(drainCost(id))} Negative Charge`
+                drain.innerHTML = `Drain this Cardinal Upgrade ${makeDrainLevelText(id)}<br>${format(drainCost(id))} Negative Charge`
                 drain.addEventListener("click", ()=>buyDrain(id))
                 innerContainer.append(drain)
             }

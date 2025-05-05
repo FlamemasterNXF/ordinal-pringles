@@ -30,9 +30,10 @@ function initChals(){
         }
     }
     for (let i = 0; i < data.chal.completions.length; i++) {
-        DOM(`chal${i}`).addEventListener('click', ()=> getSimpleSetting('challengeConfirmation') ?
-            createConfirmation("Are you sure?", "Entering a Challenge will perform a Booster Reset!", "No chance.", "Of course!", chalEnter, i)
-        :chalEnter(i))
+        DOM(`chal${i}`).addEventListener('click', ()=> getSimpleSetting('challengeConfirmation')
+            ? createConfirmation("Are you sure?", "Entering or Exiting a Challenge will perform a Booster Reset!", "No chance.", "Of course!", chalControl, i)
+            : chalControl(i)
+        )
         updateChalHTML(i)
     }
     updateStatusHTML()
@@ -48,9 +49,15 @@ function updateChalHTML(i){
     DOM(`chal1`).innerHTML = `Challenge 2<br>${chalDesc[1]}<br><br>Goal: ${data.chal.completions[1] === 3 ? 'Infinity' : ordinalDisplay('', chalGoals[1][data.chal.completions[1]], 0, 3, data.ord.trim, true, true)}<br>Reward: Factor 2 slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[1]}/3`
     DOM(`chal7`).innerHTML = `Challenge 8<br>${chalDesc[7]}<br><br>Goal: ${format(chalGoals[7][data.chal.completions[7]])} OP<br>Reward: Dynamic Factor slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[7]}/3`
 }
+
+function chalControl(i){
+    if(data.chal.active[i]) return chalExit()
+    chalEnter(i)
+}
+
 function chalEnter(i, force=false){
-    if(data.baseless.baseless) return;
-    if((data.chal.completions[i] === 3 || data.chal.active.includes(true)) && !force) return
+    if(data.baseless.baseless) return
+    if(data.chal.completions[i] === 3 && !force) return
 
     if(i === 5) for (let j = 0; j < data.chal.active.length-4; j++) data.chal.active[j] = true
     if(i === 7) data.chal.active[6] = true
@@ -84,11 +91,7 @@ function chalExit(darkness = false){
     boosterReset()
     updateStatusHTML()
 }
-//TODO: This exists because of how createConfirmation works. Change it.
-function chalExitConfirm(){
-    if(checkAllIndexes(data.chal.active, true) === 0) return
-    createConfirmation("Are you sure?", "Leaving a Challenge early will force a Booster Reset and you will get no rewards!", "No way!", "Of course!", chalExit)
-}
+
 function chalComplete(){
     if(data.chal.html === -1 || data.darkness.darkened) return
     const currency = data.chal.html===1?data.ord.ordinal:data.markup.powers
