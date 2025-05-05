@@ -140,19 +140,3 @@ function fsReset(){
         data.factors[i] = 0
     }
 }
-
-/*
-        WIP, to be added in a future update
-
-
-let imaginaryShiftData = [
-
-]
-function imaginaryShift(){
-    if(data.baseless.baseless) return
-
-    let req = getImaginaryShiftReq(data.imaginary.shifts)
-}
-
-let getImaginaryShiftReq
- */
