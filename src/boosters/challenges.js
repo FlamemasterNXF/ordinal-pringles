@@ -125,3 +125,11 @@ function getC6Effect(){
     for (let i = 0; i < data.boost.hasBUP.length; i++) if (data.boost.hasBUP[i]) ++boosterUpgradesNum // This line could be removed if the variable above is replaced
     return boosterUpgradesNum + 1
 }
+
+function getTotalChallengeCompletions(){
+    let total = 0
+    for (let i = 0; i < data.chal.completions.length; i++) {
+        total += data.chal.completions[i]
+    }
+    return total
+}
