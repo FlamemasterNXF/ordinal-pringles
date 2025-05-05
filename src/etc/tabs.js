@@ -119,8 +119,8 @@ function switchSubtab(tab, mode){
             DOM(`gwaifySettingContainer`).style.display = data.gword.unl ? 'flex' : 'none'
         }
         if(!isMobileMode()){
-            DOM(`sidebar0`).style.display = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? 'block' : 'none'
-            DOM(`sidebar1`).style.display = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? 'block' : 'none'
+            DOM(`sidebar0`).style.display = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? 'flex' : 'none'
+            DOM(`sidebar1`).style.display = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? 'flex' : 'none'
             DOM(`game`).style.width = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? 'calc(100% - 32rem)' : '100%'
         }
     }
