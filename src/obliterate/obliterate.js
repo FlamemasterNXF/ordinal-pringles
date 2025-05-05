@@ -78,7 +78,6 @@ function obliterateReset(){
     }
 
     data.baseless.alephNull = 0
-    data.baseless.mode = 0
     data.baseless.baseless = false
     data.baseless.shifts = 0
     data.baseless.bestOrdinalInMode = Array(3).fill(0)
