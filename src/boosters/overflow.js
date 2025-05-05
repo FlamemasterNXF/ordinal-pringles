@@ -6,11 +6,11 @@
 
 function updateOverflowHTML(){
     DOM(`boosterText2`).innerText =  `You have ${format(getExtraBoosters())} Excess Boosters, producing`
-    DOM(`boosterPower`).innerText = ` ${format(getOverflowGain(0))} Booster Power/s`
+    DOM(`boosterPower`).innerText = ` ${format(getBoosterPowerGain())} Booster Power/s`
     DOM(`bpTotal`).innerText = `Your ${format(data.overflow.bp)} Booster Power is`
 
     DOM(`chargeText2`).innerText =  `You have ${getExtraCharge()} Excess Charge, producing`
-    DOM(`overCharge`).innerText = ` ${format(getOverflowGain(1))} Overcharge/s`
+    DOM(`overCharge`).innerText = ` ${format(getOverchargeGain())} Overcharge/s`
     DOM(`ocTotal`).innerText = `Your ${format(data.overflow.oc)} Overcharge is`
 
     for (let i = 0; i < 8; i++) {
@@ -22,12 +22,16 @@ let maxNonOverflowBoosters = boostersAtGivenFB(29)
 let getExtraBoosters = () => Math.max(0, data.boost.total-maxNonOverflowBoosters)
 let getExtraCharge = () => Math.max(0, data.incrementy.totalCharge-12)
 
-function getOverflowGain(i){
-    if (i === 0) return (Math.sqrt(getExtraBoosters())/10)*(getAlephEffect(6).toNumber())*purificationEffect(2)
-    return (Math.sqrt(getExtraCharge())/10)*purificationEffect(2)
+function getBoosterPowerGain(){
+    return (Math.sqrt(getExtraBoosters())/10)*(getAlephEffect(6).toNumber())*purificationEffect(2)
 }
 
-function getOverflowEffect(i, depth=0){
+function getOverchargeGain(){
+    const exponent = 0.5 + getHyperchargeEffect(9)
+    return (Math.pow(getExtraCharge(), exponent)/10)*purificationEffect(2)
+}
+
+function getOverflowEffect(i){
     if(data.overflow.bp === 1 && i < 3 && data.overflow.oc === 1) return 1
     switch (i) {
         case 0:

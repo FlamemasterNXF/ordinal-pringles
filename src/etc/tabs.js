@@ -118,11 +118,12 @@ function switchSubtab(tab, mode){
         if(tab === 'settingsUI'){
             DOM(`gwaifySettingContainer`).style.display = data.gword.unl ? 'flex' : 'none'
         }
-        if(!isMobileMode()){
-            DOM(`sidebar0`).style.display = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? 'flex' : 'none'
-            DOM(`sidebar1`).style.display = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? 'flex' : 'none'
-            DOM(`game`).style.width = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? 'calc(100% - 32rem)' : '100%'
-        }
+
+        const display = isMobileMode() ? `flex` : `block`
+        DOM(`sidebar0`).style.display = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? display : 'none'
+        DOM(`sidebar1`).style.display = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? display : 'none'
+
+        if(!isMobileMode()) DOM(`game`).style.width = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? 'calc(100% - 32rem)' : '100%'
     }
 }
 

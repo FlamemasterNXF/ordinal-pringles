@@ -26,8 +26,8 @@ function mainLoop() {
         if(data.incrementy.amt.lt(getDepthBuff(2))) doDepthThreeEffect()
     }
     if(data.boost.unlocks[3]) {
-        data.overflow.bp += getOverflowGain(0)*uDiff
-        data.overflow.oc += getOverflowGain(1)*uDiff
+        data.overflow.bp += getBoosterPowerGain()*uDiff
+        data.overflow.oc += getOverchargeGain()*uDiff
     }
 
     if(hasCUP(7)) data.collapse.cardinals = data.collapse.cardinals.plus((data.collapse.bestCardinalsGained.div(100)).times(getCUPEffect(7)).times(uDiff))

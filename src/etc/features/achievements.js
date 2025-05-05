@@ -182,22 +182,22 @@ let achievements = [
     {
         name: "My cup runneth over",
         description: "Produce 1 Booster Power per Second",
-        req: () => getOverflowGain(0) >= 1
+        req: () => getBoosterPowerGain() >= 1
     },
     {
         name: "My Cup Flooded The World",
         description: "Produce 1e6 Booster Power per Second",
-        req: () => getOverflowGain(0) >= 1e6
+        req: () => getBoosterPowerGain() >= 1e6
     },
     {
         name: "My Electrical Bill Runneth Over",
         description: "Produce Overcharge",
-        req: () => getOverflowGain(1) > 0
+        req: () => getOverchargeGain() > 0
     },
     {
         name: "We Need More Batteries",
         description: "Produce 1 Overcharge per Second",
-        req: () => getOverflowGain(1) >= 1
+        req: () => getOverchargeGain() >= 1
     },
     {
         name: "YOU HAVE COLLAPSED!",

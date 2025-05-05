@@ -67,10 +67,10 @@ let hyperChargeUpgradeData = [
     },
 
     {
-        description: "Charge boosts the first ℵ<sub>&omega;</sub> Upgrade",
-        sign: 'x',
-        effect: () => 1+Math.log10(data.incrementy.charge+1)/10,
-        baseEffect: () => 1,
+        description: "Cardinals increase the Overcharge gain exponent",
+        sign: '+',
+        effect: () => Decimal.log10(1e100).div(150).toNumber(),
+        baseEffect: () => 0,
         cost: 24,
     },
     {
