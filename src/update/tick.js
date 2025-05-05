@@ -12,7 +12,7 @@ function tick(diff){
     completeRealmChallenge()
 
     //Automation Tier 1
-    for (let i = 0; i < 2; i++) timesToLoop[i] = D(timesToLoop[i]).add(!data.chal.active[4]
+    for (let i = 0; i < 2; i++) timesToLoop[i] = D(timesToLoop[i]).add(!data.chal.active[5]
         ? D(diff).mul(D(data.autoLevels[i]).add(extraT1())).mul(getAutoClickerSpeed()).mul(data.dy.level).div(data.chal.decrementy)
         : D(diff).mul(D(data.autoLevels[i]).add(extraT1())).mul(getAutoClickerSpeed()).div(data.dy.level).div(data.chal.decrementy))
 

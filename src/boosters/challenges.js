@@ -1,7 +1,10 @@
 const chalDesc = [
-    "You can only buy 1 of each AutoClicker", "You can't buy Factors",
-    "The Base is 5 higher", "Factor Shifts don't reduce the base", "Dynamic divides AutoClicker speed, and each Booster Upgrade bought and completion of this Challenge multiplies Dynamic Gain and Cap by 5",
-    "All previous Challenges at once EXCEPT Challenge 5", "You gain no Dynamic, Booster Upgrades increase Factor Shift requirements, Booster Upgrade 1x3 is disabled, and you can only manually click Successor 1000 times per Markup",
+    "You can only buy 1 of each AutoClicker",
+    "You can't buy Factors",
+    "The Base is 5 higher", "Factor Shifts don't reduce the base",
+    "ALL previous Challenges at once",
+    "Dynamic divides AutoClicker speed, and each Booster Upgrade bought and completion of this Challenge multiplies Dynamic Gain and Cap by 5",
+    "You gain no Dynamic, Booster Upgrades increase Factor Shift requirements, Booster Upgrade 1x3 is disabled, and you can only manually click Successor 1000 times per Markup",
     "You exponentially gain Decrementy that divides AutoClicker Speed (resets on Markup), keep no OP on Markup, and you're trapped in Challenge 7"
 ]
 const chalGoals = [
@@ -9,8 +12,8 @@ const chalGoals = [
     [4, 6377292, 125524238436, Infinity], //this one is in Ordinal value, [1] and [2] are post-Epsilon-Naught
     [1e200, 1e214, 1e256, Infinity],
     [1e32, 5e113, 1.5e119, Infinity],
-    [4e256, 4e256, 4e256, Infinity], //4e256 works as a stand in for Epsilon Naught here
     [1.02e33, 1e44, 4.75e108, Infinity],
+    [4e256, 4e256, 4e256, Infinity], //4e256 works as a stand in for Epsilon Naught here
     [1.05e13, 4.18e18, 1.02e20, Infinity],
     [3.0e10, 6.0e10, 2.4e11, Infinity],
 ]
@@ -59,7 +62,7 @@ function chalEnter(i, force=false){
     if(data.baseless.baseless) return
     if(data.chal.completions[i] === 3 && !force) return
 
-    if(i === 5) for (let j = 0; j < data.chal.active.length-4; j++) data.chal.active[j] = true
+    if(i === 4) for (let j = 0; j < data.chal.active.length-4; j++) data.chal.active[j] = true
     if(i === 7) data.chal.active[6] = true
     data.chal.active[i] = true
 
@@ -117,7 +120,7 @@ function chalEffectTotal(){
     return Decimal.max(Decimal.pow(base,2).add(cup), 1)
 }
 
-function getC5Effect(){
+function getC6Effect(){
     let boosterUpgradesNum = 0 // Could be replaced with "const boosterUpgradesNum = data.boost.hasBUP.filter(hasUpgrade => hasUpgrade === true).length"
     for (let i = 0; i < data.boost.hasBUP.length; i++) if (data.boost.hasBUP[i]) ++boosterUpgradesNum // This line could be removed if the variable above is replaced
     return boosterUpgradesNum + 1

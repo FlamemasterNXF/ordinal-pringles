@@ -13,10 +13,10 @@ function updateMarkupHTML(){
         `Perform a Factor Shift (H)<br><span style="font-size: 0.7rem">Requires ${format(getFSReq())} Ordinal Powers</span>`
     DOM("autoclicker0").innerText = `Successor AutoClicker\nCosts ${format(autoCost(0))} Ordinal Powers`
     DOM("autoclicker1").innerText = `Maximize AutoClicker\nCosts ${format(autoCost(1))} Ordinal Powers`
-    let succSpeed = !data.chal.active[4]
+    let succSpeed = !data.chal.active[5]
         ? D(data.autoLevels[0]).add(extraT1()).mul(getAutoClickerSpeed()).mul(data.dy.level).div(data.chal.decrementy)
         : D(data.autoLevels[0]).add(extraT1()).mul(getAutoClickerSpeed()).div(data.dy.level).div(data.chal.decrementy)
-    let maxSpeed = !data.chal.active[4]
+    let maxSpeed = !data.chal.active[5]
         ? D(data.autoLevels[1]).add(extraT1()).mul(getAutoClickerSpeed()).mul(data.dy.level).div(data.chal.decrementy)
         : D(data.autoLevels[1]).add(extraT1()).mul(getAutoClickerSpeed()).div(data.dy.level).div(data.chal.decrementy)
     DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0]+extraT1())} Successor Autoclickers click the Successor button ${formatWhole(succSpeed)} times/second\nYour ${formatWhole(data.autoLevels[1]+extraT1())} Maximize Autoclickers click the Maximize button ${formatWhole(maxSpeed)} times/second`
@@ -30,8 +30,8 @@ function updateMarkupHTML(){
         ? getCSSVariable('factor-boost-button-default-text-color')
         : getCSSVariable('factor-shift-button-default-text-color')
 
-    DOM("dynamicTab").innerText = data.markup.shifts===7||data.chal.active[4]||data.baseless.baseless?'Dynamic':'???'
-    DOM("dynamicText").innerText = `Your Dynamic Factor is ${data.chal.active[4]?'dividing':'multiplying'} AutoClickers by ${format(data.dy.level, 3)}\nIt increases by ${format(dyGain())}/s, and caps at ${format(getDyCap())}`
+    DOM("dynamicTab").innerText = data.markup.shifts===7||data.chal.active[5]||data.baseless.baseless?'Dynamic':'???'
+    DOM("dynamicText").innerText = `Your Dynamic Factor is ${data.chal.active[5]?'dividing':'multiplying'} AutoClickers by ${format(data.dy.level, 3)}\nIt increases by ${format(dyGain())}/s, and caps at ${format(getDyCap())}`
     DOM("dynamicText2").innerText = `Your Dynamic Factor is ${format(data.dy.level, 3)} [+${format(dyGain())}/s]. It caps at ${format(getDyCap())}`
 
     DOM(getAdaptiveButton("factorBoostButton")).innerHTML = `Perform ${getBulkBoostAmt() < 2 ? `${inAnyPurification() ? `an` : `a`} ${boostName()} Boost` : getBulkBoostAmt()+` ${boostName()} Boosts`} [+${format(boosterGain())}] (B)${data.boost.times + getBulkBoostAmt() - 1 < 34 ? `<br>Requires ${displayBoostReq()}` : ''}`
@@ -119,12 +119,12 @@ function factorShift(isAuto = false){
     if(!data.chal.active[3] && !(data.boost.hasBUP[2] && checkAllIndexes(data.chal.active, true) && !data.darkness.darkened)) --data.ord.base
     if(data.markup.shifts < 7) ++data.markup.shifts
 
-    if(data.markup.shifts === 7 && !data.chal.active[4]){
+    if(data.markup.shifts === 7 && !data.chal.active[5]){
         data.dy.level = D(4)
         data.dy.gain = D(0.002)
     }
 
-    if(data.chal.active[4]) data.dy.gain = D(0.002)
+    if(data.chal.active[5]) data.dy.gain = D(0.002)
 
     fsReset()
 }

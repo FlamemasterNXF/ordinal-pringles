@@ -1,7 +1,7 @@
 function getDyCap() {
-    if(data.chal.active[4]){
-        let c5 = getC5Effect()
-        return D(40*(5**c5)*(5**data.chal.completions[4]))
+    if(data.chal.active[5]){
+        let c6 = getC6Effect()
+        return D(40*(5**c6)*(5**data.chal.completions[5]))
     }
     return D(40).mul(iup5Effect()).mul(getAlephEffect(4)).mul(dupEffect(1)).mul(getPringleEffect(3))
         .mul(getHyperchargeEffect(5))
@@ -13,13 +13,13 @@ function dyGain(){
     let boost = 1
     if(data.ord.base < 6 || data.boost.isCharged[13]) boost = getBUPEffect(13)
 
-    if(data.chal.active[4]) {
-        let c5 = getC5Effect()
-        let c6 = data.chal.active[5] ? 1 :(5**data.chal.completions[4])
-        return data.dy.gain.mul((5**c5)*c6)
+    if(data.chal.active[5]) {
+        let c6 = getC6Effect()
+        //let c5 = data.chal.active[4] ? 1 : (5**data.chal.completions[4])
+        return data.dy.gain.mul((5**c6)/**c5*/)
     }
 
-    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[5]) return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(getBUPEffect(3)).mul(getPringleEffect(3)).toNumber()
+    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[4]) return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(getBUPEffect(3)).mul(getPringleEffect(3)).toNumber()
 
     return calcDyGain()
 }
