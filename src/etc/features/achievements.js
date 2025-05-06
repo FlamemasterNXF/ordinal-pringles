@@ -373,10 +373,15 @@ let achievements = [
 
 
     {
-        name: "Best Feature In The Whole Game",
-        description: "Discover the Secret! Don't worry, it has no effect on gameplay :)",
+        name: "Best Notation EVER",
+        description: "Discover the Secret Notation!",
         req: () => data.gword.unl
     },
+    {
+        name: "Best Feature EVER",
+        description: "Invite the Bunnies to visit you!",
+        req: () => data.bunny.unlocked
+    }
 ]
 
 function initAchs(){
