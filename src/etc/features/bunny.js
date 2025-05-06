@@ -164,7 +164,7 @@ function addBunnyToRow(i){
 }
 
 function initBunnyHTML(){
-    if(data.bunny.unlocked) DOM('ordNav').innerText = 'bunny'
+    if(data.bunny.unlocked) DOM('ordNav').innerText = '૮꒰ ˶• w •˶꒱ა ♡'
     updateBunnyHTML()
 
     for (let i = 0; i < data.bunny.level; i++) {
