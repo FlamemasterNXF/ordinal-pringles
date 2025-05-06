@@ -136,15 +136,19 @@ function getCurrentBunnyImg(){
     return bunnyData[data.bunny.level].img
 }
 
-function getBunnyBlurb(){
-    const name = bunnyData[data.bunny.level].name
-    const desc = bunnyData[data.bunny.level].desc
+function getBunnyBlurb(i = data.bunny.level){
+    const name = bunnyData[i].name
+    const desc = bunnyData[i].desc
     return `Hi! I'm the ${name}! ${desc}`
+}
+
+function updateBunnyBlurb(blurb){
+    DOM('bunnyBlurb').innerText = blurb
 }
 
 function updateBunnyHTML(){
     DOM('bunnyBox').src = getCurrentBunnyImg()
-    DOM('bunnyBlurb').innerText = getBunnyBlurb()
+    updateBunnyBlurb(getBunnyBlurb())
     DOM('bunnyButton').innerHTML = getTotalPringleLevels() >= getBunnyCost()
         ? `<span style="color: #009696">Feed the Bunny ${getBunnyCost()} Pringles!</span><br><span style="font-size: 0.7rem">Don't worry, the bunny is nice and won't actually take them</span>`
         : `Looks like you lack Pringles right now. You need ${getBunnyCost()} to feed the bunny.<br><span style="font-size: 0.7rem">Don't worry, the bunny will wait patiently for you to gather ${getBunnyCost() - getTotalPringleLevels()} Pringles :)</span>`
@@ -160,6 +164,8 @@ function addBunnyToRow(i){
     bunny.style.width = '4rem'
     bunny.style.height = '4rem'
     bunny.src = bunnyData[i].img
+    bunny.addEventListener('mouseenter', () => updateBunnyBlurb(getBunnyBlurb(i)))
+    bunny.addEventListener('mouseleave', () => updateBunnyBlurb(getBunnyBlurb()))
     row.appendChild(bunny)
 }
 
