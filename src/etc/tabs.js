@@ -1,5 +1,5 @@
 function switchTab(mode){
-    if(mode === 'ord' && data.bunny.unlocked) return switchTab('bunny')
+    if(mode === 'ord' && data.bunny.unlocked && data.bunny.enabled) return switchTab('bunny')
 
     DOM(`${data.nav.current}Page`).style.display = 'none'
 

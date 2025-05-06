@@ -267,8 +267,9 @@ function handleEasterEggs(content){
     // Easter Egg: bunny game!
     if(content === "bunny"){
         data.bunny.unlocked = true
+        data.bunny.enabled = true
         DOM(`ordNav`).innerText = '૮꒰ ˶• w •˶꒱ა ♡'
-        createAlert("Hooray!", "The bunnies have come to visit!", "We must ready the Pringles!")
+        createAlert("Hooray!", "The bunnies have come to visit!", "We must ready the Pringles! (You can switch the Bunny tab back in Settings)")
         closeModal('prompt')
         return true
     }

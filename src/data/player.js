@@ -44,7 +44,7 @@ function getDefaultPlayer() {
         isBeta: IS_BETA,
         offline: true,
         gword: {unl: false, enabled: false},
-        bunny: {unlocked: false, level: 0, experiment: 0}
+        bunny: {unlocked: false, enabled: false, level: 0, experiment: 0}
     }
 }
 let data = getDefaultPlayer()

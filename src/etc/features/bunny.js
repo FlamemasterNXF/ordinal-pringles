@@ -164,7 +164,7 @@ function addBunnyToRow(i){
 }
 
 function initBunnyHTML(){
-    if(data.bunny.unlocked) DOM('ordNav').innerText = '૮꒰ ˶• w •˶꒱ა ♡'
+    updateBunnyToggleHTML()
     updateBunnyHTML()
 
     for (let i = 0; i < data.bunny.level; i++) {
@@ -180,4 +180,17 @@ function increaseBunnyLevel(){
         data.bunny.level++
         updateBunnyHTML()
     }
+}
+
+function updateBunnyToggleHTML(){
+    DOM('ordNav').innerText = data.bunny.enabled ? '૮꒰ ˶• w •˶꒱ა ♡' : 'Ordinals'
+
+    const color = data.bunny.enabled
+        ? getCSSVariable('setting-on-text-color')
+        : getCSSVariable('setting-off-text-color')
+    DOM(`bunnyToggle`).innerHTML = `Replace the Ordinal tab with the Bunny tab <span style="color: ${color}">[${formatBool(data.bunny.enabled)}]</span>`
+}
+function bunnyToggle() {
+    data.bunny.enabled = !data.bunny.enabled
+    updateBunnyToggleHTML()
 }
