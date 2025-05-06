@@ -55,6 +55,7 @@ const uHTML = {
         initStabilityHTML()
         updateGwaHTML()
         initThemeHTML()
+        initBunnyHTML()
 
         //Load Tab Displays
         switchTab(data.nav.current)

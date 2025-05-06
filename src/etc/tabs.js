@@ -1,4 +1,6 @@
 function switchTab(mode){
+    if(mode === 'ord' && data.bunny.unlocked) return switchTab('bunny')
+
     DOM(`${data.nav.current}Page`).style.display = 'none'
 
     data.nav.current = mode
@@ -9,7 +11,7 @@ function switchTab(mode){
     if(mode === 'collapse') checkCollapseUnlockHTML()
 }
 
-const tabsWithoutSubtabs = ['ord', 'ach']
+const tabsWithoutSubtabs = ['ord', 'ach', 'bunny']
 
 const defaultSubTabs = {
     "markup": "factor",

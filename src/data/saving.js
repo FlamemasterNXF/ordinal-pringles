@@ -185,12 +185,6 @@ function fixOldSaves(){
 
 // Apply more fixes to old saves, specifically those that need the game to be fully loaded first
 function fixOldSavesAfterLoad(){
-    // Exploit Fix
-    // if(data.obliterate.passiveEnergy > getTotalFractalEnergyInvested() || getTotalPassiveEnergyInvested() > getTotalFractalEnergyInvested() || getTotalPassiveEnergyInvested() + data.obliterate.passiveEnergy > getTotalFractalEnergyInvested()){
-    //    respecPassiveUpgrades()
-    //    data.obliterate.passiveEnergy = getTotalFractalEnergyInvested()
-    //}
-
     //v0.2.2 => v0.2.3
     if(data.loadedVersion === "0.2.2"){
         data.loadedVersion = "0.2.3"
@@ -259,21 +253,30 @@ async function downloadSave() {
     }
 }
 
-// Import a save into the game
-function importSave(x) {
-    // Easter Egg
-    if(x === "gwa"){
+// Handle Easter Eggs through Import
+function handleEasterEggs(content){
+    // Easter Egg: Unlock gwa
+    if(content === "gwa"){
         if(!data.gword.unl) showNotification('You have unlocked the secret <img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'> Ordinal Display! You can now enable or disable it in Settings :)')
         data.gword.unl = true
         data.gword.enabled = true
-        return closeModal('prompt')
+        closeModal('prompt')
+        return true
     }
 
-    // Easter Egg..... but pointless for now
-    if(x === "very-cool-hat"){
-        createAlert("Oh no", "The gwas are coming. To your house.", "We must hide the chips!")
-        return closeModal('prompt')
+    // Easter Egg: bunny game!
+    if(content === "bunny"){
+        data.bunny.unlocked = true
+        DOM(`ordNav`).innerText = 'bunny'
+        createAlert("Hooray!", "The bunnies have come to visit!", "We must ready the Pringles!")
+        closeModal('prompt')
+        return true
     }
+}
+
+// Import a save into the game
+function importSave(x) {
+    if(handleEasterEggs(x)) return
 
     try {
         if(x.length <= 0) {

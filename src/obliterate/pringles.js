@@ -225,7 +225,13 @@ function buyPringle(localPringleData, index){
     updateCanBuyPringleHTML()
 }
 
-let getPringleData = (i) => pringleData[i]
+function getTotalPringleLevels(){
+    let levels = 0
+    for (let i = 0; i < data.obliterate.pringleAmount.length; i++) {
+        levels += data.obliterate.pringleAmount[i]
+    }
+    return levels
+}
 
 let getPringleEffectBaseline = (i) => Decimal.max(pringleData[i].baseValue, (pringleData[i].eff()))
 let getPringleEffect = (i, number = false) => number
