@@ -130,6 +130,6 @@
     color: var(--version-text-color)
 }
 
-#s{
+.s{
     color: var(--generic-black);
 }
