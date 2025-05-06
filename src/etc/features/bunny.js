@@ -26,7 +26,7 @@ const bunnyData = [
     },
     {
         name: "Camo Bunny",
-        desc: "I'm very well hidden fluffy little friend, can you see me?",
+        desc: "I'm a very well hidden fluffy little friend, can you see me?",
         img: "res/bunnies/Camo-Bunny.svg"
     },
     {
@@ -36,17 +36,17 @@ const bunnyData = [
     },
     {
         name: "Hero Bunny",
-        desc: "I'm fluffy little friend with special powers!",
+        desc: "I'm a fluffy little friend with special powers!",
         img: "res/bunnies/Hero-Bunny.svg"
     },
     {
         name: "Angel Bunny",
-        desc: "I'm fluffy little friend who, like all my fluffy little friends, has a perfect and fluffy life :)",
+        desc: "I'm a fluffy little friend who, like all my fluffy little friends, has a perfect and fluffy life :)",
         img: "res/bunnies/Angel-Bunny.svg"
     },
     {
         name: "Devil Bunny",
-        desc: "I'm a EVIL >:) fluffy little friend who did some EVIL things (but was still perfect and fluffy)",
+        desc: "I'm an EVIL >:) fluffy little friend who did some EVIL things (but was still perfect and fluffy)",
         img: "res/bunnies/Devil-Bunny.svg"
     },
     {
