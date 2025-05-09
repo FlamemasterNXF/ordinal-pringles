@@ -29,7 +29,7 @@ function incrementyGain() {
 }
 
 const iupDesc = ['Double Incrementy Gain', 'Triple Dynamic Gain', 'Dynamic Factor boosts Incrementy gain',
-    'Total Factor Boosts boost Incrementy Gain', 'Incrementy Multiplies the Dynamic Cap at a reduced rate (does not affect C5)', 'Dynamic boosts AutoBuyers at a reduced rate',
+    'Total Factor Boosts boost Incrementy Gain', 'Incrementy Multiplies the Dynamic Cap at a reduced rate (does not apply in C6)', 'Dynamic boosts AutoBuyers at a reduced rate',
     'Challenge Completions provide free levels of Repeatable Upgrade 1', 'Repeatable Upgrade 2 is boosted by Challenge Completions', 'Total Repeatable Upgrade 3 levels boosts Upgrade 3',
     'Double Negative Charge gain', 'Gain a level of the second Darkness Upgrade', 'Boost Cardinal gain'
 ]
