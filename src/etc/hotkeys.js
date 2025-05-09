@@ -8,16 +8,18 @@ const controls = {
     "c": { pressed: false }
 }
 document.addEventListener('keydown', (event) => {
-    let key = event.key;
-    let uppercase = event.key.toUpperCase()
+    if(event.ctrlKey || event.altKey) return
+
+    const key = event.key
+    const uppercase = event.key.toUpperCase()
     if ((controls[key] || controls[uppercase]) && !isModalOpen('prompt')) {
-        controls[key].pressed = true;
+        controls[key].pressed = true
     }
 }, false);
 document.addEventListener('keyup', (event) => {
-    let key = event.key;
-    let uppercase = event.key.toUpperCase()
+    const key = event.key
+    const uppercase = event.key.toUpperCase()
     if (controls[key] || controls[uppercase]) {
-        controls[key].pressed = false;
+        controls[key].pressed = false
     }
 }, false);
