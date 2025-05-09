@@ -275,7 +275,7 @@ function handleEasterEggs(content){
         data.bunny.unlocked = true
         data.bunny.enabled = true
         DOM(`ordNav`).innerText = '૮꒰ ˶• w •˶꒱ა ♡'
-        createAlert("Hooray!", "The bunnies have come to visit!", "We must ready the Pringles! (You can switch the Bunny tab back in Settings)")
+        createAlert("Hooray!", "The bunnies have come to visit!", "We must ready the Pringles! (You can switch the Bunny tab back in Settings)", {container: 13, button: 6})
         closeModal('prompt')
         return true
     }

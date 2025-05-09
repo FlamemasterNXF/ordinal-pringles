@@ -1,9 +1,11 @@
-function createAlert(name,desc,close) {
+function createAlert(name,desc,close, heights = {container: 13, button: 3}) {
     document.getElementById('alertTitle').innerHTML = name
     document.getElementById('alertContent').innerHTML = desc
     document.getElementById('closeAlert').innerHTML = close
     document.getElementById('alert').style.display = 'block'
     document.getElementById('alertContainer').style.display = 'block'
+    document.getElementById('alertContainer').style.height = `${heights.container}rem`
+    document.getElementById('closeAlert').style.height = `${heights.button}rem`
 }
 
 function createPrompt(name,func,useInput,desc='') {
