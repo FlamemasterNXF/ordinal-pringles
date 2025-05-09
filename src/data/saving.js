@@ -9,7 +9,7 @@ const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsa
 let compressSaveData = () => LZString.compressToUTF16(JSON.stringify(data))
 
 function decompressSaveData(input) {
-    if(LZString.decompressFromUTF16(input) === '@@@') return JSON.parse(atob(input))
+    if(LZString.decompressFromUTF16(input).includes('@@@')) return JSON.parse(atob(input))
     return JSON.parse(LZString.decompressFromUTF16(input))
 }
 
