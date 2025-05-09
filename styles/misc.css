@@ -16,10 +16,16 @@ body {
 
 button {
     cursor: pointer;
+    font-family: DosisLight, serif;
 }
 
 span {
     pointer-events: none;
+    font-family: DosisLight, serif;
+}
+
+div {
+    font-family: DosisLight, serif;
 }
 
 a:active, a:link, a:visited {
