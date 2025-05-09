@@ -11,7 +11,7 @@ function loadFromCloud(cloudData = null){
 
     if(cloudData){
         // When we load directly during initialization, there is no need to send a new request.
-        saveAndReload(cloudData)
+        importSave(cloudData)
     }
     else{
         // When we load manually we must request the data through galaxy
@@ -29,7 +29,7 @@ function saveToCloud(){
             action: "save",
             slot: 0, // The dedicated autosave slot
             label: "Autosave",
-            data: btoa(JSON.stringify(data)),
+            data: compressSaveData(),
         },"https://galaxy.click")
     }
 }

@@ -119,6 +119,7 @@ function switchSubtab(tab, mode){
         DOM(`technicalTab`).style.display = getSimpleSetting('technicalSettingsToggle') ? 'block' : 'none'
         if(tab === 'settingsUI'){
             DOM(`gwaifySettingContainer`).style.display = data.gword.unl ? 'flex' : 'none'
+            DOM('bunnyToggle').style.display = data.bunny.unlocked ? 'block' : 'none'
         }
 
         const display = isMobileMode() ? `flex` : `block`

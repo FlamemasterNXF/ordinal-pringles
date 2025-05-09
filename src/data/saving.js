@@ -6,10 +6,16 @@ const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
 // Saving the game
-let getSaveData = () => JSON.stringify(data)
-function save(saveData = getSaveData()){
+let compressSaveData = () => LZString.compressToUTF16(JSON.stringify(data))
+
+function decompressSaveData(input) {
+    if(LZString.decompressFromUTF16(input) === '@@@') return JSON.parse(atob(input))
+    return JSON.parse(LZString.decompressFromUTF16(input))
+}
+
+function save(){
     try {
-        window.localStorage.setItem(SAVE_PATH(), saveData)
+        window.localStorage.setItem(SAVE_PATH(), compressSaveData())
     }
     catch (e) {
         showNotification(`Save failed.\n${e}`);
@@ -17,14 +23,14 @@ function save(saveData = getSaveData()){
     }
 }
 
-function saveAndReload(saveData = getSaveData()){
-    save(saveData)
+function saveAndReload(){
+    save()
     location.reload()
 }
 
 // Loading
 function load(first = false) {
-    let savedata = JSON.parse(window.localStorage.getItem(SAVE_PATH()))
+    let savedata = decompressSaveData(window.localStorage.getItem(SAVE_PATH()))
     if (savedata !== undefined) unpackSave(data, savedata)
     let extra = fixOldSaves()
     if(first){
@@ -218,12 +224,12 @@ function fixOldSavesAfterLoad(){
 function copySaveToClipboard(){
     try {
         save()
-        let exportedData = btoa(JSON.stringify(data))
+        let exportedData = compressSaveData()
         const exportedDataText = document.createElement("textarea");
         exportedDataText.value = exportedData;
         document.body.appendChild(exportedDataText);
         exportedDataText.select();
-        exportedDataText.setSelectionRange(0, 99999);
+        exportedDataText.setSelectionRange(0, 999999);
         document.execCommand("copy");
         document.body.removeChild(exportedDataText);
         showNotification('Your save has been copied to the clipboard!')
@@ -237,7 +243,7 @@ function copySaveToClipboard(){
 // Export the current save into an actual file
 async function downloadSave() {
     try {
-        const file = new Blob([btoa(JSON.stringify(data))], {type: "text/plain"});
+        const file = new Blob([LZString.compressToUTF16(JSON.stringify(data))], {type: "text/plain"});
         window.URL = window.URL || window.webkitURL;
         const a = document.createElement("a")
         let date = new Date()
@@ -285,7 +291,7 @@ function importSave(x) {
             showNotification('No data found.')
             return
         }
-        data = Object.assign(getDefaultPlayer(), JSON.parse(atob(x)))
+        data = decompressSaveData(x)
         if(data.isBeta && !IS_BETA) return showNotification('You tried to load a Beta Save into the main version. This is not allowed, sorry :(')
         saveAndReload()
     }
