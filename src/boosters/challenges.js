@@ -73,7 +73,7 @@ function chalEnter(i, force=false){
         data.dy.gain = D(0.002)
         //DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     }
-    if((i === 4 || i === 6 || i === 7) && getSimpleSetting('challengeRefund')){
+    if(i > 4 && getSimpleSetting('challengeRefund')){
         showNotification(`Your Booster Upgrades have been refunded to help with the Challenge. Feel free to rebuy them, but remember the debuff!`)
         boosterRefund(true)
     }

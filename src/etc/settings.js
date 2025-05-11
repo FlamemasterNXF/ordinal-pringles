@@ -30,7 +30,7 @@ const settingsData = [
     {
         type: 'Game',
         id: 'challengeRefund',
-        desc: 'Booster Refund in C5 and C7',
+        desc: 'Booster Refund in C6 - C8',
         default: true
     },
     {
