@@ -67,7 +67,7 @@ function chalEnter(i, force=false){
     data.chal.active[i] = true
 
     boosterReset()
-    if(i === 2 || i === 5) data.ord.base = 15
+    if(i === 2 || i === 4) data.ord.base = 15
     //if(data.boost.hasBUP[2]) data.ord.base = 5
     if(i === 4){
         data.dy.gain = D(0.002)
