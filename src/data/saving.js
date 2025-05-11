@@ -9,6 +9,7 @@ const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsa
 let compressSaveData = () => LZString.compressToUTF16(JSON.stringify(data))
 
 function decompressSaveData(input) {
+    // Extremely crude, but player experience > dev experience
     try{
         return JSON.parse(atob(input))
     }
@@ -309,7 +310,7 @@ function importSave(x) {
 
 // Save every ten seconds
 window.setInterval(function(){
-    //save()
+    save()
 }, 10000);
 
 
