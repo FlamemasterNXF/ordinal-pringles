@@ -1,5 +1,5 @@
 #energyText{
-    color: var(--fractal-energy-text-color);
+    color: var(--energy-text-primary-color);
 }
 
 #pringleButton{

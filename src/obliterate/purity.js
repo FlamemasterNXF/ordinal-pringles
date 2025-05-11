@@ -67,7 +67,7 @@ function assignPringle(i, type, skipUpdate = false){
         if(!isPurityPointUnlocked(i)) buyPurityPoint(i)
         if(data.purity.isAssigned[i] === true) assignPringle(i, 2)
 
-        if(data.purity.pringleQueued > -1) {
+        if(data.purity.pringleQueued > -1 && isPurityPointUnlocked(i)) {
             data.purity.isAssigned[i] = true
             data.purity.assignment[i] = data.purity.pringleQueued
             DOM(`purityPoint${i}`).style.borderColor = pringleData[data.purity.pringleQueued].color
