@@ -74,7 +74,7 @@ function mainLoop() {
 
 window.onload = function () {
     let extra = false
-    try { extra = load(true) } catch(e){ console.log(e) }
+    try { extra = load(true) } catch(e){ console.log("New Save! If you're seeing this, welcome :)") }
 
     uHTML.load()
 

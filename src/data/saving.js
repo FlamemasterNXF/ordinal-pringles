@@ -9,8 +9,13 @@ const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsa
 let compressSaveData = () => LZString.compressToUTF16(JSON.stringify(data))
 
 function decompressSaveData(input) {
-    if(LZString.decompressFromUTF16(input).includes('@@@')) return JSON.parse(atob(input))
-    return JSON.parse(LZString.decompressFromUTF16(input))
+    try{
+        return JSON.parse(atob(input))
+    }
+    catch(e){
+        console.warn(`Save threw an error on old method, there is a high chance nothing is wrong and your save is just using the new format (this is a good thing!!)\nHowever, 𝗜𝗙 𝗬𝗢𝗨 𝗟𝗢𝗦𝗧 𝗬𝗢𝗨𝗥 𝗦𝗔𝗩𝗘 𝗖𝗢𝗡𝗧𝗔𝗖𝗧 @𝗳𝗹𝗮𝗺𝗲𝗺𝗮𝘀𝘁𝗲𝗿𝗻𝘅𝗳 𝗢𝗡 𝗗𝗜𝗦𝗖𝗢𝗥𝗗 𝗜𝗠𝗠𝗘𝗗𝗜𝗔𝗧𝗘𝗟𝗬!!! I can not only replace your save but prevent this from happening to others :D\nError text: ${e}`)
+        return JSON.parse(LZString.decompressFromUTF16(input))
+    }
 }
 
 function save(){
@@ -304,7 +309,7 @@ function importSave(x) {
 
 // Save every ten seconds
 window.setInterval(function(){
-    save()
+    //save()
 }, 10000);
 
 
