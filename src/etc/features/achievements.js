@@ -353,7 +353,7 @@ let achievements = [
     {
         name: "A Bountiful Harvest",
         description: "Reach 1e100 Cardinals",
-        req: () => data.collapse.cardinals.gte(1e200)
+        req: () => data.collapse.cardinals.gte(1e100)
     },
     {
         name: "Omega Mode",
