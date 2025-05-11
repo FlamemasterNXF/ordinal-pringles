@@ -297,9 +297,15 @@ function importSave(x) {
             showNotification('No data found.')
             return
         }
-        data = decompressSaveData(x)
-        if(data.isBeta && !IS_BETA) return showNotification('You tried to load a Beta Save into the main version. This is not allowed, sorry :(')
-        saveAndReload()
+
+        if(decompressSaveData(x) !== null){
+            data = decompressSaveData(x)
+            if(data.isBeta && !IS_BETA) return showNotification('You tried to load a Beta Save into the main version. This is not allowed, sorry :(')
+            saveAndReload()
+        }
+
+        closeModal('prompt')
+        showNotification('Please import a valid save!')
     }
     catch (e){
         closeModal('prompt')
