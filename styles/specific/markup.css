@@ -51,7 +51,7 @@
 
 #progressBar{
     height: 1.2rem;
-    color: black;
+    color: var(--progress-bar-text-color);
     text-align: center;
     font-family: DosisBold, serif;
     background-color: var(--progress-bar-fill-color);

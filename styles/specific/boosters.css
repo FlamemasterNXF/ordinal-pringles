@@ -10,7 +10,7 @@
 #boostRefund{
     width: 20rem;
     height: 1.5rem;
-    background: black;
+    background: var(--BUP-refund-background-color);
     margin-top: 0.5rem;
     border: 2px solid var(--BUP-refund-border-color);
     color: var(--BUP-refund-text-color);
@@ -18,7 +18,7 @@
 #chargeRefund{
     width: 20rem;
     height: 1.5rem;
-    background: black;
+    background: var(--supercharge-refund-background-color);
     margin-top: 0.5rem;
     border: 2px solid var(--supercharge-refund-border-color);
     color: var(--supercharge-refund-text-color);
@@ -26,7 +26,7 @@
 #chalExit{
     width: 20rem;
     height: 1.5rem;
-    background: black;
+    background: var(--challenge-exit-background-color);
     margin-top: 0.5rem;
     border: 2px solid var(--challenge-exit-border-color);
     color: var(--challenge-exit-text-color);
@@ -52,7 +52,7 @@
     height: 5.5rem;
     border: 2px solid var(--unbuyable-charge-button-border-color);
     color: var(--charge-button-text-color);
-    background: black;
+    background: var(--charge-button-background-color);
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }

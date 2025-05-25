@@ -32,7 +32,7 @@
     width: 8rem;
     height: 1.5rem;
     margin-left: 0.3rem;
-    background: black;
+    background: var(--markup-tab-background-color);
     border: 2px solid var(--markup-tab-border-color);
     color: var(--markup-tab-text-color);
 }
@@ -42,14 +42,14 @@
     border: 2px solid var(--ordinal-button-border-color);
     margin-top: 0.3rem;
     color: var(--ordinal-button-text-color);
-    background: black;
+    background: var(--ordinal-button-background-color);
 }
 .automation{
     width: 15rem;
     min-height: 2rem;
     border: 2px solid var(--autoclicker-border-color);
     color: var(--autoclicker-text-color);
-    background: black;
+    background: var(--autoclicker-background-color);
     margin-left: 0.5rem;
 }
 .factor{
@@ -57,7 +57,7 @@
     min-height: 2rem;
     border: 2px solid var(--factor-border-color);
     color: var(--factor-text-color);
-    background: black;
+    background: var(--factor-background-color);
     margin-top: 0.3rem;
 }
 
@@ -65,7 +65,7 @@
     width: 8rem;
     height: 1.5rem;
     margin-left: 0.3rem;
-    background: black;
+    background: var(--boost-tab-background-color);
     border: 2px solid var(--boost-tab-border-color);
     color: var(--boost-tab-text-color);
 }
@@ -130,7 +130,7 @@
     min-height: 2rem;
     border: 2px solid var(--autobuyer-border-color);
     color: var(--autobuyer-rate-text-color);
-    background: black;
+    background: var(--autobuyer-background-color);
     margin-left: 0.5rem;
 }
 .automation1{
@@ -139,7 +139,7 @@
     min-height: 2rem;
     border: 2px solid var(--autobuyer-border-color);
     color: var(--autobuyer-rate-text-color);
-    background: black;
+    background: var(--autobuyer-background-color);
     margin-left: 0.5rem;
 }
 .automation2{
@@ -148,7 +148,7 @@
     min-height: 2rem;
     border: 2px solid var(--autoprestiger-border-color);
     color: var(--autoprestiger-rate-text-color);
-    background: black;
+    background: var(--autoprestiger-background-color);
     margin-left: 0.5rem;
 }
 .realmAutomation{
@@ -157,7 +157,7 @@
     min-height: 2rem;
     border: 2px solid var(--realm-autobuyer-border-color);
     color: var(--realm-autobuyer-name-text-color);
-    background: black;
+    background: var(--realm-autobuyer-background-color);
     margin-left: 0.5rem;
 }
 .automationText{
@@ -223,8 +223,8 @@
     width: 15rem;
     height: 7rem;
     border: 2px solid var(--hierarchy-buyable-border-color);
-    color: var(--hierachy-buyable-color);
-    background: black;
+    color: var(--hierachy-buyable-text-color);
+    background: var(--hierarchy-buyable-background-color);
     margin-top: 0.5rem;
     margin-left: 1.25rem;
     margin-right: 0;
@@ -233,8 +233,8 @@
     width: 15rem;
     height: 7rem;
     border: 2px solid var(--hierarchy-buyable-border-color);
-    color: var(--hierachy-buyable-color);
-    background: black;
+    color: var(--hierachy-buyable-text-color);
+    background: var(--hierarchy-buyable-background-color);
     margin-top: 0.5rem;
     margin-right: 1.25rem;
     border-left: 0;
@@ -244,7 +244,7 @@
     height: 6rem;
     border: 2px solid var(--hierarchy-milestone-border-color);
     color: var(--hierarchy-milestone-text-color);
-    background: black;
+    background: var(--hierarchy-milestone-background-color);
 }
 .bpEffectContainer{
     margin-top: 0.3rem;
@@ -300,7 +300,7 @@
     width: 8rem;
     height: 1.5rem;
     margin-left: 0.3rem;
-    background: black;
+    background: var(--collapse-tab-background-color);
     border: 2px solid var(--collapse-tab-border-color);
     color: var(--collapse-tab-text-color);
 }
@@ -416,7 +416,7 @@
 .boughtHypercharge {
     width: 12rem;
     height: 7rem;
-    background-color: black;
+    background-color: var(--bought-hypercharge-background-color);
     border: 2px solid var(--bought-hypercharge-border-color);
     color: var(--bought-hypercharge-text-color);
     font-family: DosisLight, serif;
@@ -425,7 +425,7 @@
 .secondaryHypercharge {
     width: 12rem;
     height: 7rem;
-    background-color: black;
+    background-color: var(--secondary-hypercharge-background-color);
     border: 2px solid var(--secondary-hypercharge-border-color);
     color: var(--secondary-hypercharge-text-color);
     font-family: DosisLight, serif;
@@ -434,7 +434,7 @@
 .stableHypercharge {
     width: 12rem;
     height: 7rem;
-    background-color: black;
+    background-color: var(--stable-hypercharge-background-color);
     border: 2px solid var(--stable-hypercharge-border-color);
     color: var(--stable-hypercharge-text-color);
     font-family: DosisLight, serif;
@@ -443,27 +443,25 @@
 .hyperChargeQOL{
     width: 9rem;
     height: 6rem;
-    background-color: black;
     border: 2px solid var(--unlocked-passive-hypercharge-border-color);
     color: var(--unlocked-passive-hypercharge-text-color);
-    background: var(--unlocked-passive-hypercharge-background-color);
+    background-color: var(--unlocked-passive-hypercharge-background-color);
     font-family: DosisLight, serif;
     margin: 1rem;
 }
 .lockedHyperChargeQOL{
     width: 9rem;
     height: 6rem;
-    background-color: black;
     border: 2px solid var(--locked-passive-hypercharge-border-color);
     color: var(--locked-passive-hypercharge-text-color);
-    background: var(--locked-passive-hypercharge-background-color);
+    background-color: var(--locked-passive-hypercharge-background-color);
     font-family: DosisLight, serif;
     margin: 1rem;
 }
 .hyperChargeRespec{
     width: 9rem;
     height: 6rem;
-    background-color: black;
+    background-color: var(--hypercharge-respec-background-color);
     border: 2px solid var(--hypercharge-respec-border-color);
     color: var(--hypercharge-respec-text-color);
     font-family: DosisLight, serif;
@@ -495,7 +493,7 @@
     height: 6rem;
     border: 2px solid var(--top-row-aleph-null-buyable-border-color);
     color: var(--top-row-aleph-null-buyable-text-color);
-    background: black;
+    background: var(--top-row-aleph-null-buyable-background-color);
     margin-left: 0.25rem;
     margin-right: 0.25rem
 }
@@ -504,7 +502,7 @@
     height: 7rem;
     border: 2px solid var(--bottom-row-aleph-null-buyable-border-color);
     color: var(--bottom-row-aleph-null-buyable-text-color);
-    background: black;
+    background: var(--bottom-row-aleph-null-buyable-background-color);
     margin-left: 0.25rem;
     margin-right: 0.25rem
 }
@@ -538,7 +536,7 @@
     height: 7rem;
     border: 2px solid var(--aleph-omega-buyable-border-color);
     color: var(--aleph-omega-buyable-primary-text-color);
-    background: black;
+    background: var(--aleph-omega-buyable-background-color);
     margin-left: 0.25rem;
     margin-right: 0.25rem;
 }
@@ -549,8 +547,8 @@
     width: 28rem;
     height: 5rem;
     box-shadow: rgba(0,0,0,0.2) 0 2px 3px, inset rgba(0,0,0,0.2) 0 -1px 2px;
-    border: 2px solid var(--beth-omega-milestone-border-color);
-    color: var(--beth-omega-milestone-requirement-text-color);
+    border: 2px solid var(--locked-beth-omega-milestone-border-color);
+    color: var(--locked-beth-omega-milestone-text-color);
     background: var(--locked-beth-omega-milestone-background-color);
 }
 .unlockedAOMilestone{
@@ -560,15 +558,15 @@
     width: 28rem;
     height: 5rem;
     box-shadow: rgba(0,0,0,0.2) 0 2px 3px, inset rgba(0,0,0,0.2) 0 -1px 2px;
-    border: 2px solid var(--beth-omega-milestone-border-color);
-    color: var(--beth-omega-milestone-requirement-text-color);
+    border: 2px solid var(--unlocked-beth-omega-milestone-border-color);
+    color: var(--unlocked-beth-omega-milestone-text-color);
     background: var(--unlocked-beth-omega-milestone-background-color);
 }
 .obliterateTabButton{
     width: 9rem;
     height: 1.5rem;
     margin-left: 0.3rem;
-    background: black;
+    background: var(--obliteration-tab-background-color);
     border: 2px solid var(--obliteration-tab-border-color);
     color: var(--obliteration-tab-color);
 }
@@ -606,12 +604,11 @@
     color: var(--passive-energy-help-text-passive-energy-color);
 }
 
-/* TODO: Oh no pringle */
 .pringle{
     width: 2rem;
     height: 2rem;
     border-radius: 75%;
-    background: black;
+    background: var(--pringle-background-color);
     color: white;
     text-align: center;
 }
@@ -619,7 +616,7 @@
     width: 2rem;
     height: 2rem;
     border-radius: 75%;
-    background: black;
+    background: var(--pringle-background-color);
     margin-top: 1rem;
     text-align: center;
     color: white;
@@ -630,7 +627,7 @@
     height: 1.5rem;
     border-radius: 50%;
     border: 2px solid #5b5b5b;
-    background: black;
+    background: var(--unassigned-purity-point-background-color);
     text-align: center;
     color: white;
 }
@@ -639,14 +636,13 @@
     height: 30rem;
     border: 2px solid #5b5b5b;
 }
-/* end TODO */
 
 .stability{
     width: 22rem;
     height: 12rem;
     border: 2px solid var(--stable-energy-button-border-color);
     color: var(--stable-energy-description-text-color);
-    background: black;
+    background: var(--stable-energy-button-background-color);
     margin: 1rem 1rem 0;
     border-radius: 10px 10px 0 0;
 }
@@ -655,7 +651,7 @@
     height: 5rem;
     border: 2px solid var(--stable-energy-respec-border-color);
     color: var(--stable-energy-respec-text-color);
-    background: black;
+    background: var(--stable-energy-respec-background-color);
     margin: 0 1rem 1rem;
     border-top: 0;
     border-radius: 0 0 10px 10px;
@@ -703,7 +699,7 @@
     height: 1.5rem;
     border: 2px solid var(--realm-BUP-refund-border-color);
     color: var(--realm-BUP-refund-text-color);
-    background: black;
+    background: var(--realm-BUP-refund-background-color);
     margin-top: 0.5rem;
 }
 .realmChallenge{
@@ -719,7 +715,7 @@
 .completedRealmChallenge{
     width: 25rem;
     height: 12rem;
-    border: 2px solid var(--complete-realm-challenge-background-color);
+    border: 2px solid var(--complete-realm-challenge-border-color);
     color: var(--complete-realm-challenge-text-color);
     background-color: var(--complete-realm-challenge-background-color);
     margin-top: 1rem;
@@ -741,7 +737,7 @@
     height: 5.5rem;
     border: 2px solid var(--unbought-realm-IUP-border-color);
     color: var(--unbought-realm-IUP-text-color);
-    background: var(--unbought-IUP-background-color);
+    background: var(--unbought-realm-IUP-background-color);
     margin-top: 0.5rem;
     margin-right: 0.25rem;
     margin-left: 0.25rem;
@@ -751,7 +747,7 @@
     height: 5.5rem;
     border: 2px solid var(--bought-realm-IUP-border-color);
     color: var(--bought-realm-IUP-text-color);
-    background: var(--bought-IUP-background-color);
+    background: var(--bought-realm-IUP-background-color);
     margin-top: 0.5rem;
     margin-right: 0.25rem;
     margin-left: 0.25rem;
@@ -778,12 +774,12 @@
     height: 7rem;
     border: 2px solid var(--growth-upgrade-border-color);
     color: var(--growth-upgrade-text-color);
-    background: black;
+    background: var(--growth-upgrade-background-color);
 }
 .growthInput{
     width: 2rem;
     height: 1rem;
-    background: black;
+    background: var(--growth-input-background-color);
     border: 1px solid var(--growth-input-border-color);
     color: var(--growth-input-text-color);
 }
@@ -794,13 +790,13 @@
     height: 6rem;
     border: 2px solid var(--realm-HUP-border-color);
     color: var(--realm-HUP-text-color);
-    background: black;
+    background: var(--realm-HUP-background-color);
 }
 .realmTabButton{
     width: 9rem;
     height: 1.5rem;
     margin-left: 0.3rem;
-    background: black;
+    background: var(--realm-tab-background-color);
     border: 2px solid var(--realm-tab-border-color);
     color: var(--realm-tab-text-color);
 }

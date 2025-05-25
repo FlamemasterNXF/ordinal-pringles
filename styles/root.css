@@ -45,10 +45,12 @@
 
     /* Ordinal Buttons */
     --ordinal-button-border-color: #610000;
+    --ordinal-button-background-color: #000000FF;
     --ordinal-button-text-color: #CD5C5CFF;
 
     /* Markup */
     --markup-tab-border-color: #785c13;
+    --markup-tab-background-color: #000000FF;
     --markup-tab-text-color: #DAA520FF;
 
     --powers-text-color: #DAA520FF;
@@ -67,11 +69,13 @@
 
     /* AutoClickers */
     --autoclicker-border-color: #9e6911;
+    --autoclicker-background-color: #000000FF;
     --autoclicker-text-color: #CDA05CFF;
     --autoclicker-speed-text-color: #FF4500FF;
 
     /* Factors */
     --factor-border-color: #9e6911;
+    --factor-background-color: #000000FF;
     --factor-text-color: #CDA05CFF;
     --factor-effect-text-color: #FFA500FF;
 
@@ -80,10 +84,12 @@
 
     /* Progress Bar */
     --progress-bar-background-color: #1a1a1a;
+    --progress-bar-text-color: #000000FF;
     --progress-bar-fill-color: #1e47d0;
 
     /* Boosters */
     --boost-tab-border-color: #1e47d0;
+    --boost-tab-background-color: #000000FF;
     --boost-tab-text-color: #8080FF;
 
     /* BUPs */
@@ -104,8 +110,11 @@
     --charged-BUP-text-color: #DAA520FF;
 
     --BUP-refund-border-color: #1e47d0;
+    --BUP-refund-background-color: #000000FF;
     --BUP-refund-text-color: #8080FF;
+
     --supercharge-refund-border-color: #1e47d0;
+    --supercharge-refund-background-color: #000000FF;
     --supercharge-refund-text-color: #8080FF;
 
     --BUP-help-text-primary-color: #565656;
@@ -114,14 +123,17 @@
 
     /* Automation */
     --autobuyer-border-color: #1e47d0;
+    --autobuyer-background-color: #000000FF;
     --autobuyer-rate-text-color: #8080FF;
     --autobuyer-name-text-color: #80ceff;
 
     --autoprestiger-border-color: #2da000;
+    --autoprestiger-background-color: #000000FF;
     --autoprestiger-rate-text-color: #2da000;
     --autoprestiger-name-text-color: #20da45;
 
     --realm-autobuyer-border-color: #9a5650;
+    --realm-autobuyer-background-color: #000000FF;
     --realm-autobuyer-rate-text-color: #ff8b80;
     --realm-autobuyer-name-text-color: #ff8b80;
 
@@ -144,6 +156,7 @@
 
 
     --challenge-exit-border-color: #1e47d0;
+    --challenge-exit-background-color: #000000FF;
     --challenge-exit-text-color: #8080FF;
 
     /* Incrementy */
@@ -160,6 +173,7 @@
     --rebuyable-IUP-text-color: #8080FF;
 
     --unbuyable-charge-button-border-color: #413423;
+    --charge-button-background-color: #000000FF;
     --charge-button-text-color: #DAA520FF;
 
     --incrementy-text-color: #8080FF;
@@ -168,9 +182,13 @@
 
     /* Hierarchies */
     --hierarchy-text-color: #8080FF;
+
     --hierarchy-buyable-border-color: #414d78;
-    --hierachy-buyable-color: #8080FF;
+    --hierarchy-buyable-background-color: #000000FF;
+    --hierachy-buyable-text-color: #8080FF;
+
     --hierarchy-milestone-border-color: #631d89;
+    --hierarchy-milestone-background-color: #000000FF;
     --hierarchy-milestone-text-color: #a680ff;
 
     /* Overflow */
@@ -194,6 +212,7 @@
 
     /* Collapse */
     --collapse-tab-border-color: #2da000;
+    --collapse-tab-background-color: #000000FF;
     --collapse-tab-text-color: #20da45;
 
     --darkness-navigation-border-color: #8000FF7F;
@@ -284,15 +303,22 @@
     --hypercharge-charge-text-color: #DAA520FF;
     --hypercharge-energy-text-color: #b87dd9;
     --normal-hypercharge-text-color: #8a8a8a;
-    --stable-hypercharge-text-color: #20da45;
 
     --unbought-hypercharge-border-color: #615400;
+    --unbought-hypercharge-background-color: #000000FF;
     --unbought-hypercharge-text-color: #808080FF;
+
     --bought-hypercharge-border-color: #615400;
+    --bought-hypercharge-background-color: #000000FF;
     --bought-hypercharge-text-color: #d5ad00;
+
     --secondary-hypercharge-border-color: #503857;
+    --secondary-hypercharge-background-color: #000000FF;
     --secondary-hypercharge-text-color: #c281e5;
+
     --stable-hypercharge-border-color: #0e591d;
+    --stable-hypercharge-background-color: #000000FF;
+    --stable-hypercharge-text-color: #20da45;
 
     --secondary-hypercharge-cost-text-color: #a08fa2;
     --forceful-hypercharge-stabilization-cost-text-color: #a1936a;
@@ -307,6 +333,7 @@
     --unlocked-passive-hypercharge-text-color: #aed500;
 
     --hypercharge-respec-border-color: #393939;
+    --hypercharge-respec-background-color: #000000FF;
     --hypercharge-respec-text-color: #777777;
 
     --hypercharge-charge-row-requirement-text-color: #DAA520FF;
@@ -325,6 +352,7 @@
     --realm-enhancement-three-text-color: #b06cdc;
 
     --baseless-realm-control-border-color: #6d3d00;
+    --baseless-realm-control-background-color: #000000FF;
     --baseless-realm-control-text-color: #ae6610;
 
     --baseless-realm-select-border-color: #000000FF;
@@ -339,15 +367,20 @@
     --baseless-shift-text-shift-color: #8B0000FF;
 
     --aleph-null-buyable-description-text-color: #ce5c0b;
+
     --top-row-aleph-null-buyable-border-color: #6d3d00;
+    --top-row-aleph-null-buyable-background-color: #000000FF;
     --top-row-aleph-null-buyable-text-color: #ae6610;
+
     --bottom-row-aleph-null-buyable-border-color: #6d3d00;
+    --bottom-row-aleph-null-buyable-background-color: #000000FF;
     --bottom-row-aleph-null-buyable-text-color: #ae6610;
 
     --baselessness-help-text-color: #9e5803;
 
     /* Realms */
     --realm-tab-border-color: #a84a4a;
+    --realm-tab-background-color: #000000FF;
     --realm-tab-text-color: #ce6a6a;
 
     /* Realm BUPs */
@@ -363,6 +396,7 @@
     --bought-realm-BUP-text-color: #ce6a6a;
 
     --realm-BUP-refund-border-color: #a84a4a;
+    --realm-BUP-refund-background-color: #000000FF;
     --realm-BUP-refund-text-color: #ce6a6a;
 
     --realm-booster-text-primary-color: #808080FF;
@@ -390,7 +424,7 @@
     --unbought-realm-IUP-text-color: #ae7b56;
 
     --bought-realm-IUP-border-color: #703d2b;
-    --bought-realm-IUP-background-color: #000000FF;
+    --bought-realm-IUP-background-color: #1c0f00;
     --bought-realm-IUP-text-color: #9e5324;
 
     --rebuyable-realm-IUP-border-color: #703d2b;
@@ -406,25 +440,33 @@
     --realm-hierarchy-text-color: #ce6a6a;
 
     --growth-upgrade-border-color: #a84a4a;
+    --growth-upgrade-background-color: #000000FF;
     --growth-upgrade-text-color: #ce6a6a;
+
     --growth-input-border-color: #522525;
+    --growth-input-background-color: #000000FF;
     --growth-input-text-color: #ce6a6a;
 
     --realm-HUP-border-color: #a8634a;
+    --realm-HUP-background-color: #000000FF;
     --realm-HUP-text-color: #ce856a;
 
     /* Purification */
     --purification-border-color: #670000;
 
     --aleph-omega-buyable-border-color: #650000;
+    --aleph-omega-buyable-background-color: #000000FF;
     --aleph-omega-buyable-primary-text-color: #ce0b0b;
     --aleph-omega-buyable-description-text-color: #ce280b;
 
-    --beth-omega-milestone-border-color: #4b001a;
-    --beth-omega-milestone-description-text-color: #c2052c;
-    --beth-omega-milestone-requirement-text-color: #940525;
+    --locked-beth-omega-milestone-border-color: #4b001a;
+    --locked-beth-omega-milestone-text-color: #940525;
     --locked-beth-omega-milestone-background-color: #000000FF;
+
+    --unlocked-beth-omega-milestone-border-color: #4b001a;
+    --unlocked-beth-omega-milestone-text-color: #940525;
     --unlocked-beth-omega-milestone-background-color: #120303;
+
     --obliteration-unlock-text-color: #9d58c9;
 
     --aleph-omega-primary-text-color: #8B0000FF;
@@ -441,7 +483,9 @@
 
     /* Obliteration */
     --obliteration-tab-border-color: #6b00a0;
+    --obliteration-tab-background-color: #000000FF;
     --obliteration-tab-color: #b06cdc;
+
     --energy-text-primary-color: #ae50b4;
     --energy-text-energy-color: #d56cdc;
 
@@ -450,7 +494,10 @@
     --pringle-box-background-color: #000000BF;
     --pringle-box-normal-text-color: #FFFFFFFF;
 
-    --unassigned-purity-point-color: #949494;
+    --unassigned-purity-point-border-color: #949494;
+    --unassigned-purity-point-background-color: #000000FF;
+
+    --pringle-background-color: #000000FF;
 
     --pringle-0-color: #6ba000;
     --pringle-1-color: #73af80;
@@ -501,8 +548,11 @@
 
     /* Stability */
     --stable-energy-button-border-color: #2d2746;
+    --stable-energy-button-background-color: #000000FF;
     --stable-energy-description-text-color: #9765b2;
+
     --stable-energy-respec-border-color: #2d2746;
+    --stable-energy-respec-background-color: #000000FF;
     --stable-energy-respec-text-color: #7d5394;
 
     --stable-energy-amount-text-color: #b87dd9;

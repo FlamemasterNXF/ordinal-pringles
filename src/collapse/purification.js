@@ -188,7 +188,6 @@ function initAOMilestones(){
             el.className = 'aoMilestone'
             el.id = `aoM${id}`
             el.innerHTML = `<span style="color: ${getCSSVariable('beth-omega-milestone-description-text-color')}">${aoMilestoneData[id].desc}</span><br>Requires: ${aoMilestoneData[id].req} ℶ<sub>&omega;</sub>`
-            //el.addEventListener("click", ()=>enterPurification(i))
             row.append(el)
         }
         container.append(row)
@@ -233,7 +232,7 @@ function updateAllAORHTML(){
     }
 }
 function updateAOMilestoneHTML(i){
-    DOM(`aoM${i}`).className = hasAOMilestone(i) ? `aoMilestone` : `unlockedAOMilestone`
+    DOM(`aoM${i}`).className = hasAOMilestone(i) ? `unlockedAOMilestone` : `aoMilestone`
 }
 function updateAllAOMHTML(){
     for (let i = 0; i < aoMilestoneData.length; i++) {

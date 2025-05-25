@@ -47,7 +47,7 @@
     height: 6rem;
     border: 2px solid var(--drain-border-color);
     color: var(--drain-text-color);
-    background: black;
+    background: var(--drain-background-color);
     margin-left: 0.5rem;
 }
 
@@ -79,7 +79,7 @@
     height: 10rem;
     border: 2px solid var(--baseless-realm-control-border-color);
     color: var(--baseless-realm-control-text-color);
-    background: black;
+    background: var(--baseless-realm-control-background-color);
     margin-top: 0.5rem;
     margin-right: 0.25rem;
     font-size: 1.1rem;
