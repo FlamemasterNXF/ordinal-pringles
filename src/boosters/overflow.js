@@ -13,7 +13,7 @@ function updateOverflowHTML(){
     DOM(`overCharge`).innerText = ` ${format(getOverchargeGain())} Overcharge/s`
     DOM(`ocTotal`).innerText = `Your ${format(data.overflow.oc)} Overcharge is`
 
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 7; i++) {
         DOM(`bp${i}Effect`).innerText = (i===2 && data.overflow.thirdEffect) || i===5 ? `/${format(getOverflowEffect(i))}` : `${format(getOverflowEffect(i))}x`
     }
 }
@@ -46,10 +46,7 @@ function getOverflowEffect(i){
             return data.overflow.oc > 1 ? Math.max(1, Math.log10(data.overflow.oc+1)) : 1
         case 5:
             return data.overflow.oc > 1 && hasCUP(5) ? Math.max(1, Math.pow(data.overflow.oc, 1/16)) : 1
-
         case 6:
-            return data.overflow.oc > 1 && data.omega.bestRemnants >= 750 ? Math.max(1, 1+(Math.log2(2+data.overflow.oc)/100)) : 1
-        case 7:
             return data.overflow.oc > 1 && hasAOMilestone(2) ? Math.max(1, Math.pow(data.overflow.oc, 1/4)) : 1
         default: return NaN
     }

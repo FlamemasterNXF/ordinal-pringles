@@ -32,7 +32,7 @@ const purificationData = [
 const aoRebuyableData = [
     {
         desc: "SLIGHTLY boost ℶ<sub>&omega;</sub> gain",
-        eff: () => (1+getAORLevel(0)/10)*getOverflowEffect(6),
+        eff: () => 1+getAORLevel(0)/10,
         costBase: 50,
         symbol: 'x',
         req: () => true,
@@ -104,7 +104,7 @@ const aoMilestoneData = [
         req: 500,
         eff: () => hasAOMilestone(1) ? purificationEffect(1) : 1
     },{
-        desc: "Purification of Obscurity now boosts the first Overcharge effect, and unlock two new Overcharge effects",
+        desc: "Purification of Obscurity now boosts the first Overcharge effect, and unlock a new Overcharge effect",
         req: 750,
         eff: () => hasAOMilestone(2) ? purificationEffect(2) : 1
     },{

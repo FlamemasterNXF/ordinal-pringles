@@ -43,7 +43,6 @@ function switchSubtab(tab, mode){
 
         if(tab==="overflow"){
             DOM(`bp6Container`).style.display = hasAOMilestone(2) ? 'block' : 'none'
-            DOM(`bp7Container`).style.display = hasAOMilestone(2) ? 'block' : 'none'
         }
 
         if (tab==="upgrades" && data.boost.unlocks[1]) {
