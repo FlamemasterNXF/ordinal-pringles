@@ -169,7 +169,7 @@ function makeRealmEnhancementText(){
     for (let i = 0; i < realmEnhancementData.length; i++) {
         if(isRealmEnhancementLocked(i)) continue
         const color = realmEnhancementData[i].color
-        text += `<br>You have <span style="color: ${color}">${format(getRealmEnhancementAmount(i))} ${getRealmEnhancementText(i)}</span>, multiplying AutoClicker speed in the Realms by <span style="color: ${color}">${format(getRealmEnhancement(i))}x</span>`
+        text += `<br>Realm Enhancement ${i+1}: Your <span style="color: ${color}">${formatWhole(getRealmEnhancementAmount(i))} ${getRealmEnhancementText(i)}</span> is multiplying AutoClicker speed in the Realms by <span style="color: ${color}">${format(getRealmEnhancement(i))}x</span>`
     }
     return text
 }
