@@ -325,6 +325,7 @@ function darken(force = false){
     if(data.darkness.darkened && hasPassiveHypercharge(3)){
         data.markup.shifts = 7
         data.ord.base = 3
+        data.ord.ordinal = D(4)
         data.ord.isPsi = true
     }
 
