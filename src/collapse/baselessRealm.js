@@ -279,7 +279,7 @@ let realmIUPData = [
         sign: 'x',
 
         cost: () => 1e20,
-        effect: () => Math.sqrt(totalFactorEffect()),
+        effect: () => Math.sqrt(totalFactorEffect()+1),
         effectBase: () => 1,
 
         effectIsDecimal: false,
@@ -834,7 +834,7 @@ function getRealmIUPEffect(i){
 
 function getTotalRealmRUPLevels(){
     let total = 0
-    for (let i = 0; i < data.baselessRealm.rupLevels; i++) {
+    for (let i = 0; i < data.baselessRealm.rupLevels.length; i++) {
         total += data.baselessRealm.rupLevels[i]
     }
     return total
