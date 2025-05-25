@@ -1,7 +1,7 @@
 //Version Flags
 const VERSION = "0.4.4b4"
 const VERSION_NAME = "The Pringle Update"
-const VERSION_DATE = "May 11th, 2025"
+const VERSION_DATE = "May 25th, 2025"
 const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
