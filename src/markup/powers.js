@@ -1,3 +1,5 @@
+const opCap = new Decimal(4e256)
+
 function opMult(){
     let mult = getBUPEffect(1)
 
@@ -7,16 +9,23 @@ function opMult(){
     return D(mult).times(getAlephEffect(2))
 }
 function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over) {
-    if(D(ord).eq(data.ord.ordinal) && D(ord).gte(Number.MAX_VALUE)) return opCap
-    if(D(ord).eq(data.ord.ordinal)) ord = Number(ord)
-    if (ord < base) return Decimal.add(ord, over).toNumber()
-    let pow = Math.floor(Math.log(ord + 0.1) / Math.log(base))
-    let divisor = Math.pow(base, pow)
-    let mult = Math.floor((ord + 0.1) / divisor)
-    return Math.min(opCap, 10 ** Math.min(opCap, opGain(pow, base, 0)) * mult + Math.min(opCap, opGain(ord - divisor * mult, base, over)))
-}
-let cappedOPGain = () => Decimal.min(opCap, D(opGain()).times(opMult()))
+    if(ord.gt(Number.MAX_VALUE)) return opCap
+    if(ord.lt(base)) return ord.add(over)
 
-let uncappedOPGain = () => getEUPEffect(4, 0)
-    ? D(opCap).mul(D(data.ord.ordinal).pow(getGUPEffect(2)+1))
-    : D(opCap)
+    const pow = Decimal.floor(Decimal.ln(ord.plus(1)).div(Math.log(base)))
+    if (pow.lte(0)) return over
+
+    const divisor = Decimal.pow(base, pow)
+    const mult = Decimal.floor(ord.plus(1).div(divisor))
+
+    const reducedOrd = ord.sub(divisor.times(mult))
+    if (reducedOrd.eq(ord)) return over
+
+    return Decimal.min(opCap, D(10).pow(opGain(pow, base, 0))).times(mult).plus(opGain(reducedOrd, base, over))
+}
+let cappedOPGain = () => Decimal.min(opCap, opGain().times(opMult()))
+
+function uncappedOPGain() {
+    if(getEUPEffect(4, 0)) return opCap.mul(D(data.ord.ordinal).pow(getGUPEffect(2) + 1))
+    return opCap
+}

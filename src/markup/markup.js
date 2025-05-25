@@ -46,7 +46,6 @@ function boostName(){
     return purificationData[data.omega.whichPurification].alt
 }
 
-const opCap = 4e256
 function markup(n=D(1)){
     if(data.boost.times===0 && data.ord.isPsi && data.ord.ordinal.eq(GRAHAMS_VALUE) && !hasSluggishMilestone(0)) return
     if(data.ord.ordinal.lt(data.ord.base**2) && !data.ord.isPsi) return
