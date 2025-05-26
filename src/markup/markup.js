@@ -71,18 +71,32 @@ function mockMarkup(){
     else data.markup.powers = data.markup.powers.plus(cappedOPGain())
 }
 
-function calcOrdPoints(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over, trim=0) {
-    let opBase = new Decimal(10)
-    if (trim >= 10) return new Decimal(0)
-    if (Decimal.lt(ord, base)) {
-        return Decimal.add(ord, over)
-    } else if (new Decimal(ord).slog(base).lt(base)) {
-        let powerOfOmega = Decimal.log(new Decimal(ord).add(0.1), base).floor()
-        let highestPower = Decimal.pow(base,powerOfOmega)
-        let powerMultiplier = Decimal.floor(Decimal.div(new Decimal(ord).add(0.1),highestPower))
-        return Decimal.add(Decimal.mul(Decimal.pow(opBase, calcOrdPoints(powerOfOmega,base,0)), powerMultiplier), new Decimal(ord).lt(Decimal.tetrate(base, 3)) ? calcOrdPoints(new Decimal(ord).sub(Decimal.mul(highestPower,powerMultiplier)),base,over,trim+1) : 0)
-    } else {
-        return new Decimal(opBase).tetrate(calcOrdPoints(new Decimal(ord).slog(base),base,0,trim))
+function calcOrdPoints(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over, trim = 0) {
+    const opBase = D(10)
+    if (trim >= 10) return D(0)
+    if (ord.lt(base)) return ord.add(over)
+
+    const slog = Decimal.slog(ord, base)
+    if (slog.lt(base)) {
+        const powerOfOmega = Decimal.log(ord.add(0.1), base).floor()
+        if (powerOfOmega.eq(ord)) return D(0)
+
+        const highestPower = Decimal.pow(base, powerOfOmega)
+        const powerMultiplier = ord.add(0.1).div(highestPower).floor()
+
+        const remainder = ord.sub(highestPower.times(powerMultiplier))
+        const firstTerm = Decimal.pow(opBase, calcOrdPoints(powerOfOmega, base, D(0)))
+
+        const secondTerm = (ord.lt(Decimal.tetrate(base, 3)) && !remainder.eq(ord))
+            ? calcOrdPoints(remainder, base, over, trim + 1)
+            : D(0)
+
+        return firstTerm.times(powerMultiplier).add(secondTerm)
+    }
+    else {
+        const slogged = Decimal.slog(ord, base)
+        if (slogged.eq(ord)) return D(0)
+        return opBase.tetrate(calcOrdPoints(slogged, base, D(0), trim))
     }
 }
 const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 5e100, Infinity, Infinity]

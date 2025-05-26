@@ -98,8 +98,6 @@ function fixOldSaves(){
     //AutoShift Fix
     if(data.markup.shifts > 7) data.markup.shifts = 7
 
-    if(data.loadedVersion !== "0.4.4") data.nav.subtabs.settings = 'settingsGame'
-
     if(data.loadedVersion === "0.4b7"){
         data.obliterate.instability = data.obliterate.times
         data.loadedVersion = "0.4b7p2"
@@ -192,6 +190,8 @@ function fixOldSaves(){
     if(data.dy.level.gt(getDyCap())) data.dy.level = getDyCap()
     if(data.ord.isPsi && data.ord.ordinal.gt(GRAHAMS_VALUE) && data.boost.times === 0 && !data.collapse.hasSluggish[0]) data.ord.ordinal = D(GRAHAMS_VALUE)
 
+    if(data.loadedVersion !== '0.4.4') extra = true
+
     return extra
 }
 
@@ -223,6 +223,23 @@ function fixOldSavesAfterLoad(){
             data.boost.total = 465
             data.boost.amt = 465
         }
+    }
+
+    if(data.loadedVersion !== "0.4.4"){
+        data.nav.subtabs.settings = 'settingsGame'
+        if(data.obliterate.times > 45){
+            createAlert('New Changes have occured!', 'You played before v0.4.4 had more than 45 Obliterations, so we have reset your Obliterations to 45, performed an Energy Tree and Passive Energy respec, and reduced some Pringle amounts. <b>You are still at the absolute end of v0.4.x content</b>, you just have the ability to play with all the new v0.4.4 stuff now :)', 'Thanks!', {container: 16, button: 3})
+            respecPassiveUpgrades()
+            data.obliterate.times = 45
+            data.obliterate.energyUpgrades = []
+            data.obliterate.energy = 45
+            for (let i = 0; i < data.obliterate.pringleAmount.length; i++) {
+                if(i === 6 || i === 7) data.obliterate.pringleAmount[i] = 10
+                data.obliterate.pringleAmount[i] = Math.floor(data.obliterate.pringleAmount[i]/2)
+            }
+            data.obliterate.pringleAmount[6] = 10
+        }
+        data.loadedVersion = '0.4.4'
     }
 }
 
