@@ -512,8 +512,8 @@
     margin-right: 0.5rem;
     width: 20rem;
     height: 10rem;
-    background: var(--normal-purification-background-color);
-    border: 2px solid var(--purification-border-color);
+    background: var(--inactive-purification-background-color);
+    border: 2px solid var(--inactive-purification-border-color);
 }
 .activePurification{
     margin-bottom: 0.5rem;
@@ -522,7 +522,7 @@
     width: 20rem;
     height: 10rem;
     background: var(--active-purification-background-color);
-    border: 2px solid var(--purification-border-color);
+    border: 2px solid var(--active-purification-border-color);
 }
 .aoRow{
     display: flex;

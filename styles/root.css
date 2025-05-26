@@ -452,19 +452,17 @@
     --realm-HUP-text-color: #ce856a;
 
     /* Purification */
-    --purification-border-color: #670000;
-
     --aleph-omega-buyable-border-color: #650000;
     --aleph-omega-buyable-background-color: #000000FF;
     --aleph-omega-buyable-primary-text-color: #ce0b0b;
     --aleph-omega-buyable-description-text-color: #ce280b;
 
     --locked-beth-omega-milestone-border-color: #4b001a;
-    --locked-beth-omega-milestone-text-color: #940525;
+    --locked-beth-omega-milestone-text-color: #b7082f;
     --locked-beth-omega-milestone-background-color: #000000FF;
 
     --unlocked-beth-omega-milestone-border-color: #4b001a;
-    --unlocked-beth-omega-milestone-text-color: #940525;
+    --unlocked-beth-omega-milestone-text-color: #b7082f;
     --unlocked-beth-omega-milestone-background-color: #120303;
 
     --obliteration-unlock-text-color: #9d58c9;
@@ -473,13 +471,19 @@
     --aleph-omega-amount-text-color: #ff4848;
     --aleph-omega-effect-text-color: #ff4848;
 
-    --purification-name-text-color: #ce0b0b;
-    --purification-boost-text-color: #ce390b;
-    --purification-description-text-color: #8B0000FF;
-    --purification-effect-text-color: #ce460b;
+    --inactive-purification-background-color: #000000FF;
+    --inactive-purification-border-color: #670000;
+    --inactive-purification-name-text-color: #ce0b0b;
+    --inactive-purification-boost-text-color: #ce390b;
+    --inactive-purification-description-text-color: #8B0000FF;
+    --inactive-purification-effect-text-color: #ce460b;
 
-    --normal-purification-background-color: #000000FF;
     --active-purification-background-color: #120303;
+    --active-purification-border-color: #670000;
+    --active-purification-name-text-color: #ce0b0b;
+    --active-purification-boost-text-color: #ce390b;
+    --active-purification-description-text-color: #8B0000FF;
+    --active-purification-effect-text-color: #ce460b;
 
     /* Obliteration */
     --obliteration-tab-border-color: #6b00a0;

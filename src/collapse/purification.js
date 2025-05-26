@@ -187,7 +187,7 @@ function initAOMilestones(){
             let el = document.createElement('button')
             el.className = 'aoMilestone'
             el.id = `aoM${id}`
-            el.innerHTML = `<span style="color: ${getCSSVariable('beth-omega-milestone-description-text-color')}">${aoMilestoneData[id].desc}</span><br>Requires: ${aoMilestoneData[id].req} ℶ<sub>&omega;</sub>`
+            el.innerHTML = `${aoMilestoneData[id].desc}<br>Requires: ${aoMilestoneData[id].req} ℶ<sub>&omega;</sub>`
             row.append(el)
         }
         container.append(row)
@@ -208,14 +208,22 @@ function makeAOEffectText(){
     return text
 }
 
+function getPurificationTextCSS(i, name){
+    const leader = inPurification(i) ? 'active' : 'inactive'
+    return getCSSVariable(`${leader}-${name}`)
+}
+
 function updatePurificationTabHTML(){
     if(alephOmegaCap() > data.omega.bestRemnants) data.omega.bestRemnants = alephOmegaCap()
     DOM(`alephOmega`).innerHTML = `<span style="font-size: 1.1rem">You have <span style="color: ${getCSSVariable('aleph-omega-amount-text-color')}">${format(data.omega.alephOmega)} ℵ<sub>&omega;</sub></span>, multiplying ${makeAOEffectText()}</span><br>You have <span style="color: ${getCSSVariable('aleph-omega-amount-text-color')}">${format(alephOmegaCap())} ℶ<sub>&omega;</sub></span>, producing <span style="color: ${getCSSVariable('aleph-omega-effect-text-color')}">${format(aoGain())} ℵ<sub>&omega;</sub>/s</span> until ℵ<sub>&omega;</sub> reaches ℶ<sub>&omega;</sub>`
-    if(inAnyPurification()) DOM(`purification${data.omega.whichPurification}`).innerHTML = `<span style="color: ${getCSSVariable('purification-name-text-color')}">Purification of ${purificationData[data.omega.whichPurification].name}</span><br><span style="color: ${getCSSVariable('purification-boost-text-color')}">You will gain ${formatWhole(pureBoostGain())} more Boosts if you exit now (Highest Boost: ${data.omega.bestFBInPurification[data.omega.whichPurification]})</span><br><span style="color: ${getCSSVariable('purification-description-text-color')}">${purificationData[data.omega.whichPurification].desc}</brspan><br><span style="color: ${getCSSVariable('purification-effect-text-color')}">${purificationData[data.omega.whichPurification].boostDesc} ${format(purificationData[data.omega.whichPurification].eff())}x</span>\``
+    if(inAnyPurification()){
+        const curr = data.omega.whichPurification
+        DOM(`purification${curr}`).innerHTML = `<span style="color: ${getPurificationTextCSS(curr, 'purification-name-text-color')}">Purification of ${purificationData[curr].name}</span><br><span style="color: ${getPurificationTextCSS(curr, 'purification-boost-text-color')}">You will gain ${formatWhole(pureBoostGain())} more Boosts if you exit now (Highest Boost: ${data.omega.bestFBInPurification[curr]})</span><br><span style="color: ${getPurificationTextCSS(curr, 'purification-description-text-color')}">${purificationData[curr].desc}</brspan><br><span style="color: ${getPurificationTextCSS(curr, 'purification-effect-text-color')}">${purificationData[curr].boostDesc} ${format(purificationData[curr].eff())}x</span>`
+    }
     updateAllAORHTML()
 }
 function updatePurificationHTML(i){
-    DOM(`purification${i}`).innerHTML = `<span style="color: ${getCSSVariable('purification-name-text-color')}">Purification of ${purificationData[i].name}</span><br><span style="color: ${getCSSVariable('purification-boost-text-color')}">Highest ${purificationData[i].alt} Boost: <b>${data.omega.bestFBInPurification[i]}</b></span><br><span style="color: ${getCSSVariable('purification-description-text-color')}">${purificationData[i].desc}</brspan><br><span style="color: ${getCSSVariable('purification-effect-text-color')}">${purificationData[i].boostDesc} ${format(purificationData[i].eff())}x</span>`
+    DOM(`purification${i}`).innerHTML = `<span style="color: ${getPurificationTextCSS(i, 'purification-name-text-color')}">Purification of ${purificationData[i].name}</span><br><span style="color: ${getPurificationTextCSS(i, 'purification-boost-text-color')}">Highest ${purificationData[i].alt} Boost: <b>${data.omega.bestFBInPurification[i]}</b></span><br><span style="color: ${getPurificationTextCSS(i, 'purification-description-text-color')}">${purificationData[i].desc}</brspan><br><span style="color: ${getPurificationTextCSS(i, 'purification-effect-text-color')}">${purificationData[i].boostDesc} ${format(purificationData[i].eff())}x</span>`
     DOM(`purification${i}`).className = data.omega.purificationIsActive[i] ? `activePurification` : `purification`
 }
 function updatePossiblePurificationHTML(){
