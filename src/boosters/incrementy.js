@@ -23,7 +23,7 @@ function incrementyGain() {
     let base = Decimal.log10(ord.plus(1)).div(10)
     let iupMults = base.times(iup1Effect()).times(iup3Effect()).times(iup4Effect())
     let otherMults = iupMults.times(getHierarchyEffect(0)).times(getAlephEffect(3)).times(getCUPEffect(4)).times(getBUPEffect(14))
-        .times(getStableEnergyEffect(0, 0))
+        .times(getAOEffect(2)).times(getStableEnergyEffect(0, 0))
     if(hasHypercharge(2)) return otherMults.times(negativeChargeEffect(false)).pow(getStableHyperchargeEffect())
     return otherMults.div(negativeChargeEffect(false)).pow(getStableHyperchargeEffect())
 }
