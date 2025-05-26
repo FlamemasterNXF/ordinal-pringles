@@ -74,31 +74,34 @@ function mockMarkup(){
 function calcOrdPoints(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.over, trim = 0) {
     const opBase = D(10)
     if (trim >= 10) return D(0)
+    if (ord.lte(1)) return D(1)
     if (ord.lt(base)) return ord.add(over)
 
-    const slog = Decimal.slog(ord, base)
-    if (slog.lt(base)) {
-        const powerOfOmega = Decimal.log(ord.add(0.1), base).floor()
-        if (powerOfOmega.eq(ord)) return D(0)
+    const slogged = Decimal.slog(ord, base)
+
+    if (slogged.lt(base)) {
+        const powerOfOmega = Decimal.floor(Decimal.log(ord.add(0.1), base))
+        if (powerOfOmega.lte(0)) return D(1)
 
         const highestPower = Decimal.pow(base, powerOfOmega)
-        const powerMultiplier = ord.add(0.1).div(highestPower).floor()
+        const powerMultiplier = Decimal.floor(ord.add(0.1).div(highestPower))
 
-        const remainder = ord.sub(highestPower.times(powerMultiplier))
-        const firstTerm = Decimal.pow(opBase, calcOrdPoints(powerOfOmega, base, D(0)))
+        const reduced = ord.sub(highestPower.times(powerMultiplier))
+        const first = Decimal.pow(opBase, calcOrdPoints(powerOfOmega, base, D(0), trim))
 
-        const secondTerm = (ord.lt(Decimal.tetrate(base, 3)) && !remainder.eq(ord))
-            ? calcOrdPoints(remainder, base, over, trim + 1)
+        const second = ord.lt(Decimal.tetrate(base, 3)) && reduced.neq(ord)
+            ? calcOrdPoints(reduced, base, over, trim + 1)
             : D(0)
 
-        return firstTerm.times(powerMultiplier).add(secondTerm)
+        return first.times(powerMultiplier).add(second)
     }
-    else {
-        const slogged = Decimal.slog(ord, base)
-        if (slogged.eq(ord)) return D(0)
-        return opBase.tetrate(calcOrdPoints(slogged, base, D(0), trim))
-    }
+
+    if (slogged.eq(ord) || slogged.lte(1)) return D(1)
+
+    const inner = calcOrdPoints(slogged, base, D(0), trim)
+    return opBase.tetrate(inner)
 }
+
 const fsReqs = [200, 1000, 1e4, 3.5e5, 1e12, 1e21, 5e100, Infinity, Infinity]
 function getFSReq(){
     if (data.markup.shifts >= 7 && data.ord.base > 3) return Infinity // avoid phantom 1e256 on FS7

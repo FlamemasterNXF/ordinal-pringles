@@ -102,7 +102,7 @@ let bupData = [
     {
         desc: "The Total ℵ effect applies to Incrementy gain",
         cost: 3562,
-        eff: () => alephTotalEffect()*getOverflowEffect(7),
+        eff: () => alephTotalEffect()*getOverflowEffect(6),
         baseEff: () => 1,
         bottomRow: true
     },
