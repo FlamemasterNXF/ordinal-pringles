@@ -269,9 +269,11 @@ function updateAllBUPHTML(){
 }
 
 function showNextBUPLevelEffect(i, showNextLevel) {
-    if(data.incrementy.totalCharge === 0 && data.darkness.sacrificedCharge === 0) return
-    if(!getEUPEffect(4, 0) && data.boost.isCharged[i]) return
-    DOM(`bup${i}`).style.color = showNextLevel || data.boost.isCharged[i] && data.boost.unlocks[1] ? getCSSVariable('charged-BUP-text-color') : getCSSVariable('unbought-BUP-text-color')
+    if (data.incrementy.totalCharge === 0) showNextLevel = false
+
+    DOM(`bup${i}`).style.color = showNextLevel || data.boost.isCharged[i] && data.boost.unlocks[1]
+        ? getCSSVariable('charged-BUP-text-color')
+        : getCSSVariable('unbought-BUP-text-color')
     DOM(`bup${i}`).innerHTML = `${getBUPDesc(i, showNextLevel)}`
 }
 
@@ -392,6 +394,7 @@ function boosterRefund(c=false){
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
         data.boost.hasBUP[i] = false
         DOM(`bup${i}`).className = 'bup'
+        showNextBUPLevelEffect(i, false)
     }
     data.boost.amt = data.boost.total
     c?boosterReset():chalExit()
