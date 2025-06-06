@@ -13,13 +13,11 @@ function dyGain(){
     let boost = 1
     if(data.ord.base < 6 || data.boost.isCharged[13]) boost = getBUPEffect(13)
 
-    if(data.chal.active[5]) {
-        let c6 = getC6Effect()
-        //let c5 = data.chal.active[4] ? 1 : (5**data.chal.completions[4])
-        return data.dy.gain.mul((5**c6)/**c5*/)
-    }
+    if(data.chal.active[5]) return data.dy.gain.mul((5**getC6Effect())*(5**data.chal.completions[5]))
 
-    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[4]) return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(getBUPEffect(3)).mul(getPringleEffect(3)).toNumber()
+    if(data.chal.active[0]||data.chal.active[1]||data.chal.active[2]||data.chal.active[3]||data.chal.active[4]){
+        return D(data.dy.gain).mul(boost).mul(iup2Effect()).mul(getBUPEffect(3)).mul(getPringleEffect(3)).toNumber()
+    }
 
     return calcDyGain()
 }
