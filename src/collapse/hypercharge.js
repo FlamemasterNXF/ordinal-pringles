@@ -141,7 +141,7 @@ function updateHyperchargeBottomTextHTML(){
 }
 
 function updateHyperChargeRequirementHTML(i){
-    DOM(`hyperChargeRequirement${i}`).className = data.incrementy.totalCharge > hyperChargeRequirementData[i]
+    DOM(`hyperChargeRequirement${i}`).className = data.incrementy.totalCharge >= hyperChargeRequirementData[i]
         ? 'hyperChargeRequirement'
         : 'lockedHyperChargeRequirement'
 }
