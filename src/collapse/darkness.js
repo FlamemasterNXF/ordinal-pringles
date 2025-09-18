@@ -343,23 +343,5 @@ function respecDrains(){
     }
 }
 
-function resetDarkness(force = false){
-    data.darkness.darkened = false
-    for (let i = 0; i < 3; i++) {
-        const passiveSave = i < 2 ? hasPassiveUpgrade(10) : hasPassiveUpgrade(12)
-        data.darkness.levels[i] = (passiveSave || hasSluggishMilestone(3)) ? data.darkness.levels[i] : 0
-    }
-
-    if(!data.boost.unlocks[4]) data.darkness.negativeCharge = 0
-    if(!hasPassiveHypercharge(1)) data.darkness.drains = Array(7).fill(0)
-    if(!hasPassiveHypercharge(1)) data.darkness.totalDrains = 0
-
-    //data.darkness.negativeChargeEnabled = false
-    updateDarknessHTML()
-    updateAllDUPHTML()
-    updateAllDrainHTML()
-    updateDarknessDepthHTML()
-}
-
 let getExtraDUPLevels = (i) => dupData[i].extraLevels()
 let getTotalDUPLevels = (i) => data.darkness.levels[i]+getExtraDUPLevels(i)

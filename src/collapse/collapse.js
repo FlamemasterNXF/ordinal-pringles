@@ -349,8 +349,6 @@ function collapseReset(){
         }
     }
 
-    resetDarkness()
-
     data.overflow.bp = 1
     data.overflow.oc = 1
 }

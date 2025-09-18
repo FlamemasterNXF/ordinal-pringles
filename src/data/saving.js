@@ -1,7 +1,7 @@
 //Version Flags
-const VERSION = "0.4.4b4"
-const VERSION_NAME = "The Pringle Update"
-const VERSION_DATE = "May 26th, 2025"
+const VERSION = "0.5b5"
+const VERSION_NAME = "Alazia"
+const VERSION_DATE = "September 18th, 2025"
 const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -208,7 +208,7 @@ function fixOldSavesAfterLoad(){
     if(data.loadedVersion < "0.1.1" || data.loadedVersion === "null"){
         data.incrementy.charge += data.darkness.sacrificedCharge
         data.incrementy.totalCharge += data.darkness.sacrificedCharge
-        resetDarkness(true)
+        //resetDarkness()
         data.loadedVersion = "0.1.2"
     }
 
