@@ -1,7 +1,7 @@
 function updateDarknessHTML(){
     updateAllDUPHTML()
-    updateStabilizationHTML()
-    if(data.darkness.darkened) updateDarknessDepthHTML()
+    updateDarknessButton()
+    updateDarknessResourcesHTML()
 }
 
 let getDarknessText = () => `You are trapped in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy [${format(decrementyGain())}x/s]`
@@ -50,158 +50,75 @@ function updateAllDrainHTML(){
     }
 }
 
+function updateDarknessButton(){
+    let statusText = data.darkness.darkened
+        ? `Escape the Darkness`
+        : `Enter the Darkness, trapping yourself in Challenge 8`
 
-let stabilizationEffects = [
-    {
-        effect: () => 0.5*getStabilizationLevels(),
-        baseEffect: () => 0,
-        desc: 'Increase the Decrementy gain exponent after Ψ(Ω)',
-        sign: '+',
-    },
-    {
-        effect: () => 0.1*getStabilizationLevels(),
-        baseEffect: () => 0,
-        desc: 'Reduce the Decrementy reduction factor',
-        sign: '-',
-    },
-    {
-        effect: () => 5**getStabilizationLevels(),
-        baseEffect: () => 1,
-        desc: 'Decrease the Darkness-ending Incrementy threshold',
-        sign: '/',
-    },
-    {
-        effect: () => getStabilizationLevels(),
-        baseEffect: () => 0,
-        desc: 'After Incrementy reaches the threshold, you are given a grace period',
-        sign: 's',
-    }
-]
-let extraStabilizationLevels = () => getHyperchargeEffect(6)+getEUPEffect(1, 3, true)
-let getStabilizationLevels = () => data.darkness.stabilization+extraStabilizationLevels()
-function getStabilizationCost(){
-    const stabilization = data.darkness.stabilization + 1
-    const exponent = Math.pow(stabilization, 1/2+(stabilization-2)/11)
-    return Decimal.pow(1e6, exponent)
-}
-function getStabilizationEffect(i, ui = false) {
-    if((getDepth() < i || getStabilizationLevels() === 0) && !ui) return stabilizationEffects[i].baseEffect()
-    return stabilizationEffects[i].effect()
-}
-function makeStabilizationText(){
-    let text = ''
-    for (let i = 0; i < stabilizationEffects.length; i++) {
-        const doFormat = i !== 3
-        text += i < 3 ? `<br><b>While in Depth ${i+1} or below:</b> ` : `<br><b>While in Depth ${i+1}:</b> `
-        text += `${stabilizationEffects[i].desc} [${formatSign(getStabilizationEffect(i, true), stabilizationEffects[i].sign, doFormat)}]`
-    }
-    return text
-}
-function updateStabilizationHTML(){
-    const levelsText = extraStabilizationLevels() > 0 ? ` + ${extraStabilizationLevels()}` : ''
-    DOM(`dbup`).innerHTML = `<b>Anti-Darkness</b> (${data.darkness.stabilization}${levelsText})${makeStabilizationText()}<br><br>Cost: ${format(getStabilizationCost())} Cardinals`
+    let depthText = data.darkness.darkened
+        ? `<br><br>You are currently in Depth ${getDepth()}<br>This Depth increases your Entropy exponent by +${getDepth()}<br>This Depth multiplies your Light's decay speed by ${2**(getDepth()-1)}x<br>You must consume ${getDepthRequirement()-(getLight()-data.darkness.currentLight-getPreviouslyConsumedLight())} more Light to enter the next Depth`
+        : ''
+
+    DOM('darken').innerHTML = statusText+depthText
 }
 
-function buyStabilization(){
-    if(data.collapse.cardinals.lt(getStabilizationCost())) return
-    data.collapse.cardinals = data.collapse.cardinals.sub(getStabilizationCost())
-    ++data.darkness.stabilization
+function updateDarknessResourcesHTML(){
+    let entropyText = data.darkness.darkened
+        ? `You have ${format(getEntropy())} Entropy, multiplying Negative Charge gain by ${format(getEntropyEffect())}`
+        : `Your best Entropy in Darkness is ${format(data.darkness.bestEntropy)}`
+
+    let lightText = data.darkness.darkened
+        ? `You have ${data.darkness.currentLight} Light [-${getLightChange()}/s], when it reaches 0 the Darkness will win`
+        : `Your best Incrementy is ${format(data.incrementy.bestIncrementy)}, creating ${getLight()} Light`
+
+    DOM(`darknessResources`).innerHTML = `You have ${format(data.chal.decrementy)} Decrementy<br><br>
+        Your best Decrementy is ${format(data.darkness.bestDecrementy)}, creating ${getStableDecrementy()} Stable Decrementy
+        <br><br>${lightText}
+        <br><br>${entropyText}`
 }
 
-let depthEffects = [
-    {
-        buff: '',
-        nerf: 'You are trapped in Challenge 8',
-    },
-    {
-        buff: 'Greatly boost Negative Charge gain',
-        nerf: ', but Decrementy gain is greatly reduced',
-        buffEffect: {
-            desc: 'Negative Charge gain is enhanced',
-            hideEffect: true,
-            // NOTE: Due to how this "buff" works, it's actual value should never be queried.
-        },
-        nerfEffect: {
-            desc: 'Decrementy reduction factor: ', // TODO: This is actually a log, should I say so in-game?
-            effect: () => 2-getStabilizationEffect(1)
-        },
-    },
-    {
-        buff: 'You can now gain Incrementy',
-        nerf: `, but it Decays based on your Decrementy and can end Darkness`,
-        buffEffect: { // This is scuffed because I didn't want to add the ability to make two nerfs just for this :p
-            desc: 'Darkness ends if Incrementy reaches: ',
-            effect: () => incrementyGain().div(getStabilizationEffect(2)),
-            baseEffect: Infinity
-        },
-        nerfEffect: {
-            desc: `Decay factor: `,
-            effect: () => Decimal.log10(data.chal.decrementy+1).pow(getDepthNerf(3))
-        }
-    },
-    {
-        buff: 'Decrementy gain exponent is boosted by Cardinals',
-        nerf: `, but all Decrementy nerfs and Decay are intensified`,
-        buffEffect: {
-            desc: 'Decrementy gain exponent increase: ',
-            effect: () => Decimal.log10(data.collapse.cardinals+1),
-            baseEffect: 0,
-        },
-        nerfEffect: {
-            desc: 'Decay is greatly intensified',
-            effect: () => 2,
-            hideEffect: true,
-        },
-    }
-]
-function updateDarknessDepthHTML(){
-    let starter = data.darkness.darkened ? 'Exit' : 'Enter'
-    let text = `${starter} the Darkness (Depth ${data.darkness.depth+1})<br><br>You will be trapped in Challenge 8`
-    for (let i = 1; i < data.darkness.depth+1; i++) {
-        let currentDepth = depthEffects[i]
-        if(currentDepth.buffEffect !== undefined){
-            text += `<br><span style="color: ${getCSSVariable('darkness-button-depth-effect-text-color')}">${currentDepth.buffEffect.desc}</span>`
-            if(!currentDepth.buffEffect.hideEffect) text += format(getDepthBuff(i))
-        }
-        if(currentDepth.nerfEffect !== undefined){
-            text += `<br><span style="color: ${getCSSVariable('darkness-button-depth-effect-text-color')}">${currentDepth.nerfEffect.desc}</span>`
-            if(!currentDepth.nerfEffect.hideEffect) text += format(getDepthNerf(i))
-        }
-    }
-    DOM('darken').innerHTML = text
-}
-function updateDepthSelectHTML(i){
-    DOM(`depthDescriptor`).innerHTML = `<span style="color: ${getCSSVariable('depth-description-depth-text-color')}">Depth ${i + 1}${i < 3 ? ' and below' : ''}:</span> ${depthEffects[i].buff}${depthEffects[i].nerf}`
-}
-function setDarknessDepth(i){
-    if(data.darkness.darkened) return
-    data.darkness.depth = i
-    updateDarknessDepthHTML()
-}
-function initDepthHTML(){
-    let container = DOM(`depthSelect`)
-    for (let i = 0; i < stabilizationEffects.length; i++) {
-        let button = document.createElement('button');
-        button.className = 'depthButton'
-        button.id = `depth${i}`
-        button.innerText = `Depth ${i+1}`
-        button.addEventListener("mouseenter", (e) => updateDepthSelectHTML(i))
-        button.addEventListener("click", (e) => setDarknessDepth(i))
-        container.appendChild(button)
-    }
-    updateDarknessDepthHTML()
+function getStableDecrementy(){
+    return Decimal.floor(Decimal.log10(data.darkness.bestDecrementy))
 }
 
-let getDepth = () => data.darkness.darkened ? data.darkness.depth : -1
-let getDepthNerf = (i) => getDepth() >= i ? depthEffects[i].nerfEffect.effect() : 1
-let getDepthBuff = (i) => getDepth() >= i ? depthEffects[i].buffEffect.effect() : depthEffects[i].buffEffect.baseEffect
+function getLight(){
+    return Decimal.floor(Decimal.log10(data.incrementy.bestIncrementy))
+}
+function getLightChange(){
+    return 2**(getDepth()-1)
+}
+
+function getEntropy(){
+    let exponent = 3+getDepth()
+    if(data.darkness.darkened) return (getLight()-data.darkness.currentLight)**exponent
+    return 0
+}
+function getEntropyEffect(){
+    return 1
+}
+
+function getDepth(){
+    return data.darkness.depth
+}
+function getDepthRequirement(depth = getDepth()){
+    if(depth > 5) return 60*2**depth
+    return 60
+}
+function getPreviouslyConsumedLight(){
+    let amount = 0
+    for (let i = getDepth(); i > 1; i--) {
+        amount += getDepthRequirement(i)
+    }
+    return amount
+}
+
+// TODO: Change these effects which once applied to stabilization
+// let extraStabilizationLevels = () => getHyperchargeEffect(6)+getEUPEffect(1, 3, true)
 
 function negativeChargeGain(){
     if(!data.darkness.darkened || !data.darkness.negativeChargeEnabled) return 0
 
-    let base = getDepth() > 0
-        ? Math.max(0, Decimal.log2(data.chal.decrementy.plus(1))**3)
-        : Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)
+    let base = Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)
 
     return base * iup10Effect() * getRealmChallengeEffect(3)
 }
@@ -322,6 +239,9 @@ function darken(force = false){
     data.darkness.darkened && !force ? chalExit(true) : chalEnter(7, true)
     data.darkness.darkened = !data.darkness.darkened
 
+    data.darkness.currentLight = getLight()
+    data.darkness.depth = data.darkness.darkened ? 1 : 0
+
     if(data.darkness.darkened && hasPassiveHypercharge(3)){
         data.markup.shifts = 7
         data.ord.base = 3
@@ -329,7 +249,6 @@ function darken(force = false){
         data.ord.isPsi = true
     }
 
-    updateDarknessDepthHTML()
     updateStatusHTML()
 }
 

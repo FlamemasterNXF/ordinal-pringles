@@ -21,11 +21,11 @@ function getDefaultPlayer() {
         autoLevels: Array(2).fill(0),
         boost: {amt:0, total:0, times:0, bottomRowCharges:0, hasBUP:Array(15).fill(false), isCharged:Array(15).fill(false), unlocks: Array(5).fill(false)},
         chal: {decrementy: D(1), html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0},
-        incrementy: {amt:D(0), hasIUP:Array(12).fill(false), rebuyableAmt: Array(6).fill(0), charge:0, totalCharge:0},
+        incrementy: {bestIncrementy: D(0), amt:D(0), hasIUP:Array(12).fill(false), rebuyableAmt: Array(6).fill(0), charge:0, totalCharge:0},
         hierarchies: { ords:[ {ord:D(1), over:D(0), type:"f"}, {ord:D(1), over:D(0), type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(10).fill(false)},
         overflow: {bp:1, oc:1, thirdEffect:true}, //for thirdEffect: true=normal, false=inverted
         collapse: {times:0, cardinals:D(0), bestCardinalsGained:D(0), alephs:Array(alephData.length).fill(D(0)), hasCUP:Array(8).fill(false), hasSluggish:Array(5).fill(false), apEnabled:Array(3).fill(false)},
-        darkness: {levels: Array(3).fill(0), negativeCharge:0, drains: Array(7).fill(0), sacrificedCharge:0, totalDrains: 0, negativeChargeSpent:0, stabilization:0, depth: 0, negativeChargeEnabled:false, darkened:false},
+        darkness: {bestDecrementy: D(0), levels: Array(3).fill(0), negativeCharge:0, drains: Array(7).fill(0), currentLight: 0, bestEntropy: 0, totalDrains: 0, negativeChargeSpent:0, depth: 0, negativeChargeEnabled:false, darkened:false},
         baseless:{alephNull: 0, mode:0, baseless:false, shifts:0, bestOrdinalInMode: Array(3).fill(0), metaANR: Array(metaANBuyableData.length).fill(0), normalANR: Array(normalANBuyableData.length).fill(0), tutorial: false},
         baselessRealm: {amt: 0, total: 0, times: 0, hasBUP: Array(12).fill(false), unlocks: Array(4).fill(false), completions: Array(6).fill(0), chalActive: -1, incrementy: 0, rupLevels: Array(3).fill(0), hasUpgrade: Array(11).fill(false), hierarchy: {ord: 0, over: 0}, gupPercentage: Array(3).fill(0), hupLevels: Array(3).fill(0), automationEnabled: Array(2).fill(true)},
         omega:{bestRemnants: 0, alephOmega:1, bestFBInPurification: Array(4).fill(0), purificationIsActive: Array(4).fill(false), whichPurification: -1, aoRebuyables:Array(8).fill(0), tutorial: false},

@@ -93,6 +93,6 @@
     }
     #dbup{
         max-width: 99vw;
-        border: 2px solid var(--anti-darkness-border-color);
+        border: 2px solid var(--darkness-resources-border-color);
     }
 }

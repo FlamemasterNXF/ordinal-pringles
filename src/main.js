@@ -1,13 +1,3 @@
-let darknessTimeout
-function doDepthThreeEffect(){
-    if (!darknessTimeout) {
-        darknessTimeout = setTimeout(() => {
-            darken()
-            darknessTimeout = null
-        }, getStabilizationEffect(3) * 1000)
-    }
-}
-
 function mainLoop() {
     // Calculate diff and usableDiff
     if(data.lastTick === 0) data.lastTick = Date.now()
@@ -18,13 +8,16 @@ function mainLoop() {
     if((data.dy.gain.gt(0) || isBaseless() && hasRealmUnlock(1)) && data.dy.level.lt(getDyCap())) data.dy.level = Decimal.min(getDyCap(), data.dy.level.add(D(uDiff).mul(dyGain())))
     if(data.boost.hasBUP[11]) data.markup.powers = data.markup.powers.plus(getBUPEffect(11)*uDiff)
 
-    if(data.chal.active[7]) data.chal.decrementy = Decimal.max(1, data.chal.decrementy.mul(decrementyGain().pow(uDiff)))
-
-    if(data.ord.isPsi && data.boost.unlocks[1]) data.incrementy.amt = data.incrementy.amt.plus(incrementyGain().times(uDiff))
-    if(getDepth() > 1){
-        data.incrementy.amt = data.incrementy.amt.div(getDepthNerf(2).times(uDiff))
-        if(data.incrementy.amt.lt(getDepthBuff(2))) doDepthThreeEffect()
+    if(data.chal.active[7]){
+        data.chal.decrementy = Decimal.max(1, data.chal.decrementy.mul(decrementyGain().pow(uDiff)))
+        if(data.chal.decrementy.gt(data.darkness.bestDecrementy)) data.darkness.bestDecrementy = data.chal.decrementy
     }
+
+    if(data.ord.isPsi && data.boost.unlocks[1]){
+        data.incrementy.amt = data.incrementy.amt.plus(incrementyGain().times(uDiff))
+        if(data.incrementy.amt.gt(data.incrementy.bestIncrementy)) data.incrementy.bestIncrementy = data.incrementy.amt
+    }
+
     if(data.boost.unlocks[3]) {
         data.overflow.bp += getBoosterPowerGain()*uDiff
         data.overflow.oc += getOverchargeGain()*uDiff

@@ -4,7 +4,7 @@ function updateCollapseHeaderHTML(){
     }
     else if(getSubtab('collapse') === 'darkness'){
         const negativeChargeType = hasHypercharge(2) ? 'multiplying' : 'dividing'
-        let text = `You have ${format(data.collapse.cardinals)} Cardinals<span style="color: ${getCSSVariable('collapse-text-negative-charge-color')}">, ${format(data.chal.decrementy)} Decrementy, and ${format(data.darkness.negativeCharge)} Negative Charge [+${format(negativeChargeGain())}/s]</span><br><span style="font-size: 0.9rem; color: ${getCSSVariable('negative-charge-text-color')}">Your Negative Charge is ${negativeChargeType} Incrementy gain by ${format(negativeChargeEffect(false))}`
+        let text = `You have ${format(data.collapse.cardinals)} Cardinals<span style="color: ${getCSSVariable('collapse-text-negative-charge-color')}"> and ${format(data.darkness.negativeCharge)} Negative Charge [+${format(negativeChargeGain())}/s]</span><br><span style="font-size: 0.9rem; color: ${getCSSVariable('negative-charge-text-color')}">Your Negative Charge is ${negativeChargeType} Incrementy gain by ${format(negativeChargeEffect(false))}`
         text += hasHypercharge(2) ? '</span>' : ` and Incrementy\'s effect by ${format(negativeChargeEffect(true))}</span>`
         DOM(`cardinalsText`).innerHTML = text
     }
@@ -32,8 +32,8 @@ function updateCollapseHTML(){
     if(data.baseless.baseless) DOM(`baseless`).children[2].innerHTML = `<br><br>You will gain <span style="color: ${getCSSVariable('baseless-realm-gain-text-color')}">${format(getAlephNullGain())} ℵ<sub>0</sub></span> if you exit now<br><span style="font-size: 0.9rem">Your <span style="color: ${getCSSVariable('baseless-realm-gain-text-color')}">ℵ<sub>0</sub></span> gain multipier is currently ${format(getBaselessMult(data.baseless.mode)*dynamicShiftMultipliers[0]())}</span>`
 
     updateTotalAlephHTML()
-    updateDarknessHTML()
     updatePurificationTabHTML()
+    if(data.nav.subtabs.collapse === 'darkness') updateDarknessHTML()
     if(data.nav.subtabs.collapse === 'hyper') updateAllHyperchargeHTML()
     if(isBaseless()) updateRealmBoostersHTML()
     updateCollapseHeaderHTML()
