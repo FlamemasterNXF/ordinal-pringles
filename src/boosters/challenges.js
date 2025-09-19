@@ -85,7 +85,7 @@ function chalEnter(i, force=false){
     updateStatusHTML()
 }
 function chalExit(darkness = false){
-    if(data.darkness.darkened && data.chal.active[7] && !darkness) darken(true)
+    if(data.darkness.darkened && data.chal.active[7] && !darkness) darkenControl(true)
     for (let i = 0; i < data.chal.active.length; i++) {
         data.chal.active[i] = false
         updateChalHTML(i)

@@ -13,6 +13,13 @@ function mainLoop() {
         if(data.chal.decrementy.gt(data.darkness.bestDecrementy)) data.darkness.bestDecrementy = data.chal.decrementy
     }
 
+    if(data.darkness.darkened){
+        data.darkness.currentLight -= getLightChange()*uDiff
+        if(data.darkness.currentLight <= 0) darkenControl()
+        if(getLightNeededForDepth() <= 0) data.darkness.depth++
+        if(data.darkness.depth > data.darkness.bestDepth) data.darkness.bestDepth = data.darkness.depth
+    }
+
     if(data.ord.isPsi && data.boost.unlocks[1]){
         data.incrementy.amt = data.incrementy.amt.plus(incrementyGain().times(uDiff))
         if(data.incrementy.amt.gt(data.incrementy.bestIncrementy)) data.incrementy.bestIncrementy = data.incrementy.amt

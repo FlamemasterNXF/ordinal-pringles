@@ -56,8 +56,8 @@ function updateDarknessButton(){
         : `Enter the Darkness, trapping yourself in Challenge 8`
 
     let depthText = data.darkness.darkened
-        ? `<br><br>You are currently in Depth ${getDepth()}<br>This Depth increases your Entropy exponent by +${getDepth()}<br>This Depth multiplies your Light's decay speed by ${2**(getDepth()-1)}x<br>You must consume ${getDepthRequirement()-(getLight()-data.darkness.currentLight-getPreviouslyConsumedLight())} more Light to enter the next Depth`
-        : ''
+        ? `<br><br>You are currently in Depth ${getDepth()}<br>This Depth increases your Entropy exponent by +${getDepth()}<br>This Depth multiplies your Light's decay speed by ${2**(getDepth()-1)}x<br>You must consume ${format(getLightNeededForDepth())} more Light to enter the next Depth`
+        : `<br><br>Your highest ever Depth is Depth ${data.darkness.bestDepth}`
 
     DOM('darken').innerHTML = statusText+depthText
 }
@@ -68,7 +68,7 @@ function updateDarknessResourcesHTML(){
         : `Your best Entropy in Darkness is ${format(data.darkness.bestEntropy)}`
 
     let lightText = data.darkness.darkened
-        ? `You have ${data.darkness.currentLight} Light [-${getLightChange()}/s], when it reaches 0 the Darkness will win`
+        ? `You have ${format(data.darkness.currentLight)} Light [-${getLightChange()}/s], when it reaches 0 the Darkness will win`
         : `Your best Incrementy is ${format(data.incrementy.bestIncrementy)}, creating ${getLight()} Light`
 
     DOM(`darknessResources`).innerHTML = `You have ${format(data.chal.decrementy)} Decrementy<br><br>
@@ -110,6 +110,9 @@ function getPreviouslyConsumedLight(){
         amount += getDepthRequirement(i)
     }
     return amount
+}
+function getLightNeededForDepth(){
+    return getDepthRequirement()-(getLight()-data.darkness.currentLight-getPreviouslyConsumedLight())
 }
 
 // TODO: Change these effects which once applied to stabilization
@@ -229,12 +232,12 @@ function darknessControl(mode){
 }
 
 function darkenConfirm(){
-    if(!getSimpleSetting('darknessConfirmation')) return darken()
+    if(!getSimpleSetting('darknessConfirmation')) return darkenControl()
     data.darkness.darkened
-        ? createConfirmation('Are you certain?', 'Exiting the Darkness will stop the generation of Negative Charge and Decrementy and force a Booster Reset.', 'No thanks.', 'For sure!', darken)
-        : createConfirmation('Are you certain?', 'Darkening will perform a Booster Reset and trap you in Challenge 8. However, you will also gain the ability to generate Negative Charge.', 'No thanks.', 'For sure!', darken)
+        ? createConfirmation('Are you certain?', 'Exiting the Darkness will stop the generation of Negative Charge and Decrementy and force a Booster Reset.', 'No thanks.', 'For sure!', darkenControl)
+        : createConfirmation('Are you certain?', 'Darkening will perform a Booster Reset and trap you in Challenge 8. However, you will also gain the ability to generate Negative Charge.', 'No thanks.', 'For sure!', darkenControl)
 }
-function darken(force = false){
+function darkenControl(force = false){
     if(data.baseless.baseless) return
     data.darkness.darkened && !force ? chalExit(true) : chalEnter(7, true)
     data.darkness.darkened = !data.darkness.darkened
