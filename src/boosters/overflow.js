@@ -45,7 +45,7 @@ function getOverflowEffect(i){
         case 4:
             return data.overflow.oc > 1 ? Math.max(1, Math.log10(data.overflow.oc+1)) : 1
         case 5:
-            return data.overflow.oc > 1 && hasCUP(5) ? Math.max(1, Math.pow(data.overflow.oc, 1/16)) : 1
+            return data.overflow.oc > 1 && hasCUP(5) ? Math.max(1, 1+Math.pow(data.overflow.oc, 1/16)/10) : 1
         case 6:
             return data.overflow.oc > 1 && hasAOMilestone(2) ? Math.max(1, Math.pow(data.overflow.oc, 1/4)) : 1
         default: return NaN

@@ -39,6 +39,7 @@ function obliterate(){
 
 function obliterateReset(){
     data.boost.unlocks[4] = false
+    data.incrementy.bestIncrementy = D(0)
 
     data.collapse.times = 0
     data.collapse.cardinals = D(0)
@@ -58,7 +59,10 @@ function obliterateReset(){
     data.darkness.drains = Array(7).fill(0)
     if(getSimpleSetting('obliterationNegativeChargeReset')) data.darkness.negativeChargeEnabled = false
     data.darkness.darkened = false
-    if(!hasPassiveUpgrade(11)) data.darkness.stabilization = 0
+    //if(!hasPassiveUpgrade(11)) data.darkness.stabilization = 0
+    data.darkness.bestDecrementy = D(0)
+    data.darkness.bestDepth = 1
+    data.darkness.bestEntropy = 0
 
     if(!hasPassiveUpgrade(21)){
         for (let i = 0; i < data.hyper.hasUpgrade.length; i++) {

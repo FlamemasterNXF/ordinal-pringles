@@ -28,7 +28,7 @@ function getDUPLevelText(i){
     return `(${data.darkness.levels[i]})`
 }
 function updateDUPHTML(i){
-    DOM(`dup${i}`).innerText = `${dupData[i].text} ${getDUPLevelText(i)}\n${format(dupData[i].cost())} Decrementy\nCurrently: ${formatSign(dupEffect(i), dupData[i].sign)}`
+    DOM(`dup${i}`).innerText = `${dupData[i].text} ${getDUPLevelText(i)}\nRequires ${format(dupData[i].cost())} Stable Decrementy\nCurrently: ${formatSign(dupEffect(i), dupData[i].sign)}`
 }
 function updateAllDUPHTML(){
     for (let i = 0; i < data.darkness.levels.length; i++) {
@@ -152,9 +152,9 @@ let drainData = [
 
 let dupEffect = (i) => inPurification(0) ? 1 : Math.max(1, dupData[i].effect())
 function dupScaling (i){
-    if(i===0) return D(10).pow(D(3).pow(data.darkness.levels[i]+1)).pow(2)
-    if(i===1) return D(10).pow(D(4).pow(data.darkness.levels[i]+1).pow(D(1.5)))
-    if(i===2) return D(10).pow(D(3).pow(data.darkness.levels[i]+1)).pow(3)
+    if(i===0) return D(30).times(data.darkness.levels[i]+1)
+    if(i===1) return D(40).times(data.darkness.levels[i]+1)
+    if(i===2) return D(30).times(data.darkness.levels[i]+1)
 }
 
 let dupData = [
@@ -162,21 +162,21 @@ let dupData = [
         text: "Multiply AutoBuyer speed by 1.5x",
         sign: 'x',
         extraLevels: () => getNormalANREffect(2),
-        cost: ()=> D(1e30).times(dupScaling(0)).pow(1/getOverflowEffect(5)),
+        cost: ()=> D(300).times(dupScaling(0)).div(getOverflowEffect(5)),
         effect: ()=> isTabUnlocked('darkness') ? (1.5*purificationEffect(0))**(getTotalDUPLevels(0)) : 1
     },
     {
         text: 'Double Dynamic Cap',
         sign: 'x',
         extraLevels: () => Math.floor(iup11Effect()+getNormalANREffect(2)),
-        cost: ()=> D(1e15).times(dupScaling(1)).pow(1/getOverflowEffect(5)),
+        cost: ()=> D(150).times(dupScaling(1)).div(getOverflowEffect(5)),
         effect: ()=> isTabUnlocked('darkness') ? 2**getTotalDUPLevels(1) : 1
     },
     {
         text: `Multiply both Hierarchy Effect exponents`,
         sign: 'x',
         extraLevels: () => getNormalANREffect(2),
-        cost: ()=> D(1e100).times(dupScaling(2)).pow(1/getOverflowEffect(5)),
+        cost: ()=> D(800).times(dupScaling(2)).div(getOverflowEffect(5)),
         effect: ()=> isTabUnlocked('darkness') ? 0.0175*getTotalDUPLevels(2)**2+1: 1
     }
 ]
@@ -194,8 +194,7 @@ function buyDrain(i) {
 }
 
 function buyDUP(i){
-    if(data.chal.decrementy.gte(dupData[i].cost())){
-        data.chal.decrementy = data.chal.decrementy.sub(dupData[i].cost())
+    if(D(getStableDecrementy()).gte(dupData[i].cost())){
         ++data.darkness.levels[i]
         updateDUPHTML(i)
     }
