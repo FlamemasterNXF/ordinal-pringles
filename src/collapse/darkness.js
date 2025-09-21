@@ -1,8 +1,12 @@
-let getDepthUpgradeLevel = (i) => data.darkness.bestDepth - (i + 1)
+function getDepthUpgradeLevel(i) {
+    let extraLevels = getEUPEffect(1, 3, true)
+    return (data.darkness.bestDepth - (i + 1)) + extraLevels
+}
+
 let isDepthUpgradeUnlocked = (i) => getDepthUpgradeLevel(i) > 0
 
 function getDepthUpgradeEffect(i){
-    if(!isDepthUpgradeUnlocked(i)) return depthUpgradeData[i].baseEffect
+    if(!isDepthUpgradeUnlocked(i) || inPurification(0)) return depthUpgradeData[i].baseEffect
     return Math.max(depthUpgradeData[i].effect(), depthUpgradeData[i].baseEffect)
 }
 
@@ -17,7 +21,7 @@ let depthUpgradeData = [
         text: 'Cardinals provide free Light',
         sign: '+',
         baseEffect: 0,
-        effect: () => Math.floor(Math.log10(Math.sqrt(data.collapse.cardinals+1) * getDepthUpgradeLevel(1)))
+        effect: () => Decimal.floor(Decimal.log10(Decimal.sqrt(data.collapse.cardinals+1).times(getDepthUpgradeLevel(1)))).toNumber()
     },
     {
         text: 'Depths increase the Entropy gain exponent further',
@@ -130,7 +134,8 @@ function updateDarknessResourcesHTML(){
 }
 
 function getStableDecrementy(){
-    return Decimal.floor(Decimal.log10(data.darkness.bestDecrementy)).times(getDepthUpgradeEffect(0)).toNumber()
+    const multipliers = getDepthUpgradeLevel(0)*getHyperchargeEffect(11)
+    return Decimal.floor(Decimal.log10(data.darkness.bestDecrementy)).times(multipliers).toNumber()
 }
 
 function getLight(){
@@ -141,7 +146,7 @@ function getLightChange(){
 }
 
 function getEntropy(){
-    let exponent = 3+getDepth()*getDepthUpgradeEffect(2)
+    let exponent = 3 + getDepth()*getDepthUpgradeEffect(2) + getHyperchargeEffect(6)
     if(data.darkness.darkened){
         const amount = (getLight()-data.darkness.currentLight)**exponent
         if(amount > data.darkness.bestEntropy) data.darkness.bestEntropy = amount
@@ -215,7 +220,7 @@ function dupScaling (i){
 
 let dupData = [
     {
-        text: "Multiply AutoBuyer speed by 1.5x",
+        text: "Multiply AutoBuyer speed",
         sign: 'x',
         extraLevels: () => getNormalANREffect(2),
         cost: ()=> D(300).times(dupScaling(0)).div(getOverflowEffect(5)),

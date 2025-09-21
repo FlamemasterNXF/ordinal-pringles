@@ -44,10 +44,10 @@ const energyUpgradeData = [
             isUnlock: true,
         },
         {
-            desc: 'Total Fractal Energy provides free Anti-Darkness levels',
+            desc: 'Total Fractal Energy provides free levels of the second-row Darkness Upgrades',
             sign: '+',
             cost: 1,
-            effect: () => Math.floor(Math.sqrt(data.obliterate.energy)),
+            effect: () => Math.floor(Math.log2(data.obliterate.times)),
             baseEffect: 0,
         },
         {

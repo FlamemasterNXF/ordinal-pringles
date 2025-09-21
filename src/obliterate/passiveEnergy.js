@@ -12,8 +12,8 @@ const passiveUpgradeData = [
     "The eighth Cardinal Upgrade is now permanent",
 
     "The first and second Darkness Upgrade's levels are now permanent",
-    "Anti-Darkness is now permanent",
     "The third Darkness Upgrade's levels are now permanent",
+    "Your best Decrementy, Entropy, and Depth are now permanent",
     "The top-row Baselessness Upgrades' levels are now permanent",
     "The bottom-row Baselessness Upgrades' levels are now permanent",
 

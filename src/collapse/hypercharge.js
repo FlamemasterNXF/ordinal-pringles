@@ -45,9 +45,9 @@ let hyperChargeUpgradeData = [
     },
 
     {
-        description: "Total Charge provides free Anti-Darkness levels",
+        description: "Total Charge boosts the Entropy gain exponent",
         sign: '+',
-        effect: () => Math.floor(Math.log2(data.incrementy.totalCharge+1)),
+        effect: () => Math.log2(Math.sqrt(data.incrementy.totalCharge+1))/10,
         baseEffect: () => 0,
         cost: 12,
     },
@@ -81,10 +81,10 @@ let hyperChargeUpgradeData = [
         cost: 24,
     },
     {
-        description: "Deeper Darkness Depths boost the Decrementy gain exponent",
-        sign: '+',
-        effect: () => (data.darkness.depth+1)**2,
-        baseEffect: () => 0,
+        description: "Your highest Darkness Depth boosts Stable Decrementy",
+        sign: 'x',
+        effect: () => data.darkness.bestDepth**5,
+        baseEffect: () => 1,
         cost: 24,
     },
 

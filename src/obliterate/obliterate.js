@@ -49,20 +49,22 @@ function obliterateReset(){
     data.collapse.hasSluggish = Array(5).fill(false)
     if(getSimpleSetting('obliterationAutomationDisable')) data.collapse.apEnabled = Array(3).fill(false)
 
+    data.darkness.darkened = false
     data.darkness.negativeCharge = 0
-    data.darkness.sacrificedCharge = 0
     data.darkness.negativeChargeSpent = 0
     data.darkness.totalDrains = 0
-    if(!hasPassiveUpgrade(10)) data.darkness.levels[0] = 0
-    if(!hasPassiveUpgrade(10)) data.darkness.levels[1] = 0
-    if(!hasPassiveUpgrade(12)) data.darkness.levels[2] = 0
     data.darkness.drains = Array(7).fill(0)
+    if(!hasPassiveUpgrade(10)){
+        data.darkness.levels[0] = 0
+        data.darkness.levels[1] = 0
+    }
+    if(!hasPassiveUpgrade(11)) data.darkness.levels[2] = 0
+    if(!hasPassiveUpgrade(12)){
+        data.darkness.bestDecrementy = D(0)
+        data.darkness.bestDepth = 1
+        data.darkness.bestEntropy = 0
+    }
     if(getSimpleSetting('obliterationNegativeChargeReset')) data.darkness.negativeChargeEnabled = false
-    data.darkness.darkened = false
-    //if(!hasPassiveUpgrade(11)) data.darkness.stabilization = 0
-    data.darkness.bestDecrementy = D(0)
-    data.darkness.bestDepth = 1
-    data.darkness.bestEntropy = 0
 
     if(!hasPassiveUpgrade(21)){
         for (let i = 0; i < data.hyper.hasUpgrade.length; i++) {
