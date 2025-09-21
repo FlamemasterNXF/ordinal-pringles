@@ -391,13 +391,13 @@ function boosterRefund(c=false){
     if(data.baseless.baseless) return
     respecCharge(c)
     updateHierarchyPurchaseHTML()
+    data.boost.amt = data.boost.total
+    c?boosterReset():chalExit()
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
         data.boost.hasBUP[i] = false
         DOM(`bup${i}`).className = 'bup'
         showNextBUPLevelEffect(i, false)
     }
-    data.boost.amt = data.boost.total
-    c?boosterReset():chalExit()
 }
 
 // TODO: Refactor / Cleanup
