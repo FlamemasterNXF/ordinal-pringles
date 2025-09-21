@@ -274,12 +274,15 @@ let dynamicShiftMultipliers = [
     (i = data.baseless.shifts) => Math.max(1, 1000**(i+data.baseless.mode))
 ]
 
-function getAlephNullGain(){
+function getTheoreticalAlephNullGain(){
     if(inAnyRealmChallenge()) return 1
     const base = Decimal.log10(Decimal.max(data.ord.ordinal, 1)).toNumber()
     const multipliers = dynamicShiftMultipliers[0]()*getAOEffect(1)*getPringleEffect(4, true)
         *getHyperchargeEffect(10)*getRealmChallengeEffect(4)*getRealmChallengeOverallEffect()
-    return Math.max(1, base*multipliers)
+    return Math.max(0, base*multipliers)
+}
+function getAlephNullGain(){
+    return Math.max(0, getTheoreticalAlephNullGain()-data.baseless.alephNull)
 }
 
 function getAlephNullEffect(i){

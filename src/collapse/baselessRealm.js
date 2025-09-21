@@ -511,7 +511,7 @@ function updateRealmBoostersHTML() {
     DOM(getAdaptiveButton('factorBoostButton')).innerHTML = `Perform a Baseless Boost [+${getRealmBoosterGain()}] (B)<br>Requires ${displayRealmBoostReq()}`
     DOM(getAdaptiveButton('factorShiftButton')).innerHTML = `Perform a Baseless Shift (H)<br>Requires &omega;<sup>&omega;</sup>`
 
-    DOM(getAdaptiveButton('factorBoostButton')).style.color = getAlephNullGain() > realmBoostReq() ? getCSSVariable('realm-factor-boost-button-available-text-color') : getCSSVariable('realm-factor-boost-button-default-text-color')
+    DOM(getAdaptiveButton('factorBoostButton')).style.color = getTheoreticalAlephNullGain() > realmBoostReq() ? getCSSVariable('realm-factor-boost-button-available-text-color') : getCSSVariable('realm-factor-boost-button-default-text-color')
     DOM(getAdaptiveButton('factorShiftButton')).style.color = canDynamicShift() ? getCSSVariable('realm-factor-shift-button-available-text-color') : getCSSVariable('realm-factor-shift-button-default-text-color')
 
     if(getSubtab('realm') === 'realmChal') DOM(`rChallengeEffectText`).innerText = `Your Factors are boosting Aleph Null gain by ${format(getRealmChallengeOverallEffect())}x`
@@ -700,7 +700,7 @@ function controlRealmAutomation(i){
 }
 
 function realmBoost(){
-    if(getAlephNullGain() < realmBoostReq()) return
+    if(getTheoreticalAlephNullGain() < realmBoostReq()) return
     if(inAnyRealmChallenge()) controlRealmChallenge()
 
     data.baselessRealm.amt += getRealmBoosterGain()

@@ -26,12 +26,12 @@ function updateStatusHTML(){
         return el.innerHTML = text
     }
     if(data.baseless.baseless){
-        let text = `You are in the ${getBaselesssName(data.baseless.mode)} Realm`
+        let text = `You are in the ${getBaselesssName(data.baseless.mode)} Realm (<span style="font-size: 0.8rem">Click to Escape</span>)`
 
         if(inAnyRealmChallenge()) text += ` and Challenge ${data.baselessRealm.chalActive+1}`
-        text += `<br>Your theoretical ℵ<sub>0</sub> gain is ${format(getAlephNullGain())}`
+        text += `<br>Your theoretical ℵ<sub>0</sub> gain is ${format(getTheoreticalAlephNullGain())}<br><span style="font-size: 0.7rem">Your actual gain will be ${format(getAlephNullGain())}</span>`
 
-        return el.innerHTML = text + escapeText
+        return el.innerHTML = text
     }
     if(data.darkness.darkened){
         return el.innerHTML = `${getDarknessText()}${escapeText}`
