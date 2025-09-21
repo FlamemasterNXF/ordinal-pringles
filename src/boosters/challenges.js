@@ -59,7 +59,7 @@ function chalControl(i){
 }
 
 function chalEnter(i, force=false){
-    if(data.baseless.baseless) return
+    if(data.baseless.baseless || data.chal.active.includes(true)) return
     if(data.chal.completions[i] === 3 && !force) return
 
     if(i === 4) for (let j = 0; j < data.chal.active.length-4; j++) data.chal.active[j] = true
