@@ -11,7 +11,7 @@
     border-radius: 20%;
     text-align: center;
     place-content: center;
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
     font-size: 0.95rem;
     pointer-events: none;
     transform: translate(-100%, -100%);

@@ -1,7 +1,7 @@
 body {
     background: var(--main-background-color);
     touch-action: pan-x pan-y;
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
     display: flex;
     align-items: stretch;
     position: fixed;
@@ -16,16 +16,16 @@ body {
 
 button {
     cursor: pointer;
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
 }
 
 span {
     pointer-events: none;
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
 }
 
 div {
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
 }
 
 a:active, a:link, a:visited {

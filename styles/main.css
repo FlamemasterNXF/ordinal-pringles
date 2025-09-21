@@ -10,7 +10,7 @@
 .centeredTexts{
     color: white;
     text-align: center;
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
 }
 .column {
     flex-direction: column;
@@ -350,6 +350,7 @@
     width: 15rem;
     height: 4rem;
     border: 2px solid var(--drain-border-color);
+    border-top: none;
     color: var(--drain-text-color);
     background: var(--drain-background-color);
     margin-left: 0.5rem;
@@ -357,7 +358,8 @@
 .sluggish{
     width: 50rem;
     height: 4.8rem;
-    border: 1px solid var(--incomplete-sluggish-milestone-border-color);
+    border: 2px solid var(--incomplete-sluggish-milestone-border-color);
+    border-radius: 15px;
     color: var(--incomplete-sluggish-milestone-text-color);
     background: var(--incomplete-sluggish-milestone-background-color);
     margin-bottom: 0.5rem;
@@ -365,7 +367,8 @@
 .completeSluggish{
     width: 50rem;
     height: 4.8rem;
-    border: 1px solid var(--complete-sluggish-milestone-border-color);
+    border: 2px solid var(--complete-sluggish-milestone-border-color);
+    border-radius: 15px;
     color: var(--complete-sluggish-milestone-text-color);
     background: var(--complete-sluggish-milestone-background-color);
     margin-bottom: 0.5rem;
@@ -411,7 +414,7 @@
     background-color: black;
     border: 2px solid var(--unbought-hypercharge-border-color);
     color: var(--unbought-hypercharge-text-color);
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
     margin: 1rem;
 }
 .boughtHypercharge {
@@ -420,7 +423,7 @@
     background-color: var(--bought-hypercharge-background-color);
     border: 2px solid var(--bought-hypercharge-border-color);
     color: var(--bought-hypercharge-text-color);
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
     margin: 1rem;
 }
 .secondaryHypercharge {
@@ -429,7 +432,7 @@
     background-color: var(--secondary-hypercharge-background-color);
     border: 2px solid var(--secondary-hypercharge-border-color);
     color: var(--secondary-hypercharge-text-color);
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
     margin: 1rem;
 }
 .stableHypercharge {
@@ -438,7 +441,7 @@
     background-color: var(--stable-hypercharge-background-color);
     border: 2px solid var(--stable-hypercharge-border-color);
     color: var(--stable-hypercharge-text-color);
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
     margin: 1rem;
 }
 .hyperChargeQOL{
@@ -447,7 +450,7 @@
     border: 2px solid var(--unlocked-passive-hypercharge-border-color);
     color: var(--unlocked-passive-hypercharge-text-color);
     background-color: var(--unlocked-passive-hypercharge-background-color);
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
     margin: 1rem;
 }
 .lockedHyperChargeQOL{
@@ -456,7 +459,7 @@
     border: 2px solid var(--locked-passive-hypercharge-border-color);
     color: var(--locked-passive-hypercharge-text-color);
     background-color: var(--locked-passive-hypercharge-background-color);
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
     margin: 1rem;
 }
 .hyperChargeRespec{
@@ -465,7 +468,7 @@
     background-color: var(--hypercharge-respec-background-color);
     border: 2px solid var(--hypercharge-respec-border-color);
     color: var(--hypercharge-respec-text-color);
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
     margin: 0;
 }
 .hyperChargeLine {
@@ -479,14 +482,14 @@
     bottom: 0;
     left: 0.5rem;
     color: var(--hypercharge-charge-row-requirement-text-color);
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
 }
 .lockedHyperChargeRequirement{
     position: absolute;
     bottom: 0;
     left: 0.5rem;
     color: var(--locked-hypercharge-charge-row-requirement-text-color);
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
 }
 
 .metaANR{
@@ -764,7 +767,7 @@
     margin-left: 0.25rem;
 }
 .rHierarchy{
-    font-family: DosisLight, sans-serif;
+    font-family: DosisRegular, sans-serif;
     font-size: 2rem;
     color: var(--realm-hierarchy-text-color);
 }
@@ -842,7 +845,7 @@
 }
 .themeTexts{
     color: white;
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
     margin-right: 0.5rem;
 }
 .themeButton{
@@ -926,7 +929,7 @@
     color: #ae6cc5;
     text-align: center;
     place-content: center;
-    font-family: DosisLight, serif;
+    font-family: DosisRegular, serif;
     padding: 1rem;
     border-top: none;
 }
