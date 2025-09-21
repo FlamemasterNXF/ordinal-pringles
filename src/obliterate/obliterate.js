@@ -51,9 +51,11 @@ function obliterateReset(){
 
     data.darkness.darkened = false
     data.darkness.negativeCharge = 0
-    data.darkness.negativeChargeSpent = 0
-    data.darkness.totalDrains = 0
-    data.darkness.drains = Array(7).fill(0)
+    if(!hasPassiveUpgrade(9)){
+        data.darkness.negativeChargeSpent = 0
+        data.darkness.totalDrains = 0
+        data.darkness.drains = Array(7).fill(0)
+    }
     if(!hasPassiveUpgrade(10)){
         data.darkness.levels[0] = 0
         data.darkness.levels[1] = 0

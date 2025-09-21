@@ -9,7 +9,7 @@ const passiveUpgradeData = [
     "The third and fourth Cardinal Upgrades are now permanent",
     "The fifth and sixth Cardinal Upgrades are now permanent",
     "The seventh Cardinal Upgrade is now permanent",
-    "The eighth Cardinal Upgrade is now permanent",
+    "The eighth Cardinal Upgrade and all Drains are now permanent",
 
     "The first and second Darkness Upgrade's levels are now permanent",
     "The third Darkness Upgrade's levels are now permanent",
