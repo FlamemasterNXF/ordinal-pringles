@@ -159,10 +159,11 @@ const energyUpgradeData = [
             effect: () => D(10).pow(data.obliterate.times),
         },
         {
-            desc: "??? (Coming Soon!)",
+            desc: "Factor Boosts no longer reset ANYTHING and [COMING SOON]",
             sign: 'x',
-            cost: Infinity,
+            cost: 5,
             effect: () => D(1),
+            isUnlock: true,
         },
     ],
     [

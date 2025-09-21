@@ -337,7 +337,7 @@ function boost(f=false, auto=false, hotkey=false){
     data.boost.total = Math.min(data.boost.total, Number.MAX_VALUE)
     data.boost.times = Math.min(data.boost.times, Number.MAX_VALUE)
     boosterUnlock()
-    boosterReset()
+    if(!getEUPEffect(3, 4)) boosterReset()
     updateStatusHTML()
 }
 
