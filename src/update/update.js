@@ -45,6 +45,7 @@ const uHTML = {
         initAlephs()
         initCUPS()
         initSluggish()
+        initDepthUpgradeHTML()
         initHyperchargeHTML()
         initANRebuyables()
         initPurification()

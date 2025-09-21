@@ -175,7 +175,7 @@ function makeRealmEnhancementText(){
 }
 
 function makeANRText(i, type){
-    return `<span style="color: ${getCSSVariable('aleph-null-buyable-description-text-color')}">${getANRText(i, type)} (${formatWhole(getANRLevel(i, type))})</span><br>Requires: ${format(getANRCost(i, type))} ℵ<sub>0</sub><br>Currently: ${formatSign(getANREffect(i, type), getANRSign(i, type))}`
+    return `<span style="color: ${getCSSVariable('aleph-null-buyable-description-text-color')}">${getANRText(i, type)} (${formatWhole(getANRLevel(i, type))})</span><br>Requires: ${format(getANRCost(i, type))} ℵ<sub>0</sub><br>Currently: ${formatEffect(getANREffect(i, type), getANRSign(i, type))}`
 }
 
 function updateANRHTML(i, type){

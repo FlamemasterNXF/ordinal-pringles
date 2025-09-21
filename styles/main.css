@@ -377,20 +377,21 @@
     color: var(--darkness-button-text-color);
     background: var(--darkness-button-background-color);
 }
-.depthButton{
-    width: 10rem;
-    height: 1.5rem;
-    border: 2px solid var(--depth-border-color);
-    color: var(--depth-text-color);
-    background: var(--depth-background-color);
-    margin: 0.5rem;
-}
 .dup{
     width: 17rem;
     height: 6rem;
     border: 2px solid var(--dup-border-color);
     color: var(--dup-text-color);
     background: var(--dup-background-color);
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+}
+.depthUpgrade{
+    width: 17rem;
+    height: 5rem;
+    border: 2px solid var(--depthUpgrade-border-color);
+    color: var(--depthUpgrade-text-color);
+    background: var(--depthUpgrade-background-color);
     margin-top: 0.5rem;
     margin-left: 0.5rem;
 }

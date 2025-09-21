@@ -157,7 +157,7 @@ function getHyperChargeUpgradeText(i, forceHideSecondary = false){
     let text = `${hyperChargeUpgradeData[i].description}`
     let end = !hasHypercharge(i)
         ? `<br>${formatWhole(hyperChargeUpgradeData[i].cost)} Charge`
-        : `<br>Currently: ${formatSign(hyperChargeUpgradeData[i].effect(), hyperChargeUpgradeData[i].sign)}`
+        : `<br>Currently: ${formatEffect(hyperChargeUpgradeData[i].effect(), hyperChargeUpgradeData[i].sign)}`
     let secondary = !hasHypercharge(i) && shouldDisplaySecondary(i) && !forceHideSecondary
         ? `<span style="color: ${getCSSVariable('secondary-hypercharge-cost-text-color')}"> and ${getSecondaryHyperchargeCost()} Stable Energy</span>` : ''
     let stabilizer = shouldDisplayStabilizer(i) ? `<br><b style="color: ${getCSSVariable('forceful-hypercharge-stabilization-cost-text-color')}">Stabilize for 1 Unbounded Energy</b>` : ''
@@ -166,7 +166,7 @@ function getHyperChargeUpgradeText(i, forceHideSecondary = false){
 }
 function previewHyperchargeEffectHTML(i, shouldDisplay){
     if(hasHypercharge(i)) return
-    const preview = shouldDisplay ? `<br>Potential: ${formatSign(hyperChargeUpgradeData[i].effect(), hyperChargeUpgradeData[i].sign)}` : ''
+    const preview = shouldDisplay ? `<br>Potential: ${formatEffect(hyperChargeUpgradeData[i].effect(), hyperChargeUpgradeData[i].sign)}` : ''
     DOM(`hyperChargeUpgrade${i}`).innerHTML = getHyperChargeUpgradeText(i)+preview
 }
 function updateHyperChargeTextHTML(i, type, customElement = null, forceHideSecondary = false){

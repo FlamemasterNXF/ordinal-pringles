@@ -1,5 +1,57 @@
+let getDepthUpgradeLevel = (i) => data.darkness.bestDepth - (i + 1)
+let isDepthUpgradeUnlocked = (i) => getDepthUpgradeLevel(i) > 0
+
+function getDepthUpgradeEffect(i){
+    if(!isDepthUpgradeUnlocked(i)) return depthUpgradeData[i].baseEffect
+    return Math.max(depthUpgradeData[i].effect(), depthUpgradeData[i].baseEffect)
+}
+
+let depthUpgradeData = [
+    {
+        text: 'Your best Entropy boosts your Stable Decrementy',
+        sign: 'x',
+        baseEffect: 1,
+        effect: () => 1+(Math.log10(Math.sqrt(data.darkness.bestEntropy+1) * getDepthUpgradeLevel(0)))/10
+    },
+    {
+        text: 'Cardinals provide free Light',
+        sign: '+',
+        baseEffect: 0,
+        effect: () => Math.floor(Math.log10(Math.sqrt(data.collapse.cardinals+1) * getDepthUpgradeLevel(1)))
+    },
+    {
+        text: 'Depths increase the Entropy gain exponent further',
+        sign: '+',
+        baseEffect: 0,
+        effect: () => getDepthUpgradeLevel(2)
+    }
+]
+
+function initDepthUpgradeHTML(){
+    const container = DOM(`depthUpgradeContainer`)
+    for (let i = 0; i < depthUpgradeData.length; i++) {
+        let dup = document.createElement('button')
+        dup.className = 'depthUpgrade'
+        dup.id = `depthUpgrade${i}`
+        container.appendChild(dup)
+        updateDepthUpgradeHTML(i)
+    }
+}
+
+function updateDepthUpgradeHTML(i){
+    DOM(`depthUpgrade${i}`).innerHTML = isDepthUpgradeUnlocked(i)
+        ? `${depthUpgradeData[i].text}<br>Currently: ${formatEffect(getDepthUpgradeEffect(i), depthUpgradeData[i].sign)}<br>Next level at Depth ${getDepthUpgradeLevel(i)+i+2}`
+        : `${depthUpgradeData[i].text}<br>Unlocks upon reaching Depth ${i+2}`
+}
+function updateAllDepthUpgradeHTML(){
+    for (let i = 0; i < depthUpgradeData.length; i++) {
+        updateDepthUpgradeHTML(i)
+    }
+}
+
 function updateDarknessHTML(){
     updateAllDUPHTML()
+    updateAllDepthUpgradeHTML()
     updateDarknessButton()
     updateDarknessResourcesHTML()
 }
@@ -28,7 +80,7 @@ function getDUPLevelText(i){
     return `(${data.darkness.levels[i]})`
 }
 function updateDUPHTML(i){
-    DOM(`dup${i}`).innerText = `${dupData[i].text} ${getDUPLevelText(i)}\nRequires ${format(dupData[i].cost())} Stable Decrementy\nCurrently: ${formatSign(dupEffect(i), dupData[i].sign)}`
+    DOM(`dup${i}`).innerText = `${dupData[i].text} ${getDUPLevelText(i)}\nRequires ${format(dupData[i].cost())} Stable Decrementy\nCurrently: ${formatEffect(dupEffect(i), dupData[i].sign)}`
 }
 function updateAllDUPHTML(){
     for (let i = 0; i < data.darkness.levels.length; i++) {
@@ -72,25 +124,29 @@ function updateDarknessResourcesHTML(){
         : `Your best Incrementy is ${format(data.incrementy.bestIncrementy)}, creating ${getLight()} Light`
 
     DOM(`darknessResources`).innerHTML = `You have ${format(data.chal.decrementy)} Decrementy<br><br>
-        Your best Decrementy is ${format(data.darkness.bestDecrementy)}, creating ${getStableDecrementy()} Stable Decrementy
+        Your best Decrementy is ${format(data.darkness.bestDecrementy)}, creating ${format(getStableDecrementy())} Stable Decrementy
         <br><br>${lightText}
         <br><br>${entropyText}`
 }
 
 function getStableDecrementy(){
-    return Decimal.floor(Decimal.log10(data.darkness.bestDecrementy))
+    return Decimal.floor(Decimal.log10(data.darkness.bestDecrementy)).times(getDepthUpgradeEffect(0)).toNumber()
 }
 
 function getLight(){
-    return Decimal.floor(Decimal.log10(data.incrementy.bestIncrementy))
+    return Decimal.floor(Decimal.log10(data.incrementy.bestIncrementy)).plus(getDepthUpgradeEffect(1)).toNumber()
 }
 function getLightChange(){
     return 2**(getDepth()-1)
 }
 
 function getEntropy(){
-    let exponent = 3+getDepth()
-    if(data.darkness.darkened) return (getLight()-data.darkness.currentLight)**exponent
+    let exponent = 3+getDepth()*getDepthUpgradeEffect(2)
+    if(data.darkness.darkened){
+        const amount = (getLight()-data.darkness.currentLight)**exponent
+        if(amount > data.darkness.bestEntropy) data.darkness.bestEntropy = amount
+        return amount
+    }
     return 0
 }
 function getEntropyEffect(){

@@ -63,7 +63,7 @@ function makeStabilityText(i){
             text += `<br><span style="color: ${getCSSVariable('stable-energy-special-effect-text-color')}">${data.desc}</span>`
         }
         else{
-            text += `<br><span style="color: ${getCSSVariable('stable-energy-normal-effect-text-color')}">${data.desc}</span> by <span style="color: ${getCSSVariable('stable-energy-normal-effect-text-color')}">${formatSign(getStableEnergyEffect(i, j), data.sign)}</span>`
+            text += `<br><span style="color: ${getCSSVariable('stable-energy-normal-effect-text-color')}">${data.desc}</span> by <span style="color: ${getCSSVariable('stable-energy-normal-effect-text-color')}">${formatEffect(getStableEnergyEffect(i, j), data.sign)}</span>`
         }
     }
     return text
