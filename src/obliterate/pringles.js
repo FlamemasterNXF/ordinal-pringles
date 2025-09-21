@@ -212,17 +212,18 @@ function buyPringle(localPringleData, index){
     if(!canBuyPringle(localPringleData)) return isPringleAssigned(index)
         ? assignPringle(getPringleAssignment(index), 2, true) : assignPringle(index, 0)
 
-    for (let i = 0; i < localPringleData.resLocation.length; i++) {
-        let location = 'data'
-        for (let j = 0; j < localPringleData.resLocation[i].length; j++) {
-            location += `['${[localPringleData.resLocation[i][j]]}']`
+    if(data.obliterate.pringleBuymax){
+        while(canBuyPringle(localPringleData)){
+            ++data.obliterate.pringleAmount[index]
+            updatePringleButtonText(localPringleData, index)
+            updateCanBuyPringleHTML()
         }
-        //if(localPringleData.costIsDecimal) eval(`${location} = ${location}.sub(localPringleData.cost())`)
-        //else eval(`${location} -= localPringleData.cost().toNumber()`)
     }
-    ++data.obliterate.pringleAmount[index]
-    updatePringleButtonText(localPringleData, index)
-    updateCanBuyPringleHTML()
+    else{
+        ++data.obliterate.pringleAmount[index]
+        updatePringleButtonText(localPringleData, index)
+        updateCanBuyPringleHTML()
+    }
 }
 
 function getTotalPringleLevels(){
@@ -237,3 +238,15 @@ let getPringleEffectBaseline = (i) => Decimal.max(pringleData[i].baseValue, (pri
 let getPringleEffect = (i, number = false) => number
     ? getPringleEffect(i).toNumber()
     : (isPringleAssigned(i) && data.obliterate.pringleAmount[i] > 0) ? Decimal.max(pringleData[i].baseValue, getPringleEffectBaseline(i).times(getPurityStrength(getPringleAssignment(i)))): D(pringleData[i].baseValue)
+
+function togglePringleBuymax() {
+    data.obliterate.pringleBuymax = !data.obliterate.pringleBuymax
+    updatePringleBuymaxHTML()
+}
+
+function updatePringleBuymaxHTML(){
+    const color = data.obliterate.pringleBuymax
+        ? getCSSVariable('setting-on-text-color')
+        : getCSSVariable('setting-off-text-color')
+    DOM(`pringleBuymaxToggle`).innerHTML = `Craft maximum amount of Pringles possible on click <span style="color: ${color}">[${formatBool(data.obliterate.pringleBuymax)}]</span>`
+}

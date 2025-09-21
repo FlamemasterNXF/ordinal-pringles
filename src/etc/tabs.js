@@ -107,6 +107,7 @@ function switchSubtab(tab, mode){
 
     // Special Obliteration Rules
     if(mode === "obliterate"){
+        if(tab === 'pringles') updatePringleBuymaxHTML()
         if(tab === 'energy' && !hasDrawnTree) drawTree()
         if(tab === 'passive') updatePassiveEnergyText()
 
