@@ -135,7 +135,7 @@ function updateDarknessResourcesHTML(){
 
 function getStableDecrementy(){
     const multipliers = getDepthUpgradeLevel(0)*getHyperchargeEffect(11)
-    return Decimal.floor(Decimal.log10(data.darkness.bestDecrementy)).times(multipliers).toNumber()
+    return Decimal.floor(Decimal.log10(data.darkness.bestDecrementy.plus(1))).times(multipliers+1).toNumber()
 }
 
 function getLight(){
