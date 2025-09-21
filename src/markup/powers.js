@@ -16,7 +16,7 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
     if (pow.lte(0)) return over
 
     const divisor = Decimal.pow(base, pow)
-    const mult = Decimal.floor(ord.plus(1).div(divisor))
+    const mult = Decimal.floor(ord.div(divisor))
 
     const reducedOrd = ord.sub(divisor.times(mult))
     if (reducedOrd.eq(ord)) return over
