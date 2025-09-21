@@ -1,7 +1,7 @@
 //Version Flags
 const VERSION = "0.5b5"
 const VERSION_NAME = "Alazia"
-const VERSION_DATE = "September 18th, 2025"
+const VERSION_DATE = "September 21st, 2025"
 const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -190,7 +190,7 @@ function fixOldSaves(){
     if(data.dy.level.gt(getDyCap())) data.dy.level = getDyCap()
     if(data.ord.isPsi && data.ord.ordinal.gt(GRAHAMS_VALUE) && data.boost.times === 0 && !data.collapse.hasSluggish[0]) data.ord.ordinal = D(GRAHAMS_VALUE)
 
-    if(data.loadedVersion !== '0.4.4') extra = true
+    if(data.loadedVersion !== '0.5') extra = true
 
     return extra
 }
@@ -225,7 +225,7 @@ function fixOldSavesAfterLoad(){
         }
     }
 
-    if(data.loadedVersion !== "0.4.4"){
+    if(data.loadedVersion !== "0.5"){
         data.nav.subtabs.settings = 'settingsGame'
         if(data.obliterate.times > 45){
             createAlert('New Changes have occured!', 'You played before v0.4.4 had more than 45 Obliterations, so we have reset your Obliterations to 45, performed an Energy Tree and Passive Energy respec, and reduced some Pringle amounts. <b>You are still at the absolute end of v0.4.x content</b>, you just have the ability to play with all the new v0.4.4 stuff now :)', 'Thanks!', {container: 16, button: 3})
@@ -239,7 +239,7 @@ function fixOldSavesAfterLoad(){
             }
             data.obliterate.pringleAmount[6] = 10
         }
-        data.loadedVersion = '0.4.4'
+        data.loadedVersion = '0.5'
     }
 }
 
