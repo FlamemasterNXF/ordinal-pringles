@@ -270,7 +270,7 @@ let sluggishData = [
 
 let collapseConfirm = (auto = false) =>
     getSimpleSetting('collapseConfirmation')
-    ? createConfirmation('Are you certain?', `Collapsing will reset everything prior and Darkness!`, 'No Way!', 'Go Ahead!', collapse)
+    ? createConfirmation('Are you certain?', `Collapsing will reset everything prior!`, 'No Way!', 'Go Ahead!', collapse)
     : collapse(false, auto)
 
 function collapse(first = false, auto = false){

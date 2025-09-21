@@ -117,7 +117,7 @@
     --supercharge-refund-background-color: #000000FF;
     --supercharge-refund-text-color: #8080FF;
 
-    --BUP-help-text-primary-color: #565656;
+    --BUP-help-text-primary-color: #777;
     --BUP-help-text-upgrade-color: #8080FF;
     --BUP-help-text-charge-color: #DAA520FF;
 
@@ -138,6 +138,7 @@
     --realm-autobuyer-name-text-color: #ff8b80;
 
     --challenge-boost-text-color: #FFA500FF;
+    --challenge-help-text-color: #777;
 
     --automation-text-neutral-color: #FFFFFFFF;
 
