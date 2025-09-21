@@ -222,7 +222,7 @@ let dupData = [
     {
         text: "Multiply AutoBuyer speed",
         sign: 'x',
-        extraLevels: () => getNormalANREffect(2),
+        extraLevels: () => Math.floor(getNormalANREffect(2)),
         cost: ()=> D(300).times(dupScaling(0)).div(getOverflowEffect(5)),
         effect: ()=> isTabUnlocked('darkness') ? (1.5*purificationEffect(0))**(getTotalDUPLevels(0)*1.75) : 1
     },
@@ -236,7 +236,7 @@ let dupData = [
     {
         text: `Multiply both Hierarchy Effect exponents`,
         sign: 'x',
-        extraLevels: () => getNormalANREffect(2),
+        extraLevels: () => Math.floor(getNormalANREffect(2)),
         cost: ()=> D(800).times(dupScaling(2)).div(getOverflowEffect(5)),
         effect: ()=> isTabUnlocked('darkness') ? (0.0175*(getTotalDUPLevels(2)*2.75)**2+1): 1
     }

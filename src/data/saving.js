@@ -190,7 +190,10 @@ function fixOldSaves(){
     if(data.dy.level.gt(getDyCap())) data.dy.level = getDyCap()
     if(data.ord.isPsi && data.ord.ordinal.gt(GRAHAMS_VALUE) && data.boost.times === 0 && !data.collapse.hasSluggish[0]) data.ord.ordinal = D(GRAHAMS_VALUE)
 
-    if(data.loadedVersion !== '0.5') extra = true
+    if(data.loadedVersion !== '0.5'){
+        data.darkness.levels = Array(3).fill(0)
+        extra = true
+    }
 
     return extra
 }
