@@ -83,7 +83,7 @@ let hyperChargeUpgradeData = [
     {
         description: "Your highest Darkness Depth boosts Stable Decrementy",
         sign: 'x',
-        effect: () => data.darkness.bestDepth**5,
+        effect: () => data.darkness.bestDepth,
         baseEffect: () => 1,
         cost: 24,
     },

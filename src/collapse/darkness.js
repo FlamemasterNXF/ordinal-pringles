@@ -124,7 +124,7 @@ function getStableDecrementy(){
 
 function getLight(){
     const bonus = getDepthUpgradeEffect(1)
-    const base = Decimal.floor(Decimal.log10(data.incrementy.bestIncrementy)).plus(bonus).toNumber()
+    const base = Decimal.floor(Decimal.log10(data.incrementy.bestIncrementy.plus(1))).plus(bonus).toNumber()
     return 30+base*2
 }
 function getLightChange(){
