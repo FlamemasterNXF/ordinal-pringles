@@ -141,7 +141,7 @@ function getEntropy(){
     return 0
 }
 function getEntropyEffect(){
-    return Math.max(1, Math.sqrt(getEntropy()))
+    return Math.max(1, Math.pow(getEntropy(), 1/4))
 }
 
 function getDepth(){
@@ -180,9 +180,10 @@ function updateDarknessResourcesHTML(){
 function negativeChargeGain(){
     if(!data.darkness.darkened || !data.darkness.negativeChargeEnabled) return 0
 
-    let base = Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)
+    const base = Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)
+    const mult = getEntropyEffect() * iup10Effect() * getRealmChallengeEffect(3)
 
-    return base * iup10Effect() * getRealmChallengeEffect(3)
+    return base * mult
 }
 
 function negativeChargeEffect(incrementyEffectNerf) {
