@@ -212,7 +212,7 @@ let drainData = [
 
 let dupEffect = (i) => inPurification(0) ? 1 : Math.max(1, dupData[i].effect())
 function dupScaling (i){
-    const divisor = 2.2 - Math.min(0.2, data.darkness.levels[i]/10)
+    const divisor = 2.1 - Math.min(0.2, data.darkness.levels[i]/10)
     return Math.pow(data.darkness.levels[i]+1, 1/divisor)
 }
 
