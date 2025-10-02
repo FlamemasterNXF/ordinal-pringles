@@ -46,7 +46,7 @@ function HSL(hue) {
 }
 
 function colorWrap(string, coloring) {
-    return (`<span style='color:${coloring}'>${string}</span>`)
+    return (`<span style='color:${coloring}; font-family: DosisSemiBold, serif'>${string}</span>`)
 }
 
 function color(string, searches, col) {
