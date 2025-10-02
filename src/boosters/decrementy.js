@@ -1,6 +1,6 @@
 function getDecrementyExponent(){
     let base = 1+1+hupData[4].effect()+getNormalANREffect(0, true)+getStableEnergyEffect(1, 1)
-        +getHyperchargeEffect(11)+getEUPEffect(1, 0, true)
+        +getEUPEffect(1, 0, true)
     return base
 }
 function decrementyGain() {
