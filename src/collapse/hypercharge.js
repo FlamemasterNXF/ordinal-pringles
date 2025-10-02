@@ -116,7 +116,7 @@ let hyperChargeQOLData = [
         description: "Gain two free Boosters on Collapse and unlock a BUP AutoBuyer",
     },
     {
-        description: "Keep Drains on Collapse and Automatically Max Hierarchy Buyables",
+        description: "Automatically Max Hierarchy Buyables",
     },
     {
         description: "Unlock a Supercharge AutoBuyer",
