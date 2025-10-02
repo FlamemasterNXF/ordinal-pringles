@@ -1,7 +1,7 @@
 //Version Flags
 const VERSION = "0.5b5"
 const VERSION_NAME = "Alazia"
-const VERSION_DATE = "September 21st, 2025"
+const VERSION_DATE = "October 1st, 2025"
 const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -72,7 +72,12 @@ function fixOldSaves(){
     if(data.nav.subtabs.obliterate === 'instability') data.nav.subtabs.obliterate = 'pringles'
 
     //Removal of Sacrificed Charge
-    if(data.darkness.sacrificedCharge > 0) darknessControl(3)
+    if(data.darkness.sacrificedCharge > 0) {
+        boosterReset()
+        data.incrementy.totalCharge += data.darkness.sacrificedCharge
+        data.incrementy.charge += data.darkness.sacrificedCharge
+        delete data.darkness.sacrificedCharge
+    }
 
     // Version Fix
     if(data.loadedVersion === "0.4.3λ" || data.loadedVersion === "0.4.3γ") data.loadedVersion = "0.4.3"
@@ -209,8 +214,8 @@ function fixOldSavesAfterLoad(){
     }
     //v0.1 => v0.1.1
     if(data.loadedVersion < "0.1.1" || data.loadedVersion === "null"){
-        data.incrementy.charge += data.darkness.sacrificedCharge
-        data.incrementy.totalCharge += data.darkness.sacrificedCharge
+        //data.incrementy.charge += data.darkness.sacrificedCharge
+        //data.incrementy.totalCharge += data.darkness.sacrificedCharge
         //resetDarkness()
         data.loadedVersion = "0.1.2"
     }

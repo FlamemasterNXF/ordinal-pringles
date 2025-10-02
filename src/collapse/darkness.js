@@ -1,7 +1,6 @@
-function getDepthUpgradeLevel(i) {
-    let extraLevels = getEUPEffect(1, 3, true)
-    return (data.darkness.bestDepth - (i + 1)) + extraLevels
-}
+let getDepthUpgradeBaseLevel = (i) => data.darkness.bestDepth - (i + 1)
+let getDepthUpgradeExtraLevels = () => getEUPEffect(1, 3, true)
+let getDepthUpgradeLevel = (i) => getDepthUpgradeBaseLevel(i) + getDepthUpgradeExtraLevels()
 
 let isDepthUpgradeUnlocked = (i) => getDepthUpgradeLevel(i) > 0
 
@@ -44,7 +43,7 @@ function initDepthUpgradeHTML(){
 
 function updateDepthUpgradeHTML(i){
     DOM(`depthUpgrade${i}`).innerHTML = isDepthUpgradeUnlocked(i)
-        ? `${depthUpgradeData[i].text}<br>Currently: ${formatEffect(getDepthUpgradeEffect(i), depthUpgradeData[i].sign)}<br>Next level at Depth ${getDepthUpgradeLevel(i)+i+2}`
+        ? `${depthUpgradeData[i].text} (${getDepthUpgradeBaseLevel(i)} + ${getDepthUpgradeExtraLevels()})<br>Currently: ${formatEffect(getDepthUpgradeEffect(i), depthUpgradeData[i].sign)}`
         : `${depthUpgradeData[i].text}<br>Unlocks upon reaching Depth ${i+2}`
 }
 function updateAllDepthUpgradeHTML(){
@@ -118,28 +117,15 @@ function updateDarknessButton(){
     DOM('darken').innerHTML = statusText+depthText
 }
 
-function updateDarknessResourcesHTML(){
-    let entropyText = data.darkness.darkened
-        ? `You have ${format(getEntropy())} Entropy, multiplying Negative Charge gain by ${format(getEntropyEffect())}`
-        : `Your best Entropy in Darkness is ${format(data.darkness.bestEntropy)}`
-
-    let lightText = data.darkness.darkened
-        ? `You have ${format(data.darkness.currentLight)} Light [-${getLightChange()}/s], when it reaches 0 the Darkness will win`
-        : `Your best Incrementy is ${format(data.incrementy.bestIncrementy)}, creating ${getLight()} Light`
-
-    DOM(`darknessResources`).innerHTML = `You have ${format(data.chal.decrementy)} Decrementy<br><br>
-        Your best Decrementy is ${format(data.darkness.bestDecrementy)}, creating ${format(getStableDecrementy())} Stable Decrementy
-        <br><br>${lightText}
-        <br><br>${entropyText}`
-}
-
 function getStableDecrementy(){
-    const multipliers = getDepthUpgradeLevel(0)*getHyperchargeEffect(11)
+    const multipliers = getDepthUpgradeEffect(0)*getHyperchargeEffect(11)
     return Decimal.floor(Decimal.log10(data.darkness.bestDecrementy.plus(1))).times(multipliers).toNumber()
 }
 
 function getLight(){
-    return Decimal.floor(Decimal.log10(data.incrementy.bestIncrementy)).plus(getDepthUpgradeEffect(1)).toNumber()
+    const bonus = getDepthUpgradeEffect(1)
+    const base = Decimal.floor(Decimal.log10(data.incrementy.bestIncrementy)).plus(bonus).toNumber()
+    return 30+base*2
 }
 function getLightChange(){
     return 2**(getDepth()-1)
@@ -155,7 +141,7 @@ function getEntropy(){
     return 0
 }
 function getEntropyEffect(){
-    return 1
+    return Math.max(1, Math.sqrt(getEntropy()))
 }
 
 function getDepth(){
@@ -176,8 +162,20 @@ function getLightNeededForDepth(){
     return getDepthRequirement()-(getLight()-data.darkness.currentLight-getPreviouslyConsumedLight())
 }
 
-// TODO: Change these effects which once applied to stabilization
-// let extraStabilizationLevels = () => getHyperchargeEffect(6)+getEUPEffect(1, 3, true)
+function updateDarknessResourcesHTML(){
+    let entropyText = data.darkness.darkened
+        ? `You have ${format(getEntropy())} Entropy, multiplying Negative Charge gain by ${format(getEntropyEffect())}`
+        : `Your best Entropy in Darkness is ${format(data.darkness.bestEntropy)}`
+
+    let lightText = data.darkness.darkened
+        ? `You have ${format(data.darkness.currentLight)} Light [-${getLightChange()}/s], when it reaches 0 the Darkness will win`
+        : `Your best Incrementy is ${format(data.incrementy.bestIncrementy)}, creating ${getLight()} Light`
+
+    DOM(`darknessResources`).innerHTML = `You have ${format(data.chal.decrementy)} Decrementy<br><br>
+        Your best Decrementy is ${format(data.darkness.bestDecrementy)}, creating ${format(getStableDecrementy())} Stable Decrementy
+        <br><br>${lightText}
+        <br><br>${entropyText}`
+}
 
 function negativeChargeGain(){
     if(!data.darkness.darkened || !data.darkness.negativeChargeEnabled) return 0
@@ -213,9 +211,8 @@ let drainData = [
 
 let dupEffect = (i) => inPurification(0) ? 1 : Math.max(1, dupData[i].effect())
 function dupScaling (i){
-    if(i===0) return D(300).times(data.darkness.levels[i]+1)
-    if(i===1) return D(500).times(data.darkness.levels[i]+1)
-    if(i===2) return D(300).times(data.darkness.levels[i]+1)
+    const divisor = 2.2 - Math.min(0.2, data.darkness.levels[i]/10)
+    return Math.pow(data.darkness.levels[i]+1, 1/divisor)
 }
 
 let dupData = [
@@ -223,21 +220,21 @@ let dupData = [
         text: "Multiply AutoBuyer speed",
         sign: 'x',
         extraLevels: () => Math.floor(getNormalANREffect(2)),
-        cost: ()=> D(300).times(dupScaling(0)).div(getOverflowEffect(5)),
+        cost: ()=> D(65).pow(dupScaling(0)).div(getOverflowEffect(5)),
         effect: ()=> isTabUnlocked('darkness') ? (1.5*purificationEffect(0))**(getTotalDUPLevels(0)*1.75) : 1
     },
     {
         text: 'Double Dynamic Cap',
         sign: 'x',
         extraLevels: () => Math.floor(iup11Effect()+getNormalANREffect(2)),
-        cost: ()=> D(200).times(dupScaling(1)).div(getOverflowEffect(5)),
+        cost: ()=> D(55).pow(dupScaling(1)).div(getOverflowEffect(5)),
         effect: ()=> isTabUnlocked('darkness') ? 2**getTotalDUPLevels(1) : 1
     },
     {
         text: `Multiply both Hierarchy Effect exponents`,
         sign: 'x',
         extraLevels: () => Math.floor(getNormalANREffect(2)),
-        cost: ()=> D(800).times(dupScaling(2)).div(getOverflowEffect(5)),
+        cost: ()=> D(300).pow(dupScaling(2)).div(getOverflowEffect(5)),
         effect: ()=> isTabUnlocked('darkness') ? (0.0175*(getTotalDUPLevels(2)*2.75)**2+1): 1
     }
 ]
@@ -274,19 +271,6 @@ function darknessControl(mode){
     if(mode===1){
         data.darkness.negativeCharge = 0
         if(data.darkness.negativeChargeEnabled) darknessControl(0)
-    }
-    if(mode===2){
-        if(data.incrementy.charge > 0 && !inPurification(3)){
-            --data.incrementy.charge
-            --data.incrementy.totalCharge
-            ++data.darkness.sacrificedCharge
-        }
-    }
-    if(mode===3){
-        boosterReset()
-        data.incrementy.totalCharge += data.darkness.sacrificedCharge
-        data.incrementy.charge += data.darkness.sacrificedCharge
-        data.darkness.sacrificedCharge = 0
     }
     updateDarknessControlHTML(mode)
 }
