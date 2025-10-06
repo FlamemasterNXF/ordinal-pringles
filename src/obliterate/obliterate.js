@@ -1,39 +1,57 @@
 let isObliterationUnlocked = () => hasAOMilestone(4) || data.obliterate.times > 0
+let canObliterate = (n = data.obliterate.times) => isObliterationUnlocked() && data.incrementy.amt.gte(getObliterateReq(n))
+
+function getObliterateReq(n = data.obliterate.times){
+    let mult = Math.pow(2, n)
+    let base = n > 0 ? D("1e750") : D("1e700")
+    let divisor = n >= 20 ? 10 - Math.floor((n-10)/10) : 10
+    return base.pow(1+n/divisor).times(mult)
+}
+function getBulkableObliterations(){
+    let bulkAmount = data.obliterate.times
+    while (canObliterate(bulkAmount)) bulkAmount++
+    return bulkAmount - data.obliterate.times
+}
+
+let getNextFractalEnergyReq = () => getObliterateReq(data.obliterate.times+getBulkableObliterations())
+
+function getFractalEnergyGain(){
+    return getBulkableObliterations()
+}
+
 function updateObliterateHTML(){
     DOM('obliterateButton').style.display = isObliterationUnlocked() && (!isMobileMode() || isMobileNavMaximized) ? 'block' : 'none'
 
     DOM(`energyText`).innerHTML = `You have ${format(data.obliterate.energy)} <span style="${getCSSVariable('energy-text-energy-color')}">Fractal Energy</span>`
-    DOM(`obliterateButton`).innerHTML = `Obliterate your Ordinal for 1 Fractal Energy<br><span style="font-size: 0.7rem">Requires ${format(getObliterateReq())} Incrementy</span>`
-    DOM(`obliterateButton`).style.color = data.incrementy.amt.gte(getObliterateReq())
-        ? getCSSVariable('obliterate-button-available-text-color')
-        : getCSSVariable('obliterate-button-default-text-color')
+
+    if(canObliterate()){
+        DOM(`obliterateButton`).style.color = getCSSVariable('obliterate-button-available-text-color')
+        DOM(`obliterateButton`).innerHTML = `Obliterate your Ordinal for ${getFractalEnergyGain()} Fractal Energy<br><span style="font-size: 0.7rem">Next at ${format(getNextFractalEnergyReq())} Incrementy</span>`
+    }
+    else{
+        DOM(`obliterateButton`).style.color = getCSSVariable('obliterate-button-default-text-color')
+        DOM(`obliterateButton`).innerHTML = `Obliterate your Ordinal for 1 Fractal Energy<br><span style="font-size: 0.7rem">Requires ${format(getObliterateReq())} Incrementy</span>`
+    }
 
     if(getSubtab('obliterate') === 'pringles') updateCanBuyPringleHTML()
-}
-
-function getObliterateReq(n = data.obliterate.times){
-    let mult = n > 0 ? Math.pow(2, n) : 1
-    let base = n > 0 ? D("1e750") : D("1e700")
-    let divisor = n >= 20 ? 10 - Math.floor((n-10)/10) : 10
-    return base.pow(1+n/divisor).times(mult)
 }
 
 function obliterateConfirm(){
     if(!getSimpleSetting('obliterationConfirmation')) return obliterate()
     if(data.obliterate.times === 0)
-        createConfirmation('Are you absolutely certain?', `Obliterating will reset EVERYTHING prior in exchange for ONE Fractal Energy. There is no going back, but new content will be unlocked to make your Ordinal grow faster than ever.`, 'No Way!', 'To the Future!', obliterate)
+        createConfirmation('Are you absolutely certain?', `Obliterating will reset EVERYTHING prior in exchange for Fractal Energy. There is no going back, but new content will be unlocked to make your Ordinal grow faster than ever.`, 'No Way!', 'To the Future!', obliterate)
     else
-        createConfirmation('Are you absolutely certain?', `Obliterating will reset EVERYTHING prior in exchange for ONE Fractal Energy. There is no going back.`, 'No Way!', 'Onward!', obliterate)
+        createConfirmation('Are you absolutely certain?', `Obliterating will reset EVERYTHING prior in exchange for Fractal Energy. There is no going back.`, 'No Way!', 'Onward!', obliterate)
 }
 function obliterate(){
-    if(data.incrementy.amt.lt(getObliterateReq())) return showNotification("Insufficient Incrementy!")
+    if(!canObliterate()) return showNotification("Insufficient Incrementy!")
 
     DOM('obliterateNav').style.display = 'block'
-    obliterateReset()
 
-    ++data.obliterate.energy
-    ++data.obliterate.times
-    ++data.obliterate.instability
+    data.obliterate.energy += getBulkableObliterations()
+    data.obliterate.times += getBulkableObliterations()
+
+    obliterateReset()
     boosterUnlock()
 }
 
