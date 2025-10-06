@@ -37,11 +37,11 @@ function updateStatusHTML(){
         return el.innerHTML = `${getDarknessText()}${escapeText}`
     }
     if(data.chal.active[7]){ // Separate from Darkness due to the click maximum
-        let text = `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy and ${Math.max(1000-data.successorClicks,0)} clicks left`
+        let text = `You are in Challenge 8 and there is ${format(data.chal.decrementy)} Decrementy and ${Math.max(1000-data.markup.successorClicks,0)} clicks left`
         return el.innerHTML = text + escapeText
     }
     if(data.chal.active[6]){
-        let text = `You are in Challenge 7 and there are ${Math.max(1000-data.successorClicks,0)} clicks left`
+        let text = `You are in Challenge 7 and there are ${Math.max(1000-data.markup.successorClicks,0)} clicks left`
         return el.innerHTML = text + escapeText
     }
 

@@ -300,7 +300,7 @@ function boosterReset(){
         data.autoLevels[i] = 0
     }
     data.chal.decrementy = D(1)
-    data.successorClicks = 0
+    data.markup.successorClicks = 0
 }
 
 const boosterGain = () => inPurification(0) ? (getAOREffect(3)) * getBulkBoostAmt() : ((data.boost.times * getBulkBoostAmt()) + (getBulkBoostAmt() * (getBulkBoostAmt() + 1) / 2));

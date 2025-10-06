@@ -63,7 +63,7 @@ function markup(n=D(1)){
     data.markup.powers = data.markup.powers.plus(cappedOPGain())
     data.ord.ordinal = D(0)
     data.ord.over = D(0)
-    data.successorClicks = 0
+    data.markup.successorClicks = 0
 }
 
 function mockMarkup(){

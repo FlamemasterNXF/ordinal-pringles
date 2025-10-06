@@ -79,6 +79,12 @@ function fixOldSaves(){
         delete data.darkness.sacrificedCharge
     }
 
+    // Migration of data.successorClicks
+    if(data.successorClicks){
+        data.markup.successorClicks = data.successorClicks
+        delete data.successorClicks
+    }
+
     // Version Fix
     if(data.loadedVersion === "0.4.3λ" || data.loadedVersion === "0.4.3γ") data.loadedVersion = "0.4.3"
 

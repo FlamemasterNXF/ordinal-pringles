@@ -17,9 +17,9 @@ function makeGenericOrd(ord,over,base,trim = data.ord.trim) {
 
 // Increases the Ordinal Successor
 function successor(n = 1, m=false, alsoMaximize=false) {
-    if(data.chal.active[6] && data.successorClicks >= 1000 && m) return
+    if(data.chal.active[6] && data.markup.successorClicks >= 1000 && m) return
     if(data.ord.isPsi) return
-    if(m)++data.successorClicks
+    if(m)++data.markup.successorClicks
     if (data.ord.ordinal.mod(data.ord.base) >= data.ord.base - 1 && data.ord.ordinal.lt(Number.MAX_SAFE_INTEGER) && isFinite(D(data.ord.over).plus(n)) && !alsoMaximize) data.ord.over=D(data.ord.over).plus(n)
     else data.ord.ordinal = data.ord.ordinal.plus(n)
 }
