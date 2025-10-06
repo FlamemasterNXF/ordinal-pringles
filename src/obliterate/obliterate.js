@@ -3,9 +3,8 @@ let canObliterate = (n = data.obliterate.times) => isObliterationUnlocked() && d
 
 function getObliterateReq(n = data.obliterate.times){
     let mult = Math.pow(2, n)
-    let base = n > 0 ? D("1e750") : D("1e700")
     let divisor = n >= 20 ? 10 - Math.floor((n-10)/10) : 10
-    return base.pow(1+n/divisor).times(mult)
+    return D("1e800").pow(1+n/divisor).times(mult)
 }
 function getBulkableObliterations(){
     let bulkAmount = data.obliterate.times
