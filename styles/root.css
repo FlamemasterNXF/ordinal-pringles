@@ -161,15 +161,15 @@
     --challenge-exit-text-color: #8080FF;
 
     /* Incrementy */
-    --unbought-IUP-border-color: #6e3c9f;
+    --unbought-IUP-border-color: #512c75;
     --unbought-IUP-background-color: #000000FF;
     --unbought-IUP-text-color: #8080FF;
 
-    --bought-IUP-border-color: #6e3c9f;
+    --bought-IUP-border-color: #512c75;
     --bought-IUP-background-color: #180018;
-    --bought-IUP-text-color: #895dc0;
+    --bought-IUP-text-color: #9a70ce;
 
-    --rebuyable-IUP-border-color: #6e3c9f;
+    --rebuyable-IUP-border-color: #512c75;
     --rebuyable-IUP-background-color: #000000FF;
     --rebuyable-IUP-text-color: #8080FF;
 
@@ -219,8 +219,8 @@
     --darkness-navigation-border-color: #8000FF7F;
     --darkness-navigation-text-color: #9F9FCCEA;
 
-    --purification-navigation-border-color: #8B0000FF;
-    --purification-navigation-text-color: #ce0b0b;
+    --purification-navigation-border-color: #8f3a3a;
+    --purification-navigation-text-color: #e15050;
 
     /* Alephs */
     --aleph-text-primary-color: #FFFFFFFF;
@@ -357,13 +357,13 @@
     --baseless-realm-select-border-color: #000000FF;
     --baseless-realm-select-background-color: #000000FF;
     --baseless-realm-select-text-color: #8B0000FF;
-    --baseless-realm-base-text-color: #8B0000FF;
-    --baseless-realm-gain-text-color: #8B0000FF;
+    --baseless-realm-base-text-color: #dc2828;
+    --baseless-realm-gain-text-color: #dc2828;
 
     --baseless-shift-border-color: #785C13FF;
     --baseless-shift-background-color: #000000FF;
     --baseless-shift-text-primary-color: #DAA520FF;
-    --baseless-shift-text-shift-color: #8B0000FF;
+    --baseless-shift-text-shift-color: #dc2828;
 
     --aleph-null-buyable-description-text-color: #ce5c0b;
 

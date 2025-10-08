@@ -29,7 +29,7 @@ function updateCollapseHTML(){
     DOM(getAdaptiveButton("collapseButton")).style.display = data.boost.times > 33 || data.collapse.times > 0 || data.obliterate.times > 0 ? 'block' : 'none'
     DOM(getAdaptiveButton("collapseButton")).style.color = data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) || data.boost.times > 33 ? getCSSVariable('collapse-button-available-text-color') : getCSSVariable('collapse-button-default-text-color')
 
-    if(data.baseless.baseless) DOM(`baseless`).children[2].innerHTML = `<br><br>You will gain <span style="color: ${getCSSVariable('baseless-realm-gain-text-color')}">${format(getAlephNullGain())} ℵ<sub>0</sub></span> if you exit now<br><span style="font-size: 0.9rem">Your <span style="color: ${getCSSVariable('baseless-realm-gain-text-color')}">ℵ<sub>0</sub></span> gain multipier is currently ${format(getBaselessMult(data.baseless.mode)*dynamicShiftMultipliers[0]())}</span>`
+    if(data.baseless.baseless) DOM(`baseless`).children[2].innerHTML = `<br><br>You will gain <span style="color: ${getCSSVariable('baseless-realm-gain-text-color')}">${format(getAlephNullGain())} ℵ<sub>0</sub></span> if you exit now<br><span style="font-size: 0.9rem">Your theoretical <span style="color: ${getCSSVariable('baseless-realm-gain-text-color')}">ℵ<sub>0</sub></span> gain is ${format(getTheoreticalAlephNullGain())}</span><br><span style="font-size: 0.9rem">Your <span style="color: ${getCSSVariable('baseless-realm-gain-text-color')}">ℵ<sub>0</sub></span> gain multipier is currently ${format(getBaselessMult(data.baseless.mode)*dynamicShiftMultipliers[0]())}</span>`
 
     updateTotalAlephHTML()
     updatePurificationTabHTML()

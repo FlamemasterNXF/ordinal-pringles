@@ -137,11 +137,11 @@ function updateAlephNullHTML(){
 function updateDynamicShiftHTML(){
     if(data.baseless.baseless){
         DOM(`dynamicShift`).innerHTML = data.baseless.shifts < 7
-            ? `<span style="font-size: 1rem">Perform a <span style="color: ${getCSSVariable('baseless-shift-text-shift-color')}">Baseless Shift</span> (H)<br>Requires: &omega;<sup>&omega;</sup></span><br>This will unlock Factor ${data.baseless.shifts+1}, perform a Factor Shift reset, multiply your ℵ<sub>0</sub> gain multiplier by ${format(dynamicShiftMultipliers[0](data.baseless.shifts+1))}, multiply your Dynamic gain by ${format(dynamicShiftMultipliers[1](data.baseless.shifts+1))}, and <span style="color: ${getCSSVariable('baseless-shift-text-shift-color')}">double your Base</span>`
-            : `Perform a <span style="color: ${getCSSVariable('baseless-shift-text-shift-color')}; font-size: 1rem"">Baseless Shift</span><br>The Future Remains Unknown`
+            ? `<span style="font-size: 1rem">Perform a <span style="color: ${getCSSVariable('baseless-shift-text-shift-color')}">Baseless Shift</span></span> (H)<br>Requires: &omega;<sup>&omega;</sup></span><br><br>This will unlock Factor ${data.baseless.shifts+1}, perform a Factor Shift reset, multiply your ℵ<sub>0</sub> gain multiplier by ${format(dynamicShiftMultipliers[0](data.baseless.shifts+1))}, multiply your Dynamic gain by ${format(dynamicShiftMultipliers[1](data.baseless.shifts+1))}, and <span style="color: ${getCSSVariable('baseless-shift-text-shift-color')}">double your Base</span>`
+            : `<span style="font-size: 1rem">Perform a <span style="color: ${getCSSVariable('baseless-shift-text-shift-color')}; font-size: 1rem"">Baseless Shift</span></span><br><br>The Future Remains Unknown`
     }
     else {
-        DOM(`dynamicShift`).innerHTML = `<span style="font-size: 1rem">Perform a <span style="color: ${getCSSVariable('baseless-shift-text-shift-color')}">Baseless Shift</span> (H)<br><span style="font-size: 0.9rem">You must be in a Baseless Realm to perform a Baseless Shift</span><br>`
+        DOM(`dynamicShift`).innerHTML = `<span style="font-size: 1rem">Perform a <span style="color: ${getCSSVariable('baseless-shift-text-shift-color')}">Baseless Shift</span></span> (H)<br><br><span style="font-size: 0.9rem">You must be in a Baseless Realm to perform a Baseless Shift</span><br>`
     }
 }
 

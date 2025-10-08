@@ -97,7 +97,6 @@
     margin-left: 0.25rem;
     width: 20rem;
     height: 10rem;
-    font-family: DosisBold, serif;
     border: 2px solid var(--baseless-shift-border-color);
     background-color: var(--baseless-shift-background-color);
     color: var(--baseless-shift-text-primary-color);

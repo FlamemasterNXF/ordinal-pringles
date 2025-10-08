@@ -81,7 +81,7 @@ function switchSubtab(tab, mode){
         if(tab==="baseless"){
             updateAlephNullHTML()
             checkANRUnlockHTML()
-            DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit' : 'Enter'}`
+            DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit the' : 'Enter the'}`
             updateBaselessEnterHTML(data.baseless.mode, true)
         }
         if(tab === 'hyper') updateHyperchargeBottomTextHTML()
