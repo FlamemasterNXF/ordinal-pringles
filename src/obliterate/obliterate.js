@@ -2,9 +2,9 @@ let isObliterationUnlocked = () => hasAOMilestone(4) || data.obliterate.times > 
 let canObliterate = (n = data.obliterate.times) => isObliterationUnlocked() && data.incrementy.amt.gte(getObliterateReq(n))
 
 function getObliterateReq(n = data.obliterate.times){
-    let mult = Math.pow(2, n)
-    let divisor = n >= 20 ? 10 - Math.floor((n-10)/10) : 10
-    return D("1e800").pow(1+n/divisor).times(mult)
+    let mult = Decimal.pow(2, n)
+    let divisor = Math.max(1, 6-n/10)
+    return D("1e825").pow(1+n/divisor).times(mult)
 }
 function getBulkableObliterations(){
     let bulkAmount = data.obliterate.times
