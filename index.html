@@ -575,10 +575,12 @@
         <div class="tab" id="savingSubPage">
             <div class="row flexBox" style="margin-top: 0.5rem;">
                 <div class="column flexBox">
-                    <button id="manualSave" class="saveControl" onclick="save()">Manual Save</button>
-                    <button class="saveControl" onclick="copySaveToClipboard()">Export your Save</button>
+                    <button id="manualSave" class="saveControl" onclick="save()">Save the Game</button>
                     <button class="saveControl" onclick="downloadSave()">Download your Save</button>
-                    <button class="saveControl" onclick="createPrompt('Import SaveData', importSave, true)">Import your Save</button>
+                    <button class="saveControl" onclick="copySaveToClipboard()">Copy your Save</button>
+                    <button class="saveControl" onclick="initiateFileImport()">Import your Save from File</button>
+                    <button class="saveControl" onclick="createPrompt('Import SaveData', importSave, true)">Import your Save from Clipboard<i style="font-size: 0.7rem"> (not recommended)</i></button>
+                    <input id="importFromFile" type="file" style="display: none" onchange="importSaveFromFile(event)">
                     <button class="saveControl" style="border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;" id="deleteSave" onclick="createConfirmation('Are you sure?', 'Are you absolutely sure you want to do this?\nThis will export your save (just in case) but delete your save from LocalStorage.', 'No Way!', 'Yes, I understand the consequences.', fullReset)">Delete your Save</button>
                 </div>
                 <div class="column flexBox" style="margin-left: 2rem">

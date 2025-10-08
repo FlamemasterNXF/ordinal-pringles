@@ -345,6 +345,20 @@ function importSave(x) {
     }
 }
 
+// Use a <button> to click the actual <input> by proxy
+function initiateFileImport(){
+    DOM('importFromFile').click()
+}
+
+// Import a save file into the game
+function importSaveFromFile(event){
+    const saveFile = event.target.files[0]
+    const reader = new FileReader()
+
+    reader.readAsText(saveFile)
+    reader.onload = (readerEvent) => importSave(readerEvent.target.result)
+}
+
 // Save every ten seconds
 window.setInterval(function(){
     save()
