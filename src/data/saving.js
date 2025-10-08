@@ -1,7 +1,7 @@
 //Version Flags
 const VERSION = "0.5b5"
 const VERSION_NAME = "Alazia"
-const VERSION_DATE = "October 6th, 2025"
+const VERSION_DATE = "October 8th, 2025"
 const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -201,7 +201,7 @@ function fixOldSaves(){
     if(data.dy.level.gt(getDyCap())) data.dy.level = getDyCap()
     if(data.ord.isPsi && data.ord.ordinal.gt(GRAHAMS_VALUE) && data.boost.times === 0 && !data.collapse.hasSluggish[0]) data.ord.ordinal = D(GRAHAMS_VALUE)
 
-    if(data.loadedVersion !== '0.5'){
+    if(data.loadedVersion !== '0.5r2'){
         data.darkness.levels = Array(3).fill(0)
         extra = true
     }
@@ -239,21 +239,21 @@ function fixOldSavesAfterLoad(){
         }
     }
 
-    if(data.loadedVersion !== "0.5"){
+    if(data.loadedVersion !== "0.5r2"){
         data.nav.subtabs.settings = 'settingsGame'
-        if(data.obliterate.times > 45){
-            createAlert('New Changes have occured!', 'You played before v0.4.4 had more than 45 Obliterations, so we have reset your Obliterations to 45, performed an Energy Tree and Passive Energy respec, and reduced some Pringle amounts. <b>You are still at the absolute end of v0.4.x content</b>, you just have the ability to play with all the new v0.4.4 stuff now :)', 'Thanks!', {container: 16, button: 3})
+        if(data.obliterate.times > 25){
+            createAlert('New Changes have occured!', 'You played before v0.5 had more than 25 Obliterations, so we have reset your Obliterations to 25, performed an Energy Tree and Passive Energy respec, and reduced some Pringle amounts. <b>You may have less Obliterations now, but Collapse-layer features have been changed to allow you to reach further heights!</b>', 'Thanks!', {container: 16, button: 3})
             respecPassiveUpgrades()
-            data.obliterate.times = 45
+            data.obliterate.times = 25
             data.obliterate.energyUpgrades = []
-            data.obliterate.energy = 45
+            data.obliterate.energy = 25
             for (let i = 0; i < data.obliterate.pringleAmount.length; i++) {
                 if(i === 6 || i === 7) data.obliterate.pringleAmount[i] = 10
                 data.obliterate.pringleAmount[i] = Math.floor(data.obliterate.pringleAmount[i]/2)
             }
             data.obliterate.pringleAmount[6] = 10
         }
-        data.loadedVersion = '0.5'
+        data.loadedVersion = '0.5r2'
     }
 }
 
