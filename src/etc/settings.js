@@ -35,12 +35,6 @@ const settingsData = [
     },
     {
         type: 'Game',
-        id: 'darknessBoost',
-        desc: 'Automatically Boost upon entering Darkness',
-        default: true
-    },
-    {
-        type: 'Game',
         id: 'obliterationAutomationDisable',
         desc: 'Disable Automation on Obliteration',
         default: false

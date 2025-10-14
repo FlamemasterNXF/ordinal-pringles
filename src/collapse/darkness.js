@@ -296,7 +296,7 @@ function darkenConfirm(){
 }
 function darkenControl(force = false){
     if(data.baseless.baseless) return
-    if(getSimpleSetting('darknessBoost')) boost()
+    boost()
     data.darkness.darkened && !force ? chalExit(true) : chalEnter(7, true)
     data.darkness.darkened = !data.darkness.darkened
 
