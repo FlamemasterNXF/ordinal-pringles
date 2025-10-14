@@ -183,7 +183,7 @@ let chargedBUPData = [
     },
     {
         desc: "The Total ℵ effect is multiplied by Darkness Upgrade 1 and applied to Incrementy gain",
-        eff: () => alephTotalEffect()*dupEffect(0)*getOverflowEffect(6),
+        eff: () => alephTotalEffect().times(dupEffect(0)).times(getOverflowEffect(6)),
         bottomRow: true
     },
 ]

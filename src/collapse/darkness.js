@@ -210,7 +210,7 @@ let drainData = [
     { effect: () => 2*getDrainLevel(6) },
 ]
 
-let dupEffect = (i) => inPurification(0) ? 1 : Math.max(1, dupData[i].effect())
+let dupEffect = (i) => inPurification(0) ? D(1) : Decimal.max(1, dupData[i].effect())
 function dupScaling (i){
     const divisor = 2.1 - Math.min(0.2, data.darkness.levels[i]/10)
     return Math.pow(data.darkness.levels[i]+1, 1/divisor)
@@ -222,21 +222,21 @@ let dupData = [
         sign: 'x',
         extraLevels: () => Math.floor(getNormalANREffect(2)),
         cost: ()=> D(65).pow(dupScaling(0)).div(getOverflowEffect(5)),
-        effect: ()=> isTabUnlocked('darkness') ? (1.5*purificationEffect(0))**(getTotalDUPLevels(0)*1.75) : 1
+        effect: ()=> isTabUnlocked('darkness') ? D(1.5).times(purificationEffect(0)).pow(getTotalDUPLevels(0)*1.75) : 1
     },
     {
         text: 'Double Dynamic Cap',
         sign: 'x',
         extraLevels: () => Math.floor(iup11Effect()+getNormalANREffect(2)),
         cost: ()=> D(55).pow(dupScaling(1)).div(getOverflowEffect(5)),
-        effect: ()=> isTabUnlocked('darkness') ? 2**getTotalDUPLevels(1) : 1
+        effect: ()=> isTabUnlocked('darkness') ? D(2).pow(getTotalDUPLevels(1)) : 1
     },
     {
         text: `Multiply both Hierarchy Effect exponents`,
         sign: 'x',
         extraLevels: () => Math.floor(getNormalANREffect(2)),
         cost: ()=> D(300).pow(dupScaling(2)).div(getOverflowEffect(5)),
-        effect: ()=> isTabUnlocked('darkness') ? (0.0175*(getTotalDUPLevels(2)*2.75)**2+1): 1
+        effect: ()=> isTabUnlocked('darkness') ? D(0.0175).times((getTotalDUPLevels(2)*2.75)**2).plus(1): 1
     }
 ]
 
