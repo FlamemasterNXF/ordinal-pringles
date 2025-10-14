@@ -9,7 +9,8 @@ function mainLoop() {
     if(data.boost.hasBUP[11]) data.markup.powers = data.markup.powers.plus(getBUPEffect(11)*uDiff)
 
     if(data.chal.active[7]){
-        data.chal.decrementy = Decimal.max(1, data.chal.decrementy.mul(decrementyGain().pow(uDiff)))
+        const darknessDiff = Math.min(uDiff, getTheoreticalTimeInDarkness())
+        data.chal.decrementy = Decimal.max(1, data.chal.decrementy.mul(decrementyGain().pow(darknessDiff)))
         if(data.chal.decrementy.gt(data.darkness.bestDecrementy)) data.darkness.bestDecrementy = data.chal.decrementy
     }
 

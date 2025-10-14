@@ -127,8 +127,8 @@ function getLight(){
     const base = Decimal.floor(Decimal.log10(data.incrementy.bestIncrementy.plus(1))).plus(bonus).toNumber()
     return 30+base*2
 }
-function getLightChange(){
-    return 2**(getDepth()-1)
+function getLightChange(depth = getDepth()){
+    return 2**(depth-1)
 }
 
 function getEntropy(){
@@ -147,19 +147,31 @@ function getEntropyEffect(){
 function getDepth(){
     return data.darkness.depth
 }
-function getDepthRequirement(depth = getDepth()){
+function getDepthRequirement(depth){
     if(depth > 5) return 60*2**depth
     return 60
 }
-function getPreviouslyConsumedLight(){
+function getPreviouslyConsumedLight(depth){
     let amount = 0
-    for (let i = getDepth(); i > 1; i--) {
+    for (let i = depth; i > 1; i--) {
         amount += getDepthRequirement(i)
     }
     return amount
 }
-function getLightNeededForDepth(){
-    return getDepthRequirement()-(getLight()-data.darkness.currentLight-getPreviouslyConsumedLight())
+function getLightNeededForDepth(depth = getDepth(), currentLight = data.darkness.currentLight){
+    return getDepthRequirement(depth)-(getLight()-currentLight-getPreviouslyConsumedLight(depth))
+}
+
+function getTheoreticalTimeInDarkness(){
+    let time = 0
+    let depth = 1
+    let light = getLight()
+    while(light > 0){
+        light -= getLightChange(depth)
+        time++
+        if(light <= 0) return time
+        if(getLightNeededForDepth(depth, light) <= 0) depth++
+    }
 }
 
 function updateDarknessResourcesHTML(){
