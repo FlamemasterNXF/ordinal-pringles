@@ -157,19 +157,23 @@ function updateCanBuyPringleHTML(){
     //DOM(`pringle9`).style.boxShadow = canBuyPringle(pringleData[9]) ? `0px 0px 15px rgba(175, 31, 173, 1)` : ` 0 5px 15px rgba(0,0,0,0.4)`
 }
 
-function displayPringleButton(event, pringleData, i, type = 'pringleButton'){
-    let button = DOM(type)
+function displayPringleButton(event, pringleData, i){
+    let button = !isMobileMode() ? DOM('pringleButton') :  DOM('mobilePringleInfoText')
 
-    button.style.display = `block`
-    button.style.left = `${event.pageX}px`
-    button.style.top = `${event.pageY}px`
+    if(!isMobileMode()){
+        button.style.display = `block`
+        button.style.left = `${event.pageX}px`
+        button.style.top = `${event.pageY}px`
+    }
 
     // EXEMPT FROM THEME: Color should never be shown
-    button.style.color = pringleData != null ? pringleData.color : '#ffffff'
-    if(type === 'pringleButton') pringleData != null ? updatePringleButtonText(pringleData, i) : updatePurityText(i)
+    if(!isMobileMode() || pringleData) button.style.color = pringleData != null ? pringleData.color : '#ffffff'
+    pringleData != null ? updatePringleButtonText(pringleData, i) : updatePurityText(i)
 }
 function updatePringleButtonText(pringleData, i){
-    DOM('pringleButton').innerHTML = `The ${pringleData.name}${i !== 9 ? ` ${pringleData.colorDesc}` : ''} Pringle [${data.obliterate.pringleAmount[i]}]<br><b>${pringleData.desc} [${getPringleEffectText(pringleData, i)}]</b><br>It requires <b>${format(pringleData.cost())} ${pringleData.resNames}</b> to craft<br>${getPringleAssignmentText(i)}<br><i style="font-size: 0.85rem; color: gray">Click this Pringle to Craft it!</i>`
+    const target = !isMobileMode() ? 'pringleButton' : 'mobilePringleInfoText'
+    const finisher = !isMobileMode() ? '<br><i style="font-size: 0.85rem; color: gray">Click this Pringle to Craft it!</i>' : ''
+    DOM(target).innerHTML = `The ${pringleData.name}${i !== 9 ? ` ${pringleData.colorDesc}` : ''} Pringle [${data.obliterate.pringleAmount[i]}]<br><b>${pringleData.desc} [${getPringleEffectText(pringleData, i)}]</b><br>It requires <b>${format(pringleData.cost())} ${pringleData.resNames}</b> to craft<br>${getPringleAssignmentText(i)}${finisher}`
 }
 
 let getPringleEffectText = (pringleData, i) =>

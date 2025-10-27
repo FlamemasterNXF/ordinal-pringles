@@ -89,13 +89,13 @@ function initAutomation(){
     let container = DOM(`auto2SubPage`)
     for (let i = 0; i < automationData.length; i++) {
         let textContainer = document.createElement('div')
-        textContainer.className = 'flexBox column'
+        textContainer.className = 'column flexBox'
         textContainer.id = `autoTextContainer${i}`
         textContainer.style.marginTop = `1rem`
         container.appendChild(textContainer)
 
         let toggleContainer = document.createElement('div')
-        toggleContainer.className = 'flexBox row'
+        toggleContainer.className = 'row flexBox'
         toggleContainer.id = `autoToggleContainer${i}`
         container.appendChild(toggleContainer)
 

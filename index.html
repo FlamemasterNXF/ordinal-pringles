@@ -171,7 +171,7 @@
         </div>
         <div class="tab flexBox" id="autoSubPage" style="margin-top:0.8rem;">
             <p class="centeredTexts" id="factorText">Factorial Cog</p>
-            <div>
+            <div class="row flexBox">
                 <button class="automation" id="autoclicker0" onclick="buyAuto(0)">Succc Auto</button>
                 <button class="automation" id="autoclicker1" onclick="buyAuto(1)">not Succc Auto</button>
             </div>
@@ -186,7 +186,7 @@
         <div class="flexBox" id="progressBarContainer"><div id="progressBar">0%</div></div>
     </div>
     <div class="tab flexBox" id="boostersPage">
-        <div style="margin-top: 1rem">
+        <div class="row flexBox" style="margin-top: 1rem">
             <button class="boostTabButton" id="upgradeTab" onclick="switchSubtab('upgrades', 'boosters')">Upgrades</button>
             <button class="boostTabButton" id="auto2Tab" onclick="switchSubtab('auto2', 'boosters')">Automation</button>
             <button class="boostTabButton" id="chalTab" onclick="if(chalTabUnlocked()) {switchSubtab('chal', 'boosters');}">Challenges</button>
@@ -473,42 +473,43 @@
         <div class="column flexBox" id="obliterateInfoContainer" style="margin-top: 0.1rem;">
             <h3 class="centeredTexts" id="energyText">You have no Chips. In your house. You are broke.</h3>
         </div>
-        <div class="tab" id="pringlesSubPage" style="margin-top: 2rem">
+        <div class="tab" id="pringlesSubPage">
             <div class="layer" id="pringleButton">Pringling</div>
-            <div class="column flexBox">
-                <div class="layer" style="z-index: -1;">
+            <div class="mobileOnly centeredTexts" id="mobilePringleInfoText" style="margin-bottom: 1rem">These are Pringles! Tap one to craft it and view more information!</div>
+            <div class="flexBox" id="pringlesContainer">
+                <div class="desktopOnly layer" style="z-index: -1;">
                     <canvas id="pringleCanvas" width="1000" height="600"></canvas>
                 </div>
-                <div style="margin-top: -1rem; margin-bottom: 7rem">
+                <div class="pringleContainer" style="margin-top: -1rem; margin-bottom: 7rem">
                     <button class="pringle" id="pringle2" style=""></button>
                 </div>
-                <div style="margin-top: -6rem; margin-bottom: 4.5rem;">
+                <div class="pringleContainer" style="margin-top: -6rem; margin-bottom: 4.5rem;">
                     <button class="pringle" id="pringle1" style="margin-right: 14rem"></button>
                     <button class="pringle" id="pringle0" style=""></button>
                 </div>
-                <div style="margin-bottom: 4.5rem">
+                <div class="pringleContainer" style="margin-bottom: 4.5rem">
                     <button class="pringle" id="pringle3" style="margin-right: 22.5rem"></button>
                     <button class="pringle" id="pringle6" style=""></button>
                 </div>
-                <div class="layer" style="z-index: 1">
-                    <button class="pringle" id="pringle9"
-                            style="width: 8rem; height: 8rem; box-shadow: 0 5px 15px rgba(175,31,173,0.4)"></button>
+                <div class="pringleContainer layer" style="z-index: 1">
+                    <button class="pringle" id="pringle9"></button>
                 </div>
-                <div style="margin-top: 2rem">
+                <div class="pringleContainer" style="margin-top: 2rem">
                     <button class="pringle" id="pringle4" style="margin-right: 20.5rem"></button>
                     <button class="pringle" id="pringle7" style=""></button>
                 </div>
-                <div style="margin-top: 4rem;">
+                <div class="pringleContainer" style="margin-top: 4rem;">
                     <button class="pringle" id="pringle5" style="margin-right: 8rem"></button>
                     <button class="pringle" id="pringle8" style=""></button>
                 </div>
             </div>
+            <div class="mobileOnly centeredTexts" id="mobilePurityInfoText" style="margin-bottom: 1rem; margin-top: 1rem">These are Purity Points!<br>Tap a Pringle and then click one of these to <b>Assign</b> it!<br>Tap each one for more information - make sure to check their Purity!</div>
             <div class="column flexBox">
-                <div class="layer" style="z-index: -1; top: 25rem">
+                <div class="desktopOnly layer" style="z-index: -1; top: 25rem">
                     <canvas id="purityCanvas" width="700" height="300"></canvas>
                 </div>
                 <div class="flexBox" id="ppContainer" style="margin-top: 4rem">
-                    <div class="row flexBox" id="ppXContainer0" style="margin-right: 2.45rem"></div>
+                    <div class="row flexBox" id="ppXContainer0"></div>
                     <div class="row flexBox" id="ppXContainer1"></div>
                 </div>
                 <button class="setting" id="pringleBuymaxToggle" onclick="togglePringleBuymax()"></button>
@@ -632,11 +633,7 @@
         <button class="prestigeButton" id="collapseButton" onclick="collapseConfirm()">Collapse</button>
     </div>
     <button class="prestigeButton" id="obliterateButton" onclick="obliterateConfirm()">SODA!!!</button>
-    <div id="headerWrapper">
-        <button class="prestigeButton" id="header" onclick="universalEscape()">The Universe is Stable</button>
-        <button class="maxMinButton" id="minimizeButton" onclick="changeMobileNavHTML()">-</button>
-    </div>
-    <div class="maxMinButton" id="maximizeButton" onclick="changeMobileNavHTML()">+</div>
+    <button class="prestigeButton" id="header" onclick="universalEscape()">The Universe is Stable</button>
 </div>
 </body>
 </html>

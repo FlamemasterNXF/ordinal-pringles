@@ -6,16 +6,13 @@ function getAdaptiveButton(name){
 
 function updateAdaptiveHTML(){
     if(isMobileMode()){
-        DOM(`header`).style.borderTopLeftRadius = isObliterationUnlocked() ? '0px' : '16px'
-        DOM(`header`).style.borderLeft = isObliterationUnlocked() ? '1px solid gray' : '2px solid gray'
-    }
-}
+        DOM(`header`).style.borderLeft = isObliterationUnlocked() ? 'none' : '1px solid gray'
+        DOM(`header`).style.width = isObliterationUnlocked() ? '50%' : '100%'
 
-let isMobileNavMaximized = true
-function changeMobileNavHTML(){
-    DOM(`header`).style.display = isMobileNavMaximized ? 'none' : 'block'
-    DOM(`sidebar0`).style.display = isMobileNavMaximized ? 'none' : 'flex'
-    DOM(`minimizeButton`).style.display = isMobileNavMaximized ? 'none' : 'block'
-    DOM(`maximizeButton`).style.display = isMobileNavMaximized ? 'block' : 'none'
-    isMobileNavMaximized = !isMobileNavMaximized
+        const tabButtons = document.getElementsByClassName('tabButton')
+        for(let i = 0; i < tabButtons.length; i++){
+            if(tabButtons[i].classList.contains('minorTabButton')) continue
+            tabButtons[i].style.width = `${87.5/getMajorTabsUnlocked()}%`
+        }
+    }
 }

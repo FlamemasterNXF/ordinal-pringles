@@ -19,17 +19,18 @@ function getFractalEnergyGain(){
 }
 
 function updateObliterateHTML(){
-    DOM('obliterateButton').style.display = isObliterationUnlocked() && (!isMobileMode() || isMobileNavMaximized) ? 'block' : 'none'
+    DOM('obliterateButton').style.display = isObliterationUnlocked() ? 'block' : 'none'
 
     DOM(`energyText`).innerHTML = `You have ${format(data.obliterate.energy)} <span style="${getCSSVariable('energy-text-energy-color')}">Fractal Energy</span>`
 
+    const obliterateText = !isMobileMode() ? 'Obliterate your Ordinal' : 'Obliterate'
     if(canObliterate()){
         DOM(`obliterateButton`).style.color = getCSSVariable('obliterate-button-available-text-color')
-        DOM(`obliterateButton`).innerHTML = `Obliterate your Ordinal for ${getFractalEnergyGain()} Fractal Energy<br><span style="font-size: 0.7rem">Next at ${format(getNextFractalEnergyReq())} Incrementy</span>`
+        DOM(`obliterateButton`).innerHTML = `${obliterateText} for ${getFractalEnergyGain()} Fractal Energy<br><span style="font-size: 0.7rem">Next at ${format(getNextFractalEnergyReq())} Incrementy</span>`
     }
     else{
         DOM(`obliterateButton`).style.color = getCSSVariable('obliterate-button-default-text-color')
-        DOM(`obliterateButton`).innerHTML = `Obliterate your Ordinal for 1 Fractal Energy<br><span style="font-size: 0.7rem">Requires ${format(getObliterateReq())} Incrementy</span>`
+        DOM(`obliterateButton`).innerHTML = `${obliterateText} for 1 Fractal Energy<br><span style="font-size: 0.7rem">Requires ${format(getObliterateReq())} Incrementy</span>`
     }
 
     if(getSubtab('obliterate') === 'pringles') updateCanBuyPringleHTML()

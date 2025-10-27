@@ -152,4 +152,11 @@ function isTabUnlocked(t){
     }
 }
 
+function getMajorTabsUnlocked(){
+    if(data.obliterate.times > 0) return 5
+    if(data.collapse.times > 0) return 4
+    if(data.boost.times > 0) return 3
+    return 2
+}
+
 let getSubtab = (mode) => data.nav.subtabs[mode]

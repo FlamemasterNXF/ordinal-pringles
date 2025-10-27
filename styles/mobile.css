@@ -23,10 +23,6 @@
         z-index: 2;
     }
 
-    #headerWrapper{
-        position: sticky;
-    }
-
     #minimizeButton{
         display: block;
         position: absolute;
@@ -39,13 +35,13 @@
     }
 
     .tabButton{
-        width: 5rem;
         height: 3rem;
         border: 1px solid gray;
+        border-left: none;
     }
 
     .minorTabButton{
-        width: 2rem;
+        width: 6.25%;
         height: 3rem;
     }
 
@@ -59,6 +55,22 @@
         border: 1px solid gray;
     }
 
+    .challenge .completedChallenge .activeChallenge{
+        width: 17rem;
+        height: 12rem;
+    }
+
+    .pringle{
+        margin: 0 !important;
+    }
+    .pringleContainer{
+        margin: 0 !important;
+    }
+
+    .purityPoint{
+        margin: 0 !important;
+    }
+
     [alttext] > span {
         display: none;
     }
@@ -67,22 +79,22 @@
         content: attr(alttext);
     }
 
+    #game{
+        height: calc(100% - 7rem);
+    }
+
     #ordNav{
-        border-bottom-left-radius: 16px;
-        border-left: 2px solid gray;
+        border-left: 1px solid gray;
     }
     #settingsNav{
-        border-right: 2px solid gray;
+        border-bottom-right-radius: 0;
     }
 
     #obliterateButton{
-        border-top-left-radius: 16px;
-        border-left: 2px solid gray;
+        width: 50%;
     }
     #header{
-        border-bottom-left-radius: 0px;
-        border-top-right-radius: 16px;
-        border-right: 2px solid gray;
+        border-bottom-left-radius: 0;
     }
 
     #depthContainer{
@@ -94,5 +106,41 @@
     #dbup{
         max-width: 99vw;
         border: 2px solid var(--darkness-resources-border-color);
+    }
+
+    #pringlesSubPage{}
+    #ppXContainer0{
+        margin-right: 0;
+    }
+    #pringle9{}
+    #pringlesContainer{
+        flex-direction: row;
+    }
+    #ppContainer{
+        margin-top: 0 !important;
+    }
+}
+
+@media (min-width: 961px) {
+    .mobileOnly{
+        display: none;
+    }
+
+    #pringlesSubPage{
+        margin-top: 2rem;
+    }
+    #ppXContainer0{
+        margin-right: 2.45rem;
+    }
+    #pringle9{
+        width: 8rem;
+        height: 8rem;
+        box-shadow: 0 5px 15px rgba(175,31,173,0.4)
+    }
+    #pringlesContainer{
+        flex-direction: column;
+    }
+    #ppContainer{
+        margin-top: 4rem;
     }
 }
