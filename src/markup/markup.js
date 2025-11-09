@@ -1,12 +1,12 @@
 let extraT1 = () => hasSluggishMilestone(0) ? 1 : 0
 function updateMarkupHTML(){
-    DOM("powersText").innerText = `You have ${formatWhole(data.markup.powers)} Ordinal Powers`
+    DOM("powersText").innerText = `You have ${format(data.markup.powers)} Ordinal Powers`
 
     DOM("markupButton").innerHTML =
         data.ord.isPsi && data.ord.ordinal.gte(BHO_VALUE) ? `Markup and increase your Ordinal` :
         data.ord.isPsi && data.ord.ordinal.eq(GRAHAMS_VALUE)&&data.boost.times===0&&!hasSluggishMilestone(0)?`Base 2 is required to go further...`:
         data.ord.isPsi?`Markup and gain ${ordinalDisplay('', data.ord.ordinal.plus(1), data.ord.over, data.ord.base, ((data.settings.ordinalDisplayMode === "BMS") || (data.settings.ordinalDisplayMode === "Y-Sequence")) ? Math.max(data.ord.trim, 4) : 4)} (I)`:
-        data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${formatWhole(cappedOPGain())} Ordinal Powers (I)`:`${ordinalDisplay("H", data.ord.base**2, 0, data.ord.base, ordinalDisplayTrim(), false)}(${data.ord.base}) is required to Markup...`
+        data.ord.ordinal.gte(data.ord.base**2)?`Markup and gain ${format(cappedOPGain())} Ordinal Powers (I)`:`${ordinalDisplay("H", data.ord.base**2, 0, data.ord.base, ordinalDisplayTrim(), false)}(${data.ord.base}) is required to Markup...`
 
     DOM(getAdaptiveButton("factorShiftButton")).innerHTML = data.ord.base===3?data.boost.times>0||hasSluggishMilestone(0)?`Perform a Factor Shift<br><span style="font-size: 0.7rem">Requires OFP</span>`
             :`Perform a Factor Shift<br><span style="font-size: 0.7rem">Requires Graham's Number (H<sub>ψ(Ω<sup>Ω</sup>ω)</sub>(3))</span>`:
@@ -19,12 +19,12 @@ function updateMarkupHTML(){
     let maxSpeed = !data.chal.active[5]
         ? D(data.autoLevels[1]).add(extraT1()).mul(getAutoClickerSpeed()).mul(data.dy.level).div(data.chal.decrementy)
         : D(data.autoLevels[1]).add(extraT1()).mul(getAutoClickerSpeed()).div(data.dy.level).div(data.chal.decrementy)
-    DOM("autoText").innerText = `Your ${formatWhole(data.autoLevels[0]+extraT1())} Successor Autoclickers click the Successor button ${formatWhole(succSpeed)} times/second\nYour ${formatWhole(data.autoLevels[1]+extraT1())} Maximize Autoclickers click the Maximize button ${formatWhole(maxSpeed)} times/second`
+    DOM("autoText").innerText = `Your ${format(data.autoLevels[0]+extraT1())} Successor Autoclickers click the Successor button ${format(succSpeed)} times/second\nYour ${format(data.autoLevels[1]+extraT1())} Maximize Autoclickers click the Maximize button ${format(maxSpeed)} times/second`
 
     for (let i = 0; i < data.factors.length; i++) {
-        DOM(`factor${i}`).innerText = hasFactor(i)?`Factor ${i+1} [${data.boost.hasBUP[11]?formatWhole(data.factors[i]+getBUPEffect(12)):formatWhole(data.factors[i])}] ${formatWhole(factorEffect(i))}x\nCost: ${formatWhole(factorCost(i))} Ordinal Powers`:`Factor ${i+1}\nLOCKED`
+        DOM(`factor${i}`).innerText = hasFactor(i)?`Factor ${i+1} [${data.boost.hasBUP[11]?format(data.factors[i]+getBUPEffect(12)):format(data.factors[i])}] ${format(factorEffect(i))}x\nCost: ${format(factorCost(i))} Ordinal Powers`:`Factor ${i+1}\nLOCKED`
     }
-    DOM("factorText").innerText = `Your Factors are multiplying AutoClicker speed by a total of ${formatWhole(totalFactorEffect())}x`
+    DOM("factorText").innerText = `Your Factors are multiplying AutoClicker speed by a total of ${format(totalFactorEffect())}x`
 
     DOM(getAdaptiveButton("factorShiftButton")).style.color = data.ord.base===3&&data.boost.times===0&&!hasSluggishMilestone(0)
         ? getCSSVariable('factor-boost-button-default-text-color')

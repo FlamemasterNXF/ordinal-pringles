@@ -76,7 +76,7 @@ function getTimeEstimate(){
             : D(data.autoLevels[1]).add(extraT1()).mul(getAutoClickerSpeed()).div(data.dy.level).div(data.chal.decrementy)
         autoSpeed = Decimal.max(1, Decimal.min(succSpeed, maxSpeed.mul(data.ord.base)))
     }
-    return formatTime(Decimal.max((getTargetOrdinal().sub(data.ord.ordinal)).div(autoSpeed), D(0)))
+    return formatTime(Decimal.max((getTargetOrdinal().sub(data.ord.ordinal)).div(autoSpeed), D(0)).toNumber())
 }
 function updateProgressBar(){
     DOM("progressBar").style.width = Math.min(100, getBarPercent()) + "%"

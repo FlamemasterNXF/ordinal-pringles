@@ -1,11 +1,11 @@
 function updateIncrementyHTML(){
     DOM("incrementyText").innerText = `You have ${format(data.incrementy.amt)} Incrementy [+${format(incrementyGain())}/s], multiplying AutoBuyer speed by ${format(incrementyMult())}\nYou gain Incrementy based on your Ordinal, but only above Ψ(Ω) and while you are not in any Challenges`;
-    DOM(`iup0`).innerText = `[RUP1] ${iupDesc[0]} (${formatWhole(data.incrementy.rebuyableAmt[0])}+${iup7Effect()})\n${format(getRebuyableCost(0))} Incrementy\nCurrently: ${format(iupEffects[0]())}x`
-    DOM(`iup1`).innerText = `[RUP2] ${iupDesc[1]} (${formatWhole(data.incrementy.rebuyableAmt[1])})\n${format(getRebuyableCost(1))} Incrementy\nCurrently: ${format(iupEffects[1]())}x`
-    DOM(`iup2`).innerText = `[RUP3] ${iupDesc[2]} (${formatWhole(data.incrementy.rebuyableAmt[2])})\n${format(getRebuyableCost(2))} Incrementy\nCurrently: ${format(iupEffects[2]())}x`
-    DOM(`iup9`).innerText = `[RUP4] ${iupDesc[9]} (${formatWhole(data.incrementy.rebuyableAmt[3])})\n${format(getRebuyableCost(3))} Incrementy\nCurrently: ${format(iupEffects[9]())}x`
-    DOM(`iup10`).innerText = `[RUP5] ${iupDesc[10]} (${formatWhole(data.incrementy.rebuyableAmt[4])})\n${format(getRebuyableCost(4))} Incrementy\nCurrently: ${format(iupEffects[10]())}x`
-    DOM(`iup11`).innerText = `[RUP6] ${iupDesc[11]} (${formatWhole(data.incrementy.rebuyableAmt[5])})\n${format(getRebuyableCost(5))} Incrementy\nCurrently: ${format(iupEffects[11]())}x`
+    DOM(`iup0`).innerText = `[RUP1] ${iupDesc[0]} (${format(data.incrementy.rebuyableAmt[0])}+${iup7Effect()})\n${format(getRebuyableCost(0))} Incrementy\nCurrently: ${format(iupEffects[0]())}x`
+    DOM(`iup1`).innerText = `[RUP2] ${iupDesc[1]} (${format(data.incrementy.rebuyableAmt[1])})\n${format(getRebuyableCost(1))} Incrementy\nCurrently: ${format(iupEffects[1]())}x`
+    DOM(`iup2`).innerText = `[RUP3] ${iupDesc[2]} (${format(data.incrementy.rebuyableAmt[2])})\n${format(getRebuyableCost(2))} Incrementy\nCurrently: ${format(iupEffects[2]())}x`
+    DOM(`iup9`).innerText = `[RUP4] ${iupDesc[9]} (${format(data.incrementy.rebuyableAmt[3])})\n${format(getRebuyableCost(3))} Incrementy\nCurrently: ${format(iupEffects[9]())}x`
+    DOM(`iup10`).innerText = `[RUP5] ${iupDesc[10]} (${format(data.incrementy.rebuyableAmt[4])})\n${format(getRebuyableCost(4))} Incrementy\nCurrently: ${format(iupEffects[10]())}x`
+    DOM(`iup11`).innerText = `[RUP6] ${iupDesc[11]} (${format(data.incrementy.rebuyableAmt[5])})\n${format(getRebuyableCost(5))} Incrementy\nCurrently: ${format(iupEffects[11]())}x`
     DOM('chargeButton').innerText = `Sacrifice ${format(chargeReq())} Incrementy for 1 Charge\nYou have ${data.incrementy.charge} Charge (${data.incrementy.totalCharge} total)`
 }
 function switchIUPText(i, mode){
@@ -53,7 +53,7 @@ function initIUPs(){
         for (let n = 0; n < 3; n++) {
             let iup = document.createElement('button')
             iup.id = `iup${total}`
-            iup.innerHTML = r ? `[UP${total-2}] ${iupDesc[total]} (${formatWhole(data.incrementy.rebuyableAmt[total])})<br>${format(getRebuyableCost(total))} Incrementy\nCurrently: ${format(iupEffects[total]())}x`
+            iup.innerHTML = r ? `[UP${total-2}] ${iupDesc[total]} (${format(data.incrementy.rebuyableAmt[total])})<br>${format(getRebuyableCost(total))} Incrementy\nCurrently: ${format(iupEffects[total]())}x`
             : `[UP${total-2}] ${iupDesc[total]}<br>${format(iupCosts[total])} Incrementy`
             rows[i].append(iup)
             ++total
@@ -87,7 +87,7 @@ function buyRUP(i){
     data.incrementy.amt = data.incrementy.amt.sub(getRebuyableCost(reb))
     ++data.incrementy.rebuyableAmt[reb]
 
-    DOM(`iup${i}`).innerText = `${iupDesc[i]} (${formatWhole(data.incrementy.rebuyableAmt[reb])})\n${format(getRebuyableCost(reb))} Incrementy\nCurrently: ${format(iupEffects[i]())}x`
+    DOM(`iup${i}`).innerText = `${iupDesc[i]} (${format(data.incrementy.rebuyableAmt[reb])})\n${format(getRebuyableCost(reb))} Incrementy\nCurrently: ${format(iupEffects[i]())}x`
 }
 function getTotalIBuyables(){
     let total = 0

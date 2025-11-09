@@ -169,13 +169,13 @@ function makeRealmEnhancementText(){
     for (let i = 0; i < realmEnhancementData.length; i++) {
         if(isRealmEnhancementLocked(i)) continue
         const color = realmEnhancementData[i].color
-        text += `<br>Realm Enhancement ${i+1}: Your <span style="color: ${color}">${formatWhole(getRealmEnhancementAmount(i))} ${getRealmEnhancementText(i)}</span> is multiplying AutoClicker speed in the Realms by <span style="color: ${color}">${format(getRealmEnhancement(i))}x</span>`
+        text += `<br>Realm Enhancement ${i+1}: Your <span style="color: ${color}">${format(getRealmEnhancementAmount(i))} ${getRealmEnhancementText(i)}</span> is multiplying AutoClicker speed in the Realms by <span style="color: ${color}">${format(getRealmEnhancement(i))}x</span>`
     }
     return text
 }
 
 function makeANRText(i, type){
-    return `<span style="color: ${getCSSVariable('aleph-null-buyable-description-text-color')}">${getANRText(i, type)} (${formatWhole(getANRLevel(i, type))})</span><br>Requires: ${format(getANRCost(i, type))} ℵ<sub>0</sub><br>Currently: ${formatEffect(getANREffect(i, type), getANRSign(i, type))}`
+    return `<span style="color: ${getCSSVariable('aleph-null-buyable-description-text-color')}">${getANRText(i, type)} (${format(getANRLevel(i, type))})</span><br>Requires: ${format(getANRCost(i, type))} ℵ<sub>0</sub><br>Currently: ${formatEffect(getANREffect(i, type), getANRSign(i, type))}`
 }
 
 function updateANRHTML(i, type){

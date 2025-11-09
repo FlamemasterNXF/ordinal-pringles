@@ -156,7 +156,7 @@ let shouldDisplayStabilizer = (i) => data.obliterate.times > 0 && !isHypercharge
 function getHyperChargeUpgradeText(i, forceHideSecondary = false){
     let text = `${hyperChargeUpgradeData[i].description}`
     let end = !hasHypercharge(i)
-        ? `<br>${formatWhole(hyperChargeUpgradeData[i].cost)} Charge`
+        ? `<br>${format(hyperChargeUpgradeData[i].cost)} Charge`
         : `<br>Currently: ${formatEffect(hyperChargeUpgradeData[i].effect(), hyperChargeUpgradeData[i].sign)}`
     let secondary = !hasHypercharge(i) && shouldDisplaySecondary(i) && !forceHideSecondary
         ? `<span style="color: ${getCSSVariable('secondary-hypercharge-cost-text-color')}"> and ${getSecondaryHyperchargeCost()} Stable Energy</span>` : ''

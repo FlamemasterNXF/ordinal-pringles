@@ -15,9 +15,9 @@ function updateHBBuyableHTML(i){
     const cost = i < 3 ? 'FGH' : 'SGH'
     const ord = i < 3 ? 0 : 1
 
-    if(data.hierarchies.rebuyableAmt[i] >= getHBuyableCap()) return el.innerHTML = `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>Maxed!<br>Currently: ${format(hbData[i].effect())}x`
-    el.innerHTML = i === 2 || i===5 ? `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>${format(hbData[i].cost())} Incrementy<br>Currently: ${format(hbData[i].effect())}x`
-    : `${hbData[i].text} (${formatWhole(data.hierarchies.rebuyableAmt[i])})<br>${ordinalDisplay('', hbData[i].cost(), 0, 10, ordinalDisplayTrim(), false)} ${cost}<br>Currently: ${format(hbData[i].effect())}x`
+    if(data.hierarchies.rebuyableAmt[i] >= getHBuyableCap()) return el.innerHTML = `${hbData[i].text} (${format(data.hierarchies.rebuyableAmt[i])})<br>Maxed!<br>Currently: ${format(hbData[i].effect())}x`
+    el.innerHTML = i === 2 || i===5 ? `${hbData[i].text} (${format(data.hierarchies.rebuyableAmt[i])})<br>${format(hbData[i].cost())} Incrementy<br>Currently: ${format(hbData[i].effect())}x`
+    : `${hbData[i].text} (${format(data.hierarchies.rebuyableAmt[i])})<br>${ordinalDisplay('', hbData[i].cost(), 0, 10, ordinalDisplayTrim(), false)} ${cost}<br>Currently: ${format(hbData[i].effect())}x`
 }
 function updateHUPHTML(i){
     const el = DOM(`hup${i}`)
@@ -41,8 +41,8 @@ function initHierarchies(){
             hb.className = `hb${i}`
             hb.id = `hb${total}`
 
-            hb.innerHTML = n < 2 ? `${hbData[total].text} (${formatWhole(data.hierarchies.rebuyableAmt[total])})<br>${ordinalDisplay('', hbData[total].cost(), 0, 10/*hierarchyData[i].base()*/, ordinalDisplayTrim(), false)} ${cost}<br>Currently: ${format(hbData[total].effect())}x`
-            : `${hbData[total].text} (${formatWhole(data.hierarchies.rebuyableAmt[total])})<br>${format(hbData[total].cost())} Incrementy<br>Currently: ${format(hbData[total].effect())}x`
+            hb.innerHTML = n < 2 ? `${hbData[total].text} (${format(data.hierarchies.rebuyableAmt[total])})<br>${ordinalDisplay('', hbData[total].cost(), 0, 10/*hierarchyData[i].base()*/, ordinalDisplayTrim(), false)} ${cost}<br>Currently: ${format(hbData[total].effect())}x`
+            : `${hbData[total].text} (${format(data.hierarchies.rebuyableAmt[total])})<br>${format(hbData[total].cost())} Incrementy<br>Currently: ${format(hbData[total].effect())}x`
 
             columns[i].append(hb)
             ++total
