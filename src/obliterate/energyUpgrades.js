@@ -24,8 +24,8 @@ const energyUpgradeData = [
     ],
     [
         {
-            desc: 'Total Fractal Energy increases the Decrementy gain exponent',
-            sign: '+',
+            desc: 'Total Fractal Energy increases the Decrementy gain exponent and multiplies Light decay',
+            sign: ['+', 'x'],
             cost: 1,
             effect: () => D(data.obliterate.times*2),
             baseEffect: 0,
@@ -237,7 +237,7 @@ function getEUPEffect (i, j, noDecimal = false) {
 function updateEUPDescriptionHTML(id){
     const identifiers = getDataIDFromTreeID(id)
     const node = energyUpgradeData[identifiers[0]][identifiers[1]]
-    DOM(`energyTreeText`).innerHTML = `<span style="color: ${getCSSVariable('energy-tree-node-id-text-color')}">Upgrade ${id}:</span> <span style="color: ${getCSSVariable('energy-tree-node-description-text-color')}">${node.desc}</span><br>${hasTreeUpgrade(id) ? isEUPUnlock(identifiers[0], identifiers[1]) ? `<span style="color: ${getCSSVariable('energy-tree-node-effect-text-color')}"> Unlocked!` : `<span style="color: ${getCSSVariable('energy-tree-node-effect-text-color')}"> Currently: ${node.sign !== 'x' ? `${node.sign}${format(getEUPEffect(identifiers[0], identifiers[1]))}` : `${format(getEUPEffect(identifiers[0], identifiers[1]))}${node.sign}`}` : canPurchaseTreeUpgrade(id, identifiers) ? `<span style="color: ${getCSSVariable('energy-tree-node-activation-text-color')}">Can be Activated for</span> <span style="color: ${getCSSVariable('energy-tree-node-cost-text-color')}">${node.cost} Fractal Energy</span>` : `<span style="color: ${getCSSVariable('energy-tree-node-prereq-text-color')}">You must first Activate Upgrade ${getEUPNodeRequirement(id, identifiers)}${eupHasExtraReq(identifiers[0], identifiers[1]) ? node.extraReqDesc : ''}</span>`}`
+    DOM(`energyTreeText`).innerHTML = `<span style="color: ${getCSSVariable('energy-tree-node-id-text-color')}">Upgrade ${id}:</span> <span style="color: ${getCSSVariable('energy-tree-node-description-text-color')}">${node.desc}</span><br>${hasTreeUpgrade(id) ? isEUPUnlock(identifiers[0], identifiers[1]) ? `<span style="color: ${getCSSVariable('energy-tree-node-effect-text-color')}"> Unlocked!` : `<span style="color: ${getCSSVariable('energy-tree-node-effect-text-color')}"> Currently: ${formatEffect(getEUPEffect(identifiers[0], identifiers[1]), node.sign)}` : canPurchaseTreeUpgrade(id, identifiers) ? `<span style="color: ${getCSSVariable('energy-tree-node-activation-text-color')}">Can be Activated for</span> <span style="color: ${getCSSVariable('energy-tree-node-cost-text-color')}">${node.cost} Fractal Energy</span>` : `<span style="color: ${getCSSVariable('energy-tree-node-prereq-text-color')}">You must first Activate Upgrade ${getEUPNodeRequirement(id, identifiers)}${eupHasExtraReq(identifiers[0], identifiers[1]) ? node.extraReqDesc : ''}</span>`}`
 }
 
 function purchaseEUP(id, node){

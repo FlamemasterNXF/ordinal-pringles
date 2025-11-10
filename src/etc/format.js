@@ -52,6 +52,19 @@ function formatNumber(number, precision) {
     return `${mantissa.toFixed(precision)}e${f_log10}`
 }
 
+// Special function for formatting effects
+function formatEffect(effect, sign){
+    if(typeof sign === 'object'){
+        let text = ''
+        for (let i = 0; i < sign.length; i++){
+            let finisher = i === sign.length - 1 ? '' : ', '
+            text += formatEffect(effect, sign[i]) + finisher
+        }
+        return text
+    }
+    return sign !== 'x' && sign !== 's' ? `${sign}${format(effect)}` : `${format(effect)}${sign}`
+}
+
 // Special function for formatting time
 function formatTime(seconds) {
     if (seconds < 60) return format(seconds) + "s"

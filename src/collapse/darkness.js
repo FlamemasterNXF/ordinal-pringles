@@ -22,12 +22,6 @@ let depthUpgradeData = [
         baseEffect: 0,
         effect: () => Decimal.floor(Decimal.log10(Decimal.sqrt(data.collapse.cardinals+1).times(getDepthUpgradeLevel(1)))).toNumber()
     },
-    {
-        text: 'Depths increase the Entropy gain exponent further',
-        sign: '+',
-        baseEffect: 0,
-        effect: () => getDepthUpgradeLevel(2)
-    }
 ]
 
 function initDepthUpgradeHTML(){
@@ -111,7 +105,7 @@ function updateDarknessButton(){
         : `Enter the Darkness, trapping yourself in Challenge 8`
 
     let depthText = data.darkness.darkened
-        ? `<br><br>You are currently in Depth ${getDepth()}<br>This Depth increases your Entropy exponent by +${getDepth()}<br>This Depth multiplies your Light's decay speed by ${2**(getDepth()-1)}x<br>You must consume ${format(getLightNeededForDepth())} more Light to enter the next Depth`
+        ? `<br><br>You are currently in Depth ${getDepth()}<br>This Depth increases your Entropy exponent by +${getDepth()}<br>This Depth multiplies your Light's decay speed by ${getLightChange()}x<br>You must consume ${format(getLightNeededForDepth())} more Light to enter the next Depth`
         : `<br><br>Your highest ever Depth is Depth ${data.darkness.bestDepth}`
 
     DOM('darken').innerHTML = statusText+depthText
@@ -128,14 +122,15 @@ function getLight(){
     return 30+base*2
 }
 function getLightChange(depth = getDepth()){
-    return 2**(depth-1)
+    const multiplier = (1.4**(depth-1))*getEUPEffect(1, 0, true)
+    return Math.floor(2**(depth-1)*multiplier)
 }
 function shouldLightDecay(){
     return data.chal.decrementy.gte(1e10)
 }
 
 function getEntropy(){
-    let exponent = 3 + getDepth()*getDepthUpgradeEffect(2) + getHyperchargeEffect(6)
+    let exponent = 3 + getDepth() + getHyperchargeEffect(6)
     if(data.darkness.darkened){
         const amount = (getLight()-data.darkness.currentLight)**exponent
         if(amount > data.darkness.bestEntropy) data.darkness.bestEntropy = amount
@@ -151,8 +146,8 @@ function getDepth(){
     return data.darkness.depth
 }
 function getDepthRequirement(depth){
-    if(depth > 5) return 60*2**depth
-    return 60
+    const multiplier = (1+((depth-1)/10))**(depth-1)
+    return Math.floor(60*multiplier)
 }
 function getPreviouslyConsumedLight(depth){
     let amount = 0

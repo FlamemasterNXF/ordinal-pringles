@@ -52,11 +52,6 @@ let splitAt = (index, str) => [str.slice(0, index), str.slice(index)]
 
 let checkArrayBetween = (arr, start, end, value) => arr.slice(start, end).some(x => x === value);
 
-function formatEffect(effect, sign, doFormat = true){
-    if(doFormat) return sign !== 'x' && sign !== 's' ? `${sign}${format(effect)}` : `${format(effect)}${sign}`
-    return sign !== 'x' && sign !== 's' ? `${sign}${effect}` : `${effect}${sign}`
-}
-
 function countElements(arr, value) {
     let count = 0;
     for (let i = 0; i < arr.length; i++) {
