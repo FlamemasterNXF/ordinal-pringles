@@ -130,6 +130,9 @@ function getLight(){
 function getLightChange(depth = getDepth()){
     return 2**(depth-1)
 }
+function shouldLightDecay(){
+    return data.chal.decrementy.gte(1e10)
+}
 
 function getEntropy(){
     let exponent = 3 + getDepth()*getDepthUpgradeEffect(2) + getHyperchargeEffect(6)
@@ -180,7 +183,9 @@ function updateDarknessResourcesHTML(){
         : `Your best Entropy in Darkness is ${format(data.darkness.bestEntropy)}`
 
     let lightText = data.darkness.darkened
-        ? `You have ${format(data.darkness.currentLight)} Light [-${getLightChange()}/s], when it reaches 0 the Darkness will win`
+        ? shouldLightDecay()
+            ? `You have ${format(data.darkness.currentLight)} Light [-${getLightChange()}/s], when it reaches 0 the Darkness will win`
+            : `You have ${format(data.darkness.currentLight)} Light, it will begin to Decay once you reach 1e10 Decrementy`
         : `Your best Incrementy is ${format(data.incrementy.bestIncrementy)}, creating ${getLight()} Light`
 
     DOM(`darknessResources`).innerHTML = `You have ${format(data.chal.decrementy)} Decrementy<br><br>

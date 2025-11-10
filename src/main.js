@@ -15,7 +15,7 @@ function mainLoop() {
     }
 
     if(data.darkness.darkened){
-        data.darkness.currentLight -= getLightChange()*uDiff
+        if(shouldLightDecay()) data.darkness.currentLight -= getLightChange()*uDiff
         if(data.darkness.currentLight <= 0) darkenControl()
         if(getLightNeededForDepth() <= 0) data.darkness.depth++
         if(data.darkness.depth > data.darkness.bestDepth) data.darkness.bestDepth = data.darkness.depth
