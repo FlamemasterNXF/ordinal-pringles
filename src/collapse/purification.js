@@ -4,7 +4,7 @@ const purificationData = [
         alt: "Eternal",
         desc: "Each Factor Boost yields only one Booster and Darkness Upgrades are useless",
         boostDesc: "Boosting the effect base of the first Darkness Upgrade by",
-        eff: () => (1+data.omega.bestFBInPurification[0]/1000)*getAOREffect(5)
+        eff: () => (1+data.omega.bestFBInPurification[0]/1000)
     },
     {
         name: "Infinity",

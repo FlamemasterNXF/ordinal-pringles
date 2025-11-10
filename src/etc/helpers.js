@@ -177,3 +177,11 @@ function hexToHSL(hex) {
     return { h, s, l };
 }
 
+function isDecimalExploding(decimal, name){
+    if(decimal.layer > 1 || isNaN(decimal.layer)){
+        console.error(`${name} TOO HIGH`)
+        return true
+    }
+    return false
+}
+

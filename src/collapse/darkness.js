@@ -234,7 +234,7 @@ let dupData = [
         sign: 'x',
         extraLevels: () => Math.floor(getNormalANREffect(2)),
         cost: ()=> D(65).pow(dupScaling(0)).div(getOverflowEffect(5)),
-        effect: ()=> isTabUnlocked('darkness') ? D(1.5).times(purificationEffect(0)).pow(getTotalDUPLevels(0)*1.75) : 1
+        effect: ()=> isTabUnlocked('darkness') ? D(1.5).times(purificationEffect(0)).pow(getTotalDUPLevels(0)) : 1
     },
     {
         text: 'Double Dynamic Cap',

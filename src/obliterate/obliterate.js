@@ -7,6 +7,8 @@ function getObliterateReq(n = data.obliterate.times){
     return D("1e825").pow(1+n/divisor).times(mult)
 }
 function getBulkableObliterations(){
+    if(isDecimalExploding(data.incrementy.amt, 'Incrementy')) return 0
+
     let bulkAmount = data.obliterate.times
     while (canObliterate(bulkAmount)) bulkAmount++
     return bulkAmount - data.obliterate.times

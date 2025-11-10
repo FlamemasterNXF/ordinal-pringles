@@ -26,6 +26,7 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
 let cappedOPGain = () => Decimal.min(opCap, opGain().times(opMult()))
 
 function uncappedOPGain() {
-    if(getEUPEffect(4, 0)) return opCap.mul(D(data.ord.ordinal).pow(getGUPEffect(2) + 1))
+    if(getEUPEffect(4, 0) && !isDecimalExploding(data.ord.ordinal, 'Ordinal'))
+        return opCap.mul(D(data.ord.ordinal).pow(getGUPEffect(2) + 1))
     return opCap
 }
