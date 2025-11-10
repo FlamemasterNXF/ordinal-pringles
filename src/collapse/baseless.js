@@ -56,7 +56,7 @@ const normalANBuyableData = [
         cost: () => 1e3**data.baseless.normalANR[2]*1e3
     },
     {
-        desc: "Gain a free leve of the 1st, 3rd, 4th, and 5th ℵ<sub>&omega;</sub> Rebuyables",
+        desc: "Gain a free level of the 1st, 3rd, 4th, and 5th ℵ<sub>&omega;</sub> Rebuyables",
         sign: '+',
         effect: () => D(getANRLevel(3, 'normal')),
         unlockReq: () => hasAOMilestone(4),
