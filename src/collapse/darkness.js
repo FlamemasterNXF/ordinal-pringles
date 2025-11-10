@@ -122,7 +122,8 @@ function getLight(){
     return 30+base*2
 }
 function getLightChange(depth = getDepth()){
-    const multiplier = (1.4**(depth-1))*getEUPEffect(1, 0, true)
+    const eupEffect = hasTreeUpgrade(101) ? getEUPEffect(1, 0, true) : 1
+    const multiplier = (1.4**(depth-1))*eupEffect
     return Math.floor(2**(depth-1)*multiplier)
 }
 function shouldLightDecay(){
