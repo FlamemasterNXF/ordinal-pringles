@@ -2,6 +2,7 @@ function mainLoop() {
     // Calculate diff and usableDiff
     if(data.lastTick === 0) data.lastTick = Date.now()
     let diff = getSimpleSetting('offlineProgress') ? Math.max((Date.now() - data.lastTick), 0) : 50
+
     // Used for Offline Progress
     let uDiff = diff/1000
 
@@ -69,7 +70,7 @@ function mainLoop() {
     checkAchievements()
 
     // Update HTML
-    uHTML.update()
+    updateHTML()
 }
 
 
@@ -77,7 +78,7 @@ window.onload = function () {
     let extra = false
     try { extra = load(true) } catch(e){ console.log("New Save! If you're seeing this, welcome :)") }
 
-    uHTML.load()
+    loadGame()
 
     if(extra) fixOldSavesAfterLoad()
     if(data.collapse.times > 0 || data.obliterate.times > 0) makeExcessOrdMarks()
