@@ -16,7 +16,7 @@
 const energyUpgradeData = [
     [
         {
-            desc: 'Total Fractal Energy boost AutoBuyers',
+            desc: 'Total Fractal Energy boosts AutoBuyers and you always three free ℵ<sub>1</sub>-ℵ<sub>8</sub>',
             sign: 'x',
             cost: 0,
             effect: () => D(10).pow(data.obliterate.times),

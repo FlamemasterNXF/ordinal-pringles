@@ -200,7 +200,10 @@ function cardinalGain(){
     return gain.pow(getEUPEffect(1, 5))
 }
 
-let getAlephAmount = (i) => data.collapse.alephs[i].plus(getAlephNullEffect(0))
+function getAlephAmount(i) {
+    const obliterateAlephs = hasTreeUpgrade(0) && i < 8 ? 3 : 0
+    return data.collapse.alephs[i].plus(getAlephNullEffect(0)).plus(obliterateAlephs)
+}
 
 function getAlephEffect(i){
     if(getAlephAmount(i).eq(0) || (inPurification(1) && i !== 0) || !alephData[i].unl()) return D(1)
