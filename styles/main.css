@@ -577,6 +577,28 @@
 .obliterateTabButton:hover{
     background: #222222;
 }
+.passiveUnlock{
+    border: 2px solid var(--passive-energy-upgrade-border-color);
+    border-right: none;
+    border-left: none;
+    color: var(--passive-energy-upgrade-text-color);
+    background: var(--passive-energy-upgrade-background-color);
+    margin-top: 0.5rem;
+    width: 12.5rem;
+    height: 6rem;
+    cursor: default;
+}
+.passiveUnlocked{
+    border: 2px solid var(--bought-passive-energy-upgrade-border-color);
+    border-right: none;
+    border-left: none;
+    color: var(--bought-passive-energy-upgrade-text-color);
+    background: var(--bought-passive-energy-upgrade-background-color);
+    margin-top: 0.5rem;
+    width: 12.4rem;
+    height: 6rem;
+    cursor: default;
+}
 .passiveUpgrade{
     border: 2px solid var(--passive-energy-upgrade-border-color);
     color: var(--passive-energy-upgrade-text-color);

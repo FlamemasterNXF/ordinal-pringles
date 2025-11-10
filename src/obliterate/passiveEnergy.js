@@ -1,9 +1,9 @@
 const passiveUpgradeData = [
-    "The first Sluggish Milestone is now permanent",
-    "The second Sluggish Milestone is now permanent",
-    "The third Sluggish Milestone is now permanent",
-    "The fourth Sluggish Milestone is now permanent",
-    "The fifth Sluggish Milestone is now permanent",
+    "The first Sluggish Milestone is now permanent<br>Requires 1 Obliteration",
+    "The second Sluggish Milestone is now permanent<br>Requires 2 Obliterations",
+    "The third Sluggish Milestone is now permanent<br>Requires 3 Obliterations",
+    "The fourth Sluggish Milestone is now permanent<br>Requires 4 Obliterations",
+    "The fifth Sluggish Milestone is now permanent<br>Requires 5 Obliterations",
 
     "The first and second Cardinal Upgrades are now permanent",
     "The third and fourth Cardinal Upgrades are now permanent",
@@ -45,19 +45,26 @@ function initPassiveEnergyUpgrades(){
         DOM(`passiveUpgradeContainer`).append(row)
 
         for (let j = 0; j < 5; j++) {
+            const classNames = i > 0 ? ['boughtPassiveUpgrade', 'passiveUpgrade'] : ['passiveUnlocked', 'passiveUnlock']
+
             let upgrade = document.createElement('button')
-            upgrade.className = 'passiveUpgrade'
             upgrade.id = `peup${total}`
             upgrade.innerHTML = `${passiveUpgradeData[total]}`
-            upgrade.className = hasPassiveUpgrade(total) ? 'boughtPassiveUpgrade' : 'passiveUpgrade'
+            upgrade.className = hasPassiveUpgrade(total) ? classNames[0] : classNames[1]
             DOM(`peupRow${i}`).append(upgrade)
+
+            if(i === 0){
+                const color = hasPassiveUpgrade(total) ? getCSSVariable('bought-passive-energy-upgrade-border-color') : getCSSVariable('passive-energy-upgrade-border-color')
+                if(j === 0) upgrade.style.borderLeft = `2px solid ${color}`
+                if(j === 4) upgrade.style.borderRight = `2px solid ${color}`
+            }
 
             ++total
         }
     }
 
     // Weird Workaround
-    for (let i = 0; i < passiveUpgradeData.length; i++) {
+    for (let i = 5; i < passiveUpgradeData.length; i++) {
         DOM(`peup${i}`).addEventListener("click", ()=>buyPEUP(i))
     }
 }
@@ -99,7 +106,11 @@ let getBasePassiveEnergy = () => getTotalFractalEnergyInvested(true) + getTotalS
 let getCurrentPassiveEnergy = () => getBasePassiveEnergy() - getTotalPassiveEnergyInvested()
 let getTotalPassiveEnergy = () => getCurrentPassiveEnergy() + getTotalPassiveEnergyInvested()
 
-let hasPassiveUpgrade = (i) => data.obliterate.hasPassiveUpgrade[i]
+function hasPassiveUpgrade(i) {
+    if(i < 5) return data.obliterate.times > i
+    return data.obliterate.hasPassiveUpgrade[i];
+}
+
 function completedPassiveUpgradeRows(){
     let rows = 0
     for (let i = 0; i < passiveUpgradeData.length; i++) {

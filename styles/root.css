@@ -532,13 +532,13 @@
     --energy-tree-node-prereq-text-color: #ab003d;
 
     /* Passive Energy */
-    --passive-energy-upgrade-border-color: #6b3a9f;
+    --passive-energy-upgrade-border-color: #48286b;
     --passive-energy-upgrade-background-color: #000000FF;
     --passive-energy-upgrade-text-color: #808080FF;
 
-    --bought-passive-energy-upgrade-border-color: #6b3a9f;
-    --bought-passive-energy-upgrade-background-color: #000000FF;
-    --bought-passive-energy-upgrade-text-color: #e180ff;
+    --bought-passive-energy-upgrade-border-color: #48286b;
+    --bought-passive-energy-upgrade-background-color: #100418;
+    --bought-passive-energy-upgrade-text-color: #be89cc;
 
     --passive-energy-text-primary-color: #FFFFFFFF;
     --passive-energy-text-passive-energy-color: #bd80ff;
