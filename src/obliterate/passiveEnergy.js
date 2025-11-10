@@ -87,7 +87,7 @@ function passiveRespecConfirm(){
 }
 function respecPassiveUpgrades(bypassReset = false){
     //data.obliterate.passiveEnergy = getTotalFractalEnergyInvested(true)
-    for (let i = 0; i < data.obliterate.hasPassiveUpgrade.length; i++) {
+    for (let i = 5; i < data.obliterate.hasPassiveUpgrade.length; i++) {
         DOM(`peup${i}`).className = 'passiveUpgrade'
         data.obliterate.hasPassiveUpgrade[i] = false
     }
@@ -97,7 +97,7 @@ function respecPassiveUpgrades(bypassReset = false){
 }
 function getTotalPassiveEnergyInvested(){
     let fromUpgrades = 0
-    for (let i = 0; i < data.obliterate.hasPassiveUpgrade.length; i++) {
+    for (let i = 5; i < data.obliterate.hasPassiveUpgrade.length; i++) {
         if(hasPassiveUpgrade(i)) ++fromUpgrades
     }
     return fromUpgrades
