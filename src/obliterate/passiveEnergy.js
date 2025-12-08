@@ -69,6 +69,11 @@ function initPassiveEnergyUpgrades(){
     }
 }
 
+function updatePEUPUnlocks(){
+    for (let i = 0; i < 5; i++) {
+        DOM(`peup${i}`).className = hasPassiveUpgrade(i) ? 'passiveUnlocked' : 'passiveUnlock'
+    }
+}
 function buyPEUP(i){
     if(getCurrentPassiveEnergy() < 1 || hasPassiveUpgrade(i)) return
 
@@ -108,7 +113,7 @@ let getTotalPassiveEnergy = () => getCurrentPassiveEnergy() + getTotalPassiveEne
 
 function hasPassiveUpgrade(i) {
     if(i < 5) return data.obliterate.times > i
-    return data.obliterate.hasPassiveUpgrade[i];
+    return data.obliterate.hasPassiveUpgrade[i]
 }
 
 function completedPassiveUpgradeRows(){

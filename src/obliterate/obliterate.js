@@ -159,6 +159,7 @@ function obliterateReset(){
     updateAllRealmBUPHTML()
     updateAllAORHTML()
     updateAllPurificationHTML()
+    updatePEUPUnlocks()
 }
 
 function spendFractalEnergy(n = 1){
