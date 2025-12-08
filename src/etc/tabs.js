@@ -63,7 +63,6 @@ function switchSubtab(tab, mode){
         if(tab==='darkness'){
             updateDUPHTML(1)
             updateDUPHTML(2)
-            DOM('dupC4').innerHTML = `Invert the third Booster Power effect<br><span style="font-size: 0.7rem">Currently: ${data.overflow.thirdEffect ? 'Dividing': 'Multiplying'}</span>`
         }
         if(tab==="baseless"){
             updateAlephNullHTML()

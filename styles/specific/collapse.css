@@ -65,6 +65,11 @@
     border-left: none;
 }
 
+#darknessHelpText{
+    margin-top: 1rem;
+    color: var(--darkness-help-text-color);
+}
+
 #hyperchargeBottomText{
     margin-top: 1rem;
     color: var(--hypercharge-help-text-primary-color);

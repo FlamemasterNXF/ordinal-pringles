@@ -18,7 +18,7 @@ const overflowData = [
                 descriptor: ' (based on your total OP multiplier)'
             },
             {
-                desc: 'Multiplying Decrementy Gain',
+                desc: () => shouldInvertBP3() ? 'Multiplying Decrementy Gain' : 'Dividing Decrementy Gain',
                 effect: () => Math.sqrt(data.overflow.bp+1)*getOverflowEffect(1, 1),
                 target: 'Decrementy Gain',
             }
@@ -133,9 +133,10 @@ function updateOverflowHTML(){
             if(effect.unlock !== undefined) DOM(`overflow${i}effect${j}`).style.display = isOverflowEffectUnlocked(i, j) ? 'block' : 'none'
             if(!isOverflowEffectUnlocked(i, j)) continue
 
+            const desc = typeof effect.desc === 'function' ? effect.desc() : effect.desc
             const descriptor = effect.descriptor ?? ''
             const sign = getOverflowEffectSign(i, j)
-            DOM(`overflow${i}effect${j}`).innerHTML = `${effect.desc} by <b style="color: ${getCSSVariable(`${normalToDashed(getOverflowName(i))}-text-color`)}">${formatEffect(getOverflowEffect(i, j), sign)}</b>${descriptor}`
+            DOM(`overflow${i}effect${j}`).innerHTML = `${desc} by <b style="color: ${getCSSVariable(`${normalToDashed(getOverflowName(i))}-text-color`)}">${formatEffect(getOverflowEffect(i, j), sign)}</b>${descriptor}`
         }
     }
 }

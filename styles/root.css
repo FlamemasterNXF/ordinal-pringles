@@ -287,7 +287,6 @@
     --depthUpgrade-background-color: #000000FF;
     --depthUpgrade-text-color: #9f9fcce1;
 
-
     --darkness-resources-border-color: #8000ff4d;
     --darkness-resources-background-color: #000000FF;
     --darkness-resources-text-color: #9f9fcce1;
@@ -295,6 +294,8 @@
     --darkness-control-border-color: #8000ff4d;
     --darkness-control-background-color: #000000FF;
     --darkness-control-text-color: #9f9fcce1;
+
+    --darkness-help-text-color: #777;
 
     /* Hypercharge */
     --hypercharge-charge-text-color: #DAA520FF;

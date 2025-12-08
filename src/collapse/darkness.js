@@ -310,11 +310,6 @@ let getTotalDUPs = () => getTotalDUPLevels(0)+getTotalDUPLevels(1)+getTotalDUPLe
 function darknessControl(mode){
     if(data.baseless.baseless) return showNotification('You cannot access Darkness Controls in the Baseless Realms!')
     updateDarknessControlHTML(0)
-    if(mode===4){
-        data.overflow.thirdEffect = !data.overflow.thirdEffect
-        DOM('bp2Description').innerText = data.overflow.thirdEffect ? 'Dividing Decrementy Gain by ' : 'Multiplying Decrementy Gain by '
-        DOM('dupC4').innerHTML = `Invert the third Booster Power effect<br><span style="font-size: 0.7rem">Currently: ${data.overflow.thirdEffect ? 'Dividing': 'Multiplying'}</span>`
-    }
     if(mode===0) data.darkness.negativeChargeEnabled = !data.darkness.negativeChargeEnabled
     if(mode===1){
         data.darkness.negativeCharge = 0
@@ -360,6 +355,8 @@ function respecDrains(){
 
 let getExtraDUPLevels = (i) => dupData[i].extraLevels()
 let getTotalDUPLevels = (i) => data.darkness.levels[i]+getExtraDUPLevels(i)
+
+let shouldInvertBP3 = () => data.darkness.darkened && data.ord.isPsi
 
 boostManager.register({
     name: 'Stable Decrementy',
