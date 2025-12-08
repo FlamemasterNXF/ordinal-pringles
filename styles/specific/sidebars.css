@@ -24,6 +24,10 @@
 #settingsNav{
     color: var(--setting-navigation-text-color);
 }
+#networkNav{
+    color: var(--setting-navigation-text-color);
+    border-bottom-right-radius: 16px
+}
 
 /* Sidebar 2 */
 
@@ -48,6 +52,7 @@
 #header{
     height: 4rem;
     color: var(--universal-exit-button-text-color);
+    border-bottom-left-radius: 16px;
 }
 
 @media (min-width: 961px) {

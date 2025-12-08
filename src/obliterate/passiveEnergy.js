@@ -122,3 +122,20 @@ function completedPassiveUpgradeRows(){
 let isAOMilestonePermanent = (i) => i < completedPassiveUpgradeRows()
 
 let getPassiveEnergyEffect = (i) => passiveEnergyEffects[i]()
+
+boostManager.register({
+    name: 'Passive Energy Effect 1',
+    target: 'All AutoBuyers',
+    sign: 'x',
+    color: graphColors.passiveEnergy,
+    effect: () => getPassiveEnergyEffect(0),
+    shouldDisplay: () => data.obliterate.times > 0
+})
+boostManager.register({
+    name: 'Passive Energy Effect 2',
+    target: 'ℵω',
+    sign: 'x',
+    color: graphColors.passiveEnergy,
+    effect: () => getPassiveEnergyEffect(1),
+    shouldDisplay: () => data.obliterate.times > 0
+})

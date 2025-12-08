@@ -67,6 +67,9 @@ function unpackSave(main=getDefaultPlayer(), data) {
 function fixOldSaves(){
     let extra = false
 
+    // Incrementy Backend Overhaul
+    if(data.incrementy.hasIUP.length !== 6) data.incrementy.hasIUP = Array(6).fill(false)
+
     // Removal of tabs
     if(data.nav.subtabs.collapse === 'sing') data.nav.subtabs.collapse = 'cardinals'
     if(data.nav.subtabs.obliterate === 'instability') data.nav.subtabs.obliterate = 'pringles'

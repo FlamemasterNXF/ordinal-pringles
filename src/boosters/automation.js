@@ -180,3 +180,22 @@ function updateAutomationTabHTML(){
     DOM(`auto2Tab`).style.color = isAutomationUnlocked(2, 0) ? getCSSVariable('collapse-tab-text-color') : getCSSVariable('boost-tab-text-color')
     DOM(`auto2Tab`).style.borderColor = isAutomationUnlocked(2, 0) ? getCSSVariable('collapse-tab-border-color') : getCSSVariable('boost-tab-border-color')
 }
+
+boostManager.register({
+    name: `All Automation`,
+    target: ['All AutoBuyers', 'All AutoClickers'],
+    color: graphColors.autobuyer,
+})
+
+boostManager.register({
+    name: `All AutoClickers`,
+    target: 'Successor AutoClicker',
+    color: graphColors.autoclicker,
+})
+
+boostManager.register({
+    name: `All AutoBuyers`,
+    target: 'Markup AutoBuyer',
+    color: graphColors.autobuyer,
+    shouldDisplay: () => data.boost.hasBUP[5]
+})

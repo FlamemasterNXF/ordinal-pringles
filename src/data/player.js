@@ -26,7 +26,7 @@ function getDefaultPlayer() {
         // Boosters
         boost: { amt:0, total:0, times:0, bottomRowCharges:0, hasBUP:Array(15).fill(false), isCharged:Array(15).fill(false), unlocks: Array(5).fill(false) },
         chal: { decrementy: D(1), html: -1, completions: Array(8).fill(0), active: Array(8).fill(false), totalCompletions: 0 },
-        incrementy: { bestIncrementy: D(0), amt:D(0), hasIUP:Array(12).fill(false), rebuyableAmt: Array(6).fill(0), charge:0, totalCharge:0 },
+        incrementy: { bestIncrementy: D(0), amt:D(0), hasIUP:Array(6).fill(false), rebuyableAmt: Array(6).fill(0), charge:0, totalCharge:0 },
         hierarchies: { ords:[ {ord:D(1), over:D(0), type:"f"}, {ord:D(1), over:D(0), type:"g"} ], rebuyableAmt: Array(6).fill(0), hasUpgrade: Array(10).fill(false) },
         overflow: { bp:1, oc:1, thirdEffect:true }, //for thirdEffect: true=normal, false=inverted
         autoStatus: {enabled: Array(9).fill(false)},

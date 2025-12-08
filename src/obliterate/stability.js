@@ -9,6 +9,7 @@ let stableEnergyData = [
                 sign: 'x',
                 effect: () => (1+getStableEnergy(0))**10,
                 baseEffect: () => 1,
+                target: 'Incrementy Gain'
             },
             {
                 desc: 'Stable Energy can be used to purchase a Second Hypercharge in each row',
@@ -26,12 +27,14 @@ let stableEnergyData = [
                 sign: 'x',
                 effect: () => 7**getStableEnergy(1),
                 baseEffect: () => 1,
+                target: 'Cardinals'
             },
             {
                 desc: 'Increasing the Decrementy gain exponent',
                 sign: '+',
                 effect: () => getStableEnergy(1),
                 baseEffect: () => 0,
+                target: 'Decrementy Exponent'
             },
         ]
     },
@@ -45,6 +48,7 @@ let stableEnergyData = [
                 sign: '-',
                 effect: () => Math.min(10, getStableEnergy(2)), // I don't think this cap will be reached, but safety ig
                 baseEffect: () => 0,
+                target: 'Ordinal Base'
             },
             {
                 desc: 'Unbounded Energy can be used to make any Hypercharge Stable',
@@ -69,7 +73,24 @@ function makeStabilityText(i){
     return text
 }
 
-function initStabilityHTML(){
+function registerStability(){
+    for (let i = 0; i < stableEnergyData.length; i++) {
+        for (let j = 0; j < stableEnergyData[i].effects.length; j++) {
+            const effectData = stableEnergyData[i].effects[j]
+            if(effectData.target === undefined) continue
+            boostManager.register({
+                name: `${stableEnergyData[i].name} Energy Effect ${j+1}`,
+                target: effectData.target,
+                sign: effectData.sign,
+                color: graphColors.stability,
+                effect: () => getStableEnergyEffect(i, j),
+                shouldDisplay: () => data.obliterate.times > 0
+            })
+        }
+    }
+}
+
+function initStability(){
     const bigContainer = DOM('stabilityContainer')
     for (let i = 0; i < stableEnergyData.length; i++) {
         let container = document.createElement('div')
@@ -92,6 +113,7 @@ function initStabilityHTML(){
 
         bigContainer.appendChild(container)
     }
+    registerStability()
 }
 
 function updateStabilityHTML(i){

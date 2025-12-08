@@ -180,3 +180,7 @@ function isDecimalExploding(decimal, name){
     return false
 }
 
+function normalToDashed(text) {
+    return text.toLowerCase().replace(' ', '-')
+}
+

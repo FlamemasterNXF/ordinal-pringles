@@ -13,3 +13,11 @@ function getAutoClickerSpeed(){
     if(inRealmChallenge(5)) return data.dy.level
     return baseAutoClickerSpeed().pow(autoClickerExponent())
 }
+
+boostManager.register({
+    name: 'Successor AutoClicker',
+    target: 'Ordinal',
+    sign: '+/s',
+    color: graphColors.autoclicker,
+    effect: () => getAutoClickerSpeed()
+})

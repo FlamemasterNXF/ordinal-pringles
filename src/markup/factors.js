@@ -85,3 +85,16 @@ function getTotalFactors(){
     }
     return total
 }
+
+boostManager.register({
+    name: 'Factor Levels',
+    target: 'All Factors',
+    color: graphColors.factor
+})
+boostManager.register({
+    name: 'All Factors',
+    target: 'All AutoClickers',
+    sign: 'x',
+    color: graphColors.factor,
+    effect: () => totalFactorEffect()
+})

@@ -11,7 +11,7 @@ function loadGame(){
 
     if(data.markup.shifts === 7 || data.chal.active[5]) DOM('dynamicTab').addEventListener('click', _=> switchSubtab('dynamic', 'markup'))
 
-    DOM('bp2Description').innerText = data.overflow.thirdEffect ? 'Dividing Decrementy Gain by ' : 'Multiplying Decrementy Gain by '
+    //DOM('bp2Description').innerText = data.overflow.thirdEffect ? 'Dividing Decrementy Gain by ' : 'Multiplying Decrementy Gain by '
     DOM('darken').innerText = data.darkness.darkened ? 'Escape' : 'Enter the Darkness'
 
     checkCollapseUnlockHTML()
@@ -33,21 +33,27 @@ function loadGame(){
     initChals()
     initIUPs()
     initHierarchies()
+    initOverflowHTML()
     initAlephs()
     initCUPS()
     initSluggish()
-    initDepthUpgradeHTML()
+    initDarkness()
     initHyperchargeHTML()
+    initBaselessness()
     initANRebuyables()
     initPurification()
+    registerEUPs()
     initPassiveEnergyUpgrades()
     initPringleAlchemy()
     initPurityPlane()
-    initStabilityHTML()
+    initStability()
     updateGwaHTML()
     initThemeHTML()
     initBunnyHTML()
 
     //Load Tab Displays
     switchTab(data.nav.current)
+
+    // Initialize the boost graph
+    initBoostGraph()
 }

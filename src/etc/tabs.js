@@ -11,7 +11,7 @@ function switchTab(mode){
     if(mode === 'collapse') checkCollapseUnlockHTML()
 }
 
-const tabsWithoutSubtabs = ['ord', 'ach', 'bunny']
+const tabsWithoutSubtabs = ['ord', 'ach', 'bunny', 'network']
 
 const defaultSubTabs = {
     "markup": "factor",
@@ -41,22 +41,9 @@ function switchSubtab(tab, mode){
         if(tab==="upgrades") checkSpecialBUPs()
         if(tab==="hierarchies") checkSpecialHUPs()
 
-        if(tab==="overflow"){
-            DOM(`bp6Container`).style.display = hasAOMilestone(2) ? 'block' : 'none'
-        }
-
         if (tab==="upgrades" && data.boost.unlocks[1]) {
             updateBUPInfoText()
             DOM('chargeRefund').style.display = data.boost.unlocks[1] ? 'block' : 'none'
-        }
-
-        if(tab==="incrementy"){
-            DOM(`iupRow3`).style.display = hasAOMilestone(3) ? `flex` : `none`
-        }
-
-        if(tab==="overflow"){
-            DOM(`bp1Description`).innerText = `Multiplying Passive OP gain by`
-            DOM(`bp1Description2`).style.display = ''
         }
     }
 

@@ -64,18 +64,10 @@ function tick(diff){
     if(isRealmAutomationEnabled(1)) mockMarkup()
 
     // Automation Tier 2: Post-Collapse
-    if(hasSluggishMilestone(2) && getAutomationEnabled(1, 0)) sacrificeIncrementy() //Charge Autobuyer
+    if(hasSluggishMilestone(2) && getAutomationEnabled(1, 0)) buyCharge() //Charge Autobuyer
     if(hasSluggishMilestone(2) && getAutomationEnabled(1, 1)){ // Repeatable IUP Autobuyer
-        for (let i = 0; i < 100; i++) {
-            for (let i = 0; i < 3; i++) {
-                buyRUP(i)
-            }
-        }
-        if(hasAOMilestone(3)){
-            for (let i = 9; i < 12; i++) {
-                buyRUP(i)
-            }
-        }
+        for (let i = 0; i < 3; i++) for (let j = 0; j < 100; j++) buyRUP(i)
+        if(hasAOMilestone(3)) for (let i = 3; i < 6; i++) buyRUP(i)
     }
     if(hasSluggishMilestone(3) && getAutomationEnabled(1, 2)){ // Repeatable HUP Autobuyer
         for (let i = 0; i < data.hierarchies.rebuyableAmt.length; i++) {

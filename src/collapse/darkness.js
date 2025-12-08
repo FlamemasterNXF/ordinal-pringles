@@ -14,15 +14,37 @@ let depthUpgradeData = [
         text: 'Your best Entropy boosts your Stable Decrementy',
         sign: 'x',
         baseEffect: 1,
-        effect: () => 1+(Math.log10(Math.sqrt(data.darkness.bestEntropy+1) * getDepthUpgradeLevel(0)))/10
+        effect: () => 1+(Math.log10(Math.sqrt(data.darkness.bestEntropy+1) * getDepthUpgradeLevel(0)))/10,
+        target: 'Stable Decrementy'
     },
     {
         text: 'Cardinals provide free Light',
         sign: '+',
         baseEffect: 0,
-        effect: () => Decimal.floor(Decimal.log10(Decimal.sqrt(data.collapse.cardinals+1).times(getDepthUpgradeLevel(1)))).toNumber()
+        effect: () => Decimal.floor(Decimal.log10(Decimal.sqrt(data.collapse.cardinals+1).times(getDepthUpgradeLevel(1)))).toNumber(),
+        target: 'Light'
     },
 ]
+
+function initDarkness(){
+    for (let i = 0; i < dupData.length; i++) {
+        boostManager.register({
+            name: `DUP${i+1}`,
+            target: dupData[i].target,
+            sign: dupData[i].sign,
+            color: graphColors.decrementy,
+            effect: () => dupData[i].effect(),
+            shouldDisplay: () => getTotalDUPLevels(i) > 0
+        })
+        boostManager.register({
+            name: `DUP${i+1} Levels`,
+            target: `DUP${i+1}`,
+            color: graphColors.decrementy,
+            shouldDisplay: () => getTotalDUPLevels(i) > 0
+        })
+    }
+    initDepthUpgradeHTML()
+}
 
 function initDepthUpgradeHTML(){
     const container = DOM(`depthUpgradeContainer`)
@@ -32,6 +54,15 @@ function initDepthUpgradeHTML(){
         dup.id = `depthUpgrade${i}`
         container.appendChild(dup)
         updateDepthUpgradeHTML(i)
+
+        boostManager.register({
+            name: `Depth Upgrade ${i+1}`,
+            target: depthUpgradeData[i].target,
+            sign: depthUpgradeData[i].sign,
+            color: graphColors.decrementy,
+            effect: () => getDepthUpgradeEffect(i),
+            shouldDisplay: () => isDepthUpgradeUnlocked(i)
+        })
     }
 }
 
@@ -194,7 +225,7 @@ function negativeChargeGain(){
     if(!data.darkness.darkened || !data.darkness.negativeChargeEnabled) return 0
 
     const base = Math.max(0, Decimal.log10(data.chal.decrementy.plus(1))/5)
-    const mult = getEntropyEffect() * iup10Effect() * getRealmChallengeEffect(3)
+    const mult = getEntropyEffect() * getRUPEffect(3) * getRealmChallengeEffect(3)
 
     return base * mult
 }
@@ -235,21 +266,24 @@ let dupData = [
         sign: 'x',
         extraLevels: () => Math.floor(getNormalANREffect(2)),
         cost: ()=> D(65).pow(dupScaling(0)).div(getOverflowEffect(5)),
-        effect: ()=> isTabUnlocked('darkness') ? D(1.5).times(purificationEffect(0)).pow(getTotalDUPLevels(0)) : 1
+        effect: ()=> isTabUnlocked('darkness') ? D(1.5).times(purificationEffect(0)).pow(getTotalDUPLevels(0)) : 1,
+        target: 'All AutoBuyers'
     },
     {
         text: 'Double Dynamic Cap',
         sign: 'x',
-        extraLevels: () => Math.floor(iup11Effect()+getNormalANREffect(2)),
+        extraLevels: () => Math.floor(getRUPEffect(4)+getNormalANREffect(2)),
         cost: ()=> D(55).pow(dupScaling(1)).div(getOverflowEffect(5)),
-        effect: ()=> isTabUnlocked('darkness') ? D(2).pow(getTotalDUPLevels(1)) : 1
+        effect: ()=> isTabUnlocked('darkness') ? D(2).pow(getTotalDUPLevels(1)) : 1,
+        target: 'Dynamic Cap'
     },
     {
         text: `Multiply both Hierarchy Effect exponents`,
         sign: 'x',
         extraLevels: () => Math.floor(getNormalANREffect(2)),
         cost: ()=> D(300).pow(dupScaling(2)).div(getOverflowEffect(5)),
-        effect: ()=> isTabUnlocked('darkness') ? D(0.0175).times((getTotalDUPLevels(2)*2.75)**2).plus(1): 1
+        effect: ()=> isTabUnlocked('darkness') ? D(0.0175).times((getTotalDUPLevels(2)*2.75)**2).plus(1): 1,
+        target: ['FGH Effect Exponent', 'SGH Effect Exponent']
     }
 ]
 
@@ -326,3 +360,31 @@ function respecDrains(){
 
 let getExtraDUPLevels = (i) => dupData[i].extraLevels()
 let getTotalDUPLevels = (i) => data.darkness.levels[i]+getExtraDUPLevels(i)
+
+boostManager.register({
+    name: 'Stable Decrementy',
+    target: 'Light',
+    color: graphColors.decrementy,
+    shouldDisplay: () => isTabUnlocked('darkness'),
+})
+boostManager.register({
+    name: 'Light',
+    target: 'Entropy',
+    color: graphColors.decrementy,
+    shouldDisplay: () => isTabUnlocked('darkness'),
+})
+
+boostManager.register({
+    name: 'Entropy',
+    target: 'Negative Charge',
+    sign: 'x',
+    color: graphColors.decrementy,
+    effect: () => getEntropyEffect(),
+    shouldDisplay: () => isTabUnlocked('darkness')
+})
+
+boostManager.register({
+    name: 'Negative Charge',
+    color: graphColors.decrementy,
+    shouldDisplay: () => isTabUnlocked('darkness'),
+})

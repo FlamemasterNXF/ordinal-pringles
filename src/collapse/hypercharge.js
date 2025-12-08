@@ -6,6 +6,7 @@ let hyperChargeUpgradeData = [
         effect: () => data.incrementy.totalCharge + 1,
         baseEffect: () => 1,
         cost: 10,
+        target: 'Cardinals'
     },
     {
         description: "The 7th Cardinal Upgrade applies to the Total ℵ Effect",
@@ -13,6 +14,7 @@ let hyperChargeUpgradeData = [
         effect: () => getCUPEffect(6),
         baseEffect: () => 1,
         cost: 10,
+        target: 'All Alephs'
     },
     {
         description: "Negative Charge now boosts Incrementy Gain and no longer reduces its effect",
@@ -28,6 +30,7 @@ let hyperChargeUpgradeData = [
         effect: () => Math.max(1, Math.floor(Math.sqrt(data.incrementy.totalCharge)/1.5)),
         baseEffect: () => 1,
         cost: 12,
+        target: 'IUP4'
     },
     {
         description: "Boosters boost Hierarchy Effects",
@@ -35,13 +38,15 @@ let hyperChargeUpgradeData = [
         effect: () => data.boost.amt + 1,
         baseEffect: () => 1,
         cost: 12,
+        target: ['FGH Effect', 'SGH Effect'],
     },
     {
         description: "RUP2 now applies to Dynamic Cap, but at a reduced rate",
         sign: 'x',
-        effect: () => Decimal.max(1, Decimal.sqrt(iupEffects[1]())),
+        effect: () => Decimal.max(1, Decimal.sqrt(getRUPEffect(1))),
         baseEffect: () => 1,
         cost: 12,
+        target: 'Dynamic Cap'
     },
 
     {
@@ -50,6 +55,7 @@ let hyperChargeUpgradeData = [
         effect: () => Math.log2(Math.sqrt(data.incrementy.totalCharge+1))/10,
         baseEffect: () => 0,
         cost: 12,
+        target: 'Entropy'
     },
     {
         description: "Cardinals reduce Drain costs",
@@ -64,6 +70,7 @@ let hyperChargeUpgradeData = [
         effect: () => Math.max(1, Math.log2(data.darkness.negativeCharge+1)),
         baseEffect: () => 1,
         cost: 12,
+        target: 'All Alephs'
     },
 
     {
@@ -72,6 +79,7 @@ let hyperChargeUpgradeData = [
         effect: () => Decimal.log10(1e100).div(150).toNumber(),
         baseEffect: () => 0,
         cost: 24,
+        target: 'Overcharge'
     },
     {
         description: "Negative Charge boosts ℵ<sub>0</sub> gain",
@@ -79,6 +87,7 @@ let hyperChargeUpgradeData = [
         effect: () => Math.max(1, Math.pow(data.darkness.negativeCharge, 1/6)),
         baseEffect: () => 1,
         cost: 24,
+        target: 'ℵ0'
     },
     {
         description: "Your highest Darkness Depth boosts Stable Decrementy",
@@ -86,6 +95,7 @@ let hyperChargeUpgradeData = [
         effect: () => data.darkness.bestDepth,
         baseEffect: () => 1,
         cost: 24,
+        target: "Stable Decrementy"
     },
 
     {
@@ -94,6 +104,7 @@ let hyperChargeUpgradeData = [
         effect: () => Math.max(1, Math.sqrt(data.darkness.negativeCharge)),
         baseEffect: () => 1,
         cost: 100,
+        target: ['FGH Effect', 'SGH Effect']
     },
     {
         description: "Reduce the Base in the Forgotten Realm by 15 for every ℶ<sub>&omega;</sub> Milestone obtained",
@@ -101,6 +112,7 @@ let hyperChargeUpgradeData = [
         effect: () => 15*checkAllIndexes(aomArray(), true),
         baseEffect: () => 0,
         cost: 100,
+        target: 'Ordinal Base'
     },
     {
         description: "ℵ<sub>&omega;</sub> enhances the Pringle Purity of each Point",
@@ -218,6 +230,17 @@ function initHyperchargeHTML(){
             upgrade.onclick = () => buyHypercharge(index)
             upgrade.onmouseenter = () => previewHyperchargeEffectHTML(index, true)
             upgrade.onmouseleave = () => previewHyperchargeEffectHTML(index, false)
+
+            if(hyperChargeUpgradeData[index].target !== undefined){
+                boostManager.register({
+                    name: `Hypercharge ${j+1}x${i+1}`,
+                    target: hyperChargeUpgradeData[index].target,
+                    sign: hyperChargeUpgradeData[index].sign,
+                    color: graphColors.hypercharge,
+                    effect: () => getHyperchargeEffect(index),
+                    shouldDisplay: () => hasHypercharge(index)
+                })
+            }
 
             updateHyperChargeTextHTML(index, 'Upgrade', upgrade)
             row.appendChild(upgrade)

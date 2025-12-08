@@ -86,9 +86,6 @@
     #ordNav{
         border-left: 1px solid gray;
     }
-    #settingsNav{
-        border-bottom-right-radius: 0;
-    }
 
     #obliterateButton{
         width: 50%;

@@ -48,9 +48,9 @@ function updateAllChalHTML(){
 }
 function updateChalHTML(i){
     DOM(`chal${i}`).className = data.chal.active[i] ? 'activeChallenge' : data.chal.completions[i] === 3 ? 'completeChallenge' : 'challenge'
-    DOM(`chal${i}`).innerHTML = `Challenge ${i+1}<br>${chalDesc[i]}<br><br>Goal: ${format(chalGoals[i][data.chal.completions[i]])} OP<br>Reward: Factor ${i+1} slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[i]}/3`
-    DOM(`chal1`).innerHTML = `Challenge 2<br>${chalDesc[1]}<br><br>Goal: ${data.chal.completions[1] === 3 ? 'Infinity' : ordinalDisplay('', chalGoals[1][data.chal.completions[1]], 0, 3, data.ord.trim, true, true)}<br>Reward: Factor 2 slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[1]}/3`
-    DOM(`chal7`).innerHTML = `Challenge 8<br>${chalDesc[7]}<br><br>Goal: ${format(chalGoals[7][data.chal.completions[7]])} OP<br>Reward: Dynamic Factor slightly boosts Tier 2 Automation<br>Completions: ${data.chal.completions[7]}/3`
+    DOM(`chal${i}`).innerHTML = `Challenge ${i+1}<br>${chalDesc[i]}<br><br>Goal: ${format(chalGoals[i][data.chal.completions[i]])} OP<br>Reward: Factor ${i+1} slightly boosts AutoBuyers<br>Completions: ${data.chal.completions[i]}/3`
+    DOM(`chal1`).innerHTML = `Challenge 2<br>${chalDesc[1]}<br><br>Goal: ${data.chal.completions[1] === 3 ? 'Infinity' : ordinalDisplay('', chalGoals[1][data.chal.completions[1]], 0, 3, data.ord.trim, true, true)}<br>Reward: Factor 2 slightly boosts AutoBuyers<br>Completions: ${data.chal.completions[1]}/3`
+    DOM(`chal7`).innerHTML = `Challenge 8<br>${chalDesc[7]}<br><br>Goal: ${format(chalGoals[7][data.chal.completions[7]])} OP<br>Reward: Dynamic Factor slightly boosts AutoBuyers<br>Completions: ${data.chal.completions[7]}/3`
 }
 
 function chalControl(i){
@@ -133,3 +133,12 @@ function getTotalChallengeCompletions(){
     }
     return total
 }
+
+boostManager.register({
+    name: `All Challenges`,
+    target: 'All AutoBuyers',
+    sign: 'x',
+    color: graphColors.challenge,
+    effect: () => chalEffectTotal(),
+    shouldDisplay: () => isTabUnlocked('chal')
+})

@@ -156,3 +156,16 @@ function fsReset(){
         data.factors[i] = 0
     }
 }
+
+boostManager.register({
+    name: 'Factor Shifts',
+    target: 'Ordinal Base',
+    sign: '-',
+    color: graphColors.factorShift,
+    effect: () => data.markup.shifts
+})
+boostManager.register({
+    name: 'Ordinal Base',
+    target: 'Ordinal',
+    color: graphColors.ordinal
+})

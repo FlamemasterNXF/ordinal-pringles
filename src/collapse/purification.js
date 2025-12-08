@@ -4,7 +4,8 @@ const purificationData = [
         alt: "Eternal",
         desc: "Each Factor Boost yields only one Booster and Darkness Upgrades are useless",
         boostDesc: "Boosting the effect base of the first Darkness Upgrade by",
-        eff: () => (1+data.omega.bestFBInPurification[0]/1000)
+        eff: () => (1+data.omega.bestFBInPurification[0]/1000),
+        networkTarget: ['ℶω', 'DUP1']
     },
     {
         name: "Infinity",
@@ -12,7 +13,8 @@ const purificationData = [
         desc: "Alephs except ℵ<sub>1</sub> are useless, Dynamic Factor divides AutoBuyer speed, and RUP2, RUP3, and IUP3 are disabled",
         boostDesc: "Boosting ℵ<sub>1</sub>, ℵ<sub>2</sub>, and ℵ<sub>8</sub> by",
         eff: () => Math.sqrt(data.omega.bestFBInPurification[1]),
-        special: () => inPurification(1) ? data.dy.level : D(1)
+        special: () => inPurification(1) ? data.dy.level : D(1),
+        networkTarget: ['ℶω', 'ℵ1', 'ℵ2', 'ℵ8']
     },
     {
         name: "Obscurity",
@@ -20,13 +22,15 @@ const purificationData = [
         desc: "Your Markup AutoBuyer is equivalent to your FGH successor, your Hierarchies cannot grow, and Charge boosts FGH Successor",
         boostDesc: "Boosting Overcharge gain, Booster Power gain, and both Hierarchy Successors by",
         eff: () => data.omega.bestFBInPurification[2]/10,
+        networkTarget: ['ℶω', 'Overcharge', 'Booster Power', 'Hierarchy Gain']
     },
     {
         name: "Inferiority",
         alt: "Inferior",
         desc: "Incrementy, its upgrades, and Hierarchies are disabled, and Charge cannot be used",
         boostDesc: "Boosting the first and fifth Cardinal Upgrade by",
-        eff: () => ((data.omega.bestFBInPurification[3]))*getAOREffect(5)
+        eff: () => ((data.omega.bestFBInPurification[3]))*getAOREffect(5),
+        networkTarget: ['ℶω', 'CUP1', 'CUP5']
     }
 ]
 const aoRebuyableData = [
@@ -36,7 +40,8 @@ const aoRebuyableData = [
         costBase: 50,
         symbol: 'x',
         req: () => true,
-        extraLevels: () => getNormalANREffect(3, true)
+        extraLevels: () => getNormalANREffect(3, true),
+        target: 'ℶω'
     },
     {
         desc: "Boost ℵ<sub>&omega;</sub> gain",
@@ -44,7 +49,8 @@ const aoRebuyableData = [
         costBase: 25,
         symbol: 'x',
         req: () => true,
-        extraLevels: () => 0
+        extraLevels: () => 0,
+        target: 'ℵω'
     },
     {
         desc: "ℵ<sub>&omega;</sub> divides Dynamic Factor gain while Purification of Infinity is active",
@@ -52,7 +58,8 @@ const aoRebuyableData = [
         costBase: 125,
         symbol: '/',
         req: () => inPurification(1),
-        extraLevels: () => getNormalANREffect(3, true)
+        extraLevels: () => getNormalANREffect(3, true),
+        target: 'Dynamic Gain'
     },
     {
         desc: "Double the amount of Boosters gained in an Eternal Boost",
@@ -60,7 +67,8 @@ const aoRebuyableData = [
         costBase: 150,
         symbol: 'x',
         req: () => inPurification(0),
-        extraLevels: () => getNormalANREffect(3, true)+getEUPEffect(2, 6, true)
+        extraLevels: () => getNormalANREffect(3, true)+getEUPEffect(2, 6, true),
+        target: 'Boosters'
     },
     {
         desc: "ℵ<sub>&omega;</sub> multiplies AutoBuyer speed while Purification of Obscurity or Inferiority are active",
@@ -68,7 +76,8 @@ const aoRebuyableData = [
         costBase: 200,
         symbol: 'x',
         req: () => inPurification(2) || inPurification(3),
-        extraLevels: () => getNormalANREffect(3, true)
+        extraLevels: () => getNormalANREffect(3, true),
+        target: 'All AutoBuyers'
     },
     {
         desc: "ℵ<sub>&omega;</sub> boosts Purification of Inferiority's effects",
@@ -76,7 +85,8 @@ const aoRebuyableData = [
         costBase: 400,
         symbol: 'x',
         req: () => true,
-        extraLevels: () => 0
+        extraLevels: () => 0,
+        target: 'Inferiority'
     },
     {
         desc: "ℵ<sub>&omega;</sub> boosts the second BUP in the second column",
@@ -84,7 +94,8 @@ const aoRebuyableData = [
         costBase: 300,
         symbol: 'x',
         req: () => true,
-        extraLevels: () => 0
+        extraLevels: () => 0,
+        target: ['BUP2x2', 'Charged BUP2x2']
     },
     {
         desc: "Boost the last Cardinal Upgrade by +1%",
@@ -92,7 +103,8 @@ const aoRebuyableData = [
         costBase: 600,
         symbol: '+',
         req: () => true,
-        extraLevels: () => 0
+        extraLevels: () => 0,
+        target: 'CUP8'
     },
 ]
 const aoMilestoneData = [
@@ -121,11 +133,13 @@ const aoMilestoneData = [
 const aoEffectData = [
     {
         target: 'AutoBuyer speed',
-        effect: () => data.omega.alephOmega*getEUPEffect(2, 0, true)
+        effect: () => data.omega.alephOmega*getEUPEffect(2, 0, true),
+        networkTarget: 'All AutoBuyers'
     },
     {
         target: 'ℵ<sub>0</sub> gain',
-        effect: () => Math.sqrt(data.omega.alephOmega)*getEUPEffect(2, 0, false)
+        effect: () => Math.sqrt(data.omega.alephOmega)*getEUPEffect(2, 0, false),
+        networkTarget: 'ℵ0'
     },
     {
         target: 'Incrementy gain',
@@ -135,7 +149,8 @@ const aoEffectData = [
             if(data.omega.alephOmega <= 2000) return data.omega.alephOmega**exponent
             else return limit**exponent + limit*(data.omega.alephOmega-limit)
         },
-        unlock: () => hasAOMilestone(2)
+        unlock: () => hasAOMilestone(2),
+        networkTarget: 'Incrementy Gain'
     }
 ]
 
@@ -143,6 +158,7 @@ function initPurification(){
     initPurifications()
     initAORebuyables()
     initAOMilestones()
+    initAOEffects()
 }
 function initPurifications(){
     const container = DOM('purificationContainer')
@@ -153,6 +169,15 @@ function initPurifications(){
         el.addEventListener("click", ()=>enterPurification(i))
         container.append(el)
         updatePurificationHTML(i)
+
+        boostManager.register({
+            name: purificationData[i].name,
+            target: purificationData[i].networkTarget,
+            sign: 'x',
+            color: graphColors.purification,
+            effect: () => purificationEffect(i),
+            shouldDisplay: () => isTabUnlocked('purification')
+        })
     }
 }
 function initAORebuyables(){
@@ -173,6 +198,14 @@ function initAORebuyables(){
     }
     for (let i = 0; i < data.omega.aoRebuyables.length; i++) {
         updateAORHTML(i)
+        boostManager.register({
+            name: `ℵω Rebuyable ${i+1}`,
+            target: aoRebuyableData[i].target,
+            sign: aoRebuyableData[i].symbol,
+            color: graphColors.purification,
+            effect: () => getAOREffect(i),
+            shouldDisplay: () => isTabUnlocked('purification')
+        })
     }
 }
 function initAOMilestones(){
@@ -193,6 +226,18 @@ function initAOMilestones(){
         container.append(row)
     }
     updateAllAOMHTML()
+}
+function initAOEffects(){
+    for (let i = 0; i < aoEffectData.length; i++) {
+        boostManager.register({
+            name: `ℵω Effect ${i+1}`,
+            target: aoEffectData[i].networkTarget,
+            sign: 'x',
+            color: graphColors.purification,
+            effect: () => getAOEffect(i),
+            shouldDisplay: () => isTabUnlocked('purification')
+        })
+    }
 }
 
 function makeAOEffectText(){
@@ -319,3 +364,25 @@ let getAORCost = (i) => ((aoRebuyableData[i].costBase/100+1)**data.omega.aoRebuy
 let getAORLevel = (i) => data.omega.aoRebuyables[i] + aoRebuyableData[i].extraLevels()
 let getAOMEffect = (i) => Math.max(1, aoMilestoneData[i].eff())
 let aomArray = () => [hasAOMilestone(0), hasAOMilestone(1), hasAOMilestone(2), hasAOMilestone(3), hasAOMilestone(4)]
+
+boostManager.register({
+    name: 'ℶω',
+    target: 'ℵω',
+    sign: '+/s',
+    color: graphColors.purification,
+    effect: () => aoGain(),
+    shouldDisplay: () => isTabUnlocked('purification')
+})
+boostManager.register({
+    name: 'ℵω Cap',
+    target: 'ℵω',
+    sign: 'MAX: ',
+    color: graphColors.purification,
+    effect: () => alephOmegaCap(),
+    shouldDisplay: () => isTabUnlocked('purification')
+})
+boostManager.register({
+    name: 'ℵω',
+    color: graphColors.purification,
+    shouldDisplay: () => isTabUnlocked('purification')
+})

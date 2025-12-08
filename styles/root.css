@@ -198,10 +198,8 @@
     --booster-power-effect-text-secondary-color: #00FFFFFF;
     --overcharge-effect-text-secondary-color: #DAA520FF;
 
-    --booster-power-gain-text-primary-color: #FFFFFFFF;
-    --booster-power-gain-text-secondary-color: #00FFFFFF;
-    --overcharge-gain-text-primary-color: #FFFFFFFF;
-    --overcharge-gain-text-secondary-color: #DAA520FF;
+    --booster-power-text-color: #00FFFFFF;
+    --overcharge-text-color: #DAA520FF;
 
     --booster-power-total-text-color: #8080FF;
     --overcharge-total-text-color: #DA8920FF;

@@ -31,7 +31,7 @@ function updateHUPHTML(i){
 }
 
 function initHierarchies(){
-    // Buyabless
+    // Rebuyables
     let columns = [DOM('h0Buyables'), DOM('h1Buyables')]
     let total = 0
     for (let i = 0; i < columns.length; i++) {
@@ -71,6 +71,28 @@ function initHierarchies(){
 
     for (let i = 0; i < hbData.length; i++) {
         DOM(`hb${i}`).addEventListener('click', ()=>buyHBuyable(i))
+        boostManager.register({
+            name: `HUP${Math.floor(i/3)+1}x${(i%3)+1}`,
+            target: hbData[i].target,
+            sign: 'x',
+            color: graphColors.hierarchy,
+            effect: () => hbData[i].effect(),
+            shouldDisplay: () => data.hierarchies.rebuyableAmt[i] > 0
+        })
+    }
+
+    for (let i = 0; i < hupData.length; i++) {
+        if(hupData[i].excluded) continue
+        const type = i > 4 ? 'SGH' : 'FGH'
+        const id = (i % 5) + 1
+        boostManager.register({
+            name: `${type} Milestone ${id}`,
+            target: hupData[i].target,
+            sign: hupData[i].sign,
+            color: graphColors.hierarchy,
+            effect: () => hupData[i].effect(),
+            shouldDisplay: () => data.hierarchies.hasUpgrade[id]
+        })
     }
 }
 
@@ -103,42 +125,110 @@ let hbData = [
     {
         text:"Boost FGH and SGH gain based on Challenge Completions",
         cost: ()=> getHBBuyableCost(0),
-        effect: ()=> Math.max(1, Math.sqrt(data.chal.totalCompletions+1)*data.hierarchies.rebuyableAmt[0])
+        effect: ()=> Math.max(1, Math.sqrt(data.chal.totalCompletions+1)*data.hierarchies.rebuyableAmt[0]),
+        target: 'Hierarchy Gain',
     },
     {
         text:"Boost FGH effect based on Challenge Completions",
         cost: ()=> getHBBuyableCost(1),
-        effect: ()=> Math.max(1, Math.log10(data.chal.totalCompletions+1)*data.hierarchies.rebuyableAmt[1])
+        effect: ()=> Math.max(1, Math.log10(data.chal.totalCompletions+1)*data.hierarchies.rebuyableAmt[1]),
+        target: 'FGH Effect',
     },
     {
         text:"Boost Incrementy Upgrade 3\'s effect based on FGH",
         cost: ()=> getHBBuyableCost(2),
-        effect: ()=> Decimal.max(1, Decimal.pow(data.hierarchies.ords[0].ord.plus(1), 1/16).times(data.hierarchies.rebuyableAmt[2])) },
+        effect: ()=> Decimal.max(1, Decimal.pow(data.hierarchies.ords[0].ord.plus(1), 1/16).times(data.hierarchies.rebuyableAmt[2])),
+        target: 'IUP3'
+    },
     {
         text:"Boost FGH and SGH gain based on Total Boosters",
         cost: ()=> getHBBuyableCost(3),
-        effect: ()=> Math.max(1, Math.sqrt((data.boost.total+1)/20)*data.hierarchies.rebuyableAmt[3]) },
+        effect: ()=> Math.max(1, Math.sqrt((data.boost.total+1)/20)*data.hierarchies.rebuyableAmt[3]),
+        target: 'Hierarchy Gain'
+    },
     {
         text:"Boost SGH effect based on Challenge Completions",
         cost: ()=> getHBBuyableCost(4),
-        effect: ()=> Math.max(1, Math.log10(data.chal.totalCompletions+1)*data.hierarchies.rebuyableAmt[4]) },
+        effect: ()=> Math.max(1, Math.log10(data.chal.totalCompletions+1)*data.hierarchies.rebuyableAmt[4]),
+        target: 'SGH Effect'
+    },
     {
         text:"Boost Incrementy Upgrade 3\'s effect based on SGH",
         cost: ()=> getHBBuyableCost(5),
-        effect: ()=> Decimal.max(1, Decimal.pow(data.hierarchies.ords[1].ord.plus(1), 1/16).times(data.hierarchies.rebuyableAmt[5])) }
+        effect: ()=> Decimal.max(1, Decimal.pow(data.hierarchies.ords[1].ord.plus(1), 1/16).times(data.hierarchies.rebuyableAmt[5])),
+        target: 'IUP3'
+    }
 ]
 let hupData = [
     // Effcects of 1 mean that it is a true/false effect.
-    { text:"The Challenge Boost is Improved", cost: 1e10, effect: ()=> data.hierarchies.hasUpgrade[0] ? 2*hupData[8].effect() : 1 },
-    { text:"IUP6 is Improved", cost: 1e20, effect: ()=> 1 },
-    { text:"BUP1x4 boosts Hierarchy gain", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[2] ? getBUPEffect(3)**2 : 1 },
-    { text:"If BUP 2x1 and 3x1 are Supercharged their effects stack", cost: 1e40, effect: ()=> 1},
-    { text:"BUP2x1 and 3x1 slightly increase the Decrementy gain exponent", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[4] ? getBUPEffect(5)/100 : 0 },
-    { text:"Total Charge Boosts AutoBuyers", cost: 1e10, effect: ()=> data.hierarchies.hasUpgrade[5] ? Math.max(1, data.incrementy.totalCharge/2)*hupData[8].effect() : 1 },
-    { text:"IUP2 is Improved", cost: 1e20, effect: ()=> 1 },
-    { text:"BUP2x4 boosts Hierarchy gain", cost: 1e30, effect: ()=> data.hierarchies.hasUpgrade[7] ? getBUPEffect(8)**3 : 1 },
-    { text:"Each Drain boosts the first Hierarchy Upgrade of each column", cost: 1e40, effect: ()=> data.hierarchies.hasUpgrade[8] ?  Math.max(1, Math.sqrt(data.darkness.totalDrains)) : 1 },
-    { text:"The final Hierarchy Buyable of each column's boosts the ℵ<sub>5</sub> and ℵ<sub>8</sub> effects", cost: 1e50, effect: ()=> data.hierarchies.hasUpgrade[9] ? (hbData[2].effect().plus(hbData[5].effect())).toNumber() : 1 },
+    {
+        text:"The Challenge Boost is Improved",
+        cost: 1e10,
+        effect: ()=> data.hierarchies.hasUpgrade[0] ? 2*hupData[8].effect() : 1,
+        target: 'All Challenges',
+        sign: 'x'
+    },
+    {
+        text:"IUP6 is Improved",
+        cost: 1e20,
+        effect: ()=> 1,
+        excluded: true
+    },
+    {
+        text:"BUP1x4 boosts Hierarchy gain",
+        cost: 1e30,
+        effect: ()=> data.hierarchies.hasUpgrade[2] ? getBUPEffect(3)**2 : 1,
+        target: 'Hierarchy Gain',
+        sign: 'x'
+    },
+    {
+        text:"If BUP 2x1 and 3x1 are Supercharged their effects stack",
+        cost: 1e40,
+        effect: ()=> 1,
+        excluded: true
+    },
+    {
+        text:"BUP2x1 and 3x1 slightly increase the Decrementy gain exponent",
+        cost: 1e50,
+        effect: ()=> data.hierarchies.hasUpgrade[4] ? getBUPEffect(5)/100 : 0,
+        target: 'Decrementy Exponent',
+        sign: '+'
+    },
+
+    {
+        text:"Total Charge Boosts AutoBuyers",
+        cost: 1e10,
+        effect: ()=> data.hierarchies.hasUpgrade[5] ? Math.max(1, data.incrementy.totalCharge/2)*hupData[8].effect() : 1,
+        target: 'All AutoBuyers',
+        sign: 'x'
+    },
+    {
+        text:"IUP2 is Improved",
+        cost: 1e20,
+        effect: ()=> 1,
+        excluded: true
+    },
+    {
+        text:"BUP2x4 boosts Hierarchy gain",
+        cost: 1e30,
+        effect: ()=> data.hierarchies.hasUpgrade[7] ? getBUPEffect(8)**3 : 1,
+        target: 'Hierarchy Gain',
+        sign: 'x'
+    },
+    {
+        text:"Each Drain boosts the first Hierarchy Milestone of each column",
+        cost: 1e40,
+        effect: ()=> data.hierarchies.hasUpgrade[8] ?  Math.max(1, Math.sqrt(data.darkness.totalDrains)) : 1,
+        target: ['FGH Milestone 1', 'SGH Milestone 1'],
+        sign: 'x'
+    },
+    {
+        text:"The final Hierarchy Buyable of each column's boosts the ℵ<sub>5</sub> and ℵ<sub>8</sub> effects",
+        cost: 1e50,
+        effect: ()=> data.hierarchies.hasUpgrade[9] ? (hbData[2].effect().plus(hbData[5].effect())).toNumber() : 1,
+        target: ['ℵ5', 'ℵ8'],
+        sign: '+'
+    },
 ]
 
 function increaseHierarchies(diff){
@@ -238,3 +328,46 @@ function checkHierarchyMilestones(){
         unlockHierarchyMilestones(i)
     }
 }
+
+boostManager.register({
+    name: 'Hierarchy Bases',
+    target: 'Hierarchy Gain',
+    color: graphColors.hierarchy,
+    shouldDisplay: () => isTabUnlocked('hierarchies')
+})
+boostManager.register({
+    name: 'Hierarchy Gain',
+    target: ['FGH Effect', 'SGH Effect'],
+    color: graphColors.hierarchy,
+    shouldDisplay: () => isTabUnlocked('hierarchies')
+})
+boostManager.register({
+    name: 'FGH Effect Exponent',
+    target: 'FGH Effect',
+    color: graphColors.hierarchy,
+    shouldDisplay: () => isTabUnlocked('hierarchies')
+})
+boostManager.register({
+    name: 'SGH Effect Exponent',
+    target: 'SGH Effect',
+    color: graphColors.hierarchy,
+    shouldDisplay: () => isTabUnlocked('hierarchies')
+})
+
+boostManager.register({
+    name: 'FGH Effect',
+    target: 'Incrementy Gain',
+    sign: 'x',
+    color: graphColors.hierarchy,
+    shouldDisplay: () => isTabUnlocked('hierarchies'),
+    effect: () => getHierarchyEffect(0)
+})
+boostManager.register({
+    name: 'SGH Effect',
+    target: 'Charge Requirement',
+    sign: '/',
+    color: graphColors.hierarchy,
+    shouldDisplay: () => isTabUnlocked('hierarchies'),
+    effect: () => getHierarchyEffect(1)
+})
+

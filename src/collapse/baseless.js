@@ -24,13 +24,15 @@ const metaANBuyableData = [
         baseEffect: () => D(1),
         freeLevels: () => getEUPEffect(1, 1, true),
         cost: () => 1e6**data.baseless.metaANR[0]*1e6,
+        target: ['Realm Enhancement 1', 'Realm Enhancement 2', 'Realm Enhancement 3']
     },
     {
         desc: "Total Baseless Boosters boost AutoClicker speed",
         sign: '^',
         effect: () => D(1).plus(Decimal.log10((data.baselessRealm.total+1)/100).times(getANRLevel(1, 'meta'))),
         baseEffect: () => D(1),
-        cost: () => 1e5**data.baseless.metaANR[1]*1e5
+        cost: () => 1e5**data.baseless.metaANR[1]*1e5,
+        target: 'All AutoClickers'
     },
 ]
 
@@ -40,27 +42,31 @@ const normalANBuyableData = [
         sign: '+',
         effect: () => D(0.1*getANRLevel(0, 'normal')),
         cost: () => 1e4**data.baseless.normalANR[0]*1e4,
+        target: 'Decrementy Exponent'
     },
     {
         desc: "Increase the RUP1 effect base",
         sign: '+',
         effect: () => D(getANRLevel(1, 'normal')),
         freeLevels: () => getPringleEffect(5, true),
-        cost: () => 50**data.baseless.normalANR[1]
+        cost: () => 50**data.baseless.normalANR[1],
+        target: 'RUP1'
     },
     {
         desc: "Gain a free level of every Darkness Rebuyable",
         sign: '+',
         effect: () => D(getANRLevel(2, 'normal')),
         freeLevels: () => getPringleEffect(5, true),
-        cost: () => 1e3**data.baseless.normalANR[2]*1e3
+        cost: () => 1e3**data.baseless.normalANR[2]*1e3,
+        target: ['DUP1 Levels', 'DUP2 Levels', 'DUP3 Levels']
     },
     {
         desc: "Gain a free level of the 1st, 3rd, 4th, and 5th ℵ<sub>&omega;</sub> Rebuyables",
         sign: '+',
         effect: () => D(getANRLevel(3, 'normal')),
         unlockReq: () => hasAOMilestone(4),
-        cost: () => 2e6**data.baseless.normalANR[3]*2e6
+        cost: () => 2e6**data.baseless.normalANR[3]*2e6,
+        target: ['ℵω Rebuyable 1', 'ℵω Rebuyable 3', 'ℵω Rebuyable 4', 'ℵω Rebuyable 5']
     },
 ]
 
@@ -82,7 +88,7 @@ const alephNullEffectData = [
         sign: 'x',
         effect: () => customRoot(data.baseless.alephNull, 4),
         baseEffect: () => 1,
-        unlockReq: () => hasAOMilestone(4)
+        unlockReq: () => hasAOMilestone(4),
     },
 ]
 
@@ -118,6 +124,15 @@ function initANRebuyables(){
         el.innerHTML = makeANRText(i, 'meta')
         el.addEventListener("click", ()=>buyANR(i, 'meta'))
         metaContainer.append(el)
+
+        boostManager.register({
+            name: `ℵ0 Rebuyable ${i+1}`,
+            target: metaANBuyableData[i].target,
+            sign: metaANBuyableData[i].sign,
+            color: graphColors.baseless,
+            effect: () => getANREffect(i, 'meta', false),
+            shouldDisplay: () => data.baseless.metaANR[i] > 0
+        })
     }
     for (let i = 0; i < normalANBuyableData.length; i++) {
         let el = document.createElement('button')
@@ -126,8 +141,39 @@ function initANRebuyables(){
         el.innerHTML = makeANRText(i, 'normal')
         el.addEventListener("click", ()=>buyANR(i, 'normal'))
         normalContainer.append(el)
+
+        boostManager.register({
+            name: `ℵ0 Rebuyable ${i+3}`,
+            target: normalANBuyableData[i].target,
+            sign: normalANBuyableData[i].sign,
+            color: graphColors.baseless,
+            effect: () => getANREffect(i, 'normal', false),
+            shouldDisplay: () => data.baseless.normalANR[i] > 0
+        })
+    }
+}
+
+function initBaselessness(){
+    for (let i = 0; i < realmEnhancementData.length; i++) {
+        boostManager.register({
+            name: `Realm Enhancement ${i+1}`,
+            target: 'All AutoClickers',
+            sign: 'x',
+            color: graphColors.baseless,
+            effect: () => getRealmEnhancement(i),
+            shouldDisplay: () => isTabUnlocked('baseless')
+        })
     }
 
+    boostManager.register({
+        name: `ℵ0`,
+        target: ['All Alephs', 'Hierarchy Gain'],
+        sign: 'x',
+        color: graphColors.baseless,
+        shouldDisplay: () => isTabUnlocked('baseless')
+    })
+
+    initANRebuyables()
     initBaselessRealm()
 }
 

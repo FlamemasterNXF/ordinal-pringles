@@ -6,6 +6,7 @@
         cost: Number
         effect: Decimal()
         baseEffect?: Number (defaults to 1)
+        target?: string
 
         isUnlock?: True
 
@@ -20,6 +21,7 @@ const energyUpgradeData = [
             sign: 'x',
             cost: 0,
             effect: () => D(10).pow(data.obliterate.times),
+            target: 'All AutoBuyers'
         }
     ],
     [
@@ -29,12 +31,14 @@ const energyUpgradeData = [
             cost: 1,
             effect: () => D(data.obliterate.times*2),
             baseEffect: 0,
+            target: 'Decrementy Exponent'
         },
         {
             desc: 'Total Fractal Energy provides free levels of the first ℵ<sub>0</sub> Rebuyable',
             sign: '+',
             cost: 1,
             effect: () => Math.floor(Math.sqrt(data.obliterate.times)),
+            target: 'ℵ0 Rebuyable 1'
         },
         {
             desc: 'Total Fractal Energy is now a Realm Enhancement',
@@ -49,6 +53,7 @@ const energyUpgradeData = [
             cost: 1,
             effect: () => Math.floor(Math.log2(data.obliterate.times)),
             baseEffect: 0,
+            target: ['Depth Upgrade 1', 'Depth Upgrade 2']
         },
         {
             desc: 'If you have a Row Five Hypercharge, each Stable Hypercharge provides two free Drains',
@@ -62,6 +67,7 @@ const energyUpgradeData = [
             sign: '^',
             cost: 2,
             effect: () => getStableHyperchargeEffect(),
+            target: 'Cardinals',
 
             specialNodeReq: 105
         },
@@ -71,6 +77,7 @@ const energyUpgradeData = [
             cost: 2,
             effect: () => getStableHyperchargeEffect(),
             baseEffect: 0,
+            target: 'All AutoClickers',
 
             specialNodeReq: 105
         },
@@ -81,49 +88,57 @@ const energyUpgradeData = [
             sign: 'x',
             cost: 1,
             effect: () => D(data.obliterate.times+1),
+            target: 'ℵω Effect 1'
         },
         {
             desc: 'Total Fractal Energy boosts the ℵ<sub>ω</sub> cap',
             sign: 'x',
             cost: 1,
             effect: () => D(1).plus(data.obliterate.times/4),
+            target: 'ℵω Cap'
         },
         {
             desc: 'Total Fractal Energy boosts the second ℵ<sub>ω</sub> Effect',
             sign: 'x',
             cost: 1,
             effect: () => D(1).plus(data.obliterate.times/4),
+            target: 'ℵω Effect 2'
         },
         {
             desc: "While nothing is being Purified, ℵ<sub>ω</sub> Upgrades three to five provide a combined boost to AutoBuyers",
             sign: 'x',
             cost: 1,
             effect: () => D(getAOREffect(2)).plus(getAOREffect(3)).plus(getAOREffect(4)),
+            target: 'All AutoBuyers'
         },
         {
             desc: 'While the Obscure are being Purified, Total Fractal Energy boost the FGH Successor',
             sign: 'x',
             cost: 1,
             effect: () => D(data.obliterate.times).times(3),
+            target: 'Hierarchy Gain'
         },
         {
-            desc: 'While the Infinite are being Purified, Total Fractal Energy divide the Dynamic Factor',
+            desc: 'While the Infinite are being Purified, Total Fractal Energy divides Dynamic Factor Gain',
             sign: '/',
             cost: 1,
             effect: () => D(data.obliterate.times/2).plus(1),
+            target: 'Dynamic Gain'
         },
         {
-            desc: 'While the Eternal are being Purified, total Fractal Energy provides free levels of the fourth ℵ<sub>ω</sub> Upgrade',
+            desc: 'While the Eternal are being Purified, total Fractal Energy provides free levels of the fourth ℵ<sub>ω</sub> Rebuyable',
             sign: '+',
             cost: 2,
             effect: () => Decimal.floor(data.obliterate.times/2).plus(1),
             baseEffect: 0,
+            target: 'ℵω Rebuyable 4'
         },
         {
-            desc: 'While the Inferior are being Purified, total Fractal Energy greatly boosts the fifth ℵ<sub>ω</sub> Upgrade',
+            desc: 'While the Inferior are being Purified, total Fractal Energy greatly boosts the fifth ℵ<sub>ω</sub> Rebuyable',
             sign: 'x',
             cost: 2,
             effect: () => D(data.obliterate.times),
+            target: 'ℵω Rebuyable 5'
         },
         {
             desc: 'Cardinals provide free ℶ<sub>ω</sub>',
@@ -131,6 +146,7 @@ const energyUpgradeData = [
             cost: 3,
             effect: () => Decimal.log10(data.collapse.cardinals.plus(1)),
             baseEffect: 0,
+            target: 'ℶω'
         },
     ],
     [
@@ -139,24 +155,28 @@ const energyUpgradeData = [
             sign: 'x',
             cost: 1,
             effect: () => D(data.obliterate.times+1),
+            target: 'Pringle 2'
         },
         {
             desc: `Total Fractal Energy boosts the <span style="color: ${getCSSVariable('pringle-7-color')}">Crunchy Blue</span> Pringle`,
             sign: 'x',
             cost: 1,
             effect: () => D(10).pow(data.obliterate.times),
+            target: 'Pringle 7'
         },
         {
             desc: `Total Fractal Energy boosts the <span style='color: ${getCSSVariable('pringle-5-color')}'>Perfected Orange</span> Pringle`,
             sign: 'x',
             cost: 1,
             effect: () => D(data.obliterate.times/10).plus(1),
+            target: 'Pringle 5'
         },
         {
             desc: `Total Fractal Energy boosts the <span style='color: ${getCSSVariable('pringle-9-color')}'>Barbecue</span> Pringle`,
             sign: 'x',
             cost: 1,
             effect: () => D(10).pow(data.obliterate.times),
+            target: 'Pringle 9'
         },
         {
             desc: "Factor Boosts no longer reset ANYTHING and [COMING SOON]",
@@ -245,4 +265,22 @@ function purchaseEUP(id, node){
     data.obliterate.energyUpgrades.push(id)
     //if(data.obliterate.passiveEnergy + getTotalPassiveEnergyInvested() < getTotalFractalEnergyInvested(true)) data.obliterate.passiveEnergy += node.cost
     setNodeColor(id)
+}
+
+function registerEUPs(){
+    for (let i = 0; i < energyUpgradeData.length; i++) {
+        for (let j = 0; j < energyUpgradeData[i].length; j++) {
+            if(energyUpgradeData[i][j].target !== undefined){
+                const index = getTreeIDFromDataID(i, j)
+                boostManager.register({
+                    name: `EUP${index}`,
+                    target: energyUpgradeData[i][j].target,
+                    sign: energyUpgradeData[i][j].sign,
+                    color: graphColors.energyTree,
+                    effect: () => getEUPEffect(i, j),
+                    shouldDisplay: () => hasTreeUpgrade(index),
+                })
+            }
+        }
+    }
 }

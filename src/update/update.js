@@ -5,4 +5,5 @@ function updateHTML(){
     updateCollapseHTML()
     updateObliterateHTML()
     updateAdaptiveHTML()
+    if(data.nav.current === 'network') updateBoostGraph()
 }

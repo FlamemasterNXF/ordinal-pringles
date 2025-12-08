@@ -9,3 +9,28 @@ function decrementyGain() {
     const overflow = data.overflow.thirdEffect ? base.div(getOverflowEffect(2)) : base.times(getOverflowEffect(2))
     return (overflow).pow(20)
 }
+
+boostManager.register({
+    name: 'Decrementy Exponent',
+    target: 'Decrementy Gain',
+    sign: '^',
+    color: graphColors.decrementy,
+    effect: () => getDecrementyExponent(),
+    shouldDisplay: () => isTabUnlocked('chal'),
+})
+boostManager.register({
+    name: `Decrementy Gain`,
+    target: 'Decrementy',
+    sign: 'x/s',
+    color: graphColors.decrementy,
+    effect: () => decrementyGain(),
+    shouldDisplay: () => isTabUnlocked('chal'),
+})
+boostManager.register({
+    name: `Decrementy`,
+    target: ['All AutoClickers', 'Negative Charge', 'Stable Decrementy'],
+    sign: '/',
+    color: graphColors.decrementy,
+    effect: () => data.chal.decrementy,
+    shouldDisplay: () => isTabUnlocked('chal'),
+})

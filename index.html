@@ -40,6 +40,9 @@
     <script defer src="src/etc/features/universalExit.js"></script>
     <script defer src="src/etc/features/bunny.js"></script>
 
+    <script defer src="src/graph/boostManager.js"></script>
+    <script defer src="src/graph/boostGraph.js"></script>
+
     <script defer src="src/ordinal/ordinalDisplay.js"></script>
     <script defer src="src/ordinal/gwaifyOrdinal.js"></script>
     <script defer src="src/ordinal/ordColor.js"></script>
@@ -136,6 +139,7 @@
     <button class="tabButton" id="obliterateNav" alttext="Obliterate" onclick="switchTab('obliterate')"><span>Obliteration</span></button>
     <button class="minorTabButton tabButton" id="achNav" alttext="🏅" onclick="switchTab('ach')"><span>Achievements</span></button>
     <button class="minorTabButton tabButton" id="settingsNav" alttext="⚙️" onclick="switchTab('settings')"><span>Settings and Saving</span></button>
+    <button class="desktopOnly tabButton" id="networkNav" onclick="switchTab('network')">Boost Network</button>
 </div>
 <div id="game">
     <div id="ordinalContainer">
@@ -236,11 +240,8 @@
             <div class="centeredTexts" id="incrementyText">Incrementy</div>
             <p class="centeredTexts" id="dynamicText2">Hello Dog</p>
             <div class="centeredTexts" id="incrementyText2">The first row of upgrades are re-buyable.</div>
-            <div class="row flexBox" id="iupRow0"></div>
-            <div class="row flexBox" id="iupRow3"></div>
-            <div class="row flexBox" id="iupRow1"></div>
-            <div class="row flexBox" id="iupRow2"></div>
-            <button id="chargeButton" onclick="sacrificeIncrementy()">Jonas was here</button>
+            <div class="column flexBox" id="incrementyUpgradeContainer"></div>
+            <button id="chargeButton" onclick="buyCharge()">Jonas was here</button>
         </div>
         <div class="tab" id="hierarchiesSubPage">
             <div class="hierarchyContainer">
@@ -266,56 +267,8 @@
             </div>
         </div>
         <div class="tab" id="overflowSubPage">
-            <div class="row flexBox" style="margin-top: 1rem;">
-                <div class="centeredTexts" id="boosterText2">boosteeeeeeeee TWO</div>
-                <strong class="centeredTexts" id="boosterPower">boosteeeeeeeee
-                    [POWER]</strong>
-            </div>
-            <div class="row flexBox" style="margin-top: 0.1rem;">
-                <div class="centeredTexts" id="chargeText2">boosteeeeeeeee TWO TWO</div>
-                <strong class="centeredTexts" id="overCharge">boosteeeeeeeee [POWER] TWO</strong>
-            </div>
-
-            <div class="flexBox row" style="align-items: flex-start">
-                <div class="flexBox column">
-                    <strong class="centeredTexts" id="bpTotal">Booster Power is</strong>
-                    <div class="bpEffectContainer">
-                        <span class="primaryOverflowText"
-                              id="bp0Description">Multiplying the Challenge Boost to AutoBuyers by </span>
-                        <span class="overflowText" id="bp0Effect">1</span>
-                    </div>
-                    <div class="primaryOverflowText">
-                        <span class="generalTexts" id="bp1Description">Multiplying Passive OP gain by </span>
-                        <span class="overflowText" id="bp1Effect">1</span>
-                        <span class="generalTexts" id="bp1Description2">(based on your total OP multiplier)</span>
-                    </div>
-                    <div class="primaryOverflowText">
-                        <span class="generalTexts" id="bp2Description">Dividing Decrementy Gain by </span>
-                        <span class="overflowText" id="bp2Effect">1</span>
-                    </div>
-                    <div class="centeredTexts" id="boosterPowerHelp"><span id="bpHelpColorized">Excess Boosters</span> means all Boosters above 435</div>
-                </div>
-                <div class="flexBox column">
-                    <strong class="centeredTexts" id="ocTotal">Overcharge is</strong>
-                    <div class="bpEffectContainer">
-                        <span class="primaryOverchargeText" id="oc0Description">Multiplying Hierarchy Successor speed by </span>
-                        <span class="overchargeText" id="bp3Effect">1</span>
-                    </div>
-                    <div class="bpEffectContainer">
-                        <span class="primaryOverchargeText" id="oc1Description">Multiplying ALL Booster Power effects by </span>
-                        <span class="overchargeText" id="bp4Effect">1</span>
-                    </div>
-                    <div class="bpEffectContainer" id="bp5Container" style="display:none">
-                        <span class="primaryOverchargeText">Dividing Darkness Upgrade costs by </span>
-                        <span class="overchargeText" id="bp5Effect">1</span>
-                    </div>
-                    <div class="bpEffectContainer" id="bp6Container" style="display:none">
-                        <span class="primaryOverchargeText">Multiplying the effect of the third bottom-row Booster Upgrade by </span>
-                        <span class="overchargeText" id="bp6Effect">1</span>
-                    </div>
-                    <div class="centeredTexts" id="overchargeHelp"><span id="ocHelpColorized">Excess Charge</span> means all Charge above 12</div>
-                </div>
-            </div>
+            <div class="column flexBox" id="overflowGainContainer" style="margin-top: 1rem"></div>
+            <div class="row flexBox" id="overflowEffectContainer" style="margin-top: 1rem"></div>
         </div>
     </div>
     <div class="tab" id="collapsePage">
@@ -609,6 +562,9 @@
         </div>
         <div class="centeredTexts" id="versionText">Version</div>
         <div class="s centeredTexts">Import 'gwa' to unlock a secret!</div>
+    </div>
+    <div class="tab" id="networkPage" style="width: 100%; height: 100%">
+        <div id="graphNetwork" style="width: 100%; height: 100%"></div>
     </div>
     <div class="tab flexBox" id="bunnyPage">
         <div class="column flexBox" style="margin-top: 2rem;">

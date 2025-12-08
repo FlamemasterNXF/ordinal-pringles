@@ -62,7 +62,12 @@ function formatEffect(effect, sign){
         }
         return text
     }
-    return sign !== 'x' && sign !== 's' ? `${sign}${format(effect)}` : `${format(effect)}${sign}`
+
+    if(sign.includes('/s')){
+        sign = sign.slice(0, 1)
+        return sign !== 'x' && sign !== '?' ? `${sign}${format(effect)}/s` : `${format(effect)}${sign}/s`
+    }
+    return sign !== 'x' && sign !== '?' ? `${sign}${format(effect)}` : `${format(effect)}${sign}`
 }
 
 // Special function for formatting time

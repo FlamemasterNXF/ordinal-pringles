@@ -4,35 +4,45 @@ let bupData = [
         cost: 1,
         eff: () => 2,
         baseEff: () => 1,
-        bottomRow: false
+        bottomRow: false,
+        target: 'All Factors',
+        sign: 'x'
     },
     {
         desc: "Boost OP gain by 5x",
         cost: 5,
         eff: () => 5,
         baseEff: () => 1,
-        bottomRow: false
+        bottomRow: false,
+        target: 'OP',
+        sign: 'x'
     },
     {
         desc: "The Ordinal Base is always 5 in Challenges",
         cost: 72,
         eff: () => 5,
         baseEff: () => data.ord.base,
-        bottomRow: false
+        bottomRow: false,
+        target: 'Ordinal Base',
+        sign: '?'
     },
     {
         desc: "Dynamic Gain is multiplied by your C5 completions in C1-C4",
         cost: 53,
         eff: () => Math.max(Math.pow(2, data.chal.completions[4]), 1),
         baseEff: () => 1,
-        bottomRow: false
+        bottomRow: false,
+        target: 'Dynamic Gain',
+        sign: 'x'
     },
     {
         desc: "Every 10 Darkness Upgrades purchased reduces Hierarchy Bases by 1",
         cost: 3522,
         eff: () => Math.min(6, Math.floor(getTotalDUPs()/10)),
         baseEff: () => 0,
-        bottomRow: true
+        bottomRow: true,
+        target: 'Hierarchy Bases',
+        sign: '-'
     },
 
     {
@@ -40,35 +50,44 @@ let bupData = [
         cost: 1,
         eff: () => 1,
         baseEff: () => 1,
-        bottomRow: false
+        bottomRow: false,
+        excluded: true,
     },
     {
         desc: "Boosters Boost Tier 1 and Tier 2 Automation",
         cost: 4,
         eff: () => Math.max(Math.sqrt(data.boost.total)*getAOREffect(6), 1),
         baseEff: () => 1,
-        bottomRow: false
+        bottomRow: false,
+        target: 'All Automation',
+        sign: 'x'
     },
     {
         desc: "Gain 10x OP at Ordinal Base 5 or higher",
         cost: 73,
         eff: () => 10,
         baseEff: () => 0,
-        bottomRow: false
+        bottomRow: false,
+        target: 'OP',
+        sign: 'x'
     },
     {
         desc: "The Ordinal Base boosts Factors (higher is better)",
         cost: 74,
         eff: () => Math.max(1,data.ord.base-2),
         baseEff: () => 1,
-        bottomRow: false
+        bottomRow: false,
+        target: 'All Factors',
+        sign: 'x'
     },
     {
         desc: "Each SGH Buyable Purchased boosts the SGH Effect Exponent",
         cost: 3522,
         eff: () => Math.sqrt(getTotalHBuyables(true)),
         baseEff: () => 0,
-        bottomRow: true
+        bottomRow: true,
+        target: 'SGH Effect Exponent',
+        sign: 'x'
     },
 
     {
@@ -76,35 +95,44 @@ let bupData = [
         cost: 1,
         eff: () => 1,
         baseEff: () => 1,
-        bottomRow: false
+        bottomRow: false,
+        excluded: true
     },
     {
         desc: "Gain 20 Free OP/s",
         cost: 8,
         eff: () => 20*getOverflowEffect(1),
         baseEff: () => 1,
-        bottomRow: false
+        bottomRow: false,
+        target: 'Free OP',
+        sign: '+/s'
     },
     {
         desc: "Gain 3 free levels of each Factor",
         cost: 16,
         eff: () => 3,
         baseEff: () => 0,
-        bottomRow: false
+        bottomRow: false,
+        target: 'Factor Levels',
+        sign: '+'
     },
     {
         desc: "Boosters boost Dynamic gain if the Ordinal Base is less than 6",
         cost: 66,
         eff: () => Math.max(Math.log2(data.boost.amt), 1),
         baseEff: () => 1,
-        bottomRow: false
+        bottomRow: false,
+        target: 'Dynamic Gain',
+        sign: 'x'
     },
     {
         desc: "The Total ℵ effect applies to Incrementy gain",
         cost: 3562,
         eff: () => alephTotalEffect()*getOverflowEffect(6),
         baseEff: () => 1,
-        bottomRow: true
+        bottomRow: true,
+        target: 'Incrementy Gain',
+        sign: 'x'
     },
 ]
 
@@ -208,17 +236,17 @@ function getBUPDesc(i, showNextLevel = false){
 }
 
 function initBUPs(){
-    let rows = [DOM('bupColumn0'), DOM('bupColumn1'), DOM('bupColumn2')]
+    let columns = [DOM('bupColumn0'), DOM('bupColumn1'), DOM('bupColumn2')]
     let total = 0
-    for (let i = 0; i < rows.length; i++) {
+    for (let i = 0; i < columns.length; i++) {
         for (let n = 0; n < 5; n++) {
-            let bup = document.createElement('button')
+            let bup  = document.createElement('button')
             bup.className = data.boost.isCharged[total] ? 'chargedBUP' : data.boost.hasBUP[total] ? 'boughtBUP' : 'bup'
             bup.id = `bup${total}`
             bup.innerHTML = `${getBUPDesc(total)}`
 
-            rows[i].append(bup)
-            ++total
+            columns[i].append(bup)
+            total++
         }
     }
     for (let i = 0; i < data.boost.hasBUP.length; i++) {
@@ -226,6 +254,25 @@ function initBUPs(){
         DOM(`bup${i}`).addEventListener('click', ()=>buyBUP(i, bottomRow, true))
         DOM(`bup${i}`).addEventListener('mouseenter', ()=>showNextBUPLevelEffect(i, true))
         DOM(`bup${i}`).addEventListener('mouseleave', ()=>showNextBUPLevelEffect(i, false))
+
+        if(!bupData[i].excluded){
+            boostManager.register({
+                name: `BUP${Math.floor(i/5)+1}x${(i%5)+1}`,
+                target: bupData[i].target,
+                sign: bupData[i].sign,
+                color: graphColors.bup,
+                effect: () => getBUPEffect(i),
+                shouldDisplay: () => data.boost.hasBUP[i] && !data.boost.isCharged[i]
+            })
+            boostManager.register({
+                name: `Charged BUP${Math.floor(i/5)+1}x${(i%5)+1}`,
+                target: bupData[i].target,
+                sign: bupData[i].sign,
+                color: graphColors.chargedBUP,
+                effect: () => getBUPEffect(i),
+                shouldDisplay: () => data.boost.isCharged[i]
+            })
+        }
     }
     for (let i = 0; i < data.boost.unlocks.length; i++) {
         DOM(`bu${i}`).className = data.boost.unlocks[i] ? 'boughtBUP' : 'bup'
@@ -448,3 +495,12 @@ function getTotalSupercharges(){
 function switchBoostTab(){
     isBaseless() ? switchTab('realm') : switchTab('boosters')
 }
+
+boostManager.register({
+    name: 'Boosters',
+    target: 'Cardinals',
+    sign: '+',
+    color: graphColors.bup,
+    effect: () => cardinalGain(),
+    shouldDisplay: () => data.boost.times > 33 || data.collapse.times > 0 || data.obliterate.times > 0
+})

@@ -253,21 +253,6 @@
     flex-wrap: wrap;
 }
 
-.primaryOverflowText{
-    color: var(--booster-power-effect-text-primary-color);
-}
-.primaryOverchargeText{
-    color: var(--overcharge-effect-text-primary-color);
-}
-.overflowText{
-    color: var(--booster-power-effect-text-secondary-color);
-    font-family: DosisSemiBold, serif;
-}
-.overchargeText{
-    color: var(--overcharge-effect-text-secondary-color);
-    font-family: DosisSemiBold, serif;
-}
-
 /* TODO: Generic */
 .prestigeButton{
     border: none;
@@ -915,14 +900,6 @@
     background: black;
     border: 2px solid var(--setting-border-color);
     border-top-left-radius: 12%;
-}
-
-#settingsNav{
-    border-bottom-right-radius: 16px
-}
-
-#header{
-    border-bottom-left-radius: 16px;
 }
 
 /* NOTE: From here to end is exempt from themes. */

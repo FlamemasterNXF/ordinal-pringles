@@ -9,7 +9,8 @@ let pringleData = [
         resNames: 'Incrementy',
         resLocation: [['incrementy', 'amt']],
         costIsDecimal: true,
-        cost: () => D(1e10).pow((data.obliterate.pringleAmount[0]+1)*Math.pow(data.obliterate.pringleAmount[0]+1, 1/1.5))
+        cost: () => D(1e10).pow((data.obliterate.pringleAmount[0]+1)*Math.pow(data.obliterate.pringleAmount[0]+1, 1/1.5)),
+        target: ['CUP1', 'CUP5', 'CUP6']
     },
     {
         colorDesc: 'Green',
@@ -21,7 +22,8 @@ let pringleData = [
         resNames: 'Incrementy',
         resLocation: [['incrementy', 'amt']],
         costIsDecimal: true,
-        cost: () => D(1e30).pow((data.obliterate.pringleAmount[1]+1)*Math.sqrt(data.obliterate.pringleAmount[1]+1))
+        cost: () => D(1e30).pow((data.obliterate.pringleAmount[1]+1)*Math.sqrt(data.obliterate.pringleAmount[1]+1)),
+        target: 'CUP2'
     },
     {
         colorDesc: 'Green',
@@ -33,7 +35,8 @@ let pringleData = [
         resNames: 'ℵ<sub>0</sub>',
         resLocation: [['baseless', 'alephNull']],
         costIsDecimal: false,
-        cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[2]))
+        cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[2])),
+        target: ['CUP7', 'Cardinals']
     },
 
     {
@@ -46,7 +49,8 @@ let pringleData = [
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
         costIsDecimal: false,
-        cost: () => D(1e20).times(Math.pow(10, data.obliterate.pringleAmount[3]))
+        cost: () => D(1e20).times(Math.pow(10, data.obliterate.pringleAmount[3])),
+        target: ['All AutoClickers', 'Dynamic Cap']
     },
     {
         colorDesc: 'Orange',
@@ -58,7 +62,8 @@ let pringleData = [
         resNames: 'Booster Power',
         resLocation: [['overflow', 'bp']],
         costIsDecimal: false,
-        cost: () => D(1e20).times(Math.pow(32, data.obliterate.pringleAmount[4]))
+        cost: () => D(1e20).times(Math.pow(32, data.obliterate.pringleAmount[4])),
+        target: 'ℵ0'
     },
     {
         colorDesc: 'Orange',
@@ -70,7 +75,8 @@ let pringleData = [
         resNames: 'ℵ<sub>0</sub>',
         resLocation: [['baseless', 'alephNull']],
         costIsDecimal: false,
-        cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[5]))
+        cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[5])),
+        target: ['ℵ0 Rebuyable 4', 'ℵ0 Rebuyable 5']
     },
 
     {
@@ -83,7 +89,8 @@ let pringleData = [
         resNames: 'Cardinals',
         resLocation: [['collapse', 'cardinals']],
         costIsDecimal: true,
-        cost: () => D(1e30).pow(Math.sqrt(data.obliterate.pringleAmount[6]+1))
+        cost: () => D(1e30).pow(Math.sqrt(data.obliterate.pringleAmount[6]+1)),
+        target: ['FGH Effect', 'SGH Effect']
     },
     {
         colorDesc: 'Blue',
@@ -95,7 +102,8 @@ let pringleData = [
         resNames: 'Cardinals',
         resLocation: [['collapse', 'cardinals']],
         costIsDecimal: true,
-        cost: () => D(1e30).pow(Math.sqrt(data.obliterate.pringleAmount[7]+1))
+        cost: () => D(1e30).pow(Math.sqrt(data.obliterate.pringleAmount[7]+1)),
+        target: 'Hierarchy Gain'
     },
     {
         colorDesc: 'Blue',
@@ -107,7 +115,7 @@ let pringleData = [
         resNames: 'ℵ<sub>0</sub>',
         resLocation: [['baseless', 'alephNull']],
         costIsDecimal: false,
-        cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[8]))
+        cost: () => D(1e6).times(Math.pow(10, data.obliterate.pringleAmount[8])),
     },
 
     {
@@ -120,7 +128,8 @@ let pringleData = [
         resNames: 'ℵ<sub>&omega;</sub>',
         resLocation: [['omega', 'bestRemnants']],
         costIsDecimal: false,
-        cost: () => D(2000+(100*data.obliterate.pringleAmount[9]+1)*(data.obliterate.pringleAmount[9]+1))
+        cost: () => D(2000+(100*data.obliterate.pringleAmount[9]+1)*(data.obliterate.pringleAmount[9]+1)),
+        target: 'All AutoBuyers'
     },
 ]
 
@@ -146,6 +155,17 @@ function initPringles(){
         DOM(`pringle${i}`).addEventListener("click", () => buyPringle(pringleData[i], i))
         DOM(`pringle${i}`).style.border = `2px solid ${pringleData[i].color}`
         if(data.settings.noColorPringles) DOM(`pringle${i}`).innerText = `${i}`
+
+        if(pringleData[i].target !== undefined){
+            boostManager.register({
+                name: `Pringle ${i}`,
+                target: pringleData[i].target,
+                sign: pringleData[i].sign,
+                color: graphColors.pringle,
+                effect: () => getPringleEffect(i),
+                shouldDisplay: () => data.obliterate.times > 0
+            })
+        }
     }
 }
 

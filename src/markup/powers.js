@@ -30,3 +30,23 @@ function uncappedOPGain() {
         return opCap.mul(D(data.ord.ordinal).pow(getGUPEffect(2) + 1))
     return opCap
 }
+
+boostManager.register({
+    name: 'Ordinal',
+    target: ['OP', 'Boosters'],
+    sign: '+',
+    color: graphColors.ordinal,
+    effect: () => uncappedOPGain() // TODO figure out how to hide this --> boosters
+})
+boostManager.register({
+    name: 'Free OP',
+    target: 'OP',
+    sign: '+/s',
+    color: graphColors.ordinal,
+    effect: () => getBUPEffect(11),
+    shouldDisplay: () => data.boost.hasBUP[11]
+})
+boostManager.register({
+    name: 'OP',
+    color: graphColors.factorShift
+})

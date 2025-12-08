@@ -132,12 +132,12 @@ let achievements = [
     {
         name: "Dynamic isn't useless?",
         description: "Purchase IUP3",
-        req: () => data.incrementy.hasIUP[5]
+        req: () => data.incrementy.hasIUP[2]
     },
     {
         name: "Dynamic isn't useless!",
         description: "Purchase IUP6",
-        req: () => data.incrementy.hasIUP[8]
+        req: () => data.incrementy.hasIUP[3]
     },
     {
         name: "Electric Shuffle",

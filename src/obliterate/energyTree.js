@@ -132,6 +132,10 @@ function getDataIDFromTreeID(id){
 
     return [branch, index]
 }
+function getTreeIDFromDataID(outerIndex, innerIndex){
+    if(outerIndex === 0) return 0
+    return outerIndex*100+innerIndex+1
+}
 
 function energyRespecConfirm(){
     if(!getSimpleSetting('eupRespecConfirmation')) return respecEnergyTree()
