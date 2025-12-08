@@ -1,5 +1,6 @@
 const formattingConstants = {
-    scientificThreshold: 1e6,
+    largeThreshold: 1e6,
+    smallThreshold: 1e-2,
     formatter: Intl.NumberFormat("en-US")
 }
 
@@ -17,7 +18,7 @@ function formatDecimal(decimalNumber, precision) {
     if(decimalNumber.equals(0)) return "0"
 
     // If a decimal is less than 1e6, convert to a number and use a simple Intl.NumberFormat
-    if(decimalNumber.lt(formattingConstants.scientificThreshold)){
+    if(decimalNumber.gte(formattingConstants.smallThreshold) && decimalNumber.lt(formattingConstants.largeThreshold)){
         const number = decimalNumber.toNumber()
         precision = number % 1 === 0 ? 0 : precision
         return formattingConstants.formatter.format(number.toFixed(precision))
@@ -26,8 +27,11 @@ function formatDecimal(decimalNumber, precision) {
     const f_log10 = Decimal.floor(Decimal.log10(decimalNumber))
     const mantissa = decimalNumber.div(Decimal.pow(10, f_log10))
 
+    // If a decimal's layer is 6 or greater, switch to F notation
+    if(decimalNumber.layer >= 6) return `F${formatNumber(decimalNumber.layer)}`
+
     // If a decimal's exponent is greater than 1e6, do not display the mantissa
-    if(f_log10 > formattingConstants.scientificThreshold) return `e${f_log10}`
+    if(f_log10.gte(formattingConstants.largeThreshold)) return `e${f_log10.toFixed(precision)}`
 
     // Otherwise, use normal exponential formatting
     return `${mantissa.toFixed(precision)}e${f_log10}`
@@ -39,8 +43,8 @@ function formatNumber(number, precision) {
     if(number === Number.POSITIVE_INFINITY) return "&infin;"
     if(number === 0) return "0"
 
-    // If number is less than 1e6, use a simple Intl.NumberFormat
-    if(number < formattingConstants.scientificThreshold){
+    // If number is less than 1e6 and greater than 1e-6, use a simple Intl.NumberFormat
+    if(number >= formattingConstants.smallThreshold && number < formattingConstants.largeThreshold){
         precision = number % 1 === 0 ? 0 : precision
         return formattingConstants.formatter.format(number.toFixed(precision))
     }

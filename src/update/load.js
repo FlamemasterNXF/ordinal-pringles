@@ -40,7 +40,6 @@ function loadGame(){
     initDarkness()
     initHyperchargeHTML()
     initBaselessness()
-    initANRebuyables()
     initPurification()
     registerEUPs()
     initPassiveEnergyUpgrades()
