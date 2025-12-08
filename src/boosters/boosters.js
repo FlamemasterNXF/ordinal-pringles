@@ -101,7 +101,7 @@ let bupData = [
     {
         desc: "Gain 20 Free OP/s",
         cost: 8,
-        eff: () => 20*getOverflowEffect(1),
+        eff: () => 20*getOverflowEffect(0, 1),
         baseEff: () => 1,
         bottomRow: false,
         target: 'Free OP',
@@ -128,7 +128,7 @@ let bupData = [
     {
         desc: "The Total ℵ effect applies to Incrementy gain",
         cost: 3562,
-        eff: () => alephTotalEffect()*getOverflowEffect(6),
+        eff: () => alephTotalEffect()*getOverflowEffect(1, 3),
         baseEff: () => 1,
         bottomRow: true,
         target: 'Incrementy Gain',
@@ -196,7 +196,7 @@ let chargedBUPData = [
     },
     {
         desc: "Gain Free OP/s based on your Base",
-        eff: () => Math.max(20*(-data.ord.base+11)*getOverflowEffect(1), 1),
+        eff: () => Math.max(20*(-data.ord.base+11)*getOverflowEffect(0, 1), 1),
         bottomRow: false
     },
     {
@@ -211,7 +211,7 @@ let chargedBUPData = [
     },
     {
         desc: "The Total ℵ effect is multiplied by Darkness Upgrade 1 and applied to Incrementy gain",
-        eff: () => alephTotalEffect().times(dupEffect(0)).times(getOverflowEffect(6)),
+        eff: () => alephTotalEffect().times(dupEffect(0)).times(getOverflowEffect(1, 3)),
         bottomRow: true
     },
 ]

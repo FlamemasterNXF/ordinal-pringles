@@ -94,7 +94,7 @@ const iupData = [
 ]
 
 function getRUPEffect(i){
-    const base = rupData[i].effectBase ? rupData[i].effectBase : i > 2 ? 1 : D(1)
+    const base = rupData[i].effectBase !== undefined ? rupData[i].effectBase : i > 2 ? 1 : D(1)
     return data.incrementy.rebuyableAmt[i] > 0 ? rupData[i].effect() : base
 }
 function getRUPSign(i){
@@ -126,7 +126,6 @@ function initIUPs(){
                 if(i > 0) upgrade.addEventListener('click', ()=> buyIUP(id))
                 else upgrade.addEventListener('click', ()=> buyRUP(id))
 
-                console.log(id)
                 boostManager.register({
                     name: type.toUpperCase()+(id+1),
                     target: i > 0 ? iupData[id].target : rupData[id].target,

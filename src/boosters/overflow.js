@@ -1,9 +1,3 @@
-/*
-    This code ALSO needs a refactor!
-    I hate this
-    -Flame, 11/24/23
-*/
-
 const overflowData = [
     {
         name: 'Booster Power',
@@ -14,18 +8,18 @@ const overflowData = [
         effects: [
             {
                 desc: 'Multiplying the Challenge Boost to AutoBuyers',
-                effect: () => Math.pow(data.overflow.bp, 1/8),
+                effect: () => Math.pow(data.overflow.bp, 1/8)*getOverflowEffect(1, 1),
                 target: 'All Challenges'
             },
             {
                 desc: 'Multiplying Passive OP gain',
-                effect: () => Math.sqrt(data.overflow.bp)*(opMult().toNumber()),
+                effect: () => Math.sqrt(data.overflow.bp)*(opMult().toNumber())*getOverflowEffect(1, 1),
                 target: 'Free OP',
                 descriptor: ' (based on your total OP multiplier)'
             },
             {
                 desc: 'Multiplying Decrementy Gain',
-                effect: () => Math.sqrt(data.overflow.bp+1),
+                effect: () => Math.sqrt(data.overflow.bp+1)*getOverflowEffect(1, 1),
                 target: 'Decrementy Gain',
             }
         ]
@@ -64,27 +58,6 @@ const overflowData = [
     }
 ]
 
-function getOverflowEffect(i){
-    if(data.overflow.bp === 1 && i < 3 && data.overflow.oc === 1) return 1
-    switch (i) {
-        case 0:
-            return Math.max(1, (Math.pow(data.overflow.bp, 1/8))*getOverflowEffect(4))
-        case 1:
-            return Math.max(1, (Math.sqrt(data.overflow.bp)*(opMult().toNumber()))*getOverflowEffect(4))
-        case 2:
-            return Math.max(1, (Math.sqrt(data.overflow.bp+1))*getOverflowEffect(4))
-        case 3:
-            return data.overflow.oc > 1 ? Math.max(1, Math.sqrt(data.overflow.oc)*getCUPEffect(5)*getAOMEffect(2)) : 1
-        case 4:
-            return data.overflow.oc > 1 ? Math.max(1, Math.log10(data.overflow.oc+1)) : 1
-        case 5:
-            return data.overflow.oc > 1 && hasCUP(5) ? Math.max(1, 1+Math.pow(data.overflow.oc, 1/16)/10) : 1
-        case 6:
-            return data.overflow.oc > 1 && hasAOMilestone(2) ? Math.max(1, Math.pow(data.overflow.oc, 1/4)) : 1
-        default: return NaN
-    }
-}
-
 let getOverflowName = (i) => overflowData[i].name
 let getOverflowSourceName = (i) => overflowData[i].sourceName
 let getOverflowSource = (i) => overflowData[i].source()
@@ -97,7 +70,7 @@ function isOverflowEffectUnlocked(i, j) {
     const effect = overflowData[i].effects[j]
     return effect.unlocked !== undefined ? effect.unlocked() : true
 }
-function getOverflowEffectNew(i, j){
+function getOverflowEffect(i, j){
     return isOverflowEffectUnlocked(i, j) ? overflowData[i].effects[j].effect() : 1
 }
 
@@ -136,8 +109,8 @@ function initOverflowHTML(){
                 target: i === 1 && j === 3 ? effect.target() : effect.target,
                 sign: getOverflowEffectSign(i, j),
                 color: graphColors.overflow,
-                effect: () => getOverflowEffectNew(i, j),
-                shouldDisplay: () => isOverflowEffectUnlocked(i, j)
+                effect: () => getOverflowEffect(i, j),
+                shouldDisplay: () => isOverflowEffectUnlocked(i, j) && isTabUnlocked('overflow')
             })
         }
         effectContainer.appendChild(effectsContainer)
@@ -162,7 +135,7 @@ function updateOverflowHTML(){
 
             const descriptor = effect.descriptor ?? ''
             const sign = getOverflowEffectSign(i, j)
-            DOM(`overflow${i}effect${j}`).innerHTML = `${effect.desc} by <b style="color: ${getCSSVariable(`${normalToDashed(getOverflowName(i))}-text-color`)}">${formatEffect(getOverflowEffectNew(i, j), sign)}</b>${descriptor}`
+            DOM(`overflow${i}effect${j}`).innerHTML = `${effect.desc} by <b style="color: ${getCSSVariable(`${normalToDashed(getOverflowName(i))}-text-color`)}">${formatEffect(getOverflowEffect(i, j), sign)}</b>${descriptor}`
         }
     }
 }
