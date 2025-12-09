@@ -12,11 +12,11 @@ function opGain(ord = data.ord.ordinal, base = data.ord.base, over = data.ord.ov
     if(ord.gt(Number.MAX_VALUE)) return opCap
     if(ord.lt(base)) return ord.add(over)
 
-    const pow = Decimal.floor(Decimal.ln(ord.plus(1)).div(Math.log(base)))
+    const pow = Decimal.floor(Decimal.ln(ord.plus(0.1)).div(Math.log(base)))
     if (pow.lte(0)) return over
 
     const divisor = Decimal.pow(base, pow)
-    const mult = Decimal.floor(ord.div(divisor))
+    const mult = Decimal.floor(ord.plus(0.1).div(divisor))
 
     const reducedOrd = ord.sub(divisor.times(mult))
     if (reducedOrd.eq(ord)) return over
