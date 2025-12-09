@@ -225,7 +225,7 @@ let hupData = [
     {
         text:"The final Hierarchy Buyable of each column's boosts the ℵ<sub>5</sub> and ℵ<sub>8</sub> effects",
         cost: 1e50,
-        effect: ()=> data.hierarchies.hasUpgrade[9] ? (hbData[2].effect().plus(hbData[5].effect())).toNumber() : 1,
+        effect: ()=> data.hierarchies.hasUpgrade[9] ? (hbData[2].effect().plus(hbData[5].effect())) : 1,
         target: ['ℵ5', 'ℵ8'],
         sign: '+'
     },
