@@ -17,7 +17,7 @@ function formatDecimal(decimalNumber, precision) {
     if(decimalNumber.mag === Number.POSITIVE_INFINITY) return "&infin;"
     if(decimalNumber.equals(0)) return "0"
 
-    // If a decimal is less than 1e6, convert to a number and use a simple Intl.NumberFormat
+    // If a decimal is less than 1e6 and greater than 1e-2, convert to a number and use a simple Intl.NumberFormat
     if(decimalNumber.gte(formattingConstants.smallThreshold) && decimalNumber.lt(formattingConstants.largeThreshold)){
         const number = decimalNumber.toNumber()
         precision = number % 1 === 0 ? 0 : precision
@@ -33,6 +33,9 @@ function formatDecimal(decimalNumber, precision) {
     // If a decimal's exponent is greater than 1e6, do not display the mantissa
     if(f_log10.gte(formattingConstants.largeThreshold)) return `e${f_log10.toFixed(precision)}`
 
+    // Handle mantissa being 10
+    if (mantissa.toFixed(precision).startsWith("10")) return `${(1).toFixed(precision)}e${f_log10.plus(1)}`
+
     // Otherwise, use normal exponential formatting
     return `${mantissa.toFixed(precision)}e${f_log10}`
 }
@@ -43,7 +46,7 @@ function formatNumber(number, precision) {
     if(number === Number.POSITIVE_INFINITY) return "&infin;"
     if(number === 0) return "0"
 
-    // If number is less than 1e6 and greater than 1e-6, use a simple Intl.NumberFormat
+    // If number is less than 1e6 and greater than 1e-2, use a simple Intl.NumberFormat
     if(number >= formattingConstants.smallThreshold && number < formattingConstants.largeThreshold){
         precision = number % 1 === 0 ? 0 : precision
         return formattingConstants.formatter.format(number.toFixed(precision))
@@ -52,6 +55,9 @@ function formatNumber(number, precision) {
     // Otherwise, use exponential formatting
     const f_log10 = Math.floor(Math.log10(number))
     const mantissa = number / 10 ** f_log10
+
+    // Handle mantissa being 10
+    if (mantissa.toFixed(precision).startsWith("10")) return `${(1).toFixed(precision)}e${f_log10 + 1}`
 
     return `${mantissa.toFixed(precision)}e${f_log10}`
 }
