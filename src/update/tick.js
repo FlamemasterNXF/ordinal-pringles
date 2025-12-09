@@ -103,9 +103,9 @@ function tick(diff){
     }
 
     // Automation Tier 3
-    let ignoreSluggish = hasSluggishMilestone(4)
+    let canGetSM2 = data.boost.times < 3 && !hasSluggishMilestone(4) // Only SM2 needs to be considered as SM12 unlocks this
     if(hasSluggishMilestone(3) && getAutomationEnabled(2, 0) && data.ord.base > 3 && data.markup.shifts < 7) factorShift(true)
-    if(hasSluggishMilestone(3) && getAutomationEnabled(2, 1) && data.boost.times < boostLimit() && ignoreSluggish) boost(false, true)
+    if(hasSluggishMilestone(3) && getAutomationEnabled(2, 1) && data.boost.times < boostLimit() && !canGetSM2) boost(false, true)
     if(hasAOMilestone(0) && getAutomationEnabled(2, 2) && data.baseless.baseless && !inAnyRealmChallenge()) dynamicShift()
 
     // Increase Hierarchies
