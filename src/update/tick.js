@@ -103,10 +103,9 @@ function tick(diff){
     }
 
     // Automation Tier 3
-    let inSluggish = false
-    if (data.boost.times === 2 && hasSluggishMilestone(4)) inSluggish = true
+    let ignoreSluggish = hasSluggishMilestone(4)
     if(hasSluggishMilestone(3) && getAutomationEnabled(2, 0) && data.ord.base > 3 && data.markup.shifts < 7) factorShift(true)
-    if(hasSluggishMilestone(3) && getAutomationEnabled(2, 1) && data.boost.times < boostLimit() && !inSluggish) boost(false, true)
+    if(hasSluggishMilestone(3) && getAutomationEnabled(2, 1) && data.boost.times < boostLimit() && ignoreSluggish) boost(false, true)
     if(hasAOMilestone(0) && getAutomationEnabled(2, 2) && data.baseless.baseless && !inAnyRealmChallenge()) dynamicShift()
 
     // Increase Hierarchies
