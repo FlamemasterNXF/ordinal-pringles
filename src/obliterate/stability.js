@@ -7,7 +7,7 @@ let stableEnergyData = [
             {
                 desc: 'Multiplying Incrementy gain',
                 sign: 'x',
-                effect: () => (1+getStableEnergy(0))**10,
+                effect: () => (1+getStableEnergy(0))**3,
                 baseEffect: () => 1,
                 target: 'Incrementy Gain'
             },
@@ -25,7 +25,7 @@ let stableEnergyData = [
             {
                 desc: 'Multiplying Cardinal gain',
                 sign: 'x',
-                effect: () => 7**getStableEnergy(1),
+                effect: () => 3**getStableEnergy(1),
                 baseEffect: () => 1,
                 target: 'Cardinals'
             },

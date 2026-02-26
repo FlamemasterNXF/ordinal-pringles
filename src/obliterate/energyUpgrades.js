@@ -29,7 +29,7 @@ const energyUpgradeData = [
             desc: 'Total Fractal Energy increases the Decrementy gain exponent and multiplies Light decay',
             sign: ['+', 'x'],
             cost: 1,
-            effect: () => D(data.obliterate.times*2),
+            effect: () => D(1.5).times(Math.log2(data.obliterate.times)),
             baseEffect: 0,
             target: 'Decrementy Exponent'
         },
@@ -161,7 +161,7 @@ const energyUpgradeData = [
             desc: `Total Fractal Energy boosts the <span style="color: ${getCSSVariable('pringle-7-color')}">Crunchy Blue</span> Pringle`,
             sign: 'x',
             cost: 1,
-            effect: () => D(10).pow(data.obliterate.times),
+            effect: () => D(5).pow(data.obliterate.times),
             target: 'Pringle 7'
         },
         {
@@ -175,7 +175,7 @@ const energyUpgradeData = [
             desc: `Total Fractal Energy boosts the <span style='color: ${getCSSVariable('pringle-9-color')}'>Barbecue</span> Pringle`,
             sign: 'x',
             cost: 1,
-            effect: () => D(10).pow(data.obliterate.times),
+            effect: () => D(5).pow(data.obliterate.times),
             target: 'Pringle 9'
         },
         {

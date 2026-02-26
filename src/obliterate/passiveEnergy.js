@@ -31,7 +31,7 @@ const passiveUpgradeData = [
 ]
 
 let passiveEnergyEffects = [
-    () => (1+getTotalPassiveEnergy())**10,
+    () => (1+getTotalPassiveEnergy())**5,
     () => 1.5**getTotalPassiveEnergy()
 ]
 
