@@ -109,10 +109,12 @@ function switchSubtab(tab, mode){
         }
 
         const display = isMobileMode() ? `flex` : `block`
-        DOM(`sidebar0`).style.display = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? display : 'none'
-        DOM(`sidebar1`).style.display = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? display : 'none'
+        const showSidebars = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes')
+        DOM(`sidebar0`).style.display = showSidebars ? display : 'none'
+        DOM(`sidebar1`).style.display = showSidebars ? display : 'none'
 
-        if(!isMobileMode()) DOM(`game`).style.width = tab !== 'settingsThemes' || getSimpleSetting('sidebarsInThemes') ? 'calc(100% - 32rem)' : '100%'
+        if(isMobileMode()) DOM(`game`).style.height = showSidebars ? 'calc(100% - 7rem)' : '100%'
+        if(!isMobileMode()) DOM(`game`).style.width = showSidebars ? 'calc(100% - 32rem)' : '100%'
     }
 }
 
