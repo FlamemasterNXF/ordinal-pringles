@@ -185,7 +185,7 @@ function checkUnlocks(mode, i, preview = false) {
             if (data.boost.times <= sluggishData[i].req && !hasSluggishMilestone(i)) {
                 data.collapse.hasSluggish[i] = true
                 data.collapse.cardinals = data.collapse.cardinals.plus(3 * i)
-                showNotification(`You have completed a Sluggish Milestone${data.collapse.times > 1 ? `and your completion has been rewarded with ${3 * i} free Cardinals!` : '!'}`)
+                createNotification(`You have completed a Sluggish Milestone${data.collapse.times > 1 ? `and your completion has been rewarded with ${3 * i} free Cardinals!` : '!'}`)
                 updateUnlockHTML(1, i)
             }
             break;
@@ -424,7 +424,7 @@ function collapse(first = false, auto = false) {
         checkCollapseUnlockHTML()
         return collapseReset()
     }
-    if (!auto) showNotification("Insufficent Ordinal")
+    if (!auto) createNotification("Insufficent Ordinal")
 }
 
 function boostersOnCollapse() {
@@ -479,7 +479,7 @@ function collapseReset() {
 }
 
 function collapseCardinals() {
-    if (data.collapse.cardinals.eq(0)) return showNotification("No Cardinals to Collapse")
+    if (data.collapse.cardinals.eq(0)) return createNotification("No Cardinals to Collapse")
     if (data.collapse.times === 1 && data.obliterate.times === 0) {
         for (let i = 0; i < 3; i++) {
             data.collapse.alephs[i] = D(1)

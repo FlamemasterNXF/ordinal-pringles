@@ -7,7 +7,7 @@ let cloudSavingData = {
 }
 
 function loadFromCloud(cloudData = null){
-    if(!cloudSavingData.isGalaxy) return showNotification('You must be on galaxy.click to use this!')
+    if(!cloudSavingData.isGalaxy) return createNotification('You must be on galaxy.click to use this!')
 
     if(cloudData){
         // When we load directly during initialization, there is no need to send a new request.
@@ -23,7 +23,7 @@ function loadFromCloud(cloudData = null){
 }
 
 function saveToCloud(){
-    if(!cloudSavingData.isGalaxy) return showNotification('You must be on galaxy.click to use this!')
+    if(!cloudSavingData.isGalaxy) return createNotification('You must be on galaxy.click to use this!')
     if(!cloudSavingData.blockSaving){
         window.top.postMessage({
             action: "save",

@@ -631,7 +631,7 @@ function completeRealmChallenge(){
         controlRealmChallenge()
         ++data.baselessRealm.completions[temp]
         updateRealmChalHTML(temp)
-        if(getSimpleSetting('baselessChallengePopup')) showNotification("Baseless Challenge Complete!", `You have Completed Baseless Challenge ${temp+1}x${getRealmChallengeCompletions(temp)}!`, 'Awesome!')
+        if(getSimpleSetting('baselessChallengePopup')) createNotification("Baseless Challenge Complete!", `You have Completed Baseless Challenge ${temp+1}x${getRealmChallengeCompletions(temp)}!`, 'Awesome!')
     }
 }
 

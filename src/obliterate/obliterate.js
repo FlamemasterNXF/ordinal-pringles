@@ -46,7 +46,7 @@ function obliterateConfirm(){
         createConfirmation('Are you absolutely certain?', `Obliterating will reset EVERYTHING prior in exchange for Fractal Energy. There is no going back.`, 'No Way!', 'Onward!', obliterate)
 }
 function obliterate(){
-    if(!canObliterate()) return showNotification("Insufficient Incrementy!")
+    if(!canObliterate()) return createNotification("Insufficient Incrementy!")
 
     DOM('obliterateNav').style.display = 'block'
 

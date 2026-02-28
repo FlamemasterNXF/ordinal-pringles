@@ -293,14 +293,14 @@ function exportTheme(i){
 
     document.execCommand("copy")
     document.body.removeChild(exportedDataText)
-    showNotification(`The Theme in Slot ${i} has been copied to the clipboard!`)
+    createNotification(`The Theme in Slot ${i} has been copied to the clipboard!`)
 }
 
 function importTheme(i, themeData){
     data.theme.savedThemes[i] = JSON.parse(themeData)
     DOM(`savedTheme${i}`).innerHTML = makeSavedThemeText(i)
 
-    showNotification(`Successfully imported Theme to Slot ${i}!`)
+    createNotification(`Successfully imported Theme to Slot ${i}!`)
     closeModal('prompt')
 }
 

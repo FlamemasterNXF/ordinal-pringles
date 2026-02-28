@@ -1,16 +1,26 @@
-#notification{
-    position: fixed;
-    right: -40rem;
+.notification{
+    position: relative;
+    right: -100%;
     background-color: var(--notification-background-color);
     color: var(--notification-text-color);
     padding: 1rem 2rem;
-    border-radius: 5px;
     border: 2px solid var(--notification-border-color);
+    border-right: none;
+    border-radius: 5px 0 0 5px;
     transition: right 0.5s ease-in-out;
-    z-index: 1;
     font-family: DosisRegular, serif;
 }
 
-#notification.show {
+.notification.show {
     right: 0;
+}
+
+#notificationLayer{
+    right: 0;
+    z-index: 1;
+}
+#notificationContainer{
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    place-content: flex-end;
 }

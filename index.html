@@ -130,7 +130,9 @@
         </div>
     </div>
 </div>
-<button id="notification">Hello</button>
+<div class="layer" id="notificationLayer">
+    <div class="column flexBox" id="notificationContainer"></div>
+</div>
 <div id="sidebar0">
     <button class="tabButton" id="ordNav" onclick="switchTab('ord')">Ordinals</button>
     <button class="tabButton" id="markupNav" onclick="switchTab('markup')">Markup</button>
@@ -528,7 +530,7 @@
         <div class="tab" id="savingSubPage">
             <div class="row flexBox" style="margin-top: 0.5rem;">
                 <div class="column flexBox">
-                    <button id="manualSave" class="saveControl" onclick="save()">Save the Game</button>
+                    <button id="manualSave" class="saveControl" onclick="save(true)">Save the Game</button>
                     <button class="saveControl" onclick="downloadSave()">Download your Save</button>
                     <button class="saveControl" onclick="copySaveToClipboard()">Copy your Save</button>
                     <button class="saveControl" onclick="initiateFileImport()">Import your Save from File</button>

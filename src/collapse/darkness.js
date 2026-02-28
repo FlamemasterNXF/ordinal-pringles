@@ -288,8 +288,8 @@ let dupData = [
 ]
 
 function buyDrain(i) {
-    if (!hasCUP(i)) return showNotification("The Cardinal Upgrade must be purchased before being drained!")
-    if (data.darkness.negativeCharge < drainCost(i)) return showNotification("Insufficient Negative Charge")
+    if (!hasCUP(i)) return createNotification("The Cardinal Upgrade must be purchased before being drained!")
+    if (data.darkness.negativeCharge < drainCost(i)) return createNotification("Insufficient Negative Charge")
 
     data.darkness.negativeChargeSpent += drainCost(i)
     data.darkness.negativeCharge -= drainCost(i)
@@ -308,7 +308,7 @@ function buyDUP(i){
 let getTotalDUPs = () => getTotalDUPLevels(0)+getTotalDUPLevels(1)+getTotalDUPLevels(2)
 
 function darknessControl(mode){
-    if(data.baseless.baseless) return showNotification('You cannot access Darkness Controls in the Baseless Realms!')
+    if(data.baseless.baseless) return createNotification('You cannot access Darkness Controls in the Baseless Realms!')
     updateDarknessControlHTML(0)
     if(mode===0) data.darkness.negativeChargeEnabled = !data.darkness.negativeChargeEnabled
     if(mode===1){

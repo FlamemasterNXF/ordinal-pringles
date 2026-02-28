@@ -60,12 +60,16 @@ function isModalOpen(name){
     return document.getElementById(`${name}Container`).style.display === 'block'
 }
 
-function showNotification(text){
-    const notification = document.getElementById(`notification`)
+function createNotification(text){
+    const container = DOM('notificationContainer')
+    const notification = document.createElement('button')
+    notification.className = 'notification'
     notification.innerHTML = text
+    container.appendChild(notification)
 
-    notification.classList.add('show')
+    setTimeout(()=> notification.classList.add('show'), 100) // slightly delayed for animation
     setTimeout(()=>{
         notification.classList.remove('show')
+        setTimeout(()=> notification.remove(), 1000) // slightly delayed for animation
     }, 3000)
 }

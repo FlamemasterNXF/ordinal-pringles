@@ -1,7 +1,7 @@
 //Version Flags
 const VERSION = "0.5b7"
 const VERSION_NAME = "Alazia"
-const VERSION_DATE = "December 9th, 2025"
+const VERSION_DATE = "February 28th, 2026"
 const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
@@ -19,12 +19,13 @@ function decompressSaveData(input) {
     }
 }
 
-function save(){
+function save(notify = false){
     try {
         window.localStorage.setItem(SAVE_PATH(), compressSaveData())
+        if(notify) createNotification('Saved successfully!')
     }
     catch (e) {
-        showNotification(`Save failed.\n${e}`);
+        createNotification(`Save failed.\n${e}`);
         console.error(e);
     }
 }
@@ -40,7 +41,7 @@ function load(first = false) {
     if (savedata !== undefined) unpackSave(data, savedata)
     let extra = fixOldSaves()
     if(first){
-        if(IS_BETA) showNotification(`You're playing an Ordinal Pringles <b>BETA</b>: v${VERSION}, remember to give feedback!`)
+        if(IS_BETA) createNotification(`You're playing an Ordinal Pringles <b>BETA</b>: v${VERSION}, remember to give feedback!`)
     }
 
     return extra
@@ -272,10 +273,10 @@ function copySaveToClipboard(){
         exportedDataText.setSelectionRange(0, 999999);
         document.execCommand("copy");
         document.body.removeChild(exportedDataText);
-        showNotification('Your save has been copied to the clipboard!')
+        createNotification('Your save has been copied to the clipboard!')
     }
     catch (e){
-        showNotification(`Save export failed.\n${e}`)
+        createNotification(`Save export failed.\n${e}`)
         console.error(e);
     }
 }
@@ -291,9 +292,9 @@ async function downloadSave() {
         a.href = window.URL.createObjectURL(file)
         a.download = `Ordinal-Pringles-save-${VERSION}-${date}.txt`
         a.click()
-        showNotification('Your save has been successfully downloaded!')
+        createNotification('Your save has been successfully downloaded!')
     } catch (e) {
-        showNotification(`Save download failed.\n${e}`)
+        createNotification(`Save download failed.\n${e}`)
         console.error(e);
         closeModal(1)
     }
@@ -303,7 +304,7 @@ async function downloadSave() {
 function handleEasterEggs(content){
     // Easter Egg: Unlock gwa
     if(content === "gwa"){
-        if(!data.gword.unl) showNotification('You have unlocked the secret <img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'> Ordinal Display! You can now enable or disable it in Settings :)')
+        if(!data.gword.unl) createNotification('You have unlocked the secret <img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'> Ordinal Display! You can now enable or disable it in Settings :)')
         data.gword.unl = true
         data.gword.enabled = true
         closeModal('prompt')
@@ -328,22 +329,22 @@ function importSave(x) {
     try {
         if(x.length <= 0) {
             DOM('promptContainer').style.display = 'none'
-            showNotification('No data found.')
+            createNotification('No data found.')
             return
         }
 
         if(decompressSaveData(x) !== null){
             data = decompressSaveData(x)
-            if(data.isBeta && !IS_BETA) return showNotification('You tried to load a Beta Save into the main version. This is not allowed, sorry :(')
+            if(data.isBeta && !IS_BETA) return createNotification('You tried to load a Beta Save into the main version. This is not allowed, sorry :(')
             saveAndReload()
         }
 
         closeModal('prompt')
-        showNotification('Please import a valid save!')
+        createNotification('Please import a valid save!')
     }
     catch (e){
         closeModal('prompt')
-        showNotification(`Save import failed.\n${e}`);
+        createNotification(`Save import failed.\n${e}`);
         console.error(e);
     }
 }

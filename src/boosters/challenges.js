@@ -74,7 +74,7 @@ function chalEnter(i, force=false){
         //DOM('dynamicTab').addEventListener('click', _=> switchMarkupTab('dynamic'))
     }
     if(i > 4 && getSimpleSetting('challengeRefund')){
-        showNotification(`Your Booster Upgrades have been refunded to help with the Challenge. Feel free to rebuy them, but remember the debuff!`)
+        createNotification(`Your Booster Upgrades have been refunded to help with the Challenge. Feel free to rebuy them, but remember the debuff!`)
         boosterRefund(true)
     }
 
@@ -102,7 +102,7 @@ function chalComplete(){
     if(currency>=chalGoals[data.chal.html][data.chal.completions[data.chal.html]] && ex){
         ++data.chal.completions[data.chal.html]
         ++data.chal.totalCompletions
-        if(getSimpleSetting('challengePopup')) showNotification(`You have Completed Challenge ${data.chal.html+1}x${data.chal.completions[data.chal.html]}!`)
+        if(getSimpleSetting('challengePopup')) createNotification(`You have Completed Challenge ${data.chal.html+1}x${data.chal.completions[data.chal.html]}!`)
         chalExit()
     }
 }
