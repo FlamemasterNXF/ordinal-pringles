@@ -26,10 +26,10 @@ const energyUpgradeData = [
     ],
     [
         {
-            desc: 'Total Fractal Energy increases the Decrementy gain exponent and multiplies Light decay',
-            sign: ['+', 'x'],
+            desc: 'Total Fractal Energy increases the Decrementy gain exponent',
+            sign: '+',
             cost: 1,
-            effect: () => D(1.5).times(Math.log2(data.obliterate.times)),
+            effect: () => data.obliterate.times > 1 ? D(1.5).times(Math.log2(data.obliterate.times)) : D(1),
             baseEffect: 0,
             target: 'Decrementy Exponent'
         },
