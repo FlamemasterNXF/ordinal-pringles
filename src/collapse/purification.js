@@ -2,7 +2,7 @@ const purificationData = [
     {
         name: "Eternity",
         alt: "Eternal",
-        desc: "Each Factor Boost yields only one Booster and Darkness Upgrades are useless",
+        desc: "Each Factor Boost yields only one Booster, Darkness Upgrades are useless, and ℵ<sub>0</sub> does nothing",
         boostDesc: "Boosting the effect base of the first Darkness Upgrade by",
         eff: () => (1+data.omega.bestFBInPurification[0]/1000),
         networkTarget: ['ℶω', 'DUP1']

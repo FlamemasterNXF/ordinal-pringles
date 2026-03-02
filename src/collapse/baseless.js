@@ -333,6 +333,7 @@ function getAlephNullGain(){
 
 function getAlephNullEffect(i){
     const effectData = alephNullEffectData[i]
+    if(inPurification(0) || inPurification(1)) return effectData.baseEffect()
     if(effectData.unlockReq === undefined) return Math.max(effectData.baseEffect(), effectData.effect())
     return effectData.unlockReq() ? effectData.effect() : effectData.baseEffect()
 }
