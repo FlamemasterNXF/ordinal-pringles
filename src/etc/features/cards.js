@@ -3,12 +3,13 @@ const cardDataTemplate = {
     quality: 1,
     copies: 0
 }
-const defaultCardData = Array.from({length: 3}, () => {
-    Array.from({length: 7}, () => structuredClone(cardDataTemplate))
-})
-defaultCardData.push(Array.from({length: 3}, () => {
-    structuredClone(cardDataTemplate)
-}))
+
+const defaultCardData = Array.from({ length: 3 }, () =>
+    Array.from({ length: 7 }, () => structuredClone(cardDataTemplate))
+)
+defaultCardData.push(Array.from({ length: 3 }, () =>
+        structuredClone(cardDataTemplate))
+)
 
 const defaultCardShopData = [[0, 0], [0, 1], [0, 2]]
 
