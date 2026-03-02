@@ -50,9 +50,12 @@ function getDefaultPlayer() {
         // Settings
         settings: {},
         offline: true,
+        theme: { currentTheme: makeCSSVariableArray(), defaultTheme: makeCSSVariableArray(), savedThemes: Array(3).fill(0), settings: Array(themeSettings.length).fill(true) },
+
+        // Easter Eggs
         gword: { unl: false, enabled: false },
         bunny: { unlocked: false, enabled: false, level: 0, experiment: 0 },
-        theme: { currentTheme: makeCSSVariableArray(), defaultTheme: makeCSSVariableArray(), savedThemes: Array(3).fill(0), settings: Array(themeSettings.length).fill(true) },
+        cards: { unlocked: false, enabled: false, timer: 86400, shopTimer: 0, money: 0, data: defaultCardData, shopCards: defaultCardShopData, gambleCard: [] },
 
         // Loading
         lastTick: 0,

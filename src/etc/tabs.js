@@ -11,7 +11,8 @@ function switchTab(mode){
     if(mode === 'collapse') checkCollapseUnlockHTML()
 }
 
-const tabsWithoutSubtabs = ['ord', 'ach', 'bunny', 'network']
+const easterEggTabs = ['bunny', 'cards']
+const tabsWithoutSubtabs = ['ord', 'ach', 'network', ...easterEggTabs]
 
 const defaultSubTabs = {
     "markup": "factor",
@@ -106,6 +107,7 @@ function switchSubtab(tab, mode){
         if(tab === 'settingsUI'){
             DOM(`gwaifySettingContainer`).style.display = data.gword.unl ? 'flex' : 'none'
             DOM('bunnyToggle').style.display = data.bunny.unlocked ? 'block' : 'none'
+            DOM('cardsToggle').style.display = data.cards.unlocked ? 'block' : 'none'
         }
 
         const display = isMobileMode() ? `flex` : `block`

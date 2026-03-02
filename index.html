@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="styles/specific/collapse.css"/>
     <link rel="stylesheet" type="text/css" href="styles/specific/obliteration.css"/>
     <link rel="stylesheet" type="text/css" href="styles/specific/settings.css"/>
+    <link rel="stylesheet" type="text/css" href="styles/specific/cards.css"/>
 
     <link rel="stylesheet" type="text/css" href="styles/mobile.css"/>
 
@@ -39,6 +40,7 @@
     <script defer src="src/etc/features/achievements.js"></script>
     <script defer src="src/etc/features/universalExit.js"></script>
     <script defer src="src/etc/features/bunny.js"></script>
+    <script defer src="src/etc/features/cards.js"></script>
 
     <script defer src="src/graph/boostManager.js"></script>
     <script defer src="src/graph/boostGraph.js"></script>
@@ -147,6 +149,9 @@
     <div id="ordinalContainer">
         <span id="ordinal">H<sub>0</sub> (10)=10</span>
     </div>
+    <div class="layer" id="cardsNavLayer" style="z-index: 2">
+        <button onclick="switchTab('cards')" style="width: 3.2rem; height: 2.7rem; background: black; border: 1px solid gray"><img style="width: 2.5rem; height: 2.5rem;" src="res/cards/upperomega.png" alt=""></button>
+    </div>
     <div class="tab flexBox" id="ordPage">
         <button class="ordButtons" id="successor" onclick="successor(1, true)">Increase Successor by 1 (S)</button>
         <button class="ordButtons" id="maximize" onclick="maximize()">Maximize Ordinal (M)</button>
@@ -191,6 +196,7 @@
             <p class="centeredTexts" id="dynamicText">Hello Cat</p>
         </div>
         <div class="flexBox" id="progressBarContainer"><div id="progressBar">0%</div></div>
+        <div class="s centeredTexts">Looking for more progress bars? Import 'cards'!</div>
     </div>
     <div class="tab flexBox" id="boostersPage">
         <div class="row flexBox" style="margin-top: 1rem">
@@ -522,6 +528,7 @@
                 </button>
             </div>
             <button class="setting" id="bunnyToggle" style="height: 2rem;" onclick="bunnyToggle()">Replace the Ordinal tab with the Bunny tab</button>
+            <button class="setting" id="cardsToggle" style="height: 2rem;" onclick="cardsToggle()">Display the Ordinal Cards tab</button>
         </div>
         <div class="tab" id="settingsPopupSubPage"></div>
         <div class="tab flexBox" id="settingsTechSubPage">
@@ -581,6 +588,34 @@
         <i id="bunnyHelp" style="font-family: DosisRegular, serif; margin-top: 2rem; color: gray"></i>
         <button id="bunnyButton" style="width: 32rem; height: 5rem; border: 2px solid #565656; color: gray; background: black" onclick="increaseBunnyLevel()"></button>
         <button id="forgButton" style="width: 32rem; border: 2px solid #565656; color: gray; background: black; border-top: none; display: block" onclick="forgResearch()"></button>
+    </div>
+    <div class="tab flexBox" id="cardsPage">
+        <br>
+        <button class="ordinalGradientBorder" id="openPack" onclick="openCardPack()"></button>
+        <div class="row flexBox" id="cardMilestoneContainer" style="max-width: 95%; margin-top: 1rem"></div>
+        <div class="column flexBox" id="topCardContainer">
+            <b class="centeredTexts" style="margin-top: 1rem; color: gray">Your <b class="ordinalCardsText">Ordinal Cards™</b> Collection</b>
+            <div class="row flexBox" id="cardContainer"></div>
+        </div>
+        <div class="row flexBox" style="width: 95%">
+            <div class="column flexBox" id="topCardShopContainer">
+                <b class="centeredTexts" style="margin-top: 1rem; color: gray">The <b class="ordinalCardsText">Ordinal Cards™</b> Shop</b>
+                <span class="cardsMoneyText centeredTexts" id="cardsMoneyText"></span>
+                <span class="centeredTexts" id="cardShopResetText"></span>
+                <div class="row flexBox" id="cardShopContainer"></div>
+            </div>
+            <div class="column flexBox" id="topCardGamblingContainer">
+                <b class="centeredTexts" style="color: gray; margin-top: 1rem">The <b class="ordinalCardsText">Ordinal Cards™</b> Investing Center</b>
+                <span class="cardsMoneyText centeredTexts" id="cardsMoneyText2"></span>
+                <div class="flexBox row">
+                    <div class="column flexBox cardContainer" style="margin-left: 0.5rem; margin-right: 0.5rem;">
+                        <div class="card" id="gambleCard"><img class="cardImage" id="gambleCardImg" src="" alt=""></div>
+                        <button class="cardPromotion" id="gambleCardDesc"></button>
+                    </div>
+                    <button id="cardGambleButton" onclick="gambleCard()"></button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <div id="sidebar1">

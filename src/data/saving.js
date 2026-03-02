@@ -307,6 +307,7 @@ function handleEasterEggs(content){
         if(!data.gword.unl) createNotification('You have unlocked the secret <img src=\'https://cdn.discordapp.com/emojis/853002327362895882.webp?size=24\'> Ordinal Display! You can now enable or disable it in Settings :)')
         data.gword.unl = true
         data.gword.enabled = true
+        updateGwaHTML()
         closeModal('prompt')
         return true
     }
@@ -316,7 +317,18 @@ function handleEasterEggs(content){
         data.bunny.unlocked = true
         data.bunny.enabled = true
         DOM(`ordNav`).innerText = '૮꒰ ˶• w •˶꒱ა ♡'
+        updateBunnyToggleHTML()
         createAlert("Hooray!", "The bunnies have come to visit!", "We must ready the Pringles! (You can switch the Bunny tab back in Settings)", {container: 13, button: 6})
+        closeModal('prompt')
+        return true
+    }
+
+    // Easter Egg: Cards
+    if(content === "cards"){
+        data.cards.unlocked = true
+        data.cards.enabled = true
+        updateCardsToggleHTML()
+        createAlert("Play responsibly!", `You have gained access to ${formatOrdinalCards()}!`, "Woohoo!!")
         closeModal('prompt')
         return true
     }

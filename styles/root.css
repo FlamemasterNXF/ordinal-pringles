@@ -598,7 +598,7 @@
     --version-text-color: #009696;
 
     /* Notifications */
-    --notification-border-color: #808080FF;
-    --notification-background-color: #333;
-    --notification-text-color: #FFFFFFFF;
+    --notification-border-color: #323232;
+    --notification-background-color: #1e1e1e;
+    --notification-text-color: #aaaaaa;
 }

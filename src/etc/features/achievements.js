@@ -381,6 +381,11 @@ let achievements = [
         name: "Best Feature EVER",
         description: "Invite the Bunnies to visit you!",
         req: () => data.bunny.unlocked
+    },
+    {
+        name: "Best... Game? EVER",
+        description: "Discover the Secret Minigame!",
+        req: () => false
     }
 ]
 

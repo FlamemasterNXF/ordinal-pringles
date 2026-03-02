@@ -17,7 +17,6 @@ document.addEventListener('keydown', (event) => {
 }, false);
 document.addEventListener('keyup', (event) => {
     const key = event.key.toLowerCase()
-    console.log(key)
     if (controls[key]) {
         controls[key].pressed = false
     }

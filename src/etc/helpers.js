@@ -184,3 +184,8 @@ function normalToDashed(text) {
     return text.toLowerCase().replace(' ', '-')
 }
 
+function changeByPercentage(number, percentage, shouldIncrease) {
+    const change = (number / 100) * percentage
+    return shouldIncrease ? number + change : number - change
+}
+

@@ -933,9 +933,80 @@
     border-top: none;
 }
 
+.cardMilestone{
+    width: 20%;
+    height: 3rem;
+    background: black;
+    border: 2px solid #262626;
+    color: gray;
+    cursor: default;
+}
+.completedCardMilestone{
+    width: 20%;
+    height: 3rem;
+    background: #83620b;
+    border: 2px solid #5e4608;
+    color: #000000FF;
+    cursor: default;
+}
+
+.cardContainer{
+    margin: 1rem;
+    cursor: pointer;
+}
+.card{
+    position: relative;
+    width: 8rem;
+    height: 5rem;
+    border: 2px solid;
+    place-content: center;
+}
+.cardImage{
+    display: block;
+    margin: auto;
+    width: 50%;
+}
+.cardStarRow{
+    align-items: flex-end;
+    place-content: flex-end;
+    position: absolute;
+    bottom: 95%;
+    left: 6%;
+    width: 100%
+}
+.cardStar{
+    width: 14px;
+    height: 14px;
+}
+.cardPromotion{
+    width: 8.2rem;
+    height: 5rem;
+    border: 2px solid;
+    border-top: none;
+    background: black;
+    color: gray;
+    font-size: 0.8rem;
+}
+.ordinalCardsText{
+    background-image: linear-gradient(90deg, var(--ordinal-color-one), var(--ordinal-color-two), var(--ordinal-color-three));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+.cardsMoneyText {
+    font-size: 0.8rem;
+    color: gray;
+}
+
 .rainbow {
     --angle: 0deg;
     border: 2px solid;
     border-image: conic-gradient(from var(--angle), red, yellow, lime, aqua, blue, magenta, red) 1;
+    animation: 10s rotate linear infinite;
+}
+.ordinalGradientBorder {
+    --angle: 0deg;
+    border: 2px solid;
+    border-image: conic-gradient(from var(--angle), var(--ordinal-color-one), var(--ordinal-color-two), var(--ordinal-color-three), var(--ordinal-color-one)) 1;
     animation: 10s rotate linear infinite;
 }

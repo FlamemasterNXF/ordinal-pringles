@@ -1,0 +1,49 @@
+#openPack{
+    width: 75%;
+    height: 15vh;
+    background: black;
+    color: gray;
+}
+
+#topCardContainer{
+    margin-top: 1rem;
+    max-width: 95%;
+    --angle: 0deg;
+    border: 2px solid;
+    border-image: conic-gradient(from var(--angle), #837E86, #639BFF, #99E550, #D77BBA, #837E86) 1;
+    animation: 10s rotate linear infinite;
+}
+
+#topCardShopContainer{
+    margin-right: 0.5rem;
+    margin-top: 1rem;
+    width: 50%;
+    --angle: 0deg;
+    border: 2px solid;
+    border-image: conic-gradient(from var(--angle), var(--ordinal-color-one), var(--ordinal-color-two), var(--ordinal-color-three), #837E86, #639BFF, #99E550, #D77BBA, #837E86, var(--ordinal-color-one)) 1;
+    animation: 10s rotate linear infinite;
+}
+#topCardGamblingContainer{
+    margin-left: 0.5rem;
+    margin-top: 1rem;
+    width: 47.5%;
+    --angle: 0deg;
+    border: 2px solid;
+    border-image: conic-gradient(from var(--angle), var(--ordinal-color-one), var(--ordinal-color-two), var(--ordinal-color-three), #837E86, #639BFF, #99E550, #D77BBA, #837E86, var(--ordinal-color-one)) 1;
+    animation: 10s rotate linear infinite;
+    height: 16.3rem;
+}
+
+#cardShopResetText{
+    font-size: 0.7rem;
+    color: gray;
+}
+
+#cardGambleButton{
+    width: 18.5rem;
+    height: 10.3rem;
+    background: black;
+    color: gray;
+    border: 2px solid gray;
+    margin-right: 0.2rem;
+}

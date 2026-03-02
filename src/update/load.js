@@ -49,6 +49,7 @@ function loadGame(){
     updateGwaHTML()
     initThemeHTML()
     initBunnyHTML()
+    initCardHTML()
 
     //Load Tab Displays
     switchTab(data.nav.current)

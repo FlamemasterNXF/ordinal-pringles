@@ -50,6 +50,13 @@ function mainLoop() {
         createAlert('Uh oh!', 'You invested Passive Energy which you just lost in a respec, so much that your Passive Energy became negative! For this reason, your Passive Energy Upgrades have been reset. Don\'t worry, no resets were triggered!', 'Ok, thanks!')
     }
 
+    if(data.cards.timer < getCardPackSeconds()) data.cards.timer = Math.min(getCardPackSeconds(), data.cards.timer+uDiff)
+    if(data.cards.unlocked){
+        data.cards.money += getTotalCardProduction()*uDiff
+        data.cards.shopTimer = Math.min(cardShopSeconds, data.cards.shopTimer+uDiff)
+        if(data.cards.shopTimer >= cardShopSeconds) resetCardShop()
+    }
+
     // Run the tick() function to calculate things that rely on normal diff
     tick(diff)
 
