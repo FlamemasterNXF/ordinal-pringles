@@ -3,7 +3,7 @@ let hyperChargeUpgradeData = [
     {
         description: "Total Charge boosts Cardinal Gain",
         sign: 'x',
-        effect: () => data.incrementy.totalCharge + 1,
+        effect: () => customRoot(data.incrementy.totalCharge, 1.5) + 1,
         baseEffect: () => 1,
         cost: 10,
         target: 'Cardinals'
@@ -27,7 +27,7 @@ let hyperChargeUpgradeData = [
     {
         description: "Total Charge boosts IUP4",
         sign: '+',
-        effect: () => Math.max(1, Math.floor(Math.sqrt(data.incrementy.totalCharge)/1.5)),
+        effect: () => Math.max(1, Math.floor(Math.sqrt(data.incrementy.totalCharge)/2)),
         baseEffect: () => 1,
         cost: 12,
         target: 'IUP4'
@@ -35,7 +35,7 @@ let hyperChargeUpgradeData = [
     {
         description: "Boosters boost Hierarchy Effects",
         sign: 'x',
-        effect: () => data.boost.amt + 1,
+        effect: () => customRoot(data.boost.amt, 1.3) + 1,
         baseEffect: () => 1,
         cost: 12,
         target: ['FGH Effect', 'SGH Effect'],
