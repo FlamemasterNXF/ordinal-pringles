@@ -10,16 +10,15 @@ const controls = {
 document.addEventListener('keydown', (event) => {
     if(event.ctrlKey || event.altKey) return
 
-    const key = event.key
-    const uppercase = event.key.toUpperCase()
-    if ((controls[key] || controls[uppercase]) && !isModalOpen('prompt')) {
+    const key = event.key.toLowerCase()
+    if (controls[key] && !isModalOpen('prompt')) {
         controls[key].pressed = true
     }
 }, false);
 document.addEventListener('keyup', (event) => {
-    const key = event.key
-    const uppercase = event.key.toUpperCase()
-    if (controls[key] || controls[uppercase]) {
+    const key = event.key.toLowerCase()
+    console.log(key)
+    if (controls[key]) {
         controls[key].pressed = false
     }
 }, false);
