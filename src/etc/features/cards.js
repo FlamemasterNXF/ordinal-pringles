@@ -8,7 +8,7 @@ const defaultCardData = Array.from({ length: 3 }, () =>
     Array.from({ length: 7 }, () => structuredClone(cardDataTemplate))
 )
 defaultCardData.push(Array.from({ length: 3 }, () =>
-        structuredClone(cardDataTemplate))
+    structuredClone(cardDataTemplate))
 )
 
 const defaultCardShopData = [[0, 0], [0, 1], [0, 2]]
@@ -466,6 +466,7 @@ function canOpenCardPack(){
 function openCardPack(){
     if(!canOpenCardPack()){
         createNotification(`${formatOrdinalCards()} apologizes, but your pack is not yet ready.`)
+        return
     }
     data.cards.timer = 0
 
