@@ -714,7 +714,7 @@
     margin-top: 0.5rem;
 }
 .realmChallenge{
-    width: 25rem;
+    width: 20rem;
     height: 12rem;
     border: 2px solid var(--incomplete-realm-challenge-border-color);
     color: var(--incomplete-realm-challenge-text-color);
@@ -724,7 +724,7 @@
     margin-right: 0.5rem;
 }
 .completedRealmChallenge{
-    width: 25rem;
+    width: 20rem;
     height: 12rem;
     border: 2px solid var(--complete-realm-challenge-border-color);
     color: var(--complete-realm-challenge-text-color);
@@ -734,7 +734,7 @@
     margin-right: 0.5rem;
 }
 .inRealmChallenge{
-    width: 25rem;
+    width: 20rem;
     height: 12rem;
     border: 2px solid var(--active-realm-challenge-border-color);
     color: var(--active-realm-challenge-text-color);

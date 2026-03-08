@@ -121,7 +121,7 @@ let realmChallengeData = [
         hasInnerEffect: false,
     },
     {
-        desc: 'All boosts from outside of Baseless Realms except the 2nd Aleph Null Rebuyable are useless',
+        desc: 'All boosts from outside of Baseless Realms except the 2nd ℵ<sub>0</sub> Rebuyables are useless',
         effectDesc: 'Reward: Factors boost Dynamic gain EVERYWHERE',
         sign: 'x',
         eff: () => Math.pow(totalFactorEffect(), 2),
@@ -153,7 +153,7 @@ let realmChallengeData = [
     },
     {
         desc: 'All previous Baseless Challenges at once',
-        effectDesc: 'Reward: Factors boost Aleph Null gain',
+        effectDesc: 'Reward: Factors boost ℵ<sub>0</sub> gain',
         sign: 'x',
         eff: () => totalFactorEffect(),
         effectBase: () => 1,
@@ -514,7 +514,7 @@ function updateRealmBoostersHTML() {
     DOM(getAdaptiveButton('factorBoostButton')).style.color = getTheoreticalAlephNullGain() > realmBoostReq() ? getCSSVariable('realm-factor-boost-button-available-text-color') : getCSSVariable('realm-factor-boost-button-default-text-color')
     DOM(getAdaptiveButton('factorShiftButton')).style.color = canDynamicShift() ? getCSSVariable('realm-factor-shift-button-available-text-color') : getCSSVariable('realm-factor-shift-button-default-text-color')
 
-    if(getSubtab('realm') === 'realmChal') DOM(`rChallengeEffectText`).innerText = `Your Factors are boosting Aleph Null gain by ${format(getRealmChallengeOverallEffect())}x`
+    if(getSubtab('realm') === 'realmChal') DOM(`rChallengeEffectText`).innerHTML = `Your Factors are boosting ℵ<sub>0</sub> gain by ${format(getRealmChallengeOverallEffect())}x`
     if(getSubtab('realm') === 'realmIncrementy') updateRealmIncrementyHTML()
     if(getSubtab('realm') === 'realmHierarchies'){
         updateRealmHierarchiesHTML()
