@@ -1,7 +1,7 @@
 //Version Flags
-const VERSION = "0.5b8"
+const VERSION = "0.5b9"
 const VERSION_NAME = "Alazia"
-const VERSION_DATE = "March 2nd, 2026"
+const VERSION_DATE = "March 7th, 2026"
 const IS_BETA = true
 const SAVE_PATH = () => IS_BETA ? "ordinalPRINGLESBETAsave" : "ordinalPRINGLESsave"
 
