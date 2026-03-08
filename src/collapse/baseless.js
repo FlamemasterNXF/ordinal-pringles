@@ -29,7 +29,7 @@ const metaANBuyableData = [
     {
         desc: "Total Baseless Boosters boost AutoClicker speed",
         sign: '^',
-        effect: () => D(1).plus(Decimal.log10((data.baselessRealm.total+1)/100).times(getANRTotalLevels(1, 'meta'))),
+        effect: () => D(1).plus((Decimal.log10(data.baselessRealm.total+1)/100)*getANRTotalLevels(1, 'meta')),
         baseEffect: () => D(1),
         cost: () => 1e5**data.baseless.metaANR[1]*1e5,
         target: 'All AutoClickers'
