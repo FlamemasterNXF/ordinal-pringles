@@ -324,17 +324,17 @@ let growthUpgradeData = [
 let realmHUPData = [
     {
         desc: 'Boost NGH gain based on Challenge Completions',
-        effect: () => getTotalRealmChallengeCompletions(),
+        effect: () => getTotalRealmChallengeCompletions()+getRealmHUPLevels(0),
         baseEffect: () => 1,
     },
     {
         desc: 'Boost NGH gain based on Total Baseless Boosters',
-        effect: () => data.baselessRealm.total,
+        effect: () => data.baselessRealm.total*Math.sqrt(getRealmHUPLevels(1)),
         baseEffect: () => 1,
     },
     {
         desc: 'NGH boosts the 2nd Incrementy Upgrade',
-        effect: () => safeLog(data.baselessRealm.hierarchy.ord*data.baselessRealm.hupLevels[2], 10),
+        effect: () => safeLog(data.baselessRealm.hierarchy.ord*getRealmHUPLevels(2), 10),
         baseEffect: () => 1,
     }
 ]

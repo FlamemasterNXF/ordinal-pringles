@@ -177,9 +177,6 @@ function initBaselessness(){
     initBaselessRealm()
 }
 
-function updateAlephNullHTML(){
-    DOM(`alephNull`).innerHTML = ``
-}
 function updateDynamicShiftHTML(){
     if(data.baseless.baseless){
         DOM(`dynamicShift`).innerHTML = data.baseless.shifts < 7
@@ -290,7 +287,6 @@ function baselessControl(){
 
     updateRealmHTML()
     updateDynamicShiftHTML()
-    updateAlephNullHTML()
     updateStatusHTML()
 }
 
@@ -313,7 +309,6 @@ function buyANR(i, type){
     if(type === 'meta') ++data.baseless.metaANR[i]
     if(type === 'normal') ++data.baseless.normalANR[i]
     updateANRHTML(i, type)
-    updateAlephNullHTML()
 }
 
 let dynamicShiftMultipliers = [

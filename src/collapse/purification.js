@@ -318,7 +318,6 @@ function enterPurification(i){
     updateStatusHTML()
 }
 function exitPurification(i, swap = false) {
-    updateAllAOMHTML()
     if (data.boost.times > data.omega.bestFBInPurification[data.omega.whichPurification]) data.omega.bestFBInPurification[data.omega.whichPurification] = data.boost.times
     if (!swap) {
         if (cardinalGain().gt(data.collapse.bestCardinalsGained)) data.collapse.bestCardinalsGained = cardinalGain()
@@ -335,6 +334,7 @@ function exitPurification(i, swap = false) {
 
     updatePurificationHTML(i)
     updateStatusHTML()
+    updateAllAOMHTML()
 }
 
 function buyAOR(i){

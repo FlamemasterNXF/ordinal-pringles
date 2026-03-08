@@ -52,6 +52,7 @@ function switchSubtab(tab, mode){
     if(mode === "collapse"){
         DOM(`collapseInfoContainer`).style.display = tab==='purification' ? 'none' : 'flex'
         DOM(`mobilecollapseButton`).style.display = isMobileMode() ? 'block' : 'none'
+        checkCollapseUnlockHTML()
 
         if(tab==='cardinals'){
             DOM(`aleph8`).style.display = hasAOMilestone(1) ? `block` : `none`
@@ -66,10 +67,10 @@ function switchSubtab(tab, mode){
             updateDUPHTML(2)
         }
         if(tab==="baseless"){
-            updateAlephNullHTML()
             checkANRUnlockHTML()
             DOM(`baselessEnterText`).innerHTML = `${data.baseless.baseless ? 'Exit the' : 'Enter the'}`
             updateBaselessEnterHTML(data.baseless.mode, true)
+            updateAllANRHTML()
         }
         if(tab === 'hyper') updateHyperchargeBottomTextHTML()
         if(tab === "purification") {
@@ -97,6 +98,7 @@ function switchSubtab(tab, mode){
         if(tab === 'pringles') updatePringleBuymaxHTML()
         if(tab === 'energy' && !hasDrawnTree) drawTree()
         if(tab === 'passive') updatePassiveEnergyText()
+        if(tab === 'stability') updateAllStabilityHTML()
 
         DOM(`obliterateInfoContainer`).style.display = tab !== 'passive' ? 'flex' : 'none'
     }

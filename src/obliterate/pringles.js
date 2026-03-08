@@ -125,7 +125,7 @@ let pringleData = [
         sign: 'x',
         eff: () => D(10**data.obliterate.pringleAmount[9]).times(getEUPEffect(3, 3)),
         baseValue: 1,
-        resNames: 'ℵ<sub>&omega;</sub>',
+        resNames: 'ℶ<sub>&omega;</sub>',
         resLocation: [['omega', 'bestRemnants']],
         costIsDecimal: false,
         cost: () => D(2000+(100*data.obliterate.pringleAmount[9]+1)*(data.obliterate.pringleAmount[9]+1)),
@@ -152,6 +152,7 @@ function initPringles(){
         pringleData[i].color = getCSSVariable(`pringle-${i}-color`)
 
         DOM(`pringle${i}`).addEventListener("mouseenter", (e) => displayPringleButton(e, pringleData[i], i))
+        DOM(`pringle${i}`).addEventListener("mouseleave", () => hidePringleButton())
         DOM(`pringle${i}`).addEventListener("click", () => buyPringle(pringleData[i], i))
         DOM(`pringle${i}`).style.border = `2px solid ${pringleData[i].color}`
         if(data.settings.noColorPringles) DOM(`pringle${i}`).innerText = `${i}`
@@ -177,10 +178,12 @@ function updateCanBuyPringleHTML(){
     //DOM(`pringle9`).style.boxShadow = canBuyPringle(pringleData[9]) ? `0px 0px 15px rgba(175, 31, 173, 1)` : ` 0 5px 15px rgba(0,0,0,0.4)`
 }
 
+let pringleButtonTimeout = setTimeout(() => DOM('pringleButton').style.display = 'none', 1000)
 function displayPringleButton(event, pringleData, i){
     let button = !isMobileMode() ? DOM('pringleButton') :  DOM('mobilePringleInfoText')
 
     if(!isMobileMode()){
+        clearTimeout(pringleButtonTimeout)
         button.style.display = `block`
         button.style.left = `${event.pageX}px`
         button.style.top = `${event.pageY}px`
@@ -194,6 +197,10 @@ function updatePringleButtonText(pringleData, i){
     const target = !isMobileMode() ? 'pringleButton' : 'mobilePringleInfoText'
     const finisher = !isMobileMode() ? '<br><i style="font-size: 0.85rem; color: gray">Click this Pringle to Craft it!</i>' : ''
     DOM(target).innerHTML = `The ${pringleData.name}${i !== 9 ? ` ${pringleData.colorDesc}` : ''} Pringle [${data.obliterate.pringleAmount[i]}]<br><b>${pringleData.desc} [${getPringleEffectText(pringleData, i)}]</b><br>It requires <b>${format(pringleData.cost())} ${pringleData.resNames}</b> to craft<br>${getPringleAssignmentText(i)}${finisher}`
+}
+function hidePringleButton(){
+    if(isMobileMode()) return
+    pringleButtonTimeout = setTimeout(() => DOM('pringleButton').style.display = 'none', 1000)
 }
 
 let getPringleEffectText = (pringleData, i) =>

@@ -119,6 +119,9 @@ function initStability(){
 function updateStabilityHTML(i){
     DOM(`stability${i}`).innerHTML = makeStabilityText(i)
 }
+function updateAllStabilityHTML(){
+    for (let i = 0; i < stableEnergyData.length; i++) updateStabilityHTML(i)
+}
 
 let getStableEnergyCurrency = (i) => i === 0 ? data.obliterate.energy : data.stability.energy[i-1]
 function buyStability(i){
