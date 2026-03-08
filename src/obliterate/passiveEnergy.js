@@ -31,11 +31,10 @@ const passiveUpgradeData = [
 ]
 
 let passiveEnergyEffects = [
-    () => (1+getTotalPassiveEnergy())**5,
     () => 1.5**getTotalPassiveEnergy()
 ]
 
-let updatePassiveEnergyText = () => DOM(`passiveEnergyText`).innerHTML = `You have <span style="font-family: DosisSemiBold; color: ${getCSSVariable('passive-energy-text-passive-energy-color')}">${getCurrentPassiveEnergy()} Passive Energy</span><br><span style="font-size: 0.9rem">You have <span style="color: ${getCSSVariable('passive-energy-text-passive-energy-color')}">${getTotalPassiveEnergy()} Total Passive Energy</span>, multiplying <span style="color: ${getCSSVariable('passive-energy-text-autobuyer-color')}">AutoBuyer speed by ${format(getPassiveEnergyEffect(0))}x</span> and <span style="color: ${getCSSVariable('passive-energy-text-aleph-omega-color')}">ℵ<sub>&omega;</sub> gain by ${format(getPassiveEnergyEffect(1))}x</span></span>`
+let updatePassiveEnergyText = () => DOM(`passiveEnergyText`).innerHTML = `You have <span style="font-family: DosisSemiBold; color: ${getCSSVariable('passive-energy-text-passive-energy-color')}">${getCurrentPassiveEnergy()} Passive Energy</span><br><span style="font-size: 0.9rem">You have <span style="color: ${getCSSVariable('passive-energy-text-passive-energy-color')}">${getTotalPassiveEnergy()} Total Passive Energy</span>, multiplying <span style="color: ${getCSSVariable('passive-energy-text-aleph-omega-color')}">ℵ<sub>&omega;</sub> gain by ${format(getPassiveEnergyEffect(0))}x</span></span>`
 function initPassiveEnergyUpgrades(){
     let total = 0
     for (let i = 0; i < 5; i++) {
@@ -129,18 +128,10 @@ let isAOMilestonePermanent = (i) => i < completedPassiveUpgradeRows()
 let getPassiveEnergyEffect = (i) => passiveEnergyEffects[i]()
 
 boostManager.register({
-    name: 'Passive Energy Effect 1',
-    target: 'All AutoBuyers',
-    sign: 'x',
-    color: graphColors.passiveEnergy,
-    effect: () => getPassiveEnergyEffect(0),
-    shouldDisplay: () => data.obliterate.times > 0
-})
-boostManager.register({
-    name: 'Passive Energy Effect 2',
+    name: 'Passive Energy Effect',
     target: 'ℵω',
     sign: 'x',
     color: graphColors.passiveEnergy,
-    effect: () => getPassiveEnergyEffect(1),
+    effect: () => getPassiveEnergyEffect(0),
     shouldDisplay: () => data.obliterate.times > 0
 })

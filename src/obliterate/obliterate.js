@@ -2,9 +2,9 @@ let isObliterationUnlocked = () => hasAOMilestone(4) || data.obliterate.times > 
 let canObliterate = (n = data.obliterate.times) => isObliterationUnlocked() && data.incrementy.amt.gte(getObliterateReq(n))
 
 function getObliterateReq(n = data.obliterate.times){
-    let mult = Decimal.pow(2, n)
-    let divisor = Math.max(1, 6-n/10)
-    return D("1e825").pow(1+n/divisor).times(mult)
+    let mult = Decimal.pow(2, 1.25*n)
+    let exponent = 1+n/Math.max(1, 6-n/10)+(n**2/450)
+    return D("1e825").pow(exponent).times(mult)
 }
 function getBulkableObliterations(){
     if(isDecimalExploding(data.incrementy.amt, 'Incrementy')) return 0
@@ -50,8 +50,9 @@ function obliterate(){
 
     DOM('obliterateNav').style.display = 'block'
 
-    data.obliterate.energy += getBulkableObliterations()
-    data.obliterate.times += getBulkableObliterations()
+    const gain = getFractalEnergyGain()
+    data.obliterate.energy += gain
+    data.obliterate.times += gain
 
     obliterateReset()
     boosterUnlock()

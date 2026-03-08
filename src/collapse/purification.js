@@ -144,10 +144,10 @@ const aoEffectData = [
     {
         target: 'Incrementy gain',
         effect: () => {
-            const exponent = 2.5
-            const limit = 2000
-            if(data.omega.alephOmega <= 2000) return data.omega.alephOmega**exponent
-            else return limit**exponent + limit*(data.omega.alephOmega-limit)
+            const exponent = 2.1
+            const limit = 1700
+            if(data.omega.alephOmega <= limit) return data.omega.alephOmega**exponent
+            return limit**exponent + 500*(data.omega.alephOmega-limit)
         },
         unlock: () => hasAOMilestone(2),
         networkTarget: 'Incrementy Gain'
@@ -350,7 +350,7 @@ function isAOEffectUnlocked(i) {
     return aoEffectData[i].unlock()
 }
 
-let aoGain = () => (alephOmegaCap()/1000)*getAOREffect(1)*getPassiveEnergyEffect(1)
+let aoGain = () => (alephOmegaCap()/1000)*getAOREffect(1)*getPassiveEnergyEffect(0)
 
 let alephOmegaCap = () => (data.omega.bestFBInPurification[0]+data.omega.bestFBInPurification[1]+data.omega.bestFBInPurification[2]+data.omega.bestFBInPurification[3]+getEUPEffect(2, 8, true))*getAOREffect(0)*getEUPEffect(2, 1, true)
 let pureBoostGain = () => Math.max(0, (data.boost.times-data.omega.bestFBInPurification[data.omega.whichPurification]))

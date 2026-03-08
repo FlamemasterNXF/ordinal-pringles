@@ -67,7 +67,7 @@ function tick(diff){
     if(hasSluggishMilestone(2) && getAutomationEnabled(1, 0)) buyCharge() //Charge Autobuyer
     if(hasSluggishMilestone(2) && getAutomationEnabled(1, 1)){ // Repeatable IUP Autobuyer
         for (let i = 0; i < 3; i++) for (let j = 0; j < 100; j++) buyRUP(i)
-        if(hasAOMilestone(3)) for (let i = 3; i < 6; i++) buyRUP(i)
+        if(hasAOMilestone(3)) for (let i = 3; i < 6; i++) for (let j = 0; j < 100; j++) buyRUP(i)
     }
     if(hasSluggishMilestone(3) && getAutomationEnabled(1, 2)){ // Repeatable HUP Autobuyer
         for (let i = 0; i < data.hierarchies.rebuyableAmt.length; i++) {

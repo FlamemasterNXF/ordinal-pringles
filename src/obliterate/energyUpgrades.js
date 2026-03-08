@@ -20,7 +20,7 @@ const energyUpgradeData = [
             desc: 'Total Fractal Energy boosts AutoBuyers and you always have three free ℵ<sub>1</sub>-ℵ<sub>8</sub>',
             sign: 'x',
             cost: 0,
-            effect: () => D(10).pow(data.obliterate.times),
+            effect: () => D(10).pow(Math.min(data.obliterate.times, 5)).times(D(2).pow(Math.max(0, data.obliterate.times-5))),
             target: 'All AutoBuyers'
         }
     ],
@@ -161,7 +161,7 @@ const energyUpgradeData = [
             desc: `Total Fractal Energy boosts the <span style="color: ${getCSSVariable('pringle-7-color')}">Crunchy Blue</span> Pringle`,
             sign: 'x',
             cost: 1,
-            effect: () => D(5).pow(data.obliterate.times),
+            effect: () => D(1.3).pow(data.obliterate.times),
             target: 'Pringle 7'
         },
         {
@@ -175,7 +175,7 @@ const energyUpgradeData = [
             desc: `Total Fractal Energy boosts the <span style='color: ${getCSSVariable('pringle-9-color')}'>Barbecue</span> Pringle`,
             sign: 'x',
             cost: 1,
-            effect: () => D(5).pow(data.obliterate.times),
+            effect: () => D(2).pow(data.obliterate.times),
             target: 'Pringle 9'
         },
         {

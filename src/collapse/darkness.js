@@ -263,7 +263,7 @@ let dupData = [
     {
         text: "Multiply AutoBuyer speed",
         sign: 'x',
-        extraLevels: () => Math.floor(getNormalANREffect(2)),
+        extraLevels: () => getNormalANREffect(2),
         cost: ()=> D(65).pow(dupScaling(0)).div(getOverflowEffect(1, 2)),
         effect: ()=> isTabUnlocked('darkness') ? D(1.5).times(purificationEffect(0)).pow(getTotalDUPLevels(0)) : 1,
         target: 'All AutoBuyers'
@@ -271,7 +271,7 @@ let dupData = [
     {
         text: 'Double Dynamic Cap',
         sign: 'x',
-        extraLevels: () => Math.floor(getRUPEffect(4)+getNormalANREffect(2)),
+        extraLevels: () => getRUPEffect(4)+getNormalANREffect(2),
         cost: ()=> D(55).pow(dupScaling(1)).div(getOverflowEffect(1, 2)),
         effect: ()=> isTabUnlocked('darkness') ? D(2).pow(getTotalDUPLevels(1)) : 1,
         target: 'Dynamic Cap'
@@ -279,9 +279,15 @@ let dupData = [
     {
         text: `Multiply both Hierarchy Effect exponents`,
         sign: 'x',
-        extraLevels: () => Math.floor(getNormalANREffect(2)),
+        extraLevels: () => getNormalANREffect(2),
         cost: ()=> D(300).pow(dupScaling(2)).div(getOverflowEffect(1, 2)),
-        effect: ()=> isTabUnlocked('darkness') ? D(0.0175).times((getTotalDUPLevels(2)*2.75)**2).plus(1): 1,
+        effect: ()=> {
+            if(!isTabUnlocked('darkness')) return 1
+            const limit = 10
+            const levels = getTotalDUPLevels(2)
+            if(levels <= limit) return D(0.0175).times((getTotalDUPLevels(2)*2.75)**2).plus(1)
+            return D(0.0175).times((limit*2.75)**2).plus(1).plus(1.35*(levels-limit))
+        },
         target: ['FGH Effect Exponent', 'SGH Effect Exponent']
     }
 ]

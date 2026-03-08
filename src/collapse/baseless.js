@@ -20,7 +20,7 @@ const metaANBuyableData = [
     {
         desc: "Boost all Realm Enhancements",
         sign: '^',
-        effect: () => D(1).plus(getANRLevel(0, 'meta')/100),
+        effect: () => D(1).plus(getANRTotalLevels(0, 'meta')/100),
         baseEffect: () => D(1),
         freeLevels: () => getEUPEffect(1, 1, true),
         cost: () => 1e6**data.baseless.metaANR[0]*1e6,
@@ -29,7 +29,7 @@ const metaANBuyableData = [
     {
         desc: "Total Baseless Boosters boost AutoClicker speed",
         sign: '^',
-        effect: () => D(1).plus(Decimal.log10((data.baselessRealm.total+1)/100).times(getANRLevel(1, 'meta'))),
+        effect: () => D(1).plus(Decimal.log10((data.baselessRealm.total+1)/100).times(getANRTotalLevels(1, 'meta'))),
         baseEffect: () => D(1),
         cost: () => 1e5**data.baseless.metaANR[1]*1e5,
         target: 'All AutoClickers'
@@ -40,30 +40,30 @@ const normalANBuyableData = [
     {
         desc: "Increase the Decrementy gain exponent",
         sign: '+',
-        effect: () => D(0.1*getANRLevel(0, 'normal')),
+        effect: () => D(0.1*getANRTotalLevels(0, 'normal')),
         cost: () => 1e4**data.baseless.normalANR[0]*1e4,
         target: 'Decrementy Exponent'
     },
     {
         desc: "Increase the RUP1 effect base",
         sign: '+',
-        effect: () => D(getANRLevel(1, 'normal')),
-        freeLevels: () => getPringleEffect(5, true),
+        effect: () => D(getANRTotalLevels(1, 'normal')),
+        freeLevels: () => Math.floor(getPringleEffect(5, true)),
         cost: () => 50**data.baseless.normalANR[1],
         target: 'RUP1'
     },
     {
         desc: "Gain a free level of every Darkness Rebuyable",
         sign: '+',
-        effect: () => D(getANRLevel(2, 'normal')),
-        freeLevels: () => getPringleEffect(5, true),
+        effect: () => D(getANRTotalLevels(2, 'normal')),
+        freeLevels: () => Math.floor(getPringleEffect(5, true)),
         cost: () => 1e3**data.baseless.normalANR[2]*1e3,
         target: ['DUP1 Levels', 'DUP2 Levels', 'DUP3 Levels']
     },
     {
         desc: "Gain a free level of the 1st, 3rd, 4th, and 5th ℵ<sub>&omega;</sub> Rebuyables",
         sign: '+',
-        effect: () => D(getANRLevel(3, 'normal')),
+        effect: () => D(getANRTotalLevels(3, 'normal')),
         unlockReq: () => hasAOMilestone(4),
         cost: () => 2e6**data.baseless.normalANR[3]*2e6,
         target: ['ℵω Rebuyable 1', 'ℵω Rebuyable 3', 'ℵω Rebuyable 4', 'ℵω Rebuyable 5']
@@ -221,7 +221,8 @@ function makeRealmEnhancementText(){
 }
 
 function makeANRText(i, type){
-    return `<span style="color: ${getCSSVariable('aleph-null-buyable-description-text-color')}">${getANRText(i, type)} (${format(getANRLevel(i, type))})</span><br>Requires: ${format(getANRCost(i, type))} ℵ<sub>0</sub><br>Currently: ${formatEffect(getANREffect(i, type), getANRSign(i, type))}`
+    const extraLevels = getANRExtraLevels(i, type) > 0 ? ` + ${format(getANRExtraLevels(i, type))}` : ''
+    return `<span style="color: ${getCSSVariable('aleph-null-buyable-description-text-color')}">${getANRText(i, type)} (${format(getANRLevels(i, type))}${extraLevels})</span><br>Requires: ${format(getANRCost(i, type))} ℵ<sub>0</sub><br>Currently: ${formatEffect(getANREffect(i, type), getANRSign(i, type))}`
 }
 
 function updateANRHTML(i, type){
@@ -368,15 +369,16 @@ function getANREffect(i, type, useNumber = true){
     if(!isTabUnlocked('baseless')) return baseEffect
     return Decimal.max(baseEffect, anrData.effect());
 }
-function getANRLevel(i, type){
-    if(type === 'meta'){
-        const extraLevels = metaANBuyableData[i].freeLevels === undefined ? 0 : metaANBuyableData[i].freeLevels()
-        return data.baseless.metaANR[i]+extraLevels
-    }
-    if(type === 'normal'){
-        const extraLevels = normalANBuyableData[i].freeLevels === undefined ? 0 : normalANBuyableData[i].freeLevels()
-        return data.baseless.normalANR[i]+extraLevels
-    }
+function getANRLevels(i, type){
+    if(type === 'meta')return data.baseless.metaANR[i]
+    if(type === 'normal')return data.baseless.normalANR[i]
+}
+function getANRExtraLevels(i, type){
+    if(type === 'meta') return metaANBuyableData[i].freeLevels === undefined ? 0 : metaANBuyableData[i].freeLevels()
+    if(type === 'normal') return normalANBuyableData[i].freeLevels === undefined ? 0 : normalANBuyableData[i].freeLevels()
+}
+function getANRTotalLevels(i, type){
+    return getANRLevels(i, type)+getANRExtraLevels(i, type)
 }
 function getANRCost(i, type){
     if(type === 'meta') return metaANBuyableData[i].cost()
