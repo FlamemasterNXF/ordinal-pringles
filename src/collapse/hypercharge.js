@@ -76,7 +76,7 @@ let hyperChargeUpgradeData = [
     {
         description: "Cardinals increase the Overcharge gain exponent",
         sign: '+',
-        effect: () => Decimal.log10(data.collapse.cardinals).div(150).toNumber(),
+        effect: () => Decimal.log10(data.collapse.cardinals.plus(1)).div(150).toNumber(),
         baseEffect: () => 0,
         cost: 24,
         target: 'Overcharge'
